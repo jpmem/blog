@@ -14,8 +14,11 @@
 - [System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)](./articles/mecm/20180911_01.md)
 - [System Center Configuration Manager サイトのアップグレード手順](./articles/mecm/20180823_02.md)
 - [SCCM CB 自動クライアント アップグレード手順](./articles/mecm/20180823_01.md)
+- [System Center Configuration Manager に Office 365 Pro Plus の更新プログラムを同期する際の注意事項](./articles/mecm/20180509_01.md)
+- [System Center Endpoint Protection の定義ファイルのダウンロードの最適化について](./articles/mecm/20180308_01.md)
 - [System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを取得する手順 (ワークグループ対応版)](./articles/mecm/20171107_01.md)
 - [System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順](./articles/mecm/20171025_01.md)
+- [System Center Configuration Manager Current Branch のバージョン アップについて](./articles/mecm/20170818_01.md)
 - [任意のレジストリ値を ハードウェア インベントリ として取得する方法](./articles/mecm/20140818_01.md)
 
 ## Microsoft Intune
