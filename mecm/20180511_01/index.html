@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>「指定したパッケージおよびプログラムの展開のステータス」レポートについて | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「指定したパッケージおよびプログラムの展開のステータス」レポートについて">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180511_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_05.png">
+<meta property="article:published_time" content="2018-05-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.652Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20180511_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      「指定したパッケージおよびプログラムの展開のステータス」レポートについて
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2018-05-10T15:00:00.000Z" itemprop="datePublished">2018-05-11</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+4b55d773-7b76-5588-a5e3-85f34fc73dea%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%80%8C%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%8A%E3%82%88%E3%81%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B%E3%81%AE%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%80%8D%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180511_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180511_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180511_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20180511_01/" data-id="ckno2bhqw000947qacwoz86u0" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。System Center Support Team です。</p>
+<p>今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。</p>
+<p>「指定したパッケージおよびプログラムの展開のステータス」は、パッケージ機能でソフトウェアを配信した後の展開状況を確認するために役立ちます。「ターゲット リソースのステータス」では、展開の進行状況、リソース受信ステータスでは展開を受信していない端末も含めて、全台の状況を把握することができます。</p>
+<p><img src="/blog/mecm/20180511_01/20180511_01_01.png" alt=""></p>
+<p>一方、管理コンソールの [監視] - [展開] で展開ステータスからも全台の状況を把握することができますが、本レポートの「リソース受信ステータス」で表示されている No Status のリソース数と展開ステータスの統計情報に表示されている「不明」のリソース数の数が合わず、どちらが正しいのかわからないといったご意見をいただくことがございます。</p>
+<p>例えば、以下の展開ステータスでは不明が「9」ですが、上記レポートでは No Status が「7」となっており、一見すると台数が一致していません。</p>
+<p><img src="/blog/mecm/20180511_01/20180511_01_02.png" alt=""></p>
+<p>これは Expired に「不明」ステータスの端末がカウントされていることによりますが、レポートの「リソース受信ステータス」と展開ステータスの各項目が以下の通り関連付いていることをおさえておけば、理解しやすくなります。</p>
+<table>
+<thead>
+<tr>
+<th align="center">リソース受信ステータス</th>
+<th align="center">展開ステータス</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accepted</td>
+<td align="center">進行中</td>
+</tr>
+<tr>
+<td align="center">Expired</td>
+<td align="center">成功 or 不明</td>
+</tr>
+<tr>
+<td align="center">No Status</td>
+<td align="center">不明</td>
+</tr>
+</tbody></table>
+<p>例えば、上記例においてリソース受信ステータスの No Status の台数は 7 台です。</p>
+<p><img src="/blog/mecm/20180511_01/20180511_01_03.png" alt=""></p>
+<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
+<p><img src="/blog/mecm/20180511_01/20180511_01_04.png" alt=""></p>
+<p>もし、「リソース受信ステータス」と「展開ステータス」の台数が一致しない場合は、Expired のステータスによる影響がありますので、ご留意いただければと存じます。</p>
+<p>(補足)</p>
+<p>Expired は、パッケージの展開の「スケジュール」で設定した「この展開の有効期限を指定する」で指定した時刻が過ぎている場合のステータスです。</p>
+<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
+<p><img src="/blog/mecm/20180511_01/20180511_01_05.png" alt=""></p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180511_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20180619_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          System Center Configuration Manager で、できる限り早く更新プログラムを適用する方法について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20180509_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">System Center Configuration Manager に Office 365 Pro Plus の更新プログラムを同期する際の注意事項</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編) | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートの金です。 SCCM を運用されている中で、ネットワーク回線が細い拠点を管理対象としている場合、コンテンツの配布によるネットワークの負荷を分散させる工夫が必要な場面がございます。 本日は、コンテンツの配布の際にネットワークの負荷を軽減できる BranchCache の機能や、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180911_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートの金です。 SCCM を運用されている中で、ネットワーク回線が細い拠点を管理対象としている場合、コンテンツの配布によるネットワークの負荷を分散させる工夫が必要な場面がございます。 本日は、コンテンツの配布の際にネットワークの負荷を軽減できる BranchCache の機能や、">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180911_01/20180911_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180911_01/20180911_01_02.png">
+<meta property="article:published_time" content="2018-09-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.704Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180911_01/20180911_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20180911_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2018-09-10T15:00:00.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+76f1131a-b78f-55a9-968a-edbe5ddec92d%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+BranchCache%E3%80%81%E3%83%94%E3%82%A2%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+-+%E3%81%9D%E3%81%AE+1+%28%E6%A6%82%E8%A6%81%E7%B7%A8%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180911_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180911_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180911_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20180911_01/" data-id="ckno2bhsx001547qahou33th4" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。</p>
+<p>日本マイクロソフト System Center Configuration Manager サポートの金です。</p>
+<p>SCCM を運用されている中で、ネットワーク回線が細い拠点を管理対象としている場合、コンテンツの配布によるネットワークの負荷を分散させる工夫が必要な場面がございます。</p>
+<p>本日は、コンテンツの配布の際にネットワークの負荷を軽減できる BranchCache の機能や、ピアキャッシュの機能の概要についてご紹介させていただきますので、お役立ていただけますと幸いでございます。</p>
+<p> これから案内させていただく内容は、以下の流れになります。</p>
+<hr>
+<ol>
+<li><p>BranchCache / ピアキャッシュ機能のご説明</p>
+</li>
+<li><p>BranchCache / ピアキャッシュ機能の設定箇所</p>
+</li>
+<li><p>ピアキャッシュ ログの確認方法</p>
+</li>
+</ol>
+<hr>
+<p>以下は、詳細内容となります。</p>
+<h2 id="1-BranchCache-ピアキャッシュ機能のご説明"><a href="#1-BranchCache-ピアキャッシュ機能のご説明" class="headerlink" title="1. BranchCache / ピアキャッシュ機能のご説明"></a>1. BranchCache / ピアキャッシュ機能のご説明</h2><p>BranchCache 機能とピアキャッシュ機能は、個別に利用することも、両方同時に利用することも可能でございます。</p>
+<p>両機能を同時にご利用の場合は、ピアキャッシュの機能が優先的に動作します。</p>
+<p>以下に、それぞれの機能の詳細についてご記載いたします。</p>
+<h3 id="1-BranchCache-機能について"><a href="#1-BranchCache-機能について" class="headerlink" title="(1) BranchCache 機能について"></a>(1) BranchCache 機能について</h3><p>BranchCache 機能は、Windows OS 固有の機能で、SCCM と連携してお使いいただけます。</p>
+<h3 id="1-1-機能の特徴"><a href="#1-1-機能の特徴" class="headerlink" title="(1) - 1. 機能の特徴"></a>(1) - 1. 機能の特徴</h3><p>BranchCache 機能の特徴といたしましては、以下のようなものがございます。</p>
+<ul>
+<li><p>ログが出力されないため、動作確認には Performance Monitor 等の別途ツールが必要となる</p>
+</li>
+<li><p>更新プログラム、パッケージ、タスク シーケンスは展開可能だが、WinPE を利用した OS 展開はできない</p>
+</li>
+<li><p>キャッシュフォルダーを別途使用する</p>
+</li>
+</ul>
+<p>%Windir%\ServiceProfile\NetworkSerivce\AppData\PeerDistPub</p>
+<ul>
+<li><p>マルチキャスト通信を使用するため、同じサブネットでのみ使用可能である</p>
+</li>
+<li><p>データのやり取りは、ブロック単位で行われる</p>
+</li>
+</ul>
+<h3 id="1-2-設定時の挙動"><a href="#1-2-設定時の挙動" class="headerlink" title="(1) - 2. 設定時の挙動"></a>(1) - 2. 設定時の挙動</h3><p>BranchCache を有効と設定した場合、コンテンツを展開した際に、以下のように挙動します。</p>
+<ol>
+<li><p>SCCM からコレクションに対して、コンテンツを展開し、コンテンツが配布ポイントに配布されます。</p>
+</li>
+<li><p>端末 A が、同じサブネットにある端末に対して、コンテンツのキャッシュがないか探索します。</p>
+</li>
+<li><p>キャッシュが見つからなかった場合、配布ポイントからダウンロードを行います。</p>
+</li>
+<li><p>端末 A は、ダウンロードしたコンテンツの一部のブロックをキャッシュします。</p>
+</li>
+<li><p>端末 B が、同じサブネットにある端末に対して、コンテンツのキャッシュがないか探索します。</p>
+</li>
+<li><p>端末 A から、コンテンツの一部のキャッシュが見つかったため、ダウンロードを行います。</p>
+</li>
+<li><p>端末 B は、同じサブネットにある端末に対して、残りのコンテンツのキャッシュを探索します。</p>
+</li>
+<li><p>端末 C から、コンテンツの一部のキャッシュが見つかったため、ダウンロードを行います。</p>
+</li>
+<li><p>端末 B は、同じサブネット上で、コンテンツのキャッシュが見つからなくなるまで上記の動きを繰り返し、最終的に見つからなかった部分については、配布ポイントからダウンロードを行います。</p>
+</li>
+<li><p>端末 B は、ダウンロードしたコンテンツの一部をキャッシュします。</p>
+</li>
+</ol>
+<h3 id="2-ピアキャッシュ機能について"><a href="#2-ピアキャッシュ機能について" class="headerlink" title="(2) ピアキャッシュ機能について"></a>(2) ピアキャッシュ機能について</h3><p>ピアキャッシュは、SCCM 独自の機能となり、SCCM cb 1610 でプレリリースされ、1710 から正式にサポートしております。</p>
+<h3 id="2-1-機能の特徴"><a href="#2-1-機能の特徴" class="headerlink" title="(2) - 1. 機能の特徴"></a>(2) - 1. 機能の特徴</h3><p>ピアキャッシュの特徴は、以下のようなものがございます。</p>
+<ul>
+<li><p>ログが出力されるため、動作確認が可能である</p>
+</li>
+<li><p>更新プログラム、パッケージ等はもちろん、OS も展開可能である</p>
+</li>
+<li><p>SCCM のキャッシュフォルダーの ccmcache を使用する</p>
+</li>
+</ul>
+<p>%Windir%\ccmcache</p>
+<ul>
+<li><p>サブネットが異なる場合でも、境界グループ内であれば使用可能である</p>
+</li>
+<li><p>データのやり取りは、パッケージ単位で行われる</p>
+</li>
+<li><p>SCCM コンソールから、ピアキャッシュのダウンロード状況が確認可能である</p>
+</li>
+</ul>
+<h3 id="2-2-留意点"><a href="#2-2-留意点" class="headerlink" title="(2) - 2. 留意点"></a>(2) - 2. 留意点</h3><p>バージョン 1702 以降からは、以下のいずれかの条件に合致した場合、アクセスが制限されますので、ご留意ください。</p>
+<p>詳しくは、下記のご参考資料 1 をご覧ください。</p>
+<ul>
+<li><p>バッテリ低下モードの場合。</p>
+</li>
+<li><p>コンテンツの要求時に CPU 負荷が 80% を超えている場合。</p>
+</li>
+<li><p>ディスク I/O の AvgDiskQueueLength が 10 を超えている場合。</p>
+</li>
+<li><p>新たにコンピューターに接続できない場合。</p>
+</li>
+</ul>
+<h3 id="2-3-設定時の挙動"><a href="#2-3-設定時の挙動" class="headerlink" title="(2) - 3. 設定時の挙動"></a>(2) - 3. 設定時の挙動</h3><p>ピアキャッシュを有効と設定した場合、コンテンツを展開した際に、以下のように挙動します。</p>
+<ol>
+<li><p>SCCM からコレクションに対して、コンテンツを展開し、コンテンツが配布ポイントに配布されます。</p>
+</li>
+<li><p>ピアキャッシュ ソースとして設定されている端末 A が、管理ポイントに対して、コンテンツのダウンロードが可能な場所を問い合わせます。</p>
+</li>
+<li><p>管理ポイントは、端末 A と同じ境界グループの中で、コンテンツのダウンロードが可能な場所のリストを返します。</p>
+</li>
+<li><p>管理ポイントからのリストには、配布ポイントの場所のみがあったため、端末 A は、配布ポイントからコンテンツのダウンロードを行います。</p>
+</li>
+<li><p>端末 A は、管理ポイントに、自分が持っているキャッシュの情報を報告します。</p>
+</li>
+<li><p>管理ポイントは、同じコンテンツのダウンロード場所をリクエストしてくる端末 B に対して、端末 A と配布ポイントの場所を返します。</p>
+</li>
+<li><p>端末 B は、端末 A、配布ポイントのどちらかからコンテンツをダウンロードします。</p>
+</li>
+</ol>
+<p>端末 B が、ピアキャッシュ ソースとして設定されていない場合は、ここで処理が完了し、ピアキャッシュ ソースとして設定されている場合は、管理ポイントに、自分が持っているキャッシュの情報を報告します。</p>
+<p>&lt; ご参考資料 &gt;</p>
+<ol>
+<li>“Configuration Manager クライアントのピアキャッシュ”</li>
+</ol>
+<p>ピアキャッシュの機能の詳細については、以下の公開資料がございます。</p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/client-peer-cache" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/client-peer-cache</a></p>
+<ol start="2">
+<li>“BranchCache vs. Peer Cache” (英文)</li>
+</ol>
+<p>以下は、英文となっておりますが、BranchCache と ピアキャッシュの差異について</p>
+<p>記載されており、機能の導入をご検討される際に、お役立ていただけますと幸いです。</p>
+<p><a href="https://blogs.technet.microsoft.com/swisspfe/2018/01/25/branch-cache-vs-peer-cache/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/swisspfe/2018/01/25/branch-cache-vs-peer-cache/</a></p>
+<h2 id="2-BranchCache-ピアキャッシュ機能の設定箇所"><a href="#2-BranchCache-ピアキャッシュ機能の設定箇所" class="headerlink" title="2. BranchCache / ピアキャッシュ機能の設定箇所"></a>2. BranchCache / ピアキャッシュ機能の設定箇所</h2><p>以下に、それぞれの機能を利用するにあたり、必要な設定箇所を記載させていただきます。</p>
+<h3 id="1-BranchCache-機能の設定箇所"><a href="#1-BranchCache-機能の設定箇所" class="headerlink" title="(1) BranchCache 機能の設定箇所"></a>(1) BranchCache 機能の設定箇所</h3><ol>
+<li><p>配布ポイントの役割を持つサイト サーバーに、BranchCache 機能を追加します。</p>
+</li>
+<li><p>[Configuration Manager コンソール] - [管理] - [概要] - [配布ポイント] から、配布ポイントのプロパティを開き、</p>
+</li>
+</ol>
+<p>[全般] タブで、”この配布ポイントの BranchCache を有効にして構成する” にチェックを入れ、適用します。</p>
+<ol start="3">
+<li>[Configuration Manager コンソール] - [管理] - [概要] - [クライアント設定] から、</li>
+</ol>
+<p>以下のカスタム クライアント設定を作成し、お客様の環境に合わせて設定後、コレクションに展開します。</p>
+<p>“クライアント キャッシュの設定”</p>
+<ul>
+<li><p>BranchCache の構成 : “はい”</p>
+</li>
+<li><p>BranchCache の有効化 : “はい”</p>
+</li>
+</ul>
+<p>その他の項目は、任意で設定してください。</p>
+<ol start="4">
+<li>コンテンツを展開する際に、展開ウィザードの [配布ポイント] の画面で、以下にチェックを入れます。</li>
+</ol>
+<p>“同じサブネットにあるほかのクライアントとのコンテンツの共有を許可する”</p>
+<p><img src="/blog/mecm/20180911_01/20180911_01_01.png" alt=""></p>
+<h2 id="2-ピアキャッシュ機能の設定箇所"><a href="#2-ピアキャッシュ機能の設定箇所" class="headerlink" title="(2) ピアキャッシュ機能の設定箇所"></a>(2) ピアキャッシュ機能の設定箇所</h2><ol>
+<li><p>ピアキャッシュ機能を有効とする境界グループを作成します。</p>
+</li>
+<li><p>[Configuration Manager コンソール] - [資産とコンプライアンス] - [概要] - [デバイス コレクション] から、</p>
+</li>
+</ol>
+<p>新しいデバイス コレクションを作成し、ピアキャッシュ ソースとして指定したいデバイスを追加します。</p>
+<ol start="3">
+<li>[Configuration Manager コンソール] - [管理] - [概要] - [クライアント設定] から、</li>
+</ol>
+<p>カスタム クライアント設定を作成し、お客様の環境に合わせて設定後、コレクションに展開します。</p>
+<p>“クライアント キャッシュの設定”</p>
+<ul>
+<li><p>完全な OS 状の Configuration Manager クライアントでコンテンツを共有できるようにする : “はい”</p>
+</li>
+<li><p>初期ネットワーク ブロードキャスト用ポート: “任意” (既定 8004)</p>
+</li>
+<li><p>ピアからのコンテンツのダウンロード用ポート : “任意” (既定 8003)</p>
+</li>
+</ul>
+<p>その他の項目は、任意で設定してください。</p>
+<p><img src="/blog/mecm/20180911_01/20180911_01_02.png" alt=""></p>
+<p>&lt; ご参考資料 &gt;</p>
+<p>以下の資料に、クライアント設定の詳細が記載されております。</p>
+<p>“System Center Configuration Manager のクライアント設定について”</p>
+<ul>
+<li>“クライアント キャッシュ設定”</li>
+</ul>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings#client-cache-settings" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings#client-cache-settings</a></p>
+<h2 id="3-ピアキャッシュ-ログの確認方法"><a href="#3-ピアキャッシュ-ログの確認方法" class="headerlink" title="3. ピアキャッシュ ログの確認方法"></a>3. ピアキャッシュ ログの確認方法</h2><p>ピアキャッシュ機能を有効にし、最初のピアキャッシュ ソース クライアントが配布ポイントからコンテンツをダウンロードした後、以下のログに、コンテンツがキャッシュされたことが出力されます。</p>
+<h3 id="StateMessage-log"><a href="#StateMessage-log" class="headerlink" title="StateMessage.log"></a>StateMessage.log</h3><p>———— 出力例 ————</p>
+<p>Adding message with TopicType 7200 and TopicId Cache add T020000B.1 to WMI StateMessage 2018/05/17 10:41:59 36728 (0x8F78) State message(State ID : 1) with TopicType 7200 and TopicId Cache add T020000B.1 has been recorded for SYSTEM StateMessage 2018/05/17 10:41:59 36728 (0x8F78) Successfully forwarded State Messages to the MP StateMessage 2018/05/17 10:43:00 36728 (0x8F78)</p>
+<p>———— 出力例 ————   他のクライアントが、ピアキャッシュ ソースとなっているクライアントから、コンテンツをダウンロードする際は、以下の 3 つのログに、その旨が出力されます。</p>
+<h3 id="CAS-log"><a href="#CAS-log" class="headerlink" title="CAS.log"></a>CAS.log</h3><p>———— 出力例 ————</p>
+<p>**** Received request for content T020000B.1, size(KB) 737, under context System with priority Low. ContentAccess 2018/05/17 10:47:03 3228 (0x0C9C)<br>CacheManager: There are currently 0 bytes used for cached content items (0 total, 0 active, 0 tombstoned, 0 expired). ContentAccess 2018/05/17 10:47:03 3228 (0x0C9C)</p>
+<p>(中略)</p>
+<p>Download started for content T020000B.1 ContentAccess 2018/05/17 10:47:04 3228 (0x0C9C)<br>Location update from CTM for content T020000B.1 and request {A6D8A569-FDC5-48DA-9CEC-5F77D27663B9} ContentAccess 2018/05/17 10:47:04 3712 (0x0E80)<br>Matching DP location found 0 - <a href="https://contoso-cl04.contoso.local:8003/sccm_branchcache$/t020000b" target="_blank" rel="noopener">https://contoso-cl04.contoso.local:8003/sccm_branchcache$/t020000b</a> (Locality: PEER) ContentAccess 2018/05/17 10:47:04 3712 (0x0E80)<br>Matching DP location found 1 - <a href="http://tamai-cm02.tamai-ms.local/sms_dp_smspkg$/t020000b" target="_blank" rel="noopener">http://tamai-cm02.tamai-ms.local/sms_dp_smspkg$/t020000b</a> (Locality: BOUNDARYGROUP) ContentAccess 2018/05/17 10:47:04 3712 (0x0E80)<br>Download request only, ignoring location update ContentAccess 2018/05/17 10:47:04 3712 (0x0E80)</p>
+<p>———— 出力例 ————</p>
+<h3 id="ContentTransferManager-log"><a href="#ContentTransferManager-log" class="headerlink" title="ContentTransferManager.log"></a>ContentTransferManager.log</h3><p>———— 出力例 ————</p>
+<p>Starting CTM job {18E631ED-390B-4725-9010-1F9132E4BD7F}. ContentTransferManager 2018/05/17 10:47:03 3228 (0x0C9C)<br>Created CTM job {18E631ED-390B-4725-9010-1F9132E4BD7F} for user S-1-5-18 ContentTransferManager 2018/05/17 10:47:03 3228 (0x0C9C)<br>Created and Sent Location Request ‘{21A682C1-51B7-4C63-9FBE-ED3141CEEC29}’ for package T020000B ContentTransferManager 2018/05/17 10:47:04 3712 (0x0E80)<br>CTM job {18E631ED-390B-4725-9010-1F9132E4BD7F} entered phase CCM_DOWNLOADSTATUS_WAITING_CONTENTLOCATIONS ContentTransferManager 2018/05/17 10:47:04 3712 (0x0E80)<br>Queued location request ‘{21A682C1-51B7-4C63-9FBE-ED3141CEEC29}’ for CTM job ‘{18E631ED-390B-4725-9010-1F9132E4BD7F}’. ContentTransferManager 2018/05/17 10:47:04 3712 (0x0E80)<br>Persisted locations for CTM job {18E631ED-390B-4725-9010-1F9132E4BD7F}:<br>(PEER) <a href="https://CONTOSO-CL04.CONTOSO.local:8003/SCCM_BranchCache$/T020000B" target="_blank" rel="noopener">https://CONTOSO-CL04.CONTOSO.local:8003/SCCM_BranchCache$/T020000B</a> (BOUNDARYGROUP) <a href="http://TAMAI-CM02.tamai-ms.local/SMS_DP_SMSPKG$/T020000B" target="_blank" rel="noopener">http://TAMAI-CM02.tamai-ms.local/SMS_DP_SMSPKG$/T020000B</a> ContentTransferManager 2018/05/17 10:47:04 2352 (0x0930)</p>
+<p>(中略)</p>
+<p>CTM job {18E631ED-390B-4725-9010-1F9132E4BD7F} successfully processed download completion. ContentTransferManager 2018/05/17 10:47:52 3712 (0x0E80)cess 2018/05/17 10:47:04 3712 (0x0E80)</p>
+<p>———— 出力例 ————</p>
+<h3 id="DataTransferService-log"><a href="#DataTransferService-log" class="headerlink" title="DataTransferService.log"></a>DataTransferService.log</h3><p>———— 出力例 ————</p>
+<p>DTSJob {CCB7F7D2-8E93-47F1-9BCB-AAFB4CF93C0F} created to download from ‘<a href="https://CONTOSO-CL04.CONTOSO.local:8003/SCCM_BranchCache$/T020000B&#39;" target="_blank" rel="noopener">https://CONTOSO-CL04.CONTOSO.local:8003/SCCM_BranchCache$/T020000B&#39;</a> to ‘C:\Windows\ccmcache\1’. DataTransferService 2018/05/17 10:47:05 2352 (0x0930)<br>DTSJob {CCB7F7D2-8E93-47F1-9BCB-AAFB4CF93C0F} in state ‘DownloadingManifest’. DataTransferService 2018/05/17 10:47:05 3712 (0x0E80)<br>Raising event:<br>instance of CCM_CcmHttp_Status<br>{<br>ClientID = “GUID:64C1E4AF-793E-4B65-BBD9-8DC0C33E7087”;<br>DateTime = “20180517014712.077000+000”;<br>HostName = “CONTOSO-CL04.CONTOSO.local”;<br>HRESULT = “0x00000000”;<br>ProcessID = 2316;<br>StatusCode = 0;<br>ThreadID = 2248;<br>};</p>
+<p>(中略)</p>
+<p>DTS job {CCB7F7D2-8E93-47F1-9BCB-AAFB4CF93C0F} has completed:<br>Status : SUCCESS,<br>Start time : 05/17/2018 10:47:05,<br>Completion time : 05/17/2018 10:47:52,<br>Elapsed time : 47 seconds DataTransferService 2018/05/17 10:47:52 3500 (0x0DAC) </p>
+<p>———— 出力例 ————</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180911_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../intune/MicrosoftIntune_constraintedapp_and_displayfunction/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20180823_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">SCCM CB 自動クライアント アップグレード手順</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

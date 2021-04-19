@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20190327_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2019-03-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.728Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20190327_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2019-03-26T15:00:00.000Z" itemprop="datePublished">2019-03-27</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+c327adc0-3d2a-583d-8db6-94f8893470cd%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+Current+Branch+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB%E9%96%A2%E9%80%A3%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1%E3%82%92%E5%AE%8C%E5%85%A8%E3%81%AB%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20190327_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20190327_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20190327_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="ckno2bhrp000w47qa3ojv6gnn" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
+<p>以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch の場合の手順をご案内します。</p>
+<p><a href="https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus" target="_blank" rel="noopener">https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus</a></p>
+<p>System Center Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように見える場合に有効な手順です。本手順を実施してから、クライアントの再インストールを実施することで解消できる問題も多くありますので、回避優先の対処が求められる場合に、是非お役立てください。</p>
+<blockquote>
+<p><strong>注意事項 : 本手順は、SCCM クライアントがインストールされた、サイト サーバー、サイト システム サーバー (SCCM のサーバー側の管理ポイント・配布ポイントなどの役割を持つサーバー) では行わないでください。手順中で削除が必要なレジストリ キーは、SCCM のサーバー側各機能でも使用していることが多く、サイト サーバー、サイト システムとしての役割に支障をきたします。本手順は、あくまでも、クライアント OS の SCCM クライアントへのトラブルシュートや、マスター イメージ準備のためにご利用ください。</strong></p>
+</blockquote>
+<hr>
+<ol>
+<li>System Center Configuration Manager クライアントをアンインストールします。</li>
+</ol>
+<p>コマンド プロンプトを管理者として実行し、以下のコマンドを実行します。</p>
+<p><code>%Windir%\ccmsetup\ccmsetup.exe /uninstall</code></p>
+<blockquote>
+<p>コントロールパネルを開き、”Configuration Manager” という項目が消えたら、アンインストール完了と判断出来ます。また、アンインストールが成功すると、ccmsetup.log に以下のログが記録されます。</p>
+</blockquote>
+<p><code>Uninstall succeeded.</code></p>
+<ol start="2">
+<li>下記フォルダー、ファイルを削除します。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%windir%\CCM</span><br><span class="line">%windir%\ccmsetup</span><br><span class="line">%windir%\SMSCFG.ini</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下記レジストリが残存している場合、削除します。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\SMS</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCM</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCMSetup</span><br></pre></td></tr></table></figure>
+
+
+<ol start="4">
+<li>以下の手順で、SMS 証明書 (自己署名証明書) を削除します。</li>
+</ol>
+<p>1) コマンド プロンプトを開き、”mmc” を入力して実行します。<br>2) [ファイル] - [スナップインの追加と削除] をクリックします。<br>3) 左ペインから [証明書] をクリックして [追加] ボタンをクリックします。<br>4) “コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。<br>5) “ローカル コンピューター” にチェックし、[完了] をクリックします。<br>6) 右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。<br>7) 左ペインにて、[証明書] - [SMS] - [証明書] を選択します。<br>8) 中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。「選択された証明書を永久的に削除しますか？」というメッセージが表示されますので、[はい] を選択します。<br>9) [ファイル] - [終了] をクリックします。「コンソールの設定を コンソール 1 に保存しますか？」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</p>
+<blockquote>
+<p>PKI 証明書を利用している環境（HTTPS 構成）の場合<br>PKI 証明書を利用している場合は同様に以下の手順で PKI 証明書を削除します。</p>
+<p>1) コマンド プロンプトを開き、”mmc” を入力して実行します。<br>2) [ファイル] - [スナップインの追加と削除] をクリックします。<br>3) 左ペインから [証明書] をクリックして [追加] ボタンをクリックします。<br>4) “コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。<br>5) “ローカル コンピューター” にチェックし、[完了] をクリックします。<br>6) 右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。<br>7) 左ペインにて、[証明書] - [個人] - [証明書] を選択します。カスタム ストアを利用している場合は、該当箇所を選択してください。<br>8) 中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。<br>9) [ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</p>
+</blockquote>
+<ol start="5">
+<li>下記フォルダーに移動し、”19c5cf…” ではじまるファイルが存在する場合には削除、またはリネームして別フォルダーにコピーします。(該当のファイルが存在しない場合も問題ありません。)</li>
+</ol>
+<p><code>C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys</code></p>
+<blockquote>
+<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
+</blockquote>
+<ol start="6">
+<li>ソフトウェア センターのショートカットが含まれる下記フォルダーを削除します。SCCM 管理コンソールをインストールしている場合は、「Configuraiotn Manager コンソール」のリンクなども本フォルダーに含まれます。管理コンソールはアンインストールしない場合などは、必要に応じて「ソフトウェア センター」のショートカットのみ削除してください。</li>
+</ol>
+<p><code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft System Center</code></p>
+<blockquote>
+<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
+</blockquote>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20190327_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20210414_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS の同期先の URL の追加について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

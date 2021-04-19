@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Microsoft Intune の「制限付きアプリ」と「アプリの表示&#x2F;非表示」機能について">
+<meta property="og:url" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
+<meta property="article:published_time" content="2018-09-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.628Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/MicrosoftIntune_constraintedapp_and_displayfunction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2018-09-25T15:00:00.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bd4dbaaa-a551-5208-a80d-d5e6f44adbd6%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+Intune+%E3%81%AE%E3%80%8C%E5%88%B6%E9%99%90%E4%BB%98%E3%81%8D%E3%82%A2%E3%83%97%E3%83%AA%E3%80%8D%E3%81%A8%E3%80%8C%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E8%A1%A8%E7%A4%BA%2F%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%80%8D%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="ckno2bhq6000047qadb9jghgq" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>※ 2018/9/26 追記</p>
+<p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
+<p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
+<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png" alt=""></p>
+<p>こんにちは。Microsoft Intune サポート チームです。<br>iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。<br>今回はそのための機能について説明します。</p>
+<p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示/非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。</p>
+<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示/非表示機能"></a>■ アプリの表示/非表示機能</h2><p>「アプリの表示/非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a href="https://support.apple.com/ja-jp/HT202837" target="_blank" rel="noopener">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
+<p>「アプリの表示/非表示」の設定画面はこのようになっています。</p>
+<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png" alt=""></p>
+<p>[アプリ URL] または [アプリ バンドル ID] でアプリを特定していますので、この 2 つのいずれかを正確に入力します。</p>
+<ul>
+<li>App Store に公開されているアプリであれば、[アプリ URL] で指定できます。</li>
+<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps" target="_blank" rel="noopener">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
+</ul>
+<p>注意点としては、複数の「アプリの表示/非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示/非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p>
+<h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018/9/26 追記</p>
+<p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
+<p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
+<p>「制限付きアプリ」機能は元々 Intune のクラシック コンソール時代に利用されていた機能です。<br>Silverlight で動作する、以前のコンソールを覚えている方もいらっしゃるでしょう。<br>この機能では、「アプリの表示/非表示」のようにアプリの利用を禁止する直接的な効力はありませんでした。<br>管理者が指定したアプリが端末にインストールされているか、いないかという情報を端末側で監査し、クラシック コンソールのレポートで確認する機能でした。<br>Intune が Azure 管理ポータルに移行するにあたり、クラシック コンソールでの MDM 管理機能やレポート機能が廃止されております。</p>
+<p>※移行はテナントごとに行われ、2017 年 10 月 ～ 2018 年 6 月頃には、実質的に「制限付きアプリ」機能は利用できない状態になっています。</p>
+<p>一方で、デバイスからはインベントリとしてアプリの情報が収集されていますので、この情報を基に監査を行うことができます。<br>Azure ポータルの [Intune] - [モバイル アプリ] - [検出されたアプリ] には、インベントリされた全アプリの一覧が表示されます。<br>この情報をエクスポートして、監査に利用することができます。<br>企業所有端末からはインストールされた全アプリ情報が、個人所有端末からは Intune で管理されたアプリの情報のみが収集されます。</p>
+<p>「制限付きアプリ」機能では、実質的に BYOD 端末について、ユーザーのアプリの情報を監査できるというプライバシー上の課題がありましたが、インベントリ機能ではこの課題は解消されています。</p>
+<p>このように、「アプリの表示/非表示」機能を上手く活用することで、組織のアプリ使用を制限可能です。</p>
+<p>また、インベントリ情報を活用することで、社給端末で利用されているアプリ情報を取得可能です。</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/intune/MicrosoftIntune_constraintedapp_and_displayfunction.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../mecm/20180911_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../mecm/20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

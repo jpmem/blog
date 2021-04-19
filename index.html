@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:url" content="https://jpmem.github.io/blog/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="Intune">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="index.html">Home</a>
+        
+          <a class="main-nav-link" href="archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mecm/20210414_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20210414_01/" class="article-date">
+  <time datetime="2021-04-13T15:00:00.000Z" itemprop="datePublished">2021-04-14</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。Configuration Manager サポート チームです。
+Microsoft Endpoint Configuration Manager (以下 MECM) 環境において、今後クライアントと Configuration Manager 間の HTTP のみの通信が非推奨となります。そのため、通信を HTTPS または拡張 HTTP を有効にすることで、より安全な通信方法をサイトで有効にして頂く必要がございます。
+Configuration Manager から削除された機能と非推奨の機能
+MECM の バージョン 2103 以降については MECM のアップグレードを行って頂く際の前提条件のチェック時においても、”警告” として、HTTP が非推奨になる旨のメッセージが表示されるようになりましたため、対処の手段である HTTPS とする方法や拡張 HTTP...
+        <p class="article-readmore">
+          <a href="mecm/20210414_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20210414_01/" data-id="ckno2bhrr000y47qaawrhe0ag" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20190327_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20190327_01/" class="article-date">
+  <time datetime="2019-03-26T15:00:00.000Z" itemprop="datePublished">2019-03-27</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        皆様、こんにちは。System Center Configuration Manager サポート チームです。
+以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch の場合の手順をご案内します。
+https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus
+System Center Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように...
+        <p class="article-readmore">
+          <a href="mecm/20190327_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="ckno2bhrp000w47qa3ojv6gnn" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wsus/WSUS_の同期先の_URL_の追加について" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2019-02-13T15:00:00.000Z" itemprop="datePublished">2019-02-14</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        2019/03/04 更新：公開情報を更新いたしました。
+みなさま、こんにちは。WSUS サポート チームです。
+WSUS の同期時に接続する URL については以下の公開情報の「2.1.1. Connection from the WSUS server to the Internet」の箇所にて紹介をしておりますが、今回接続先の URL の追加を行いましたため紹介をいたします。
+
+Step 2: Configure WSUS
+
+https://docs.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus#BKM_ConfigurenetworkConnections
+具体的には、WSUS サーバーが弊社サイトから更新プログラムをダ...
+        <p class="article-readmore">
+          <a href="wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckno2bhru001047qae9hvhghl" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20181010_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20181010_01/" class="article-date">
+  <time datetime="2018-10-09T15:00:00.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートの金です。
+本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) にて、Active Directory の組織単位 (以下、OU) に基づいて、デバイス コレクションを作成する方法をご紹介させていただきます。
+前提条件
+AD の OU に基づくコレクションの作成の際には、事前に、Active Directory システムの探索が実施されている必要があります。
+SCCM の探索方法から、”Active Directory システムの探索” が正しく設定され、有効になっていることを確認してください。
+手順
+本手順では、以下の OU をサンプルとしておりますので、お客様の環境に応じて、設定内...
+        <p class="article-readmore">
+          <a href="mecm/20181010_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20181010_01/" data-id="ckno2bhrn000u47qabp3j7ytp" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" class="article-date">
+  <time datetime="2018-09-27T15:00:00.000Z" itemprop="datePublished">2018-09-28</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        こんにちは。Microsoft Intune サポートチームの中村です。
+ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません。 これを解決する別の方法は、以下に記載したトラブルシューティングの手順に従うことです。
+
+ユーザーを選択したら、Intune ライセンスとアカウント状態が緑色のチェックで表示されていることを確認します。
+
+同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS/MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイス...
+        <p class="article-readmore">
+          <a href="intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" data-id="ckno2bhqd000147qa6omp74sd" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/MicrosoftIntune_constraintedapp_and_displayfunction" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="intune/MicrosoftIntune_constraintedapp_and_displayfunction/" class="article-date">
+  <time datetime="2018-09-25T15:00:00.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="intune/MicrosoftIntune_constraintedapp_and_displayfunction/">Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        ※ 2018/9/26 追記
+「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)
+これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。
+
+こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。今回はそのための機能について説明します。
+iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。それが「制限付きアプリ」と「アプリの表示/非表示」機能です。このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。
+■ アプリの表示/非表示機能「アプリの表示/非表示」機...
+        <p class="article-readmore">
+          <a href="intune/MicrosoftIntune_constraintedapp_and_displayfunction/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="ckno2bhq6000047qadb9jghgq" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180911_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20180911_01/" class="article-date">
+  <time datetime="2018-09-10T15:00:00.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20180911_01/">System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートの金です。
+SCCM を運用されている中で、ネットワーク回線が細い拠点を管理対象としている場合、コンテンツの配布によるネットワークの負荷を分散させる工夫が必要な場面がございます。
+本日は、コンテンツの配布の際にネットワークの負荷を軽減できる BranchCache の機能や、ピアキャッシュの機能の概要についてご紹介させていただきますので、お役立ていただけますと幸いでございます。
+ これから案内させていただく内容は、以下の流れになります。
+
+
+BranchCache / ピアキャッシュ機能のご説明
+
+BranchCache / ピアキャッシュ機能の設定箇所
+
+ピアキャッシュ ログの確認方法
+
+
+
+以下は、詳細内容となります。
+1. BranchCache / ピアキャッ...
+        <p class="article-readmore">
+          <a href="mecm/20180911_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20180911_01/" data-id="ckno2bhsx001547qahou33th4" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180823_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20180823_01/" class="article-date">
+  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20180823_01/">SCCM CB 自動クライアント アップグレード手順</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートチームです。
+本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クライアントのアップグレード方法は、以下のように、複数がございます。
+・自動クライアント アップグレード・クライアント プッシュ インストール・グループ ポリシーによるインストール・ログオン スクリプトによるインストール・手動インストール・アップグレード インストール
+お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少な...
+        <p class="article-readmore">
+          <a href="mecm/20180823_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="ckno2bhr1000g47qaev157itq" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180823_02" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20180823_02/" class="article-date">
+  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20180823_02/">System Center Configuration Manager サイトのアップグレード手順</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートチームです。
+本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) をアップグレードする手順をご案内させていただきます。SCCM CB のバージョンアップは、最上位のサイト サーバーで実施します。中央管理サイト サーバーがある階層型の環境の場合、中央管理サイト サーバーで、プライマリ サイト サーバーの環境の場合は、プライマリ サイト サーバーで実施してください。最上位のサイト サーバーがアップグレードされる過程で、その配下のサイト サーバーや、管理ポイント、配布ポイント等のサイトシステムは、自動的に更新されます。
+これから、SCCM CB 1710 から、最新バージョンの SCCM C...
+        <p class="article-readmore">
+          <a href="mecm/20180823_02/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20180823_02/" data-id="ckno2bhsw001447qaax9h06e0" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180629_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20180629_01/" class="article-date">
+  <time datetime="2018-06-28T15:00:00.000Z" itemprop="datePublished">2018-06-29</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20180629_01/">Configuration Manager ReportServer データベースのトランザクションログ肥大化への対策</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        こんにちは。System Center サポートチームです。
+本ポストでは、Configuration Manager の ReportServer データベースのトランザクションログ肥大化への対策をご紹介いたします。
+Configuration Manager でレポート機能を利用されている環境で、ReportServer データベースのトランザクションログファイルが肥大化し、HDD が逼迫したというお問い合わせよくいただきます。
+これは SQL Server Reporting Services (SSRS) の ReportServer データベースを完全復旧モデルで運用されていて、トランザクションログの切り捨てを実行していない環境で発生します。
+Configuration Manager で使用する SSRS のデータベースは、破損しても基本的にレポーティングサービスの役割を再構築...
+        <p class="article-readmore">
+          <a href="mecm/20180629_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20180629_01/" data-id="ckno2bhr0000d47qa23tg9m9n" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="extend next" rel="next" href="page/2/">次へ &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="mecm/20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="mecm/20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="mecm/20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="tags/Intune/" style="font-size: 10px;">Intune</a> <a href="tags/MECM/" style="font-size: 20px;">MECM</a> <a href="tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

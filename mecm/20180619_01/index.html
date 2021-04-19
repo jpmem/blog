@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>System Center Configuration Manager で、できる限り早く更新プログラムを適用する方法について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポート チームの金です。 本ポストでは、System Center Configuration Manager (以下、Configuration Manager) で更新プログラムを配信する運用をしている中で、可能な限り早く更新プログラムを適用させる方法をご紹介いたします。 OS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Center Configuration Manager で、できる限り早く更新プログラムを適用する方法について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180619_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポート チームの金です。 本ポストでは、System Center Configuration Manager (以下、Configuration Manager) で更新プログラムを配信する運用をしている中で、可能な限り早く更新プログラムを適用させる方法をご紹介いたします。 OS">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180619_01/20180619_01_01.png">
+<meta property="article:published_time" content="2018-06-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.656Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180619_01/20180619_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20180619_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      System Center Configuration Manager で、できる限り早く更新プログラムを適用する方法について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2018-06-18T15:00:00.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+c2cc98ec-ae14-5132-ba06-93aaa057cf10%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E3%81%A7%E3%80%81%E3%81%A7%E3%81%8D%E3%82%8B%E9%99%90%E3%82%8A%E6%97%A9%E3%81%8F%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92%E9%81%A9%E7%94%A8%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180619_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180619_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180619_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20180619_01/" data-id="ckno2bhqy000c47qa38w39nmf" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。</p>
+<p>日本マイクロソフト System Center Configuration Manager サポート チームの金です。</p>
+<p>本ポストでは、System Center Configuration Manager (以下、Configuration Manager) で更新プログラムを配信する運用をしている中で、可能な限り早く更新プログラムを適用させる方法をご紹介いたします。</p>
+<p>OS やアプリケーションにおいては、深刻な脆弱性等が発覚した際に、脆弱性による被害を防ぐために、至急セキュリティ更新プログラムの適用が必要になる場合がございます。</p>
+<p>そのとき、Configuration Manager コンソールから、更新プログラムを配信する際に、展開方法を “必須” としても、クライアントが更新プログラムの展開を検知し、ダウンロードおよびインストールするまではある程度時間がかかります。</p>
+<p>それは、Configuration Manager クライアントは、基本的に Configuration Manager コンソールにて設定したスケジュールのとおり動作しているためです。</p>
+<p>Configuration Manager クライアントが更新プログラムを適用するには、以下の順のとおり、3 つのサイクルの実行が必要となります。</p>
+<ol>
+<li>ソフトウェア更新プログラムのスキャン サイクル:<br>ソフトウェアの更新ポイント (WSUS) サーバーに対してスキャンを行い、更新プログラムの必要有無を判断します。<br>このサイクルは、既定で 7 日間隔で実行されます。</li>
+<li>コンピューター ポリシーの取得および評価サイクル:<br>SCCM サーバーで設定された更新プログラムの展開を受信します。<br>このサイクルは、既定で 1 時間間隔で実行されます。</li>
+<li>ソフトウェア更新プログラムの展開評価サイクル:<br>過去に受信した展開でインストールに失敗した更新プログラムがあれば再評価し、インストールを再試行します。<br>このサイクルは、既定で 7 日間隔で実行されます。</li>
+</ol>
+<p>上記サイクルは、コントロール パネルを開き、[システムとセキュリティ] にある [Configuration Manager] をダブルクリックし、[操作] タブより、直ちに開始することができます。</p>
+<p><img src="/blog/mecm/20180619_01/20180619_01_01.png" alt=""></p>
+<p>これらのサイクルを手動で開始する場合は、(1) (2) (3) と順番に数分おきに実施いただくと、更新プログラムのダウンロードが始まります。更新プログラムのダウンロード完了したかどうかについては、SCCM のキャッシュ フォルダー (既定で %windir%\ccmcache) に実行した時刻のフォルダーとファイルが存在するかで確認できます。</p>
+<p>なお、通常の運用では、クライアントがネットワークに接続し、Configuraition Manager のサーバー (管理ポイント、配布ポイント、ソフトウェアの更新ポイント) と問題なく通信できていれば、時間の経過とともに更新プログラムが適用可能となりますが、お急ぎで更新プログラムを適用させたい場合や長期間オフライン状態であった端末においては、スクリプト等で、サイクルを直ちに実行することも可能です。</p>
+<p>これからご案内するスクリプトは、以下の動作を実現しております。</p>
+<ol>
+<li>[ソフトウェアの更新のスキャン サイクル] を開始する。</li>
+<li>5 分待機</li>
+<li>[コンピューター ポリシーの取得および評価サイクル] を開始する。</li>
+<li>5 分待機</li>
+<li>[ソフトウェアの更新の展開評価サイクル] を開始する。</li>
+</ol>
+<p>以下は、スクリプトのサンプルとなります。</p>
+<p>スクリプト サンプルをご利用の際は、お客様環境で、事前に動作確認を行っていただきますようお願いいたします。</p>
+<p>ファイルの拡張子を .vbs としていただき、以下のようなコマンドをご実行ください。</p>
+<p><code>cscript /nologo KickoffClientAction.vbs</code></p>
+<figure class="highlight vbs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Call</span> Main</span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Main()</span><br><span class="line"></span><br><span class="line">  KickoffClientAction <span class="string">"Updates Source Scan Cycle"</span></span><br><span class="line"></span><br><span class="line">  WScript.sleep <span class="number">300000</span></span><br><span class="line"></span><br><span class="line">  KickoffClientAction <span class="string">"Request &amp; Evaluate Machine Policy"</span></span><br><span class="line"></span><br><span class="line">  WScript.sleep <span class="number">300000</span></span><br><span class="line"></span><br><span class="line">  KickoffClientAction <span class="string">"Software Updates Assignments Evaluation Cycle"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">' *******************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="comment">' KickoffClientAction() - This sub will kickoff the specified client action</span></span><br><span class="line"></span><br><span class="line"><span class="comment">' *******************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> KickoffClientAction(sActionName)</span><br><span class="line"></span><br><span class="line">  <span class="comment">' Create a CPAppletMgr instance</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">Dim</span> oCPAppletMgr</span><br><span class="line"></span><br><span class="line">  <span class="keyword">Set</span> oCPAppletMgr = <span class="built_in">CreateObject</span>(<span class="string">"CPApplet.CPAppletMgr"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">' Get the available ClientActions</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">Dim</span> oClientActions</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> oClientActions = oCPAppletMgr.GetClientActions()</span><br><span class="line"></span><br><span class="line">  <span class="comment">' Loop through the available client actions</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">Dim</span> oClientAction</span><br><span class="line"></span><br><span class="line">  <span class="keyword">For</span> <span class="keyword">Each</span> oClientAction <span class="keyword">In</span> oClientActions</span><br><span class="line"></span><br><span class="line">    <span class="comment">' Is this the action we want to kickoff?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> oClientAction.Name = sActionName <span class="keyword">Then</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">' Kickoff the action</span></span><br><span class="line"></span><br><span class="line">      oClientAction.PerformAction</span><br><span class="line"></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>(補足情報)</p>
+<p>スクリプトの本文を繰り返して、複数回実行するように追記していただくことも可能です。</p>
+<p>なお、待機時間につきましても、お客様のご要望に応じて、短く変更していただくことも可能でございます。</p>
+<blockquote>
+<p>※ Wscript.sleep の単位は、ミリ秒となります。(1秒 = 1000ミリ秒)</p>
+</blockquote>
+<p>また、<code>KickoffClientAction &quot;&quot;</code> で囲まれた部分を以下に変更することで、他のサイクルの実行をすることも可能です。</p>
+<p>今後の運用にお役立ていただけますと幸いでございます。</p>
+<ul>
+<li>Software Metering Usage Report Cycle ：<br>「ソフトウェア使用状況レポート サイクル」の実行</li>
+<li>Request &amp; Evaluate Machine Policy ：<br>「コンピューター ポリシーの取得および評価サイクル」の実行</li>
+<li>Updates Source Scan Cycle ：<br>「ソフトウェア更新プログラムのスキャン サイクル」の実行</li>
+<li>Request &amp; Evaluate User Policy ：<br>「ユーザー ポリシーの取得および評価サイクル」の実行</li>
+<li>Hardware Inventory Collection Cycle ：<br>「ハードウェア インベントリ サイクル」の実行</li>
+<li>Software Inventory Collection Cycle ：<br>「ソフトウェア インベントリ サイクル」の実行</li>
+<li>Software Updates Assignments Evaluation Cycle ：<br>「ソフトウェア更新プログラムの展開評価サイクル」の実行</li>
+<li>Discovery Data Collection Cycle ：<br>「探索データ収集サイクル」の実行</li>
+<li>MSI Product Source Update Cycle ：<br>「Windows インストーラー ソース一覧更新サイクル」の実行</li>
+<li>Standard File Collection Cycle ：<br>「ファイル収集サイクル」の実行</li>
+</ul>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180619_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20180629_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Configuration Manager ReportServer データベースのトランザクションログ肥大化への対策
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20180511_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">「指定したパッケージおよびプログラムの展開のステータス」レポートについて</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

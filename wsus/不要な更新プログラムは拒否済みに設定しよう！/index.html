@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>不要な更新プログラムは「拒否済み」に設定しよう！ | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS で設定出来る、更新プログラムの「拒否済み」の設定について、詳細を紹介いたします。  「そんなこと知ってどうするんだ…」と思われるかも知れませんが、WSUS はその性質上、過去にリリースされた更新プログラムの情報が、どんどん蓄積されてしまうシステムです。そのため、運用を行う上で、不要な更新プログラムを継続的に「拒否済み」に設定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不要な更新プログラムは「拒否済み」に設定しよう！">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS で設定出来る、更新プログラムの「拒否済み」の設定について、詳細を紹介いたします。  「そんなこと知ってどうするんだ…」と思われるかも知れませんが、WSUS はその性質上、過去にリリースされた更新プログラムの情報が、どんどん蓄積されてしまうシステムです。そのため、運用を行う上で、不要な更新プログラムを継続的に「拒否済み」に設定">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/1_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/2_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/3_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/9_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/4_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/5_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/6_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+<meta property="article:published_time" content="2017-12-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-19T03:52:29.732Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/1_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/不要な更新プログラムは拒否済みに設定しよう！" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      不要な更新プログラムは「拒否済み」に設定しよう！
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2017-12-10T15:00:00.000Z" itemprop="datePublished">2017-12-11</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+71198ce0-51b7-5d03-b991-551ee2c096a6%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E3%80%8C%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%80%8D%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/" data-id="ckno2bhsy001747qahxqjcbzy" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
+<p>今回は WSUS で設定出来る、更新プログラムの「拒否済み」の設定について、詳細を紹介いたします。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/1_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<p>「そんなこと知ってどうするんだ…」と思われるかも知れませんが、WSUS はその性質上、過去にリリースされた更新プログラムの情報が、どんどん蓄積されてしまうシステムです。そのため、運用を行う上で、不要な更新プログラムを継続的に「拒否済み」に設定していき、不要な処理を実行させないようメンテナンスしていくことが非常に重要となります。本記事では、その詳細について説明していきます。</p>
+<h2 id="「拒否済み」とは？"><a href="#「拒否済み」とは？" class="headerlink" title="「拒否済み」とは？"></a>「拒否済み」とは？</h2><p>「拒否済み」は、いわば「論理的な削除状態」です。具体的な他の承認状態との違いは、以下の通りとなります。</p>
+<table>
+<thead>
+<tr>
+<th align="center">承認状態</th>
+<th align="center">クライアントへの配信</th>
+<th align="center">レポート情報の収集</th>
+<th align="center">設定の単位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">インストール承認</td>
+<td align="center">配信される</td>
+<td align="center">収集される</td>
+<td align="center">コンピューター グループ単位</td>
+</tr>
+<tr>
+<td align="center">未承認 (既定)</td>
+<td align="center">配信されない</td>
+<td align="center">収集される</td>
+<td align="center">コンピューター グループ単位</td>
+</tr>
+<tr>
+<td align="center">削除の承認</td>
+<td align="center">配信されない (アンインストールがされる)</td>
+<td align="center">収集される</td>
+<td align="center">コンピューター グループ単位</td>
+</tr>
+<tr>
+<td align="center"><strong>拒否済み</strong></td>
+<td align="center"><strong>配信されない</strong></td>
+<td align="center"><strong>収集されない</strong></td>
+<td align="center"><strong>WSUS サーバー全体</strong></td>
+</tr>
+</tbody></table>
+<p>「拒否済み」に設定すると、「未承認」状態と同じくクライアントへの配信は行われませんが、レポート情報の収集も行わなくなります。この点が他の承認状態との大きな違いです。逆に言うと更新プログラムを WSUS 上で「拒否済み」に設定しない限り、実はクライアントや WSUS サーバーでは、レポート情報を収集するための処理を実行し続けることになります。</p>
+<p>ちなみに一度「拒否済み」に設定した更新プログラムでも、他の承認状態に任意のタイミングで変更し、再度配信等を実施することは可能ですので、その点はご安心ください。</p>
+<h2 id="「拒否済み」に設定すると何が嬉しいの？"><a href="#「拒否済み」に設定すると何が嬉しいの？" class="headerlink" title="「拒否済み」に設定すると何が嬉しいの？"></a>「拒否済み」に設定すると何が嬉しいの？</h2><p>更新プログラムを「拒否済み」に設定することの、具体的なメリット・デメリットは下記の通りとなります。</p>
+<p>1 ~ 2 件の更新プログラムを「拒否済み」に設定したところで大きな効果が得られるわけではありませんが、WSUS は数千から数万件の更新プログラムを管理することが当たり前なので、塵も積もれば山となり、WSUS の負荷やディスク容量に大きな影響を与えてしまいます。</p>
+<p>既に配信の必要がなく、レポート情報も収集する必要がない更新プログラムについては「拒否済み」に設定することにメリットしかありません。どんどん不要な更新プログラムは「拒否済み」に設定していきましょう。</p>
+<h3 id="メリット"><a href="#メリット" class="headerlink" title="メリット"></a>メリット</h3><ul>
+<li>クライアントや WSUS サーバーで「拒否済み」に設定した更新プログラムのレポート情報の収集が行われなくなるため、クライアントや WSUS サーバーの負荷が軽減される。</li>
+<li>クリーンアップ ウィザードの「不要な更新ファイル」項目の削除対象となるため、WSUS サーバーのディスク容量の消費を削減出来る。</li>
+</ul>
+<h3 id="デメリット"><a href="#デメリット" class="headerlink" title="デメリット"></a>デメリット</h3><ul>
+<li>レポート情報の収集が行われなくなるため、クライアントへ適用が行われているか、配信が必要であるか、WSUS 上のレポートから確認出来なくなる。</li>
+<li>WSUS 全体での設定となるため、一部のコンピューター グループだけを「拒否済み」にすることは出来ない。</li>
+</ul>
+<h2 id="どうやって「拒否済み」に設定する更新プログラムを選べばいいの？"><a href="#どうやって「拒否済み」に設定する更新プログラムを選べばいいの？" class="headerlink" title="どうやって「拒否済み」に設定する更新プログラムを選べばいいの？"></a>どうやって「拒否済み」に設定する更新プログラムを選べばいいの？</h2><p>では、具体的にどうやって「拒否済み」に設定する更新プログラムを選んでいくか紹介していきます。一般的には下記の方法があります。</p>
+<p>A. クリーンアップ ウィザードを実行する</p>
+<p>B. 置き換えが行われた更新プログラムを「拒否済み」に設定する</p>
+<p>C. 不要となった分類や製品の更新プログラムを「拒否済み」に設定する</p>
+<p>「 A 」 については、このブログで詳細を紹介しているので、こちらを参照してください。「期限の切れた更新プログラム」と「置き換えられた更新プログラム」が、更新プログラムを「拒否済み」に設定する項目となります。</p>
+<p>「 B 」「 C 」 については、本ブログで詳細な手順を紹介していきます。</p>
+<h2 id="B-置き換えが行われた更新プログラムを「拒否済み」に設定する"><a href="#B-置き換えが行われた更新プログラムを「拒否済み」に設定する" class="headerlink" title="B. 置き換えが行われた更新プログラムを「拒否済み」に設定する"></a>B. 置き換えが行われた更新プログラムを「拒否済み」に設定する</h2><p>更新プログラムの中には、より新しい置き換えが行われた更新プログラムがリリースされているものがあります。このような更新プログラムは、新しい方の更新プログラムが WSUS から配信されれば、古い方の更新プログラムを配信しなくても、クライアントとしては最新のセキュアな状態となります。</p>
+<p>このため、「クライアントが最新の状態になれば問題ない」という方針で運用されている場合には、置き換えが行われた更新プログラムを「拒否済み」の設定対象とすることが可能です。</p>
+<p>WSUS 管理コンソールでは、既に置き換えが行われた更新プログラムを管理コンソールから一括して判別が出来るので、下記の手順で置き換えが行われた更新プログラムを纏めて「拒否済み」に設定しましょう。</p>
+<p><strong>※ 注意 : 最新の更新プログラムを配信する方針 (数ヶ月遅れで更新プログラムを配信する等) でご運用されていない場合には、本手順を実施しないでください。本手順は最新の更新プログラムを配信する方針で運用している環境を前提としております。</strong></p>
+<ul>
+<li>手順</li>
+</ul>
+<ol>
+<li>WSUS サーバーで、[管理ツール] の [Windows Server Update Services] を開きます。</li>
+<li>[すべての更新プログラム] で、下記のようにフィルターを選択し、[最新の情報に更新] を選択します。</li>
+</ol>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/2_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<ol start="3">
+<li>中央画面の項目バー（タイトル、承認等が表示されているバー）を右クリックし、[優先] にチェックを入れます。</li>
+</ol>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/3_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<p>[優先] の項目（ピラミッド型のアイコン） が表示されますので、当該項目をクリックして、ソートします。<br><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""><br>もしくは<br><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""><br>のアイコンを持つ更新プログラムは、既に新しい更新で置き換えが行われており、「拒否済み」対象と判断できます。※ 下記の 3 種類のアイコンがあります。アイコンの表示がない更新プログラムは、置き換え関係を持つ更新がないので承認する必要があります。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/9_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt="">: 置き換え関係を持つ更新プログラムの中で、最新の更新プログラムです。承認する必要があります。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt="">: より新しい更新プログラムと、より古い更新プログラムの双方が存在する更新です。「拒否済み」に設定します。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt="">: 置き換え関係を持つ更新プログラムの中で、最も古い更新プログラムです。「拒否済み」に設定します。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/7_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""><br>もしくは<br><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/8_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""><br>のアイコンを持つ更新プログラムを選択し、[右クリック] - [拒否] をクリックすることで、「拒否済み」に設定します。<br>※ Ctrl や　Shift を押しながら、選択することで一括して「拒否済み」に設定することも可能です。</p>
+<p><strong>【補足 : スクリプトで「拒否済み」に変更する方法】</strong><br>以下のリンクで、置き換えられら更新プログラムの承認ステータスを「拒否済み」に変更するスクリプトをご提供しております。ダウンロードいただいたファイルの名前を Decline-SupersededUpdates.ps1 に変更して WSUS 上でご利用ください。タスク スケジューラーから定期的に実行させることも可能です。</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/TNBlogsFS/prod.evol.blogs.technet.com/telligent.evolution.components.attachments/01/6906/00/00/03/64/80/93/Decline-SupersededUpdates.txt" target="_blank" rel="noopener">Download</a></p>
+<p>(実行方法の例)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -Command C:\Temp\Decline-SupersededUpdates.ps1</span><br></pre></td></tr></table></figure>
+
+<p>(実行結果の例)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Connecting to WSUS server  on Port ... Connected.</span><br><span class="line"></span><br><span class="line">Getting a list of all updates... Done</span><br><span class="line"></span><br><span class="line">Parsing the list of updates... Done.</span><br><span class="line"></span><br><span class="line">List of superseded updates: C:\Temp\SupersededUpdates.csv</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Summary:</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">All Updates &#x3D; 17829</span><br><span class="line"></span><br><span class="line">Any except Declined &#x3D; 4418</span><br><span class="line"></span><br><span class="line">All Superseded Updates &#x3D; 118</span><br><span class="line"></span><br><span class="line">Superseded Updates (Intermediate) &#x3D; 112</span><br><span class="line"></span><br><span class="line">Superseded Updates (Last Level) &#x3D; 6</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">SkipDecline flag is set to False. Continuing with declining updates</span><br><span class="line"></span><br><span class="line">DeclineLastLevel is set to False. Declining all superseded updates.</span><br><span class="line"></span><br><span class="line">Declined 118 updates.</span><br><span class="line"></span><br><span class="line">Backed up list of superseded updates to C:\Temp\SupersededUpdatesBackup.csv</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Done</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-不要となった製品の更新プログラムを「拒否済み」に設定する"><a href="#C-不要となった製品の更新プログラムを「拒否済み」に設定する" class="headerlink" title="C. 不要となった製品の更新プログラムを「拒否済み」に設定する"></a>C. 不要となった製品の更新プログラムを「拒否済み」に設定する</h2><p>Windows XP や Windows Server 2003 等、もう管理の必要のない OS や製品の更新プログラムが WSUS 上に同期されている状態であれば、それら「拒否済み」の設定対象としていただくことが可能でしょう。</p>
+<p>この場合には、下記の手順で更新ビューの機能を用いて、その製品の更新プログラムだけを表示して「拒否済み」に設定すると便利です。</p>
+<ul>
+<li>手順</li>
+</ul>
+<ol>
+<li>WSUS サーバーで、[管理ツール] の [Windows Server Update Services] を開きます。</li>
+<li>左ペインより [Update Services] - [&lt;WSUS サーバー名&gt;] - [更新プログラム] を右クリックし、[新しい更新ビュー] を選択します。</li>
+</ol>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/4_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<ol start="3">
+<li>ステップ 1 にて、[更新は特定の製品用です] にチェックを入れ、ステップ 2 の [任意の製品] をクリックします。</li>
+</ol>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/5_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<ol start="4">
+<li>[すべての製品] のチェックを外し、「拒否済み」の設定を行いたい製品にチェックを入れ、[OK] をクリックします。</li>
+<li>ステップ 3 にて、任意の更新ビューの名前を入力し、[OK] をクリックします。</li>
+<li>左ペインより [Update Services] - [&lt;WSUS サーバー名&gt;] - [更新プログラム] 配下に作成された更新ビューを選択し、中央ペインに対象製品用の更新プログラムのみが表示されていることを確認します。</li>
+<li>対象製品用の不要な更新プログラムを選択して右クリックし、[拒否] を実行することで 「拒否済み」に設定します。</li>
+</ol>
+<p>※ 注意 : 拒否済みの設定対象製品の更新プログラムについて</p>
+<p>.Net Framework 用の更新プログラム等の中には、複数の OS に跨って提供されるものがあるため、製品別に「拒否済み」に設定される場合は、ご注意ください。</p>
+<p>複数の製品に跨って提供されている更新プログラムを一覧で識別するような方法はありませんが、更新プログラムのタイトルや下記の箇所の情報から、複数の製品に跨って提供されている、更新プログラムではないか、確認が可能です。</p>
+<p><img src="/blog/wsus/%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81/6_%E4%B8%8D%E8%A6%81%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E6%8B%92%E5%90%A6%E6%B8%88%E3%81%BF%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%97%E3%82%88%E3%81%86%EF%BC%81.png" alt=""></p>
+<p>いかがだったでしょうか。「拒否済み」は WSUS を安定運用させるための強力な武器です。是非普段の運用の中に取り入れてみてください！</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/不要な更新プログラムは拒否済みに設定しよう！.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../mecm/20180308_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          System Center Endpoint Protection の定義ファイルのダウンロードの最適化について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../mecm/20171107_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを取得する手順 (ワークグループ対応版)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../mecm/20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">15</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
