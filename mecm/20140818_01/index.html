@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20140818_01/20140818_01_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20140818_01/20140818_01_07.png">
 <meta property="article:published_time" content="2014-08-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-19T03:52:29.628Z">
+<meta property="article:modified_time" content="2021-06-07T07:12:19.127Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -62,7 +62,7 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
       </nav>
       <nav id="sub-nav">
         
@@ -77,10 +77,6 @@
       <h1 id="logo-wrap">
         <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
-        </h2>
       
     </div>
   </div>
@@ -109,7 +105,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+1715004e-522e-5545-80dd-eaedd72c849e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E4%BB%BB%E6%84%8F%E3%81%AE%E3%83%AC%E3%82%B8%E3%82%B9%E3%83%88%E3%83%AA%E5%80%A4%E3%82%92+%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2+%E3%82%A4%E3%83%B3%E3%83%99%E3%83%B3%E3%83%88%E3%83%AA+%E3%81%A8%E3%81%97%E3%81%A6%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20140818_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20140818_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20140818_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20140818_01/" data-id="ckno2bhrl000r47qahpqrhpig" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20140818_01/" data-id="ckpma13x200030mnscr5s4n3i" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -121,36 +117,36 @@
 <p>キー： HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer<br>値： Version</p>
 <h2 id="Step1-MOF-ファイルの作成"><a href="#Step1-MOF-ファイルの作成" class="headerlink" title="Step1: MOF ファイルの作成"></a>Step1: MOF ファイルの作成</h2><p>インベントリとして収集するための情報を拡張するには、MOF ファイルを作成する必要があります。本手順では、MOF ファイルを簡単に作成することができる、外部無料ツール RegKeyToMOF  を使用します。</p>
 <ol>
-<li><a href="https://gallery.technet.microsoft.com/RegKeyToMof-28e84c28" target="_blank" rel="noopener">RegKeyToMOF</a>  を起動し、画面左上から、採取したいキーを選択します。</li>
+<li><a target="_blank" rel="noopener" href="https://gallery.technet.microsoft.com/RegKeyToMof-28e84c28">RegKeyToMOF</a>  を起動し、画面左上から、採取したいキーを選択します。</li>
 </ol>
 <p>（今回は Internet Explorer のバージョンを取るため、”Internet Explorer” キーをクリックします。）<br>次に右上の画面より、選択したキー配下の取得したい値を選択します。</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_01.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_01.png"></p>
 <ol start="2">
 <li>“ClassGroup”  には任意の名前を入れ、ConfMgr12 が選択してあることを確認します。<br>そして、”configuration.mof”/ “to import In Admin/Agent Settings/HardwereInventory/SetClasses/Import” タブを、それぞれ、コピーして、メモ帳等に内容を貼り付け、拡張子を “.mof” にして、MOF ファイルとして保存します。</li>
 </ol>
-<p><img src="/blog/mecm/20140818_01/20140818_01_02.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_02.png"></p>
 <ol start="3">
 <li>検証用のコンピューターでコマンドプロンプトから手順 2. で作成した MOF ファイルのあるパスに移動し、以下を実行します。</li>
 </ol>
 <p>mofcomp -check xxxx.mof （ xxxx には mof につけたファイル名を入れてください ）</p>
 <p>構文チェックでエラーが出力されないことを確認してください。</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_03.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_03.png"></p>
 <h2 id="Step2-インベントリの収集対象としてクライアント側の名前空間-（-WMI-を拡張する"><a href="#Step2-インベントリの収集対象としてクライアント側の名前空間-（-WMI-を拡張する" class="headerlink" title="Step2: インベントリの収集対象としてクライアント側の名前空間 （ WMI ) を拡張する"></a>Step2: インベントリの収集対象としてクライアント側の名前空間 （ WMI ) を拡張する</h2><p>使用する MOF ファイル： configuration.mof タブで作成した MOF ファイル<br>作業場所： Configuration Manager サイトサーバー（ CAS 環境の場合は、中央管理サイト ）</p>
 <ol>
 <li><p>以下のファイルをバックアップしておきます。<br>パス： &lt; Configuration Manager インストール ディレクトリ&gt;\inboxes\clifiles.src\hinv<br>バックアップ対象ファイル: configuration.mof</p>
 </li>
-<li><p>configuration.mof　 ファイルをメモ帳で開き、上述で確認した“configuration.mof” タブの内容を 一番下にコピー（追記）して保存します。</p>
+<li><p> configuration.mof　 ファイルをメモ帳で開き、上述で確認した“configuration.mof” タブの内容を 一番下にコピー（追記）して保存します。</p>
 </li>
 </ol>
 <p>具体的には、最後の “Added extensions start/ end” の 2 行の間に挿入します。</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_04.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_04.png"></p>
 <h2 id="Step3-サイトサーバー側でインベントリの収集対象に追加するために-mof-定義を追加する"><a href="#Step3-サイトサーバー側でインベントリの収集対象に追加するために-mof-定義を追加する" class="headerlink" title="Step3: サイトサーバー側でインベントリの収集対象に追加するために mof 定義を追加する"></a>Step3: サイトサーバー側でインベントリの収集対象に追加するために mof 定義を追加する</h2><p>使用する MOF ファイル： to import In Admin/Agent Settings/HardwereInventory/SetClasses/Import タブで作成した MOF ファイル<br>作業場所：最上位の Configuration Manager サイトサーバー （ CAS 環境の場合は、中央管理サイト ）</p>
 <ol>
 <li>最上位の Configuration Manager サイト サーバー から、Configuration Manager コンソールを以下のとおり展開し、ハードウェア インベントリのクラスを追加します。</li>
 </ol>
 <p>[管理] -&gt; [概要] -&gt; [クライアント設定] -&gt; [既定のクライアント設定]</p>
 <p>[ハードウェア インベントリ] ページを開き、[クラスの設定] で “手順 A.” で作成した “to import in Admin/AgentSettings/HardwareInventory/SetClasses/Import” MOF ファイルをインポートし、当該ハードウェア インベントリ クラスにチェックをいれます。</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_05.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_05.png"></p>
 <h2 id="Step4-インベントリの収集ができているか確認する"><a href="#Step4-インベントリの収集ができているか確認する" class="headerlink" title="Step4: インベントリの収集ができているか確認する"></a>Step4: インベントリの収集ができているか確認する</h2><p>MOF ファイルで定義したレジストリ値は、ハードウェア インベントリ データの 1 つとして収集されます。データがサイト サーバーに送信され、正常に処理が完了した時点で、データベースに格納されます。</p>
 <p>また、クライアントは、サイト サーバーで設定されたスケジュールに従って、それぞれインベントリを収集します。インベントリの周期は、既定では 7 日毎に実行されるように設定されておりますので、クライアントに設定されたレジストリ値が、把握できるようになるまで、時間差が生じる可能性がございます。</p>
 <p>上記作業後、動作を確認するには、検証用の Configuration Manager クライアント端末 1 台で手動でインベントリ収集サイクルを実行します。</p>
@@ -158,17 +154,17 @@
 <li>Configuration Manager クライアント端末のコントロールパネルから、Configuration Manager を開き、”操作” タブから以下のサイクルを実行します。</li>
 </ol>
 <p>[コンピューターポリシーの取得および評価サイクル]<br>[ハードウェア インベントリ サイクル]</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_06.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_06.png"></p>
 <p>反映されたポリシーを受信するまでに時間がかかる場合がありますので、テストの際は上記サイクルを何度か実行ください。</p>
 <p>拡張したハードウェアインベントリが正常に収集されると、Configuration Manager コンソールから対象マシンを右クリックして、リソース エクスプローラーを起動することで、収集したレジストリ情報をご確認いただけます。</p>
-<p><img src="/blog/mecm/20140818_01/20140818_01_07.png" alt=""></p>
+<p><img src="/blog/mecm/20140818_01/20140818_01_07.png"></p>
 <p>～ 補足 1 ～<br>今回は Internet Explorer の情報を具体例としてあげました。<br>64 bit OS 上で動作する Internet Explorer は 32bit 版と 64bit 版がございます。<br>64 bit OS では、32bit 版/ 64bit 版双方が、HKLM\Software\Microsoft\Internet Explorer と HKLM\Software\Wow6432Node\Microsoft\Internet Explorer の値として取得することができます。<br>リソースエクスプローラー上では、それぞれ InternetExplorer と InternetExplorer64 が表示されます。<br>(InternetExplorer64 に 64 bit OS で収集した Wow6432Node 配下の対象レジストリ値が格納されます。)<br>Wow6432Node 配下のレジストリ値も取得したい場合は、RegKeyToMOF ツールの“Enable 64bits (for Regkeys not written in Wow6432Node)” のチェックボックスをオンのまま MOF ファイルを作成してください。</p>
 <p>～ 補足 2 ～<br>MOF ファイルでインベントリを拡張し、収集できるインベントリは HKLM 配下となり、HKCU 配下は拡張することはできません。</p>
-<p>～ 参考情報 ～<br>MOF (Managed Object Format) ファイルのサンプル<br><a href="http://msdn.microsoft.com/ja-jp/library/aa728809(v=vs.71).aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/ja-jp/library/aa728809(v=vs.71).aspx</a></p>
-<p>Managed Object Format (MOF)<br><a href="http://msdn.microsoft.com/en-us/library/aa823192.aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/aa823192.aspx</a></p>
-<p>Configuration Manager のハードウェア インベントリの拡張方法<br><a href="http://technet.microsoft.com/ja-jp/library/gg712290.aspx" target="_blank" rel="noopener">http://technet.microsoft.com/ja-jp/library/gg712290.aspx</a></p>
-<p>Configuration Manager のハードウェア インベントリ<br><a href="http://technet.microsoft.com/ja-jp/library/gg682093.aspx" target="_blank" rel="noopener">http://technet.microsoft.com/ja-jp/library/gg682093.aspx</a></p>
-<p>Enhansoft - How to Use RegKeyToMof -<br><a href="http://be.enhansoft.com/post/2014/02/13/How-to-Use-RegKeyToMof.aspx" target="_blank" rel="noopener">http://be.enhansoft.com/post/2014/02/13/How-to-Use-RegKeyToMof.aspx</a></p>
+<p>～ 参考情報 ～<br>MOF (Managed Object Format) ファイルのサンプル<br><a target="_blank" rel="noopener" href="http://msdn.microsoft.com/ja-jp/library/aa728809(v=vs.71).aspx">http://msdn.microsoft.com/ja-jp/library/aa728809(v=vs.71).aspx</a></p>
+<p>Managed Object Format (MOF)<br><a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/aa823192.aspx">http://msdn.microsoft.com/en-us/library/aa823192.aspx</a></p>
+<p>Configuration Manager のハードウェア インベントリの拡張方法<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/gg712290.aspx">http://technet.microsoft.com/ja-jp/library/gg712290.aspx</a></p>
+<p>Configuration Manager のハードウェア インベントリ<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/gg682093.aspx">http://technet.microsoft.com/ja-jp/library/gg682093.aspx</a></p>
+<p>Enhansoft - How to Use RegKeyToMof -<br><a target="_blank" rel="noopener" href="http://be.enhansoft.com/post/2014/02/13/How-to-Use-RegKeyToMof.aspx">http://be.enhansoft.com/post/2014/02/13/How-to-Use-RegKeyToMof.aspx</a></p>
 <p>※ 弊社公式情報ではなく英語の記事ですが、Configuration Manager 2007 と 2012 間での RegKeyToMof 使用方法の違いが記載されているため、少しでもお役に立てばと思い紹介させていただきます。<br>コミュニティにおけるマイクロソフト社員による発言やコメントは、マイクロソフトの正式な見解またはコメントではありません。</p>
 
       

@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
 <meta property="article:published_time" content="2018-09-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-19T03:52:29.628Z">
+<meta property="article:modified_time" content="2021-06-07T07:12:19.123Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -57,7 +57,7 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
       </nav>
       <nav id="sub-nav">
         
@@ -72,10 +72,6 @@
       <h1 id="logo-wrap">
         <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
-        </h2>
       
     </div>
   </div>
@@ -104,7 +100,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bd4dbaaa-a551-5208-a80d-d5e6f44adbd6%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+Intune+%E3%81%AE%E3%80%8C%E5%88%B6%E9%99%90%E4%BB%98%E3%81%8D%E3%82%A2%E3%83%97%E3%83%AA%E3%80%8D%E3%81%A8%E3%80%8C%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E8%A1%A8%E7%A4%BA%2F%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%80%8D%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="ckno2bhq6000047qadb9jghgq" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="ckpma13wt00000mns4gln9rcx" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -112,16 +108,16 @@
         <p>※ 2018/9/26 追記</p>
 <p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
 <p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
-<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png" alt=""></p>
+<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
 <p>こんにちは。Microsoft Intune サポート チームです。<br>iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。<br>今回はそのための機能について説明します。</p>
 <p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示/非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。</p>
-<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示/非表示機能"></a>■ アプリの表示/非表示機能</h2><p>「アプリの表示/非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a href="https://support.apple.com/ja-jp/HT202837" target="_blank" rel="noopener">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
+<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示/非表示機能"></a>■ アプリの表示/非表示機能</h2><p>「アプリの表示/非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a target="_blank" rel="noopener" href="https://support.apple.com/ja-jp/HT202837">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
 <p>「アプリの表示/非表示」の設定画面はこのようになっています。</p>
-<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png" alt=""></p>
+<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
 <p>[アプリ URL] または [アプリ バンドル ID] でアプリを特定していますので、この 2 つのいずれかを正確に入力します。</p>
 <ul>
 <li>App Store に公開されているアプリであれば、[アプリ URL] で指定できます。</li>
-<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps" target="_blank" rel="noopener">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
+<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
 </ul>
 <p>注意点としては、複数の「アプリの表示/非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示/非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p>
 <h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018/9/26 追記</p>

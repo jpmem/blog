@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180509_01/20180509_01_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180509_01/20180509_01_07.png">
 <meta property="article:published_time" content="2018-05-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-19T03:52:29.644Z">
+<meta property="article:modified_time" content="2021-06-07T07:12:19.143Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -62,7 +62,7 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
       </nav>
       <nav id="sub-nav">
         
@@ -77,10 +77,6 @@
       <h1 id="logo-wrap">
         <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
-        </h2>
       
     </div>
   </div>
@@ -109,7 +105,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+3bd06efa-ec9c-5ca0-bf3a-6e42c641469f%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E3%81%AB+Office+365+Pro+Plus+%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92%E5%90%8C%E6%9C%9F%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180509_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180509_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180509_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20180509_01/" data-id="ckno2bhqu000847qa3ujoenxa" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20180509_01/" data-id="ckpma13xa000c0mns2lkme9qe" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -123,8 +119,8 @@
 <li>ソフトウェア更新ポイントの言語の設定</li>
 </ul>
 <h1 id="要件の確認"><a href="#要件の確認" class="headerlink" title="要件の確認"></a>要件の確認</h1><p>Office 365 更新プログラムを管理する場合、階層の最上位の WSUS サーバーだけでなく、<strong>最上位のサイト サーバーにおいても、インターネットへのアクセスが必要です。</strong> 通常の更新プログラム管理においては、サイト サーバーのインターネット接続は必須要件ではありませんが、Office 365 更新プログラムの管理では必須となりますので、ご注意ください。そのため、完全なオフライン環境では SCCM による Office 365 更新プログラムの管理はできません。その他要件につきましては、次の公開情報に記載しておりますので、ご確認ください。</p>
-<p><a href="https://docs.microsoft.com/ja-jp/DeployOffice/manage-updates-to-office-365-proplus-with-system-center-configuration-manager#BKMK_Reqs" target="_blank" rel="noopener">Configuration Manager を使用して Office 365 クライアントの更新を管理するための要件</a></p>
-<h1 id="サイト-システムのプロキシ-サーバー設定"><a href="#サイト-システムのプロキシ-サーバー設定" class="headerlink" title="サイト システムのプロキシ サーバー設定"></a>サイト システムのプロキシ サーバー設定</h1><p>SCCM 評価ガイドの <a href="https://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_EvalGuide_O365ProPlus_jp.docx" target="_blank" rel="noopener">‘Office 365 ProPlus 展開・アップデート編’</a> のソフトウェア更新ポイントの追加手順はプロキシ サーバーを利用せずに Microsoft Update サイトから更新プログラムを同期することが前提となった手順になっております。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/DeployOffice/manage-updates-to-office-365-proplus-with-system-center-configuration-manager#BKMK_Reqs">Configuration Manager を使用して Office 365 クライアントの更新を管理するための要件</a></p>
+<h1 id="サイト-システムのプロキシ-サーバー設定"><a href="#サイト-システムのプロキシ-サーバー設定" class="headerlink" title="サイト システムのプロキシ サーバー設定"></a>サイト システムのプロキシ サーバー設定</h1><p>SCCM 評価ガイドの <a target="_blank" rel="noopener" href="https://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_EvalGuide_O365ProPlus_jp.docx">‘Office 365 ProPlus 展開・アップデート編’</a> のソフトウェア更新ポイントの追加手順はプロキシ サーバーを利用せずに Microsoft Update サイトから更新プログラムを同期することが前提となった手順になっております。</p>
 <p>そのため、Microsoft Update サイトから更新プログラムを同期する際にプロキシ サーバーを利用する環境においては以下の追加設定を実施いただきますよう宜しくお願い致します。</p>
 <p>[ソフトウェアの更新ポイント] の役割をもつサーバーの [サイト システム] の設定にて、以下を追加下さい。</p>
 <ol>
@@ -135,7 +131,7 @@
 <li><p>右クリックし、[プロパティ] を選択します。</p>
 </li>
 </ol>
-<p><img src="/blog/mecm/20180509_01/20180509_01_01.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_01.png"></p>
 <ol start="4">
 <li><p>[サイト システムのプロパティ] より、[プロキシ] タブを選択します。</p>
 </li>
@@ -144,7 +140,7 @@
 <li><p>[OK] を選択し、[サイト システムのプロパティ] を閉じます。</p>
 </li>
 </ol>
-<p><img src="/blog/mecm/20180509_01/20180509_01_02.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_02.png"></p>
 <h1 id="ソフトウェアの更新ポイントのプロキシ-サーバー設定"><a href="#ソフトウェアの更新ポイントのプロキシ-サーバー設定" class="headerlink" title="ソフトウェアの更新ポイントのプロキシ サーバー設定"></a>ソフトウェアの更新ポイントのプロキシ サーバー設定</h1><p>[ソフトウェアの更新ポイント] の役割をもつサーバーの [ソフトウェアの更新ポイント] の設定にて、以下を追加下さい。</p>
 <ol>
 <li><p>SCCM の管理コンソールにて、[管理] - [概要] - [サイトの構成] - [サーバーとサイト システムの役割] からソフトウェアの更新ポイントの役割を持つサーバーを選択します。</p>
@@ -154,7 +150,7 @@
 <li><p>右クリックし、[プロパティ]を選択します。</p>
 </li>
 </ol>
-<p><img src="/blog/mecm/20180509_01/20180509_01_03.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_03.png"></p>
 <ol start="4">
 <li><p>[ソフトウェアの更新ポイントのプロパティ] より、[プロキシとアカウントの設定] タブを選択します。</p>
 </li>
@@ -163,16 +159,16 @@
 <li><p>[OK] を選択し、[ソフトウェア更新ポイントのプロパティ] を閉じます。</p>
 </li>
 </ol>
-<p><img src="/blog/mecm/20180509_01/20180509_01_04.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_04.png"></p>
 <p>（※）自動展開規則を使用しない場合でも、Office 365 の更新プログラムをプロキシ経由で同期する場合は、⑤ のチェックをオンにする必要があります。</p>
 <h1 id="ソフトウェア更新ポイントの言語の設定"><a href="#ソフトウェア更新ポイントの言語の設定" class="headerlink" title="ソフトウェア更新ポイントの言語の設定"></a>ソフトウェア更新ポイントの言語の設定</h1><p>クライアントが複数の言語の Office 環境の場合は、Office の更新プログラムにつきましても、クライアントにインストールされているすべての言語モジュールをダウンロードする必要があります。複数の言語の Office 環境の場合は、以下の追加設定を実施いただきますよう宜しくお願い致します。</p>
 <p>以下の手順では、英語と日本語版の環境を例えております。</p>
 <p>[ソフトウェアの更新ポイント] がインストールされているすべてのサイトにおいて、ソフトウェア更新ポイントのプロパティ画面の [言語] タブにて、”英語” や “日本語” を選択します。</p>
 <p>その他、お客様の言語環境に応じて、必要な言語を追加してください。</p>
 <p>言語の追加後には、スケジュール同期や手動にての同期により、指定した言語のメタデータが同期されるようになります。</p>
-<p><img src="/blog/mecm/20180509_01/20180509_01_05.png" alt=""><br><img src="/blog/mecm/20180509_01/20180509_01_06.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_05.png"><br><img src="/blog/mecm/20180509_01/20180509_01_06.png"></p>
 <p>また、更新プログラムを展開パッケージにダウンロードする際には、必ず、お客様の言語環境に合わせて、必要とされる言語をすべて選択し、ダウンロードして頂ますようお願いいたします。</p>
-<p><img src="/blog/mecm/20180509_01/20180509_01_07.png" alt=""></p>
+<p><img src="/blog/mecm/20180509_01/20180509_01_07.png"></p>
 
       
       

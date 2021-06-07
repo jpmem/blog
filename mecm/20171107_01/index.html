@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171107_01/20171107_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171107_01/20171107_01_02.png">
 <meta property="article:published_time" content="2017-11-16T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-19T03:52:29.640Z">
+<meta property="article:modified_time" content="2021-06-07T07:12:19.139Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -57,7 +57,7 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-        <a class="main-nav-link" href="https://cssjpn.github.io/" target="_blank" rel="noopener">サポート情報</a>
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
       </nav>
       <nav id="sub-nav">
         
@@ -72,10 +72,6 @@
       <h1 id="logo-wrap">
         <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。</a>
-        </h2>
       
     </div>
   </div>
@@ -104,14 +100,14 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+a2d75d75-e923-51ab-b30c-426f56856694%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%81%9F+PC+%E3%81%A7%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC+%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%89%8B%E9%A0%86+%28%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E5%AF%BE%E5%BF%9C%E7%89%88%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20171107_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20171107_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20171107_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20171107_01/" data-id="ckno2bhrm000s47qa0jgr1l62" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20171107_01/" data-id="ckpma13x700080mns91tqd6v4" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
 <p>今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを取得する手順をご紹介します。同様の手順については、こちらの技術情報でもご紹介しておりますが、本記事では展開後にドメインに参加せず、ワークグループ端末として利用する場合も考慮した手順であり、当サポート部門でもご案内した実績が多い手順でもありますので、お役立ていただけますと幸いです。なお、再イメージングする手順につきましては、次のブログ記事がお役立ていただけますので、こちらも合わせてご確認ください。</p>
-<p><a href="https://docs.microsoft.com/ja-jp/archive/blogs/systemcenterjp/reimaging-master-sccm" target="_blank" rel="noopener">System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/systemcenterjp/reimaging-master-sccm">System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順</a></p>
 <p>(留意事項)<br>System Center 2012 Configuration Manager SP2 / System Center 2012 R2 Configuration Manager SP1 エージェントの場合、ワークグループ環境にて自動割り当てができないという不具合が報告されています。この不具合に合致する場合、本手順を実施しても正常に自動割り当てができませんが、この不具合は CU2 以降で修正されておりますので、当該バージョンをご利用の場合は、CU2 以降のエージェントをご利用ください。(2018/1/23 時点で最新版は CU4 です。)</p>
 <h2 id="対象製品"><a href="#対象製品" class="headerlink" title="対象製品"></a>対象製品</h2><p>System Center 2012 Configuration Manager</p>
 <p>System Center 2012 R2 Configuration Manager</p>
@@ -125,18 +121,39 @@
 </ol>
 <p><strong>1.</strong> <strong>サイト コード未割り当ての状態でエージェントをインストールする</strong></p>
 <p>以下の手順にて、サイト コードが “未割り当て” の状態でエージェントのセットアップを行います。</p>
-<p>1) サイト サーバーより、SCCM インストール フォルダー 配下に存在する Client フォルダーをコピーし保存します。インストール フォルダーの初期設定は以下になります。</p>
+<ol>
+<li>サイト サーバーより、SCCM インストール フォルダー 配下に存在する Client フォルダーをコピーし保存します。インストール フォルダーの初期設定は以下になります。</li>
+</ol>
 <p>\Program Files\Microsoft Configuration Manager\Client</p>
-<p>2) 参照コンピューターにローカル管理者権限をもつユーザーでログインします。<br>3) 項番 1) でコピーした Client フォルダーを、クライアント上の任意のフォルダーに格納します。<br>4) サイト サーバーと通信できないようにするため、ネットワーク ケーブルを抜きます。<br>5) [管理者として実行] にてコマンド プロンプトを開き、cd コマンドでクライアントに格納した Client フォルダーに移動します。<br>6) 以下のコマンドを実行します。</p>
+<ol start="2">
+<li>参照コンピューターにローカル管理者権限をもつユーザーでログインします。</li>
+<li>項番 1) でコピーした Client フォルダーを、クライアント上の任意のフォルダーに格納します。</li>
+<li>サイト サーバーと通信できないようにするため、ネットワーク ケーブルを抜きます。</li>
+<li>[管理者として実行] にてコマンド プロンプトを開き、cd コマンドでクライアントに格納した Client フォルダーに移動します。</li>
+<li>以下のコマンドを実行します。</li>
+</ol>
 <p>ccmsetup.exe<br>※オプションなしで ccmsetup.exe を実行することにより、”未割り当て” の状態でエージェントがセットアップされます。</p>
-<p>7) タスクマネージャーを起動して [プロセス] タブにて ccmsetup.exe が表示されなくなるまで待ちます。<br>8) [コントロール パネル] -&gt; [システムとセキュリティ] -&gt; [Configuration Manager] を開き、以下のようにサイト コードが “未割り当て” の状態であることを確認します。</p>
+<ol start="7">
+<li>タスクマネージャーを起動して [プロセス] タブにて ccmsetup.exe が表示されなくなるまで待ちます。</li>
+<li>[コントロール パネル] -&gt; [システムとセキュリティ] -&gt; [Configuration Manager] を開き、以下のようにサイト コードが “未割り当て” の状態であることを確認します。</li>
+</ol>
 <p>[コンポーネント] タブ : 「CCM 通知エージェント」以外のすべての項目が「インストール済み」であることを確認します。</p>
 <p>※ 「CCM 通知エージェント」は「無効」になります。<br>[サイト] タブ : 「現在の割り当てサイト コード」が空欄であることを確認します。</p>
 <p><strong>2.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスの停止とスタート アップの種類の変更</strong></p>
 <p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
 <p><strong>3.</strong> <strong>SCCM</strong> <strong>で使用する自己署名証明書を削除する</strong></p>
 <p>以下の手順で自己署名証明書を削除します。</p>
-<p>1) コマンド プロンプトを開き、”mmc” を入力して実行します。<br>2) [ファイル] - [スナップインの追加と削除] をクリックします。<br>3) 左ペインから [証明書] をクリックして [追加] ボタンをクリックします。<br>4) “コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。<br>5) “ローカル コンピューター” にチェックし、[完了] をクリックします。<br>6) 右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。<br>7) 左ペインにて、[証明書] - [SMS] - [証明書] を選択します。<br>8) 中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか ? 」というメッセージが表示されますので、[はい] を選択します。<br>9) [ファイル] - [終了] をクリックします。「 コンソールの設定を コンソール 1  に保存しますか ? 」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</p>
+<ol>
+<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
+<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
+<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
+<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
+<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
+<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
+<li>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</li>
+<li>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか ? 」というメッセージが表示されますので、[はい] を選択します。</li>
+<li>[ファイル] - [終了] をクリックします。「 コンソールの設定を コンソール 1  に保存しますか ? 」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
+</ol>
 <p><strong>4.</strong> <strong>SCCM</strong> <strong>独自の信頼キーと管理ポイントの証明書を削除する</strong></p>
 <p>エージェントのインストール完了後に、もしネットワークに接続して、SCCM サーバー (管理ポイント サーバー) との通信が可能となった場合、参照コンピューターが、SCCM で使用する信頼キーと管理ポイントの証明書を WMI の中に保持した状態となる可能性があります。</p>
 <p>この場合、参照コンピューターに保存されている信頼キーや管理ポイントの証明書を削除する必要があります。wbemtest より、WMI 名前空間 “root\ccm\locationservices” に接続できない場合は、SCCM サーバーと一度も接続がされていないため、問題ありません。接続できる場合は、情報を削除するため、以下の手順を実施してください。</p>
@@ -149,7 +166,13 @@
 <p>スクリプトを作成した後、参照コンピューターでコマンド プロンプトを “管理者として実行” にて起動し、以下のコマンドを実行します。</p>
 <p>※) C:\Temp にスクリプト DeleteTRK.vbs を保存した場合<br>cd C:\Temp<br>cscript DeleteTRK.vbs</p>
 <p>スクリプト実行完了後、以下の手順で、正常に信頼キーや証明書が削除されたことを確認します。</p>
-<p>1) コマンド プロンプトを  “管理者として実行”  にて起動して wbemtest を実行し、 “root\ccm\locationservices”  名前空間に接続します。<br>2) 「スーパークラス名の入力」 はブランクのまま、 「クラスの列挙」 を  “再帰”  を有効にして実行します。<br>3) 一覧から “TrustedRootKey” を選択し、ダブルクリックして開きます。<br>4) 開いた画面で「インスタンス」をクリックします。<br>5) インスタンスが存在しないことを確認します。</p>
+<ol>
+<li>コマンド プロンプトを  “管理者として実行”  にて起動して wbemtest を実行し、 “root\ccm\locationservices”  名前空間に接続します。</li>
+<li>「スーパークラス名の入力」 はブランクのまま、 「クラスの列挙」 を  “再帰”  を有効にして実行します。</li>
+<li>一覧から “TrustedRootKey” を選択し、ダブルクリックして開きます。</li>
+<li>開いた画面で「インスタンス」をクリックします。</li>
+<li>インスタンスが存在しないことを確認します。</li>
+</ol>
 <p><strong>5.</strong> <strong>SMSSLP または DNSSUFFIX のレジストリ値を設定する</strong> <strong>(任意)</strong></p>
 <p>ccmsetup.exe をオプションなしでインストールした場合、AD スキーマが拡張されており、サイト割り当ての境界グループが設定されていれば、次回起動後にサイトが自動的に割り当てられます。但し、AD スキーマを拡張していない場合やワークグループ端末の場合は、AD スキーマから情報を取得して自動でサイトを割り当てることができませんので、サイト割り当てができるように、SMSSLP または DNSSUFFIX のレジストリ値を設定することをご検討ください。SMSSLP のレジストリ値は ccmsetup.exe に SMSMP オプション、DNSSUFFIX のレジストリ値は、DNSSUFFIX オプションを付加してインストールした場合に、セットされるレジストリ値です。SMSSLP のレジストリ値の設定が必要である場合は、以下のレジストリ値に、割り当てるサイトの管理ポイント サーバーの FQDN 名をセットしてください。(対象端末から、名前解決できる FQDN 名であることが前提です。)</p>
 <p>・ SMSSLP<br>キーの場所 : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\CCM<br>値の名前 : SMSSLP<br>値の種類 : REG_SZ</p>
@@ -160,10 +183,10 @@
 <p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。(System Center Configuration Manager のキャプチャー メディアを使用すれば、sysprep /generalize は内部的に自動実行されます。かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。)</p>
 <p>(補足情報)</p>
 <p>Windows 7 / Windows 8.1 環境において、同時に System Center Endpoint Protection (SCEP) クライアントをインストールする場合は、「7. マスターイメージの採取」の前に、次の手順を実施してください。</p>
-<p><a href="https://docs.microsoft.com/ja-jp/previous-versions/system-center/system-center-2012-r2/dn236350(v=technet.10)" target="_blank" rel="noopener">Configuration Manager で Endpoint Protection クライアントをディスク イメージにプロビジョニングする方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/previous-versions/system-center/system-center-2012-r2/dn236350(v=technet.10)">Configuration Manager で Endpoint Protection クライアントをディスク イメージにプロビジョニングする方法</a></p>
 <p>なお、手動適用するための SCEP 用の定義ファイルは、Microsoft Malware Protection Center より入手可能です。適用する定義ファイルは既定の設定にてご利用の場合にはネットワーク検査システムが有効であるため、以下の 2 種類です。</p>
-<p>・ウイルス対策 / スパイウェア対策の定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_01.png" alt=""></p>
-<p>・ネットワーク検査システム定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_02.png" alt=""></p>
+<p>・ウイルス対策 / スパイウェア対策の定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_01.png"></p>
+<p>・ネットワーク検査システム定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_02.png"></p>
 
       
       
