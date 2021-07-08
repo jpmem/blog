@@ -6,6 +6,7 @@
 [全記事一覧](https://jpmem.github.io/blog/archives/)
 
 ## Windows Server Update Services
+- [WSUS DB インデックスの再構成の手順について](./articles/wsus/WSUS_DB_インデックスの再構成の手順について.md)
 - [不要な更新プログラムは「拒否済み」に設定しよう！](./articles/wsus/不要な更新プログラムは拒否済みに設定しよう！.md)
 - [WSUS の同期先の URL の追加について](./articles/wsus/WSUS_の同期先の_URL_の追加について.md)
 
