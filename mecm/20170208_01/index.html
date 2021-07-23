@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>System Center Configuration Manager 独自のエラーコードとメッセージについて | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。System Center Support の本田です。今回は、System Center Configuration Manager で更新プログラムやアプリケーションを展開した際に確認できるメッセージの一覧についてご紹介します。 アプリケーションや更新プログラムを配布した後、インストールに失敗すると見慣れないエラーコードが表示されることをご確認いただいた方も多いのではない">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Center Configuration Manager 独自のエラーコードとメッセージについて">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20170208_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。System Center Support の本田です。今回は、System Center Configuration Manager で更新プログラムやアプリケーションを展開した際に確認できるメッセージの一覧についてご紹介します。 アプリケーションや更新プログラムを配布した後、インストールに失敗すると見慣れないエラーコードが表示されることをご確認いただいた方も多いのではない">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2017-02-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-23T08:50:37.969Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20170208_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      System Center Configuration Manager 独自のエラーコードとメッセージについて
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2017-02-07T15:00:00.000Z" itemprop="datePublished">2017-02-08</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+c3e57b07-cb62-5a96-9424-f515eae7c2c8%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E7%8B%AC%E8%87%AA%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A8%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20170208_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20170208_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20170208_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20170208_01/" data-id="ckrg3spfg001f0npf8buj6oyk" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。System Center Support の本田です。<br>今回は、System Center Configuration Manager で更新プログラムやアプリケーションを展開した際に確認できるメッセージの一覧についてご紹介します。</p>
+<p>アプリケーションや更新プログラムを配布した後、インストールに失敗すると見慣れないエラーコードが表示されることをご確認いただいた方も多いのではないでしょうか。その時に表示されるエラー コードが 0x87d で始まるメッセージについては、System Center Configuration Manager 独自のエラー コードであり、そのエラー コードが意味するメッセージについては、System Center Configuration Manager のモジュールに保存されています。そのため、インターネットなどで検索しても、そのエラー コードが示す意味がわからないことも多いかと思います。</p>
+<p>そのため、このブログ記事では、0x87d で始まるエラー コードに紐付くメッセージの一覧表をご紹介します。トラブル シュートする際にお役立ていただけると幸いです。</p>
+<h2 id="エラーメッセージ表"><a href="#エラーメッセージ表" class="headerlink" title="エラーメッセージ表"></a>エラーメッセージ表</h2><table>
+<thead>
+<tr>
+<th align="center">Error Code (10 進)</th>
+<th align="center">Error Code (16 進)</th>
+<th align="left">メッセージ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2278556161</td>
+<td align="center">0x87d00201</td>
+<td align="left">名前の形式が正しくありません</td>
+</tr>
+<tr>
+<td align="center">2278556162</td>
+<td align="center">0x87d00202</td>
+<td align="left">サービスをシャットダウンしています</td>
+</tr>
+<tr>
+<td align="center">2278556163</td>
+<td align="center">0x87d00203</td>
+<td align="left">データが指定されていません</td>
+</tr>
+<tr>
+<td align="center">2278556164</td>
+<td align="center">0x87d00204</td>
+<td align="left">データが大きすぎます</td>
+</tr>
+<tr>
+<td align="center">2278556165</td>
+<td align="center">0x87d00205</td>
+<td align="left">パスが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556166</td>
+<td align="center">0x87d00206</td>
+<td align="left">無効なファイル</td>
+</tr>
+<tr>
+<td align="center">2278556167</td>
+<td align="center">0x87d00207</td>
+<td align="left">解析エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556168</td>
+<td align="center">0x87d00208</td>
+<td align="left">無効なコマンド</td>
+</tr>
+<tr>
+<td align="center">2278556169</td>
+<td align="center">0x87d00209</td>
+<td align="left">データ型が一致していません</td>
+</tr>
+<tr>
+<td align="center">2278556176</td>
+<td align="center">0x87d00210</td>
+<td align="left">変換ツールが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556177</td>
+<td align="center">0x87d00211</td>
+<td align="left">アドレスが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556178</td>
+<td align="center">0x87d00212</td>
+<td align="left">コンテキストが閉じています</td>
+</tr>
+<tr>
+<td align="center">2278556179</td>
+<td align="center">0x87d00213</td>
+<td align="left">タイムアウトが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556180</td>
+<td align="center">0x87d00214</td>
+<td align="left">名前の長さが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556181</td>
+<td align="center">0x87d00215</td>
+<td align="left">項目が見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556182</td>
+<td align="center">0x87d00216</td>
+<td align="left">サービス パラメーターが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556183</td>
+<td align="center">0x87d00217</td>
+<td align="left">データが壊れています</td>
+</tr>
+<tr>
+<td align="center">2278556184</td>
+<td align="center">0x87d00218</td>
+<td align="left">サービス設定が無効です</td>
+</tr>
+<tr>
+<td align="center">2278556185</td>
+<td align="center">0x87d00219</td>
+<td align="left">グローバル サービスが設定されていません</td>
+</tr>
+<tr>
+<td align="center">2278556192</td>
+<td align="center">0x87d00220</td>
+<td align="left">種類が無効です</td>
+</tr>
+<tr>
+<td align="center">2278556193</td>
+<td align="center">0x87d00221</td>
+<td align="left">ユーザーが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556194</td>
+<td align="center">0x87d00222</td>
+<td align="left">操作が取り消されました</td>
+</tr>
+<tr>
+<td align="center">2278556195</td>
+<td align="center">0x87d00223</td>
+<td align="left">バージョンの不一致</td>
+</tr>
+<tr>
+<td align="center">2278556196</td>
+<td align="center">0x87d00224</td>
+<td align="left">メッセージが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556197</td>
+<td align="center">0x87d00225</td>
+<td align="left">アドレスの種類が無効です</td>
+</tr>
+<tr>
+<td align="center">2278556198</td>
+<td align="center">0x87d00226</td>
+<td align="left">無効なプロトコル</td>
+</tr>
+<tr>
+<td align="center">2278556199</td>
+<td align="center">0x87d00227</td>
+<td align="left">機能が無効になっています</td>
+</tr>
+<tr>
+<td align="center">2278556200</td>
+<td align="center">0x87d00228</td>
+<td align="left">エンドポイントが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556201</td>
+<td align="center">0x87d00229</td>
+<td align="left">資格情報を取得できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556208</td>
+<td align="center">0x87d00230</td>
+<td align="left">指定された資格情報でログオンするときにエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556209</td>
+<td align="center">0x87d00231</td>
+<td align="left">一時的なエラー</td>
+</tr>
+<tr>
+<td align="center">2278556210</td>
+<td align="center">0x87d00232</td>
+<td align="left">メッセージに署名されていません</td>
+</tr>
+<tr>
+<td align="center">2278556211</td>
+<td align="center">0x87d00233</td>
+<td align="left">メッセージは信頼されていません</td>
+</tr>
+<tr>
+<td align="center">2278556212</td>
+<td align="center">0x87d00234</td>
+<td align="left">内部エンドポイントがリモート メッセージを受信できません</td>
+</tr>
+<tr>
+<td align="center">2278556213</td>
+<td align="center">0x87d00235</td>
+<td align="left">解析中に構文エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556214</td>
+<td align="center">0x87d00236</td>
+<td align="left">メモリ不足</td>
+</tr>
+<tr>
+<td align="center">2278556215</td>
+<td align="center">0x87d00237</td>
+<td align="left">返信モードに互換性がありません</td>
+</tr>
+<tr>
+<td align="center">2278556216</td>
+<td align="center">0x87d00238</td>
+<td align="left">公開キーが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556217</td>
+<td align="center">0x87d00239</td>
+<td align="left">クライアント ID が見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556224</td>
+<td align="center">0x87d00240</td>
+<td align="left">ディスク領域が不足しています</td>
+</tr>
+<tr>
+<td align="center">2278556225</td>
+<td align="center">0x87d00241</td>
+<td align="left">データベースに接続できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556226</td>
+<td align="center">0x87d00242</td>
+<td align="left">ストアド プロシージャを実行できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556227</td>
+<td align="center">0x87d00243</td>
+<td align="left">公開キーが一致していません</td>
+</tr>
+<tr>
+<td align="center">2278556228</td>
+<td align="center">0x87d00244</td>
+<td align="left">オブジェクトまたはサブシステムが初期化されていません</td>
+</tr>
+<tr>
+<td align="center">2278556229</td>
+<td align="center">0x87d00245</td>
+<td align="left">オブジェクトまたはサブシステムは既に初期化されています</td>
+</tr>
+<tr>
+<td align="center">2278556230</td>
+<td align="center">0x87d00246</td>
+<td align="left">クライアントの正常性を評価しているときにエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556231</td>
+<td align="center">0x87d00247</td>
+<td align="left">操作を行うために必要なコンポーネントが見つからないか、登録されていませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556232</td>
+<td align="center">0x87d00248</td>
+<td align="left">ネットワーク通信エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278556233</td>
+<td align="center">0x87d00249</td>
+<td align="left">このプロパティは、指定された種類の構成項目では無効です</td>
+</tr>
+<tr>
+<td align="center">2278556234</td>
+<td align="center">0x87d0024a</td>
+<td align="left">ジョブは既に接続されています</td>
+</tr>
+<tr>
+<td align="center">2278556235</td>
+<td align="center">0x87d0024b</td>
+<td align="left">同じ名前が既に存在します</td>
+</tr>
+<tr>
+<td align="center">2278556236</td>
+<td align="center">0x87d0024c</td>
+<td align="left">無効な XML スキーマ ドキュメントが見つかりました</td>
+</tr>
+<tr>
+<td align="center">2278556253</td>
+<td align="center">0x87d0025d</td>
+<td align="left">無効な XML ドキュメントが見つかりました。このドキュメントは、対応する XML スキーマで解析できません。</td>
+</tr>
+<tr>
+<td align="center">2278556254</td>
+<td align="center">0x87d0025e</td>
+<td align="left">信頼されていないドキュメントが見つかりました。このドキュメントをエンドポイントに転送して処理することはできません。</td>
+</tr>
+<tr>
+<td align="center">2278556255</td>
+<td align="center">0x87d0025f</td>
+<td align="left">クライアントとの接続が切断されています</td>
+</tr>
+<tr>
+<td align="center">2278556256</td>
+<td align="center">0x87d00260</td>
+<td align="left">この状態のジョブでは、要求された操作を行えません</td>
+</tr>
+<tr>
+<td align="center">2278556257</td>
+<td align="center">0x87d00261</td>
+<td align="left">構成項目の定義を保持できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556258</td>
+<td align="center">0x87d00262</td>
+<td align="left">受信した DTS メッセージの種類が不明です</td>
+</tr>
+<tr>
+<td align="center">2278556259</td>
+<td align="center">0x87d00263</td>
+<td align="left">DTS から無効なメッセージを受信しました</td>
+</tr>
+<tr>
+<td align="center">2278556260</td>
+<td align="center">0x87d00264</td>
+<td align="left">無効な操作</td>
+</tr>
+<tr>
+<td align="center">2278556261</td>
+<td align="center">0x87d00265</td>
+<td align="left">ストアの状態が無効です</td>
+</tr>
+<tr>
+<td align="center">2278556262</td>
+<td align="center">0x87d00266</td>
+<td align="left">データの整合性がありません</td>
+</tr>
+<tr>
+<td align="center">2278556263</td>
+<td align="center">0x87d00267</td>
+<td align="left">ダウンロードに失敗しました</td>
+</tr>
+<tr>
+<td align="center">2278556264</td>
+<td align="center">0x87d00268</td>
+<td align="left">コンパイルできませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556265</td>
+<td align="center">0x87d00269</td>
+<td align="left">必要な管理ポイントが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556266</td>
+<td align="center">0x87d0026a</td>
+<td align="left">キーの種類が見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556267</td>
+<td align="center">0x87d0026b</td>
+<td align="left">エージェントの種類が見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556268</td>
+<td align="center">0x87d0026c</td>
+<td align="left">ステータスが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556269</td>
+<td align="center">0x87d0026d</td>
+<td align="left">一時停止する期間が短すぎます</td>
+</tr>
+<tr>
+<td align="center">2278556270</td>
+<td align="center">0x87d0026e</td>
+<td align="left">一時停止する期間が長すぎます</td>
+</tr>
+<tr>
+<td align="center">2278556271</td>
+<td align="center">0x87d0026f</td>
+<td align="left">一時停止クッキーが一致していません</td>
+</tr>
+<tr>
+<td align="center">2278556272</td>
+<td align="center">0x87d00270</td>
+<td align="left">コンポーネントは一時停止されていません</td>
+</tr>
+<tr>
+<td align="center">2278556273</td>
+<td align="center">0x87d00271</td>
+<td align="left">コンポーネントが一時停止されています</td>
+</tr>
+<tr>
+<td align="center">2278556274</td>
+<td align="center">0x87d00272</td>
+<td align="left">コンポーネントが無効になっています</td>
+</tr>
+<tr>
+<td align="center">2278556275</td>
+<td align="center">0x87d00273</td>
+<td align="left">コンポーネントは、既に一時停止するように要求されています</td>
+</tr>
+<tr>
+<td align="center">2278556276</td>
+<td align="center">0x87d00274</td>
+<td align="left">コールバック インターフェイスが指定されていません</td>
+</tr>
+<tr>
+<td align="center">2278556277</td>
+<td align="center">0x87d00275</td>
+<td align="left">ロックを取得できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556278</td>
+<td align="center">0x87d00276</td>
+<td align="left">システムの再起動が必要です</td>
+</tr>
+<tr>
+<td align="center">2278556279</td>
+<td align="center">0x87d00277</td>
+<td align="left">操作を完了するのに必要なリソースが不足しています</td>
+</tr>
+<tr>
+<td align="center">2278556280</td>
+<td align="center">0x87d00278</td>
+<td align="left">構成項目のダウンロードの一般エラー</td>
+</tr>
+<tr>
+<td align="center">2278556281</td>
+<td align="center">0x87d00279</td>
+<td align="left">構成項目のダウンロードがタイムアウトしました</td>
+</tr>
+<tr>
+<td align="center">2278556282</td>
+<td align="center">0x87d0027a</td>
+<td align="left">ハッシュが一致しないため、構成項目をダウンロードできませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556283</td>
+<td align="center">0x87d0027b</td>
+<td align="left">構成項目ドキュメントのダウンロードの一般エラー</td>
+</tr>
+<tr>
+<td align="center">2278556284</td>
+<td align="center">0x87d0027c</td>
+<td align="left">構成項目ドキュメントのダウンロードがタイムアウトしました</td>
+</tr>
+<tr>
+<td align="center">2278556285</td>
+<td align="center">0x87d0027d</td>
+<td align="left">ハッシュが一致しないため、構成項目ドキュメントをダウンロードできませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556286</td>
+<td align="center">0x87d0027e</td>
+<td align="left">HTTP ステータス コードが正しくありません</td>
+</tr>
+<tr>
+<td align="center">2278556287</td>
+<td align="center">0x87d0027f</td>
+<td align="left">SHA をバインドできませんでした。NAP エージェントが実行されていない可能性があります。</td>
+</tr>
+<tr>
+<td align="center">2278556288</td>
+<td align="center">0x87d00280</td>
+<td align="left">証明書ストアが空です</td>
+</tr>
+<tr>
+<td align="center">2278556289</td>
+<td align="center">0x87d00281</td>
+<td align="left">証明書の照合基準が指定されていません</td>
+</tr>
+<tr>
+<td align="center">2278556290</td>
+<td align="center">0x87d00282</td>
+<td align="left">複数の証明書が見つかりましたが、[最初の証明書の選択] が設定されていません。</td>
+</tr>
+<tr>
+<td align="center">2278556291</td>
+<td align="center">0x87d00283</td>
+<td align="left">秘密キーがありません</td>
+</tr>
+<tr>
+<td align="center">2278556292</td>
+<td align="center">0x87d00284</td>
+<td align="left">サブジェクト名がありません</td>
+</tr>
+<tr>
+<td align="center">2278556293</td>
+<td align="center">0x87d00285</td>
+<td align="left">検索条件の動詞がないか無効です</td>
+</tr>
+<tr>
+<td align="center">2278556294</td>
+<td align="center">0x87d00286</td>
+<td align="left">SMS の証明機関が無効です</td>
+</tr>
+<tr>
+<td align="center">2278556295</td>
+<td align="center">0x87d00287</td>
+<td align="left">署名証明書がありません</td>
+</tr>
+<tr>
+<td align="center">2278556296</td>
+<td align="center">0x87d00288</td>
+<td align="left">構成項目を圧縮解除できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556297</td>
+<td align="center">0x87d00289</td>
+<td align="left">構成項目ドキュメントを圧縮解除できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556304</td>
+<td align="center">0x87d00290</td>
+<td align="left">ジョブに項目が含まれていません</td>
+</tr>
+<tr>
+<td align="center">2278556305</td>
+<td align="center">0x87d00291</td>
+<td align="left">タスク シーケンスのポリシーが割り当てられていません</td>
+</tr>
+<tr>
+<td align="center">2278556306</td>
+<td align="center">0x87d00292</td>
+<td align="left">クライアントが、インバンド認証するメッセージの署名を解読できません</td>
+</tr>
+<tr>
+<td align="center">2278556307</td>
+<td align="center">0x87d00293</td>
+<td align="left">クライアントが、サイト サーバーの署名証明書を最新の情報に更新できません</td>
+</tr>
+<tr>
+<td align="center">2278556308</td>
+<td align="center">0x87d00294</td>
+<td align="left">ポリシーを確認できません</td>
+</tr>
+<tr>
+<td align="center">2278556309</td>
+<td align="center">0x87d00295</td>
+<td align="left">登録証明書がないか無効です</td>
+</tr>
+<tr>
+<td align="center">2278556310</td>
+<td align="center">0x87d00296</td>
+<td align="left">クライアントが構成項目ドキュメントを処理できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556311</td>
+<td align="center">0x87d00297</td>
+<td align="left">キーが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556312</td>
+<td align="center">0x87d00298</td>
+<td align="left">クライアントのデータベース レコードを検証できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556313</td>
+<td align="center">0x87d00299</td>
+<td align="left">クライアントは、この種類の署名を認識しません</td>
+</tr>
+<tr>
+<td align="center">2278556436</td>
+<td align="center">0x87d00314</td>
+<td align="left">構成項目のバージョン情報の取得がタイムアウトしました。</td>
+</tr>
+<tr>
+<td align="center">2278556437</td>
+<td align="center">0x87d00315</td>
+<td align="left">構成項目のバージョン情報はありません。</td>
+</tr>
+<tr>
+<td align="center">2278556438</td>
+<td align="center">0x87d00316</td>
+<td align="left">構成項目エージェントのジョブが取り消されました。</td>
+</tr>
+<tr>
+<td align="center">2278556445</td>
+<td align="center">0x87d0031d</td>
+<td align="left">サポートされていない構成です。このアプリケーションはユーザーを対象としていますが、ユーザーがログインしていないときにインストールする構成になっています。</td>
+</tr>
+<tr>
+<td align="center">2278556446</td>
+<td align="center">0x87d0031e</td>
+<td align="left">サポートされていない構成です。このアプリケーションはユーザーではなくコンピューター デバイスを対象としていますが、[ユーザー用にインストール] する構成になっています。</td>
+</tr>
+<tr>
+<td align="center">2278556447</td>
+<td align="center">0x87d0031f</td>
+<td align="left">探索スクリプトで無効なデータが返されました。</td>
+</tr>
+<tr>
+<td align="center">2278556448</td>
+<td align="center">0x87d00320</td>
+<td align="left">スクリプトのホストがインストールされていません。</td>
+</tr>
+<tr>
+<td align="center">2278556449</td>
+<td align="center">0x87d00321</td>
+<td align="left">スクリプトの実行がタイムアウトしました。</td>
+</tr>
+<tr>
+<td align="center">2278556450</td>
+<td align="center">0x87d00322</td>
+<td align="left">規則が競合しています。</td>
+</tr>
+<tr>
+<td align="center">2278556451</td>
+<td align="center">0x87d00323</td>
+<td align="left">ユーザーが誰もログオンしていません。</td>
+</tr>
+<tr>
+<td align="center">2278556452</td>
+<td align="center">0x87d00324</td>
+<td align="left">インストールの完了後にアプリケーションを検出できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278556453</td>
+<td align="center">0x87d00325</td>
+<td align="left">アンインストールの完了後もアプリケーションが検出されました。</td>
+</tr>
+<tr>
+<td align="center">2278556454</td>
+<td align="center">0x87d00326</td>
+<td align="left">アプリケーション展開のメタデータが WMI で見つかりませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556455</td>
+<td align="center">0x87d00327</td>
+<td align="left">スクリプトに署名がありません</td>
+</tr>
+<tr>
+<td align="center">2278556456</td>
+<td align="center">0x87d00328</td>
+<td align="left">構成項目のダイジェストが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278556457</td>
+<td align="center">0x87d00329</td>
+<td align="left">アプリケーションの要件を評価または検出できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278556458</td>
+<td align="center">0x87d0032a</td>
+<td align="left">アンインストールのコマンド ラインが無効です</td>
+</tr>
+<tr>
+<td align="center">2278556464</td>
+<td align="center">0x87d00330</td>
+<td align="left">このアプリケーションの展開の種類では、必要な展開を使用した強制展開をサポートしていません</td>
+</tr>
+<tr>
+<td align="center">2278556672</td>
+<td align="center">0x87d00400</td>
+<td align="left">検出規則の評価中に予期しないエラーが発生しました。</td>
+</tr>
+<tr>
+<td align="center">2278556673</td>
+<td align="center">0x87d00401</td>
+<td align="left">検出規則の評価中に正しくない XML 式が見つかりました。</td>
+</tr>
+<tr>
+<td align="center">2278556674</td>
+<td align="center">0x87d00402</td>
+<td align="left">検出規則に無効な演算子が含まれています。</td>
+</tr>
+<tr>
+<td align="center">2278556675</td>
+<td align="center">0x87d00403</td>
+<td align="left">検出規則にサポートされていないデータ型が含まれています。</td>
+</tr>
+<tr>
+<td align="center">2278556704</td>
+<td align="center">0x87d00420</td>
+<td align="left">検出規則がサポートされていない WMI 名前空間を参照しています。</td>
+</tr>
+<tr>
+<td align="center">2278556736</td>
+<td align="center">0x87d00440</td>
+<td align="left">予期されたポリシー ドキュメントが不完全か見つかりません。</td>
+</tr>
+<tr>
+<td align="center">2278556737</td>
+<td align="center">0x87d00441</td>
+<td align="left">展開のメタデータをクライアントで利用できません。</td>
+</tr>
+<tr>
+<td align="center">2278556738</td>
+<td align="center">0x87d00442</td>
+<td align="left">展開のシミュレーションに対して強制実行 (インストール/アンインストール) が試行されました。</td>
+</tr>
+<tr>
+<td align="center">2278557184</td>
+<td align="center">0x87d00600</td>
+<td align="left">スキャン ツール ポリシーが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557185</td>
+<td align="center">0x87d00601</td>
+<td align="left">更新プログラムのスキャンがタイムアウトしました</td>
+</tr>
+<tr>
+<td align="center">2278557186</td>
+<td align="center">0x87d00602</td>
+<td align="left">コンテンツの場所の要求がタイムアウトしました</td>
+</tr>
+<tr>
+<td align="center">2278557187</td>
+<td align="center">0x87d00603</td>
+<td align="left">スキャン ツール ポリシーが削除されているため、スキャンを完了できません。</td>
+</tr>
+<tr>
+<td align="center">2278557188</td>
+<td align="center">0x87d00604</td>
+<td align="left">スキャン ツールがジョブのキューに見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557189</td>
+<td align="center">0x87d00605</td>
+<td align="left">スキャン ツールが削除されています</td>
+</tr>
+<tr>
+<td align="center">2278557190</td>
+<td align="center">0x87d00606</td>
+<td align="left">オフライン スキャン ツールの履歴が見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557191</td>
+<td align="center">0x87d00607</td>
+<td align="left">コンテンツが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557192</td>
+<td align="center">0x87d00608</td>
+<td align="left">インスタンスの種類が無効です</td>
+</tr>
+<tr>
+<td align="center">2278557222</td>
+<td align="center">0x87d00626</td>
+<td align="left">プロセスのインスタンス情報が無効です</td>
+</tr>
+<tr>
+<td align="center">2278557223</td>
+<td align="center">0x87d00627</td>
+<td align="left">プロセスのインスタンスが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557224</td>
+<td align="center">0x87d00628</td>
+<td align="left">コンテンツの場所が無効です</td>
+</tr>
+<tr>
+<td align="center">2278557225</td>
+<td align="center">0x87d00629</td>
+<td align="left">更新プログラムの再スキャンが保留されています</td>
+</tr>
+<tr>
+<td align="center">2278557232</td>
+<td align="center">0x87d00630</td>
+<td align="left">最大試行回数に達しました</td>
+</tr>
+<tr>
+<td align="center">2278557233</td>
+<td align="center">0x87d00631</td>
+<td align="left">スキャンの再試行が保留されています</td>
+</tr>
+<tr>
+<td align="center">2278557234</td>
+<td align="center">0x87d00632</td>
+<td align="left">オンライン スキャンが保留されています</td>
+</tr>
+<tr>
+<td align="center">2278557235</td>
+<td align="center">0x87d00633</td>
+<td align="left">オフライン スキャンが保留されています</td>
+</tr>
+<tr>
+<td align="center">2278557236</td>
+<td align="center">0x87d00634</td>
+<td align="left">レガシ スキャナーはサポートされていません</td>
+</tr>
+<tr>
+<td align="center">2278557264</td>
+<td align="center">0x87d00650</td>
+<td align="left">インストール前スキャンに失敗しました</td>
+</tr>
+<tr>
+<td align="center">2278557265</td>
+<td align="center">0x87d00651</td>
+<td align="left">インストール後スキャンに失敗しました</td>
+</tr>
+<tr>
+<td align="center">2278557266</td>
+<td align="center">0x87d00652</td>
+<td align="left">ソフトウェア更新ポリシーが見つかりませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557267</td>
+<td align="center">0x87d00653</td>
+<td align="left">ソフトウェア更新プログラムのダウンロード エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557268</td>
+<td align="center">0x87d00654</td>
+<td align="left">ソフトウェア更新プログラムのインストール エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557269</td>
+<td align="center">0x87d00655</td>
+<td align="left">インストールできなかったソフトウェア更新プログラムがあります</td>
+</tr>
+<tr>
+<td align="center">2278557270</td>
+<td align="center">0x87d00656</td>
+<td align="left">一般的な内部エラーが発生したため、更新プログラムのハンドラーが処理を続行できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557271</td>
+<td align="center">0x87d00657</td>
+<td align="left">ソフトウェア更新プログラムのスキャン完了後のステータスを検出中にエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557272</td>
+<td align="center">0x87d00658</td>
+<td align="left">ソフトウェア更新プログラムの処理が取り消されました</td>
+</tr>
+<tr>
+<td align="center">2278557273</td>
+<td align="center">0x87d00659</td>
+<td align="left">ソフトウェア更新ポリシーを読み取り中にエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557280</td>
+<td align="center">0x87d00660</td>
+<td align="left">ソフトウェア更新プログラムの実行を監視できません</td>
+</tr>
+<tr>
+<td align="center">2278557281</td>
+<td align="center">0x87d00661</td>
+<td align="left">更新プログラムのインストール後のステータスを検出中にエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557282</td>
+<td align="center">0x87d00662</td>
+<td align="left">ソフトウェア更新プログラムのインストールをトリガーできませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557283</td>
+<td align="center">0x87d00663</td>
+<td align="left">ソフトウェア更新プログラムのインストール ステータスを報告できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557284</td>
+<td align="center">0x87d00664</td>
+<td align="left">更新プログラム ハンドラーのジョブが取り消されました</td>
+</tr>
+<tr>
+<td align="center">2278557285</td>
+<td align="center">0x87d00665</td>
+<td align="left">処理する更新プログラムがジョブにありません</td>
+</tr>
+<tr>
+<td align="center">2278557286</td>
+<td align="center">0x87d00666</td>
+<td align="left">サービス期間外にソフトウェア更新プログラムをインストールすることはできません</td>
+</tr>
+<tr>
+<td align="center">2278557287</td>
+<td align="center">0x87d00667</td>
+<td align="left">ソフトウェア更新プログラムをインストールするサービス期間が、現在も今後も存在しません</td>
+</tr>
+<tr>
+<td align="center">2278557288</td>
+<td align="center">0x87d00668</td>
+<td align="left">ソフトウェア更新プログラムが、適用後も実行可能であると見なされています</td>
+</tr>
+<tr>
+<td align="center">2278557289</td>
+<td align="center">0x87d00669</td>
+<td align="left">ソフトウェア更新プログラムのコンテンツの場所は現在取得できません</td>
+</tr>
+<tr>
+<td align="center">2278557290</td>
+<td align="center">0x87d0066a</td>
+<td align="left">バンドルされているどの子更新プログラムも適用できません</td>
+</tr>
+<tr>
+<td align="center">2278557297</td>
+<td align="center">0x87d00671</td>
+<td align="left">サードパーティのオーケストレーション エンジンによってインストールが開始されるのを待っています</td>
+</tr>
+<tr>
+<td align="center">2278557328</td>
+<td align="center">0x87d00690</td>
+<td align="left">ソフトウェア更新プログラムを適用できません</td>
+</tr>
+<tr>
+<td align="center">2278557329</td>
+<td align="center">0x87d00691</td>
+<td align="left">ソフトウェア更新プログラムのソースが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557330</td>
+<td align="center">0x87d00692</td>
+<td align="left">グループ ポリシーが競合しています</td>
+</tr>
+<tr>
+<td align="center">2278557331</td>
+<td align="center">0x87d00693</td>
+<td align="left">Windows Updates エージェントのバージョンが古すぎます</td>
+</tr>
+<tr>
+<td align="center">2278557332</td>
+<td align="center">0x87d00694</td>
+<td align="left">WSUS ソースは既に存在します</td>
+</tr>
+<tr>
+<td align="center">2278557333</td>
+<td align="center">0x87d00695</td>
+<td align="left">スキャンの結果が不完全です</td>
+</tr>
+<tr>
+<td align="center">2278557334</td>
+<td align="center">0x87d00696</td>
+<td align="left">ソフトウェア更新プログラムは既にインストールされています</td>
+</tr>
+<tr>
+<td align="center">2278557335</td>
+<td align="center">0x87d00697</td>
+<td align="left">ソフトウェア更新プログラムは既にインストールされていますが、インストールを完了するために再起動が必要です。</td>
+</tr>
+<tr>
+<td align="center">2278557336</td>
+<td align="center">0x87d00698</td>
+<td align="left">インストールしようとしているソフトウェア更新プログラムは、実行可能な状態ではありません。</td>
+</tr>
+<tr>
+<td align="center">2278557337</td>
+<td align="center">0x87d00699</td>
+<td align="left">スキャンは既に進行中です</td>
+</tr>
+<tr>
+<td align="center">2278557440</td>
+<td align="center">0x87d00700</td>
+<td align="left">現時点では、ソフトウェア更新プログラムをインストールすることはできません</td>
+</tr>
+<tr>
+<td align="center">2278557441</td>
+<td align="center">0x87d00701</td>
+<td align="left">現時点では、ソフトウェア更新プログラムをダウンロードすることはできません</td>
+</tr>
+<tr>
+<td align="center">2278557442</td>
+<td align="center">0x87d00702</td>
+<td align="left">割り当てポリシーが見つかりません</td>
+</tr>
+<tr>
+<td align="center">2278557443</td>
+<td align="center">0x87d00703</td>
+<td align="left">別のソフトウェア更新プログラムのインストール ジョブが進行中です。一度に 1 つのジョブしか実行できません。</td>
+</tr>
+<tr>
+<td align="center">2278557444</td>
+<td align="center">0x87d00704</td>
+<td align="left">ハード リブートが保留中になっています</td>
+</tr>
+<tr>
+<td align="center">2278557445</td>
+<td align="center">0x87d00705</td>
+<td align="left">一時停止状態が必要です</td>
+</tr>
+<tr>
+<td align="center">2278557446</td>
+<td align="center">0x87d00706</td>
+<td align="left">アクティブなジョブは存在しません</td>
+</tr>
+<tr>
+<td align="center">2278557447</td>
+<td align="center">0x87d00707</td>
+<td align="left">ジョブ ID が一致しません</td>
+</tr>
+<tr>
+<td align="center">2278557448</td>
+<td align="center">0x87d00708</td>
+<td align="left">ソフトウェア更新プログラムをインストールする必要はありません</td>
+</tr>
+<tr>
+<td align="center">2278557449</td>
+<td align="center">0x87d00709</td>
+<td align="left">プロセスの監視を再開できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557450</td>
+<td align="center">0x87d0070a</td>
+<td align="left">無効なコマンド ライン</td>
+</tr>
+<tr>
+<td align="center">2278557451</td>
+<td align="center">0x87d0070b</td>
+<td align="left">プロセスを作成できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557452</td>
+<td align="center">0x87d0070c</td>
+<td align="left">ソフトウェア更新プログラムの実行がタイムアウトしました</td>
+</tr>
+<tr>
+<td align="center">2278557453</td>
+<td align="center">0x87d0070d</td>
+<td align="left">ソフトウェアを更新しようとしましたが、できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278557454</td>
+<td align="center">0x87d0070e</td>
+<td align="left">指定されたコマンド ラインが空です</td>
+</tr>
+<tr>
+<td align="center">2278557455</td>
+<td align="center">0x87d0070f</td>
+<td align="left">更新プログラムのインストーラーのパスが無効です</td>
+</tr>
+<tr>
+<td align="center">2278557456</td>
+<td align="center">0x87d00710</td>
+<td align="left">プロセス作成時間を比較できませんでした</td>
+</tr>
+<tr>
+<td align="center">2278557457</td>
+<td align="center">0x87d00711</td>
+<td align="left">ソフトウェア更新プログラムの展開は、まだアクティブになっていません (まだ開始時刻に達していません)</td>
+</tr>
+<tr>
+<td align="center">2278557458</td>
+<td align="center">0x87d00712</td>
+<td align="left">インストールを完了するには、システムを再起動する必要があります</td>
+</tr>
+<tr>
+<td align="center">2278557459</td>
+<td align="center">0x87d00713</td>
+<td align="left">ソフトウェア更新プログラムの検出結果をまだ受け取っていません</td>
+</tr>
+<tr>
+<td align="center">2278557460</td>
+<td align="center">0x87d00714</td>
+<td align="left">システムの再起動が保留中になっているため、ユーザー用のインストールは行えません</td>
+</tr>
+<tr>
+<td align="center">2278557461</td>
+<td align="center">0x87d00715</td>
+<td align="left">要求されたジョブで、更新プログラムが指定されていません</td>
+</tr>
+<tr>
+<td align="center">2278557696</td>
+<td align="center">0x87d00800</td>
+<td align="left">コンテンツの転送マネージャー ジョブが予期しない状態にあります</td>
+</tr>
+<tr>
+<td align="center">2278557697</td>
+<td align="center">0x87d00801</td>
+<td align="left">MCS の一般エラー</td>
+</tr>
+<tr>
+<td align="center">2278557698</td>
+<td align="center">0x87d00802</td>
+<td align="left">MCS のプロトコルのバージョンが一致しません</td>
+</tr>
+<tr>
+<td align="center">2278557699</td>
+<td align="center">0x87d00803</td>
+<td align="left">MCS セッションを開くときにエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557700</td>
+<td align="center">0x87d00804</td>
+<td align="left">MCS の正常性チェック中にエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278557701</td>
+<td align="center">0x87d00805</td>
+<td align="left">MCS の暗号化が空です</td>
+</tr>
+<tr>
+<td align="center">2278557702</td>
+<td align="center">0x87d00806</td>
+<td align="left">MCS サーバーが多数のクライアントと通信しているためビジー状態です。</td>
+</tr>
+<tr>
+<td align="center">2278557703</td>
+<td align="center">0x87d00807</td>
+<td align="left">指定されたパッケージのパスが無効です。</td>
+</tr>
+<tr>
+<td align="center">2278557704</td>
+<td align="center">0x87d00808</td>
+<td align="left">このパッケージをマルチキャストで共有することはできません。</td>
+</tr>
+<tr>
+<td align="center">2278557705</td>
+<td align="center">0x87d00809</td>
+<td align="left">このパッケージは、マルチキャスト送信が有効になっていません。</td>
+</tr>
+<tr>
+<td align="center">2278557706</td>
+<td align="center">0x87d0080a</td>
+<td align="left">MCS の構成が無効です。</td>
+</tr>
+<tr>
+<td align="center">2278557707</td>
+<td align="center">0x87d0080b</td>
+<td align="left">MCS で Windows 展開サービスのエラーが発生しました。</td>
+</tr>
+<tr>
+<td align="center">2278557708</td>
+<td align="center">0x87d0080c</td>
+<td align="left">WDS セッションは利用できません。</td>
+</tr>
+<tr>
+<td align="center">2278559745</td>
+<td align="center">0x87d01001</td>
+<td align="left">別のソフトウェアが実行中か、再起動が保留中になっています。</td>
+</tr>
+<tr>
+<td align="center">2278559746</td>
+<td align="center">0x87d01002</td>
+<td align="left">このプログラムの別の実行が既に保留されています。</td>
+</tr>
+<tr>
+<td align="center">2278559748</td>
+<td align="center">0x87d01004</td>
+<td align="left">このプログラムは無効になっています。</td>
+</tr>
+<tr>
+<td align="center">2278559749</td>
+<td align="center">0x87d01005</td>
+<td align="left">このプログラムのポリシーが存在しないか無効です。</td>
+</tr>
+<tr>
+<td align="center">2278559750</td>
+<td align="center">0x87d01006</td>
+<td align="left">要求されたプログラムは、現在保留中になっていません。</td>
+</tr>
+<tr>
+<td align="center">2278559752</td>
+<td align="center">0x87d01008</td>
+<td align="left">クライアント キャッシュを現在使用中の状態にできませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278559753</td>
+<td align="center">0x87d01009</td>
+<td align="left">WMI からデータを取得できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278559760</td>
+<td align="center">0x87d01010</td>
+<td align="left">システムの再起動が進行中か、コンピューターの再起動が必要なためこのプログラムの実行が保留中になっています。</td>
+</tr>
+<tr>
+<td align="center">2278559761</td>
+<td align="center">0x87d01011</td>
+<td align="left">実行要求が見つかりませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278559762</td>
+<td align="center">0x87d01012</td>
+<td align="left">現在実行中のプログラムはありません。</td>
+</tr>
+<tr>
+<td align="center">2278559763</td>
+<td align="center">0x87d01013</td>
+<td align="left">このプログラムを実行することはできません。このプログラムは、まだ実行が正常に完了していないプログラムに依存しています。</td>
+</tr>
+<tr>
+<td align="center">2278559764</td>
+<td align="center">0x87d01014</td>
+<td align="left">このプログラムは、ユーザー対象か、ユーザーによる入力が必要か、ユーザー コンテキストで実行するように設定されているため、実行することができません。</td>
+</tr>
+<tr>
+<td align="center">2278559765</td>
+<td align="center">0x87d01015</td>
+<td align="left">ソフトウェアの配布が一時停止されたことを呼び出し元に通知できませんでした。一時停止状態または一時停止クッキーが一致していません。</td>
+</tr>
+<tr>
+<td align="center">2278559767</td>
+<td align="center">0x87d01017</td>
+<td align="left">ソフトウェア配布ポリシーにあるコンテンツのハッシュ文字列またはハッシュのバージョンが、空か間違っています。または、ハッシュの検証に失敗しました。</td>
+</tr>
+<tr>
+<td align="center">2278559768</td>
+<td align="center">0x87d01018</td>
+<td align="left">クライアントがインターネット上にあるため、現在プログラムを実行することはできません。</td>
+</tr>
+<tr>
+<td align="center">2278560000</td>
+<td align="center">0x87d01100</td>
+<td align="left">プログラムを実行しようとしたときに、エラーが発生しました。最大再試行回数に達していない場合は、プログラムがもう一度実行されます。</td>
+</tr>
+<tr>
+<td align="center">2278560001</td>
+<td align="center">0x87d01101</td>
+<td align="left">プログラムを実行しようとしたときに、致命的なエラーが発生しました。プログラムの実行は再試行されません。</td>
+</tr>
+<tr>
+<td align="center">2278560002</td>
+<td align="center">0x87d01102</td>
+<td align="left">実行コンテキストの作成中にエラーが発生しました。</td>
+</tr>
+<tr>
+<td align="center">2278560003</td>
+<td align="center">0x87d01103</td>
+<td align="left">プログラムの実行を準備しているとき (プログラムの実行環境の作成、ネットワークへの接続、ユーザーの権限の借用、ファイルの関連付け情報の確認など)、またはプログラムを起動しよ…</td>
+</tr>
+<tr>
+<td align="center">2278560004</td>
+<td align="center">0x87d01104</td>
+<td align="left">このプログラムのコマンド ラインが無効です。</td>
+</tr>
+<tr>
+<td align="center">2278560005</td>
+<td align="center">0x87d01105</td>
+<td align="left">起動されたプログラムのプロセス情報を取得中にエラーが発生しました。このプログラムの実行は監視されません。</td>
+</tr>
+<tr>
+<td align="center">2278560006</td>
+<td align="center">0x87d01106</td>
+<td align="left">実行可能プログラムが有効かどうかを確認できなかったか、関連付けるコマンド ラインを構成できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278560007</td>
+<td align="center">0x87d01107</td>
+<td align="left">指定されたプログラムのすべての場所にアクセスできませんでした。最大再試行回数に達していない場合は、プログラムがもう一度実行されます。</td>
+</tr>
+<tr>
+<td align="center">2278560008</td>
+<td align="center">0x87d01108</td>
+<td align="left">指定されたプログラムのすべての場所にアクセスできませんでした。プログラムの実行は再試行されません。</td>
+</tr>
+<tr>
+<td align="center">2278560009</td>
+<td align="center">0x87d01109</td>
+<td align="left">指定されたファイルが有効なインストール パッケージかどうかを確認できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278560010</td>
+<td align="center">0x87d0110a</td>
+<td align="left">プログラムの実行を準備しているとき (プログラムの実行環境の作成、ネットワークへの接続、ユーザーの権限の借用、ファイルの関連付け情報の確認など)、またはプログラムを起動しよ…</td>
+</tr>
+<tr>
+<td align="center">2278560256</td>
+<td align="center">0x87d01200</td>
+<td align="left">指定されたハンドルにコンテンツ要求が見つかりません。</td>
+</tr>
+<tr>
+<td align="center">2278560257</td>
+<td align="center">0x87d01201</td>
+<td align="left">コンテンツをダウンロードできません。キャッシュの容量が不足しているか、ディスクがいっぱいです。</td>
+</tr>
+<tr>
+<td align="center">2278560258</td>
+<td align="center">0x87d01202</td>
+<td align="left">コンテンツをダウンロードできません。ダウンロードしようとしているコンテンツの容量が、クライアント キャッシュの合計容量を超えています。</td>
+</tr>
+<tr>
+<td align="center">2278560259</td>
+<td align="center">0x87d01203</td>
+<td align="left">現在、クライアント キャッシュは、実行中のプログラムか進行中のダウンロードで使用されています。</td>
+</tr>
+<tr>
+<td align="center">2278560260</td>
+<td align="center">0x87d01204</td>
+<td align="left">要求されたコンテンツの配布ポイントが見つかりませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278560272</td>
+<td align="center">0x87d01210</td>
+<td align="left">コンテンツの場所を取得できませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278560336</td>
+<td align="center">0x87d01250</td>
+<td align="left">ソフトウェアのインストール ジョブが進行中のため、コンピューターの再起動を開始できません。</td>
+</tr>
+<tr>
+<td align="center">2278560337</td>
+<td align="center">0x87d01251</td>
+<td align="left">アプリケーションの展開の種類ハンドラーを初期化できませんでした。展開の種類がこのシステムでサポートされていない可能性があります。</td>
+</tr>
+<tr>
+<td align="center">2278560384</td>
+<td align="center">0x87d01280</td>
+<td align="left">仮想アプリケーションは現在使用中です</td>
+</tr>
+<tr>
+<td align="center">2278560385</td>
+<td align="center">0x87d01281</td>
+<td align="left">サポートされている App-V クライアントがインストールされていません</td>
+</tr>
+<tr>
+<td align="center">2278560389</td>
+<td align="center">0x87d01285</td>
+<td align="left">依存する App-V パッケージがインストールされていません</td>
+</tr>
+<tr>
+<td align="center">2278560390</td>
+<td align="center">0x87d01286</td>
+<td align="left">新しいバージョンの App-V パッケージが、別の種類の展開によって既にインストールされています。古いバージョンの App-V パッケージをインストールすることはできません</td>
+</tr>
+<tr>
+<td align="center">2278560394</td>
+<td align="center">0x87d0128a</td>
+<td align="left">App-V クライアントで起動エラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278560395</td>
+<td align="center">0x87d0128b</td>
+<td align="left">App-V アプリケーションがインストールされていません</td>
+</tr>
+<tr>
+<td align="center">2278560396</td>
+<td align="center">0x87d0128c</td>
+<td align="left">App-V パッケージのストリーミング配布ポイントが見つかりませんでした</td>
+</tr>
+<tr>
+<td align="center">2278560398</td>
+<td align="center">0x87d0128e</td>
+<td align="left">競合が発生したため、App-V 展開の種類をアンインストールできませんでした。この展開の種類で発行されているコンポーネントは、他の展開の種類でも発行されています。他の展開の…</td>
+</tr>
+<tr>
+<td align="center">2278560399</td>
+<td align="center">0x87d0128f</td>
+<td align="left">App-V sftmime コマンドからエラーが返されました</td>
+</tr>
+<tr>
+<td align="center">2278560400</td>
+<td align="center">0x87d01290</td>
+<td align="left">App-V WMI プロバイダーを照会中にエラーが発生しました</td>
+</tr>
+<tr>
+<td align="center">2278560401</td>
+<td align="center">0x87d01291</td>
+<td align="left">仮想環境には適用できません</td>
+</tr>
+<tr>
+<td align="center">2278560402</td>
+<td align="center">0x87d01292</td>
+<td align="left">仮想アプリケーションは使用中です</td>
+</tr>
+<tr>
+<td align="center">2278563842</td>
+<td align="center">0x87d02002</td>
+<td align="left">このプログラムのソフトウェア配布ポリシーが見つかりませんでした。</td>
+</tr>
+<tr>
+<td align="center">2278563844</td>
+<td align="center">0x87d02004</td>
+<td align="left">ソフトウェア配布ポリシーが見つかりませんでした。</td>
+</tr>
+</tbody></table>
+<h2 id="参考情報"><a href="#参考情報" class="headerlink" title="参考情報"></a>参考情報</h2><p>エラー コードと対応するメッセージについては、SCCM 管理コンソールをインストールしたサーバーにある次のモジュールに格納されています。</p>
+<p>C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\SrsResources.dll<br>※ C:\Program Files (x86)\ は、64 bit OS における管理コンソールの既定のインストール フォルダーです。</p>
+<p>このモジュールをロードして、GetErrorMessage メソッドを呼び出すことで、上記のようにエラー コードに対応するメッセージの出力が可能です。サンプルの PowerShell スクリプトは次の通りですので、興味がおありの方は是非お試しください！</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ErrorCode</span>=<span class="number">2278556161</span></span><br><span class="line">[<span class="built_in">void</span>][<span class="type">System.Reflection.Assembly</span>]::LoadFrom(<span class="string">&quot;C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\SrsResources.dll&quot;</span>)</span><br><span class="line">[<span class="type">SrsResources.Localization</span>]::GetErrorMessage(<span class="variable">$ErrorCode</span>,<span class="string">&quot;ja-JP&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(出力結果)</span><br><span class="line">名前の形式が正しくありません</span><br></pre></td></tr></table></figure>
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20170208_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20170808_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          ソフトウェアの更新ポイント サーバーにおいて w3wp.exe の CPU 使用率が高騰化する
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20140818_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">任意のレジストリ値を ハードウェア インベントリ として取得する方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20210414_01/">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</a>
+          </li>
+        
+          <li>
+            <a href="../20190327_01/">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/WSUS_%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%88%E3%81%AE_URL_%E3%81%AE%E8%BF%BD%E5%8A%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">WSUS の同期先の URL の追加について</a>
+          </li>
+        
+          <li>
+            <a href="../20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 10px;">WSUS</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
