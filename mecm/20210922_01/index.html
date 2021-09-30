@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>重複GUIDの対処について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、お客様をサポートする中、我々が頻繁に遭遇する「重複 GUID 問題」についてご案内させて頂きます。是非、運用されている Configuration Manager (CM) について定期的にご確認いただき、System Health を良い状態に保つ一助にして頂きたく存じます。 重複 GUID 問">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重複GUIDの対処について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20210922_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、お客様をサポートする中、我々が頻繁に遭遇する「重複 GUID 問題」についてご案内させて頂きます。是非、運用されている Configuration Manager (CM) について定期的にご確認いただき、System Health を良い状態に保つ一助にして頂きたく存じます。 重複 GUID 問">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2021-09-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-30T05:28:09.609Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20210922_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      重複GUIDの対処について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2021-09-21T15:00:00.000Z" itemprop="datePublished">2021-09-22</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+cc4e4eb4-d00c-5c2e-9187-13f3d37c7be0%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E9%87%8D%E8%A4%87GUID%E3%81%AE%E5%AF%BE%E5%87%A6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20210922_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20210922_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20210922_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cku6hy55s00190mnt2ivq52ag" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、お客様をサポートする中、我々が頻繁に遭遇する「重複 GUID 問題」についてご案内させて頂きます。<br>是非、運用されている Configuration Manager (CM) について定期的にご確認いただき、System Health を良い状態に保つ一助にして頂きたく存じます。</p>
+<h2 id="重複-GUID-問題-とは"><a href="#重複-GUID-問題-とは" class="headerlink" title="重複 GUID 問題 とは"></a>重複 GUID 問題 とは</h2><p>CM がクライアントの同定のために引き当てる、GUID “XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX” の形式の番号が、複数の端末にて重複してしまう問題です。</p>
+<h2 id="何が問題なの"><a href="#何が問題なの" class="headerlink" title="何が問題なの?"></a>何が問題なの?</h2><p>CM がクライアントの同定を正しく行えなくなってしまうので、下記のような事象が発生します。<br>CM のほぼ全ての機能が正しく利用出来なくなってしまいます。</p>
+<ul>
+<li>意図しない端末に対して、アプリケーション、パッケージ、更新プログラム、タスクシーケンスの配布を行ってしまう。</li>
+<li>収集したインベントリ情報が正しい端末に紐付かない (収集したインベントリ情報を信頼できなくなってしまう)</li>
+</ul>
+<h2 id="どうして問題が発生するの？"><a href="#どうして問題が発生するの？" class="headerlink" title="どうして問題が発生するの？"></a>どうして問題が発生するの？</h2><p>CM はクライアントが CM の管理ポイントに初めて接続した際に GUID を生成し、クライアント側に伝えます。そのクライアント側に伝えられた GUID は %windir%\SMSCFG.ini に保管されます。この一連の流れにより CM サーバーにクライアント情報が登録されます。クライアントは、この SMSCFG.ini に記載の GUID を利用して CM とのやりとりを行います。  </p>
+<p>ということは、この登録作業が終わってしまっている CM のクライアントのデータを複製すると、複製元のクライアントと、複製先のクライアントにて、SMSCFG.ini もまた複製されてしまうわけですから、GUID も同じものを使ってしまいます。本当は違うクライアントでも、CM サーバーから見ると、GUID が同じなので、同じ端末と見なしてしまいます。</p>
+<h2 id="どのような時に問題が発生するの？"><a href="#どのような時に問題が発生するの？" class="headerlink" title="どのような時に問題が発生するの？"></a>どのような時に問題が発生するの？</h2><p>CM への登録が終わってしまっている CM クライアントを複製した場合に発生します。<br>つまり、以下のような場合です。</p>
+<ul>
+<li>CM 登録済み OS のイメージをキャプチャして、キッティングの際のベースイメージとした場合。</li>
+<li>CM 登録済みの仮想マシンを仮想マシンテンプレートとした場合。</li>
+<li>CM 登録済みの仮想マシンをクローンした場合。</li>
+<li>CM 登録済みのバックアップを他のマシンにリストアし、並行稼働した場合。</li>
+</ul>
+<p>特に VDI をご利用されている環境で多く発生している印象です。</p>
+<h2 id="どのように問題を察知すれば良いの"><a href="#どのように問題を察知すれば良いの" class="headerlink" title="どのように問題を察知すれば良いの?"></a>どのように問題を察知すれば良いの?</h2><p>CM のデータベーステーブル System_HIST には CMが管理している端末についてホスト名が変わった際の履歴が残っております。このテーブルにて、MachineID と SMSID が同じなのに、ホスト名が頻繁に切り替わっているものがあった場合、GUID 重複が発生している可能性が非常に高いと判断できます。なお、本テーブルにて MachineID と SMSID が同じレコードの中で、TimeKey が最も古い端末が複製元となっている可能性が高いため、調査の参考にして頂ければと存じます。 </p>
+<p>CM 管理者の方には本テーブル内容の確認を定期運用作業に組み込むことをお勧めいたします。</p>
+<h2 id="どのように問題を解決すれば良いの？"><a href="#どのように問題を解決すれば良いの？" class="headerlink" title="どのように問題を解決すれば良いの？"></a>どのように問題を解決すれば良いの？</h2><p>環境の複製先と、複製元の端末にて以下の対処を実施ください。</p>
+<h3 id="複製先端末"><a href="#複製先端末" class="headerlink" title="複製先端末"></a>複製先端末</h3><p>以下の手順で対処を実行ください。</p>
+<ol>
+<li>CCMExec サービスを停止します。</li>
+<li>以下の Powershell スクリプトを実行します。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WMIObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> “Name&lt;&gt;’RDV’” | <span class="built_in">Remove-WMIObject</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> HKLM:\Software\Microsoft\SystemCertificates\SMS\Certificates <span class="literal">-Recurse</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> C:\Windows\SMSCFG.ini <span class="literal">-Force</span> <span class="literal">-ErrorAction</span> SilentlyContinue</span><br></pre></td></tr></table></figure></li>
+<li>CCMExec サービスを起動します。</li>
+</ol>
+<h4 id="複製先端末が複数の場合の対処"><a href="#複製先端末が複数の場合の対処" class="headerlink" title="複製先端末が複数の場合の対処"></a>複製先端末が複数の場合の対処</h4><ol>
+<li>重複している GUID を持つ端末を集めたデバイスコレクションを作成します。下記の WQL クエリをご利用ください。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>  <span class="keyword">from</span>  SMS_R_System <span class="keyword">where</span> SMS_R_System.SMSUniqueIdentifier <span class="operator">=</span> <span class="string">&#x27;[重複 GUID を起こしている GUID]&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>上記コレクションに対して単体対処の時に利用したPowershellをパッケージで配布します。パッケージ配布の際のコマンドは以下を指定ください。<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File XXXX.ps1</span><br></pre></td></tr></table></figure></li>
+<li>パッケージを配布されたクライアントは再起動され次第、新しい GUID を順次取得します。配布対象のコレクションに所属するクライアント数が少なくなっていけば事象解消し始めていることになります。</li>
+</ol>
+<h3 id="複製元端末-マスターイメージ"><a href="#複製元端末-マスターイメージ" class="headerlink" title="複製元端末 (マスターイメージ)"></a>複製元端末 (マスターイメージ)</h3><ol>
+<li>下記ブログにてご案内している手順で CM クライアントを完全アンインストールください。</li>
+</ol>
+<ul>
+<li><a href="https://jpmem.github.io/blog/mecm/20190327_01/">https://jpmem.github.io/blog/mecm/20190327_01/</a></li>
+</ul>
+<ol start="2">
+<li>(Citrix VDI 端末のマスターイメージの場合) Powershellを管理者権限で開き、以下を実行ください。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> <span class="string">&quot;Name=&#x27;Citrix&#x27;&quot;</span> | <span class="built_in">Remove-WmiObject</span></span><br></pre></td></tr></table></figure></li>
+<li>CM コンソールから、重複していた GUID を持つデバイスのレコードを削除します。</li>
+<li>以下のマスターイメージ用の CM クライアント インストール手順を実施します。</li>
+<li>マスターイメージを取得します。</li>
+</ol>
+<h4 id="マスターイメージ用-CM-クライアント-インストール手順"><a href="#マスターイメージ用-CM-クライアント-インストール手順" class="headerlink" title="マスターイメージ用 CM クライアント インストール手順"></a>マスターイメージ用 CM クライアント インストール手順</h4><h5 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h5><ul>
+<li>SMS Agent Host サービスの停止とスタート アップの種類の変更<br>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</li>
+</ul>
+<p>また、タスクスケジューラを開き [Microsoft] - [Configuration Manager] にある [Configuration Manager Health Evaluation] タスクを右クリックして [無効] にします。<br>これによって、SMS Agent Host サービスが自動で起動しないようになります。</p>
+<h5 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h5><ol>
+<li><p>以下の手順にて、サイト コードが “未割り当て” の状態でエージェントのセットアップを行います。</p>
+<ol>
+<li>サイト サーバーより、SCCM インストール フォルダー 配下に存在する Client フォルダーをコピーし保存します。インストール フォルダーの初期設定は以下になります。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure></li>
+<li>参照コンピューターにローカル管理者権限をもつユーザーでログインします。</li>
+<li> 項番 1) でコピーした Client フォルダーを、クライアント上の任意のフォルダーに格納します。</li>
+<li>サイト サーバーと通信できないようにするため、ネットワーク ケーブルを抜きます。</li>
+<li>[管理者として実行] にてコマンド プロンプトを開き、cd コマンドでクライアントに格納した Client フォルダーに移動します。</li>
+<li>以下のコマンドを実行します。<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe</span><br></pre></td></tr></table></figure>
+※オプションなしで ccmsetup.exe を実行することにより、”未割り当て” の状態でエージェントがセットアップされます。</li>
+<li>タスクマネージャーを起動して [プロセス] タブにて ccmsetup.exe が表示されなくなるまで待ちます。</li>
+<li>[コントロール パネル] -&gt; [システムとセキュリティ] -&gt; [Configuration Manager] を開き、以下のようにサイト コードが “未割り当て” の状態であることを確認します。<ul>
+<li>[コンポーネント] タブ : 「CCM 通知エージェント」以外のすべての項目が「インストール済み」であることを確認します。</li>
+<li>※ 「CCM 通知エージェント」は「無効」になります。</li>
+<li>[サイト] タブ : 「現在の割り当てサイト コード」が空欄であることを確認します。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>SMS Agent Host サービスの停止とスタート アップの種類の変更<br>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
+</li>
+<li><p>SCCM で使用する自己署名証明書を削除する<br>以下の手順で自己署名証明書を削除します。  </p>
+<ol>
+<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
+<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
+<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
+<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
+<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
+<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
+<li>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</li>
+<li>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。</li>
+<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
+</ol>
+</li>
+<li><p>SCCM 独自の信頼キーと管理ポイントの証明書を削除する</p>
+</li>
+</ol>
+<p>エージェントのインストール完了後に、もしネットワークに接続して、SCCM サーバー(管理ポイント サーバー) との通信が可能となった場合、参照コンピューターが、SCCM で使用する信頼キーと管理ポイントの証明書を WMI の中に保持した状態となる可能性があります。</p>
+<p>この場合、参照コンピューターに保存されている信頼キーや管理ポイントの証明書を削除する必要があります。wbemtest より、WMI 名前空間 “root\ccm\locationservices” に接続できない場合は、SCCM サーバーと一度も接続がされていないため、問題ありません。接続できる場合は、情報を削除するため、以下の手順を実施してください。</p>
+<p>以下の内容をサンプルとしてスクリプトを作成し、ps1 ファイルとして保存します。本スクリプトを実行することで、信頼キーや管理ポイントの証明書も削除されます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\locationservices <span class="literal">-class</span> trustedrootkey | <span class="built_in">rwmi</span></span><br></pre></td></tr></table></figure>
+
+<p>スクリプトを作成した後、参照コンピューターでコマンド プロンプトを “管理者として実行” にて起動し、<br>以下のコマンドを実行します。</p>
+<p>※) C:\Temp にスクリプト DeleteTRK.ps1 を保存した場合</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Temp</span><br><span class="line">powershell.exe DeleteTRK.ps1</span><br></pre></td></tr></table></figure>
+<p>スクリプト実行完了後、以下の手順で、正常に信頼キーや証明書が削除されたことを確認します。</p>
+<ol>
+<li><p>コマンド プロンプトを “管理者として実行” にて起動して wbemtest を実行し、”root\ccm\locationservices” 名前空間に接続します。</p>
+</li>
+<li><p>「スーパークラス名の入力」はブランクのまま、「クラスの列挙」を “再帰” を有効にして実行します。</p>
+</li>
+<li><p>一覧から “TrustedRootKey” を選択し、ダブルクリックして開きます。</p>
+</li>
+<li><p> 開いた画面で「インスタンス」をクリックします。</p>
+</li>
+<li><p> インスタンスが存在しないことを確認します。</p>
+</li>
+<li><p>SMS Agent Host サービスのスタート アップの種類の変更</p>
+</li>
+</ol>
+<p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動（遅延開始）] に変更します。SMS Agent Host サービスを開始しないように注意してください。<br>また、タスクスケジューラを開き [Microsoft] - [Configuration Manager] にある [Configuration Manager Health Evaluation] タスクを右クリックして [有効] にします。<br>SMS Agent Host サービスを手動で開始しないように注意してください。</p>
+<ol start="6">
+<li>マスターイメージの採取<br>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。</li>
+</ol>
+<h2 id="どのように問題を予防すれば良いの"><a href="#どのように問題を予防すれば良いの" class="headerlink" title="どのように問題を予防すれば良いの?"></a>どのように問題を予防すれば良いの?</h2><p>恐れながら基本的に運用による予防をお願い致します。マスターイメージをキャプチャされる際は、CM に登録されないように。また、CMクライアントで管理されている実利用の端末（検証用途ではない）が仮想マシンで<br>作成されている場合、安易に仮想マシンの複製を行わないようにご対応ください。</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20210922_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../w365/2021-09-13_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">重複GUIDの対処について</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-09-13_01/">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-08-20_01/">Windows 365 Cloud PC を日本語化する手順</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-08-16_01/">Windows 365 FAQ</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-08-11_01/">Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">22</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">11</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
