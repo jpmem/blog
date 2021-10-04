@@ -4,26 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>「指定したパッケージおよびプログラムの展開のステータス」レポートについて | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。 - 事象の概要WSUS サーバー上で更新プログラムの">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「指定したパッケージおよびプログラムの展開のステータス」レポートについて">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180511_01/index.html">
+<meta property="og:title" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2017-09-04_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。 - 事象の概要WSUS サーバー上で更新プログラムの">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_04.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_05.png">
-<meta property="article:published_time" content="2018-05-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-04T03:14:19.209Z">
+<meta property="article:published_time" content="2021-09-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-04T03:14:19.289Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -80,71 +74,21 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20180511_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2017-09-04_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
     
-      <header class="article-header-single">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      「指定したパッケージおよびプログラムの展開のステータス」レポートについて
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update: 
-        <a href="" class="article-date-single">
-  <time datetime="2018-05-10T15:00:00.000Z" itemprop="datePublished">2018-05-11</time>
-</a>
-        
-        
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+4b55d773-7b76-5588-a5e3-85f34fc73dea%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%80%8C%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%8A%E3%82%88%E3%81%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B%E3%81%AE%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%80%8D%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180511_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180511_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180511_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
-        
-        <a data-url="https://jpmem.github.io/blog/mecm/20180511_01/" data-id="ckuc2xfbd000l0mnthmd7djok" class="article-share-link">共有</a>
-      </div>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。System Center Support Team です。</p>
-<p>今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。</p>
-<p>「指定したパッケージおよびプログラムの展開のステータス」は、パッケージ機能でソフトウェアを配信した後の展開状況を確認するために役立ちます。「ターゲット リソースのステータス」では、展開の進行状況、リソース受信ステータスでは展開を受信していない端末も含めて、全台の状況を把握することができます。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_01.png"></p>
-<p>一方、管理コンソールの [監視] - [展開] で展開ステータスからも全台の状況を把握することができますが、本レポートの「リソース受信ステータス」で表示されている No Status のリソース数と展開ステータスの統計情報に表示されている「不明」のリソース数の数が合わず、どちらが正しいのかわからないといったご意見をいただくことがございます。</p>
-<p>例えば、以下の展開ステータスでは不明が「9」ですが、上記レポートでは No Status が「7」となっており、一見すると台数が一致していません。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_02.png"></p>
-<p>これは Expired に「不明」ステータスの端末がカウントされていることによりますが、レポートの「リソース受信ステータス」と展開ステータスの各項目が以下の通り関連付いていることをおさえておけば、理解しやすくなります。</p>
-<table>
-<thead>
-<tr>
-<th align="center">リソース受信ステータス</th>
-<th align="center">展開ステータス</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Accepted</td>
-<td align="center">進行中</td>
-</tr>
-<tr>
-<td align="center">Expired</td>
-<td align="center">成功 or 不明</td>
-</tr>
-<tr>
-<td align="center">No Status</td>
-<td align="center">不明</td>
-</tr>
-</tbody></table>
-<p>例えば、上記例においてリソース受信ステータスの No Status の台数は 7 台です。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_03.png"></p>
-<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_04.png"></p>
-<p>もし、「リソース受信ステータス」と「展開ステータス」の台数が一致しない場合は、Expired のステータスによる影響がありますので、ご留意いただければと存じます。</p>
-<p>(補足)</p>
-<p>Expired は、パッケージの展開の「スケジュール」で設定した「この展開の有効期限を指定する」で指定した時刻が過ぎている場合のステータスです。</p>
-<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_05.png"></p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。  </p>
+<p>今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。</p>
+<h2 id="事象の概要"><a href="#事象の概要" class="headerlink" title="- 事象の概要"></a>- 事象の概要</h2><p>WSUS サーバー上で更新プログラムの <strong>「削除の承認」</strong> を実施しても、Windows 10 クライアントで更新プログラムのアンインストールが行われません。  </p>
+<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="- 対処方法"></a>- 対処方法</h2><p>Windows 10 バージョン 1703 以降の環境においては、本不具合が修正されております。  </p>
+<p>それ以前のバージョンでは現時点で本不具合は修正されていないため、更新プログラムのアンインストールについては、下記のようなコマンドをスタートアップ スクリプトやシャットダウン スクリプトに仕掛けて、アンインストールを実施する必要があります。  </p>
+<ul>
+<li>実行コマンド<br>wusa.exe /uninstall &lt;対象の更新プログラムの MSU ファイルのパス&gt; /quiet /norestart</li>
+</ul>
 
       
       
@@ -158,10 +102,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180511_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2017-09-04_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -169,19 +113,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2018-06-19_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../w365/2021-09-13_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS の分類について
+          Windows 365 用にリモート デスクトップ クライアントをセットアップする手順
         
       </div>
     </a>
   
   
-    <a href="../20180509_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../w365/2021-08-20_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager に Office 365 Pro Plus の更新プログラムを同期する際の注意事項</div>
+      <div class="article-nav-title">Windows 365 Cloud PC を日本語化する手順</div>
     </a>
   
 </nav>
@@ -200,7 +144,7 @@
       <ul>
         
           <li>
-            <a href="../20210922_01/">重複 GUID の対処について</a>
+            <a href="../../mecm/20210922_01/">重複 GUID の対処について</a>
           </li>
         
           <li>
@@ -208,7 +152,7 @@
           </li>
         
           <li>
-            <a href="../../wsus/2017-09-04_01/">(no title)</a>
+            <a href="">(no title)</a>
           </li>
         
           <li>
