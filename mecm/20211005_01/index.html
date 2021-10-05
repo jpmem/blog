@@ -4,20 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows 11 のサポートについて (Configuration Manager) | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。 - 事象の概要WSUS サーバー上で更新プログラムの">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   下記ページでも公開されておりますが、本日 (2021&#x2F;10&#x2F;5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。以下、ご利用における注意点と、MECM でWind">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「削除の承認」が Windows 10 &#x2F; Windows Server 2016 のクライアントに反映されない事象について">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2017-09-04_01/index.html">
+<meta property="og:title" content="Windows 11 のサポートについて (Configuration Manager)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211005_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。 - 事象の概要WSUS サーバー上で更新プログラムの">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   下記ページでも公開されておりますが、本日 (2021&#x2F;10&#x2F;5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。以下、ご利用における注意点と、MECM でWind">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2017-09-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-05T07:01:26.996Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_02.png">
+<meta property="article:published_time" content="2021-10-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-05T07:01:26.980Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -74,7 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2017-09-04_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20211005_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -83,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について
+      Windows 11 のサポートについて (Configuration Manager)
     </h1>
   
 
@@ -91,25 +94,37 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2017-09-03T15:00:00.000Z" itemprop="datePublished">2017-09-04</time>
+  <time datetime="2021-10-04T15:00:00.000Z" itemprop="datePublished">2021-10-05</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+fed1d47b-e75c-5db2-baf9-b26bc79c9c62%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%80%8C%E5%89%8A%E9%99%A4%E3%81%AE%E6%89%BF%E8%AA%8D%E3%80%8D%E3%81%8C+Windows+10+%2F+Windows+Server+2016+%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB%E5%8F%8D%E6%98%A0%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84%E4%BA%8B%E8%B1%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2017-09-04_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2017-09-04_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2017-09-04_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+4a557d5d-a09c-57f7-b0d6-169afeaa9c47%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+11+%E3%81%AE%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%28Configuration+Manager%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211005_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211005_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211005_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2017-09-04_01/" data-id="ckudqhdbs00240mo17x1i5g21" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="ckudqhdbd001b0mo13hsv1yan" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。  </p>
-<p>今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。</p>
-<h2 id="事象の概要"><a href="#事象の概要" class="headerlink" title="- 事象の概要"></a>- 事象の概要</h2><p>WSUS サーバー上で更新プログラムの <strong>「削除の承認」</strong> を実施しても、Windows 10 クライアントで更新プログラムのアンインストールが行われません。  </p>
-<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="- 対処方法"></a>- 対処方法</h2><p>Windows 10 バージョン 1703 以降の環境においては、本不具合が修正されております。  </p>
-<p>それ以前のバージョンでは現時点で本不具合は修正されていないため、更新プログラムのアンインストールについては、下記のようなコマンドをスタートアップ スクリプトやシャットダウン スクリプトに仕掛けて、アンインストールを実施する必要があります。  </p>
-<ul>
-<li>実行コマンド<br>wusa.exe /uninstall &lt;対象の更新プログラムの MSU ファイルのパス&gt; /quiet /norestart</li>
-</ul>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>下記ページでも公開されておりますが、本日 (2021/10/5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。<br>以下、ご利用における注意点と、MECM でWindows 11 の更新プログラムを配布するための設定についてご案内します。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-11">https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-11</a></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li>Windows 11 クライアント の サポート は MECM CB 2107 からの対応となります。</li>
+<li>Windows 11 のタスクシーケンスによるデプロイには Windows 11 のADKが必要となります。<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-adk">https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-adk</a></li>
+<li>現時点において、MECM コンソールのデバイス一覧表記では、オペレーティングシステム の項が Microsoft Windows NT Workstation 10.0 と表示されます。Windows 10との区別のためには、オペレーティング システム ビルドの項を確認ください。ビルド バージョン 10.0.22000 以降 が Windows 11 となります。</li>
+<li>現時点において、Desktop Analytics は Windows 11 をサポートしておりません。</li>
+<li>現時点において、MECM コンソールの “Windows Servicing” のダッシュボードでは Windows 11 デバイスも表示されます。</li>
+</ol>
+<h2 id="MECM-でWindows-11-の更新プログラムを配布する"><a href="#MECM-でWindows-11-の更新プログラムを配布する" class="headerlink" title="MECM でWindows 11 の更新プログラムを配布する"></a>MECM でWindows 11 の更新プログラムを配布する</h2><h3 id="前提事項"><a href="#前提事項" class="headerlink" title="前提事項"></a>前提事項</h3><p>弊社 Windows Update サイトとの同期が取れていることが必要でございます。</p>
+<h3 id="設定手順"><a href="#設定手順" class="headerlink" title="設定手順"></a>設定手順</h3><p>弊社他製品と同様に下記を実施ください。</p>
+<ol>
+<li>[CMコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - 対象のサイトを選択 </li>
+<li>[サイト コンポーネントの構成] - [ソフトウェアの更新ポイント]</li>
+<li>[製品]タブ - [Windows 11] を有効化する</li>
+</ol>
+<p><img src="/blog/mecm/20211005_01/20211005_01_01.png"></p>
+<p>上記設定後、Windows Update との同期が完了すると以下が表示されるようになります。</p>
+<p><img src="/blog/mecm/20211005_01/20211005_01_02.png"></p>
 
       
       
@@ -123,10 +138,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2017-09-04_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211005_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -134,19 +149,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20171025_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順
-        
-      </div>
-    </a>
   
-  
-    <a href="../../mecm/20170818_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20210922_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager Current Branch のバージョン アップについて</div>
+      <div class="article-nav-title">重複 GUID の対処について</div>
     </a>
   
 </nav>
@@ -165,11 +171,11 @@
       <ul>
         
           <li>
-            <a href="../../mecm/20211005_01/">Windows 11 のサポートについて (Configuration Manager)</a>
+            <a href="">Windows 11 のサポートについて (Configuration Manager)</a>
           </li>
         
           <li>
-            <a href="../../mecm/20210922_01/">重複 GUID の対処について</a>
+            <a href="../20210922_01/">重複 GUID の対処について</a>
           </li>
         
           <li>
