@@ -13,11 +13,13 @@
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
 <meta property="og:description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順をご紹介します。本手順を利用いただきますと、クライアント エージェントをアンインストールすることなく、再イメージングが可能です。">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171025_01/image-20211018164229282.png">
 <meta property="article:published_time" content="2017-10-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-13T07:55:35.362Z">
+<meta property="article:modified_time" content="2021-10-18T07:43:43.026Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20171025_01/image-20211018164229282.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -97,7 +99,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+27499685-2d23-5918-a02b-42148092cdd5%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%81%9F+PC+%E3%81%A7%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC+%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E5%86%8D%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20171025_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20171025_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20171025_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20171025_01/" data-id="ckup7xthi000c0lp5ay4z97eh" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20171025_01/" data-id="ckuwcpsvg000c0mphfkxc7r78" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -108,25 +110,25 @@
 <p>同じ参照コンピューターで、再度マスター イメージを取得するシナリオは度々発生するかと思いますが、System Center Configuration Manager クライアントが動作していると、端末に一意の情報が保持されておりますので、それを削除した上で、マスター イメージを再取得する必要があります。本手順を実施していない場合は、展開後に一意の情報が重複して、正常に管理することができなくなりますので、ご留意くださいますようお願い申し上げます。</p>
 <h2 id="対象製品"><a href="#対象製品" class="headerlink" title="対象製品"></a>対象製品</h2><p>System Center 2012 Configuration Manager</p>
 <p>System Center 2012 R2 Configuration Manager</p>
-<p>System Center Configuration Manager Current Branch / LTSB</p>
+<p>System Center Configuration Manager LTSB</p>
+<p>Microsoft Endpoint Configuration Manager Current Branch</p>
 <h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><p>次の手順を実施して、サイト コードをクリアし、一意の情報を削除してから、マスター イメージを採取します。</p>
-<p><strong>1.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスの停止とスタート</strong> <strong>アップの種類の変更</strong><br><strong>2.</strong> <strong>サイト</strong> <strong>コードのクリアと信頼キーの削除</strong>  <strong>(VB スクリプトで実施)</strong><br><strong>3.</strong> <strong>自己署名証明書の削除</strong><br><strong>4.</strong> <strong>SMSCFG.ini</strong> <strong>の削除</strong><br><strong>5.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスのスタート</strong> <strong>アップの種類の変更</strong><br><strong>6.</strong> <strong>マスターイメージの採取</strong></p>
-<p>各手順の詳細は以下の通りです。</p>
-<p><strong>1.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスの停止とスタート</strong> <strong>アップの種類の変更</strong></p>
-<p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
-<p><strong>2.</strong> <strong>サイト</strong> <strong>コードのクリアと信頼キーの削除</strong></p>
-<p>以下の内容をサンプルとしてスクリプトを作成し、vbs ファイルとして保存します。本スクリプトを実行することで、サイト コードがクリアされて、信頼キーも削除されます。</p>
-<p>—– サンプルここから —–</p>
-<p>dim oSMSClient<br>dim objLocator<br>dim objService</p>
-<p>set objLocator = CreateObject(“WbemScripting.SWbemLocator”)<br>set objService = objLocator.ConnectServer(“.”, “root\ccm\locationservices”)<br>set keys = objService.ExecQuery(“select * from TrustedRootKey”)</p>
-<p>for each k in keys<br>k.delete_()<br>next</p>
-<p>set oSMSClient = CreateObject (“Microsoft.SMS.Client”)</p>
-<p>if Err.Number &lt;&gt; 0 then<br>wscript.echo “Could not create SMS Client Object - quitting”<br>else<br>oSMSClient.RemoveAssignedSites<br>oSMSClient.EnableAutoAssignment(True)<br>set oSMSClient = nothing<br>end if</p>
-<p>—– サンプルここから —–</p>
-<p>スクリプトを作成した後、参照コンピューターでコマンド プロンプトを “管理者として実行” にて起動し、以下のコマンドを実行します。</p>
-<p>※) C:\Temp にスクリプト ClearSiteCodeAndDeleteTRK.vbs を保存した場合<br>cd C:\Temp<br>cscript ClearSiteCodeAndDeleteTRK.vbs</p>
-<p><strong>3.</strong> <strong>自己署名証明書の削除</strong></p>
 <ol>
+<li>SMS Agent Host サービスの停止とスタート アップの種類の変更</li>
+<li>サイト コードのクリアと信頼キーの削除</li>
+<li>自己署名証明書の削除</li>
+<li>SMSCFG.ini の削除</li>
+<li>SMS Agent Host サービスのスタート アップの種類の変更</li>
+<li>マスターイメージの採取</li>
+</ol>
+<p>各手順の詳細は以下の通りです。</p>
+<h3 id="1-SMS-Agent-Host-サービスの停止とスタート-アップの種類の変更"><a href="#1-SMS-Agent-Host-サービスの停止とスタート-アップの種類の変更" class="headerlink" title="1. SMS Agent Host サービスの停止とスタート アップの種類の変更"></a>1. SMS Agent Host サービスの停止とスタート アップの種類の変更</h3><p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
+<p>(注意) 以下の場所にある Configuration Manager Health Evaluation タスクが実行された場合、自動で SMS Agent Host サービスが移動します。手順の項番 2. ～ 5. の実行に時間がかかる場合は、手順実行中は本タスクを無効にしてください。</p>
+<p><img src="/blog/mecm/20171025_01/image-20211018164229282.png" alt="image-20211018164229282"></p>
+<h3 id="2-信頼されたルート-キーの削除とサイト-コードのクリア"><a href="#2-信頼されたルート-キーの削除とサイト-コードのクリア" class="headerlink" title="2. 信頼されたルート キーの削除とサイト コードのクリア"></a>2. 信頼されたルート キーの削除とサイト コードのクリア</h3><p>管理者として実行にて起動した PowerShell コンソールで以下のコマンドを実行していき、信頼されたルート キー (TrustedRootKey) の削除とサイト コードのクリアし、サイト コードの自動割り当てを有効します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\locationservices <span class="literal">-class</span> trustedrootkey | <span class="built_in">rwmi</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$oSMSClient</span>=<span class="built_in">New-Object</span> <span class="literal">-comobject</span> Microsoft.SMS.Client</span><br><span class="line"><span class="variable">$oSMSClient</span>.RemoveAssignedSites()</span><br><span class="line"><span class="variable">$oSMSClient</span>.EnableAutoAssignment(<span class="variable">$True</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-自己署名証明書の削除"><a href="#3-自己署名証明書の削除" class="headerlink" title="3. 自己署名証明書の削除"></a>3. 自己署名証明書の削除</h3><ol>
 <li><p>コマンド プロンプトを開き、”mmc” を入力して実行します。</p>
 </li>
 <li><p>[ファイル] - [スナップインの追加と削除] をクリックします。</p>
@@ -159,13 +161,11 @@
 <li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか ? 」というメッセージが表示されますので、[はい] を選択します。</li>
 <li>[ファイル] - [終了] をクリックします。「 コンソールの設定を コンソール 1 に保存しますか ? 」というメッセージが表示されますので、 [いいえ] を選択して、 mmc を終了します。</li>
 </ol>
-<p><strong>4.</strong> <strong>SMSCFG.ini</strong> <strong>の削除</strong></p>
-<p>Configuration Manager 一意の識別子の情報が格納されている SMSCFG.ini を削除します。<br>ファイルは、 以下の場所に存在します。</p>
-<p>%windir%\SMSCFG.ini</p>
-<p><strong>5.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスのスタート</strong> <strong>アップの種類の変更</strong></p>
-<p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動  (遅延開始) ] に変更します。SMS Agent Host サービスを開始しないように注意してください。</p>
-<p><strong>6.</strong> <strong>マスターイメージの採取</strong></p>
-<p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。 (System Center Configuration Manager のキャプチャー メディアを使用すれば、 sysprep /generalize  は内部的に自動実行されます。 かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。 )</p>
+<h3 id="4-SMSCFG-ini-の削除"><a href="#4-SMSCFG-ini-の削除" class="headerlink" title="4. SMSCFG.ini の削除"></a>4. SMSCFG.ini の削除</h3><p>Configuration Manager 一意の識別子の情報が格納されている SMSCFG.ini を削除します。<br>ファイルは、 以下の場所に存在します。</p>
+<p><code>%windir%\SMSCFG.ini</code></p>
+<h3 id="5-SMS-Agent-Host-サービスのスタート-アップの種類の変更"><a href="#5-SMS-Agent-Host-サービスのスタート-アップの種類の変更" class="headerlink" title="5. SMS Agent Host サービスのスタート アップの種類の変更"></a>5. SMS Agent Host サービスのスタート アップの種類の変更</h3><p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動  (遅延開始) ] に変更します。SMS Agent Host サービスを開始しないように注意してください。</p>
+<p>(注意) 手順実施中に Configuration Manager Health Evaluation タスクを無効にした場合は、有効に戻してください。</p>
+<h3 id="6-マスターイメージの採取"><a href="#6-マスターイメージの採取" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。 (System Center Configuration Manager のキャプチャー メディアを使用すれば、 sysprep /generalize  は内部的に自動実行されます。 かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。 )</p>
 
       
       
