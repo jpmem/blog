@@ -4,22 +4,29 @@
   <meta charset="utf-8">
   
   
-  <title>Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Configuration Manager から更新プログラムを配信する際の再起動動作について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本記事では、Configuration Manager から更新プログラム配信時の再起動動作についてご紹介いたします。 Configuration Manager から更新プログラムを展開しているが、Configuration Manager クライアントによって意図せず端末が再起動された、または Windo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する">
-<meta property="og:url" content="https://jpmem.github.io/blog/w365/2021-08-11_02/index.html">
+<meta property="og:title" content="Configuration Manager から更新プログラムを配信する際の再起動動作について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180719_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本記事では、Configuration Manager から更新プログラム配信時の再起動動作についてご紹介いたします。 Configuration Manager から更新プログラムを展開しているが、Configuration Manager クライアントによって意図せず端末が再起動された、または Windo">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
-<meta property="article:published_time" content="2021-08-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-18T08:12:38.316Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018170915319.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018170948956.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171010525.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171035520.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171048444.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171100246.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171109462.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018171122577.png">
+<meta property="article:published_time" content="2018-07-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-18T08:12:38.248Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Windows 365">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180719_01/image-20211018170915319.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +83,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-w365/2021-08-11_02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20180719_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する
+      Configuration Manager から更新プログラムを配信する際の再起動動作について
     </h1>
   
 
@@ -93,31 +100,38 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-08-10T15:00:00.000Z" itemprop="datePublished">2021-08-11</time>
+  <time datetime="2018-07-18T15:00:00.000Z" itemprop="datePublished">2018-07-19</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bb929e60-e328-57cf-bb1d-124c112a45e4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+365+%E3%81%A7+Microsoft+365+Apps+%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC+%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3+%E3%81%AB%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fw365%2F2021-08-11_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fw365%2F2021-08-11_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fw365%2F2021-08-11_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+009debfd-23f0-5762-9e90-ee99ac90030e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BConfiguration+Manager+%E3%81%8B%E3%82%89%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92%E9%85%8D%E4%BF%A1%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AE%E5%86%8D%E8%B5%B7%E5%8B%95%E5%8B%95%E4%BD%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180719_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180719_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180719_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/w365/2021-08-11_02/" data-id="ckuwdqzye001m0mmi4kqr7srj" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20180719_01/" data-id="ckuwdqzy1000x0mmi6qz91mbg" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時に<br>エラーが発生する場合の対処についてお伝え致します。</p>
-<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2021/8/11 時点で判明している内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますよう<br>お願い致します。</p>
-<h2 id="対象"><a href="#対象" class="headerlink" title="対象"></a>対象</h2><p>下記の Microsoft 365 ライセンスをお使いのお客様。</p>
-<ul>
-<li>Microsoft 365 Personal</li>
-<li>Microsoft 365 Business Standard</li>
-</ul>
-<h2 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h2><p>Windows 365 ライセンスで作成したクラウド PC で、Microsoft 365 Apps にログインしようとした時に下記画面のように<br>“Account Issue: The products we found in your account cannot be used to activate Office in shared computer scenarios.” とエラー表示される</p>
-<p><img src="/blog/w365/2021-08-11_02/20210811_02_01.png"></p>
-<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><p>お手数をおかけして大変恐縮でございますが、<br>クラウド PC にインストールされている Microsoft 365 Apps をアンインストールし、<a target="_blank" rel="noopener" href="https://www.office.com/">office.com</a> から Microsoft 365 Apps のバイナリをダウンロード、インストールくださいますよう<br>お願い致します。</p>
-<h2 id="エラー原因"><a href="#エラー原因" class="headerlink" title="エラー原因"></a>エラー原因</h2><p>クラウド PC にインストールされている Microsoft 365 Apps の前提ライセンスとお客様が利用されているライセンスが異なるために本件発生致します。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本件、下記公開情報にも記載がございますのでご確認くださいませ。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps">https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps</a></p>
-<h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>Windows 365 のライセンスに Microsoft 365 のライセンスは含まれておりません。<br>同様に Microsoft 365 のライセンスに Windows 365 のライセンスも含まれておりません。それぞれ別途購入が必要となります。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>本記事では、Configuration Manager から更新プログラム配信時の再起動動作についてご紹介いたします。</p>
+<p>Configuration Manager から更新プログラムを展開しているが、Configuration Manager クライアントによって意図せず端末が再起動された、または Windows 10 で 「高速スタートアップ」 を利用していて、端末を停止しても休止状態になり再起動されないため、多数の端末が再起動保留状態のまま更新プログラムの適用が完了しないというお問い合わせをよくいただきます。Configuration Manager で再起動を抑制させる/再起動させる設定のお役立て情報おまとめいたしました。<br>ご利用環境で上記のようなお困りごとに遭遇されている管理者の方は、是非ご活用いただければと思います。</p>
+<h2 id="再起動を抑制する場合"><a href="#再起動を抑制する場合" class="headerlink" title="再起動を抑制する場合"></a>再起動を抑制する場合</h2><p>展開設定時に [デバイスの再起動] - [サーバー(サーバーOSの場合) or ワークステーション(クライアントOSの場合)]　にチェックを入れることで、再起動の抑制をすることが可能です。</p>
+<p><img src="/blog/mecm/20180719_01/image-20211018170915319.png" alt="image-20211018170915319"></p>
+<p>上記設定値を入れることで以下のポップアップとなります。</p>
+<p><img src="/blog/mecm/20180719_01/image-20211018170948956.png" alt="image-20211018170948956"></p>
+<h2 id="再起動をさせる場合"><a href="#再起動をさせる場合" class="headerlink" title="再起動をさせる場合"></a>再起動をさせる場合</h2><p>展開設定時に [デバイスの再起動] - [サーバー(サーバーOSの場合) or ワークステーション(クライアントOSの場合)]　のチェックを無効にすることで、強制的に再起動させることが可能です。</p>
+<p><img src="/blog/mecm/20180719_01/image-20211018171010525.png" alt="image-20211018171010525"></p>
+<p><strong>機能更新プログラムのインストール 工程</strong></p>
+<p>ソフトウェアセンターにインストール状況が表示。</p>
+<p><img src="/blog/mecm/20180719_01/image-20211018171035520.png" alt="image-20211018171035520"></p>
+<p><strong>機能更新プログラムのインストール後</strong></p>
+<p>再起動通知が発生 </p>
+<p><img src="/blog/mecm/20180719_01/image-20211018171048444.png" alt="image-20211018171048444"></p>
+<p>再起動までの時間がカウントアップされます。 </p>
+<p> <img src="/blog/mecm/20180719_01/image-20211018171100246.png" alt="image-20211018171100246"></p>
+<p>再起動までの猶予時間が経過すると強制的に再起動します。 </p>
+<p><img src="/blog/mecm/20180719_01/image-20211018171109462.png" alt="image-20211018171109462"></p>
+<h2 id="補足-再起動までの猶予時間を制御"><a href="#補足-再起動までの猶予時間を制御" class="headerlink" title="補足 - 再起動までの猶予時間を制御"></a>補足 - 再起動までの猶予時間を制御</h2><p>再起動されるまでの時間は [管理] - [概要] - [クライアント設定] - [既定のクライアント設定 or カスタムクライアント設定] - [コンピュータの再起動]　にて設定可能でございます。 </p>
+<p><img src="/blog/mecm/20180719_01/image-20211018171122577.png" alt="image-20211018171122577"></p>
 
       
       
@@ -131,10 +145,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/w365/2021-08-11_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180719_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -142,19 +156,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2021-08-11_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../20180823_02/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合について
+          System Center Configuration Manager サイトのアップグレード手順
         
       </div>
     </a>
   
   
-    <a href="../2021-08-04_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20180706_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows 365 Enterprise をご利用の際の注意点</div>
+      <div class="article-nav-title">インターネットベースのクライアント管理 (IBCM) のセットアップに関する注意事項につきまして</div>
     </a>
   
 </nav>
@@ -173,23 +187,23 @@
       <ul>
         
           <li>
-            <a href="../../mecm/20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
+            <a href="../20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
           </li>
         
           <li>
-            <a href="../../mecm/20210922_01/">重複 GUID の対処について</a>
+            <a href="../20210922_01/">重複 GUID の対処について</a>
           </li>
         
           <li>
-            <a href="../2021-09-13_01/">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</a>
+            <a href="../../w365/2021-09-13_01/">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</a>
           </li>
         
           <li>
-            <a href="../2021-08-20_01/">Windows 365 Cloud PC を日本語化する手順</a>
+            <a href="../../w365/2021-08-20_01/">Windows 365 Cloud PC を日本語化する手順</a>
           </li>
         
           <li>
-            <a href="../2021-08-16_01/">Windows 365 FAQ</a>
+            <a href="../../w365/2021-08-16_01/">Windows 365 FAQ</a>
           </li>
         
       </ul>
