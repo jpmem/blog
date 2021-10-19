@@ -4,25 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Windows 11 のサポートについて (Configuration Manager と WSUS) | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Configuration Manager における MIF ファイルによるインベントリ拡張について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   下記ページでも公開されておりますが、本日 (2021&#x2F;10&#x2F;5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。以下、ご利用における注意点と、MECM および W">
+  <meta name="description" content="こんにちは。Configuration Manager サポート担当です。 今回は、System Center 2012 Configuration Manager における MIF ファイルによるインベントリ拡張を行う際の注意点について、ご案内します。 System Center 2012 Configuration Manager では、Noidmif ファイルによるカスタム インベントリ デ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 11 のサポートについて (Configuration Manager と WSUS)">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211005_01/index.html">
+<meta property="og:title" content="Configuration Manager における MIF ファイルによるインベントリ拡張について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211001_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   下記ページでも公開されておりますが、本日 (2021&#x2F;10&#x2F;5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。以下、ご利用における注意点と、MECM および W">
+<meta property="og:description" content="こんにちは。Configuration Manager サポート担当です。 今回は、System Center 2012 Configuration Manager における MIF ファイルによるインベントリ拡張を行う際の注意点について、ご案内します。 System Center 2012 Configuration Manager では、Noidmif ファイルによるカスタム インベントリ デ">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_04.png">
-<meta property="article:published_time" content="2021-10-04T15:00:00.000Z">
+<meta property="article:published_time" content="2013-05-06T15:00:00.000Z">
 <meta property="article:modified_time" content="2021-10-19T03:37:01.143Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211005_01/20211005_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -79,7 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20211005_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20211001_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -88,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows 11 のサポートについて (Configuration Manager と WSUS)
+      Configuration Manager における MIF ファイルによるインベントリ拡張について
     </h1>
   
 
@@ -96,46 +91,30 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-10-04T15:00:00.000Z" itemprop="datePublished">2021-10-05</time>
+  <time datetime="2013-05-06T15:00:00.000Z" itemprop="datePublished">2013-05-07</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+4a557d5d-a09c-57f7-b0d6-169afeaa9c47%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+11+%E3%81%AE%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%28Configuration+Manager+%E3%81%A8+WSUS%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211005_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211005_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211005_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+fee6776e-6568-50f3-83cc-d6d0c2f790a0%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BConfiguration+Manager+%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+MIF+%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%82%A4%E3%83%B3%E3%83%99%E3%83%B3%E3%83%88%E3%83%AA%E6%8B%A1%E5%BC%B5%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211001_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211001_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211001_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="ckuxjceu3001h0moz16lq72qp" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20211001_01/" data-id="ckuxjceu2001f0moz6x7gdrx8" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
-<p>下記ページでも公開されておりますが、本日 (2021/10/5) に GA となりました Windows 11 につきまして、 Microsoft Endpoint Manager Configuration Manager のサポートが開始となりました。<br>以下、ご利用における注意点と、MECM および WSUS で Windows 11 の更新プログラムを配布するための設定についてご案内します。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-11">https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-11</a></p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li>Windows 11 クライアント の サポート は MECM CB 2107 からの対応となります。</li>
-<li>Windows 11 のタスクシーケンスによるデプロイには Windows 11 のADKが必要となります。<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-adk">https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/support-for-windows-adk</a></li>
-<li>現時点において、MECM コンソールのデバイス一覧表記では、オペレーティングシステム の項が Microsoft Windows NT Workstation 10.0 と表示されます。Windows 10との区別のためには、オペレーティング システム ビルドの項を確認ください。ビルド バージョン 10.0.22000 以降 が Windows 11 となります。</li>
-<li>現時点において、Desktop Analytics は Windows 11 をサポートしておりません。</li>
-<li>現時点において、MECM コンソールの “Windows Servicing” のダッシュボードでは Windows 11 デバイスも表示されます。</li>
-</ol>
-<h2 id="MECM-で-Windows-11-の更新プログラムを配布する"><a href="#MECM-で-Windows-11-の更新プログラムを配布する" class="headerlink" title="MECM で Windows 11 の更新プログラムを配布する"></a>MECM で Windows 11 の更新プログラムを配布する</h2><h3 id="前提事項"><a href="#前提事項" class="headerlink" title="前提事項"></a>前提事項</h3><p>弊社 Windows Update サイトとの同期が取れていることが必要でございます。</p>
-<h3 id="設定手順"><a href="#設定手順" class="headerlink" title="設定手順"></a>設定手順</h3><p>弊社他製品と同様に下記を実施ください。</p>
-<ol>
-<li>[CMコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - 対象のサイトを選択 </li>
-<li>[サイト コンポーネントの構成] - [ソフトウェアの更新ポイント]</li>
-<li>[製品]タブ - [Windows 11] を有効化する</li>
-</ol>
-<p><img src="/blog/mecm/20211005_01/20211005_01_01.png"></p>
-<p>上記設定後、Windows Update との同期が完了すると以下が表示されるようになります。</p>
-<p><img src="/blog/mecm/20211005_01/20211005_01_02.png"></p>
-<h2 id="WSUS-で-Windows-11-の更新プログラムを配布する"><a href="#WSUS-で-Windows-11-の更新プログラムを配布する" class="headerlink" title="WSUS で Windows 11 の更新プログラムを配布する"></a>WSUS で Windows 11 の更新プログラムを配布する</h2><h3 id="前提事項-1"><a href="#前提事項-1" class="headerlink" title="前提事項"></a>前提事項</h3><p>弊社 Windows Update サイトとの同期が取れていることが必要でございます。</p>
-<h3 id="設定手順-1"><a href="#設定手順-1" class="headerlink" title="設定手順"></a>設定手順</h3><p>弊社他製品と同様に下記を実施ください。</p>
-<ol>
-<li>[WSUS コンソール] - [オプション] - [製品と分類]</li>
-<li>[製品タブ] - 「Windows 11」を有効化する</li>
-</ol>
-<p><img src="/blog/mecm/20211005_01/20211005_01_03.png"></p>
-<p>上記設定後、Windows Update との同期が完了すると以下が表示されるようになります。</p>
-<p><img src="/blog/mecm/20211005_01/20211005_01_04.png"></p>
+        <p>こんにちは。Configuration Manager サポート担当です。</p>
+<p>今回は、System Center 2012 Configuration Manager における MIF ファイルによるインベントリ拡張を行う際の注意点について、ご案内します。</p>
+<p>System Center 2012 Configuration Manager では、Noidmif ファイルによるカスタム インベントリ データを収集するには、事前に拡張クラスを作成しておく必要があります。<br>例えば、以下のような内容をエディタで作成し、拡張子が MOF となるファイルとして保存します。<br>この MOF ファイルを CAS サイト (スタンドアロン プライマリ構成の場合はプライマリ サイト) でインポートしておく必要があります。<br>(ここでは、Test Info というグループ名を例としています。実際のお客様の MIF で指定しているグループ名、クラス名に置き換えて作成してください。)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[SMS_Report(FALSE),</span><br><span class="line"></span><br><span class="line">SMS_Group_Name(&quot;Test Info&quot;),</span><br><span class="line"></span><br><span class="line">SMS_Class_ID(&quot;SCCM|Test_Info|1.0&quot;)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Test_Info:SMS_Class_Template</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">[SMS_Report(FALSE),key]</span><br><span class="line"></span><br><span class="line">string DiaplayName;</span><br><span class="line"></span><br><span class="line">[SMS_Report(FALSE)]</span><br><span class="line"></span><br><span class="line">string DisplayVersion;</span><br><span class="line"></span><br><span class="line">[SMS_Report(FALSE)]</span><br><span class="line"></span><br><span class="line">Uint32 MajorVersion;</span><br><span class="line"></span><br><span class="line">[SMS_Report(FALSE)]</span><br><span class="line"></span><br><span class="line">string InstallLcation;</span><br><span class="line"></span><br><span class="line">[SMS_Report(FALSE)]</span><br><span class="line">string ModifyDateTime;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>MOF のインポートは、「既定のクライアント設定」 の 「ハードウェア インベントリ」 より、[クラスの設定] ボタンから開いた 「ハードウェア インベントリ クラス」 画面で [インポート] ボタンより行います。</p>
+<p>MOF のインポートが完了しますと、「ハードウェア インベントリ クラス」画面に追加されたクラスやプロパティ情報が表示されますので、実際にコレクションに関連付けられたクライアント設定より、同クラス名にあるチェックボックスにチェックを入れて収集するように構成してください。</p>
+<p>これらの準備完了後、クライアント側でハードウェアインベントリサイクルを実行してください。<br>以上の手順でリソース エクスプローラー上に拡張インベントリ情報が表示されます。</p>
+<h2 id="参考情報："><a href="#参考情報：" class="headerlink" title="参考情報："></a>参考情報：</h2><p>How to Extend Hardware Inventory in Configuration Manager</p>
+<p><a target="_blank" rel="noopener" href="https://technet.microsoft.com/en-us/library/gg712290.aspx#BKMK_Add">https://technet.microsoft.com/en-us/library/gg712290.aspx#BKMK_Add</a></p>
+<p>&lt;抜粋ここから&gt;</p>
+<p>Important<br>Before you can add information from MIF files to the Configuration Manager database, you must create or import class information for them. For more information, see the sections To add a new inventory class and To import hardware inventory classes in this topic.</p>
+<p>&lt;抜粋ここまで&gt;</p>
 
       
       
@@ -152,7 +131,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211005_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211001_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -160,11 +139,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="../20210922_01/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">重複 GUID の対処について</div>
+    <a href="../20131204_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Microsoft Endpoint Configuration Manager におけるワークグループ環境でのクライアントご利用手順について
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -182,7 +165,7 @@
       <ul>
         
           <li>
-            <a href="">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
+            <a href="../20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
           </li>
         
           <li>
