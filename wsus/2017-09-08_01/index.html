@@ -14,7 +14,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 いきなり結論ですが Windows Server 2016 および Windows 10 でも Pro 以上のエディションであれば、下記のグループ ポリシーを利用することで Windows Update による自動更新は止めることが出来ます。このブログでも紹介している通り、「設定」画面から自動更新の設定が変更出来ないため、不安に思うかもしれま">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2017-09-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-21T09:25:05.666Z">
+<meta property="article:modified_time" content="2021-10-21T09:33:02.001Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -97,7 +97,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+51e90bef-575f-529e-870f-2181bba5ea18%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+10+%2F+Windows+Server+2016+%E3%81%A7%E3%82%82+Windows+Update+%E3%81%AE%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AF%E6%AD%A2%E3%82%81%E3%82%89%E3%82%8C%E3%81%BE%E3%81%99%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2017-09-08_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2017-09-08_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2017-09-08_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2017-09-08_01/" data-id="ckv0qnr7g002f0mlje32b1gzx" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2017-09-08_01/" data-id="ckv0qxynv002f0nmsflsv54ba" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -137,28 +137,18 @@
 <li><strong>監査ログの設定手順</strong></li>
 </ul>
 <ol>
-<li><p>事象発生コンピューターへ管理者権限を持つユーザーでログインし、 [スタート] メニューの [ファイル名を指定して実行] より[regedit] を起動します。</p>
-</li>
-<li><p>以下のキーを右クリックし、 [アクセス許可] を開きます。それぞれのキーに対して、順に実施します。HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</p>
-</li>
-<li><p>[セキュリティ] タブを開き、[詳細設定] を開きます。</p>
-</li>
-<li><p>[監査] タブを開き、[追加] をクリックします。（[続行] と表示される場合は、[続行]をクリック後に表示されます。）</p>
-</li>
-<li><p>[プリンシパルの選択] にて、”Everyone” と入力しま す。</p>
-</li>
-<li><p>[ユーザー または グループ の選択] 画面で、[OK] をクリックします。</p>
-</li>
-<li><p>[監査エントリ] で、[すべて]  [このキーとサブキー]、[フルコントロール] にチェックを入れま す。</p>
-</li>
-<li><p>[OK] で順に開いているウインドウを閉じます。</p>
-</li>
-<li><p>コマンド プロンプトを管理者として起動します。</p>
-</li>
-<li><p>以下コマンドを実行します。（監査ポリシーについて設定を確認します。）auditpol /get /category:”オブジェクト アクセス”例: 監査ポリシーより設定していない場合以下のように表示されます。</p>
-</li>
+<li>事象発生コンピューターへ管理者権限を持つユーザーでログインし、 [スタート] メニューの [ファイル名を指定して実行] より[regedit] を起動します。</li>
+<li>以下のキーを右クリックし、 [アクセス許可] を開きます。それぞれのキーに対して、順に実施します。HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</li>
+<li>[セキュリティ] タブを開き、[詳細設定] を開きます。</li>
+<li>[監査] タブを開き、[追加] をクリックします。（[続行] と表示される場合は、[続行]をクリック後に表示されます。）</li>
+<li>[プリンシパルの選択] にて、”Everyone” と入力しま す。</li>
+<li>[ユーザー または グループ の選択] 画面で、[OK] をクリックします。</li>
+<li>[監査エントリ] で、[すべて]  [このキーとサブキー]、[フルコントロール] にチェックを入れま す。</li>
+<li>[OK] で順に開いているウインドウを閉じます。</li>
+<li>コマンド プロンプトを管理者として起動します。</li>
+<li>以下コマンドを実行します。（監査ポリシーについて設定を確認します。）auditpol /get /category:”オブジェクト アクセス”例: 監査ポリシーより設定していない場合以下のように表示されます。</li>
 </ol>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Administrator</span>&gt;<span class="title">auditpol</span> /<span class="title">get</span> /<span class="title">category</span>:&quot;オブジェクト アクセス&quot;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">システム監査ポリシー</span></span><br><span class="line"><span class="function">カテゴリ/サブカテゴリ                               設定</span></span><br><span class="line"><span class="function">オブジェクト アクセス</span></span><br><span class="line"><span class="function">ファイル システム                               監査なし</span></span><br><span class="line"><span class="function">レジストリ                                   監査なし</span></span><br><span class="line"><span class="function">カーネル オブジェクト                             監査なし</span></span><br><span class="line"><span class="function"><span class="title">SAM</span>                                     監査なし</span></span><br><span class="line"><span class="function">証明書サービス                                 監査なし</span></span><br><span class="line"><span class="function">生成されたアプリケーション                           監査なし</span></span><br><span class="line"><span class="function">ハンドル操作                                  監査なし</span></span><br><span class="line"><span class="function">ファイルの共有                                 監査なし</span></span><br><span class="line"><span class="function">フィルタリング プラットフォーム パケットのドロップ              監査なし</span></span><br><span class="line"><span class="function">フィルタリング プラットフォームの接続                     監査なし</span></span><br><span class="line"><span class="function">その他のオブジェクト アクセス イベント                    監査なし</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;auditpol /get /category:&quot;オブジェクト アクセス&quot;</span><br><span class="line"></span><br><span class="line">システム監査ポリシー</span><br><span class="line">カテゴリ/サブカテゴリ                               設定</span><br><span class="line">オブジェクト アクセス</span><br><span class="line">ファイル システム                               監査なし</span><br><span class="line">レジストリ                                   監査なし</span><br><span class="line">カーネル オブジェクト                             監査なし</span><br><span class="line">SAM                                     監査なし</span><br><span class="line">証明書サービス                                 監査なし</span><br><span class="line">生成されたアプリケーション                           監査なし</span><br><span class="line">ハンドル操作                                  監査なし</span><br><span class="line">ファイルの共有                                 監査なし</span><br><span class="line">フィルタリング プラットフォーム パケットのドロップ              監査なし</span><br><span class="line">フィルタリング プラットフォームの接続                     監査なし</span><br><span class="line">その他のオブジェクト アクセス イベント                    監査なし</span><br></pre></td></tr></table></figure>
 
 <ol start="11">
 <li>“レジストリ” を “成功および失敗” と設定を行います。</li>
