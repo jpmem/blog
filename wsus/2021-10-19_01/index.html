@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合) | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。WSUS サポート チームです。 今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSUS を新規構築">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2021-10-19_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="こんにちは。WSUS サポート チームです。 今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSUS を新規構築">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2021-10-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-26T02:19:55.484Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2021-10-19_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2021-10-18T15:00:00.000Z" itemprop="datePublished">2021-10-19</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+ce97ccb7-d6b2-514b-a68f-e3f17edcdd48%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+Server+2012+R2+WSUS+%E3%81%8B%E3%82%89+Windows+Server+2022+WSUS+%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C%E6%89%8B%E9%A0%86+%28WID+-%3E+WID+%E3%81%AE%E5%A0%B4%E5%90%88%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2021-10-19_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2021-10-19_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2021-10-19_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="ckv7go8px002v0mmk0o010w21" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。WSUS サポート チームです。</p>
+<p>今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。</p>
+<p>サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。<br>WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。</p>
+<ol>
+<li>新サーバーで WSUS を新規構築  </li>
+<li>旧サーバーでバックアップを取得し、新サーバーにリストア</li>
+</ol>
+<p>基本的には 1. 新規構築してご利用いただく方法が最もシンプルな方法になります。<br>既存のデータを引き継ぎたい場合には、今回ご紹介する 2. データベースのバックアップ / リストアをご検討ください。  </p>
+<p>なお、WSUS データベースの変更に関して、こちら (<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wid-to-sql-migration">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wid-to-sql-migration</a>) にデータベースのアタッチ / デタッチの方法を掲載していますが、こちらは同一サーバー上で WSUS データベースを WID から SQL に変更することを目的とした手順であり、今回のように異なるサーバー間の移行シナリオにはご利用いただけませんのでご留意ください。  </p>
+<h1 id="WSUS-移行手順について-WID-gt-WID"><a href="#WSUS-移行手順について-WID-gt-WID" class="headerlink" title="WSUS 移行手順について (WID -&gt; WID)"></a>WSUS 移行手順について (WID -&gt; WID)</h1><ul>
+<li><p>前提条件<br>移行元 サーバー : Windows Server 2012 R2 の WSUS 環境<br>移行先 サーバー : Windows Server 2022 の WSUS 環境<br>WSUS は移行元も移行先もデータベースに Windows Internal Database (WID) を利用していることを前提とします。</p>
+</li>
+<li><p>手順<br>Windows Server 2022 の WSUS のインストールとデータ移行の手順は以下の通りです。</p>
+</li>
+</ul>
+<ol>
+<li>Windows Server 2022 の WSUS のインストール  </li>
+<li>データ移行  <ol>
+<li>WSUS 更新プログラム バイナリを移行する  </li>
+<li>WSUS セキュリティ グループを移行する  </li>
+<li>WSUS データベースをバックアップする  </li>
+<li>WSUS データベースのバックアップを移行先サーバーで復元する  </li>
+<li>WSUS サーバー ID を変更する  </li>
+<li>インデックスを再構成する  (任意)</li>
+<li>不足ファイルをダウンロードする  (任意) </li>
+</ol>
+</li>
+<li>完了確認  </li>
+</ol>
+<p>各手順の詳細を以下に記載いたします。</p>
+<br>  
+<br>  
+
+<h1 id="1-Windows-Server-2022-への-WSUS-インストール"><a href="#1-Windows-Server-2022-への-WSUS-インストール" class="headerlink" title="1.Windows Server 2022 への WSUS インストール"></a>1.Windows Server 2022 への WSUS インストール</h1><p>まず初めに、Windows Server 2022 の WSUS のインストールは、サーバー マネージャーから[役割と機能の追加] をクリックして、インストールします。こちらの手順は以下の公開情報をご参照ください。<br><br>  </p>
+<ul>
+<li>手順 1:WSUS サーバー ロールをインストールする<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/1-install-the-wsus-server-role">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/1-install-the-wsus-server-role</a></li>
+</ul>
+<p>WSUS サーバーの役割のインストールが正常に完了すると、Windows Server Update Services 設定ウィザードが自動的に起動しますが、このウィザードは閉じてください。</p>
+<h1 id="2-データ移行"><a href="#2-データ移行" class="headerlink" title="2.データ移行"></a>2.データ移行</h1><h2 id="2-1-WSUS-更新プログラム-バイナリを移行する"><a href="#2-1-WSUS-更新プログラム-バイナリを移行する" class="headerlink" title="2.1. WSUS 更新プログラム バイナリを移行する"></a>2.1. WSUS 更新プログラム バイナリを移行する</h2><p>移行元のコンテンツ フォルダー「\&lt;移行元サーバー名&gt;\WsusContent」の内容を、移行先のコンテンツ フォルダー「\&lt;移行先サーバー名&gt;\WsusContent」へコピーします。エクスプローラー、xcopy コマンド、robocopy コマンド等を利用し、コピーすることが可能です。robocopy コマンドを利用する場合は、以下の通りです。</p>
+<p>例) 移行元が WSUSOld で、移行先が WSUSNew の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">robocopy \\WSUSOld\WsusContent \\WSUSNew\WsusContent /E /COPYALL</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-WSUS-セキュリティ-グループを移行する"><a href="#2-2-WSUS-セキュリティ-グループを移行する" class="headerlink" title="2.2. WSUS セキュリティ グループを移行する"></a>2.2. WSUS セキュリティ グループを移行する</h2><p>WSUS Administrators ローカル セキュリティ グループと WSUS Reporters ローカル セキュリティ グループのみ手動で移行することを選択できます。</p>
+<p>この手順を実行する前に、ローカル グループのメンバーであるドメイン ユーザーの名前を、移行先サーバーでも解決できることを確認します。移行元サーバーと移行先サーバーの属するドメインが異なる場合は、移行元ドメインのユーザー アカウントがあるフォレストのグローバル カタログ サーバーに移行先サーバーがアクセスできる必要があります。</p>
+<p>WSUS Administrators ローカル セキュリティ グループと WSUS Reporters ローカル セキュリティ グループに手動でユーザーを移行するには、移行先サーバーで次の手順を実行します。</p>
+<ul>
+<li>手順  </li>
+</ul>
+<ol>
+<li>「ファイル名を指定して実行」画面で lusrmgr.msc と入力して、Enter キーを押します。  </li>
+<li>「ローカル ユーザーとグループ MMC スナップイン」のコンソール ツリーで、[ユーザー] をダブルクリックします。  </li>
+<li>移行元サーバーの WSUS Administrators グループと WSUS Reporters グループに存在したユーザーを手動で作成します。  </li>
+<li>ローカル ユーザーとグループ MMC スナップインのコンソール ツリーで、[グループ] をダブルクリックします。  </li>
+<li>移行元サーバーの WSUS Administrators グループと WSUS Reporters グループに存在したユーザーを移行先サーバーの WSUS Administrators グループと WSUS Reporters グループに手動で追加します。</li>
+</ol>
+<h2 id="2-3-WSUS-データベースをバックアップする"><a href="#2-3-WSUS-データベースをバックアップする" class="headerlink" title="2.3. WSUS データベースをバックアップする"></a>2.3. WSUS データベースをバックアップする</h2><p>移行元 WSUS サーバーにおいて以下の手順を実施し、WSUS データベース (SUSDB) をバックアップします。</p>
+<ol>
+<li><p>下記 URL より SQL Server Management Studio をダウンロードし、WSUS サーバーにインストールします。<br>Microsoft SQL Server Management Studio<br>(<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15">https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15</a>)</p>
+</li>
+<li><p>SQL Server Management Studio を起動して、以下の接続文字列を指定してインスタンスに接続します。<br>サーバーの種類 : データベース エンジン<br>サーバー名 : \.\pipe\Microsoft##WID\tsql\query<br>認証 : Windows 認証</p>
+</li>
+<li><p>[データベース] を展開し、[SUSDB] データベースを選択します。  </p>
+</li>
+<li><p>データベースを右クリックし、[タスク] をポイントして、[バックアップ] をクリックします。[データベースのバックアップ] ダイアログ ボックスが表示されます。  </p>
+</li>
+<li><p>[データベース] ボックスの一覧で、データベース名を確認します。  </p>
+</li>
+<li><p>[バックアップの種類] ボックスの一覧で、[完全] をクリックします。  </p>
+</li>
+<li><p>[コピーのみのバックアップ] を選択します。コピーのみのバックアップとは、定期的に実行される一連の SQL Server バックアップとは別の SQL Server バックアップです。  </p>
+</li>
+<li><p>[バックアップ コンポーネント] で [データベース] をクリックします。  </p>
+</li>
+<li><p>[バックアップ先] に [ディスク] を選択して、[追加] からバックアップ先を選択します。  </p>
+</li>
+<li><p>[ページの選択] ウィンドウの [メディア オプション] をクリックします。  </p>
+</li>
+<li><p>[メディアに上書きする] オプションで、[既存のバックアップ セットに追加する] にチェックがされていることを確認します。  </p>
+</li>
+<li><p>[信頼性] セクションで、必要に応じて、次のチェック ボックスをオンにします。    </p>
+<ul>
+<li>[完了時にバックアップを検証する]  </li>
+<li>[メディアに書き込む前にチェックサムを行う]  </li>
+<li>[エラーのまま続行する]  </li>
+</ul>
+</li>
+<li><p>[OK] をクリックして、バックアップを作成します。  </p>
+</li>
+<li><p>バックアップ完了後、指定したバックアップ先に作成されたバックアップ ファイルを移行先 WSUS サーバーの任意の場所にコピーします。  </p>
+</li>
+</ol>
+<h2 id="2-4-WSUS-データベースのバックアップを移行先サーバーで復元する"><a href="#2-4-WSUS-データベースのバックアップを移行先サーバーで復元する" class="headerlink" title="2.4. WSUS データベースのバックアップを移行先サーバーで復元する"></a>2.4. WSUS データベースのバックアップを移行先サーバーで復元する</h2><p>移行先 WSUS サーバーにおいて以下の手順を実施し、WSUS データベース (SUSDB) を復元します。</p>
+<ol>
+<li><p>下記 URL より SQL Server Management Studio をダウンロードし、WSUS サーバーにインストールします。<br>Microsoft SQL Server Management Studio<br>(<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15">https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15</a>)</p>
+</li>
+<li><p>SQL Server Management Studio を起動して、以下の接続文字列を指定してインスタンスに接続します。<br>サーバーの種類 : データベース エンジン<br>サーバー名 : \.\pipe\Microsoft##WID\tsql\query<br>認証 : Windows 認証  </p>
+</li>
+<li><p>[新しいクエリ] をクリックし、次の SQL コマンドをコピーして [実行] をクリックしてクエリを実行します。このクエリにより、WSUS データベースが削除されます。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">USE master</span><br><span class="line">GO</span><br><span class="line">ALTER DATABASE SUSDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE</span><br><span class="line">GO</span><br><span class="line">DROP DATABASE SUSDB</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>[実行] をクリックしてクエリを実行します。  </p>
+</li>
+<li><p>続けて、次の SQL コマンドをコピーして [実行] をクリックしてクエリを実行します。WSUS データベースをバックアップから復元します。<br>例) バックアップ ファイルを C:\SUSDB.bak に配置している場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RESTORE DATABASE [SUSDB] FROM DISK = N&#x27;C:\SUSDB.bak&#x27; WITH FILE = 1, MOVE N&#x27;SUSDB&#x27; TO N&#x27;c:\Windows\WID\Data\susdb.mdf&#x27;, MOVE N&#x27;SUSDB_log&#x27; TO N&#x27;c:\Windows\WID\Data\SUSDB_log.ldf&#x27;, NOUNLOAD, STATS = 10</span><br></pre></td></tr></table></figure></li>
+<li><p>この結果として、次のエラー メッセージが表示される場合があります。エラー メッセージを無視して、続行してください。<br>メッセージ 3605、レベル 16、状態 1、行 1<br>データベース ‘SUSDB’ のスキーマの検証が失敗しました。<br>メッセージ 3013、レベル 16、状態 1、行 1<br>RESTORE DATABASE が異常終了しています。</p>
+</li>
+<li><p>移行先 WSUS サーバー (Windows Server 2022) でコマンド プロンプトを [管理者として実行] にて開き、次のコマンドを実行します。<br>例) WSUS のインストール フォルダーが D:\WSUS の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %programfiles%\Update Services\Tools</span><br><span class="line">wsusutil postinstall content_dir=D:\WSUS  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="2-5-WSUS-サーバー-ID-を変更する"><a href="#2-5-WSUS-サーバー-ID-を変更する" class="headerlink" title="2.5. WSUS サーバー ID を変更する"></a>2.5. WSUS サーバー ID を変更する</h2><p>移行先サーバーの WSUS サーバー ID は変更する必要があります。この手順を実行すると、移行プロセス中に WSUS 管理のクライアントは影響を受けなくなります。移行元サーバーと移行先サーバーが同じ ID を使用して実行されている場合、サーバーの一方に対して変更を行うと、クライアントとサーバー間の通信は失敗します。</p>
+<ol>
+<li><p>移行先サーバーで、Windows PowerShell を [管理者として実行] にて開き、次のスクリプトを実行します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$updateServer = get-wsusserver</span><br><span class="line">$config = $updateServer.GetConfiguration()</span><br><span class="line">$config.ServerId = [System.Guid]::NewGuid()</span><br><span class="line">$config.Save()</span><br></pre></td></tr></table></figure></li>
+<li><p>サーバー ID が変更されたら、すぐにコマンド プロンプトを [管理者として実行] にて開き、次のコマンドを実行して新しい暗号化キーを生成します。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %programfiles%\Update Services\Tools</span><br><span class="line">wsusutil.exe postinstall</span><br></pre></td></tr></table></figure>
+<br>  </li>
+</ol>
+<h2 id="任意-2-6-インデックスを再構成する"><a href="#任意-2-6-インデックスを再構成する" class="headerlink" title="(任意) 2.6. インデックスを再構成する"></a>(任意) 2.6. インデックスを再構成する</h2><p>インデックスの再構成を定期的に実施していない場合、移行前の WSUS データベースにてインデックスの断片化が発生し、クエリ パフォーマンスが劣化していることがございます。その場合は、インデックス再構成により、クエリ パフォーマンスを改善できます。</p>
+<p>コマンドを使ってインデックスの再構成を行う場合には、インデックス再構成用のスクリプトを sql ファイルに保存した上で、以下のコマンドを実行します。</p>
+<p>例) C:\Temp\WsusDBMaintenance.sql に実行する SQL 文を保存しており、C:\Temp 配下に実行結果ログを出力する場合<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sqlcmd -E -S &lt;インスタンス名&gt; -i</span><br><span class="line">C:\Temp\WsusDBMaintenance.sql -o</span><br><span class="line">C:\Temp\WsusDBMaintenance.out -f 65001</span><br><span class="line">※ WSUS データベースに WID をご利用の場合、&lt;インスタンス名&gt; は、以下を指定します。</span><br><span class="line">\\.\pipe\Microsoft##WID\tsql\query</span><br></pre></td></tr></table></figure></p>
+<p>出力ファイルに “Statistics for all tables have been updated” または”全テーブルの統計が更新されました” というメッセージが 表示されていれば、インデックスの再構成が完了しています。</p>
+<p>～ 参考情報 ～<br>sqlcmd ユーティリティ<br><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/ja-jp/library/ms162773.aspx">https://msdn.microsoft.com/ja-jp/library/ms162773.aspx</a></p>
+<p>WSUS DB インデックスの再構成の手順について<br><a target="_blank" rel="noopener" href="https://blogs.technet.com/b/jpwsus/archive/2014/03/06/wsusdb.aspx">https://blogs.technet.com/b/jpwsus/archive/2014/03/06/wsusdb.aspx</a><br><br>  </p>
+<h2 id="任意-2-7-不足ファイルをダウンロードする"><a href="#任意-2-7-不足ファイルをダウンロードする" class="headerlink" title="(任意) 2.7. 不足ファイルをダウンロードする"></a>(任意) 2.7. 不足ファイルをダウンロードする</h2><p>手順 2.1. でバイナリ ファイルは移行元からコピーされていますが、もし移行元で承認されていたにも関わらず、バイナリが不足している場合は、wsusutil reset コマンドで不足ファイルのみをダウンロードすることができます。もし、クライアントの接続確認の際に 80244019 エラー (HTTP status 404 File Not Found) が発生した場合は、サーバー側の WsusContent フォルダー配下に必要なファイルが不足している可能性がございますので、以下のコマンドの実行をお試しください。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /d &quot;C:\Program Files\Update Services\Tools&quot;</span><br><span class="line">wsusutil reset</span><br></pre></td></tr></table></figure>
+<p>コマンド ラインからの WSUS の管理<br><a target="_blank" rel="noopener" href="https://technet.microsoft.com/ja-jp/library/cc720466(v=ws.10).aspx">https://technet.microsoft.com/ja-jp/library/cc720466(v=ws.10).aspx</a>  </p>
+<p>—– 抜粋ここから —–<br>resetデータベースのすべての更新メタデータ行に、ファイル システムに格納されている対応する更新ファイルが含まれていることを確認します。更新ファイルが不足していたり壊れていた場合、WSUS は更新ファイルをもう一度ダウンロードします。  </p>
+<ul>
+<li>WSUS データベースを復元した後  </li>
+<li>トラブルシューティング時    </li>
+<li>—- 抜粋ここまで —–  <br>  
+<br>  </li>
+</ul>
+<h2 id="3-完了確認"><a href="#3-完了確認" class="headerlink" title="3.完了確認"></a>3.完了確認</h2><p>移行先サーバーで WSUS 管理コンソールを起動し、初回の設定を必要に応じて行います。WSUS 管理コンソール起動後、更新プログラムの情報や承認情報、グループ情報が移行されていることをご確認ください。また、ダウンストリーム サーバーの接続や WSUS クライアントを移行先の WSUS サーバーと接続できるかどうか確認するためには、以下の内容をご確認ください。  </p>
+<p>～ 参考情報 ～<br>3.5. Apply security settings<br>-Point the downstream servers to the new WSUS server<br>-Point the WSUS clients to the new WSUS server<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh852349(v=ws.11)?redirectedfrom=MSDN#point-the-downstream-servers-to-the-new-wsus-server">https://docs.microsoft.com/ja-jp/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh852349(v=ws.11)?redirectedfrom=MSDN#point-the-downstream-servers-to-the-new-wsus-server</a></p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2021-10-19_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../mecm/20211005_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Windows 11 のサポートについて (Configuration Manager と WSUS)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20210922_01/">重複 GUID の対処について</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-09-13_01/">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-08-20_01/">Windows 365 Cloud PC を日本語化する手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">26</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">16</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
