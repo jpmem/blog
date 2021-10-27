@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>スクリプト機能のご紹介 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は Configuration Manager (CM) の便利な機能であるスクリプト機能のご紹介をさせていただきます。本機能により CM 管理下の端末にリアルタイムに遠隔からスクリプトを実行させることが出来ます。 Configuration Manager コンソールから PowerShell スク">
+<meta property="og:type" content="article">
+<meta property="og:title" content="スクリプト機能のご紹介">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211025_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は Configuration Manager (CM) の便利な機能であるスクリプト機能のご紹介をさせていただきます。本機能により CM 管理下の端末にリアルタイムに遠隔からスクリプトを実行させることが出来ます。 Configuration Manager コンソールから PowerShell スク">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_14.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_15.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_16.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_17.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_18.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_19.png">
+<meta property="article:published_time" content="2021-10-24T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-27T09:17:56.621Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20211025_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      スクリプト機能のご紹介
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2021-10-24T15:00:00.000Z" itemprop="datePublished">2021-10-25</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+e0ba516b-93fb-591c-afda-b189cc8b5aa2%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%A9%9F%E8%83%BD%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211025_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211025_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211025_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="ckv9b1mfm001j0no79d6w4y29" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は Configuration Manager (CM) の便利な機能である<strong>スクリプト機能</strong>のご紹介をさせていただきます。本機能により CM 管理下の端末にリアルタイムに遠隔からスクリプトを実行させることが出来ます。</p>
+<p>Configuration Manager コンソールから PowerShell スクリプトを作成して実行する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts">https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts</a></p>
+<h1 id="機能の説明"><a href="#機能の説明" class="headerlink" title="機能の説明"></a>機能の説明</h1><p>CM サーバーから CM コンソールを使って、デバイス単位、コレクション単位に指定したowershell を、<strong>リアルタイム</strong>に実行する機能です。同じことは Enter-PSSession コマンドレットを使えば出来ますが、本機能は複数のデバイスに対して Powershell を実行できることに強みがあります。また、Intuneによるスクリプト配布機能もありますが、こちらの方がオンデマンドな処理を行う際には便利です。</p>
+<h1 id="ユースケース"><a href="#ユースケース" class="headerlink" title="ユースケース"></a>ユースケース</h1><p>Powershell で実現できることは何でも出来ますが、CM 管理者であれば例えば以下のような点で利用出来るでしょう。</p>
+<ol>
+<li>一時的に、デバイスのレジストリの値を採取する。定期的な回収が必要ではないようなものには便利。(定期的な回収はハードウェア インベントリを利用したほうが良い)</li>
+<li>あるデバイスから、あるサーバーへのネットワーク到達性のチェック。HTTPリクエストが通るか、デバイスに対してポートが開放されているか、はたまたデバイスでサーバーのURLへの名前解決が可能かどうか、などをチェックする。</li>
+<li>CM クライアントの状態チェック。あるソフトウェア センターの表示状態のアイテムの確認。</li>
+</ol>
+<h1 id="利用に当たっての推奨事項"><a href="#利用に当たっての推奨事項" class="headerlink" title="利用に当たっての推奨事項"></a>利用に当たっての推奨事項</h1><p>「大いなる力には大いなる責任が伴う」の言葉通り、何でも出来るということはセキュリティ上のリスクでもあります。ご利用の組織のポリシーに従って、明確なルールを制定してご利用ください。</p>
+<p>以下、ご利用に当たっての推奨事項になります。</p>
+<h2 id="スクリプトの承認プロセスを設ける"><a href="#スクリプトの承認プロセスを設ける" class="headerlink" title="スクリプトの承認プロセスを設ける"></a>スクリプトの承認プロセスを設ける</h2><p>スクリプトの作成者と承認者で担当者を分け、CM にスクリプトを追加する前に承認が必要なようにしましょう。<br>なお、CM コンソール上の既定の設定では、作成者が直接承認を行えないよう、<br>以下のフラグが有効化されています。  </p>
+<p>[CMコンソール]-[管理]-[概要]-[サイトの構成]-[サイト]-対象のサイトを選択-[階層設定]-[全般タブ]-「スクリプトの作成者には追加のスクリプト承認者が必要」</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_01.png"></p>
+<h2 id="承認ルールを定める"><a href="#承認ルールを定める" class="headerlink" title="承認ルールを定める"></a>承認ルールを定める</h2><p>スクリプトの承認者が判断に迷わないよう、承認に当たってルールを決めておきましょう。例えば、以下のようなルールが考えられるかと思います。</p>
+<ul>
+<li><p>CM クライアントに対して変更処理が入るようなスクリプトは承認しない</p>
+<ul>
+<li>例: ファイルの作成、機能の有効化、レジストリ値の変更、等</li>
+</ul>
+</li>
+<li><p>操作誤りによりインフラに影響を与えるようなスクリプトは承認しない</p>
+<ul>
+<li>例: 複数クライアントによる負荷テスト</li>
+</ul>
+</li>
+</ul>
+<h2 id="実行ルールを定める"><a href="#実行ルールを定める" class="headerlink" title="実行ルールを定める"></a>実行ルールを定める</h2><p>CM としてはスクリプトの実行後、特に証跡が残るような仕組みは用意されておりません。また、実行にあたっての承認プロセスを実装する仕組みもまた、提供されておりません。</p>
+<p>お客様のポリシーに依るかと存じますが、ポリシー上、厳密な管理を要求される場合であれば、スクリプトの実行記録について台帳等で記録を残す<br>る、スクリプト実行前後に承認プロセスを用意する、等の実行ルールを定めると良いかと存じます。</p>
+<h1 id="スクリプト作成のコツ"><a href="#スクリプト作成のコツ" class="headerlink" title="スクリプト作成のコツ"></a>スクリプト作成のコツ</h1><h2 id="スクリプトの結果は少ない文字数で標準出力しよう。"><a href="#スクリプトの結果は少ない文字数で標準出力しよう。" class="headerlink" title="スクリプトの結果は少ない文字数で標準出力しよう。"></a>スクリプトの結果は少ない文字数で標準出力しよう。</h2><p>CMでスクリプトを実行すると、以下のように、デバイスごとに標準出力の内容が1行で出力されます。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_03.png"></p>
+<p>スクリプトの出力欄をダブルクリックすると、以下のように出力内容の詳細を確認できます。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_04.png"></p>
+<p>コレクションに対する実行結果を一覧で見たい時などは、上記の例のような出力だと比較が難しいので、スクリプトの実行目的に従って、出力結果の文字数を制限するようにしましょう。</p>
+<p>例えば、以下のような形が良いかと存じます。この例では、.Net FrameworkのVersionを確認するためのスクリプトを実行し、結果を短い文字列で出力するようにしています。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_05.png"></p>
+<p>なお、スクリプトを上手く作ると、実行結果を出した後、「概要」タブを選択することで、出力結果を以下のようにグラフ表示できます。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_06.png"></p>
+<h2 id="実行失敗時は終了コードを0以外の数値を出力しよう。"><a href="#実行失敗時は終了コードを0以外の数値を出力しよう。" class="headerlink" title="実行失敗時は終了コードを0以外の数値を出力しよう。"></a>実行失敗時は終了コードを0以外の数値を出力しよう。</h2><p>上記のスクリーンショットで示したとおり、「スクリプトの出力」で表示される文字数は限定されていますので、実行時エラーもスクリプト出力に表示させると一覧性が悪化します。<br>代わりに、想定されるエラー発生時のエラーコードを決め、エラーコードを内部で保持し、対応する方が良いでしょう。</p>
+<h2 id="パラメータを受け取る場合は、パラメーター内容の妥当性確認を実施しよう"><a href="#パラメータを受け取る場合は、パラメーター内容の妥当性確認を実施しよう" class="headerlink" title="パラメータを受け取る場合は、パラメーター内容の妥当性確認を実施しよう"></a>パラメータを受け取る場合は、パラメーター内容の妥当性確認を実施しよう</h2><p>スクリプト作成時に下記の通りParamを指定することで実行時パラメーターを指定することが出来ます。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_07.png"></p>
+<p>パラメーターを入力すると、下記画面で各パラメーターの妥当性確認を行います。正規表現も利用可能ですので、受け取ったパラメーターの妥当性を厳密に実施するようにしましょう。こちらで妥当性確認が出来ない内容についてはスクリプト側で確認するようにしましょう。</p>
+<p><img src="/blog/mecm/20211025_01/20211025_01_08.png"></p>
+<h2 id="スクリプトをCMコンソールに登録する前に開発環境でテストしよう"><a href="#スクリプトをCMコンソールに登録する前に開発環境でテストしよう" class="headerlink" title="スクリプトをCMコンソールに登録する前に開発環境でテストしよう"></a>スクリプトをCMコンソールに登録する前に開発環境でテストしよう</h2><p>お客様のポリシーによりますが、本番環境に置いては、上記の通りスクリプトの登録時に承認プロセスがある筈ですので、CMコンソールで実施する前に開発環境で十分にスクリプトをテストしてからスクリプトを登録するようにした方が良いかと存じます。ちょっとしたスクリプトの修正で承認プロセス通してたら時間がかかってしまいますので･･･。</p>
+<h1 id="スクリプトの作成手順"><a href="#スクリプトの作成手順" class="headerlink" title="スクリプトの作成手順"></a>スクリプトの作成手順</h1><p><strong>以下、パラメーターを指定しない場合の</strong>、スクリプト 作成者による CM コンソールでのスクリプトの作成手順は以下の通りです。</p>
+<ol>
+<li><strong>スクリプト作成者</strong>の ID で CM コンソールが動く端末にログインします。  </li>
+<li>[CMコンソール]-[ソフトウェア ライブラリ]-[概要]-[スクリプト]に遷移します。  </li>
+<li>[スクリプトの作成]をクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_02.png"></li>
+<li>「スクリプト名」に適宜名前を付けます。  </li>
+<li>「スクリプト」にスクリプトを書きます。「インポート」でps1ファイルから読み込む事も出来ます。<br><img src="/blog/mecm/20211025_01/20211025_01_09.png">  </li>
+<li>以降はウィザードに従って、最後まで「次へ」をクリックし、完了後「閉じる」をクリックします。  </li>
+</ol>
+<h1 id="スクリプトの承認手順"><a href="#スクリプトの承認手順" class="headerlink" title="スクリプトの承認手順"></a>スクリプトの承認手順</h1><ol>
+<li><strong>スクリプト承認者</strong>の ID で  CM コンソールが動く端末にログインします。  </li>
+<li>[CMコンソール]-[ソフトウェア ライブラリ]-[概要]-[スクリプト]に遷移します。  </li>
+<li>スクリプト作成者から報告のあったスクリプトの名前を選択します。「承認状態」が「承認を待っています」となっていることからも判断出来ます。<br><img src="/blog/mecm/20211025_01/20211025_01_10.png">  </li>
+<li>画面上部「承認/拒否」ボタンをクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_11.png">  </li>
+<li>起動したウィザードにて、スクリプト内容を確認、レビューします。<br><img src="/blog/mecm/20211025_01/20211025_01_12.png">  </li>
+<li>レビュー結果を記載します。適宜レビューコメントを入力できます。<br><img src="/blog/mecm/20211025_01/20211025_01_13.png">  </li>
+<li>以降はウィザードに従って、最後まで「次へ」をクリックし、完了後「閉じる」をクリックします。  </li>
+<li>登録完了後、該当のスクリプトが「承認済み」となっていることを確認します。<br><img src="/blog/mecm/20211025_01/20211025_01_14.png">  </li>
+</ol>
+<h1 id="スクリプトの実行手順"><a href="#スクリプトの実行手順" class="headerlink" title="スクリプトの実行手順"></a>スクリプトの実行手順</h1><ol>
+<li>スクリプトの実行権限を持つIDで、CMコンソールが動く端末にログインします。  </li>
+<li>スクリプトの実行対象によって以下を選択します。  <ul>
+<li>[CMコンソール]-[資産とコンプライアンス]-[概要]-[デバイス]  </li>
+<li>[CMコンソール」-[資産とコンプライアンス]-[概要]-[デバイス コレクション]  </li>
+</ul>
+</li>
+<li>実行対象を右クリックすると、「スクリプトの実行」メニューがあるので、そちらをクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_15.png">  </li>
+<li>実行するスクリプトを選択し、「次へ」をクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_16.png"><br>5．概要画面で「次へ」を選択します。<br><img src="/blog/mecm/20211025_01/20211025_01_17.png">  </li>
+<li>実行が完了するのを待機します。オンデマンドで指定したクライアントに対してスクリプトを配布し、実行し、その結果を表示しますので時間がかかります。  </li>
+<li>実行結果を確認します。適宜、結果をスクリーンショット等に取りましょう。<br><img src="/blog/mecm/20211025_01/20211025_01_18.png">  </li>
+<li>出力セルを選択した後、「Ctrl+A」を押下して、メモ帳等に貼り付けると結果をテキスト形式で取得できます。<br><img src="/blog/mecm/20211025_01/20211025_01_19.png">  </li>
+<li>ウィザードを適宜閉じます。  </li>
+</ol>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211025_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/2021-10-19_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">スクリプト機能のご紹介</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2021-10-19_01/">Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)</a>
+          </li>
+        
+          <li>
+            <a href="../20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
+          </li>
+        
+          <li>
+            <a href="../20210922_01/">重複 GUID の対処について</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2021-09-13_01/">Windows 365 用にリモート デスクトップ クライアントをセットアップする手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">27</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">16</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
