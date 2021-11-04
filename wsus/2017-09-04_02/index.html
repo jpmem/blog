@@ -4,24 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>WSUS で「削除の承認」を行い、更新プログラムを削除する | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS のレポートに表示される「状態」の項目の説明 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="※ Windows 10 &#x2F; Windows Server 2016 の環境では「削除の承認」が動作しない問題が報告されています。詳細はこちらのブログを参照ください。   皆さま、こんにちは。WSUS サポート チームです。   WSUS で更新プログラムを管理されている皆さまの中には、「間違った更新プログラムを配信してしまった！削除したい！」という状況になった方もおられるのではないでしょうか。そ">
+  <meta name="description" content="こんにちは。WSUS サポート チームです。 今回は WSUS サポート チームに、多くご質問いただく内容の 1 つである WSUS レポートに表示される「状態」の項目について説明いたします。WSUS のレポートからクライアントへの更新プログラムの配信可否を確認出来る、非常に便利かつ強力な機能です。 WSUS のレポートや管理コンソールに表示される「状態」情報には、以下 (A) (B) の 2 種">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS で「削除の承認」を行い、更新プログラムを削除する">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2016-03-29_01/index.html">
+<meta property="og:title" content="WSUS のレポートに表示される「状態」の項目の説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2017-09-04_02/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="※ Windows 10 &#x2F; Windows Server 2016 の環境では「削除の承認」が動作しない問題が報告されています。詳細はこちらのブログを参照ください。   皆さま、こんにちは。WSUS サポート チームです。   WSUS で更新プログラムを管理されている皆さまの中には、「間違った更新プログラムを配信してしまった！削除したい！」という状況になった方もおられるのではないでしょうか。そ">
+<meta property="og:description" content="こんにちは。WSUS サポート チームです。 今回は WSUS サポート チームに、多くご質問いただく内容の 1 つである WSUS レポートに表示される「状態」の項目について説明いたします。WSUS のレポートからクライアントへの更新プログラムの配信可否を確認出来る、非常に便利かつ強力な機能です。 WSUS のレポートや管理コンソールに表示される「状態」情報には、以下 (A) (B) の 2 種">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-03-29_01/1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-03-29_01/2.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-03-29_01/3.png">
-<meta property="article:published_time" content="2016-03-28T15:00:00.000Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2017-09-04_02/2017-09-04_02_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2017-09-04_02/2017-09-04_02_03.png">
+<meta property="article:published_time" content="2017-09-03T15:00:00.000Z">
 <meta property="article:modified_time" content="2021-11-04T05:30:13.586Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2016-03-29_01/1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2017-09-04_02/2017-09-04_02_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -78,7 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2016-03-29_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2017-09-04_02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -87,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS で「削除の承認」を行い、更新プログラムを削除する
+      WSUS のレポートに表示される「状態」の項目の説明
     </h1>
   
 
@@ -95,40 +94,119 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2016-03-28T15:00:00.000Z" itemprop="datePublished">2016-03-29</time>
+  <time datetime="2017-09-03T15:00:00.000Z" itemprop="datePublished">2017-09-04</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+f70115eb-77ef-55b2-a29d-2766839c3af0%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%81%A7%E3%80%8C%E5%89%8A%E9%99%A4%E3%81%AE%E6%89%BF%E8%AA%8D%E3%80%8D%E3%82%92%E8%A1%8C%E3%81%84%E3%80%81%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2016-03-29_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2016-03-29_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2016-03-29_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+63ab1802-ab16-5066-ad3b-65fb6f7a76f4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%81%AE%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%82%8B%E3%80%8C%E7%8A%B6%E6%85%8B%E3%80%8D%E3%81%AE%E9%A0%85%E7%9B%AE%E3%81%AE%E8%AA%AC%E6%98%8E%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2017-09-04_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2017-09-04_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2017-09-04_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2016-03-29_01/" data-id="ckvkiflqe00290nmqfraabcbl" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2017-09-04_02/" data-id="ckvkiflqj002i0nmq89mu2w0e" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>※ Windows 10 / Windows Server 2016 の環境では「削除の承認」が動作しない問題が報告されています。詳細はこちらの<a href="https://jpmem.github.io/blog/wsus/2017-09-04_01/">ブログ</a>を参照ください。  </p>
-<p>皆さま、こんにちは。WSUS サポート チームです。  </p>
-<p>WSUS で更新プログラムを管理されている皆さまの中には、「間違った更新プログラムを配信してしまった！削除したい！」という状況になった方もおられるのではないでしょうか。<br>そのような状況において、WSUS で有効な機能が 「削除の承認」 です。この機能はあまり知られていませんが、WSUS で配信した更新プログラムをクライアント PC からアンインストールすることができます。<br>更新プログラムの中には「削除の承認」ができないものもありますが、更新プログラムを削除する方法の 1 つとして有効です。  </p>
-<p>KB3150513 を例として WSUS より「削除の承認」を行う手順を以下にご紹介します。WSUS で配信した更新プログラムを削除したいときに、是非ご活用ください！  </p>
-<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><ol>
-<li>WSUSサーバーにログインします。</li>
-<li>[スタート] - [管理ツール] - [Windows Service Update Services] をクリックします。</li>
-<li>WSUS 管理コンソールが起動しますので、左画面から、[セキュリティ更新プログラム] をクリックします。</li>
-<li>中央画面の上部から、”承認” を [拒否された更新以外のすべて]、”状態” を [任意] に設定し、[最新の情報に更新] をクリックし画面を更新します。</li>
-<li>中央画面のリストから、削除対象とする更新プログラムである KB3150513 を見つけます。</li>
-<li>対象の更新プログラムを右クリックして、[承認] をクリックします。</li>
-<li>“更新の承認” 画面が起動しますので、更新プログラムを削除したい PC を含むグループのドロップダウンから、[削除の承認] をクリックします。<br><img src="/blog/wsus/2016-03-29_01/1.png" alt="DeleteUpdate1">  </li>
-<li>[OK] をクリックして、画面を閉じます。<br><img src="/blog/wsus/2016-03-29_01/2.png" alt="DeleteUpdate2">  </li>
-<li>WSUS クライアントは定期的に WSUS サーバーへ接続を行いますので、そのタイミングで自動更新の設定に基づいてアンインストールを行います。<br>(例：グループ ポリシー「自動更新を構成する」のオプション 4 番「自動ダウンロードしインストール日時を指定」を設定している場合は、設定している日時にアンインストールされます。)  </li>
-</ol>
-<p>なお、「削除の承認」に対応していない場合は、手順 7. の [削除の承認] がグレーアウトして選択することができません。そのため、[削除の承認] がグレーアウトしているかどうかをご確認いただくことで、WSUS で対象の更新プログラムを削除できるかどうかご判断いただけます。<br><img src="/blog/wsus/2016-03-29_01/3.png" alt="DeleteUpdate3">  </p>
-<p>(補足)<br>手順 1. ～ 5. の更新プログラムを見つける手順は、以下の手順でも代用可能です。  </p>
-<ol>
-<li>WSUS 管理コンソールを起動して、左ペインのツリーより [更新] をクリックします。</li>
-<li>右ペインの [検索…] をクリックします。</li>
-<li>検索ボックスに KB3150513 と入力して、[検索] をクリックします。</li>
-<li>検索結果に KB3150513 に一致する更新プログラムが表示されますので、削除対象とする更新プログラムを見つけます。</li>
-</ol>
+        <p>こんにちは。WSUS サポート チームです。</p>
+<p>今回は WSUS サポート チームに、多くご質問いただく内容の 1 つである WSUS レポートに表示される「状態」の項目について説明いたします。WSUS のレポートからクライアントへの更新プログラムの配信可否を確認出来る、非常に便利かつ強力な機能です。</p>
+<p>WSUS のレポートや管理コンソールに表示される「状態」情報には、以下 (A) (B) の 2 種類の表記があります。</p>
+<p><strong>(A) 詳細表示</strong></p>
+<p>下記の詳細レポート画面に表示される内容です。個々の更新プログラム毎の具体的な状態を示します。</p>
+<p><img src="/blog/wsus/2017-09-04_02/2017-09-04_02_01.png" alt="image.png"></p>
+<p><strong>(B) サマリー表記</strong></p>
+<p>下記の４種類に集計(サマライズ)した表記です。表形式レポートのほか、管理コンソールの更新ビューの「状態」フィルターなどに表示されている情報です。</p>
+<p><img src="/blog/wsus/2017-09-04_02/2017-09-04_02_03.png" alt="image.png"></p>
+<p>本表記にて全てのクライアントが「インストール済みまたは該当しない」に該当している場合には、配信が必要なクライアントには全て配信が完了出来ているものと判断できます。</p>
+<p>※ ただし、通常のレポートや管理コンソール上での表記には、更新プログラムをインストール承認していない (配信対象としていない) クライアントもカウントの対象となっているため、ご注意ください。更新プログラムをインストール承認しているクライアントに限定して、レポートを表示する場合には、管理コンソール上の [レポート] メニューより [承認済み更新プログラムについての更新状態 (表形式)] や [承認済み更新プログラムについてのコンピューターの状態 (表形式)] を利用します。</p>
+<p>それぞれの「状態」について詳細を案内しますので、是非普段のご運用にご活用してください。</p>
+<h1 id="A-詳細表示"><a href="#A-詳細表示" class="headerlink" title="(A) 詳細表示"></a>(A) 詳細表示</h1><p>下記 (A-1) ～ (A-7) の 7 通りが存在し、それぞれ以下のクライアントの状態を示します。</p>
+<p><strong>(A-1) ダウンロード済み</strong>  </p>
+<ul>
+<li>クライアントに対して、その更新プログラムが適用可能であり、クライアントにダウンロードされている<br>が、未インストールである。</li>
+</ul>
+<p><strong>(A-2) 失敗</strong>  </p>
+<ul>
+<li>クライアントで、その更新プログラムのインストールが失敗した。</li>
+</ul>
+<p><strong>(A-3) インストール済み</strong>  </p>
+<ul>
+<li>その更新プログラムがクライアントにインストールされた。</li>
+</ul>
+<p><strong>(A-4) 再起動の保留中</strong></p>
+<ul>
+<li>その更新プログラムのインストールはクライアントで実行された。しかし、クライアントを再起動するまで更新プログラムはインストール完了できない。</li>
+</ul>
+<p><strong>(A-5) 適用なし</strong><br>実際に更新プログラムがインストール済みのケースを含め、以下のようなケースが含まれます</p>
+<ul>
+<li>システムが対象外  <ul>
+<li>そもそも適用の前提条件を満たさない。OS やアプリケーションの種類、バージョンなどが対象外である。</li>
+</ul>
+</li>
+<li>システム更新済み  <ul>
+<li>システムが、その更新プログラム適用済みと同等か、それ以降の状態にあるとみなすことがでできる。</li>
+</ul>
+</li>
+</ul>
+<p>このケースには、さらに次のケースが含まれます。</p>
+<ul>
+<li><p>インストール済み</p>
+<ul>
+<li>該当の更新プログラムを 実際にインストール完了した経緯がある。</li>
+</ul>
+</li>
+<li><p>より新しい更新がインストール済み</p>
+<ul>
+<li>該当の更新プログラムのインストール経緯に関わらず、その更新プログラムの内容を含む<br>(置き換える) 後続の更新プログラムがインストール済みである。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(A-6) インストールされていません</strong>  </p>
+<ul>
+<li>クライアントに対して、その更新プログラムが適用可能であるが、クライアントにダウンロードおよびインストールされていない。</li>
+</ul>
+<p><strong>(A-7) 状態の報告なし</strong>  </p>
+<ul>
+<li>クライアントにおいて、その更新プログラムの状態が不明である。  </li>
+</ul>
+<p>&lt;具体的には、以下のようなケースの場合に「状態の報告なし」との表示になります。&gt;  </p>
+<ul>
+<li><p>該当の更新プログラムのカタログ情報が WSUS サーバーへ着信して以降まだクライアントが一度も WSUS サーバーにアクセスしていない</p>
+</li>
+<li><p>クライアントは WSUS サーバーにアクセスを行ったが、その検出結果 (レポート情報) を WSUS サーバーへ一度も報告していない</p>
+</li>
+<li><p>クライアントは WSUS サーバーにアクセスを行い、その検出結果 (レポート情報) を WSUS サーバーへ報告したことがあるが、該当の更新プログラムが「拒否済み」になったことにより 該当情報が WSUS サーバー内で破棄された  </p>
+</li>
+</ul>
+<h1 id="B-サマリー表記"><a href="#B-サマリー表記" class="headerlink" title="(B) サマリー表記"></a>(B) サマリー表記</h1><p>上記 (A-1)～(A-7) を、管理上の観点から 下記 (B-1)～(B-4) の４種類に集計 (サマライズ) した表記です。表形式レポートのほか、管理コンソールの更新ビューの「状態」フィルターなどに表示されている情報です。</p>
+<p><strong>(B-1) 必要</strong></p>
+<hr>
+<ul>
+<li><p>(A-1) ダウンロード済み</p>
+</li>
+<li><p>(A-4) 再起動の保留中</p>
+</li>
+<li><p>(A-6) インストールされていません  </p>
+</li>
+</ul>
+<p><strong>(B-2) インストール済みまたは該当しない</strong></p>
+<hr>
+<ul>
+<li><p>(A-3) インストール済み</p>
+</li>
+<li><p>(A-5) 適用なし</p>
+</li>
+</ul>
+<p><strong>(B-3) 失敗</strong></p>
+<hr>
+<ul>
+<li>(A-2) 失敗</li>
+</ul>
+<p><strong>(B-4) 状態の報告なし</strong></p>
+<hr>
+<ul>
+<li>(A-7) 状態の報告なし</li>
+</ul>
+<p>~ 参考情報 ~  </p>
+<p>レポートの実行  </p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/security-updates/windowsupdateservices/18111601">https://docs.microsoft.com/ja-jp/security-updates/windowsupdateservices/18111601</a></p>
 
       
       
@@ -145,7 +223,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2016-03-29_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2017-09-04_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -153,19 +231,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2016-10-07_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2017-09-04_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS で予期しない更新プログラムを展開してしまったときの対応方法
+          「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について
         
       </div>
     </a>
   
   
-    <a href="../../mecm/20140818_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20170818_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">任意のレジストリ値を ハードウェア インベントリ として取得する方法</div>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch のバージョン アップについて</div>
     </a>
   
 </nav>
