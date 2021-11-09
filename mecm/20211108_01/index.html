@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_02.png">
 <meta property="article:published_time" content="2021-11-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-09T02:56:36.342Z">
+<meta property="article:modified_time" content="2021-11-09T04:15:59.097Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+516e9898-4a73-51d5-a02e-3bfa16276c13%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+CB+2103+%E4%BB%A5%E5%89%8D%E3%81%A7%E3%81%AE+%E3%80%8C%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%80%8DAzure+%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E4%BD%9C%E6%88%90%E6%99%82%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+AAD+%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BB%95%E6%A7%98%E5%A4%89%E6%9B%B4%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211108_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211108_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211108_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="ckvri5bhy001p0mpecj5m65qi" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="ckvrkzelw001p0ms6b5jn1k48" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -112,16 +112,28 @@
 <p>以下の記事の通り、Azure アプリケーションを作成する際に指定する App ID URI のフォーマット形式が変更となりました。</p>
 <p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaking-changes#appid-uri-in-single-tenant-applications-will-require-use-of-default-scheme-or-verified-domains">https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaking-changes#appid-uri-in-single-tenant-applications-will-require-use-of-default-scheme-or-verified-domains</a></p>
 <h1 id="影響を受ける範囲"><a href="#影響を受ける範囲" class="headerlink" title="影響を受ける範囲"></a>影響を受ける範囲</h1><p>すでに作成済みの Azure サービスは影響を受けません。そのまま利用可能でございます。</p>
-<p>Configuration Manager Current Branch (CM CB) 2103 以前で、新規に「クラウド管理」アプリケーションを作成する際の、 “Web App” を指定する際の、URIの形式を<br>下記サイトでもご案内している通り、デフォルトの形式<a target="_blank" rel="noopener" href="https://configmgrservice/">https://ConfigMgrService</a> に近い文字列ではなく、<br>以下のフォーマットに従った文字列を指定くださいますようお願い致します。</p>
+<p>影響を受けるのは、<br>Configuration Manager Current Branch (CM CB) 2103 以前で「クラウド管理」のアプリケーションを作成する場合となります。</p>
+<h1 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h1><p>Configuration Manager Current Branch (CM CB) 2103 以前で、新規に「クラウド管理」アプリケーションを作成する際の、 “Web App” を指定する際の、URIの形式を下記サイトでもご案内している通り、デフォルトの形式<a target="_blank" rel="noopener" href="https://configmgrservice/">https://ConfigMgrService</a> に近い文字列ではなく、以下のフォーマットに従った文字列を指定くださいますようお願い致します。</p>
 <ul>
 <li>api://{tenantId}/{string}</li>
 <li>https://{verifiedCustomerDomain}/{string}</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/clients/manage/cmg/configure-azure-ad#create-the-web-server-app-registration">https://docs.microsoft.com/en-us/mem/configmgr/core/clients/manage/cmg/configure-azure-ad#create-the-web-server-app-registration</a></p>
-<p>上記形式に従わない URI を指定すると、正しい ID でログインしているのに ログイン エラーが発生します。</p>
+<ul>
+<li>{tenantId}: アプリケーションを作成する対象の Azure AD のテナント ID を指定ください。<br>[Azure Portal]- [Azure Active Directory] - [概要] から確認できます。</li>
+<li>{verifiedCustomerDomain}: アプリケーションを作成する対象の利用可能なカスタム ドメインを指定ください。<br>[Azure Portal]- [Azure Active Directory] - [カスタム ドメイン名] から確認できます。</li>
+<li>{string}:　自由な文字列を指定ください。ただし、他の Azure AD アプリケーションと URI が重複しないようにする必要がございます。</li>
+</ul>
+<p>※例: </p>
+<ul>
+<li>api://a8573488-ff46-450a-b09a-6eca0c6a02dc/ConfigMgrService</li>
+<li><a target="_blank" rel="noopener" href="https://contoso.onmicrosoft.com/ConfigMgrService">https://contoso.onmicrosoft.com/ConfigMgrService</a></li>
+</ul>
+<h1 id="対処を行わない場合に発生する事象"><a href="#対処を行わない場合に発生する事象" class="headerlink" title="対処を行わない場合に発生する事象"></a>対処を行わない場合に発生する事象</h1><p>上記形式に従わない URI を指定すると、正しい ID でログインしているのに ログイン エラーが発生します。</p>
 <p><img src="/blog/mecm/20211108_01/20211108_01_03.png"></p>
-<p>CM CB 2107 以降については、本 URI の指定は以下のようにシステム側で自動的に行われるため、必要がございませんので、ご安心ください。</p>
+<h1 id="CM-CB-2107-以降の対応"><a href="#CM-CB-2107-以降の対応" class="headerlink" title="CM CB 2107 以降の対応"></a>CM CB 2107 以降の対応</h1><p>CM CB 2107 以降については、本 URI の指定は以下のようにシステム側で自動的に行われるため、必要がございませんので、ご安心ください。</p>
 <p><img src="/blog/mecm/20211108_01/20211108_01_01.png"></p>
+<p>Azure AD アプリケーション画面から該当のURIが自動作成されていると確認できます。</p>
 <p><img src="/blog/mecm/20211108_01/20211108_01_02.png"></p>
 
       
