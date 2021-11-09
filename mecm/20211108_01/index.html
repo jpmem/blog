@@ -4,20 +4,24 @@
   <meta charset="utf-8">
   
   
-  <title>System Center 2012 / R2 Configuration Manager のサポートが残り 1 年を切りました | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 長年ご愛顧いただいております System Center 2012 Configuration Manager 関連の下記製品の EoS (End of Support) が 2022 年 7 月 12 日までとなっております。  System Center 2012 Configuration Manage">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、10&#x2F;15に Azure AD Applicationの仕様が一部変更されたのに伴い、Configuration Manaer (CM) 側で「クラウド管理」の Azure サービスが利用する Azure AD アプリケーションを作成する際の仕様変更についてご連絡致します。 なお、上記 Azure">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System Center 2012 &#x2F; R2 Configuration Manager のサポートが残り 1 年を切りました">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20210802_01/index.html">
+<meta property="og:title" content="MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211108_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 長年ご愛顧いただいております System Center 2012 Configuration Manager 関連の下記製品の EoS (End of Support) が 2022 年 7 月 12 日までとなっております。  System Center 2012 Configuration Manage">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、10&#x2F;15に Azure AD Applicationの仕様が一部変更されたのに伴い、Configuration Manaer (CM) 側で「クラウド管理」の Azure サービスが利用する Azure AD アプリケーションを作成する際の仕様変更についてご連絡致します。 なお、上記 Azure">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2021-08-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-09T02:56:36.334Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_02.png">
+<meta property="article:published_time" content="2021-11-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-09T02:56:36.342Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211108_01/20211108_01_03.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -74,7 +78,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20210802_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20211108_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -83,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      System Center 2012 / R2 Configuration Manager のサポートが残り 1 年を切りました
+      MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について
     </h1>
   
 
@@ -91,32 +95,34 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-08-01T15:00:00.000Z" itemprop="datePublished">2021-08-02</time>
+  <time datetime="2021-11-07T15:00:00.000Z" itemprop="datePublished">2021-11-08</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+6305cf5e-5978-541c-97ed-9fa1521e03c9%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+2012+%2F+R2+Configuration+Manager+%E3%81%AE%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%8C%E6%AE%8B%E3%82%8A+1+%E5%B9%B4%E3%82%92%E5%88%87%E3%82%8A%E3%81%BE%E3%81%97%E3%81%9F%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20210802_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20210802_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20210802_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+516e9898-4a73-51d5-a02e-3bfa16276c13%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+CB+2103+%E4%BB%A5%E5%89%8D%E3%81%A7%E3%81%AE+%E3%80%8C%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%80%8DAzure+%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E4%BD%9C%E6%88%90%E6%99%82%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+AAD+%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BB%95%E6%A7%98%E5%A4%89%E6%9B%B4%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211108_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211108_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211108_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20210802_01/" data-id="ckvri5bhs001f0mpe1t0v8sno" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="ckvri5bhy001p0mpecj5m65qi" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
-<p>長年ご愛顧いただいております System Center 2012 Configuration Manager 関連の下記製品の EoS (End of Support) が 2022 年 7 月 12 日までとなっております。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、10/15に Azure AD Applicationの仕様が一部変更されたのに伴い、Configuration Manaer (CM) 側で<br>「クラウド管理」の Azure サービスが利用する Azure AD アプリケーションを作成する際の仕様変更についてご連絡致します。</p>
+<p>なお、上記 Azure サービスは主にクラウド管理ゲートウェイ関連で利用することが多いものでございます。</p>
+<p>以下の記事の通り、Azure アプリケーションを作成する際に指定する App ID URI のフォーマット形式が変更となりました。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaking-changes#appid-uri-in-single-tenant-applications-will-require-use-of-default-scheme-or-verified-domains">https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaking-changes#appid-uri-in-single-tenant-applications-will-require-use-of-default-scheme-or-verified-domains</a></p>
+<h1 id="影響を受ける範囲"><a href="#影響を受ける範囲" class="headerlink" title="影響を受ける範囲"></a>影響を受ける範囲</h1><p>すでに作成済みの Azure サービスは影響を受けません。そのまま利用可能でございます。</p>
+<p>Configuration Manager Current Branch (CM CB) 2103 以前で、新規に「クラウド管理」アプリケーションを作成する際の、 “Web App” を指定する際の、URIの形式を<br>下記サイトでもご案内している通り、デフォルトの形式<a target="_blank" rel="noopener" href="https://configmgrservice/">https://ConfigMgrService</a> に近い文字列ではなく、<br>以下のフォーマットに従った文字列を指定くださいますようお願い致します。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/lifecycle/products/microsoft-system-center-2012-configuration-manager">System Center 2012 Configuration Manager</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/lifecycle/products/microsoft-system-center-2012-r2-configuration-manager">System Center 2012 R2 Configuration Manaer</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/lifecycle/products/microsoft-system-center-2012-endpoint-protection">System Center 2012 Endpoint Protection</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/lifecycle/products/microsoft-system-center-2012-r2-endpoint-protection">System Center 2012 R2 Endpoint Protection</a></li>
+<li>api://{tenantId}/{string}</li>
+<li>https://{verifiedCustomerDomain}/{string}</li>
 </ul>
-<p>EoS を迎えた製品につきましては、以下の提供が行われなくなります。</p>
-<ul>
-<li>EoS 後発生しうる問題へのテクニカルサポート</li>
-<li>セキュリティ更新や修正</li>
-<li>EoS 後の SCEP に対する定義ファイル、エンジンやプラットフォームの更新</li>
-</ul>
-<p>大変恐縮でございますが、ご利用のお客様におかれましては、 Microsoft Endpoint Configuration Manager (MECM) Current Branch 等への移行計画の策定、ご対応くださいますようお願い致します。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/mem/configmgr/core/clients/manage/cmg/configure-azure-ad#create-the-web-server-app-registration">https://docs.microsoft.com/en-us/mem/configmgr/core/clients/manage/cmg/configure-azure-ad#create-the-web-server-app-registration</a></p>
+<p>上記形式に従わない URI を指定すると、正しい ID でログインしているのに ログイン エラーが発生します。</p>
+<p><img src="/blog/mecm/20211108_01/20211108_01_03.png"></p>
+<p>CM CB 2107 以降については、本 URI の指定は以下のようにシステム側で自動的に行われるため、必要がございませんので、ご安心ください。</p>
+<p><img src="/blog/mecm/20211108_01/20211108_01_01.png"></p>
+<p><img src="/blog/mecm/20211108_01/20211108_01_02.png"></p>
 
       
       
@@ -133,7 +139,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20210802_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211108_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -141,19 +147,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../w365/2021-08-04_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Windows 365 Enterprise をご利用の際の注意点
-        
-      </div>
-    </a>
   
-  
-    <a href="../20210414_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20211028_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります</div>
+      <div class="article-nav-title">Windows Update の有効期限ポリシーについて</div>
     </a>
   
 </nav>
@@ -172,7 +169,7 @@
       <ul>
         
           <li>
-            <a href="../20211108_01/">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
+            <a href="">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
           </li>
         
           <li>
