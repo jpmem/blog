@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Docker: Attach to Blog Site",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/blog/",
+            "protocol": "inspector",
+            "preLaunchTask": "docker start",
+            "postDebugTask": "docker stop"
+        }
+    ]
+}
