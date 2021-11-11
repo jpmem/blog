@@ -1,6 +1,10 @@
 {
     "recommendations": [
+        "ms-azuretools.vscode-docker",
+        "hediet.vscode-drawio",
+        "mushan.vscode-paste-image",
         "DavidAnson.vscode-markdownlint",
-        "taichi.vscode-textlint"
+        "shd101wyy.markdown-preview-enhanced",
+        "esbenp.prettier-vscode"
     ]
 }

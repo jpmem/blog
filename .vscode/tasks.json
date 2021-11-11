@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "git module update",
+			"type": "shell",
+			"command": "git submodule update -i"
+		},
+		{
+			"label": "docker start",
+			"type": "shell",
+			"command": "docker-compose up",
+			"dependsOrder": "sequence",
+            "dependsOn": [
+                "git module update"
+            ]
+		},
+		{
+			"label": "docker stop",
+			"type": "shell",
+			"command": "docker-compose down"
+		}
+	]
+}
