@@ -77,6 +77,124 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mecm/20211122_01" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20211122_01/" class="article-date">
+  <time datetime="2021-11-21T15:00:00.000Z" itemprop="datePublished">2021-11-22</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20211122_01/">MECM クライアント 手動インストール手順</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。Configuration Manager サポート チームです。
+本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。
+ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。
+
+SCCM サイト サーバーから以下の “client” フォルダを丸ごとコピーし、クライアント端末のローカルの任意の場所に貼り付けます。
+
+1C:\Program Files\Microsoft Configuration Manager\Client
+
+
+クライアント端末にてコマンド プロンプトを管理者権限で開きます。
+
+以下のようなコマンドを実行し、クライアントをインストールします。
+
+
+1&lt;Client フォルダをコピーしたパス&gt;\client...
+        <p class="article-readmore">
+          <a href="mecm/20211122_01/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="ckwnppkd6001s0pp9dii2075m" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20211122_02" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="mecm/20211122_02/" class="article-date">
+  <time datetime="2021-11-21T15:00:00.000Z" itemprop="datePublished">2021-11-22</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="mecm/20211122_02/">MECM クライアント インストールがうまく行かない時の確認箇所</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。Configuration Manager サポート チームです。
+今回は Configuration Manager のクライアント インストール・登録がうまく行かない際にご確認頂きたいポイントについて、解説させて頂きます。
+
+:bulb:クライアント登録の大まかな流れについて123456graph LR;   cs -- 管理ポイントと通信 --&gt; rg   rg -- 登録完了 --&gt; pd   cs[1.ccmsetup]   rg[2.registration]   pd[3.policy download]
+
+
+ccmsetup（クライアント インストール）を実行します。
+インストールが成功すると、管理ポイントと通信し、クライアント登録を試行します。
+登録が完了すると、各種ポリシーをダウンロードします。これが成功すると、コントロール パネル &...
+        <p class="article-readmore">
+          <a href="mecm/20211122_02/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211122_02/" data-id="ckwnppkd7001u0pp99pk742c3" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-mecm/20211108_01" class="article article-type-post" itemscope itemprop="blogPost">
 
   <div class="article-inner">
@@ -117,7 +235,7 @@ https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaki
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="ckvukuoke001p0ola2sxv1pmx" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="ckwnppkd4001p0pp99ghze64e" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -167,7 +285,7 @@ Microsoft は、サポートされているWindows プラットフォームご�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/mecm/20211028_01/" data-id="ckvukuokd001n0olacszjaye8" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211028_01/" data-id="ckwnppkd3001n0pp98hcte08q" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -218,7 +336,7 @@ Configuration Manager コンソールから PowerShell スクリプトを作成�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="ckvukuokc001l0ola29y1d0ux" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="ckwnppkd2001l0pp90ks854sd" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -274,7 +392,7 @@ Configuration Manager コンソールから PowerShell スクリプトを作成�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="ckvukuol400330ola572l93tn" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="ckwnppke300370pp987ouf5lo" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -327,7 +445,7 @@ Wi...
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="ckvukuokb001j0ola1etw8d0h" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="ckwnppkd1001j0pp9cclibrao" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -380,7 +498,7 @@ Wi...
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="ckvukuok9001h0olaf7kr7jlg" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="ckwnppkcy001h0pp997zffyu8" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -431,7 +549,7 @@ h...
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/w365/2021-09-13_01/" data-id="ckvukuokm00240olaf35sf7zc" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/w365/2021-09-13_01/" data-id="ckwnppkde00280pp98uaa9d03" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
@@ -482,111 +600,7 @@ h...
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/w365/2021-08-20_01/" data-id="ckvukuokk00210ola1w0g7szt" class="article-share-link">共有</a-->
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-w365/2021-08-16_01" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <div class="article-inner">
-    <!-- post date -->
-    <div class="article-meta">
-      <a href="w365/2021-08-16_01/" class="article-date">
-  <time datetime="2021-08-15T15:00:00.000Z" itemprop="datePublished">2021-08-16</time>
-</a>
-      
-    </div>
-
-    
-    <!-- post title -->
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="w365/2021-08-16_01/">Windows 365 FAQ</a>
-    </h1>
-  
-
-      </header>
-    
-
-    <!-- post caption -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は Windows 365 のご利用においてよくお問い合わせを受ける内容に対するご回答 (FAQ) をお伝えします。
-免責事項下記内容は 2021/8/16 時点で判明している内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。
-FAQBusiness &amp; Enterprise 共通Windows 365 を試してみたいが、使用方法がわからないBusiness と Enterprise で構築方法が異なります。下記にまとまっておりますのでご参照ください。  
-
-いまはじ！ Windows 365 - Business 編 (Zenn.dev)   
-いまはじ！ Windows 365 - Enterprise...
-        <p class="article-readmore">
-          <a href="w365/2021-08-16_01/">Read more</a>
-        </p>
-      
-    </div>
-
-    <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/w365/2021-08-16_01/" data-id="ckvukuokj001z0olabvra4ens" class="article-share-link">共有</a-->
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-w365/2021-08-11_01" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <div class="article-inner">
-    <!-- post date -->
-    <div class="article-meta">
-      <a href="w365/2021-08-11_01/" class="article-date">
-  <time datetime="2021-08-10T15:00:00.000Z" itemprop="datePublished">2021-08-11</time>
-</a>
-      
-    </div>
-
-    
-    <!-- post title -->
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="w365/2021-08-11_01/">Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合について</a>
-    </h1>
-  
-
-      </header>
-    
-
-    <!-- post caption -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合に、ご確認いただきたい内容についてお伝え致します。
-また、本内容と同内容が、下記 Microsoft Docs でも公開されております。併せてご確認くださいませ。
-https://docs.microsoft.com/en-us/microsoft-365/admin/setup/troubleshoot-windows-365-business?view=o365-worldwide
-免責事項下記内容は 2021/8/25 時点で判明している内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますようお...
-        <p class="article-readmore">
-          <a href="w365/2021-08-11_01/">Read more</a>
-        </p>
-      
-    </div>
-
-    <footer class="article-footer">
-      <!--a data-url="https://jpmem.github.io/blog/w365/2021-08-11_01/" data-id="ckvukuokg001u0ola0091gz8y" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpmem.github.io/blog/w365/2021-08-20_01/" data-id="ckwnppkdd00250pp92bq9h2wa" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
@@ -615,6 +629,14 @@ https://docs.microsoft.com/en-us/microsoft-365/admin/setup/troubleshoot-windows-
       <ul>
         
           <li>
+            <a href="mecm/20211122_01/">MECM クライアント 手動インストール手順</a>
+          </li>
+        
+          <li>
+            <a href="mecm/20211122_02/">MECM クライアント インストールがうまく行かない時の確認箇所</a>
+          </li>
+        
+          <li>
             <a href="mecm/20211108_01/">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
           </li>
         
@@ -624,14 +646,6 @@ https://docs.microsoft.com/en-us/microsoft-365/admin/setup/troubleshoot-windows-
         
           <li>
             <a href="mecm/20211025_01/">スクリプト機能のご紹介</a>
-          </li>
-        
-          <li>
-            <a href="wsus/2021-10-19_01/">Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)</a>
-          </li>
-        
-          <li>
-            <a href="mecm/20211005_01/">Windows 11 のサポートについて (Configuration Manager と WSUS)</a>
           </li>
         
       </ul>
@@ -644,7 +658,7 @@ https://docs.microsoft.com/en-us/microsoft-365/admin/setup/troubleshoot-windows-
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/MECM/">MECM</a><span class="tag-list-count">29</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/WSUS/">WSUS</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/MECM/">MECM</a><span class="tag-list-count">31</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/WSUS/">WSUS</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li></ul>
     </div>
   </div>
 

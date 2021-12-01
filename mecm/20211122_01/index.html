@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>MECM クライアント 手動インストール手順 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。 ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。  SCCM サイト サーバーから以下の “client” フォルダを">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する">
-<meta property="og:url" content="https://jpmem.github.io/blog/w365/2021-08-11_02/index.html">
+<meta property="og:title" content="MECM クライアント 手動インストール手順">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211122_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。 ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。  SCCM サイト サーバーから以下の “client” フォルダを">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
-<meta property="article:published_time" content="2021-08-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-12-01T15:56:55.229Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211122_01/20211122_01_01.png">
+<meta property="article:published_time" content="2021-11-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-01T15:56:55.225Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Windows 365">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211122_01/20211122_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +76,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-w365/2021-08-11_02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20211122_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する
+      MECM クライアント 手動インストール手順
     </h1>
   
 
@@ -93,31 +93,49 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-08-10T15:00:00.000Z" itemprop="datePublished">2021-08-11</time>
+  <time datetime="2021-11-21T15:00:00.000Z" itemprop="datePublished">2021-11-22</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bb929e60-e328-57cf-bb1d-124c112a45e4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+365+%E3%81%A7+Microsoft+365+Apps+%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC+%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3+%E3%81%AB%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fw365%2F2021-08-11_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fw365%2F2021-08-11_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fw365%2F2021-08-11_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+2064fce7-999a-5f4e-8111-cfd63b50fbe0%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88+%E6%89%8B%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211122_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211122_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211122_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/w365/2021-08-11_02/" data-id="ckwnppkda00210pp9fv0y67dy" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="ckwnppkd6001s0pp9dii2075m" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時に<br>エラーが発生する場合の対処についてお伝え致します。</p>
-<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2021/8/11 時点で判明している内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますよう<br>お願い致します。</p>
-<h2 id="対象"><a href="#対象" class="headerlink" title="対象"></a>対象</h2><p>下記の Microsoft 365 ライセンスをお使いのお客様。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。</p>
+<p>ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。</p>
+<ol>
+<li>SCCM サイト サーバーから以下の “client” フォルダを丸ごとコピーし、クライアント端末のローカルの任意の場所に貼り付けます。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>クライアント端末にてコマンド プロンプトを管理者権限で開きます。</p>
+</li>
+<li><p>以下のようなコマンドを実行し、クライアントをインストールします。</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Client フォルダをコピーしたパス&gt;\client\ccmsetup.exe /<span class="built_in">source</span>:&lt;Client フォルダをコピーしたパス&gt;\client  SMSSITECODE=&lt;サイトコード&gt; SMSMP=&lt;プライマリサイトの管理ポイントサーバーの FQDN&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例えば、client フォルダのコピー先が、”c:\temp”で、サイトコードが “P01”、プライマリサイトの管理ポイントサーバーの FQDN が “sccm.contoso.com” の場合、以下のコマンドを実行します。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\temp\client\ccmsetup.exe /<span class="built_in">source</span>:c:\temp\client SMSSITECODE=P01 SMSMP=sccm.contoso.com</span><br></pre></td></tr></table></figure>
+
+<p>※ サイトコードやプライマリサイトの管理ポイントサーバーの FQDN は、SCCM コンソールの以下の画面にてご確認いただけます。<br>[管理] &gt; [概要] &gt; [サイトの構成] &gt; [サーバーとサイト システムの役割]</p>
+<p><img src="/blog/mecm/20211122_01/20211122_01_01.png"></p>
+<ol start="4">
+<li><p>コマンドプロンプトを閉じます。</p>
+</li>
+<li><p>インストールが行われる間、クライアント端末のタスクマネージャーにて、ccmsetup が動作していることをご確認いただけます。<br>インストールの完了は、以下のログにてご確認いただけます。</p>
+</li>
+</ol>
 <ul>
-<li>Microsoft 365 Personal</li>
-<li>Microsoft 365 Business Standard</li>
+<li>ファイル場所<br>C:\Windows\ccmsetup\logs\ccmsetup.log<br></li>
+<li>ログ出力<br>最後に、以下のログが出力されたことで、インストール完了と判断できます。</li>
 </ul>
-<h2 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h2><p>Windows 365 ライセンスで作成したクラウド PC で、Microsoft 365 Apps にログインしようとした時に下記画面のように<br>“Account Issue: The products we found in your account cannot be used to activate Office in shared computer scenarios.” とエラー表示される</p>
-<p><img src="/blog/w365/2021-08-11_02/20210811_02_01.png"></p>
-<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><p>お手数をおかけして大変恐縮でございますが、<br>クラウド PC にインストールされている Microsoft 365 Apps をアンインストールし、<a target="_blank" rel="noopener" href="https://www.office.com/">office.com</a> から Microsoft 365 Apps のバイナリをダウンロード、インストールくださいますよう<br>お願い致します。</p>
-<h2 id="エラー原因"><a href="#エラー原因" class="headerlink" title="エラー原因"></a>エラー原因</h2><p>クラウド PC にインストールされている Microsoft 365 Apps の前提ライセンスとお客様が利用されているライセンスが異なるために本件発生致します。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本件、下記公開情報にも記載がございますのでご確認くださいませ。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps">https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps</a></p>
-<h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>Windows 365 のライセンスに Microsoft 365 のライセンスは含まれておりません。<br>同様に Microsoft 365 のライセンスに Windows 365 のライセンスも含まれておりません。それぞれ別途購入が必要となります。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
 
       
       
@@ -131,10 +149,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/w365/2021-08-11_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211122_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -142,19 +160,10 @@
     
 <nav id="article-nav">
   
-    <a href="../2021-08-11_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合について
-        
-      </div>
-    </a>
   
-  
-    <a href="../2021-08-04_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20211122_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows 365 Enterprise をご利用の際の注意点</div>
+      <div class="article-nav-title">MECM クライアント インストールがうまく行かない時の確認箇所</div>
     </a>
   
 </nav>
@@ -173,23 +182,23 @@
       <ul>
         
           <li>
-            <a href="../../mecm/20211122_01/">MECM クライアント 手動インストール手順</a>
+            <a href="">MECM クライアント 手動インストール手順</a>
           </li>
         
           <li>
-            <a href="../../mecm/20211122_02/">MECM クライアント インストールがうまく行かない時の確認箇所</a>
+            <a href="../20211122_02/">MECM クライアント インストールがうまく行かない時の確認箇所</a>
           </li>
         
           <li>
-            <a href="../../mecm/20211108_01/">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
+            <a href="../20211108_01/">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
           </li>
         
           <li>
-            <a href="../../mecm/20211028_01/">Windows Update の有効期限ポリシーについて</a>
+            <a href="../20211028_01/">Windows Update の有効期限ポリシーについて</a>
           </li>
         
           <li>
-            <a href="../../mecm/20211025_01/">スクリプト機能のご紹介</a>
+            <a href="../20211025_01/">スクリプト機能のご紹介</a>
           </li>
         
       </ul>
