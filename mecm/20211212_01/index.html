@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>仮想マシン スケールセットのクラウド管理ゲートウェイについて | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager Current Branch (CM CB) 2107 より正式リリースとなりました仮想マシン スケールセットについてとその変換手順についてご案内させて頂きます。 仮想マシン スケールセットのクラウド管理ゲートウェイは、CM CB 2103 以前まで主に提供し">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仮想マシン スケールセットのクラウド管理ゲートウェイについて">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211212_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager Current Branch (CM CB) 2107 より正式リリースとなりました仮想マシン スケールセットについてとその変換手順についてご案内させて頂きます。 仮想マシン スケールセットのクラウド管理ゲートウェイは、CM CB 2103 以前まで主に提供し">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_14.png">
+<meta property="article:published_time" content="2021-12-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-13T04:35:14.614Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20211212_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      仮想マシン スケールセットのクラウド管理ゲートウェイについて
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2021-12-11T15:00:00.000Z" itemprop="datePublished">2021-12-12</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+3cd048b9-863f-59e8-8d02-09b80e1cbad9%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3+%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%AB%E3%82%BB%E3%83%83%E3%83%88%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211212_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211212_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211212_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20211212_01/" data-id="ckx46n4gl001w0nlp5nn3hq29" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager Current Branch (CM CB) 2107 より正式リリースとなりました仮想マシン スケールセットについてとその変換手順についてご案内させて頂きます。</p>
+<p>仮想マシン スケールセットのクラウド管理ゲートウェイは、CM CB 2103 以前まで主に提供しております、クラウド管理ゲートウェイ (CMG) がベースとしている、Azure のクラウドサービス (クラシック) が 2024年 8月 31日に非推奨となるのに伴い、代替として登場した 仮想マシン スケールセット (VMSS) ベースの CMG です。CB CB 2107 より正式リリースされており、主な特徴として、CSP サブスクリプションをご利用のお客様につきましても、CMG を利用できるようになっております。</p>
+<h1 id="クラウドサービス-クラシック-版の-CMG-について"><a href="#クラウドサービス-クラシック-版の-CMG-について" class="headerlink" title="クラウドサービス (クラシック) 版の CMG について"></a>クラウドサービス (クラシック) 版の CMG について</h1><p>以下ページでもご案内している通り、クラウドサービス (クラシック) 版の CMG のデプロイは、2022年3月1日 以降の CM CB がリリースされ次第、サポートされなくなります。可能な限り、VMSS 版 CMG をご利用頂くようお願い致します。</p>
+<p>Title: 推奨されない機能 - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features</a></p>
+<h2 id="VMSS-版-CMG-の変更点"><a href="#VMSS-版-CMG-の変更点" class="headerlink" title="VMSS 版 CMG の変更点"></a>VMSS 版 CMG の変更点</h2><p>以下、サービス外部仕様の変更点となります。  </p>
+<ol>
+<li>展開名サフィックスの変更</li>
+<li>仮想マシンサイズの選択が可能に</li>
+<li>TCP-TLS ポート利用の廃止</li>
+</ol>
+<h3 id="展開名サフィックスの変更"><a href="#展開名サフィックスの変更" class="headerlink" title="展開名サフィックスの変更"></a>展開名サフィックスの変更</h3><table>
+<thead>
+<tr>
+<th>クラウドサービス</th>
+<th>VMSS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[ホスト名].cloudapp.net</td>
+<td>[ホスト名].[リージョン名].cloudapp.azure.com</td>
+</tr>
+</tbody></table>
+<p>上記の通り展開名のサフィックスが変更となります。この変更に伴い、お客様がインターネットからの名前解決にご利用されている、DNS にて CNAME レコードの設定変更が必要となりますのでご注意ください。DNS の更新手続きが必要な場合は早めに手続き方法その他をご担当者様にご確認されることをお勧め致します。</p>
+<h3 id="仮想マシンサイズの選択が可能に"><a href="#仮想マシンサイズの選択が可能に" class="headerlink" title="仮想マシンサイズの選択が可能に"></a>仮想マシンサイズの選択が可能に</h3><p>クラウドサービス(クラシック) では、A2V2 インスタンスのみがご利用可能でしたが、CM CB 2107 以降の VMSS 版 CMG ではお客様の管理台数規模に応じて、3種類のインスタンスが選択できるようになりました。ラボ環境はテストや Small PoC のみにご利用くださいますようお願い致します。</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>インスタンスサイズ</th>
+<th align="right">サポート台数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ラボ</td>
+<td>B2s</td>
+<td align="right">10</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>A2_V2</td>
+<td align="right">6,000</td>
+</tr>
+<tr>
+<td>大</td>
+<td>A4_V2</td>
+<td align="right">10,000</td>
+</tr>
+</tbody></table>
+<p>Title: CMG のパフォーマンスとスケール - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg</a></p>
+<h3 id="TCP-TLS-ポート利用の廃止"><a href="#TCP-TLS-ポート利用の廃止" class="headerlink" title="TCP-TLS ポート利用の廃止"></a>TCP-TLS ポート利用の廃止</h3><p>クラウドサービス (クラシック) で利用していた、クラウド管理ゲートウェイ接続ポイント (CMG-CP) から CMG への TCP-TLS ポート (10140 - 10155) が利用されなくなり、HTTPSポート (443, 10124 - 10139) のみが利用できるようになりました。この変更により、サイト システム設定で Proxy サーバーを設定している場合において、CMG の通信が Proxy サーバーを回避できなくなりました。そのため、VMSS 版 CMG ご利用に当たっては、ご利用されている Proxy サーバーの挙動について良くご確認くださいますようお願い致します。</p>
+<p>Title: CMG のデータ フロー - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports</a></p>
+<h1 id="VMSS-版-CMG-への変換について"><a href="#VMSS-版-CMG-への変換について" class="headerlink" title="VMSS 版 CMG への変換について"></a>VMSS 版 CMG への変換について</h1><p>以降、VMSS 版 CMG への変換についてご案内させていただきます。</p>
+<ol>
+<li>変換機能をサポートできない場合について</li>
+<li>事前作業</li>
+<li>実際の変換手順</li>
+<li>DNS CNAMEの変更または更新</li>
+</ol>
+<h2 id="変換機能をサポートできない場合について"><a href="#変換機能をサポートできない場合について" class="headerlink" title="変換機能をサポートできない場合について"></a>変換機能をサポートできない場合について</h2><p>サービス名として展開名と同じ、[ホスト名].cloudapp.netをそのままご利用されている場合は、本変換機能をサポートできません。恐れ入りますが、新規に VMSS 版 CMG を構築いただきますようお願い致します。</p>
+<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
+<h2 id="事前作業"><a href="#事前作業" class="headerlink" title="事前作業"></a>事前作業</h2><p>問題無く変換を完了させるために、以下を確認しておきます。</p>
+<ul>
+<li>機能の有効化</li>
+<li>リソースプロバイダーの登録確認</li>
+</ul>
+<h3 id="機能の有効化"><a href="#機能の有効化" class="headerlink" title="機能の有効化"></a>機能の有効化</h3><p>以下画面より、「Azure VM スケールセットを利用するクラウド管理ゲートウェイ」のステータスがオンになっていることを確認します。ステータスがオフの場合は、該当機能を選択後、リボンから「有効にする」を選択し、有効化してください。</p>
+<p>[CM コンソール] - [管理] - [概要] - [更新とサービス] - [機能]</p>
+<p><img src="/blog/mecm/20211212_01/20211212_01_01.png"></p>
+<h3 id="リソースプロバイダーの登録確認"><a href="#リソースプロバイダーの登録確認" class="headerlink" title="リソースプロバイダーの登録確認"></a>リソースプロバイダーの登録確認</h3><p>VMSS 版の CMG が利用するリソースプロバイダーの登録状況を確認します。</p>
+<p>[Azure Portal] - [サブスクリプション] - ご利用のサブスクリプションを選択 - [リソース プロバイダー]ブレード</p>
+<p><img src="/blog/mecm/20211212_01/20211212_01_02.png"></p>
+<p>上記画面で、以下のリソースプロバイダーがそれぞれ”Registered”状態になっているかを確認し、”NotRegistered”になっている場合は画面上部の「登録」ボタンをクリックして”Registered”状態に変更してください。</p>
+<ul>
+<li>Microsoft.Compute<br><img src="/blog/mecm/20211212_01/20211212_01_03.png"></li>
+<li>Microsoft.Storage<br><img src="/blog/mecm/20211212_01/20211212_01_04.png"></li>
+<li>Microsoft.KeyVault<br><img src="/blog/mecm/20211212_01/20211212_01_05.png"></li>
+<li>Microsoft.Network<br><img src="/blog/mecm/20211212_01/20211212_01_06.png"></li>
+</ul>
+<h2 id="実際の変換作業"><a href="#実際の変換作業" class="headerlink" title="実際の変換作業"></a>実際の変換作業</h2><p>実際の変換作業については下記でもご案内しております。  </p>
+<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
+<p>以下、スクリーンショット付きでのご案内となります。<br>なお、変換自体はバックグラウンドで動作し、環境にも依りますが、通常 30 分から 60 分で完了します。</p>
+<ol>
+<li><p>MECM CB 2107 以降で下記の画面まで遷移します。<br>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ]</p>
+</li>
+<li><p>「デプロイ モデル」が「クラウド サービス（クラシック)」のクラウド管理ゲートウェイのレコードを選択すると、画面上部のリボンに「変換」アイコンが表示されるので、クリックします。</p>
+</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_07.png"></p>
+<ol start="3">
+<li>変換ウィザードが起動します。サインイン状態かどうかを確認し、「次へ」をクリックします。</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_08.png"></p>
+<ol start="4">
+<li>追加詳細を選択します。本画面で展開名の確認が出来るのでメモしておきましょう。</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_10.png"></p>
+<p>変更できるのは、以下となります。適宜変更後、「次へ」をクリックします。</p>
+<ul>
+<li>説明</li>
+<li>VM サイズ<br><img src="/blog/mecm/20211212_01/20211212_01_11.png"></li>
+<li>VM インスタンス数</li>
+<li>クライアント証明書のCRLチェックの要否</li>
+<li>TLS 設定</li>
+<li>CMG-CDPの有効可否</li>
+</ul>
+<ol start="5">
+<li>最終確認画面で設定内容を確認後、「次へ」を選択します。</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_12.png"></p>
+<ol start="6">
+<li>時間経過でウィザードの正常完了画面を確認し、「閉じる」をクリックします。</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_13.png"></p>
+<ol start="7">
+<li>ウィザードを閉じて、クラウド管理ゲートウェイのテーブルを更新すると、現在の変換状況を確認できます。「ステータスの説明」が「サーバーを移行しています」の状態の時は移行作業中です。環境にも依りますが、30分から60分程度作業完了までお待ちください。</li>
+</ol>
+<p><img src="/blog/mecm/20211212_01/20211212_01_14.png"></p>
+<h2 id="DNS-CNAMEの変更または更新"><a href="#DNS-CNAMEの変更または更新" class="headerlink" title="DNS CNAMEの変更または更新"></a>DNS CNAMEの変更または更新</h2><p>展開名が [ホスト名].cloudapp.net から [ホスト名].[リージョン名].cloudapp.azure.com に変更されているため、インターネットからの名前解決に利用しているDNS のCNAME レコードの更新または作成が必要ですので、ご対応ください。</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211212_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20211122_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">MECM クライアント 手動インストール手順</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">仮想マシン スケールセットのクラウド管理ゲートウェイについて</a>
+          </li>
+        
+          <li>
+            <a href="../20211122_01/">MECM クライアント 手動インストール手順</a>
+          </li>
+        
+          <li>
+            <a href="../20211122_02/">MECM クライアント インストールがうまく行かない時の確認箇所</a>
+          </li>
+        
+          <li>
+            <a href="../20211108_01/">MECM CB 2103 以前での 「クラウド管理」Azure サービス作成時における AAD アプリケーション設定の仕様変更の影響について</a>
+          </li>
+        
+          <li>
+            <a href="../20211028_01/">Windows Update の有効期限ポリシーについて</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">32</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
