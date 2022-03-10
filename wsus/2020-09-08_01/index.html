@@ -4,22 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>MECM クライアント 手動インストール手順 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。 ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。  SCCM サイト サーバーから以下の “client” フォルダを">
+  <meta name="description" content="(本ブログは以下元記事の抄訳でございます。)https:&#x2F;&#x2F;techcommunity.microsoft.com&#x2F;t5&#x2F;windows-it-pro-blog&#x2F;changes-to-improve-security-for-windows-devices-scanning-wsus&#x2F;ba-p&#x2F;1645547  皆様、こんにちは。WSUS サポート チームです。 今日は WSUS へスキャンを行う">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MECM クライアント 手動インストール手順">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20211122_01/index.html">
+<meta property="og:title" content="WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2020-09-08_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。 ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。  SCCM サイト サーバーから以下の “client” フォルダを">
+<meta property="og:description" content="(本ブログは以下元記事の抄訳でございます。)https:&#x2F;&#x2F;techcommunity.microsoft.com&#x2F;t5&#x2F;windows-it-pro-blog&#x2F;changes-to-improve-security-for-windows-devices-scanning-wsus&#x2F;ba-p&#x2F;1645547  皆様、こんにちは。WSUS サポート チームです。 今日は WSUS へスキャンを行う">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211122_01/20211122_01_01.png">
-<meta property="article:published_time" content="2021-11-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-10T01:23:21.749Z">
+<meta property="article:published_time" content="2020-09-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-10T01:23:21.793Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211122_01/20211122_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20211122_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2020-09-08_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MECM クライアント 手動インストール手順
+      WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点
     </h1>
   
 
@@ -93,49 +91,28 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-11-21T15:00:00.000Z" itemprop="datePublished">2021-11-22</time>
+  <time datetime="2020-09-07T15:00:00.000Z" itemprop="datePublished">2020-09-08</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+2064fce7-999a-5f4e-8111-cfd63b50fbe0%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88+%E6%89%8B%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20211122_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20211122_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20211122_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+f5766c12-e7ac-54e3-9b04-7e42c8e942ad%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%81%B8%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%92%E8%A1%8C%E3%81%86%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AE%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E5%90%91%E4%B8%8A%E3%81%AE%E7%82%BA%E3%81%AE%E5%A4%89%E6%9B%B4%E7%82%B9%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2020-09-08_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2020-09-08_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2020-09-08_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="cl0kb3gwq001w0mpb4mzl347w" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2020-09-08_01/" data-id="cl0kb3gxg003l0mpbavf83e96" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
-<p>本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。</p>
-<p>ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。</p>
-<ol>
-<li>SCCM サイト サーバーから以下の “client” フォルダを丸ごとコピーし、クライアント端末のローカルの任意の場所に貼り付けます。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>クライアント端末にてコマンド プロンプトを管理者権限で開きます。</p>
-</li>
-<li><p>以下のようなコマンドを実行し、クライアントをインストールします。</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Client フォルダをコピーしたパス&gt;\client\ccmsetup.exe /<span class="built_in">source</span>:&lt;Client フォルダをコピーしたパス&gt;\client  SMSSITECODE=&lt;サイトコード&gt; SMSMP=&lt;プライマリサイトの管理ポイントサーバーの FQDN&gt;</span><br></pre></td></tr></table></figure>
-
-<p>例えば、client フォルダのコピー先が、”c:\temp”で、サイトコードが “P01”、プライマリサイトの管理ポイントサーバーの FQDN が “sccm.contoso.com” の場合、以下のコマンドを実行します。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\temp\client\ccmsetup.exe /<span class="built_in">source</span>:c:\temp\client SMSSITECODE=P01 SMSMP=sccm.contoso.com</span><br></pre></td></tr></table></figure>
-
-<p>※ サイトコードやプライマリサイトの管理ポイントサーバーの FQDN は、SCCM コンソールの以下の画面にてご確認いただけます。<br>[管理] &gt; [概要] &gt; [サイトの構成] &gt; [サーバーとサイト システムの役割]</p>
-<p><img src="/blog/mecm/20211122_01/20211122_01_01.png"></p>
-<ol start="4">
-<li><p>コマンドプロンプトを閉じます。</p>
-</li>
-<li><p>インストールが行われる間、クライアント端末のタスクマネージャーにて、ccmsetup が動作していることをご確認いただけます。<br>インストールの完了は、以下のログにてご確認いただけます。</p>
-</li>
-</ol>
-<ul>
-<li>ファイル場所<br>C:\Windows\ccmsetup\logs\ccmsetup.log<br></li>
-<li>ログ出力<br>最後に、以下のログが出力されたことで、インストール完了と判断できます。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
+        <p>(本ブログは以下元記事の抄訳でございます。)<br><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/changes-to-improve-security-for-windows-devices-scanning-wsus/ba-p/1645547">https://techcommunity.microsoft.com/t5/windows-it-pro-blog/changes-to-improve-security-for-windows-devices-scanning-wsus/ba-p/1645547</a></p>
+<hr>
+<p>皆様、こんにちは。WSUS サポート チームです。</p>
+<p>今日は WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点について紹介します。<br>Windows 10 の 2020 年 9 月の累積更新プログラムでは、Windows Server Update Services (WSUS) をスキャンして更新プログラムを取得するクライアントのセキュリティの向上に寄与する変更を導入しました。  この記事では、これらの変更点と、クライアントが引き続き更新プログラムをスキャンするために必要なアクションの概要を説明し、組織内のクライアントのセキュリティを向上させるための基本的な推奨事項をご案内します。</p>
+<h2 id="既定で-HTTP-ベースのサーバーがセキュアになりました"><a href="#既定で-HTTP-ベースのサーバーがセキュアになりました" class="headerlink" title="既定で HTTP ベースのサーバーがセキュアになりました"></a>既定で HTTP ベースのサーバーがセキュアになりました</h2><p>2020 年 9 月以降の累積更新プログラムから、HTTP ベースのイントラネットサーバーが既定で IE のユーザー プロキシを利用して更新プログラムを検出することを認めなくなりました。  その為、 TLS プロトコル 及び HTTPS で保護されていない WSUS 環境があり、クライアントがイントラネットの WSUS に正常に接続するために IE のユーザー プロキシを必要とする場合、クライアントが 2020 年 9 月以降の累積更新プログラムを適用後は、WSUS に対するスキャンが失敗するようになります。</p>
+<h2 id="セキュリティ強化のための推奨事項"><a href="#セキュリティ強化のための推奨事項" class="headerlink" title="セキュリティ強化のための推奨事項"></a>セキュリティ強化のための推奨事項</h2><p>WSUS のセキュリティを確保するために、マイクロソフトは、クライアントと WSUS 間で TLS/SSL プロトコルを使用することを推奨しています。<br>Microsoft Update (WSUS を含む) は、コンテンツファイルとカタログ情報 (メタデータ) という 2 種類のコンテンツに依存しています。どちらのコンテンツも非常に重要であり、コンピュータを安全かつ最新の状態に保つために、どちらも保護する必要がございます。</p>
+<p>各種コンテンツの説明は以下でございます。  </p>
+<p>コンテンツファイル :<br>更新プログラムの実体となるファイルそのものです。デジタル署名チェックや暗号ハッシュ検証など、複数の手段で改ざんから保護されています。HTTPS は、データが信頼できることを証明するためにクライアントが使用する適切な Chain of Custody を提供します。</p>
+<p>カタログ情報 (メタデータ) :<br>どの更新プログラムが利用可能か、更新プログラムを適用できるデバイスはどれか、更新プログラムの実体ファイルを取得する場所はどこかなどの情報が含まれるファイルです。デバイスが Microsoft Update から直接アップデートを受信する場合、そのデバイスは Microsoft サーバから直接アップデートのカタログ情報 (メタデータ)を受信します。このカタログ情報 (メタデータ)は、改ざんを防ぐために常に HTTPS を介して送信されます。WSUS または Configuration Manager を使用して組織の更新を管理する場合、メタデータは一連の接続を介して Microsoft サーバーからデバイスに送信されます。これらの接続の各々は、悪意のある攻撃から保護される必要があります。また、WSUS サーバーは、Windows Update に接続し、更新プログラムのカタログ情報 (メタデータ) を受信します。この接続には常に HTTPS を使用し、HTTPS のセキュリティ機能によりカタログ情報 (メタデータ)の改ざんを防止します。複数の WSUS サーバーを階層的に配置している場合、下流側のサーバーは上流側のサーバーからカタログ情報 (メタデータ)を受信します。これらの接続には HTTP または HTTPS を使用することができます。しかし、HTTP を使用すると、外部から攻撃されやすくなるため、非常に危険でございます。反対に、HTTPS を使用すると、下流側の WSUS は上流側の WSUS から受信したカタログ情報 (メタデータ)を信頼していることを証明することができます。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>外部からクライアントコンピュータへの攻撃を防ぐためには、組織内のすべての上流と下流の WSUS 間の接続、および WSUS とクライアントコンピュータ間の接続が攻撃から防御されていることを確認する必要があります。このため、HTTPS を使用してこれらの接続を保護するように WSUS ネットワークを構成することを強くお勧めします。</p>
+<h2 id="HTTPS-を構成しても、プロキシが必要な場合"><a href="#HTTPS-を構成しても、プロキシが必要な場合" class="headerlink" title="HTTPS を構成しても、プロキシが必要な場合"></a>HTTPS を構成しても、プロキシが必要な場合</h2><p>HTTPS を構成しても、プロキシが必要な場合は、ユーザーベースのプロキシではなく、システムベースのプロキシを使用することが非常に重要です。ユーザーベースのプロキシを使用すると、たとえ権限を持たないユーザーであっても、更新クライアントと更新サーバーの間で交換されるデータを傍受して操作することが可能となってしまいます。</p>
 
       
       
@@ -149,10 +126,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20211122_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2020-09-08_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -160,19 +137,19 @@
     
 <nav id="article-nav">
   
-    <a href="../20211212_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2021-03-18_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          仮想マシン スケールセットのクラウド管理ゲートウェイについて
+          Windows Server 2016 以降の WSUS で更新プログラムのダウンロードが 0% で進まない場合のチェックポイント
         
       </div>
     </a>
   
   
-    <a href="../20211122_02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2020-07-21_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">MECM クライアント インストールがうまく行かない時の確認箇所</div>
+      <div class="article-nav-title">WSUS メンテナンス ガイド</div>
     </a>
   
 </nav>
@@ -191,23 +168,23 @@
       <ul>
         
           <li>
-            <a href="../20220208_01/">CMPivot 機能について</a>
+            <a href="../../mecm/20220208_01/">CMPivot 機能について</a>
           </li>
         
           <li>
-            <a href="../20220122_01/">Configuration Managerにおける拡張 HTTP の確認方法</a>
+            <a href="../../mecm/20220122_01/">Configuration Managerにおける拡張 HTTP の確認方法</a>
           </li>
         
           <li>
-            <a href="../20211214_01/">Configuration Manager (CM) における共存状態について</a>
+            <a href="../../mecm/20211214_01/">Configuration Manager (CM) における共存状態について</a>
           </li>
         
           <li>
-            <a href="../20211212_01/">仮想マシン スケールセットのクラウド管理ゲートウェイについて</a>
+            <a href="../../mecm/20211212_01/">仮想マシン スケールセットのクラウド管理ゲートウェイについて</a>
           </li>
         
           <li>
-            <a href="">MECM クライアント 手動インストール手順</a>
+            <a href="../../mecm/20211122_01/">MECM クライアント 手動インストール手順</a>
           </li>
         
       </ul>
