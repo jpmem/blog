@@ -4,22 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows Server 2016 以降の WSUS で更新プログラムのダウンロードが 0% で進まない場合のチェックポイント | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS が使用するコンテンツ フォルダーである WsusContent フォルダー直下に web.config が作成された環境で生じる問題についてご紹介します。Windows Server 2016 以降の WSUS に接続するクライアントにおいて、更新プログラムのダウンロードが 0% で進まないという問題が発生した場合、 Wsu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する">
-<meta property="og:url" content="https://jpmem.github.io/blog/w365/2021-08-11_02/index.html">
+<meta property="og:title" content="Windows Server 2016 以降の WSUS で更新プログラムのダウンロードが 0% で進まない場合のチェックポイント">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2021-03-18_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時にエラーが発生する場合の対処についてお伝え致します。 免責事項下記内容は 2021&#x2F;8&#x2F;11 時点で判明している内容についての記載となっております。今後内容が更新">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS が使用するコンテンツ フォルダーである WsusContent フォルダー直下に web.config が作成された環境で生じる問題についてご紹介します。Windows Server 2016 以降の WSUS に接続するクライアントにおいて、更新プログラムのダウンロードが 0% で進まないという問題が発生した場合、 Wsu">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
-<meta property="article:published_time" content="2021-08-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-10T01:21:30.555Z">
+<meta property="article:published_time" content="2021-03-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-10T01:21:30.595Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Windows 365">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2021-08-11_02/20210811_02_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-w365/2021-08-11_02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2021-03-18_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows 365 で Microsoft 365 Apps のユーザー ログイン に失敗する
+      Windows Server 2016 以降の WSUS で更新プログラムのダウンロードが 0% で進まない場合のチェックポイント
     </h1>
   
 
@@ -93,31 +91,46 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2021-08-10T15:00:00.000Z" itemprop="datePublished">2021-08-11</time>
+  <time datetime="2021-03-17T15:00:00.000Z" itemprop="datePublished">2021-03-18</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bb929e60-e328-57cf-bb1d-124c112a45e4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+365+%E3%81%A7+Microsoft+365+Apps+%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC+%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3+%E3%81%AB%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fw365%2F2021-08-11_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fw365%2F2021-08-11_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fw365%2F2021-08-11_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+a464321c-0392-54e5-b516-8f41deeaa53e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+Server+2016+%E4%BB%A5%E9%99%8D%E3%81%AE+WSUS+%E3%81%A7%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%8C+0%25+%E3%81%A7%E9%80%B2%E3%81%BE%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2021-03-18_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2021-03-18_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2021-03-18_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/w365/2021-08-11_02/" data-id="cl0kb135q002d0mrzbpf38bec" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2021-03-18_01/" data-id="cl0kb136b003l0mrz0t3wei3g" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は多くの皆様からお問い合わせを頂いております、Windows 365 で Microsoft 365 Apps にログインしようとした時に<br>エラーが発生する場合の対処についてお伝え致します。</p>
-<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2021/8/11 時点で判明している内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますよう<br>お願い致します。</p>
-<h2 id="対象"><a href="#対象" class="headerlink" title="対象"></a>対象</h2><p>下記の Microsoft 365 ライセンスをお使いのお客様。</p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
+<p>今回は WSUS が使用するコンテンツ フォルダーである WsusContent フォルダー直下に web.config が作成された環境で生じる問題についてご紹介します。<br>Windows Server 2016 以降の WSUS に接続するクライアントにおいて、更新プログラムのダウンロードが 0% で進まないという問題が発生した場合、 WsusContent フォルダー直下に web.config が作成されていないかチェックしてください。</p>
+<p>例えば、以下の手順を実施した Windows Server 2012 / 2012 R2 の WSUS の場合、WsusContent フォルダー直下に web.config が作成されます。  </p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-windows-10#%E6%9D%A1%E4%BB%B6%EF%BC%94wsus-%E3%81%8C%E5%8B%95%E4%BD%9C%E3%81%99%E3%82%8B-iis-%E3%81%AE-web-%E3%82%B5%E3%82%A4%E3%83%88%E9%85%8D%E4%B8%8B%E3%81%AEcontent%E3%81%AB%E3%81%A6-windows-10-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%AB%E7%94%A8%E3%81%84%E3%82%89%E3%82%8C%E3%82%8Besd%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%85%8D%E4%BF%A1%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%99%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8">WSUS サーバーからの Windows 10 のアップグレードの配信</a>  </p>
 <ul>
-<li>Microsoft 365 Personal</li>
-<li>Microsoft 365 Business Standard</li>
+<li>条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること</li>
 </ul>
-<h2 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h2><p>Windows 365 ライセンスで作成したクラウド PC で、Microsoft 365 Apps にログインしようとした時に下記画面のように<br>“Account Issue: The products we found in your account cannot be used to activate Office in shared computer scenarios.” とエラー表示される</p>
-<p><img src="/blog/w365/2021-08-11_02/20210811_02_01.png"></p>
-<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><p>お手数をおかけして大変恐縮でございますが、<br>クラウド PC にインストールされている Microsoft 365 Apps をアンインストールし、<a target="_blank" rel="noopener" href="https://www.office.com/">office.com</a> から Microsoft 365 Apps のバイナリをダウンロード、インストールくださいますよう<br>お願い致します。</p>
-<h2 id="エラー原因"><a href="#エラー原因" class="headerlink" title="エラー原因"></a>エラー原因</h2><p>クラウド PC にインストールされている Microsoft 365 Apps の前提ライセンスとお客様が利用されているライセンスが異なるために本件発生致します。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本件、下記公開情報にも記載がございますのでご確認くださいませ。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps">https://docs.microsoft.com/en-us/microsoft-365/admin/setup/get-started-windows-365-business?view=o365-worldwide#installing-apps</a></p>
-<h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>Windows 365 のライセンスに Microsoft 365 のライセンスは含まれておりません。<br>同様に Microsoft 365 のライセンスに Windows 365 のライセンスも含まれておりません。それぞれ別途購入が必要となります。</p>
+<p>この設定を行った Windows Server 2012 / 2012 R2 の WsusContent フォルダーを、そのまま Windows Server 2016 以降の WSUS に流用すると Windows Server 2016 以降の WSUS では、applicationHost.config にも同様の「.esd」形式のファイルの配信を許可する設定が既定で存在することで、競合状態となり問題が生じます。</p>
+<p>Windows Server 2016 以降においては、「.esd」形式のファイルの配信は許可される設定になっているので、機能更新プログラムを配信するために上記手順を実施した web.config が配置されている必要はありません。<br>また、WSUS が動作する IIS の Web サイト配下の「Content」仮想ディレクトリに対して変更を加えることはサポート外の操作となりますので、上記のように web.config が作成されている場合は削除してください。<br>(Windows Server 2012 / 2012 R2 の WSUS において、上記公開情報の手順によって「Content」仮想ディレクトリに対して変更を加えることはサポートされる操作です。)</p>
+<p>なお、本事象が原因かどうかにつきましては、以下の手順で確認できますので、ご参考ください。</p>
+<ul>
+<li>手順</li>
+</ul>
+<ol>
+<li><p>WsusContent フォルダー配下にある、任意のファイルのパスを確認します。</p>
+</li>
+<li><p>WSUS サーバー上でブラウザを開き、以下の形式で URL にアクセスし、500.19 エラーが表示されるかご確認ください。</p>
+</li>
+</ol>
+<p><span>http</span>://localhost:8530/Content/&lt;フォルダー名/&lt;ファイル名&gt;</p>
+<p>WSUSContent\web.config ファイルによるエラーであることがわかるエラー画面の場合、本事象が発生していると判断できます。</p>
+<p>(補足)</p>
+<p>ブラウザでアクセスしても上記のように詳細なエラー内容が確認できない場合、以下の手順を実施ください。<br>・以下の手順で Internet Explorer の簡易表示をオフにします。</p>
+<ol>
+<li>Internet Explorer を開き、インターネット オプションを開きます。</li>
+<li>[詳細設定] タブを開き、[ブラウズ] - [HTTP エラーメッセージを簡易表示する] をオフにして [OK] をクリックします。</li>
+<li>Internet Explorer を閉じて、再度開きます。</li>
+</ol>
+<p>・WSUS サーバーで、サーバーマネージャーより、以下の IIS の機能を追加します。<br>[Web サーバー (IIS)] - [Web サーバー] - [HTTP 共通機能] - [HTTP エラー]<br>[Web サーバー (IIS)] - [Web サーバー] - [状態と診断] - [HTTP ログ]<br>[Web サーバー (IIS)] - [Web サーバー] - [状態と診断] - [トレース]  </p>
 
       
       
@@ -131,10 +144,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/w365/2021-08-11_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2021-03-18_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -142,19 +155,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2021-08-11_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20210414_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Windows 365 Business のプロビジョニングが長時間経過しても終了しない場合について
+          Microsoft Endpoint Configuration Manager 環境の HTTP のみの通信が非推奨となります
         
       </div>
     </a>
   
   
-    <a href="../2021-08-04_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2020-07-21_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows 365 Enterprise をご利用の際の注意点</div>
+      <div class="article-nav-title">WSUS メンテナンス ガイド</div>
     </a>
   
 </nav>
