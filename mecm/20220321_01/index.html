@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Configuration Manager における共同管理機能について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager (CM) にて提供される共同管理機能についてご案内します。なお、下記は MECM CB 2111 を前提に記載しておりますのでご留意くださいませ。また、MECM CB 2107 より共同管理機能は「クラウドの接続 (Cloud Attach)」と名前を変更して">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager における共同管理機能について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220321_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager (CM) にて提供される共同管理機能についてご案内します。なお、下記は MECM CB 2111 を前提に記載しておりますのでご留意くださいませ。また、MECM CB 2107 より共同管理機能は「クラウドの接続 (Cloud Attach)」と名前を変更して">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_14.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_15.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_16.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_17.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_18.png">
+<meta property="article:published_time" content="2022-03-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-22T09:09:36.259Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220321_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager における共同管理機能について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-03-20T15:00:00.000Z" itemprop="datePublished">2022-03-21</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+718d0db6-3ac3-5fef-8d5b-d97eb127d944%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BConfiguration+Manager+%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220321_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220321_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220321_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20220321_01/" data-id="cl11x19fc002c0mmghrzfe5ss" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager (CM) にて提供される共同管理機能についてご案内します。<br>なお、下記は MECM CB 2111 を前提に記載しておりますのでご留意くださいませ。また、MECM CB 2107 より共同管理機能は「クラウドの接続 (Cloud Attach)」と名前を変更しておりますが、本記事では従来通り「共同管理」の名前を継続利用しておりますのでご承知置きくださいませ。</p>
+<p>共同管理機能は、同様の機能を持つ CM と Intune について、重複する機能は、どちらかの機能を使い、重複しない機能についてはそれぞれの機能を利用を可能にする機能のことです。本機能は、CM と Intune のみで利用でき、他社 EMM 製品等とは組み合わせられない機能です。また、クライアントがイントラネットに接続している時は CM を使い、 インターネットに接続している時は Intune を使うと言った、Location aware を実現する機能ではございませんので、ご注意ください。インターネット経由で CM の管理下に置く場合、通常、クラウド管理ゲートウェイが必要となります。(なお、ここで言うインターネット経由とは VPN で接続されている環境は通常省きます)  </p>
+<p><img src="/blog/mecm/20220321_01/20220321_01_01.png"></p>
+<h2 id="よくあるユースケース"><a href="#よくあるユースケース" class="headerlink" title="よくあるユースケース"></a>よくあるユースケース</h2><p>共同管理機能を使われるユースケースとしては以下のものが挙げられます。</p>
+<ol>
+<li>スマートフォン等と同一の製品でWindows端末を管理したい。多くの機能は Intune で十分だが、OS の更新プログラムは細やかに管理したいので CM の更新プログラム配布機能を継続利用したい。</li>
+<li>Intune のインベントリ機能では必要な情報が収集できないので、CM のカスタマイズ可能なインベントリ機能を使ってより詳細な情報収集を行いたい。</li>
+<li>CM の構成基準を使って Intune より細やかなポリシー制御を行いたい。</li>
+<li>CM で十分に運用管理出来ているが、Intune の条件付き制御やリモート制御機能を使いたい。</li>
+<li>企業ネットワークに接続した際のインターネット回線帯域が限られているので、更新プログラムやアプリケーションの配布は CM の企業ネットワーク配布ポイントを活用したい。</li>
+</ol>
+<h2 id="共同管理機能の前提条件"><a href="#共同管理機能の前提条件" class="headerlink" title="共同管理機能の前提条件"></a>共同管理機能の前提条件</h2><p>共同管理機能の利用前提は以下でご案内しております。<br>よくあるご質問として、Azure AD Registered の端末が利用できるかのご質問がありますが、共同管理において Azure AD Registered の端末はサポートされておりませんのでご承知おきください。</p>
+<p>共同管理とは<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites">https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites</a></p>
+<h2 id="ワークロード"><a href="#ワークロード" class="headerlink" title="ワークロード"></a>ワークロード</h2><p>ワークロード とは、CM と Intune で重複する機能群のことです。共同管理構成ポリシーでは、重複する以下の機能を CM と Intune のどちらで担当するかを設定する必要がございます。なお、一部のワークロードでは 設定次第で CM と Intune どちらでも利用が出来る場合がございますので、ご留意くださいますようお願い致します。</p>
+<ul>
+<li>コンプライアンス ポリシー<ul>
+<li> 本ワークロードを Intune 側に設定した場合でも、Intune 上で以下を設定することで、CM のコンプライアンス ポリシーを　Intune のコンプライアンス ポリシーの一部として利用できます。<br>[コンプライアンス ポリシー] - [コンプライアンス設定] - [Configuration Manager のコンプライアンス] - [Configuration Manager からのデバイス コンプライアンスが必要]<br><img src="/blog/mecm/20220321_01/20220321_01_02.png"></li>
+</ul>
+</li>
+<li>デバイス構成<ul>
+<li>本ワークロードを Intune 側に設定した場合でも、CM 上で以下を設定することで、構成基準を継続して利用出来ます。<br>[資産とコンプライアンス] - [概要] - [コンプライアンス設定] - [構成基準] - 該当の構成基準を選択 - [プロパティ] - [全般]タブ - [共同管理のクライアントに対しても常にこの基準を適用する]<br><img src="/blog/mecm/20220321_01/20220321_01_03.png"></li>
+</ul>
+</li>
+<li>リソース アクセス ポリシー</li>
+<li>Endpoint Protection</li>
+<li>クライアント アプリ<ul>
+<li>本ワークロードを Intune 側に設定すると、 CM と Intune 両方のアプリケーションをダウンロード、インストール出来ます。CM 側に設定した場合は CM のアプリケーションのみが配布される形となります。</li>
+</ul>
+</li>
+<li>Office クイック実行アプリ</li>
+<li>Windows Update のポリシー</li>
+</ul>
+<h2 id="ワークロード外の機能"><a href="#ワークロード外の機能" class="headerlink" title="ワークロード外の機能"></a>ワークロード外の機能</h2><p>CM と Intune 間で重複しない以下の機能は共同管理を有効にすることで並行利用が可能となります。</p>
+<ul>
+<li>CM <ul>
+<li>インベントリ</li>
+<li>ソフトウェア利用状況</li>
+<li>電源管理</li>
+</ul>
+</li>
+<li>Intune<ul>
+<li>リモート管理(リタイヤ、ワイプ)</li>
+<li>条件付きアクセス制御ポリシーの配布</li>
+</ul>
+</li>
+</ul>
+<h1 id="共同管理構成の設定方法"><a href="#共同管理構成の設定方法" class="headerlink" title="共同管理構成の設定方法"></a>共同管理構成の設定方法</h1><p>共同管理構成の設定方法を以下でご案内します。なお、共同管理構成は CM 側でのみ設定可能で、Intune 側からは設定できませんのでご留意ください。</p>
+<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><p>共同管理構成のウィザードではいくつかの設定を同時に行う形となっております。事前に下記についてご検討くださいますようお願い致します。</p>
+<ol>
+<li>Azure AD グローバル管理者権限を持ち、Intune ライセンスが割当たっているAzure AD ユーザーアカウントをご用意ください。</li>
+<li>共同管理構成を有効にする対象をご検討ください。すべてのデバイスを共同管理にする場合は特に検討は必要ございませんが、 一部のデバイスのみを対象にしたい場合は、そのデバイスが所属するデバイス コレクションを事前に設定する必要がございます。なお、本デバイス コレクションは1つだけしか割り当てられないのでご理解くださいますようお願い致します。</li>
+<li>Intune 画面から CM の管理デバイスを操作する「テナントアタッチ」機能を全ての CM 管理デバイスを対象にするか、一部のコレクションのみを対象にするかどうか事前にご検討ください。  <ul>
+<li>Microsoft エンドポイント マネージャーのテナントのアタッチ: デバイスの同期とデバイスの操作<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions">https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions</a></li>
+</ul>
+</li>
+<li>デスクトップの利用情報等を分析できる「Endpoint Analytics」機能をご利用されるかどうか事前にご検討ください。後から設定変更も可能です。  <ul>
+<li>エンドポイント分析とは?<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/analytics/overview">https://docs.microsoft.com/ja-jp/mem/analytics/overview</a></li>
+</ul>
+</li>
+<li>共同管理構成を有効にしたタイミングで端末を Intune に自動登録させるか事前にご検討ください。一部デバイスのみを自動登録させる場合は該当のデバイスが所属するコレクションを作成ください。</li>
+<li>事前にワークロードの設定内容をご検討ください。「ワークロード」ステップで設定することになります。</li>
+</ol>
+<h2 id="クライアントのネットワーク要件"><a href="#クライアントのネットワーク要件" class="headerlink" title="クライアントのネットワーク要件"></a>クライアントのネットワーク要件</h2><ul>
+<li>CM のポリシーとして共同管理構成は配布されるため、クライアントが CM の管理ポイントと接続出来る必要があります。</li>
+<li>Intune の自動登録を有効にする場合、Intune を提供する各サイトに接続できる必要がございます。下記 URL をご参考ください。<br>Microsoft Intune のネットワーク エンドポイント<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints">https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints</a></li>
+</ul>
+<h2 id="実際の設定手順"><a href="#実際の設定手順" class="headerlink" title="実際の設定手順"></a>実際の設定手順</h2><ol>
+<li>CM サーバーに接続し、CM コンソールを起動します。</li>
+<li>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウドの接続] を選択します。<br><img src="/blog/mecm/20220321_01/20220321_01_04.png"></li>
+<li>[クラウド接続の構成] を選択します。<br><img src="/blog/mecm/20220321_01/20220321_01_05.png"></li>
+<li>「クラウド接続の構成」のウィザードが起動します。<br><img src="/blog/mecm/20220321_01/20220321_01_06.png">  </li>
+<li>Azure 環境として「AzurePublicCloud」が選択されていることを確認し、「サインイン」ボタンをクリックします。</li>
+<li>Azure AD の認証が始まりますので事前準備したグローバル管理者権限でサインインします。<br><img src="/blog/mecm/20220321_01/20220321_01_07.png">  </li>
+<li>事前検討で全てのデバイスを Intune に自動登録できるようにする、Endpoint Analyticsを利用できるようにする、全てのデバイスをテナントアタッチを利用出来るようにする、ことを決定されている場合は「既定の設定を使用する(推奨)」を選択ください。以下では「設定をカスタマイズする」の選択を前提にウィザードを進めていきます。選択後、「次へ」をクリックください。<br><img src="/blog/mecm/20220321_01/20220321_01_08.png">  </li>
+<li>事前に検討された内容に従って、「テナントアタッチ」の対象を「Microsoft エンドポイント マネージャーにアップロードするデバイスを選択する」の項目を設定ください。</li>
+<li>事前に検討された内容に従って、「エンドポイント分析」の項目を設定ください。選択後、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_09.png">  </li>
+<li> 対象のデバイスを Intune に自動登録させる場合は、「Intune で自動登録」にて「すべて」か「パイロット」を選択して「次へ」を選択します。一部のコレクションのみを自動登録する場合は「パイロット」を選択し、事前に作成しておいたコレクションを指定します。自動登録させない場合は「なし」を選択します。選択後、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_10.png">  </li>
+<li>設定内容を確認し、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_11.png">  </li>
+<li>設定完了したら、「閉じる」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_12.png">  </li>
+<li>[クラウドの接続] 画面に戻り、作成された “CoMgmtSettingsProd” を選択して [プロパティ] をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_13.png">  </li>
+<li>[ワークロード] タブに遷移し、事前に検討したワークロードを設定します。<br><img src="/blog/mecm/20220321_01/20220321_01_14.png">  </li>
+<li>ワークロードにて「パイロット Intune」を選択した場合、「ステージング」タブに遷移して、該当のワークロードを配布するパイロット コレクションを指定して「OK」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_15.png">  </li>
+</ol>
+<h2 id="設定がクライアントに適用されたかの確認"><a href="#設定がクライアントに適用されたかの確認" class="headerlink" title="設定がクライアントに適用されたかの確認"></a>設定がクライアントに適用されたかの確認</h2><h3 id="クライアントからの確認方法"><a href="#クライアントからの確認方法" class="headerlink" title="クライアントからの確認方法"></a>クライアントからの確認方法</h3><p>共同管理構成ポリシーがクライアントに適用されると、Configuration Manager のコントロール パネル アプレットの「構成タブ」に以下のように “CoMgmtSettings” で始まる項目が表示されます。各項目の意味は以下の通りです。  </p>
+<p><img src="/blog/mecm/20220321_01/20220321_01_16.png">  </p>
+<ul>
+<li>CoMgmtSettingsProd<ul>
+<li>共同管理構成ポリシーが設定された全てのデバイスに設定される項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotAutoEnroll<ul>
+<li>Intune への自動登録の設定にパイロットコレクションとして指定されたデバイスに設定される項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotCP<ul>
+<li>ワークロード「コンプライアンスポリシー」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotDC<ul>
+<li>ワークロード「デバイスの構成」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotEP<ul>
+<li>ワークロード「Endpoint Protection」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotRAP<ul>
+<li>ワークロード「リソース アクセス」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotCApp<ul>
+<li>ワークロード「クライアントアプリ」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotO365<ul>
+<li>ワークロード「Office クイック実行アプリ」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+<li>CoMgmtSettingsPilotWUP<ul>
+<li>ワークロード「Windows Update のポリシー」のパイロットコレクションとして指定されたデバイスに設定された項目です。</li>
+</ul>
+</li>
+</ul>
+<h3 id="CM-コンソールからの確認方法"><a href="#CM-コンソールからの確認方法" class="headerlink" title="CM コンソールからの確認方法"></a>CM コンソールからの確認方法</h3><p>下記ダッシュボードを利用して共同管理の登録状況を確認できます。  </p>
+<p>[CM コンソール] - [監視] - [共同管理]  </p>
+<p><img src="/blog/mecm/20220321_01/20220321_01_17.png"></p>
+<h3 id="MEM-管理センターからの確認方法"><a href="#MEM-管理センターからの確認方法" class="headerlink" title="MEM 管理センターからの確認方法"></a>MEM 管理センターからの確認方法</h3><p>通常、デバイス一覧で「管理者」が「共同管理」となっているデバイスが共同管理状態となっているデバイスとなります。なお、ここで「管理者」が「ConfigMgr」となっているデバイスはテナントアタッチのみされているデバイスであり、共同管理状態にはなっていないのでご注意ください。  </p>
+<p><img src="/blog/mecm/20220321_01/20220321_01_18.png"></p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220321_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/2022-03-11_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Windows Server 2022 に更新プログラムを配布するためのポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Configuration Manager における共同管理機能について</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-03-11_01/">Windows Server 2022 に更新プログラムを配布するためのポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20220307_01/">Configuration Manager の便利な機能</a>
+          </li>
+        
+          <li>
+            <a href="../20220208_01/">CMPivot 機能について</a>
+          </li>
+        
+          <li>
+            <a href="../20220125_01/">sysnative について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">40</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">22</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">6</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
