@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_4.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_5.png">
 <meta property="article:published_time" content="2022-03-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-29T10:16:04.693Z">
+<meta property="article:modified_time" content="2022-03-29T10:22:58.618Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -103,7 +103,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+32f781dc-e745-5d32-a55b-e81223d8d6f9%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%8C+0+%25%E3%81%A7%E9%80%B2%E3%81%BE%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88+%28+WSUS+%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-03-25_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-03-25_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-03-25_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-03-25_01/" data-id="cl1bzhq5w00410orsh1shcpau" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-03-25_01/" data-id="cl1bzqlnm00410mo5flko56n9" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -119,10 +119,10 @@
 <h3 id="＜-確認手順-WSUS-サーバー上のコンテンツ-ファイルの有無を確認-＞"><a href="#＜-確認手順-WSUS-サーバー上のコンテンツ-ファイルの有無を確認-＞" class="headerlink" title="＜ 確認手順 : WSUS サーバー上のコンテンツ ファイルの有無を確認 ＞"></a><strong>＜ 確認手順 : WSUS サーバー上のコンテンツ ファイルの有無を確認 ＞</strong></h3><p>＜説明＞<br>WSUS サーバーに実体となる更新プログラムのファイルが存在していない場合、<br>クライアントは、更新プログラムのダウンロードを実行しても取るファイルが存在しないためダウンロードが進捗しない状況になります。<br>この場合、 WSUS サーバー上で、更新プログラムの承認後、実体ファイルのダウンロードが正常にできていない可能性などが疑われます。</p>
 <p>＜手順＞<br>1． WSUS コンソールで対象の更新プログラムを右クリックし「 ファイル情報 」を参照します。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_1.png"><br>2．更新プログラムの URI が表示されています。これが更新プログラムの実体ファイルの格納先になります。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_2.png"><br>3． WSUS サーバーのエクスプローラーから「 WsusContent 」フォルダーを開きます。<br> 　 2 ケタの英数字で名づけられたフォルダーが複数存在しますので、手順2 で確認したファイルパス内に記載されているフォルダーをたどっていきます。<br> <img src="/blog/wsus/2022-03-25_01/2022-03-25_01_3.png"></p>
 <p>4．フォルダー内に格納されているファイルが存在するかを確認します。<br> <img src="/blog/wsus/2022-03-25_01/2022-03-25_01_4.png"></p>
-<h3 id="＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞"><a href="#＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞" class="headerlink" title="＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞"></a><strong>＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞</strong></h3><p>＜説明＞<br>OS の標準機能として Windows Firewall のサービス無効化はサポートされていないものとなっており、  Windows Update の観点では、 WSUS から更新プログラムをダウンロードする際に利用される BITS と呼ばれるコンポーネントに影響を与えてしまい正常に適用処理を完了させることができなくなります。</p>
+<h3 id="＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞"><a href="#＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞" class="headerlink" title="＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞"></a><strong>＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞</strong></h3><p>＜説明＞<br>OS の標準機能として Windows Firewall のサービス無効化はサポートされておらず、WSUS から更新プログラムをダウンロードする際に利用される Background Intelligent Transfer Service (BITS) と呼ばれるコンポーネントの動作に影響を与えてしまい、正常にダウンロードすることができなくなります。</p>
 <p>参考情報 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows/win32/bits/">Background Intelligent Transfer Service</a></p>
-<p>＜手順＞<br>1．サービス を開き、 Windows Firewall 　もしくは　 Windows Defender Firewall 　の名称（サービス名： MpsSvc ）を探します。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_5.png"></p>
-<p>2．サービスの状態が　“無効”　となっているかをご確認ください。<br>無効とされていた場合は有効化いただくか、コントロールパネルより該当サービスを利用しない設定が必要となります。</p>
+<p>＜手順＞<br>1．サービス を開き　Windows Firewall もしくは Windows Defender Firewall の名称（サービス名： MpsSvc）を探します。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_5.png"></p>
+<p>2．サービスの状態が [無効] となっているかをご確認いただき、無効とされていた場合はスタートアップの種類を [自動] にしてサービスを開始してください。</p>
 
       
       
