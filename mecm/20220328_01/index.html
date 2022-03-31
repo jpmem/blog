@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1) | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。     (本記事) CMG の概要とユースケース、及びリバース プロキシと">
+<meta property="og:type" content="article">
+<meta property="og:title" content="クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220328_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。     (本記事) CMG の概要とユースケース、及びリバース プロキシと">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_02.png">
+<meta property="article:published_time" content="2022-03-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-31T07:26:00.258Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="CMG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220328_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-03-27T15:00:00.000Z" itemprop="datePublished">2022-03-28</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+32c38341-8428-5b81-98ce-341425140e1c%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4+%28CMG%29+%E3%81%AE%E8%A8%AD%E8%A8%88%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%281%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220328_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220328_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220328_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20220328_01/" data-id="cl1eoaqjr002e0nqj4naxfkp8" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。  </p>
+<p>本記事は以下の二部構成としております。  </p>
+<ol>
+<li> (本記事) CMG の概要とユースケース、及びリバース プロキシとして CMG を利用する際の設計ポイントについてご案内いたします。</li>
+<li>配布ポイントとしての CMG についてとインターネット アクセス要件、セキュリティ、サイジング設計、コスト見積についてご案内致します。</li>
+</ol>
+<p>なお、下記は MECM CB 2111 および仮想マシン スケール セット (VMSS) の CMG のご利用を前提としておりますのでご留意くださいませ。</p>
+<p>CMG とは以下の機能を提供する Azure 上で提供されるクラウド サービスです。</p>
+<ul>
+<li>リバース プロキシ機能<ul>
+<li>インターネット上の端末からの通信をイントラネット上の MECM の管理ポイントやソフトウェア更新ポイントに中継する機能。イントラネット上の配布ポイントには中継しませんのでご注意ください。</li>
+</ul>
+</li>
+<li>クラウド上の配布ポイント機能<ul>
+<li>イントラネット、インターネットのどちらの端末に対してもアプリケーションやパッケージを提供するための配布ポイント機能を提供する機能。</li>
+</ul>
+</li>
+</ul>
+<p>下記 URL でもドキュメントをご提供しておりますのでご参照くださいませ。</p>
+<p>クラウド管理ゲートウェイの概要<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview</a></p>
+<h2 id="CMG-のユースケース"><a href="#CMG-のユースケース" class="headerlink" title="CMG のユースケース"></a>CMG のユースケース</h2><p>CMG を使われるユースケースとしては以下のようなものがございます。</p>
+<ol>
+<li>リモート ワーク向けに貸し出した企業端末をMECMを使ってインターネット経由で管理したい。これを VPN を使わずに実現したい。</li>
+<li>リモート ワーク向けに貸し出した企業端末の更新プログラム適用を実施する際、WSUS と同様レベルで管理したい。その際に、VPN 経由でイントラネットの配布ポイントからコンテンツをダウンロードさせるのでは無く、Microsoft の Windows Update や Office CDN からダウンロードさせることにより、限られた社内インターネット帯域の逼迫を回避したい。</li>
+<li>社内にある端末だが、事業拠点とデータセンター間の帯域より、インターネット回線の方が早い、もしくは空いているのでそちらを使いたい。</li>
+</ol>
+<h2 id="CMG-のリバース-プロキシ機能"><a href="#CMG-のリバース-プロキシ機能" class="headerlink" title="CMG のリバース プロキシ機能"></a>CMG のリバース プロキシ機能</h2><p>CMG をリバース プロキシとして利用する場合、以下の要素をご理解くださいますようお願い致します。</p>
+<ol>
+<li>インターネット端末のみが CMG をリバース プロキシとして利用する<ul>
+<li>イントラネットとして判定されている端末は CMG をリバース プロキシとして利用できません。後述するインターネット端末の判定フローで、イントラネット端末として判定された端末は例え御社外のネットワークにいる端末でも CMG をリバース プロキシとして利用しません。</li>
+</ul>
+</li>
+<li>CMG を利用するためクライアント認証が発生する<ul>
+<li>CMG はインターネット上に公開されているサービスなので、不特定多数の端末から管理対象のデバイスの通信のみを受け付けるため、認証行為が発生します。この認証方式は全 3 種類存在し、どの認証方式を採用しているかよく理解しておかないと、CMG に接続出来ないなどのトラブル シューティングの際に苦労することになります。</li>
+</ul>
+</li>
+<li>サイト サーバー間の通信暗号化が必要<ul>
+<li>過去の MECM サーバーの通信と異なり、通信の暗号化のために SSL 証明書が必要となります。各 サイト サーバーにどの証明書が必要かを理解しておかないと環境構築の際のトラブルの原因となります。</li>
+</ul>
+</li>
+</ol>
+<h3 id="MECM-におけるインターネット端末の判定"><a href="#MECM-におけるインターネット端末の判定" class="headerlink" title="MECM におけるインターネット端末の判定"></a>MECM におけるインターネット端末の判定</h3><p>上記でもご案内の通り、インターネット端末として判定されない場合、クライアントはイントラネット用の管理ポイントに対して通信を試みる形となります。<br>MECM において、端末がインターネット経由で接続しているのか、イントラネット経由で接続しているのかの判定条件は以下の図のとおりです。オンプレミス ADに参加している、リモート ワーク向け端末が VPN を介して、オンプレミス ADのドメイン コントローラーやイントラネットの管理ポイントに接続できてしまうと、たとえ利用している回線がインターネット回線でもイントラネット端末として判定されてしまいます。こちらを回避するためにはレジストリを使って「常にインターネット」の設定をする必要がございますのでご理解くださいますようお願い致します。</p>
+<p><img src="/blog/mecm/20220328_01/20220328_01_01.png"></p>
+<h3 id="CMG-におけるクライアント認証"><a href="#CMG-におけるクライアント認証" class="headerlink" title="CMG におけるクライアント認証"></a>CMG におけるクライアント認証</h3><p>CMG は不特定多数の端末からアクセスがあるため、クライアント認証を行い、成功した端末の通信のみをイントラネットの MECM サーバーに中継する仕組みを持ちます。認証の仕組みとしては以下の3つがございます。</p>
+<ol>
+<li>Azure AD 認証</li>
+<li>PKI 証明書認証</li>
+<li>サイト トークン認証</li>
+</ol>
+<p>CMG の認証は 1 -&gt; 2 -&gt; 3 の流れでフォールバックしていきます。　　</p>
+<h4 id="Azure-AD-認証"><a href="#Azure-AD-認証" class="headerlink" title="Azure AD 認証"></a>Azure AD 認証</h4><p>Windows 10 / 11 端末のみが利用できる Azure AD を使った認証です。Azure AD connect を使ってオンプレミスの AD の情報を Azure AD に同期したり、直接端末を Azure AD に参加させて、その際の シングル サインオン情報を使って認証を行います。 インターネット上の Windows 8.1 や Windows Server 端末は本認証は利用できませんので、他の認証方式と併用する形となります。</p>
+<p>なお、CMG では 他のクライアント認証方式を使う場合、Azure AD connectを使った AD - Azure AD 間同期は不要です。ただし、多くの場合、CMG 利用と共同管理の利用は同時に検討されることが多いので、その場合は Hybrid Azure AD 構成が必要になります。</p>
+<h4 id="PKI-証明書認証"><a href="#PKI-証明書認証" class="headerlink" title="PKI 証明書認証"></a>PKI 証明書認証</h4><p>企業内のクライアント証明書配布基盤により配布されたクライアント証明書により認証を行う方式です。例えば、Active Directory 証明書サービスとグループ ポリシーを使って配布する、といった方法があるでしょう。よくありがちなトラブルとして、証明書失効リスト (CRL) の公開元がインターネット公開されていないために CRL チェックが出来ずに認証失敗と言ったものがあります。CRL をインターネット公開していない場合は、以下のように CMG のクライアント認証設定で CRL チェックを外すと解決します。  </p>
+<p><img src="/blog/mecm/20220328_01/20220328_01_07.png">  </p>
+<p>また、同様に CMG のサーバー証明書の CRL をインターネット公開していないために CMG と通信できない場合は、以下のようにサイトの設定で CRL チェックを外すと解決します。  </p>
+<p>[CM コンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - 対象のサイトを選択 - [プロパティ] - [通信セキュリティ]タブ</p>
+<p><img src="/blog/mecm/20220328_01/20220328_01_08.png">  </p>
+<h4 id="サイト-トークン認証"><a href="#サイト-トークン認証" class="headerlink" title="サイト トークン認証"></a>サイト トークン認証</h4><p>Azure AD 認証や PKI 証明書認証基盤が利用出来ない環境における認証手段となります。サイト トークン認証は以下の二つの場合に利用されますが、それぞれ利用するトークンが異なります。</p>
+<ul>
+<li><p>インターネット端末の MECM サーバーへの登録: 一括登録トークン</p>
+<ul>
+<li><p>インターネット端末が MECM サーバーと初めて通信を行う際、サーバー登録用の認証が必要となります。Azure AD や証明書の代替として、登録の際に利用されるトークンが一括登録トークンです。一括登録トークンは階層内の最上位サイト サーバー (中央管理サイト サーバーもしくはプライマリサイト サーバー) にある  BulkRegistrationTokenTool.exe ツールを使用して発行します。このトークンは既定では 3 日間、最大 7 日間有効であり、期間内にインターネット端末にて ccmsetup のオプションでこのトークンを指定すると、インターネット越しでの端末登録が成功します。  </p>
+<p>一括登録トークン<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token</a></p>
+</li>
+</ul>
+</li>
+<li><p>MECM サーバーとの通信: 自己証明 (SelfProve) トークン</p>
+<ul>
+<li>一度でも MECM サーバーとの通信に成功したことのあるデバイスに自動的に割り当てられるトークンです。本トークンは 90 日間有効で、インターネット経由でも、イントラネット経由でも MECM サーバーに通信が行われると月に 1 回、自動で更新される仕組みとなっています。90 日間、1度も MECM サーバーに接続出来ないで居ると、本トークンは無効化されます。トークンが無効化された端末はイントラネット経由で MECM サーバーに接続して再度、本トークンを取得する必要があります。<br>なお、本トークンの発行は無効化できません。</li>
+</ul>
+</li>
+</ul>
+<h3 id="クライアント認証方式の選択方針"><a href="#クライアント認証方式の選択方針" class="headerlink" title="クライアント認証方式の選択方針"></a>クライアント認証方式の選択方針</h3><p>環境に依りますが、大凡以下の方針で選択されるのが良いかと存じます。各認証方式を組み合わせることも可能です。</p>
+<ol>
+<li>Windows 10 / 11 端末しか管理しない -&gt; Azure AD 認証</li>
+<li>Windows 8.1 端末や Windows Server もインターネット越しに管理したい -&gt; PKI 証明書認証</li>
+<li>認証基盤の都合上、Azure AD 認証が利用出来ない -&gt; PKI 証明書認証</li>
+<li>Azure AD 認証や PKI 証明書認証が利用出来ない -&gt; サイト トークン認証</li>
+<li>端末のキッティング/再キッティングは必ず企業ネットワークで行われ、かつリモート ワークを行う期間は数日なので3ヶ月以内に企業ネットワークに接続する機会がある -&gt; サイト トークン認証</li>
+</ol>
+<h3 id="サイト-サーバー間の通信暗号化"><a href="#サイト-サーバー間の通信暗号化" class="headerlink" title="サイト サーバー間の通信暗号化"></a>サイト サーバー間の通信暗号化</h3><p>最新の MECM ではサイト サーバー間通信で平文通信 (http) が非推奨となっているため、問題無いかと存じますが、CMG を利用する際、各サイト サーバー間の通信は SSL を使った暗号化通信が必須となっております。選択方式としては、以下の 2 方式がございます。</p>
+<ul>
+<li>拡張 HTTP</li>
+<li>HTTPS</li>
+</ul>
+<p>また、CMG リバース プロキシ シナリオにおいて関係するサイト システムは以下の通りです。</p>
+<ul>
+<li>CMG</li>
+<li>クラウド管理ゲートウェイ接続ポイント (CMG-CP)<ul>
+<li>CMG に対して HTTPS 通信を行い、その通信を維持することでクライアント -&gt; CMG -&gt; CMG-CP -&gt; 管理ポイントもしくはソフトウェア更新ポイントへの通信を中継するサイト システムの役割です。</li>
+</ul>
+</li>
+<li>管理ポイント</li>
+</ul>
+<h4 id="拡張-HTTP"><a href="#拡張-HTTP" class="headerlink" title="拡張 HTTP"></a>拡張 HTTP</h4><p>CM が独自に発行・管理する自己署名証明書を使って、秘匿性の高い、サイト システム間の通信を暗号化する方式です。本証明書は有効期限が自動更新されるため、証明書管理の負担が下がるメリットがあります。</p>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>企業内のPKI 証明書基盤が発行する証明書を使って全てのサイト システム間の通信を暗号化する方式です。サイト システム間同士がお互いのサーバー証明書・クライアント証明書を認証する必要があるため、多くの証明書が必要となります。これらの証明書には有効期限があるため、期限が切れた証明書は更新する必要があります。</p>
+<h4 id="認証方式、通信方式に伴う必要な-PKI-証明書の一覧"><a href="#認証方式、通信方式に伴う必要な-PKI-証明書の一覧" class="headerlink" title="認証方式、通信方式に伴う必要な PKI 証明書の一覧"></a>認証方式、通信方式に伴う必要な PKI 証明書の一覧</h4><p>拡張HTTP、HTTPS 方式それぞれに伴う各ポイントに必要な PKI 証明書は以下の図の通りです。</p>
+<p><img src="/blog/mecm/20220328_01/20220328_01_02.png"></p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220328_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../w365/2022-03-28_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-03-28_01/">Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-03-25_01/">クライアントの更新プログラムのダウンロードが 0 %で進まない場合のチェックポイント ( WSUS )</a>
+          </li>
+        
+          <li>
+            <a href="../20220321_01/">Configuration Manager における共同管理機能について</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-03-11_01/">Windows Server 2022 に更新プログラムを配布するためのポイント</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">41</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">1</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">23</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/">CMG</a><span class="tag-list-count">1</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/CMG/MECM">MECM</a><span class="tag-list-count">1</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">7</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 10px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 12.5px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 17.5px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 15px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
