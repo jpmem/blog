@@ -9,21 +9,21 @@
   <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。  CMG の概要とユースケース、及びリバース プロキシとして CMG を利">
 <meta property="og:type" content="article">
 <meta property="og:title" content="クラウド管理ゲートウェイ (CMG) の設計ポイントについて (2)">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220328_02/index.html">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220401_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。  CMG の概要とユースケース、及びリバース プロキシとして CMG を利">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_02/20220328_02_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_02/20220328_02_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_02/20220328_02_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_02/20220328_02_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220401_01/20220401_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220401_01/20220401_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220401_01/20220401_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220401_01/20220401_01_04.png">
 <meta property="article:published_time" content="2022-03-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-01T10:43:02.499Z">
+<meta property="article:modified_time" content="2022-04-01T10:47:55.090Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="CMG">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220328_02/20220328_02_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220401_01/20220401_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -80,7 +80,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20220328_02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20220401_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -101,9 +101,9 @@
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+6c801a90-9b1c-5503-9b0a-46247354a5a1%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4+%28CMG%29+%E3%81%AE%E8%A8%AD%E8%A8%88%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%282%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220328_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220328_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220328_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+5c353562-2b61-5d9c-9787-d5a8cd185bb8%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4+%28CMG%29+%E3%81%AE%E8%A8%AD%E8%A8%88%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%282%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220401_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220401_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220401_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20220328_02/" data-id="cl1garzwm002g0nqq2v02esjz" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20220401_01/" data-id="cl1gay8px002g0lmuhy0pexdu" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -116,19 +116,19 @@
 </ol>
 <p>なお、下記は MECM CB 2111 および仮想マシン スケール セット (VMSS) の CMG のご利用を前提としておりますのでご留意くださいませ。</p>
 <h2 id="CMG-のクラウド上の配布ポイント機能"><a href="#CMG-のクラウド上の配布ポイント機能" class="headerlink" title="CMG のクラウド上の配布ポイント機能"></a>CMG のクラウド上の配布ポイント機能</h2><p>CMG を Azure 上の配布ポイントとして提供する機能です。本機能はリバース プロキシ機能とは異なり、イントラネット端末、インターネット端末両方で利用可能です。イントラネット端末が CMG を配布ポイントとして利用する場合は境界グループへの CMG の紐付けが必要です。インターネット端末はイントラネット端末と異なり、境界グループの影響無しにダウンロード元を決定します。コンテンツ別の、ダウンロード元については以下の図を参考ください。</p>
-<p><img src="/blog/mecm/20220328_02/20220328_02_01.png">  </p>
+<p><img src="/blog/mecm/20220401_01/20220401_01_01.png">  </p>
 <p>上記図で示している、イントラネット端末に対して、Windows Update や Office CDN をダウンロード元のリストに追加する「展開設定」とは以下のオプションを指します。  </p>
 <p>[CM コンソール] - [ソフトウェア ライブラリ] - [概要] - [ソフトウェア更新プログラム] - [すべてのソフトウェア更新プログラム] - [展開] - [プロパティ] - [ダウンロードの設定]タブ</p>
-<p><img src="/blog/mecm/20220328_02/20220328_02_02.png">  </p>
+<p><img src="/blog/mecm/20220401_01/20220401_01_02.png">  </p>
 <p>また、イントラネット端末に対して、イントラネットの配布ポイントよりも、Windows Update や Office CDN, CMG からのダウンロードを優先させるためには以下のオプションを有効化します。  </p>
 <p>[CM コンソール] - [管理] - [概要] - [階層の構成] - [境界グループ] - 対象の境界グループを選択 - [プロパティ] - [オプション]タブ - [オンプレミスのソースよりクラウド ベースのソースを優先します]  </p>
-<p><img src="/blog/mecm/20220328_02/20220328_02_03.png">  </p>
+<p><img src="/blog/mecm/20220401_01/20220401_01_03.png">  </p>
 <h3 id="CMG-での-Microsoft-365-Apps-更新プログラムの配布について"><a href="#CMG-での-Microsoft-365-Apps-更新プログラムの配布について" class="headerlink" title="CMG での Microsoft 365 Apps 更新プログラムの配布について"></a>CMG での Microsoft 365 Apps 更新プログラムの配布について</h3><p>以下でもご案内している通り、 Microsoft 365 Apps の更新プログラムは CMG からの配布をサポートしておりません。 インターネット端末に対しては、 Office CDN からのダウンロード、イントラネット端末に対しては、イントラネットの配布ポイントもしくは Office CDN からダウンロードするようにご対応ください。</p>
 <p>クラウド管理ゲートウェイでサポートされる構成<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/supported-configurations">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/supported-configurations</a>  </p>
 <h3 id="CMG-利用による-VPN-帯域使用料削減の条件"><a href="#CMG-利用による-VPN-帯域使用料削減の条件" class="headerlink" title="CMG 利用による VPN 帯域使用料削減の条件"></a>CMG 利用による VPN 帯域使用料削減の条件</h3><p>多くのお客様において、VPN 帯域の利用料削減を目的に CMG 導入をご検討されることが多くございます。この際の条件としては、URL 指定による VPN スプリット トンネリング機能が必要になって参ります。お客様によっては、IP アドレス指定による VPN スプリット トンネリング機能しかご利用できない場合がございますが、Windows Update や Office CDN, および CMG は URL 指定によるサービスを前提としております。URL 指定の VPN スプリット トンネリング機能のご利用をお勧め致します。</p>
 <h2 id="CMG-のインターネットアクセス要件"><a href="#CMG-のインターネットアクセス要件" class="headerlink" title="CMG のインターネットアクセス要件"></a>CMG のインターネットアクセス要件</h2><p>以下ドキュメントにまとまっております。</p>
 <p>CMG のデータ フロー<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow</a></p>
-<p>主な通信経路は以下の図の通りです。<br><img src="/blog/mecm/20220328_02/20220328_02_04.png"></p>
+<p>主な通信経路は以下の図の通りです。<br><img src="/blog/mecm/20220401_01/20220401_01_04.png"></p>
 <p>なお、CMDB 内の AzureEnvironments テーブルの中身はそれぞれご確認くださいますようお願い致します。ご参考までに、弊社環境における MECM CB 2111 の場合、他との重複を除きますと、AzurePublicCloud レコードの値は以下の通りです。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">https://management.core.windows.net/</span><br><span class="line">https://login.microsoftonline.com/</span><br><span class="line">https://gallery.azure.com/</span><br><span class="line">https://vault.azure.net/</span><br><span class="line">core.windows.net</span><br><span class="line">database.windows.net</span><br><span class="line">trafficmanager.net</span><br><span class="line">vault.azure.net</span><br><span class="line">servicebus.azure.com</span><br><span class="line">cloudapp.net</span><br><span class="line">https://graph.microsoft.com/</span><br><span class="line">https://gateway.configmgr.manage.microsoft.com/</span><br><span class="line">https://cmmicrosvc.manage.microsoft.com/</span><br><span class="line">https://portal.manage.microsoft.com/</span><br><span class="line">https://enrollment.manage.microsoft.com/</span><br><span class="line">https://login.windows.net/</span><br><span class="line">cloudapp.azure.com</span><br></pre></td></tr></table></figure>
 
@@ -157,7 +157,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220328_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220401_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
