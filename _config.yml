@@ -2,12 +2,14 @@
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
-# ブログのタイトル
+# Title (display)
 title: Japan Microsoft Endpoint Manager Support Blog 
-
-# サブタイトル
+# Sub Title (display)
 subtitle: 日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。
+# Description
 description: 日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。
+
+# Keywords
 keywords:
   - MECM
   - Intune
@@ -21,7 +23,6 @@ root_tag_generator:
     - MECM
     - Intune
     - 共同管理
-    - CMG
     - WSUS
     - トラブルシューティング
     - 情報採取
