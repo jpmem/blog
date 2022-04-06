@@ -6,15 +6,15 @@
   
   <title>WSUS アンインストール手順について (Windows Server 2022 対応版) | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。 今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。 Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。  Windows Server 2022 環境の WSUS 10.0 をアンインストールする手順a. 役割">
+  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。  Windows Server 2022 環境の WSUS をアンインストールする手順a. 役割と機能のアンイ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS アンインストール手順について (Windows Server 2022 対応版)">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-03-29_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。 今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。 Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。  Windows Server 2022 環境の WSUS 10.0 をアンインストールする手順a. 役割">
+<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。  Windows Server 2022 環境の WSUS をアンインストールする手順a. 役割と機能のアンイ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2022-03-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-06T12:10:22.509Z">
+<meta property="article:modified_time" content="2022-04-06T12:12:38.756Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -97,16 +97,14 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+58da5b8e-2fbc-53ef-8b38-183ed49f33e8%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%82%A2%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6+%28Windows+Server+2022+%E5%AF%BE%E5%BF%9C%E7%89%88%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-03-29_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-03-29_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-03-29_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-03-29_01/" data-id="cl1nj3itk004d0no92hoiduba" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-03-29_01/" data-id="cl1nj6gnp004d0mqj54wz86uh" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>皆さま、こんにちは。WSUS サポート チームです。</p>
-<p>今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。</p>
-<p>Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。</p>
+        <p>皆さま、こんにちは。WSUS サポート チームです。<br>今回は Windows Server 2022 に対応した WSUS を完全にアンインストールする手順をご紹介します。Windows Server 2022 にて WSUS の構築や、検証を行っていらっしゃる皆さまは、是非ご覧ください。</p>
 <hr>
-<h2 id="Windows-Server-2022-環境の-WSUS-10-0-をアンインストールする手順"><a href="#Windows-Server-2022-環境の-WSUS-10-0-をアンインストールする手順" class="headerlink" title="Windows Server 2022 環境の WSUS 10.0 をアンインストールする手順"></a>Windows Server 2022 環境の WSUS 10.0 をアンインストールする手順</h2><h3 id="a-役割と機能のアンインストール"><a href="#a-役割と機能のアンインストール" class="headerlink" title="a. 役割と機能のアンインストール"></a>a. 役割と機能のアンインストール</h3><p>サーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能をアンインストールします。<br>なお、WSUS サーバーのデータベースに、SQL Server をご利用の場合は、本手順を実施後、別途 WSUS データベース (SUSDB) を手動で削除してください。</p>
+<h2 id="Windows-Server-2022-環境の-WSUS-をアンインストールする手順"><a href="#Windows-Server-2022-環境の-WSUS-をアンインストールする手順" class="headerlink" title="Windows Server 2022 環境の WSUS をアンインストールする手順"></a>Windows Server 2022 環境の WSUS をアンインストールする手順</h2><h3 id="a-役割と機能のアンインストール"><a href="#a-役割と機能のアンインストール" class="headerlink" title="a. 役割と機能のアンインストール"></a>a. 役割と機能のアンインストール</h3><p>サーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能をアンインストールします。<br>なお、WSUS サーバーのデータベースに、SQL Server をご利用の場合は、本手順を実施後、別途 WSUS データベース (SUSDB) を手動で削除してください。</p>
 <ol>
 <li>[スタート] にて、[サーバー マネージャー] を起動します。</li>
 <li>画面右上の [管理] メニューを選択し、[役割と機能の削除]を選択します。</li>
@@ -117,9 +115,9 @@
 <li>IIS を他のアプリケーションで利用していない場合は、[Web Server (IIS)] のチェックをオフにします。</li>
 <li>[役割と機能の削除ウィザード] ダイアログ ボックスが表示されます。<br>[管理ツールを削除する (存在する場合)] チェック ボックスがオンであることを確認し、 [機能の削除] ボタンを選択します。</li>
 <li>[次へ] を選択します。</li>
-<li>[機能] ページにて、[Windows Internal Database] チェック ボックスをオフにします。<br>:bulb: WSUS サーバーのデータベースに、SQL Server をご利用されている場合は、本手順をスキップしてください。</li>
+<li>[機能] ページにて、[Windows Internal Database] チェック ボックスをオフにします。<br>※ WSUS サーバーのデータベースに、SQL Server をご利用されている場合は、本手順をスキップしてください。</li>
 <li>[次へ] を選択します。</li>
-<li>[確認] ページにて、[削除] ボタンを選択します。<br>:bulb: 即時再起動して問題ない場合は、[必要に応じて対象サーバーを自動的に再起動する] チェック ボックスをオンにします。</li>
+<li>[確認] ページにて、[削除] ボタンを選択します。<br>※ 即時再起動して問題ない場合は、[必要に応じて対象サーバーを自動的に再起動する] チェック ボックスをオンにします。</li>
 <li>アンインストール後に、[閉じる] を選択し、OS の再起動を行います。</li>
 </ol>
 <h3 id="b-削除されたサービスの確認"><a href="#b-削除されたサービスの確認" class="headerlink" title="b. 削除されたサービスの確認"></a>b. 削除されたサービスの確認</h3><p>a. の作業完了後、以下のサービスが削除されている事を確認します。</p>
@@ -138,9 +136,9 @@
 <h3 id="c-Windows-Internal-Database-で残存するファイルの削除"><a href="#c-Windows-Internal-Database-で残存するファイルの削除" class="headerlink" title="c. Windows Internal Database で残存するファイルの削除"></a>c. Windows Internal Database で残存するファイルの削除</h3><p>以下フォルダー内のファイルを、全て手動で削除します。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%windir%\WID\DATA</span><br></pre></td></tr></table></figure>
 
-<p>:bulb: “SUSDB.MDF”、”SUSDB_log.ldf” ファイルが WSUS に関連するファイルとなります。</p>
+<p>※ “SUSDB.mdf”、”SUSDB_log.ldf” ファイルが WSUS に関連するファイルとなります。</p>
 <h3 id="d-WSUS-コンテンツ-フォルダーの削除"><a href="#d-WSUS-コンテンツ-フォルダーの削除" class="headerlink" title="d. WSUS コンテンツ フォルダーの削除"></a>d. WSUS コンテンツ フォルダーの削除</h3><p>インストール時に指定した WSUS コンテンツ フォルダーを手動で削除します。</p>
-<p>:bulb: “C:\WSUS\WSUSContent” 等になります。</p>
+<p>※ “C:\WSUS\WSUSContent” 等になります。</p>
 <h3 id="e-Microsoft-Report-Viewer-の削除方法"><a href="#e-Microsoft-Report-Viewer-の削除方法" class="headerlink" title="e. Microsoft Report Viewer の削除方法"></a>e. Microsoft Report Viewer の削除方法</h3><p>レポート参照用に Microsoft Report Viewer 2012 Runtime 再頒布可能パッケージをインストールした場合は、以下の手順でアンインストールします。</p>
 <ol>
 <li>[スタート] の [設定] にて [アプリ] を選択し、[アプリと機能] を開きます。</li>
@@ -158,7 +156,7 @@
 <li>[WsusPool] を選択し、[操作] ペインの [削除] を選択します。</li>
 <li>[削除の確認] ダイアログ ボックスにて、[はい] を選択します。</li>
 </ol>
-<p>以上、Windows Server 2022 WSUS 10.0 のアンインストール手順のご案内でした。</p>
+<p>以上、Windows Server 2022 WSUS のアンインストール手順のご案内でした。</p>
 
       
       
