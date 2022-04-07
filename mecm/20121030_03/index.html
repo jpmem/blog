@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Configuration Manager クライアントの修復機能について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。Configuration Manager サポート チームです。本ポストでは、System Center 2012 Configuration Manager 以降のバージョンに搭載されているクライアントの修復機能について紹介します。 適用対象： System Center 2012 Configuration Manager System Center 2012 R2 Config">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager クライアントの修復機能について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20121030_03/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="こんにちは。Configuration Manager サポート チームです。本ポストでは、System Center 2012 Configuration Manager 以降のバージョンに搭載されているクライアントの修復機能について紹介します。 適用対象： System Center 2012 Configuration Manager System Center 2012 R2 Config">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2012-10-29T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-07T13:01:31.766Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20121030_03" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager クライアントの修復機能について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2012-10-29T15:00:00.000Z" itemprop="datePublished">2012-10-30</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+016dbb2f-e92d-5f04-8ede-be59f3521f99%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BConfiguration+Manager+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AE%E4%BF%AE%E5%BE%A9%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20121030_03%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20121030_03.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20121030_03.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20121030_03/" data-id="cl1p0d8na00030mqtht90ax3v" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Configuration Manager サポート チームです。<br>本ポストでは、System Center 2012 Configuration Manager 以降のバージョンに搭載されているクライアントの修復機能について紹介します。</p>
+<h3 id="適用対象："><a href="#適用対象：" class="headerlink" title="適用対象："></a>適用対象：</h3><ul>
+<li>System Center 2012 Configuration Manager</li>
+<li>System Center 2012 R2 Configuration Manager</li>
+<li>System Center Configuration Manager (Long-Term Servicing Branch)  </li>
+<li>Microsoft Endpoint Configuration Manager Current Branch  </li>
+</ul>
+<h3 id="ヘルス-チェック機能について"><a href="#ヘルス-チェック機能について" class="headerlink" title="ヘルス チェック機能について"></a>ヘルス チェック機能について</h3><p>System Center 2012 Configuration Manager 以降、クライアントをインストールすると、端末のタスクスケジューラに タスクを一つ設定し、CCMEval.exe を 1 日に 1 回実行するようになりました。<br>この CCMEval.exeは、端末が Configuration Manager クライアントの動作要件を満たしているか、既定のルール (%windir%\CCM\ccmeval.xml) に基づきヘルス チェックを行います。<br>ヘルスチェックの項目は、例えば以下のようなものがあります。</p>
+<p>ヘルスチェック 項目例</p>
+<ul>
+<li>WMI サービスは存在するか / 起動しているか</li>
+<li>WMI リポジトリへの　Read　/　Write 権限があるか</li>
+<li>BITS サービスは存在するか / 起動しているか</li>
+<li>SMS Agent Host サービスは存在するか / 起動しているか</li>
+<li>クライアントが使用する WMI の名前空間およびクラスが存在するか</li>
+<li>etc…  </li>
+</ul>
+<p>CCMEval.exe によるヘルス チェックの結果、仮に WMI に異常を検知した場合には、CCMEval.exe はコマンドを実行し、WMI リポジトリの再構築およびクライアントの再インストールを行い、修復を図ります。<br>以上が System Center 2012 Configuration Managerより新たにクライアントが搭載した修復機能になります。</p>
+<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><ol>
+<li><p>ヘルス チェックの結果は C:\Windows\CCM\Logs\CcmEval.log で詳細を確認することができます。<br>(詳細は文末の参考情報をご覧ください。)</p>
+</li>
+<li><p>タスクスケジューラの設定は既定で AM 0 時台に実行されます。OS の電源が落ちている場合などは、次回 OS 起動時に同タスクを実行します。</p>
+</li>
+<li><p>本機能は、クライアント側のレジストリの変更により、修復をしないモード（異常検知にとどめる）に設定を変更することもできます。サーバー機など自動修復をさせたくない場合には、個別に対応をご検討ください。</p>
+</li>
+</ol>
+<p> &lt; 変更箇所 &gt;<br><code>HKLM\Software\Microsoft\CCM\CcmEval\NotifyOnly</code>  を FALSE から TRUE に変更します。</p>
+<p>参考技術情報：<br>Title: How to Configure Client Status in Configuration Manager<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/configure-client-status">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/configure-client-status</a>  </p>
+<p>また、クライアント インストール時の NotifyOnly オプションで予め修復をしないモードに指定することも可能です。<br>例：　<code>CCMSetup.exe /NotifyOnly</code></p>
+<p>参考技術情報：<br>Title: About Client Installation Properties in Configuration Manager<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties</a>  </p>
+<h3 id="参考情報："><a href="#参考情報：" class="headerlink" title="参考情報："></a>参考情報：</h3><p>ヘルス チェックの様子は、CcmEval.log に以下のように記録されます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Evaluating health check rule &#123;4AB7D77D-3BB0-4EAB-BEFD-7C0F7DA10296&#125; : Verify WMI service exists.  </span><br><span class="line">Evaluating health check rule &#123;518C0699-03F8-4F38-85C4-4D319EAEFC05&#125; : Verify/Remediate WMI service startup type.  </span><br><span class="line">Evaluating health check rule &#123;7F4B6E15-2221-455B-9615-93C379E470D5&#125; : Verify/Remediate WMI service status.  </span><br><span class="line">Evaluating health check rule &#123;14E6774A-1795-4E09-B17D-B6F36A124205&#125; : WMI Repository Read/Write Test.  </span><br><span class="line">Evaluating health check rule &#123;690A959D-6210-4930-865F-E3BB82F02133&#125; : Verify/Remediate client WMI provider.  </span><br><span class="line">Evaluating health check rule &#123;A81778B5-9A1E-4A52-9C6E-6939CEFAA118&#125; : WMI Repository Integrity Test.  </span><br><span class="line">Evaluating health check rule &#123;5CC6C949-5001-4765-84B4-DD4FDC1E6940&#125; : Verify BITS exists.  </span><br><span class="line">Evaluating health check rule &#123;C6E29CF5-F9B2-450B-AE61-C4B256A75023&#125; : Verify/Remediate BITS startup type.  </span><br><span class="line">Evaluating health check rule &#123;2F373187-6295-4CBB-BE9E-8E43C459883A&#125; : Verify/Remediate client prerequisites.  </span><br><span class="line">Evaluating health check rule &#123;AD9CAF50-6602-4857-A9F4-64864EA30BDF&#125; : Verify/Remediate client installation.  </span><br><span class="line">Evaluating health check rule &#123;8883C683-04C8-4228-BB76-2EDD666BA781&#125; : Verify SMS Agent Host service exists.  </span><br><span class="line">Evaluating health check rule &#123;13F46523-5B82-417d-A363-A644E80CAD76&#125; : Verify/Remediate SMS Agent Host service startup type.  </span><br><span class="line">Evaluating health check rule &#123;70BECB51-44A1-4b46-8A23-6EA3D345B677&#125; : Verify/Remediate SMS Agent Host service status.  </span><br><span class="line">Evaluating health check rule &#123;C35E790D-4C05-40A8-BB46-A68578966D19&#125; : WMI Event Sink Test.  </span><br><span class="line">Evaluating health check rule &#123;0614757F-7AA6-4933-965B-06D6A8243D0B&#125; : Microsoft Policy Platform WMI Integrity Test.  </span><br><span class="line">Evaluating health check rule &#123;7EF00FDD-3DF0-496A-A999-AADD1B3016C1&#125; : Verify/Remediate Microsoft Policy Platform Service Existence.  </span><br><span class="line">Evaluating health check rule &#123;D9D0245D-0617-4C2F-8837-84A397AC5B22&#125; : Verify/Remediate Microsoft Policy Platform service startup type.  </span><br><span class="line">Evaluating health check rule &#123;09886543-BE8B-431F-BC00-7D917632E22C&#125; : Verify/Remediate Antimalware service startup type.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;5B50566C-363E-4F1C-8A7D-6F2D2A51B142&#125; : Verify/Remediate Antimalware service status.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;B9274BD3-4B32-4B41-8E4D-7B0306D412CE&#125; : Verify/Remediate Antimalware service startup type for Windows 10 or up.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;B89B8B51-369F-42E6-80BC-FF46B8963B0F&#125; : Verify/Remediate Antimalware service status for Windows 10 or up.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;6BC824B4-BD8C-4779-BB10-ABDBCD5AFAEB&#125; : Verify/Remediate Network Inspection service startup type.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;BA322036-F3BE-426F-8779-C1C0BF82EC6E&#125; : Verify/Remediate Network Inspection service startup type for Windows 10 or up.  </span><br><span class="line">Failed to get SOFTWARE\Policies\Microsoft\Microsoft Antimalware\Real-Time Protection\DisableIntrusionPreventionSystem  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;D6CB32EA-423D-44CB-9C58-97CE55D2148E&#125; : Verify/Remediate Windows Update service startup type.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;E8030BE0-B773-4742-B6A1-0870CF139117&#125; : Verify/Remediate Windows Update service startup type on Windows 8.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;9040BA8C-580D-4FCA-8846-BBD5F5BB1597&#125; : Verify/Remediate Configuration Manager Remote Control service startup type.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;9DCD49EF-E021-46FF-A777-49210B558527&#125; : Verify/Remediate Configuration Manager Remote Control service status.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;934F12E3-295E-4BA0-AE0F-09859685720F&#125; : Verify/Remediate Configuration Manager Proxy service startup type.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;43029EED-EB9D-4E35-A5F7-7FDD93EC8C57&#125; : Verify/Remediate Configuration Manager Proxy service status.  </span><br><span class="line">Result: Not Applicable, ResultCode: 0, ResultType: 0, ResultDetail:  </span><br><span class="line">Evaluating health check rule &#123;7B9F8FF6-EDF7-42CA-A67F-073A2E161C19&#125; : Verify/Remediate SQL CE database is healthy.  </span><br><span class="line">Successfully evaluated all client health rules.  </span><br></pre></td></tr></table></figure>
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20121030_03.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20130507_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Configuration Manager における MIF ファイルによるインベントリ拡張について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../wsus/2012-06-07_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../w365/2022-04-06_01/">Windows 365 のクラウド PC を以前の状態に復元する方法について</a>
+          </li>
+        
+          <li>
+            <a href="../20220401_01/">クラウド管理ゲートウェイ (CMG) の設計ポイントについて (2)</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-03-29_01/">WSUS アンインストール手順について (Windows Server 2022 対応版)</a>
+          </li>
+        
+          <li>
+            <a href="../20220328_01/">クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-03-28_01/">Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">43</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">2</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">24</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">8</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">2022 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">2012 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 10px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
