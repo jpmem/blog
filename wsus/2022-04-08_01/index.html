@@ -4,26 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>クライアントの更新プログラムのダウンロードが 0 %で進まない場合のチェックポイント ( WSUS ) | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS サーバーを新しいハードへ移設したい | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。 よくあるお問い合わせの中で、 WSUS から配信した更新プログラムのダウンロードがクライアント端末上で 0 % から進まず、更新プログラムの適用処理が完了できないといった事象があります。 クライアント側で WSUS から取得する更新プログラムのダウンロードに失敗する要因は様々ございますが、今回は、そんなときにまずは一度ご確認いただきたいポイ">
+  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。 今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。    A. 一時的にレプリカ構成にする B. 更新プログラム情報をファイル ベースで移行する C. データベースバックアップを">
 <meta property="og:type" content="article">
-<meta property="og:title" content="クライアントの更新プログラムのダウンロードが 0 %で進まない場合のチェックポイント ( WSUS )">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/index.html">
+<meta property="og:title" content="WSUS サーバーを新しいハードへ移設したい">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。 よくあるお問い合わせの中で、 WSUS から配信した更新プログラムのダウンロードがクライアント端末上で 0 % から進まず、更新プログラムの適用処理が完了できないといった事象があります。 クライアント側で WSUS から取得する更新プログラムのダウンロードに失敗する要因は様々ございますが、今回は、そんなときにまずは一度ご確認いただきたいポイ">
+<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。 今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。    A. 一時的にレプリカ構成にする B. 更新プログラム情報をファイル ベースで移行する C. データベースバックアップを">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_2.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_3.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_4.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_5.png">
-<meta property="article:published_time" content="2022-03-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-14T01:47:06.840Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/2022-04-08_01_1.PNG">
+<meta property="article:published_time" content="2022-04-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-14T01:47:06.844Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-03-25_01/2022-03-25_01_1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/2022-04-08_01_1.PNG">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -80,7 +76,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2022-03-25_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-04-08_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -89,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      クライアントの更新プログラムのダウンロードが 0 %で進まない場合のチェックポイント ( WSUS )
+      WSUS サーバーを新しいハードへ移設したい
     </h1>
   
 
@@ -97,32 +93,58 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2022-03-24T15:00:00.000Z" itemprop="datePublished">2022-03-25</time>
+  <time datetime="2022-04-07T15:00:00.000Z" itemprop="datePublished">2022-04-08</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+32f781dc-e745-5d32-a55b-e81223d8d6f9%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%8C+0+%25%E3%81%A7%E9%80%B2%E3%81%BE%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88+%28+WSUS+%29%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-03-25_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-03-25_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-03-25_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+0e2dbc0f-4dbb-5f3d-bdbc-3dffdbbf443e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%96%B0%E3%81%97%E3%81%84%E3%83%8F%E3%83%BC%E3%83%89%E3%81%B8%E7%A7%BB%E8%A8%AD%E3%81%97%E3%81%9F%E3%81%84%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-04-08_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-04-08_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-04-08_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-03-25_01/" data-id="cl1ycctue004g0ooc70gcahor" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-04-08_01/" data-id="cl1ycctug004k0ooc5nlb6d6b" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>みなさま、こんにちは。 WSUS サポート チームです。</p>
-<p>よくあるお問い合わせの中で、 WSUS から配信した更新プログラムのダウンロードがクライアント端末上で 0 % から進まず、更新プログラムの適用処理が完了できないといった事象があります。</p>
-<p>クライアント側で WSUS から取得する更新プログラムのダウンロードに失敗する要因は様々ございますが、<br>今回は、そんなときにまずは一度ご確認いただきたいポイントについてお伝えしようと思います。<br>クライアントのダウンロードが進まない、失敗する といったご状況の際はぜひご一読ください。</p>
+<p>今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。<br>ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。  </p>
 <ul>
-<li><strong>WSUS サーバー上のコンテンツ ファイルの有無を確認</strong></li>
-<li><strong>Windows Firewall サービス の無効化についての確認</strong></li>
+<li><strong>A. 一時的にレプリカ構成にする</strong></li>
+<li><strong>B. 更新プログラム情報をファイル ベースで移行する</strong></li>
+<li><strong>C. データベースバックアップをリストアし移行する</strong>  </li>
 </ul>
-<p>上記項目の説明及び確認手順は以下の通りです。</p>
-<h3 id="＜-確認手順-WSUS-サーバー上のコンテンツ-ファイルの有無を確認-＞"><a href="#＜-確認手順-WSUS-サーバー上のコンテンツ-ファイルの有無を確認-＞" class="headerlink" title="＜ 確認手順 : WSUS サーバー上のコンテンツ ファイルの有無を確認 ＞"></a><strong>＜ 確認手順 : WSUS サーバー上のコンテンツ ファイルの有無を確認 ＞</strong></h3><p>＜説明＞<br>WSUS サーバーに実体となる更新プログラムのファイルが存在していない場合、<br>クライアントは、更新プログラムのダウンロードを実行しても取るファイルが存在しないためダウンロードが進捗しない状況になります。<br>この場合、 WSUS サーバー上で、更新プログラムの承認後、実体ファイルのダウンロードが正常にできていない可能性などが疑われます。</p>
-<p>＜手順＞<br>1． WSUS コンソールで対象の更新プログラムを右クリックし「 ファイル情報 」を参照します。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_1.png"><br>2．更新プログラムの URI が表示されています。これが更新プログラムの実体ファイルの格納先になります。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_2.png"><br>3． WSUS サーバーのエクスプローラーから「 WsusContent 」フォルダーを開きます。<br> 　 2 ケタの英数字で名づけられたフォルダーが複数存在しますので、手順2 で確認したファイルパス内に記載されているフォルダーをたどっていきます。<br> <img src="/blog/wsus/2022-03-25_01/2022-03-25_01_3.png"></p>
-<p>4．フォルダー内に格納されているファイルが存在するかを確認します。<br> <img src="/blog/wsus/2022-03-25_01/2022-03-25_01_4.png"></p>
-<h3 id="＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞"><a href="#＜-確認手順-Windows-Firewall-サービス-の無効化についての確認＞" class="headerlink" title="＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞"></a><strong>＜ 確認手順 : Windows Firewall サービス の無効化についての確認＞</strong></h3><p>＜説明＞<br>OS の標準機能として Windows Firewall のサービス無効化はサポートされておらず、WSUS から更新プログラムをダウンロードする際に利用される Background Intelligent Transfer Service (BITS) と呼ばれるコンポーネントの動作に影響を与えてしまい、正常にダウンロードすることができなくなります。</p>
-<p>参考情報 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows/win32/bits/">Background Intelligent Transfer Service</a></p>
-<p>＜手順＞<br>1．サービス を開き　Windows Firewall もしくは Windows Defender Firewall の名称（サービス名： MpsSvc）を探します。<br><img src="/blog/wsus/2022-03-25_01/2022-03-25_01_5.png"></p>
-<p>2．サービスの状態が [無効] となっているかをご確認いただき、無効とされていた場合はスタートアップの種類を [自動] にしてサービスを開始してください。</p>
+<h3 id="A-一時的にレプリカ構成にする"><a href="#A-一時的にレプリカ構成にする" class="headerlink" title="A. 一時的にレプリカ構成にする"></a><strong>A. 一時的にレプリカ構成にする</strong></h3><p>旧 WSUS サーバーを親とし、移設先の新しい WSUS サーバーを子として新規構築します<br>この時、新しい WSUS サーバーをレプリカとして設定し、旧 WSUS サーバーと同期を行う方法です。<br>＜手順＞    </p>
+<ol>
+<li><p>WSUS コンソールを開き、 [オプション] - [更新元およびプロキシ サーバー] にて以下の設定を行います。<br>・親となる旧 WSUS サーバーの指定<br>・[このサーバーはアップストリーム サーバーのレプリカです] へのチェック<br><img src="/blog/wsus/2022-04-08_01/2022-04-08_01_1.PNG">  </p>
+</li>
+<li><p>同期が完了した後で親子構成を解除すると、新しい WSUS サーバーへ、旧 WSUS サーバーの情報が複製された状態で、スタンドアロンの WSUS が出来上がります。<br>忘れずに新しい WSUS サーバー側でオプションを再設定すれば、移行は完了です。  </p>
+</li>
+</ol>
+<p>※ 注意 ※<br>レプリカ構成の場合、WSUS サーバーのバージョンは、下位が上位と同じバージョン又は上位よりも下位が古いバージョンである必要があります。<br>下位が上位よりもバージョンが新しい場合はサポートされません。（ ※ WSUS バージョンは OS バージョンと紐づいています ）  </p>
+<h3 id="B-更新プログラム情報をファイル-ベースで移行する"><a href="#B-更新プログラム情報をファイル-ベースで移行する" class="headerlink" title="B. 更新プログラム情報をファイル ベースで移行する"></a><strong>B. 更新プログラム情報をファイル ベースで移行する</strong></h3><p>オフライン環境に WSUS サーバーを構築するのと同じ要領で、旧 WSUS サーバーで保持している更新プログラムの情報を移行させる方法です。  </p>
+<p>下記の 2 つを旧 WSUS サーバーより取得し、新しい WSUS サーバーへインポートし取り入れます。<br>– カタログのメタデータ ( 更新プログラムのリスト )<br>– WsusContent フォルダ ( 更新ファイル )  </p>
+<p>＜手順＞  </p>
+<ol>
+<li>旧 WSUS サーバー上で下記のコマンドを実行し、データベース内の更新プログラム情報をファイルへエクスポートします。  </li>
+</ol>
+<p>C:\Program Files\Update Services\Tools に作成する場合  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　cd &quot;C:\Program Files\Update Services\Tools&quot;  </span><br><span class="line">　wsusutil.exe export export.xml.gz export.log  </span><br></pre></td></tr></table></figure>
+
+
+<ol start="2">
+<li>旧 WSUS サーバーの WsusContent フォルダ内にあるダウンロード済みファイルを、すべて新 WSUS サーバーへコピーします。<br>もし新 WSUS サーバーでファイルのダウンロードをやり直す場合には、コピー不要です。  </li>
+</ol>
+<ol start="3">
+<li>新 WSUS サーバー上で下記のコマンドを実行し、旧 WSUS サーバーの更新プログラム情報をインポートします。  </li>
+</ol>
+<p>C:\Program Files\Update Services\Tools にコピーした場合    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot;  </span><br><span class="line">wsusutil.exe import import.xml.gz import.log  </span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>新 WSUS サーバー上で下記のコマンドを実行し、データベース内の更新プログラム情報と、WsusContent フォルダ内のファイル情報の整合性をチェックします。<br>ドキュメントに記載のない手順なのですが、もしファイル コピーに抜けがあると配布に支障が出るため、念のために実行してください。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsusutil.exe reset  </span><br></pre></td></tr></table></figure>
+もし 3. でファイルのコピーを実施しなかった場合や、コピーに抜けがありファイルが不足している場合には、ダウンロードが行われます。  </li>
+</ol>
+<p>※ 注意 ※<br>この方法では、データベース内の更新プログラムのカタログ情報 及び その更新プログラムの実体となるコンテンツファイルのコピーを新 WSUS サーバーへ取り入れる方法ですので、旧 WSUS サーバーのインストール承認や拒否済みの情報、コンピュータグループ情報などは移行されません。  </p>
+<p>参考情報<br> <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/security-updates/windowsupdateservices/18111626">コマンド ラインからの WSUS の管理</a></p>
+<h3 id="C-データベースバックアップをリストアし移行する"><a href="#C-データベースバックアップをリストアし移行する" class="headerlink" title="C. データベースバックアップをリストアし移行する"></a><strong>C. データベースバックアップをリストアし移行する</strong></h3><p>旧 WSUS サーバーのバックアップを取得し、新 WSUS サーバーにリストアする方法です。  </p>
+<p>＜手順＞<br>下記の公開記事にてデータベースを取得してリストアする方法での手順をご紹介しておりますのでご参照ください。<br>参考情報<br><a href="https://jpmem.github.io/blog/wsus/2021-10-19_01/#WSUS-%E7%A7%BB%E8%A1%8C%E6%89%8B%E9%A0%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6-WID-gt-WID">WSUS 移行手順について (WID -&gt; WID)</a></p>
 
       
       
@@ -139,7 +161,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-03-25_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-04-08_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -147,19 +169,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../w365/2022-03-28_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20220408_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法
+          クライアント設定が適用されない！確認すべき 3 つのポイント
         
       </div>
     </a>
   
   
-    <a href="../../mecm/20220321_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../w365/2022-04-06_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Configuration Manager における共同管理機能について</div>
+      <div class="article-nav-title">Windows 365 のクラウド PC を以前の状態に復元する方法について</div>
     </a>
   
 </nav>
@@ -186,7 +208,7 @@
           </li>
         
           <li>
-            <a href="../2022-04-08_01/">WSUS サーバーを新しいハードへ移設したい</a>
+            <a href="">WSUS サーバーを新しいハードへ移設したい</a>
           </li>
         
           <li>
