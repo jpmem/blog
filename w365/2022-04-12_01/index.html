@@ -4,22 +4,25 @@
   <meta charset="utf-8">
   
   
-  <title>レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>クラウド PC へのリダイレクトを禁止する方法について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 サーバー クリーンアップ ウィザードは、不要なデータを整理・削除するためにお使いいただく機能ですが、WSUS サーバーをレプリカ構成 (※) されている環境では、実施上の注意点がありますのでご紹介します。 (※) 階層構成でも、レプリカに設定していない場合は、心配ありません。 クリーンアップ ウィザードの最初の項目「不要な更新および更新のリビ">
+  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、接続元の PC からクラウド PC へのクリップボードやファイルのコピーなどのリダイレクトを禁止する方法についてご紹介します。今回は Intune の構成プロファイルを使用した方法をご案内いたしますが、この方法を使用すると iOS や Android OS など、Windows 以外のデバイス">
 <meta property="og:type" content="article">
-<meta property="og:title" content="レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2012-06-07_01/index.html">
+<meta property="og:title" content="クラウド PC へのリダイレクトを禁止する方法について">
+<meta property="og:url" content="https://jpmem.github.io/blog/w365/2022-04-12_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 サーバー クリーンアップ ウィザードは、不要なデータを整理・削除するためにお使いいただく機能ですが、WSUS サーバーをレプリカ構成 (※) されている環境では、実施上の注意点がありますのでご紹介します。 (※) 階層構成でも、レプリカに設定していない場合は、心配ありません。 クリーンアップ ウィザードの最初の項目「不要な更新および更新のリビ">
+<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、接続元の PC からクラウド PC へのクリップボードやファイルのコピーなどのリダイレクトを禁止する方法についてご紹介します。今回は Intune の構成プロファイルを使用した方法をご案内いたしますが、この方法を使用すると iOS や Android OS など、Windows 以外のデバイス">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2012-06-07_01/wsus-cleanup.png">
-<meta property="article:published_time" content="2012-06-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-14T01:44:12.682Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-04-12_01/2022-04-12-19-51-50.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-04-12_01/2022-04-12-19-52-06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-04-12_01/2022-04-12-19-52-33.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-04-12_01/2022-04-12-19-54-07.png">
+<meta property="article:published_time" content="2022-04-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-14T01:44:12.678Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="Windows 365">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2012-06-07_01/wsus-cleanup.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2022-04-12_01/2022-04-12-19-51-50.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +79,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2012-06-07_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-w365/2022-04-12_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください
+      クラウド PC へのリダイレクトを禁止する方法について
     </h1>
   
 
@@ -93,25 +96,36 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2012-06-06T15:00:00.000Z" itemprop="datePublished">2012-06-07</time>
+  <time datetime="2022-04-11T15:00:00.000Z" itemprop="datePublished">2022-04-12</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+e8b4052c-af43-5950-8485-39a12130c6a1%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%83%AC%E3%83%97%E3%83%AA%E3%82%AB%E6%A7%8B%E6%88%90%E3%81%A7%E3%81%AF+%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC+%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97+%E3%82%A6%E3%82%A3%E3%82%B6%E3%83%BC%E3%83%89+%E3%81%AB%E3%81%94%E6%B3%A8%E6%84%8F%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2012-06-07_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2012-06-07_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2012-06-07_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+6e6c4d0a-6ccb-5906-815c-a3ede2ad43dd%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89+PC+%E3%81%B8%E3%81%AE%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88%E3%82%92%E7%A6%81%E6%AD%A2%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fw365%2F2022-04-12_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fw365%2F2022-04-12_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fw365%2F2022-04-12_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2012-06-07_01/" data-id="cl1yc92uv003c0mqm117g4bi9" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/w365/2022-04-12_01/" data-id="cl1yc92ut00370mqmfvrvf018" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>サーバー クリーンアップ ウィザードは、不要なデータを整理・削除するためにお使いいただく機能ですが、WSUS サーバーをレプリカ構成 (※) されている環境では、実施上の注意点がありますのでご紹介します。</p>
-<p>(※) 階層構成でも、レプリカに設定していない場合は、心配ありません。</p>
-<p>クリーンアップ ウィザードの最初の項目「不要な更新および更新のリビジョン」は、必ず下位側のサーバー (レプリカ サーバー) で先に実行し、上位側 (マスター サーバー) はその後で実行するようお願いします。</p>
-<p>この逆順、つまり上位側を先に実行すると、期限切れで不要となった古い更新プログラムの情報が、下位サーバー側に「未承認」の状態で残ってしまう場合があります。下位サーバー側に残ったレコードは、再度クリーンアップを実施しても削除されません。( その時点から 30 日を経過した後でクリーンアップを実行すると、ようやく削除されます )</p>
-<p>もし Windows Defender の定義ファイルを WSUS から配布している場合は、上位サーバーでのみクリーンアップを行うと、下位サーバーに残った多量のレコードが、一気にクライアントの処理負荷を増やす場合がありますので、特にご注意ください。</p>
-<p>なお、上記「不要な更新および更新のリビジョン」以外の項目は上位のサーバーから実行する必要があるため、ご留意ください。</p>
-<p>設定箇所：<br><img src="/blog/wsus/2012-06-07_01/wsus-cleanup.png"></p>
+        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は、接続元の PC からクラウド PC へのクリップボードやファイルのコピーなどのリダイレクトを禁止する方法についてご紹介します。<br>今回は Intune の構成プロファイルを使用した方法をご案内いたしますが、この方法を使用すると iOS や Android OS など、Windows 以外のデバイスからのリダイレクトも禁止することが可能です。</p>
+<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2022/4/12 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。</p>
+<h2 id="構成プロファイルの作成方法"><a href="#構成プロファイルの作成方法" class="headerlink" title="構成プロファイルの作成方法"></a>構成プロファイルの作成方法</h2><ol>
+<li>グローバル管理者などの権限を持つアカウントで Microsoft Endpoint Manager admin center (<a target="_blank" rel="noopener" href="https://aka.ms/memac">https://aka.ms/memac</a>) にログインします。</li>
+<li>[デバイス] - [構成プロファイル] と辿り、[プロファイルの作成] を選択します。</li>
+<li>以下のように選択し、[作成] を選択します。<br>プラットフォーム：Windows 10 以降<br>プロファイルの種類：設定カタログ（プレビュー）<br><img src="/blog/w365/2022-04-12_01/2022-04-12-19-51-50.png">  </li>
+<li>[名前] を入力し、[次へ] を選択します。<br><img src="/blog/w365/2022-04-12_01/2022-04-12-19-52-06.png">  </li>
+<li>[設定の追加] を選択し、”redirect” と入力して [検索] を選択します。</li>
+<li>表示された検索結果から、[管理用テンプレート\Windows コンポーネント\リモート デスクトップ サービス\リモート デスクトップ セッション ホスト\デバイスとリソースのリダイレクト] を選択し、必要な項目にチェックを入れて [次へ] を選択します。<br><img src="/blog/w365/2022-04-12_01/2022-04-12-19-52-33.png">  </li>
+</ol>
+<p>■補足事項<br>プリンターのリダイレクトを禁止したい場合は [管理用テンプレート\Windows コンポーネント\リモート デスクトップ サービス\リモート デスクトップ セッション ホスト\プリンターのリダイレクト] から [Do not allow client printer redirection] を選択します。<br><img src="/blog/w365/2022-04-12_01/2022-04-12-19-54-07.png">  </p>
+<ol start="7">
+<li>割り当てるグループを選択し、[次へ] を選択します。</li>
+<li>必要に応じて スコープ タグ を設定し、 [次へ] を選択します。</li>
+<li>[作成] を選択し、構成プロファイルの作成を完了させます。</li>
+<li>接続元 PC から文字やファイルなどをコピーし、クラウド PC で貼り付けができないことを確認します。</li>
+</ol>
+<p>参考公開情報<br>Title : クラウド PC の RDP デバイス リダイレクトを管理します<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-365/enterprise/manage-rdp-device-redirections">https://docs.microsoft.com/ja-jp/windows-365/enterprise/manage-rdp-device-redirections</a></p>
+<p>以上、クラウド PC へのクリップボードやファイルのコピーなどのリダイレクトを禁止する方法について参考になりましたら幸いです。</p>
 
       
       
@@ -125,10 +139,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2012-06-07_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/w365/2022-04-12_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -136,19 +150,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20121030_03/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Configuration Manager クライアントの修復機能について
-        
-      </div>
-    </a>
   
-  
-    <a href="../2012-03-19_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20220408_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Update カタログの活用法について</div>
+      <div class="article-nav-title">クライアント設定が適用されない！確認すべき 3 つのポイント</div>
     </a>
   
 </nav>
@@ -167,7 +172,7 @@
       <ul>
         
           <li>
-            <a href="../../w365/2022-04-12_01/">クラウド PC へのリダイレクトを禁止する方法について</a>
+            <a href="">クラウド PC へのリダイレクトを禁止する方法について</a>
           </li>
         
           <li>
@@ -175,7 +180,7 @@
           </li>
         
           <li>
-            <a href="../../w365/2022-04-06_01/">Windows 365 のクラウド PC を以前の状態に復元する方法について</a>
+            <a href="../2022-04-06_01/">Windows 365 のクラウド PC を以前の状態に復元する方法について</a>
           </li>
         
           <li>
@@ -183,7 +188,7 @@
           </li>
         
           <li>
-            <a href="../2022-03-29_01/">WSUS アンインストール手順について (Windows Server 2022 対応版)</a>
+            <a href="../../wsus/2022-03-29_01/">WSUS アンインストール手順について (Windows Server 2022 対応版)</a>
           </li>
         
       </ul>
