@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220408_01/20220408_01_04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220408_01/20220408_01_05.png">
 <meta property="article:published_time" content="2022-04-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-14T01:51:53.900Z">
+<meta property="article:modified_time" content="2022-04-14T08:12:24.293Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -103,14 +103,17 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+7545d7fd-5243-5257-97b2-ca9e3e0bd69a%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD%E5%AE%9A%E3%81%8C%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84%EF%BC%81%E7%A2%BA%E8%AA%8D%E3%81%99%E3%81%B9%E3%81%8D+3+%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220408_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220408_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220408_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20220408_01/" data-id="cl1ycizjb002l0ps46obe52nx" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20220408_01/" data-id="cl1yq4ddb002n0npb4nb7f0po" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
 <p>今回はクライアント設定がクライアント上で適用されない時に確認すべき 3 つのポイントについて解説致します。  </p>
-<h2 id="1-管理コンソールの設定を確認しよう"><a href="#1-管理コンソールの設定を確認しよう" class="headerlink" title="1.管理コンソールの設定を確認しよう"></a>1.管理コンソールの設定を確認しよう</h2><p>まずはデバイスに意図したクライアント設定が展開されているのかを確認しましょう。クライアント設定には「優先順位」が設けられております。優先順位が高い順（1 が一番強い）に反映されていきますので、カスタム　クライアント設定を複数作成、展開している場合には、優先順位に注意が必要となります。<br>※ 優先順位はクライアント設定間で設定箇所が重複した場合にどちらを優先するのかを決定するものとなります。重複していない設定については優先順位に関係なく、クライアントに反映されます。<br>複数のクライアント設定を展開していて、最終的に何が反映されるのかわからなくても大丈夫です。<br>MECM 管理コンソール &gt; [資産とコンプライアンス] &gt; [概要] &gt; [デバイス] にて確認したいデバイスを右クリック &gt; [クライアント設定] &gt; [クライアントの設定の結果] をクリックすると、最終的にどの設定が反映されているのかを確認することができますので、ここで想定していた設定となっていることを確認ください。<br><img src="/blog/mecm/20220408_01/20220408_01_01.png">  </p>
+<h2 id="1-管理コンソールの設定を確認しよう"><a href="#1-管理コンソールの設定を確認しよう" class="headerlink" title="1.管理コンソールの設定を確認しよう"></a>1.管理コンソールの設定を確認しよう</h2><p>まずはデバイスに意図したクライアント設定が展開されているのかを確認しましょう。クライアント設定には「優先順位」が設けられております。優先順位が高い順（1 が一番強い）に反映されていきますので、カスタム　クライアント設定を複数作成、展開している場合には、優先順位に注意が必要となります。  </p>
+<p>※ 優先順位はクライアント設定間で設定箇所が重複した場合にどちらを優先するのかを決定するものとなります。重複していない設定については優先順位に関係なく、クライアントに反映されます。  </p>
+<p>複数のクライアント設定を展開していて、最終的に何が反映されるのかわからなくても大丈夫です。  </p>
+<p>MECM 管理コンソール &gt; [資産とコンプライアンス] &gt; [概要] &gt; [デバイス] にて確認したいデバイスを右クリック &gt; [クライアント設定] &gt; [クライアントの設定の結果] をクリックすると、最終的にどの設定が反映されているのかを確認することができますので、ここで想定していた設定となっていることを確認ください。<br><img src="/blog/mecm/20220408_01/20220408_01_01.png">  </p>
 <p>このように結果を確認することができます。  </p>
 <p><img src="/blog/mecm/20220408_01/20220408_01_02.png"></p>
 <h2 id="2-カスタム-クライアント設定を上書き展開してみよう"><a href="#2-カスタム-クライアント設定を上書き展開してみよう" class="headerlink" title="2.カスタム クライアント設定を上書き展開してみよう"></a>2.カスタム クライアント設定を上書き展開してみよう</h2><p>1 で想定している設定値となっているにも関わらず、クライアント端末側に反映されていない場合には、新たにカスタム クライアント設定を作成し、展開してみましょう。  </p>
@@ -135,7 +138,7 @@
 <h2 id="4-ログ出力が確認できないが、疎通は成功する場合"><a href="#4-ログ出力が確認できないが、疎通は成功する場合" class="headerlink" title="4.ログ出力が確認できないが、疎通は成功する場合"></a>4.ログ出力が確認できないが、疎通は成功する場合</h2><p>この場合には、詳細な調査が必要となることが想定されますので、弊社サポートへのお問い合わせをご検討下さいませ。  </p>
 <p>なお、お問い合わせいただける際には、下記の情報が必要となりますので予め採取いただけると幸いでございます。</p>
 <h3 id="クライアント設定が格納されている-WMI-の取得"><a href="#クライアント設定が格納されている-WMI-の取得" class="headerlink" title="クライアント設定が格納されている WMI の取得"></a>クライアント設定が格納されている WMI の取得</h3><p>PowerShell を管理者として開き、下記コマンドを実行ください。</p>
-<p>「&lt;取得する WMI クラス名&gt;」箇所は <a href="#WMI%E3%82%AF%E3%83%A9%E3%82%B9%E5%AF%BE%E5%BF%9C%E8%A1%A8">WMI クラス対応表</a> をご確認の上、問題となるクライアント設定と紐づくクラス名に置き換えて実行くださいませ。  </p>
+<p>「&lt;取得する WMI クラス名&gt;」箇所は <a href="#WMI-%E3%82%AF%E3%83%A9%E3%82%B9%E5%AF%BE%E5%BF%9C%E8%A1%A8">WMI クラス対応表</a> をご確認の上、問題となるクライアント設定と紐づくクラス名に置き換えて実行くださいませ。  </p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\policy\machine\actualconfig <span class="literal">-class</span> &lt;取得する WMI クラス名&gt; &gt; C:\result\actualconfig.txt</span><br><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\policy\machine\requestedconfig <span class="literal">-class</span> &lt;取得する WMI クラス名&gt; &gt; C:\result\requestedconfig.txt</span><br></pre></td></tr></table></figure>
 
 <p>例：「バックグラウンド インテリジェント転送」のクライアント設定が問題の場合<br>この場合には対象の WMI クラスが 2 つ存在するため、出力ファイル名を変えて実行します。  </p>
@@ -318,7 +321,7 @@
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">44</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">2</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">25</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">9</span><ul></ul></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">44</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">2</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">26</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">9</span><ul></ul></li></ul>
     </div>
   </div>
 
