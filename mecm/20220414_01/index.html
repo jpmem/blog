@@ -4,20 +4,25 @@
   <meta charset="utf-8">
   
   
-  <title>System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>IP サブネット境界設定の考え方 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、IP サブネット境界設定について簡単に解説させていただきます。 なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2111 のものです。他の Version では画面が異">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20190327_01/index.html">
+<meta property="og:title" content="IP サブネット境界設定の考え方">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220414_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、IP サブネット境界設定について簡単に解説させていただきます。 なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2111 のものです。他の Version では画面が異">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2019-03-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-15T06:56:04.736Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_04.png">
+<meta property="article:published_time" content="2022-04-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-15T06:56:04.772Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -74,7 +79,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20190327_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20220414_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -83,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法
+      IP サブネット境界設定の考え方
     </h1>
   
 
@@ -91,84 +96,86 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2019-03-26T15:00:00.000Z" itemprop="datePublished">2019-03-27</time>
+  <time datetime="2022-04-13T15:00:00.000Z" itemprop="datePublished">2022-04-14</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+c327adc0-3d2a-583d-8db6-94f8893470cd%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Configuration+Manager+Current+Branch+%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB%E9%96%A2%E9%80%A3%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1%E3%82%92%E5%AE%8C%E5%85%A8%E3%81%AB%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20190327_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20190327_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20190327_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+d2f0866c-e425-545e-8c49-1c60ef4cedd1%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BIP+%E3%82%B5%E3%83%96%E3%83%8D%E3%83%83%E3%83%88%E5%A2%83%E7%95%8C%E8%A8%AD%E5%AE%9A%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220414_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220414_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220414_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="cl202u0ue001d0oqx713s399z" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20220414_01/" data-id="cl202u0v5002p0oqx59h18vk0" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
-<p>以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch の場合の手順をご案内します。</p>
-<p><a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus">https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus</a></p>
-<p>System Center Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように見える場合に有効な手順です。本手順を実施してから、クライアントの再インストールを実施することで解消できる問題も多くありますので、回避優先の対処が求められる場合に、是非お役立てください。</p>
-<blockquote>
-<p><strong>注意事項 : 本手順は、SCCM クライアントがインストールされた、サイト サーバー、サイト システム サーバー (SCCM のサーバー側の管理ポイント・配布ポイントなどの役割を持つサーバー) では行わないでください。手順中で削除が必要なレジストリ キーは、SCCM のサーバー側各機能でも使用していることが多く、サイト サーバー、サイト システムとしての役割に支障をきたします。本手順は、あくまでも、クライアント OS の SCCM クライアントへのトラブルシュートや、マスター イメージ準備のためにご利用ください。</strong></p>
-</blockquote>
-<hr>
-<ol>
-<li>System Center Configuration Manager クライアントをアンインストールします。</li>
-</ol>
-<p>コマンド プロンプトを管理者として実行し、以下のコマンドを実行します。</p>
-<p><code>%Windir%\ccmsetup\ccmsetup.exe /uninstall</code></p>
-<blockquote>
-<p>コントロールパネルを開き、”Configuration Manager” という項目が消えたら、アンインストール完了と判断出来ます。また、アンインストールが成功すると、ccmsetup.log に以下のログが記録されます。</p>
-</blockquote>
-<p><code>Uninstall succeeded.</code></p>
-<ol start="2">
-<li>下記フォルダー、ファイルを削除します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%windir%\CCM</span><br><span class="line">%windir%\ccmsetup</span><br><span class="line">%windir%\SMSCFG.ini</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>下記レジストリが残存している場合、削除します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\SMS</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCM</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCMSetup</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>以下の手順で、SMS 証明書 (自己署名証明書) を削除します。</li>
-</ol>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</li>
-<li>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。「選択された証明書を永久的に削除しますか？」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール 1 に保存しますか？」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
-</ol>
-<blockquote>
-<p>PKI 証明書を利用している環境（HTTPS 構成）の場合<br>PKI 証明書を利用している場合は同様に以下の手順で PKI 証明書を削除します。</p>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [個人] - [証明書] を選択します。カスタム ストアを利用している場合は、該当箇所を選択してください。</li>
-<li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
-</ol>
-</blockquote>
-<ol start="5">
-<li>下記フォルダーに移動し、”19c5cf…” ではじまるファイルが存在する場合には削除、またはリネームして別フォルダーにコピーします。(該当のファイルが存在しない場合も問題ありません。)</li>
-</ol>
-<p><code>C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys</code></p>
-<blockquote>
-<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
-</blockquote>
-<ol start="6">
-<li>ソフトウェア センターのショートカットが含まれる下記フォルダーを削除します。SCCM 管理コンソールをインストールしている場合は、「Configuraiotn Manager コンソール」のリンクなども本フォルダーに含まれます。管理コンソールはアンインストールしない場合などは、必要に応じて「ソフトウェア センター」のショートカットのみ削除してください。</li>
-</ol>
-<p><code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft System Center</code></p>
-<blockquote>
-<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
-</blockquote>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、IP サブネット境界設定について簡単に解説させていただきます。</p>
+<p>なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2111 のものです。他の Version では画面が異なる場合があります。</p>
+<p>IP サブネット境界を設定する際、以下の画面をご覧になるかと存じます。</p>
+<p><img src="/blog/mecm/20220414_01/20220414_01_01.png"></p>
+<p>この画面の赤枠の文章を見て、「どういうことだろう･･･」と思われた方も多いかと存じます。 </p>
+<p>これは、「MECM のサブネット境界判定においては、ネットワーク IP アドレスや サブネット マスク アドレスは使われず、それらから割り出された、サブネット ID のみが使われる」ということを示します。</p>
+<p>上の文章だけでもどういうことか分からないかと思いますので、以下の例をご確認ください。</p>
+<h2 id="サブネット境界判定の例-1"><a href="#サブネット境界判定の例-1" class="headerlink" title="サブネット境界判定の例 1"></a>サブネット境界判定の例 1</h2><p>以下のサブネット境界を作成したとします。</p>
+<ul>
+<li>ネットワーク IP アドレス  : 192.168.10.0</li>
+<li>サブネット マスク アドレス: 255.255.255.0</li>
+</ul>
+<p>上記の場合、割り出されるサブネット ID は･･･以下の通り、 <strong>192.168.10.0</strong> となります。</p>
+<p><img src="/blog/mecm/20220414_01/20220414_01_02.png"></p>
+<p>このとき、クライアント端末 A の IP アドレスが以下の場合、この<strong>サブネット境界に割り当たります。</strong></p>
+<ul>
+<li>クライアント IP アドレス:    192.168.10.1</li>
+<li>サブネット マスク アドレス: 255.255.255.0</li>
+</ul>
+<p>一方、クライアント端末 B の IP アドレスが以下の場合、この<strong>サブネット境界に割り当たりません。</strong></p>
+<ul>
+<li>クライアント IP アドレス:    192.168.10.10</li>
+<li>サブネット マスク アドレス: 255.255.255.248</li>
+</ul>
+<p>上記、違和感を感じますよね。/24 の サブネットを境界で指定したのだから、192.168.10.0 - 192.168.10.255 のIP アドレスは指定したサブネット境界として判定される筈だ、と考えるはずです。</p>
+<p>ここで、注意書きの「ネットワークとサブネット マスクの値からサブネット ID が割り出されます。」を思い出してください。</p>
+<p>クライアント 端末 A の IP アドレスとサブネット マスク の値から、サブネット境界と同様の方法でサブネット ID を割り出してみましょう。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 A のサブネット ID: 192.168.10.0</span><br></pre></td></tr></table></figure>
+
+<p><strong>192.168.10.0</strong> となります。<strong>この ID はサブネット境界のサブネット ID と等しい</strong>ですね。</p>
+<p>一方、クライアント 端末 B の IP アドレスとサブネット マスク の値から、サブネット境界と同様の方法でサブネット ID を割り出してみると、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 B のサブネット ID: 192.168.10.8</span><br></pre></td></tr></table></figure>
+
+<p><strong>192.168.10.8</strong> となります。<strong>この ID はサブネット境界のサブネット ID と異なります</strong>ね。</p>
+<p>もう一つ、例を挙げてみましょう。以下の例の方がよく見かけられるものではあります。</p>
+<h2 id="サブネット境界判定の例-2"><a href="#サブネット境界判定の例-2" class="headerlink" title="サブネット境界判定の例 2"></a>サブネット境界判定の例 2</h2><p>以下のサブネット境界を作成したとします。</p>
+<ul>
+<li>ネットワーク IP アドレス  : 10.0.0.0</li>
+<li>サブネット マスク アドレス: 255.255.0.0</li>
+</ul>
+<p>/16 のサブネット空間です。多くの /24 のサブネット空間をひとまとめにした境界を作成されたい場合、このような境界を作りたいことは多いかと存じます。</p>
+<p>では同様にサブネット ID を計算してみましょう。以下の通り、 <strong>10.0.0.0</strong> がサブネット ID となります。</p>
+<p><img src="/blog/mecm/20220414_01/20220414_01_03.png"></p>
+<p>では、この境界に割当たるクライアント端末の IP アドレスを見ていきましょう。</p>
+<p>クライアント端末 C の IP アドレスが以下の場合、この<strong>サブネット境界に割り当たりません。</strong></p>
+<ul>
+<li>クライアント IP アドレス:    10.0.1.1</li>
+<li>サブネット マスク アドレス: 255.255.255.0</li>
+</ul>
+<p>同じく、クライアント端末 D の IP アドレスが以下の場合、この<strong>サブネット境界に割り当たりません。</strong></p>
+<ul>
+<li>クライアント IP アドレス:    10.0.2.1</li>
+<li>サブネット マスク アドレス: 255.255.255.0</li>
+</ul>
+<p>なぜなら、サブネット ID を計算したとき、以下のようになるからです。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 C のサブネット ID: 10.0.1.0</span><br><span class="line">クライアント端末 D のサブネット ID: 10.0.2.0</span><br></pre></td></tr></table></figure>
+
+<p>そう、両方のサブネット ID がサブネット境界 のサブネット ID 10.0.0.0 と<strong>一致しません。</strong> そのため、/16 のサブネット境界を作った時、それに含まれると考えられる /24 のサブネットの IP アドレスを持つクライアントは、このサブネット境界に含まれません。</p>
+<p>なら、どのようなクライアントならサブネット境界に割り当たるかと言うと、以下のような IP アドレスを持つクライアント E の端末となります。</p>
+<ul>
+<li>クライアント IP アドレス:   10.0.1.10</li>
+<li>サブネット マスク アドレス: 255.255.0.0</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 E のサブネット ID: 10.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>ここまで見てきたらお分かりかと存じます。クライアントが IP サブネット の境界に含まれると判定されるには、境界サブネット ID と、クライアントが所属するサブネットのネットワーク アドレスが一致する必要がある、つまりサイズも全く同一の、同じサブネットに所属する必要がある、ということです。そのため、複数の小さなサブネットを含む大きなサブネット境界を設定することは出来ません。</p>
+<p>上記のようなことを実施されたい場合は、「IP アドレスの範囲」の境界を使いましょう。例えば、以下のような開始 IP アドレスと終了 IP アドレスを持つ境界を作れば 10.0.1.0/24 と 10.0.2.0/24 のサブネットの 端末を同一の境界として判定させることができます。</p>
+<p><img src="/blog/mecm/20220414_01/20220414_01_04.png"></p>
 
       
       
@@ -185,7 +192,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20190327_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220414_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -193,19 +200,10 @@
     
 <nav id="article-nav">
   
-    <a href="../20190417_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Microsoft Endpoint Configuration Manager ハードウェア インベントリが収集されない時のトラブルシュート
-        
-      </div>
-    </a>
   
-  
-    <a href="../../wsus/2019-02-14_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../w365/2022-04-12_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS の同期先の URL の追加について</div>
+      <div class="article-nav-title">クラウド PC へのリダイレクトを禁止する方法について</div>
     </a>
   
 </nav>
@@ -224,7 +222,7 @@
       <ul>
         
           <li>
-            <a href="../20220414_01/">IP サブネット境界設定の考え方</a>
+            <a href="">IP サブネット境界設定の考え方</a>
           </li>
         
           <li>
