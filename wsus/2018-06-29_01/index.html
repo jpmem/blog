@@ -4,20 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows Update 実行時のプロキシ設定 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。Microsoft Intune サポートチームの中村です。 ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は Windows Update を実行する際のプロキシ設定について、2 回に渡ってご案内をいたします。第 1 回は「考え方篇」、第 2 回は「設定篇」となります。 プロキシの設定が正しく行われていないと、Windows Update が上手くいく環境もあれば、失敗する環境もある等、複雑な状況に陥りがちです。このような場合には、「なぜ上手">
 <meta property="og:type" content="article">
-<meta property="og:title" content="デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング">
-<meta property="og:url" content="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/index.html">
+<meta property="og:title" content="Windows Update 実行時のプロキシ設定">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2018-06-29_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="こんにちは。Microsoft Intune サポートチームの中村です。 ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は Windows Update を実行する際のプロキシ設定について、2 回に渡ってご案内をいたします。第 1 回は「考え方篇」、第 2 回は「設定篇」となります。 プロキシの設定が正しく行われていないと、Windows Update が上手くいく環境もあれば、失敗する環境もある等、複雑な状況に陥りがちです。このような場合には、「なぜ上手">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2018-09-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-18T02:29:39.292Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-06-29_01/2018-06-29_01_1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-06-29_01/2018-06-29_01_2.png">
+<meta property="article:published_time" content="2018-06-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-18T02:29:39.460Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Intune">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2018-06-29_01/2018-06-29_01_1.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -74,7 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-intune/デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2018-06-29_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -83,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング
+      Windows Update 実行時のプロキシ設定
     </h1>
   
 
@@ -91,50 +94,31 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2018-09-27T15:00:00.000Z" itemprop="datePublished">2018-09-28</time>
+  <time datetime="2018-06-28T15:00:00.000Z" itemprop="datePublished">2018-06-29</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+b97d44e7-d528-559b-8bec-86800d2019ad%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fintune%2F%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+38641306-0a9f-5cf3-8071-9a7d35b91547%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+Update+%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AE%E3%83%97%E3%83%AD%E3%82%AD%E3%82%B7%E8%A8%AD%E5%AE%9A%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2018-06-29_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2018-06-29_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2018-06-29_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" data-id="cl243myhr00010nqbeiodddwq" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_01/" data-id="cl243myjv00470nqb2y3s7p7w" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは。Microsoft Intune サポートチームの中村です。</p>
-<p>ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません。 これを解決する別の方法は、以下に記載したトラブルシューティングの手順に従うことです。</p>
-<ol>
-<li><p>ユーザーを選択したら、Intune ライセンスとアカウント状態が緑色のチェックで表示されていることを確認します。</p>
-</li>
-<li><p>同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS/MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイスは登録されていません。 登録されるまでコンプラインアンスポリシーまたはデバイス構成プロファイルを受信しないでしょう。 アプリ保護ポリシー ( MAM ポリシーとしても知られています ) では、登録は必要ありません。</p>
-</li>
-<li><p>Azure AD の結合の種類がワークプレースを表示していることを確認します。もし未登録と表示されているようでしたら、登録中に問題を発生している可能性があります。デバイスの登録を解除して再登録すると、この問題が解決されます。</p>
-</li>
-<li><p>Intune に準拠していると Azure AD に準拠しているが、はいと表示されていることを確認します。 いずれかの項目にいいえと表示されている場合は、以下の問題の 1 つを示唆している可能性があります。</p>
-</li>
-</ol>
-<ul>
-<li>デバイスが、組織のコンプライアンスポリシーで定義された要求を満たしていない。</li>
-<li>デバイスが Intune サービスに接続されていない。</li>
-</ul>
-<ol start="5">
-<li>最後のチェックインに、最近の日時が表示されていることを確認します。デバイスは少なくとも 8 時間ごとに Intune で確認します。もし最後のチェックインから 24 時間以上経過していたら、デバイスに問題が生じている可能性があります。チェックインできないデバイスは、 Intune からポリシーを受信することが出来ません。デバイスを強制的にチェックインさせるためには、デバイスの OS に一致する以下の一連の手順に従ってください。これらのステップはどのデバイスからも実行可能です。</li>
-</ol>
-<p>6.<br>a. Android に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; デバイス設定の確認<br>b. iOS に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; 設定の確認<br>c. Windows に対してはデバイスの設定を開き、アカウントを選択する &gt; 職場または学校にアクセス &gt; 該当する接続 &gt; 情報 &gt; 同期</p>
-<p>7  デバイスのポリシーの詳細を見るためにデバイスを選択します。</p>
-<ol start="8">
-<li>デバイス &gt; 管理で、デバイスの準拠とデバイス構成の両方に移動し、割り当てようとしているデバイスポリシーが一覧表示されていることを確認します。</li>
-</ol>
-<p>9)<br>a. もしポリシーが一覧表示されている場合はその状態を確認します。</p>
-<ul>
-<li>該当なし - このポリシーはこのプラットフォームでサポートされていません。例えば、iOS のポリシーは Android 端末では機能しません。 Samsung の KNOX ポリシーは、 Samsung 以外の KNOX 端末では機能しません。</li>
-<li>競合 - Intune がオーバーライドできないデバイス上の既存の設定があります。</li>
-<li>保留中 - デバイスは Intune にチェックインして、ポリシーを取得していません。</li>
-<li>エラー - Intune documentation で考えられるエラーの一覧を確認します。</li>
-</ul>
-<p>b. もしポリシーが一覧表示されていない場合、ポリシーは正しく割り当てられていません。ポリシーの作成に戻り、ユーザーデバイスにポリシーを割り当てます。</p>
-<p>これにより iOS や Android のポリシーがデバイスに適用されない理由を絞り込むことが出来ます。</p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
+<p>今回は Windows Update を実行する際のプロキシ設定について、2 回に渡ってご案内をいたします。第 1 回は「考え方篇」、第 2 回は「設定篇」となります。</p>
+<p>プロキシの設定が正しく行われていないと、Windows Update が上手くいく環境もあれば、失敗する環境もある等、複雑な状況に陥りがちです。このような場合には、「なぜ上手くいく環境と失敗する環境があるのか？」「バージョン毎に微妙にエラーが異なるのはなぜか？」といった目の前に起きている事象に焦点を当てるよりも、まずは「そもそも正しくプロキシが参照出来るよう設定されているか？ 」といった観点で確認を進めていく必要があります。</p>
+<p>クライアントの導入時に、ネットワーク環境に合わせて適切にプロキシ設定が行われていれば、特に改めて考慮する必要はないのですが、本記事では改めて順を追って説明していきます。</p>
+<h2 id="Windows-Update-するためにプロキシ設定は必要か？"><a href="#Windows-Update-するためにプロキシ設定は必要か？" class="headerlink" title="Windows Update するためにプロキシ設定は必要か？"></a>Windows Update するためにプロキシ設定は必要か？</h2><p>これはよくお問い合わせいただく質問ですが、ご利用のネットワーク構成や運用に合わせて設定を考慮していただく必要があるため、弊社から一概に申し上げられる情報はありません。  </p>
+<p>「プロキシ設定が必要か判らない！」という場合は、まず自社内でネットワークの担当等に、Windows Update の通信がプロキシ サーバーを経由する必要があるのか確認をしてみましょう。  </p>
+<p>例えば、以下のようにクライアント - WSUS サーバー間の通信で、プロキシ サーバーを経由する必要がないネットワーク構成の場合には、WSUS サーバーに対する Windows Update を成功させるためにプロキシの設定をする必要はありません。  </p>
+<p><strong>[ 例 1 ]</strong>  </p>
+<p><img src="/blog/wsus/2018-06-29_01/2018-06-29_01_1.png">  </p>
+<p>対して例えば以下のようなネットワーク構成の場合には、WSUS サーバーへの接続にプロキシ サーバーを経由する必要があるため、Windows Update を成功させるためには、プロキシ設定が必要となります。  </p>
+<p><strong>[例 2]</strong><br><img src="/blog/wsus/2018-06-29_01/2018-06-29_01_2.png">  </p>
+<p>ただし、例えば例 1 の構成でも、WSUS サーバー以外への通信は、プロキシ サーバーを経由させたい場合には、クライアントへプロキシの設定を行った上で WSUS サーバーへの通信はプロキシを経由しないように、バイパスの指定に WSUS サーバーの URL を加える必要があります。</p>
+<p>このように、プロキシ設定は Windows Update の観点でだけでなく、ネットワーク環境に合わせて考慮が必要となります。</p>
+<p>さて以上を踏まえて、ご利用の環境でプロキシを経由する通信が必要かどうか確認がとれたら、今度は具体的な設定方法について「<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wu-proxy2">設定篇</a>」で紹介していますので、こちらをご参考としてください。  </p>
 
       
       
@@ -148,10 +132,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/intune/デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2018-06-29_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -159,19 +143,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20181010_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20180629_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について
+          Configuration Manager ReportServer データベースのトランザクションログ肥大化への対策
         
       </div>
     </a>
   
   
-    <a href="../MicrosoftIntune_constraintedapp_and_displayfunction/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20180619_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について</div>
+      <div class="article-nav-title">Configuration Manager で、できる限り早く更新プログラムを適用する方法について</div>
     </a>
   
 </nav>
@@ -202,7 +186,7 @@
           </li>
         
           <li>
-            <a href="../../wsus/2022-04-08_01/">WSUS サーバーを新しいハードへ移設したい</a>
+            <a href="../2022-04-08_01/">WSUS サーバーを新しいハードへ移設したい</a>
           </li>
         
           <li>
