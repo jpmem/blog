@@ -14,7 +14,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は第 1 回の「考え方篇」に引き続き、Windows Update 実行時のプロキシ設定の具体的な手法について、オススメの設定と注意点を紹介していきます。「Windows Update を実行するときにプロキシ設定って必要なの？ 」という方は、まずは「考え方篇」をご参照ください。 プロキシを利用する環境でのオススメの設定プロキシを利用する">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-26T10:20:02.708Z">
+<meta property="article:modified_time" content="2022-04-26T10:30:29.077Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -97,7 +97,7 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+e723dc36-2b8b-5272-bab3-a5a9a3532edd%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWindows+Update+%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AE%E3%83%97%E3%83%AD%E3%82%AD%E3%82%B7%E8%A8%AD%E5%AE%9A%E3%80%80%E3%81%9D%E3%81%AE2+%E8%A8%AD%E5%AE%9A%E7%AF%87%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2018-06-29_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2018-06-29_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2018-06-29_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cl2fzyqh9004h0pqn07b5acs8" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cl2g0c58a004h0no5dedx8g13" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -105,20 +105,21 @@
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は第 1 回の「<a href="https://jpmem.github.io/blog/wsus/2018-06-29_01/">考え方篇</a>」に引き続き、Windows Update 実行時のプロキシ設定の具体的な手法について、オススメの設定と注意点を紹介していきます。<br>「<strong>Windows Update を実行するときにプロキシ設定って必要なの？</strong> 」という方は、まずは「<a href="https://jpmem.github.io/blog/wsus/2018-06-29_01/">考え方篇</a>」をご参照ください。</p>
 <h2 id="プロキシを利用する環境でのオススメの設定"><a href="#プロキシを利用する環境でのオススメの設定" class="headerlink" title="プロキシを利用する環境でのオススメの設定"></a>プロキシを利用する環境でのオススメの設定</h2><p>プロキシを利用する環境の場合には、Windows Update の実行時にプロキシ設定が読み込まれるように設定を行っていただく必要があります。<br>オススメの設定としては、以下の 2 種類があるため紹介をします。是非以下のいずれかの設定について、ご検討をください。</p>
-<h3 id="A-WPAD-を利用した設定方法"><a href="#A-WPAD-を利用した設定方法" class="headerlink" title="A. WPAD を利用した設定方法"></a><strong>A. WPAD を利用した設定方法</strong></h3><p>WPAD (Web Proxy Auto-Discovery) はクライアントにプロキシの設定を自動配布するための方法として開発された技術であり、WPAD を利用すると DHCP サーバーもしくは DNS サーバーからプロキシの設定をクライアントに対して自動的に配布することが可能です。</p>
+<h3 id="A-WPAD-を利用した設定方法"><a href="#A-WPAD-を利用した設定方法" class="headerlink" title="A. WPAD を利用した設定方法"></a>A. WPAD を利用した設定方法</h3><p>WPAD (Web Proxy Auto-Discovery) はクライアントにプロキシの設定を自動配布するための方法として開発された技術であり、WPAD を利用すると DHCP サーバーもしくは DNS サーバーからプロキシの設定をクライアントに対して自動的に配布することが可能です。</p>
 <p>Windows Update による通信でも WPAD は参照されるため、WPAD を利用することで各クライアントにて個別にプロキシの設定を行うことなく、プロキシ経由で通信を行うようすることが可能です。</p>
 <p>WPAD の設定方法の詳細については、以下ブログで紹介しているため、ご参考としてください。</p>
-<p><strong>“WPAD” について</strong> <a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpieblog/2014/10/22/wpad/">https://blogs.technet.microsoft.com/jpieblog/2014/10/22/wpad/</a></p>
+<p><strong>“WPAD” について</strong></p>
+<p><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/</a></p>
 <p>また、特にクライアント端末を外に持ち出すような環境では、静的にプロキシ設定をクライアントにしてしまうと、外部のネットワークに接続したタイミングで、意図せずプロキシ設定が読み込まれてしまう可能性があるため、WPAD の利用を是非ご検討ください。</p>
-<h3 id="B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法"><a href="#B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法" class="headerlink" title="B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法"></a><strong>B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法</strong></h3><p>Windows Update の通信で確実にプロキシ設定を読み込ませるためには、IE (Internet Explorer) および WinHTTP のプロキシ設定の両方を実施していただく必要があります。このため静的にプロキシ設定を行う場合には IE のプロキシ設定と WinHTTP のプロキシ設定を両方共に実施していただくことをオススメしております。</p>
-<p>IE のプロキシ設定については、以下ブログにて紹介しているため、ご参考としてください。静的にプロキシ サーバーのアドレス等を指定する場合には「2) プロキシ サーバー」の箇所の設定を行います。</p>
-<p><strong>LAN のプロキシ サーバーの設定について</strong><br><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpieblog/2014/10/08/lan/">https://blogs.technet.microsoft.com/jpieblog/2014/10/08/lan/</a></p>
+<h3 id="B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法"><a href="#B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法" class="headerlink" title="B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法"></a>B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法</h3><p>Windows Update の通信で確実にプロキシ設定を読み込ませるためには、IE (Internet Explorer) および WinHTTP のプロキシ設定の両方を実施していただく必要があります。このため静的にプロキシ設定を行う場合には IE のプロキシ設定と WinHTTP のプロキシ設定を両方共に実施していただくことをオススメしております。</p>
+<p>IE のプロキシ設定については、以下ブログにて紹介しているため、ご参考としてください。静的にプロキシ サーバーのアドレス等を指定する場合には「2. プロキシサーバーの利用を構成するための設定」の箇所の設定を行います。</p>
+<p>Title: ローカル エリア ネットワーク (LAN) の設定について<br>URL: <a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/</a></p>
 <p>また、WinHTTP のプロキシ設定については、以下のコマンドを管理者権限で実行することで設定が可能です。</p>
 <p><strong>&lt;&lt; WinHTTP のプロキシ設定をする場合 &gt;&gt;</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winttp set proxy proxy-server =&lt;プロキシ サーバー&gt; bypass-list=&lt;バイパス リスト&gt;</span><br></pre></td></tr></table></figure>
 
 <p><strong>&lt;&lt; 上記コマンドの実行例 &gt;&gt;</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">etsh winhttp set proxy proxy-server=&quot;myProxyServer:8080&quot; bypass-list=&quot;&lt;local&gt;;*.microsoft.com;*.foo.ne&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp set proxy proxy-server=&quot;myProxyServer:8080&quot; bypass-list=&quot;&lt;local&gt;;*.microsoft.com;*.foo.ne&quot;</span><br></pre></td></tr></table></figure>
 
 <p>なお、以下のコマンドを実行することで IE のプロキシ設定を、そのまま WinHTTP のプロキシ設定へ反映することが可能です。</p>
 <p><strong>&lt;&lt; IE のプロキシ設定を WinHTTP のプロキシ設定へインポートする場合 &gt;&gt;</strong></p>
@@ -130,21 +131,18 @@
 <p><strong>&lt;&lt; WinHTTP のプロキシ設定をリセットする場合 &gt;&gt;</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp reset proxy</span><br></pre></td></tr></table></figure>
 
-<h2 id="プロキシを利用する上での注意点"><a href="#プロキシを利用する上での注意点" class="headerlink" title="プロキシを利用する上での注意点"></a><strong>プロキシを利用する上での注意点</strong></h2><p>プロキシ サーバーを利用している環境において、よく失敗するポイントや注意点について紹介をします。</p>
-<h3 id="静的にプロキシ設定を行う場合"><a href="#静的にプロキシ設定を行う場合" class="headerlink" title="静的にプロキシ設定を行う場合"></a><strong>静的にプロキシ設定を行う場合</strong></h3><p>上述の通り、静的にプロキシ設定を行う場合には、<strong>IE および WinHTTP のプロキシ設定を両方共にしていただくことをオススメしております。</strong></p>
+<h2 id="プロキシを利用する上での注意点"><a href="#プロキシを利用する上での注意点" class="headerlink" title="プロキシを利用する上での注意点"></a>プロキシを利用する上での注意点</h2><p>プロキシ サーバーを利用している環境において、よく失敗するポイントや注意点について紹介をします。</p>
+<h3 id="静的にプロキシ設定を行う場合"><a href="#静的にプロキシ設定を行う場合" class="headerlink" title="静的にプロキシ設定を行う場合"></a>静的にプロキシ設定を行う場合</h3><p>上述の通り、静的にプロキシ設定を行う場合には、<strong>IE および WinHTTP のプロキシ設定を両方共にしていただくことをオススメしております。</strong></p>
 <p>Windows Update の通信では、どちらのプロキシ設定も参照される可能性があり、細かい使い分けについて以下のブログにて紹介をしております。</p>
-<p><strong>Windows Update が利用するプロキシ設定について</strong><br><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpwsus/2017/03/02/proxy-settings-used-by-wu/">https://blogs.technet.microsoft.com/jpwsus/2017/03/02/proxy-settings-used-by-wu/</a></p>
+<p>Title: Windows Update が利用するプロキシ設定について<br>URL: <a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpwsus/2017/03/02/proxy-settings-used-by-wu/">https://blogs.technet.microsoft.com/jpwsus/2017/03/02/proxy-settings-used-by-wu/</a></p>
 <p>IE のプロキシ設定はユーザー単位で設定が保持され、WinHTTP のプロキシ設定は端末全体での設定となるため、基本的な考え方としてはユーザーが介する動作では、ユーザーの IE のプロキシ設定が参照され、システムがバックグラウンドで実行される通信については、WinHTTP のプロキシ設定が参照されます。</p>
 <p>しかしながら、Windows Update による通信は、自動更新等のユーザーが意図しないところでバックグラウンドでの通信が発生することが多くあるため、確実に Windows Update の通信を成功させるためには、両方共に設定していただくことをオススメしております。</p>
-<h3 id="認証が必要なプロキシをご利用の場合"><a href="#認証が必要なプロキシをご利用の場合" class="headerlink" title="認証が必要なプロキシをご利用の場合"></a><strong>認証が必要なプロキシをご利用の場合</strong></h3><p>以下の公開情報でも紹介している通り、認証が必要なプロキシを介して Windows Update を実行すると、Windows Update の動作が不安定になることがあります。認証が必要なプロキシを利用している場合には、接続先の WSUS サーバーもしくは Windows Update / Microsoft Update サイトへの接続ついては、認証が不要なよう除外してください。</p>
-<p><strong>Windows Update カタログからドライバーや修正プログラムを含む更新プログラムをダウンロードする方法</strong><br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win">https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win</a></p>
-<p>— 該当箇所抜粋 —</p>
-<p>Windows Update または Microsoft Update の使用中に、以下のいずれかまたは複数の問題が発生する場合があります。</p>
+<h3 id="認証が必要なプロキシをご利用の場合"><a href="#認証が必要なプロキシをご利用の場合" class="headerlink" title="認証が必要なプロキシをご利用の場合"></a>認証が必要なプロキシをご利用の場合</h3><p>以下の公開情報でも紹介している通り、認証が必要なプロキシを介して Windows Update を実行すると、Windows Update の動作が不安定になることがあります。認証が必要なプロキシを利用している場合には、接続先の WSUS サーバーもしくは Windows Update / Microsoft Update サイトへの接続ついては、認証が不要なよう除外してください。</p>
+<p>Title: Windows Update カタログからドライバーや修正プログラムを含む更新プログラムをダウンロードする方法<br>URL: <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win">https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win</a><br>— 該当箇所抜粋 —<br>Windows Update または Microsoft Update の使用中に、以下のいずれかまたは複数の問題が発生する場合があります。</p>
 <p>(中略)</p>
-<p>統合プロキシ認証 (NTLM 認証) を使用して認証を行う Web プロキシ サーバーを経由して Windows Update サイトまたは Microsoft Update サイトに接続すると、これらの Web サイトが表示されないことがあります。</p>
-<p>— 該当箇所抜粋 —</p>
-<h3 id="インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合"><a href="#インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合" class="headerlink" title="インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合"></a><strong>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合</strong></h3><p>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合には、以下のブログにて紹介している URL への通信が必要となります。</p>
-<p><strong>Windows Update / Microsoft Update の接続先 URL について</strong><br><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpwsus/2017/02/27/wu-mu-list/">https://blogs.technet.microsoft.com/jpwsus/2017/02/27/wu-mu-list/</a></p>
+<p>統合プロキシ認証 (NTLM 認証) を使用して認証を行う Web プロキシ サーバーを経由して Windows Update サイトまたは Microsoft Update サイトに接続すると、これらの Web サイトが表示されないことがあります。<br>— 該当箇所抜粋 —</p>
+<h3 id="インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合"><a href="#インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合" class="headerlink" title="インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合"></a>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合</h3><p>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合には、以下の公開情報の「Windows Update 欄」にて紹介している URL への通信が必要となります。</p>
+<p>Title: Windows 10 Enterprise バージョン 21H2 の接続エンドポイントを管理する<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints">https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints</a><br>※ 上記は Windows 10 21H2 の公開情報です。対応するバージョンの公開情報をご確認ください。</p>
 <p>プロキシ サーバー等で接続先の URL によってブロック等を実行している場合には、上記のブログにて紹介している URL に対する通信を許可する必要があるので、ご注意ください。また、上述の通り、認証が必要なプロキシを利用している場合には、ブログ内で紹介している URL について認証が不要なようにしてください。</p>
 <p>全 2 回に渡る投稿いかがでしたでしょうか。プロキシ設定が環境に合わせて正しく構成されていないと、ネットワーク系のエラー (0x80240030 / 0x80072efe / 0x80244022 / 0x80072efd / 0x80072ee2 / 0x80072ee7 / 0x8024402c 等) が発生したり、異常に Windows Update に時間を要したり、様々な事象が発生します。</p>
 <p>プロキシ設定を正しく見直すことで、こういった問題の発生を未然に防ぐことが可能なので、是非ご参考としていただければ幸いです。</p>
