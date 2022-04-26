@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Configuration Manager と WSUS の自動展開規則と自動承認規則について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様こんにちは。Configuration Manager サポート チームです。今回は Configuration Manager と WSUS の自動展開規則と自動承認規則について各々概要を紹介いたします。   自動展開規則と自動承認規則は双方ともに、新たに Configuration Manager 及び WSUS に同期した更新プログラムをクライアントへ自動的に展開する方法として用意された">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager と WSUS の自動展開規則と自動承認規則について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="皆様こんにちは。Configuration Manager サポート チームです。今回は Configuration Manager と WSUS の自動展開規則と自動承認規則について各々概要を紹介いたします。   自動展開規則と自動承認規則は双方ともに、新たに Configuration Manager 及び WSUS に同期した更新プログラムをクライアントへ自動的に展開する方法として用意された">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/2.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/3.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/4.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/8.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/5.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/7.png">
+<meta property="article:published_time" content="2022-04-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-26T10:35:00.539Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-04-11_01/2.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2022-04-11_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager と WSUS の自動展開規則と自動承認規則について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-04-10T15:00:00.000Z" itemprop="datePublished">2022-04-11</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+e6300c3f-4be2-5c82-81e5-7cfe62ffacb4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BConfiguration+Manager+%E3%81%A8+WSUS+%E3%81%AE%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E8%A6%8F%E5%89%87%E3%81%A8%E8%87%AA%E5%8B%95%E6%89%BF%E8%AA%8D%E8%A6%8F%E5%89%87%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-04-11_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-04-11_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-04-11_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-04-11_01/" data-id="cl2g0hxwc00530or07cav5cl4" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>皆様こんにちは。Configuration Manager サポート チームです。<br>今回は Configuration Manager と WSUS の自動展開規則と自動承認規則について各々概要を紹介いたします。  </p>
+<p>自動展開規則と自動承認規則は双方ともに、新たに Configuration Manager 及び WSUS に同期した更新プログラムをクライアントへ自動的に展開する方法として用意された機能でございます。</p>
+<h2 id="Configuration-Manager-の自動展開規則のご紹介"><a href="#Configuration-Manager-の自動展開規則のご紹介" class="headerlink" title="Configuration Manager の自動展開規則のご紹介"></a>Configuration Manager の自動展開規則のご紹介</h2><p>Configuration Manager の自動展開規則の機能を利用しますと、Windows OS 向けにリリースされた更新プログラムや Defender の定期ファイルをクライアント コンピューターに自動的に展開することができます。</p>
+<p><img src="/blog/wsus/2022-04-11_01/2.png" alt="image.png"></p>
+<p>自動展開規則は、Configuration Manager のソフトウェア更新プログラムの展開機能と同様にデバイス コレクションに対して展開を行います。  </p>
+<p>一例としましては、Windows 10 version 21H2 のクライアントのみを含むデバイス コレクションを作成し、そちらのデバイス コレクションに対し、Windows 10 version 21H2 用の月例品質更新プログラムを自動展開規則で展開するという運用が考えられます。</p>
+<p><img src="/blog/wsus/2022-04-11_01/3.png" alt="image.png"></p>
+<p>自動展開規則のプロパティ フィルターでは、いくつかの種類のフィルターが用意されており、設定したフィルターの条件を満たすソフトウェア更新プログラムが自動展開規則で展開されます。<br>なお、プロパティ フィルターはアンド条件でございますので、フィルターを設定いただいた数だけ条件が絞られていく動作となります。<br>例えば、下の画像に記載されているプロパティ フィルターの条件は、Windows 10 の毎月の定例セキュリティ更新プログラムを配信する設定でございます。</p>
+<p><img src="/blog/wsus/2022-04-11_01/4.png" alt="image.png"></p>
+<p>公開情報でも自動展開規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : Configuration Manager を使用して定義の更新プログラムを配信する<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr">https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr</a></p>
+<p>また、Defender の定義ファイルにつきましては、1 日に 複数回リリースされるため、Configuration Manager で配信する場合は、自動展開規則を作成することをお勧めいたします。<br>また、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法について、自動展開規則のプロパティ フィルターを使用して Configuration Manager に同期された更新プログラムから Defender の定義ファイルだけを自動展開するように構成する必要がありますが、この設定においてクライアントにダウンロードされる容量を少なくするためのポイントがあります。それは 「置き換えられる」 を「いいえ」に設定すること です。</p>
+<p><img src="/blog/wsus/2022-04-11_01/8.png" alt="image.png"></p>
+<p>詳細は以下のブログで紹介しております。<br>Title : Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180308_01/">https://jpmem.github.io/blog/mecm/20180308_01/</a></p>
+<h2 id="WSUS-の自動展開規則と自動承認規則のご紹介"><a href="#WSUS-の自動展開規則と自動承認規則のご紹介" class="headerlink" title="WSUS の自動展開規則と自動承認規則のご紹介"></a>WSUS の自動展開規則と自動承認規則のご紹介</h2><p>Configuration Manager の自動展開規則と似た機能として WSUS では自動承認規則が用意されております。<br>ただし、自動承認規則が自動展開規則と異なる部分としては、規則作成の際の条件として指定可能な項目が少ないという違いがあります。</p>
+<p>WSUS の自動承認規則を利用しますと、Windows OS 向けにリリースされた更新プログラムや Defender のセキュリティ インテリジェンス更新プログラムをクライアント コンピューターが属するコンピューター グループに対し自動的に承認することができます。</p>
+<p><img src="/blog/wsus/2022-04-11_01/5.png" alt="image.png"></p>
+<p>自動承認規則の規則の追加では、ステップ 1 で 3 種類のプロパティが用意されており、ステップ 2 でプロパティの条件を詳細に指定します。自動承認規則はこちらのプロパティの条件に従いソフトウェア更新プログラムを自動的に承認します。<br>なお、規則の追加については Configuration Manager の自動展開規則と同様にアンド条件でございますので、プロパティを設定いただいた数だけ条件が絞られていく動作となります。</p>
+<p><img src="/blog/wsus/2022-04-11_01/7.png" alt="image.png"></p>
+<p>公開情報でも自動承認規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : 3.2. 自動承認規則を構成する<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a</a>.</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-04-11_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../w365/2022-04-12_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          クラウド PC へのリダイレクトを禁止する方法について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../mecm/20220408_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">クライアント設定が適用されない！確認すべき 3 つのポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-04-22_01/">Chromium Edge 更新プログラムを WSUS で配布する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220421_01/">MECM パッケージの再実行の設定方法について解説！</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220419_01/">Configuration Manager で資産管理台帳のカスタム レポートを作成する</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220418_01/">MECM クライアントがインストールされた PC でマスター イメージを新規取得・再取得する手順</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220414_01/">IP サブネット境界設定の考え方</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">50</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">2</span></li><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/WSUS">WSUS</a><span class="tag-list-count">1</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">32</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/WSUS/MECM">MECM</a><span class="tag-list-count">1</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">9</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">2022 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">2020 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">2012 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">2011 / 10</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 10px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 16.67px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 13.33px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
