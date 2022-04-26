@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>System Center Endpoint Protection の定義ファイルのダウンロードの最適化について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Endpoint Protection (以下、SCEP) 、または Windows Defender をご利用の皆様に、System Center Configuration Manager (以下、SCCM) から定義ファイルを配信する上でできる限りクライアントがダウンロード">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System Center Endpoint Protection の定義ファイルのダウンロードの最適化について">
+<meta property="og:title" content="Microsoft Defender &#x2F; System Center Endpoint Protection の定義ファイルのダウンロードの最適化について">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180308_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Endpoint Protection (以下、SCEP) 、または Windows Defender をご利用の皆様に、System Center Configuration Manager (以下、SCCM) から定義ファイルを配信する上でできる限りクライアントがダウンロード">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180308_01/20180308_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180308_01/20180308_01_02.png">
 <meta property="article:published_time" content="2018-03-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-26T11:14:33.261Z">
+<meta property="article:modified_time" content="2022-04-26T11:27:27.681Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -86,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      System Center Endpoint Protection の定義ファイルのダウンロードの最適化について
+      Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について
     </h1>
   
 
@@ -98,24 +98,24 @@
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+b06c24e8-06a1-5e95-8748-8bc0b7a70e39%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSystem+Center+Endpoint+Protection+%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180308_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180308_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180308_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+b06c24e8-06a1-5e95-8748-8bc0b7a70e39%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+Defender+%2F+System+Center+Endpoint+Protection+%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180308_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180308_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180308_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20180308_01/" data-id="cl2g1wrr9000n0oqzal5j39wf" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20180308_01/" data-id="cl2g2ddbn000n0ns76wo40m5f" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。System Center Support Team です。</p>
-<p>今回は System Center Endpoint Protection (以下、SCEP) 、または Windows Defender をご利用の皆様に、System Center Configuration Manager (以下、SCCM) から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介いたします。</p>
-<p>まず、SCEP の定義ファイルにつきましては、2018 年 3 月 8 日現在、1 日に 6 回リリースされております。このように毎日頻繁にリリースされるため、SCCM で配信する場合は、次の公開情報の通り、自動展開規則の機能を使用して、定義ファイルを配信する必要があります。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sccm/protect/deploy-use/endpoint-definitions-configmgr">定義ファイルの更新を配布するように自動展開規則を構成するには</a></p>
-<p>自動展開規則を使用する場合、「プロパティ フィルター」を使用して SCCM に同期された更新プログラムから SCEP の定義ファイルだけを自動展開するように構成する必要がありますが、この設定においてクライアントにダウンロードされる容量を少なくするためのポイントがあります。<strong>それは</strong> <strong>「置き換えられる」</strong> <strong>を「いいえ」に設定すること</strong> です。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介いたします。</p>
+<p>まず、SCEP の定義ファイルにつきましては、2018 年 3 月 8 日現在、基本的に 1 日に 6 回リリースされております。このように毎日頻繁にリリースされるため、Configuration Manager で配信する場合は、次の公開情報の通り、自動展開規則の機能を使用して、定義ファイルを配信する必要があります。</p>
+<p>Title: 定義ファイルの更新を配布するように自動展開規則を構成するには<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sccm/protect/deploy-use/endpoint-definitions-configmgr">https://docs.microsoft.com/ja-jp/sccm/protect/deploy-use/endpoint-definitions-configmgr</a></p>
+<p>自動展開規則を使用する場合、「プロパティ フィルター」を使用して Configuration Manager に同期された更新プログラムから Microsoft Defender または SCEP の定義ファイルだけを自動展開するように構成する必要がありますが、この設定においてクライアントにダウンロードされる容量を少なくするためのポイントがあります。<strong>それは「置き換えられる」を「いいえ」に設定すること</strong>です。</p>
 <p><img src="/blog/mecm/20180308_01/20180308_01_01.png"></p>
 <p>「置き換えられる」を「いいえ」に設定しなかった場合、 SCEP 定義ファイルの展開は可能ですが、上述の通り 1 日 6 回リリースされますので、以下の通り 6 つの定義ファイルが展開されることになります。</p>
 <p><img src="/blog/mecm/20180308_01/20180308_01_02.png"></p>
 <p>定義ファイルを最新化するためには、最新の 1 つの定義ファイルのみダウンロードされればよいのですが、「置き換えられる」：「いいえ」を設定しなかった場合、最大で 6 つの定義ファイルがクライアントにダウンロードされることになります。これでも最新の定義ファイルのインストールが完了すれば、定義ファイルは最新化されますが、本来は 1 つの定義ファイルのみダウンロードすれば良いにもかかわらず、古い定義ファイルもダウンロードされることになりますので、適用までに時間を要する、もしくはクライアントと配布ポイント間のネットワーク トラフィックが増大する可能性があります。</p>
-<p>そのため、もしクライアントと配布ポイント間のトラフィックにおいて、SCEP 定義ファイルのダウンロードにかかるサイズが大きくなっている場合は、上述の設定をすることで、低減できますのでご確認くださいますようお願いいたします。</p>
-<p>また、SCEP 定義ファイルは 1 つの定義ファイルにつき、6 世代前までの差分の定義ファイルを持っておりますので、1 日複数回など頻繁に更新を行うことで、ダウンロードされる定義ファイルのサイズも少なくなります。こちらもクライアントと配布ポイント間のネットワーク トラフィックを低減させる方法の 1 つですので、ご検討くださいませ。</p>
+<p>そのため、もしクライアントと配布ポイント間のトラフィックにおいて、定義ファイルのダウンロードにかかるサイズが大きくなっている場合は、上述の設定をすることで、低減できますのでご確認くださいますようお願いいたします。</p>
+<p>また、定義ファイルは 1 つの定義ファイルにつき、6 世代前までの差分の定義ファイルを持っておりますので、1 日複数回など頻繁に更新を行うことで、ダウンロードされる定義ファイルのサイズも少なくなります。こちらもクライアントと配布ポイント間のネットワーク トラフィックを低減させる方法の 1 つですので、ご検討くださいませ。</p>
 
       
       
