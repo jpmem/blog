@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>クラウド管理ゲートウェイ (CMG) の構築手順例 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、クラウド管理ゲートウェイ (CMG) の構築手順例をご案内させていただきます。 なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2203 のものです。他の Versio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="クラウド管理ゲートウェイ (CMG) の構築手順例">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220501_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、クラウド管理ゲートウェイ (CMG) の構築手順例をご案内させていただきます。 なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2203 のものです。他の Versio">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_14.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_15.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_16.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_17.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_18.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_19.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_20.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_21.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_22.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_23.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_24.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_25.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_26.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_27.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_28.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_29.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_31.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_30.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_32.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_33.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_34.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_35.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_36.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_37.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_40.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_38.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_39.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_41.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_42.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_43.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_44.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_45.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_47.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_48.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_49.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_46.png">
+<meta property="article:published_time" content="2022-04-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T02:01:26.319Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="CMG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220501_01/20220501_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220501_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      クラウド管理ゲートウェイ (CMG) の構築手順例
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-04-30T15:00:00.000Z" itemprop="datePublished">2022-05-01</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+ff6ad7cd-abfa-5a01-9e96-7c7885b6ed3e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4+%28CMG%29+%E3%81%AE%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86%E4%BE%8B%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220501_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220501_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220501_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20220501_01/" data-id="cl2tsk14d005i0mqpdu89h09h" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、クラウド管理ゲートウェイ (CMG) の構築手順例をご案内させていただきます。</p>
+<p>なお、本記事の画面は Micorosoft Endpoint Manager Configuration Manager  (MECM) Current Branch (CB) 2203 のものです。他の Version では画面が異なる場合があります。</p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>本構築例は以下の条件を前提としています。なお、以下で上げられている内容は CMG の設計段階で定めておくと良いでしょう。</p>
+<ol>
+<li>仮想マシン スケールセットを利用する。</li>
+<li>数台のクライアントを管理する、ラボ環境としてのクラウド管理ゲートウェイ (CMG) を構築する。ラボ環境のため可用性は考慮しない。</li>
+<li>上記のため、CMG は東日本リージョンに B2S インスタンスを 1 台のみ作成する。</li>
+<li>この CMG はリバースプロキシ、及びクラウド上の配布ポイントとして利用する。</li>
+<li>手順簡略化のため、以下で説明しているクライアント認証方式のうち、サイト トークン認証を選択する。<br>クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)<br><a href="https://jpmem.github.io/blog/mecm/20220328_01/#CMG-%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%AA%8D%E8%A8%BC">https://jpmem.github.io/blog/mecm/20220328_01/#CMG-%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%AA%8D%E8%A8%BC</a></li>
+<li>サーバー証明書は別途プライベート CA で作成し、利用するものとする。</li>
+<li>管理対象となるクライアントはオンプレミス AD に参加していない端末 (ワーク グループ) 端末とする。</li>
+<li>管理対象となるクライアントに対して、サーバー証明書を発行した CA のルート証明書は別途ファイルコピーで配布する。</li>
+<li>管理対象となるクライアントは、レジストリで「常にインターネット」フラグを有効化することで CMG を選択させる。</li>
+<li>最上位サイトサーバーに存在する、サービス接続ポイントは Proxy サーバーを介さず、直接インターネットに接続出来る。</li>
+<li>最上位サイトサーバーに管理ポイントとクラウド管理ゲートウェイ接続ポイント、ソフトウェア更新ポイントの役割を持たせる。</li>
+<li>サイト システム間の通信は「拡張 HTTP 方式」とする。<br>Configuration Managerにおける拡張 HTTP の確認方法<br><a href="https://jpmem.github.io/blog/mecm/20220122_01/">https://jpmem.github.io/blog/mecm/20220122_01/</a>  </li>
+<li>Azure サブスクリプションに紐付けられた、Azure AD のサブスクリプション共同管理者権限兼グローバル管理者権限アカウントを利用して作業出来る。</li>
+<li>ラボ環境上には DNS サーバーが用意されており、こちらを利用して、管理対象となるクライアントは CMG のドメイン名を解決出来る。そのために、[ホスト名].[リージョン名].cloudapp.azure.com の CNAME をラボの DNS サーバーに登録する。</li>
+<li>クラウド接続アナライザでの認証テストのため、Azure AD のユーザー情報を MECM サーバーと連携する。</li>
+</ol>
+<h2 id="事前に決めておくべきもの"><a href="#事前に決めておくべきもの" class="headerlink" title="事前に決めておくべきもの"></a>事前に決めておくべきもの</h2><p>以下の項目について事前に決めておきましょう。</p>
+<ol>
+<li>MECM 上の 「Azure サービス」名。</li>
+<li>Azure AD 上のクラウド管理アプリケーションのうち、「Web アプリ」名、「ネイティブ クライアント　アプリ」名。</li>
+<li>クラウド管理ゲートウェイのホスト名。本ホスト名は、Azure 上の 公開 URL にもなるので、URL 全体として(リージョン名を含めて) 世界で唯一である必要があります。</li>
+</ol>
+<h2 id="構築手順"><a href="#構築手順" class="headerlink" title="構築手順"></a>構築手順</h2><p>大凡以下が全体の流れとなります。</p>
+<ol>
+<li>Azure リソース プロバイダーの確認</li>
+<li>クライアント設定の確認</li>
+<li>Azure AD アプリケーションの作成</li>
+<li>クラウド管理ゲートウェイの作成</li>
+<li>DNS への CNAME 登録</li>
+<li>クラウド管理ゲートウェイ接続ポイントの作成</li>
+<li>管理ポイント、ソフトウェア更新ポイントの設定</li>
+<li>クラウド接続アナライザの実施</li>
+<li>クライアントでの接続検証</li>
+</ol>
+<h3 id="Azure-リソース-プロバイダーの確認"><a href="#Azure-リソース-プロバイダーの確認" class="headerlink" title="Azure リソース プロバイダーの確認"></a>Azure リソース プロバイダーの確認</h3><p>CMG が利用する以下のリソース プロバイダーの登録状況を確認します。<br>以下の画面で、リソース プロバイダーがそれぞれ ”Registered” 状態になっているかを確認し、”NotRegistered” になっている場合は画面上部の「登録」ボタンをクリックして ”Registered” 状態に変更してください。</p>
+<ol>
+<li>Microsoft.Compute</li>
+<li>Microsoft.Storage</li>
+<li>Microsoft.KeyVault</li>
+<li>Microsoft.Network</li>
+</ol>
+<p>[Azure Portal] - [サブスクリプション] - ご利用のサブスクリプションを選択 - [リソース プロバイダー] ブレード</p>
+<p><img src="/blog/mecm/20220501_01/20220501_01_01.png" alt="image.png"></p>
+<h3 id="クライアント設定の確認"><a href="#クライアント設定の確認" class="headerlink" title="クライアント設定の確認"></a>クライアント設定の確認</h3><p>クライアントに対して CMG への接続を許可するクライアント設定を行います。一部のクライアントに対してだけ接続を許可する場合は、カスタム クライアント設定を使ってください。</p>
+<ul>
+<li>[CM コンソール] - [管理] - [概要] - [クライアント設定] - 対象のクライアント設定を選択 - [プロパティ] - [クラウド サービス]<ul>
+<li>[クライアントでクラウド管理ゲートウェイを使用できるようにする] を 「はい」に</li>
+<li>[クラウド配布ポイントへのアクセスを許可する] を 「はい」に</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/mecm/20220501_01/20220501_01_02.png" alt="image.png"></p>
+<h3 id="Azure-AD-アプリケーションの作成"><a href="#Azure-AD-アプリケーションの作成" class="headerlink" title="Azure AD アプリケーションの作成"></a>Azure AD アプリケーションの作成</h3><p>以下の手順で Azure AD アプリケーションを作成します。</p>
+<ol>
+<li>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [Azure サービス] - [Azure サービスの構成]  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_03.png" alt="image.png"></p>
+<ol start="2">
+<li>[Azure サービス ウィザード]が表示されるので、「クラウド管理」が選択されていることを確認して、名前を入力し、「次へ」  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_04.png" alt="image.png"></p>
+<ol start="3">
+<li>[Azure 環境]として [AzurePublicCloud] が選択されていることを確認して、[Web アプリ]の行の「参照」ボタンをクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_05.png" alt="image.png"></p>
+<ol start="4">
+<li>「サーバー アプリ」ダイアログが表示されるので、「作成」ボタンをクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_06.png" alt="image.png"></p>
+<ol start="5">
+<li>「サーバー アプリケーションの作成」ダイアログで「アプリケーション名」を入力し、「サインイン」ボタンをクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_07.png" alt="image.png"></p>
+<ol start="6">
+<li>Azure AD アカウントのログイン画面が表示されるので、Azure AD のグローバル管理者権限を持つアカウントでログインします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_08.png" alt="image.png"></p>
+<ol start="7">
+<li>ログインに成功すると赤枠の通り、「正常にサインインしました。」と表示されるので、「OK」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_09.png" alt="image.png"></p>
+<ol start="8">
+<li>無事アプリケーションが追加されたことを確認して、「OK」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_10.png" alt="image.png"></p>
+<ol start="9">
+<li>続けてネイティブ クライアント アプリの項目で「参照」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_11.png" alt="image.png"></p>
+<ol start="10">
+<li>「クライアント アプリ」ダイアログで「作成」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_12.png" alt="image.png"></p>
+<ol start="11">
+<li>「クライアント アプリケーションの作成」ダイアログで「アプリケーション名」を入力し、「サインイン」ボタンをクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_13.png" alt="image.png"></p>
+<ol start="12">
+<li>Azure AD アカウントのログイン画面が表示されるので、Azure AD のグローバル管理者権限を持つアカウントでログインします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_08.png" alt="image.png"></p>
+<ol start="13">
+<li>ログインに成功すると赤枠の通り、「正常にサインインしました。」と表示されるので、「OK」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_14.png" alt="image.png"></p>
+<ol start="14">
+<li>「クライアント アプリ」ダイアログで「OK」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_15.png" alt="image.png"></p>
+<ol start="15">
+<li>「アプリのプロパティ」で各アプリの名前が指定されているのを確認して、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_16.png" alt="image.png"></p>
+<ol start="16">
+<li>「検出の設定の構成」ステップで「Azure Active Directory ユーザーの探索を有効にする」を有効化にしたまま、「次へ」をクリックします。(クラウド接続アナライザにて グローバル 管理者アカウントを使ったAzure AD 認証テストを行うためにAzure AD ユーザー同期を使います)  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_17.png" alt="image.png"></p>
+<ol start="17">
+<li>「設定の確認」ステップで内容を確認し、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_18.png" alt="image.png"></p>
+<ol start="18">
+<li>「完了」ステップで「閉じる」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_19.png" alt="image.png"></p>
+<h3 id="クラウド管理ゲートウェイの作成"><a href="#クラウド管理ゲートウェイの作成" class="headerlink" title="クラウド管理ゲートウェイの作成"></a>クラウド管理ゲートウェイの作成</h3><p>以下の手順でクラウド管理ゲートウェイを作成します。事前にサーバー証明書をサイトサーバーにアップロードしておきましょう。</p>
+<ol>
+<li>[CM 管理コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - [クラウド管理ゲートウェイの作成]</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_20.png" alt="image.png"></p>
+<ol start="2">
+<li>「クラウド管理ゲートウェイの作成ウィザード」が起動したら、Azure 環境として「AzurePublicCloud」が選択されていることを確認して、「サインイン」ボタンをクリックします。</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_21.png" alt="image.png"></p>
+<ol start="3">
+<li>Azure AD アカウントのログイン画面が表示されるので、Azure サブスクリプションの共同管理者権限を持つアカウントでログインします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_08.png" alt="image.png"></p>
+<ol start="4">
+<li>ログイン後、赤枠の「正常にサインインしました。」が表示されていること、利用するサブスクリプションが選択されていることを確認して、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_22.png" alt="image.png"></p>
+<ol start="5">
+<li>証明書ファイルの「参照」ボタンをクリックして、CMG 用のサーバー証明書を選択します。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_23.png" alt="image.png"></p>
+<ol start="6">
+<li>「サービス名」、「展開名」が指定されていることを確認します。(ワイルドカード証明書を利用している場合、サービス名は別途入力します。)</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_24.png" alt="image.png"></p>
+<ol start="7">
+<li>「地域」を「東日本」、「リソースグループの新規作成要否」を「新規作成」、「VM サイズ」を ラボ (B2S) 、「VM インスタンス数」を 「1」に設定し、「次へ」をクリックします。なお、このときの展開名をメモしておきます。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_25.png" alt="image.png"></p>
+<ol start="8">
+<li>「アラート」は特に設定せず、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_26.png" alt="image.png"></p>
+<ol start="9">
+<li>設定内容を確認して、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_27.png" alt="image.png"></p>
+<ol start="10">
+<li>「閉じる」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_28.png" alt="image.png"></p>
+<ol start="11">
+<li>クラウド管理ゲートウェイの作成が完了するのを待ちます。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_29.png" alt="image.png"></p>
+<ol start="12">
+<li>ステータスが「準備完了」になれば構築完了です。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_31.png" alt="image.png"></p>
+<h3 id="DNS-への-CNAME-登録"><a href="#DNS-への-CNAME-登録" class="headerlink" title="DNS への CNAME 登録"></a>DNS への CNAME 登録</h3><ol>
+<li>上記でメモしておいた展開名とサービス名の対応を CNAME として DNS に登録します。以下は Winodws Server の DNS を利用されている場合の例となります。</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_30.png" alt="image.png"></p>
+<h3 id="クラウド管理ゲートウェイ接続ポイントの作成"><a href="#クラウド管理ゲートウェイ接続ポイントの作成" class="headerlink" title="クラウド管理ゲートウェイ接続ポイントの作成"></a>クラウド管理ゲートウェイ接続ポイントの作成</h3><ol>
+<li>[CM コンソール] - [管理] - [概要] - [サイトの構成] - [サーバーとサイト システムの役割] - 対象のサイト システムを選択 - [サイト システムの役割を追加]  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_32.png" alt="image.png"></p>
+<ol start="2">
+<li>「サイト システムの役割の追加」ウィザードが起動する。「次へ」をクリック。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_33.png" alt="image.png"></p>
+<ol start="3">
+<li>プロキシは使わないので、「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_34.png" alt="image.png"></p>
+<ol start="4">
+<li>「クラウド管理ゲートウェイ接続ポイント」を選択して「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_35.png" alt="image.png"></p>
+<ol start="5">
+<li>作成したクラウド管理ゲートウェイとリージョンが選択されているのを確認して「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_36.png" alt="image.png"></p>
+<ol start="6">
+<li>設定内容を確認して「次へ」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_37.png" alt="image.png"></p>
+<ol start="7">
+<li>設定完了。「閉じる」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_40.png" alt="image.png"></p>
+<h3 id="管理ポイント、ソフトウェア更新ポイントの設定"><a href="#管理ポイント、ソフトウェア更新ポイントの設定" class="headerlink" title="管理ポイント、ソフトウェア更新ポイントの設定"></a>管理ポイント、ソフトウェア更新ポイントの設定</h3><ol>
+<li><p>以下 URL の内容に従って各役割の通信方式が拡張 HTTP 方式になっているか確認する。<br>Configuration Managerにおける拡張 HTTP の確認方法<br><a href="https://jpmem.github.io/blog/mecm/20220122_01/">https://jpmem.github.io/blog/mecm/20220122_01/</a></p>
+</li>
+<li><p>[CM コンソール] - [管理] - [概要] - [サイトの構成] - [サーバーとサイト システムの役割] - 対象のサイト システムを選択 - 画面下部 - [管理ポイント] を選択- [プロパティ]</p>
+</li>
+<li><p>「全般」タブで「Configuration Manager のクラウド管理ゲートウェイ トラフィックを許可する」を有効化し、下部から「インターネットのみの接続を許可する」か「イントラネットとインターネットの接続を許可する」を選択して、OK をクリックします。</p>
+</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_38.png" alt="image.png"></p>
+<ol start="4">
+<li><p>[CM コンソール] - [管理] - [概要] - [サイトの構成] - [サーバーとサイト システムの役割] - 対象のサイト システムを選択 - 画面下部 - [ソフトウェアの更新ポイント] を選択- [プロパティ]</p>
+</li>
+<li><p>「全般」タブで「Configuration Manager のクラウド管理ゲートウェイ トラフィックを許可する」を有効化し、下部から「インターネットのみのクライアント接続を許可する」か「インターネットおよびイントラネット クライアント接続を許可する」を選択して、OK をクリックします。</p>
+</li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_39.png" alt="image.png"></p>
+<h3 id="クラウド接続アナライザーの実施"><a href="#クラウド接続アナライザーの実施" class="headerlink" title="クラウド接続アナライザーの実施"></a>クラウド接続アナライザーの実施</h3><p>構築が完了したら、サーバー間の通信が問題無いかを確認するためにクラウド接続アナライザーを実行します。</p>
+<ol>
+<li>[CM 管理コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - 対象のクラウド管理ゲートウェイを選択 - [接続アナライザー]  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_41.png" alt="image.png"></p>
+<ol start="2">
+<li>「クラウド管理ゲートウェイ接続アナライザー」が起動する。「Azure ADのユーザー」が選択されていることを確認して、「サインイン」をクリックし、検証用にAzure AD グローバル管理者のアカウントでログインします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_42.png" alt="image.png"></p>
+<ol start="3">
+<li>正常にサインインすると赤枠の中に「正常にサインインしました。」と表示されるので、「開始」をクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_43.png" alt="image.png"></p>
+<ol start="4">
+<li>問題無く完了すると 6 つのテスト項目全てで緑色のアイコンで合格と示されます。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_44.png" alt="image.png"></p>
+<h3 id="クライアントでの接続検証"><a href="#クライアントでの接続検証" class="headerlink" title="クライアントでの接続検証"></a>クライアントでの接続検証</h3><h4 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h4><ol>
+<li>クライアントにサーバー証明書を発行した CA のルート証明書をインストールしておきます。</li>
+<li>MECM クライアントバイナリをクライアントに設置しておきます。</li>
+</ol>
+<h4 id="一括登録トークンの発行"><a href="#一括登録トークンの発行" class="headerlink" title="一括登録トークンの発行"></a>一括登録トークンの発行</h4><ol>
+<li>プライマリ サイト サーバーにアクセスします。</li>
+<li>コマンドプロンプトを管理者権限で開きます。</li>
+<li>カレント フォルダを 以下に移動します。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[MECM インストール フォルダ]\bin\x64</span><br></pre></td></tr></table></figure></li>
+<li>以下のコマンドを実行します。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bulkregistrationtokentool.exe /new</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>以下の形でトークンが発行されるので、赤枠の箇所をコピーしてクライアントに渡します。(秘密情報のため途中でトークンを塗りつぶしています)  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_45.png" alt="image.png"></p>
+<h4 id="CMG-URL-の取得"><a href="#CMG-URL-の取得" class="headerlink" title="CMG URL の取得"></a>CMG URL の取得</h4><ol>
+<li>プライマリ サイト サーバーにアクセスします。</li>
+<li>SQL Server Management Studio を起動します。</li>
+<li>下記画面で「接続」をクリックします。<br><img src="/blog/mecm/20220501_01/20220501_01_47.png" alt="image.png"></li>
+<li>サイト データベースのアイコン (CM_[サイト コード])を右クリックし、「新しいクエリ」を選択します。<br><img src="/blog/mecm/20220501_01/20220501_01_48.png" alt="image.png"></li>
+<li>サイト データベース に対して以下のクエリを実行します。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [MutualAuthPath]  </span><br><span class="line"><span class="keyword">FROM</span> [dbo].[vProxy_Roles]  </span><br><span class="line"><span class="keyword">Where</span> [RoleTypeID] <span class="operator">=</span> <span class="string">&#x27;6&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>取得した URL をメモしておきます。  </li>
+</ol>
+<p><img src="/blog/mecm/20220501_01/20220501_01_49.png" alt="image.png"></p>
+<h4 id="MECM-クライアントのインストール"><a href="#MECM-クライアントのインストール" class="headerlink" title="MECM クライアントのインストール"></a>MECM クライアントのインストール</h4><ol>
+<li><p>クライアントにアクセスします。</p>
+</li>
+<li><p>コマンド プロンプトを管理者権限で開きます。</p>
+</li>
+<li><p>カレント フォルダをクライアント バイナリ (ccmsetup.exe ファイルを置いたフォルダー) の場所に移動します。</p>
+</li>
+<li><p>以下のコマンドで MECM クライアントをインストールします。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /NoCRLCheck /source:[クライアント バイナリの場所] SMSSITECODE=[接続先サイト コード] CCMHOSTNAME=&quot;[取得した CMG URL]&quot; SMSMP=&quot;[管理ポイントのFQDN]&quot; /regtoken:[取得した一括登録トークン] CCMALWAYSINF=1</span><br></pre></td></tr></table></figure>
+<p><img src="/blog/mecm/20220501_01/20220501_01_46.png" alt="image.png"></p>
+</li>
+<li><p>上記実行後、C:\Windows\CCM\Logs\ClientIDManagerStartup.log に以下のログが出力されていたらインストール及びデバイス登録成功。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RegTask] - Client is registered. Server assigned ClientID is GUID:A4AC8F79-FADE-4758-84B9-C8D5F2F56310. Approval status 1	ClientIDManagerStartup	2022/05/02 14:43:58	6488 (0x1958)</span><br></pre></td></tr></table></figure>
+<h4 id="MECM-クライアントの接続確認"><a href="#MECM-クライアントの接続確認" class="headerlink" title="MECM クライアントの接続確認"></a>MECM クライアントの接続確認</h4><p>以下のログが出力されていたら CMG をリバースプロキシとして接続できていることを確認できます。</p>
+<ol>
+<li>C:\Windows\CCM\Logs\CcmMessaging.log<br>クライアントから CMG への状態メッセージ伝達がHRESULT = “0x00000000” とエラー無しで終了している。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Raising event:</span><br><span class="line">instance of CCM_CcmHttp_Status</span><br><span class="line">&#123;</span><br><span class="line">	ClientID = &quot;GUID:A4AC8F79-FADE-4758-84B9-C8D5F2F56310&quot;;</span><br><span class="line">	DateTime = &quot;20220502055308.653000+000&quot;;</span><br><span class="line">	HostName = &quot;TKCMG01.EPLUS.LOCAL&quot;;</span><br><span class="line">	HRESULT = &quot;0x00000000&quot;;</span><br><span class="line">	ProcessID = 9596;</span><br><span class="line">	StatusCode = 0;</span><br><span class="line">	ThreadID = 9580;</span><br><span class="line">&#125;;</span><br><span class="line">	CcmMessaging	2022/05/02 14:53:08	9580 (0x256C)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>C:\Windows\CCM\Logs\DataTransferService.log<br>クライアントから CMG 経由で管理ポイントへ行われた通信のジョブが成功している。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DataTransferService: DTSJob(&#123;1BBCC127-0677-4E8B-AC26-8F1905884EF6&#125;) - created to download from &#x27;https://TKCMG01.EPLUS.LOCAL:443/CCM_Proxy_ServerAuth/72057594037927939/SMS_MP&#x27; to &#x27;C:\Windows\CCM\CIDownloader\Staging&#x27;.	DataTransferService	2022/05/02 14:44:40	8544 (0x2160)</span><br><span class="line">DTSJob(&#123;1BBCC127-0677-4E8B-AC26-8F1905884EF6&#125;): Job has completed: Status : SUCCESS, Start time : 05/02/2022 14:44:40, Completion time : 05/02/2022 14:44:41, Elapsed time : 0 seconds	DataTransferService	2022/05/02 14:44:41	8236 (0x202C)</span><br></pre></td></tr></table></figure>
+
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220501_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20220426_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Configuration Manager の自動展開規則と WSUS の自動承認規則について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">クラウド管理ゲートウェイ (CMG) の構築手順例</a>
+          </li>
+        
+          <li>
+            <a href="../20220426_01/">Configuration Manager の自動展開規則と WSUS の自動承認規則について</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-04-22_01/">Chromium Edge 更新プログラムを WSUS で配布する方法</a>
+          </li>
+        
+          <li>
+            <a href="../20220421_01/">MECM パッケージの再実行の設定方法について解説！</a>
+          </li>
+        
+          <li>
+            <a href="../20220419_01/">Configuration Manager で資産管理台帳のカスタム レポートを作成する</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">51</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">4</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">31</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">9</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">2022 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">2020 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">2012 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">2011 / 10</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 12.5px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 17.5px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 15px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
