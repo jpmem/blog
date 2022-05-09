@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-22_01/2022-04-22_01_4.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-22_01/2022-04-22_01_5.png">
 <meta property="article:published_time" content="2022-04-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-06T02:01:26.395Z">
+<meta property="article:modified_time" content="2022-05-09T02:54:26.024Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -103,13 +103,14 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+6d0f6306-544f-506a-bf84-b41e65d006e5%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BChromium+Edge+%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92+WSUS+%E3%81%A7%E9%85%8D%E5%B8%83%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-04-22_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-04-22_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-04-22_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-04-22_01/" data-id="cl2tsk13w00540mqpha85ht3c" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-04-22_01/" data-id="cl2y4rpi200540old2xyp23be" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>みなさま、こんにちは。 WSUS サポート チームです。</p>
-<p>長年皆様にご愛用いただいた Internet Explore のサポートの終了が 2022 年 6 月 15 日に予定されていることが発表されました。<br>それに伴い、 Chromium Edge 更新プログラムを WSUS から配信したいとのお問い合わせも増えてきております。<br>そこで、今回は WSUS から Chromium Edge へ更新プログラムを配信する方法をご紹介します。</p>
+<p>長年皆様にご愛用いただいた Internet Explore のサポートの終了が 2022 年 6 月 15 日に予定されていることが発表されました。<br>それに伴い、 Chromium Edge 更新プログラムを WSUS から配信したいとのお問い合わせも増えてきております。<br>そこで、今回は WSUS から Chromium Edge へ更新プログラムを配信する方法をご紹介します。  </p>
+<p>( ※ Internet Explore のサポートの終了については、こちらから最新情報、 Q&amp;A などをご確認ください。)<br><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/internet-explorer-app-end-of-support/">Internet Explorer 11 デスクトップ アプリのサポート終了へ! IE モードへの移行を進めましょう!</a><br><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/internet-explorer-11-desktop-app-retirement-faq/ba-p/2366549">Internet Explorer 11 desktop app retirement FAQ</a>  </p>
 <h3 id="WSUS-から-Chromium-Edge-更新プログラム配信する方法"><a href="#WSUS-から-Chromium-Edge-更新プログラム配信する方法" class="headerlink" title="WSUS から Chromium Edge 更新プログラム配信する方法"></a><strong>WSUS から Chromium Edge 更新プログラム配信する方法</strong></h3><h3 id="1-Chromium-Edge-の自動更新を制御する"><a href="#1-Chromium-Edge-の自動更新を制御する" class="headerlink" title="1. Chromium Edge の自動更新を制御する"></a>1. Chromium Edge の自動更新を制御する</h3><p>Chromium Edge には、不具合、パフォーマンス、セキュリティ更新が 既定で 10 時間ごとにブラウザで行われる自動更新という機能があります。<br>WSUS から Chromium Edge の更新プログラムを配布する場合は事前に Chromium Edge の自動更新によって勝手にバージョンが上がっていかないよう GPO にて以下の設定が必要です。</p>
 <p>ポリシー ： [ 管理用テンプレート ]&gt;[ Microsoft Edge の更新 ]&gt;[ アプリケーション ]&gt;[ Microsoft Edge ]<br>[ 更新ポリシーのオーバーライドの規定値 ]：有効：[ 更新を無効にする ] を選択します。<br>※このポリシーはドメイン参加環境でのみ効果があります。<br>（ Chromium Edge 管理用テンプレ―トは<a target="_blank" rel="noopener" href="https://www.microsoft.com/ja-jp/edge/business/download">こちら</a>から入手可能です。 )<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_1.png"></p>
 <h3 id="2-WSUS-から-Chromium-Edge-の更新を配信する"><a href="#2-WSUS-から-Chromium-Edge-の更新を配信する" class="headerlink" title="2. WSUS から Chromium Edge の更新を配信する"></a>2. WSUS から Chromium Edge の更新を配信する</h3><p>WSUS コンソールで [ オプション ] &gt; [ 製品と分類 ]<br>製品： Microsoft Edge 、分類： 更新 にチェックを追加し、更新プログラムを同期します。<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_2.png"></p>
