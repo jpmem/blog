@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ccmcache フォルダー配下のキャッシュ クリア方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 Configuration Manager を利用したアプリケーションや更新プログラムの配布運用をされているなかで、管理対象クライアントに対して過去配布したコンテンツを一括で削除されたいと思われたことはございませんか？また、クライアント設定で指定したクライアント キャッシュのサイズを超過していることがあると不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ccmcache フォルダー配下のキャッシュ クリア方法">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220511_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 Configuration Manager を利用したアプリケーションや更新プログラムの配布運用をされているなかで、管理対象クライアントに対して過去配布したコンテンツを一括で削除されたいと思われたことはございませんか？また、クライアント設定で指定したクライアント キャッシュのサイズを超過していることがあると不">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220511_01/1.png">
+<meta property="article:published_time" content="2022-05-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-12T08:34:10.219Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220511_01/1.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220511_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ccmcache フォルダー配下のキャッシュ クリア方法
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-05-10T15:00:00.000Z" itemprop="datePublished">2022-05-11</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+3f534790-b1d1-5fe6-929a-4318f30290f5%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5Bccmcache+%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC%E9%85%8D%E4%B8%8B%E3%81%AE%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5+%E3%82%AF%E3%83%AA%E3%82%A2%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220511_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220511_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220511_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20220511_01/" data-id="cl32r8740002z0oo82k8a19vt" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>Configuration Manager を利用したアプリケーションや更新プログラムの配布運用をされているなかで、管理対象クライアントに対して過去配布したコンテンツを一括で削除されたいと思われたことはございませんか？<br>また、クライアント設定で指定したクライアント キャッシュのサイズを超過していることがあると不思議に思われたことはありませんか？<br>今回は、クライアント キャッシュの動作と管理対象デバイスへ配布したコンテンツをサーバーから一括で削除する方法についてご紹介させていただきます。</p>
+<p>管理対象デバイスにコンテンツ（アプリケーション、パッケージや更新プログラム　など）を展開すると、管理対象デバイスはクライアント キャッシュ（ccmcache フォルダー）にコンテンツのダウンロードを行います。<br>クライアント キャッシュは、指定されたキャッシュ サイズまでコンテンツのダウンロードし保存します。<br>次に、新しいコンテンツをダウンロードする際に、指定されたキャッシュ サイズ（累積）を超えるコンテンツのダウンロードを行う場合は、新しいコンテンツをクライアント キャッシュ内にダウンロードを行うための領域を確保するのに、古いコンテンツを自動で削除してからダウンロードを行います。<br>ここまでが基本動作となりますが、ソフトウェア更新プログラム機能で配布した更新プログラムはクライアント キャッシュのサイズに関係なくダウンロードするため、指定したクライアント キャッシュのサイズを超過することが起きます。</p>
+<p>実際にコンテンツのダウンロードが行われる際のコンテンツ情報（サイズ）を見てみましょう。<br>確認するログは、管理対象デバイスに生成される ”CAS.log” となります。</p>
+<ul>
+<li>パッケージを展開した場合</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**** Received request for content PS10001B.2, size(KB) 1048848, under context System with priority Low, persist duration 0</span><br><span class="line">CacheManager: ADD new cache entry &#123;93CCFA37-5CC3-4E6E-A99A-21B120F10276&#125; for content PS10001B.2, Size : 1048848K, RefCount : 1, LastRef Minutes : 0, State : ACTIVE, PersistDuration : 0, Location : C:\Windows\ccmcache\1.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>アプリケーションを展開した場合</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**** Received request for content Content_8e82e01e-98fc-47c7-9f41-7f13b78e93a6.1, size(KB) 5532, under context System with priority Medium, persist duration 0</span><br><span class="line">CacheManager: ADD new cache entry &#123;611DEEB6-C117-4998-92AB-D996C28E2C49&#125; for content Content_8e82e01e-98fc-47c7-9f41-7f13b78e93a6.1, Size : 5532K, RefCount : 1, LastRef Minutes : 0, State : ACTIVE, PersistDuration : 0, Location : C:\Windows\ccmcache\2.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>機能更新プログラムを展開した場合</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**** Received request for content 627d1aed-c707-4b2f-8dc5-5ce588ef8308.1, size(KB) 0, under context System with priority Medium, persist duration 0</span><br><span class="line">CacheManager: ADD new cache entry &#123;160D2012-B37D-4AE1-B3B2-B4C94CF24E80&#125; for content 627d1aed-c707-4b2f-8dc5-5ce588ef8308.1, Size : 3749136K, RefCount : 1, LastRef Minutes : 0, State : ACTIVE, PersistDuration : 0, Location : C:\Windows\ccmcache\1.</span><br></pre></td></tr></table></figure>
+
+<p>  ※「627d1aed-c707-4b2f-8dc5-5ce588ef8308」は、Windows 10 バージョン 21H2 の機能更新プログラムの ID となります。</p>
+<ul>
+<li>累積更新プログラムを展開した場合</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**** Received request for content 9f8e1ae1-c800-4603-aa6d-378d65ba48f4.1, size(KB) 0, under context System with priority Medium, persist duration 0</span><br><span class="line">CacheManager: ADD new cache entry &#123;9CD3EEA7-DFD7-4EC2-ACB6-6A39972DDBF1&#125; for content 9f8e1ae1-c800-4603-aa6d-378d65ba48f4.1, Size : 655018K, RefCount : 1, LastRef Minutes : 0, State : ACTIVE, PersistDuration : 0, Location : C:\Windows\ccmcache\7.</span><br></pre></td></tr></table></figure>
+
+<p>  ※「9f8e1ae1-c800-4603-aa6d-378d65ba48f4」は、2022-03 x64 ベース システム用 Windows 10 Version 21H1 の累積更新プログラム (KB5011487) の ID となります。</p>
+<p>ご覧のとおり、パッケージとアプリケーションのデータ サイズは展開するデータ サイズと同一のデータ サイズでリクエストを受け取りますが、一方で機能更新プログラムおよび累積更新プログラムのデータ サイズは数百 MB や数 GB の実際のデータ サイズではなく、0KB としてリクエストを受け取っていることが確認できます。</p>
+<h1 id="クライアント-キャッシュのクリア方法"><a href="#クライアント-キャッシュのクリア方法" class="headerlink" title="クライアント キャッシュのクリア方法"></a>クライアント キャッシュのクリア方法</h1><p>通常、クライアント キャッシュのクリアする場合、管理対象デバイス上で [コントロールパネル] にございます [Configuration Manager] の [キャッシュ] タブより、個別にキャッシュのクリアが必要となります。<br>しかしながら、こちらは管理者権限を持ち合わせたアカウントでないと実行いただけなく、また、ご利用者様にてご実施いただく必要があります。</p>
+<p>以下にご案内する PowerShell スクリプトを実行することにより、管理対象デバイス上にて [Configuration Manager] でキャッシュのクリアを行わずに、ダウンロードしたコンテンツを削除いただけます。</p>
+<h2 id="ccmcache-フォルダー内すべて削除"><a href="#ccmcache-フォルダー内すべて削除" class="headerlink" title="ccmcache フォルダー内すべて削除"></a>ccmcache フォルダー内すべて削除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ソフトウェア更新プログラムのみすべて削除"><a href="#ソフトウェア更新プログラムのみすべて削除" class="headerlink" title="ソフトウェア更新プログラムのみすべて削除"></a>ソフトウェア更新プログラムのみすべて削除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | <span class="built_in">where-object</span> &#123;<span class="variable">$_</span>.ContentId.Length <span class="operator">-ne</span> <span class="number">8</span> <span class="operator">-and</span> <span class="variable">$_</span>.ContentId <span class="operator">-notlike</span> <span class="string">&#x27;conten*&#x27;</span>&#125; | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="リモートによるクライアント-キャッシュのクリア方法"><a href="#リモートによるクライアント-キャッシュのクリア方法" class="headerlink" title="リモートによるクライアント キャッシュのクリア方法"></a>リモートによるクライアント キャッシュのクリア方法</h1><h2 id="方法-1：スクリプト機能"><a href="#方法-1：スクリプト機能" class="headerlink" title="方法 1：スクリプト機能"></a>方法 1：スクリプト機能</h2><p>MECM の標準機能であるスクリプト機能を利用して、デバイス単位、または、デバイス コレクションに登録されたデバイスに対して一括でキャッシュのクリアを実行いただけます。<br>上述でご案内している PowerShell コマンドレットを登録しておくだけで任意のタイミングで実行いただけますので是非ご活用ください。<br>なお、スクリプト機能は以下のブログにて詳細にご説明していますので、こちらをご確認ください。</p>
+<p>Title:スクリプト機能のご紹介<br>URL:<a href="https://jpmem.github.io/blog/mecm/20211025_01/">https://jpmem.github.io/blog/mecm/20211025_01/</a></p>
+<h2 id="方法-2：パッケージ配布"><a href="#方法-2：パッケージ配布" class="headerlink" title="方法 2：パッケージ配布"></a>方法 2：パッケージ配布</h2><p>方法の 2 つ目は PowerShell コマンドレットを PS1 形式のスクリプト ファイルにし、パッケージングして配布する方法です。<br>方法 1 のスクリプト機能とは異なり即時性はございませんが、定期的に削除するようスケジュール設定できるメリットがございます。<br>定期的にクライアント キャッシュ上のコンテンツを削除する運用を取り入れたい場合にはパッケージ配布機能をご選択ください。</p>
+<ul>
+<li>1）パッケージの作成</li>
+</ul>
+<ol>
+<li>MECM コンソールにて、[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ] を開きます。</li>
+<li>[パッケージ] を右クリックし、[パッケージの作成] をクリックします。</li>
+<li>[パッケージとプログラムの作成ウィザード] の [パッケージ] より、[名前] に任意の名前を入力し、[このパッケージにソース ファイルを含める] にチェックを入れます。</li>
+<li>[ソース フォルダー] の参照ボタンをクリックし、上述にご案内している PowerShell コマンドレットの *.PS1 ファイルを、スクリプト ファイルの格納場所 (共有フォルダー パス) を指定し、[次へ] をクリックします。</li>
+<li>[プログラムの種類] にて、[次へ] をクリックします。</li>
+<li>[標準プログラム] にて、[名前] に任意の名前を指定し、ログオン状態に関わらずスクリプトを実行するために次のように指定します。<br>　・コマンドライン<br>　　-32bit OS の場合：powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .&lt;ファイル名&gt;.ps1<br>　　-64bit OS の場合：%windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .&lt;ファイル名&gt;.ps1<br>　　　　※&lt;ファイル名&gt;.ps1 の「ファイル名」には、事前に作成したスクリプト ファイルの名に変更ください。<br>　・プログラムの実行条件<br>　　ユーザーのログオン状態に関係なし<br>　・実行モード<br>　　管理者権限で実行する</li>
+<li>[要件] より、[次へ] をクリックします。</li>
+<li>[概要] より、設定内容を確認して、[次へ] をクリックします。</li>
+<li>[完了] より、正常に完了したことを確認し、[閉じる] をクリックします。</li>
+</ol>
+<ul>
+<li>2） パッケージの展開</li>
+</ul>
+<ol>
+<li>作成したパッケージを右クリックし、[展開] をクリックします。</li>
+<li>ソフトウェアの展開ウィザードの [全般] より、[参照] をクリックし、配布先のコレクションを指定して [次へ] をクリックします。</li>
+<li>[コンテンツ] より、[追加] をクリックし配布ポイントを選択し、[次へ] をクリックします。</li>
+<li>[展開設定] より、目的を “必須” に設定して、[次へ] をクリックします。</li>
+<li>[スケジュール] より、[割り当てスケジュール] から [新規] をクリックします。</li>
+<li>[割り当てスケジュール] より、[スケジュール] をクリックします。<br>  ※直ちに実行されたい場合は、[次のイベントの直後に割り当てる] の “直ちに” をご指定ください。</li>
+<li>[カスタム スケジュール] ページにおいて開始時刻を設定し、繰り返しパターンを設定して [OK] をクリックします。</li>
+<li>[割り当てスケジュール] より、[OK] をクリックします。</li>
+<li>[スケジュール] にて、[再実行の動作] を [プログラムを常に再実行する] に設定して [次へ] をクリックします。</li>
+<li>[ユーザー側の表示と操作] より、必要に応じて通知設定を設定し [次へ] をクリックします。</li>
+<li>[配布ポイント] より、上段の展開オプションを [配布ポイントからプログラムを実行する] に設定し [次へ] をクリックします。</li>
+</ol>
+<p>※ご参考<br><img src="/blog/mecm/20220511_01/1.png" alt="image.png"><br>  注：[配布ポイントからコンテンツをダウンロードしてローカルで実行する] を選択した場合はコンテンツ実行に失敗するため、パッケージのダウンロードは行わないようにします。  </p>
+<ol start="12">
+<li>[概要] より、設定内容を確認して、[次へ] をクリックします。  </li>
+<li>[完了] より、正常に完了したことを確認し、[閉じる] をクリックします。</li>
+</ol>
+<p>展開完了後、クライアントが MECM とポーリングを行うと展開ポリシーをダウンロードして順次実行されますので、クライアント キャッシュ上のコンテンツが削除されるのを待ちます。</p>
+<h2 id="応用：n-日前のコンテンツを削除"><a href="#応用：n-日前のコンテンツを削除" class="headerlink" title="応用：n 日前のコンテンツを削除"></a>応用：n 日前のコンテンツを削除</h2><p>クライアント キャッシュ上のコンテンツが一気に削除されるのは心配という場合には、以下にご紹介する PowerShell コマンドレットにて、現在の日にちより前のコンテンツを削除条件としていただくことも可能ですので、こちらのご利用もご検討ください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$targetdate</span>=(<span class="built_in">Get-Date</span>).AddDays(<span class="literal">-xx</span>)</span><br><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | <span class="built_in">where</span> &#123;<span class="variable">$_</span>.LastReferenceTime <span class="operator">-lt</span> <span class="variable">$targetdate</span>&#125; | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>※「xx」の箇所については、現在の日時より前のコンテンツを削除する日数をご指定ください。<br>　 例えば、90 日前とする場合は、「$targetdate=(Get-Date).AddDays(-90)」とします。</p>
+<ul>
+<li>免責事項<br>当ブログ内でご紹介しているサンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。<br>ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</li>
+</ul>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220511_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/2022-05-09_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS メンテナンスガイド新版</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">ccmcache フォルダー配下のキャッシュ クリア方法</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-05-09_01/">WSUS メンテナンスガイド新版</a>
+          </li>
+        
+          <li>
+            <a href="../20220501_01/">クラウド管理ゲートウェイ (CMG) の構築手順例</a>
+          </li>
+        
+          <li>
+            <a href="../20220426_01/">Configuration Manager の自動展開規則と WSUS の自動承認規則について</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-04-22_01/">Chromium Edge 更新プログラムを WSUS で配布する方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">52</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">4</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">35</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">9</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">2022 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">2020 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">2020 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">2012 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">2011 / 10</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 12.5px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 17.5px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 15px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
