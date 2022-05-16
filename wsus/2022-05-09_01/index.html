@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_2.png">
 <meta property="article:published_time" content="2022-05-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-16T03:23:13.695Z">
+<meta property="article:modified_time" content="2022-05-16T03:26:07.490Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -102,14 +102,14 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+e2a223ba-fdfa-5cff-a42c-08bae1a055fa%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89%E6%96%B0%E7%89%88%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-05-09_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-05-09_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-05-09_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-05-09_01/" data-id="cl385vpdl005f0omjgxsoerbj" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-05-09_01/" data-id="cl385zfk6005g0nmkfhyt95q3" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>みなさま、こんにちは。 WSUS サポート チームです。<br>今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。<br>長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。<br>WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。</p>
 <p>A. IIS チューニング設定<br>B. カスタム インデックスの追加<br>C. WSUS DB インデックスの再構成<br>D. データベースの統計情報の更新とインデックスの再構築<br>E. 不要な更新プログラムを「拒否済み」にする<br>F. WSUS のクリーンアップ ウィザード  </p>
-<p>クライアントから大量のスキャンが要求された場合に、WsusPool でメモリのリサイクルが頻発することにより、IIS の保護機能が働き WsusPool が停止するという事象が発生することがあります。その為、予め IIS のチューニング設定を実施することがお勧めです。<br>※以下の値はあくまでも参考値ですので、ご利用環境に合わせてパフォーマンスモニターなどをご利用いただきご調整ください。</p>
+<h1 id="A-IIS-チューニング設定"><a href="#A-IIS-チューニング設定" class="headerlink" title="A. IIS チューニング設定"></a>A. IIS チューニング設定</h1><p>クライアントから大量のスキャンが要求された場合に、WsusPool でメモリのリサイクルが頻発することにより、IIS の保護機能が働き WsusPool が停止するという事象が発生することがあります。その為、予め IIS のチューニング設定を実施することがお勧めです。<br>※以下の値はあくまでも参考値ですので、ご利用環境に合わせてパフォーマンスモニターなどをご利用いただきご調整ください。</p>
 <p>具体的な手順は以下のとおりです。</p>
 <ol>
 <li>WSUS サーバー上で IIS マネージャーを起動します。</li>
