@@ -4,22 +4,27 @@
   <meta charset="utf-8">
   
   
-  <title>WSUS サーバーを新しいハードへ移設したい | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>クラウド PC で日本語入力ができない場合のチェック項目について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。 今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。    A. 一時的にレプリカ構成にする B. 更新プログラム情報をファイル ベースで移行する C. データベースバックアップを">
+  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、Windows 365 のクラウド PC で、日本語入力ができない場合のチェック項目ついてご紹介します。言語を日本語にしているにも関わらず、メモ帳や Edge の検索欄に英語しか入力ができない際にご確認いただければ幸いです。   免責事項下記内容は 2022&#x2F;5&#x2F;13 時点での内容についての記">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS サーバーを新しいハードへ移設したい">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/index.html">
+<meta property="og:title" content="クラウド PC で日本語入力ができない場合のチェック項目について">
+<meta property="og:url" content="https://jpmem.github.io/blog/w365/2022-05-13_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。 今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。    A. 一時的にレプリカ構成にする B. 更新プログラム情報をファイル ベースで移行する C. データベースバックアップを">
+<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、Windows 365 のクラウド PC で、日本語入力ができない場合のチェック項目ついてご紹介します。言語を日本語にしているにも関わらず、メモ帳や Edge の検索欄に英語しか入力ができない際にご確認いただければ幸いです。   免責事項下記内容は 2022&#x2F;5&#x2F;13 時点での内容についての記">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/2022-04-08_01_1.png">
-<meta property="article:published_time" content="2022-04-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-16T03:18:06.300Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-08-57-14.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-09-00-13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-09-07-00.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-09-26-57.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-09-11-04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-10-07-14.png">
+<meta property="article:published_time" content="2022-05-12T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-16T03:18:06.272Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="Windows 365">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-04-08_01/2022-04-08_01_1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2022-05-13_01/2022-05-13-08-57-14.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -76,7 +81,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2022-04-08_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-w365/2022-05-13_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -85,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS サーバーを新しいハードへ移設したい
+      クラウド PC で日本語入力ができない場合のチェック項目について
     </h1>
   
 
@@ -93,58 +98,44 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2022-04-07T15:00:00.000Z" itemprop="datePublished">2022-04-08</time>
+  <time datetime="2022-05-12T15:00:00.000Z" itemprop="datePublished">2022-05-13</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+0e2dbc0f-4dbb-5f3d-bdbc-3dffdbbf443e%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%96%B0%E3%81%97%E3%81%84%E3%83%8F%E3%83%BC%E3%83%89%E3%81%B8%E7%A7%BB%E8%A8%AD%E3%81%97%E3%81%9F%E3%81%84%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-04-08_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-04-08_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-04-08_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+9fa20d2d-025e-5d5e-bb05-c878a1decdfa%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89+PC+%E3%81%A7%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%81%8C%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E9%A0%85%E7%9B%AE%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fw365%2F2022-05-13_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fw365%2F2022-05-13_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fw365%2F2022-05-13_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2022-04-08_01/" data-id="cl385p34d005c0llhccpy8wzc" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/w365/2022-05-13_01/" data-id="cl385p33g003m0llhbfwrepwu" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。 WSUS サポート チームです。</p>
-<p>今回は、旧サーバーから新サーバーへ WSUS を移行する方法をご紹介します。<br>ハードウェアの老朽化や運用上の様々な理由から WSUS サーバー を移行する必要があるといったようなときに際にお役立ていただける情報です。  </p>
-<ul>
-<li><strong>A. 一時的にレプリカ構成にする</strong></li>
-<li><strong>B. 更新プログラム情報をファイル ベースで移行する</strong></li>
-<li><strong>C. データベースバックアップをリストアし移行する</strong>  </li>
-</ul>
-<h3 id="A-一時的にレプリカ構成にする"><a href="#A-一時的にレプリカ構成にする" class="headerlink" title="A. 一時的にレプリカ構成にする"></a><strong>A. 一時的にレプリカ構成にする</strong></h3><p>旧 WSUS サーバーを親とし、移設先の新しい WSUS サーバーを子として新規構築します<br>この時、新しい WSUS サーバーをレプリカとして設定し、旧 WSUS サーバーと同期を行う方法です。<br>＜手順＞    </p>
+        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は、Windows 365 のクラウド PC で、日本語入力ができない場合のチェック項目ついてご紹介します。<br>言語を日本語にしているにも関わらず、メモ帳や Edge の検索欄に英語しか入力ができない際にご確認いただければ幸いです。  </p>
+<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2022/5/13 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。</p>
+<h3 id="A-言語が日本語になっているか"><a href="#A-言語が日本語になっているか" class="headerlink" title="A. 言語が日本語になっているか"></a>A. 言語が日本語になっているか</h3><p>そもそも言語とキーボードの設定が日本語になっているか確認します。  </p>
 <ol>
-<li><p>WSUS コンソールを開き、 [オプション] - [更新元およびプロキシ サーバー] にて以下の設定を行います。<br>・親となる旧 WSUS サーバーの指定<br>・[このサーバーはアップストリーム サーバーのレプリカです] へのチェック<br><img src="/blog/wsus/2022-04-08_01/2022-04-08_01_1.png">  </p>
-</li>
-<li><p>同期が完了した後で親子構成を解除すると、新しい WSUS サーバーへ、旧 WSUS サーバーの情報が複製された状態で、スタンドアロンの WSUS が出来上がります。<br>忘れずに新しい WSUS サーバー側でオプションを再設定すれば、移行は完了です。  </p>
-</li>
+<li>スタートメニューから [設定] を選択し、[時刻と言語] を選択します。  </li>
+<li>[言語] を選択し、Windows の表示言語が日本語になっているか確認します。  </li>
+<li>[優先する言語] 欄から日本語を選択し、[オプション] を選択します。<br><img src="2022-05-13-08-57-14.png">  </li>
+<li>[ハードウェア キーボード レイアウト] が “日本語キーボード（106/109 キー）” になっているか確認します。 “英語キーボード（101/102 キー）” になっている場合は日本語に変更し、再起動を実施します。<br><img src="2022-05-13-09-00-13.png">  </li>
+<li>再起動後、メモ帳などで日本語が入力できるか確認します。  </li>
 </ol>
-<p>※ 注意 ※<br>レプリカ構成の場合、WSUS サーバーのバージョンは、下位が上位と同じバージョン又は上位よりも下位が古いバージョンである必要があります。<br>下位が上位よりもバージョンが新しい場合はサポートされません。（ ※ WSUS バージョンは OS バージョンと紐づいています ）  </p>
-<h3 id="B-更新プログラム情報をファイル-ベースで移行する"><a href="#B-更新プログラム情報をファイル-ベースで移行する" class="headerlink" title="B. 更新プログラム情報をファイル ベースで移行する"></a><strong>B. 更新プログラム情報をファイル ベースで移行する</strong></h3><p>オフライン環境に WSUS サーバーを構築するのと同じ要領で、旧 WSUS サーバーで保持している更新プログラムの情報を移行させる方法です。  </p>
-<p>下記の 2 つを旧 WSUS サーバーより取得し、新しい WSUS サーバーへインポートし取り入れます。<br>– カタログのメタデータ ( 更新プログラムのリスト )<br>– WsusContent フォルダ ( 更新ファイル )  </p>
-<p>＜手順＞  </p>
+<h3 id="B-代替キーボード-レイアウトが有効化になっているか"><a href="#B-代替キーボード-レイアウトが有効化になっているか" class="headerlink" title="B. 代替キーボード レイアウトが有効化になっているか"></a>B. 代替キーボード レイアウトが有効化になっているか</h3><p>こちらはブラウザーからアクセスしている場合にチェックする項目です。そのため、リモート デスクトップ接続している場合は後述の [C. Touch Keyboard and Handwriting Panel Service が有効になっているか] の項目をご確認ください。  </p>
 <ol>
-<li>旧 WSUS サーバー上で下記のコマンドを実行し、データベース内の更新プログラム情報をファイルへエクスポートします。  </li>
+<li>画面右上の歯車マークから [セッション中] を選択します。<br><img src="2022-05-13-09-07-00.png">  </li>
+<li>[代替キーボード レイアウトの有効化] を有効にし、[リモート キーボード レイアウトの選択] を “日本語キーボード（106/109 キー）” に設定し、Update を選択します。<br><img src="2022-05-13-09-26-57.png">  </li>
+<li>一度セッションを切断する必要があるので、[現在] を選択した状態で Continue を選択します。<br><img src="2022-05-13-09-11-04.png">  </li>
+<li>クラウド PC に再接続後、日本語が入力できるか確認します。    </li>
 </ol>
-<p>C:\Program Files\Update Services\Tools に作成する場合  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　cd &quot;C:\Program Files\Update Services\Tools&quot;  </span><br><span class="line">　wsusutil.exe export export.xml.gz export.log  </span><br></pre></td></tr></table></figure>
-
-
-<ol start="2">
-<li>旧 WSUS サーバーの WsusContent フォルダ内にあるダウンロード済みファイルを、すべて新 WSUS サーバーへコピーします。<br>もし新 WSUS サーバーでファイルのダウンロードをやり直す場合には、コピー不要です。  </li>
+<h3 id="C-Touch-Keyboard-and-Handwriting-Panel-Service-が有効になっているか"><a href="#C-Touch-Keyboard-and-Handwriting-Panel-Service-が有効になっているか" class="headerlink" title="C. Touch Keyboard and Handwriting Panel Service が有効になっているか"></a>C. Touch Keyboard and Handwriting Panel Service が有効になっているか</h3><p>Touch Keyboard and Handwriting Panel Service は日本語入力をはじめとして、様々な入力機能に使われているサービスです。このサービスが無効化されているとそれらの機能が正しく動作できません。<br>以下の手順で Touch Keyboard and Handwriting Panel Service が有効になっているかご確認いただき、無効になっている場合は有効としていただくようお願いいたします。  </p>
+<ol>
+<li>スタートボタンを右クリックし、[ファイル名を指定して実行] を選択します。  </li>
+<li>services.msc と入力し、[OK] を選択します。  </li>
+<li>Touch Keyboard and Handwriting Panel Service をダブルクリックします。  </li>
+<li>[スタートアップの種類] が [無効] になっていれば、[自動] または [手動] に変更し、[OK] を選択します。  </li>
+<li>クラウド PC を再起動し、Touch Keyboard and Handwriting Panel Service が実行中となっていることを確認します。<br><img src="2022-05-13-10-07-14.png">  </li>
+<li>メモ帳などで日本語が入力できるか確認します。  </li>
 </ol>
-<ol start="3">
-<li>新 WSUS サーバー上で下記のコマンドを実行し、旧 WSUS サーバーの更新プログラム情報をインポートします。  </li>
-</ol>
-<p>C:\Program Files\Update Services\Tools にコピーした場合    </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot;  </span><br><span class="line">wsusutil.exe import import.xml.gz import.log  </span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>新 WSUS サーバー上で下記のコマンドを実行し、データベース内の更新プログラム情報と、WsusContent フォルダ内のファイル情報の整合性をチェックします。<br>ドキュメントに記載のない手順なのですが、もしファイル コピーに抜けがあると配布に支障が出るため、念のために実行してください。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsusutil.exe reset  </span><br></pre></td></tr></table></figure>
-もし 3. でファイルのコピーを実施しなかった場合や、コピーに抜けがありファイルが不足している場合には、ダウンロードが行われます。  </li>
-</ol>
-<p>※ 注意 ※<br>この方法では、データベース内の更新プログラムのカタログ情報 及び その更新プログラムの実体となるコンテンツファイルのコピーを新 WSUS サーバーへ取り入れる方法ですので、旧 WSUS サーバーのインストール承認や拒否済みの情報、コンピュータグループ情報などは移行されません。  </p>
-<p>参考情報<br> <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/security-updates/windowsupdateservices/18111626">コマンド ラインからの WSUS の管理</a></p>
-<h3 id="C-データベースバックアップをリストアし移行する"><a href="#C-データベースバックアップをリストアし移行する" class="headerlink" title="C. データベースバックアップをリストアし移行する"></a><strong>C. データベースバックアップをリストアし移行する</strong></h3><p>旧 WSUS サーバーのバックアップを取得し、新 WSUS サーバーにリストアする方法です。  </p>
-<p>＜手順＞<br>下記の公開記事にてデータベースを取得してリストアする方法での手順をご紹介しておりますのでご参照ください。<br>参考情報<br><a href="https://jpmem.github.io/blog/wsus/2021-10-19_01/#WSUS-%E7%A7%BB%E8%A1%8C%E6%89%8B%E9%A0%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6-WID-gt-WID">WSUS 移行手順について (WID -&gt; WID)</a></p>
+<p>以上、日本語入力ができない場合のチェック項目ついてご紹介させていただきましたので、参考になれば幸いです。</p>
 
       
       
@@ -158,10 +149,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-04-08_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/w365/2022-05-13_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -169,19 +160,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20220408_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          クライアント設定が適用されない！確認すべき 3 つのポイント
-        
-      </div>
-    </a>
   
-  
-    <a href="../../w365/2022-04-06_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20220511_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows 365 のクラウド PC を以前の状態に復元する方法について</div>
+      <div class="article-nav-title">ccmcache フォルダー配下のキャッシュ クリア方法</div>
     </a>
   
 </nav>
@@ -200,7 +182,7 @@
       <ul>
         
           <li>
-            <a href="../../w365/2022-05-13_01/">クラウド PC で日本語入力ができない場合のチェック項目について</a>
+            <a href="">クラウド PC で日本語入力ができない場合のチェック項目について</a>
           </li>
         
           <li>
@@ -208,7 +190,7 @@
           </li>
         
           <li>
-            <a href="../2022-05-09_01/">WSUS メンテナンスガイド新版</a>
+            <a href="../../wsus/2022-05-09_01/">WSUS メンテナンスガイド新版</a>
           </li>
         
           <li>
