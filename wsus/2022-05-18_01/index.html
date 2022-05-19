@@ -4,23 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS でクライアントが正常に認識されない SusClientID の重複とは | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。今回はそのような事象がなぜ起こるのか対処方法を含">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Microsoft Intune の「制限付きアプリ」と「アプリの表示&#x2F;非表示」機能について">
-<meta property="og:url" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/index.html">
+<meta property="og:title" content="WSUS でクライアントが正常に認識されない SusClientID の重複とは">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-05-18_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。今回はそのような事象がなぜ起こるのか対処方法を含">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
-<meta property="article:published_time" content="2018-09-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-19T09:37:57.227Z">
+<meta property="article:published_time" content="2022-05-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-19T09:37:57.467Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Intune">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -77,7 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-intune/MicrosoftIntune_constraintedapp_and_displayfunction" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-05-18_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -86,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について
+      WSUS でクライアントが正常に認識されない SusClientID の重複とは
     </h1>
   
 
@@ -94,41 +91,39 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2018-09-25T15:00:00.000Z" itemprop="datePublished">2018-09-26</time>
+  <time datetime="2022-05-17T15:00:00.000Z" itemprop="datePublished">2022-05-18</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+bd4dbaaa-a551-5208-a80d-d5e6f44adbd6%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+Intune+%E3%81%AE%E3%80%8C%E5%88%B6%E9%99%90%E4%BB%98%E3%81%8D%E3%82%A2%E3%83%97%E3%83%AA%E3%80%8D%E3%81%A8%E3%80%8C%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E8%A1%A8%E7%A4%BA%2F%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%80%8D%E6%A9%9F%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2FMicrosoftIntune_constraintedapp_and_displayfunction.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+fb58ac91-ad2c-5875-a97f-9a13384d3a61%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%81%A7%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%8C%E6%AD%A3%E5%B8%B8%E3%81%AB%E8%AA%8D%E8%AD%98%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84+SusClientID+%E3%81%AE%E9%87%8D%E8%A4%87%E3%81%A8%E3%81%AF%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-05-18_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-05-18_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-05-18_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="cl3ctl50500000nnv85f1gp15" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-05-18_01/" data-id="cl3ctl539005m0nnvc1dl2h3v" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>※ 2018/9/26 追記</p>
-<p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
-<p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
-<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
-<p>こんにちは。Microsoft Intune サポート チームです。<br>iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。<br>今回はそのための機能について説明します。</p>
-<p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示/非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。</p>
-<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示/非表示機能"></a>■ アプリの表示/非表示機能</h2><p>「アプリの表示/非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a target="_blank" rel="noopener" href="https://support.apple.com/ja-jp/HT202837">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
-<p>「アプリの表示/非表示」の設定画面はこのようになっています。</p>
-<p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
-<p>[アプリ URL] または [アプリ バンドル ID] でアプリを特定していますので、この 2 つのいずれかを正確に入力します。</p>
-<ul>
-<li>App Store に公開されているアプリであれば、[アプリ URL] で指定できます。</li>
-<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
-</ul>
-<p>注意点としては、複数の「アプリの表示/非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示/非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p>
-<h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018/9/26 追記</p>
-<p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
-<p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
-<p>「制限付きアプリ」機能は元々 Intune のクラシック コンソール時代に利用されていた機能です。<br>Silverlight で動作する、以前のコンソールを覚えている方もいらっしゃるでしょう。<br>この機能では、「アプリの表示/非表示」のようにアプリの利用を禁止する直接的な効力はありませんでした。<br>管理者が指定したアプリが端末にインストールされているか、いないかという情報を端末側で監査し、クラシック コンソールのレポートで確認する機能でした。<br>Intune が Azure 管理ポータルに移行するにあたり、クラシック コンソールでの MDM 管理機能やレポート機能が廃止されております。</p>
-<p>※移行はテナントごとに行われ、2017 年 10 月 ～ 2018 年 6 月頃には、実質的に「制限付きアプリ」機能は利用できない状態になっています。</p>
-<p>一方で、デバイスからはインベントリとしてアプリの情報が収集されていますので、この情報を基に監査を行うことができます。<br>Azure ポータルの [Intune] - [モバイル アプリ] - [検出されたアプリ] には、インベントリされた全アプリの一覧が表示されます。<br>この情報をエクスポートして、監査に利用することができます。<br>企業所有端末からはインストールされた全アプリ情報が、個人所有端末からは Intune で管理されたアプリの情報のみが収集されます。</p>
-<p>「制限付きアプリ」機能では、実質的に BYOD 端末について、ユーザーのアプリの情報を監査できるというプライバシー上の課題がありましたが、インベントリ機能ではこの課題は解消されています。</p>
-<p>このように、「アプリの表示/非表示」機能を上手く活用することで、組織のアプリ使用を制限可能です。</p>
-<p>また、インベントリ情報を活用することで、社給端末で利用されているアプリ情報を取得可能です。</p>
+        <p>みなさま、こんにちは。 WSUS サポート チームです。<br>WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。<br>今回はそのような事象がなぜ起こるのか対処方法を含めご紹介していきたいと思います。</p>
+<h1 id="SusClientID-の重複とは"><a href="#SusClientID-の重複とは" class="headerlink" title="SusClientID の重複とは"></a>SusClientID の重複とは</h1><p>WSUS サーバーはクライアントを SusClientID という一意の ID で識別しています。<br>この SusClientID は、sysprep /generalize コマンドを実行し一般化することでリセットされますが、sysprep /generalize コマンドを実行をしていないマスターイメージをもとに複製した場合、同じ SusClientID を持つ端末が複製されて、SusClientID の重複が発生します。<br>そのため、ホスト名などが異なる場合にも SusClientID が重複しておりますと同じクライアントとして認識し、クライアントが正常に認識されない事象が発生いたします。</p>
+<p>SusClientID は以下のレジストリキーにその値が格納されています。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate</span><br></pre></td></tr></table></figure>
+
+<p>重複している場合は、以下の手順にて SusClientId を削除いただきますと、SusClientId は自動生成され重複状態が解消します。</p>
+<p>手順</p>
+<ol>
+<li>問題のクライアントに管理者権限を持つユーザーでログオンし、コマンド プロンプトを「管理者として実行」にて起動します。</li>
+<li>管理者として実行にて起動したコマンド プロンプトで、下記コマンドでサービスを停止します。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop usosvc</span><br><span class="line">net stop wuauserv</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>“regedit” コマンドでレジストリエディタを起動し、下記サブキーの中に存在するエントリをすべて削除します。</li>
+</ol>
+<p>・サブキー；<br>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate]</p>
+<p>・削除するエントリ：（一部は存在しない場合もあります。クライアントのバージョンや使用経緯により異なります）<br>PingID<br>AccountDomainSid<br>SusClientId<br>SusClientIdValidation</p>
+<ol start="4">
+<li>管理者として実行にて起動したコマンド プロンプトで、下記コマンドでサービスを開始します。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start usosvc</span><br><span class="line">net start wuauserv</span><br></pre></td></tr></table></figure>
 
       
       
@@ -142,10 +137,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/intune/MicrosoftIntune_constraintedapp_and_displayfunction.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-05-18_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -153,19 +148,10 @@
     
 <nav id="article-nav">
   
-    <a href="../%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング
-        
-      </div>
-    </a>
   
-  
-    <a href="../../mecm/20180911_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../w365/2022-05-13_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)</div>
+      <div class="article-nav-title">クラウド PC で日本語入力ができない場合のチェック項目について</div>
     </a>
   
 </nav>
@@ -184,7 +170,7 @@
       <ul>
         
           <li>
-            <a href="../../wsus/2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
+            <a href="">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
           </li>
         
           <li>
@@ -196,7 +182,7 @@
           </li>
         
           <li>
-            <a href="../../wsus/2022-05-09_01/">WSUS メンテナンスガイド新版</a>
+            <a href="../2022-05-09_01/">WSUS メンテナンスガイド新版</a>
           </li>
         
           <li>
