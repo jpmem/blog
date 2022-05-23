@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>クラウド管理ゲートウェイ (CMG) の監視と運用 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、クラウド管理ゲートウェイ (CMG) の監視と運用についてご案内させていただきます。CMG は クラウド上の PaaS 形式で提供されるサービスのため、必要な監視・運用作業は非常に少ないものとなっております。 CMG の監視下記 Docs でご案内しております。CMG では CPU やメモリ使用量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="クラウド管理ゲートウェイ (CMG) の監視と運用">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220522_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、クラウド管理ゲートウェイ (CMG) の監視と運用についてご案内させていただきます。CMG は クラウド上の PaaS 形式で提供されるサービスのため、必要な監視・運用作業は非常に少ないものとなっております。 CMG の監視下記 Docs でご案内しております。CMG では CPU やメモリ使用量">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_14.png">
+<meta property="article:published_time" content="2022-05-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-23T05:40:52.856Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="CMG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_01.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220522_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      クラウド管理ゲートウェイ (CMG) の監視と運用
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-05-21T15:00:00.000Z" itemprop="datePublished">2022-05-22</time>
+</a>
+        
+        
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+266ec6dd-c612-5e21-bfef-34c7529eb486%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4+%28CMG%29+%E3%81%AE%E7%9B%A3%E8%A6%96%E3%81%A8%E9%81%8B%E7%94%A8%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220522_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220522_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220522_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpmem.github.io/blog/mecm/20220522_01/" data-id="cl3iavp8v00350nnnfm2o7ekm" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、クラウド管理ゲートウェイ (CMG) の監視と運用についてご案内させていただきます。CMG は クラウド上の PaaS 形式で提供されるサービスのため、必要な監視・運用作業は非常に少ないものとなっております。</p>
+<h2 id="CMG-の監視"><a href="#CMG-の監視" class="headerlink" title="CMG の監視"></a>CMG の監視</h2><p>下記 Docs でご案内しております。CMG では CPU やメモリ使用量の監視は必要なく、主にトラフィック、コンテンツ、ログ状態を監視することになります。</p>
+<p>CMG を監視する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway</a></p>
+<h3 id="トラフィック監視"><a href="#トラフィック監視" class="headerlink" title="トラフィック監視"></a>トラフィック監視</h3><p>Docs でご案内している通り、以下にて CMG のトラフィック状態を監視できます。</p>
+<p>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - 該当の CMG を選択 - 画面下部「接続ポイント」タブ</p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_01.png" alt="image.png"></p>
+<h3 id="ストレージ監視"><a href="#ストレージ監視" class="headerlink" title="ストレージ監視"></a>ストレージ監視</h3><p>CMG の項目表示列を右クリックから追加することで CMG のストレージ利用量や、CMG からクライアントにコンテンツがダウンロードされた量 を確認できます。</p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_02.png" alt="image.png"></p>
+<h3 id="ログ監視"><a href="#ログ監視" class="headerlink" title="ログ監視"></a>ログ監視</h3><p>こちらも Docs にある通りですが、CMG 自体の動作ログは 5 分周期で Azure ストレージから最上位サイトサーバーの Logs フォルダーに同期される仕組みとなっております。</p>
+<p>ログを監視する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs</a></p>
+<h3 id="クラウド管理ダッシュボード"><a href="#クラウド管理ダッシュボード" class="headerlink" title="クラウド管理ダッシュボード"></a>クラウド管理ダッシュボード</h3><p>Docsにもありますが以下に形で Azure AD 統計の後に CMG 関連の統計ダッシュボードを開けますのでご活用ください。CMG からの接続状況の確認にご活用できるかと存じます。</p>
+<p>[監視] - [概要] - [クラウド管理]<br><img src="/blog/mecm/20220522_01/20220522_01_03.png" alt="image.png"></p>
+<h2 id="CMG-の運用"><a href="#CMG-の運用" class="headerlink" title="CMG の運用"></a>CMG の運用</h2><p>CMG に必要な運用作業は以下となります。なお、下記の作業はすべて Azure ポータルからではなく、CM コンソールから実行ください。</p>
+<ol>
+<li>CMG の起動</li>
+<li>CMG の停止</li>
+<li>CMG と構成情報の同期</li>
+<li>CMG サーバー証明書の更新</li>
+<li>Azure AD アプリケーション秘密鍵の更新</li>
+</ol>
+<h3 id="CMG-の起動"><a href="#CMG-の起動" class="headerlink" title="CMG の起動"></a>CMG の起動</h3><p>以下を実行してください。  </p>
+<p>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - 該当の CMG を選択 - [サービスの開始]</p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_06.png" alt="image.png"></p>
+<p>実行すると ステータスの項目が「開始中」 -&gt; 「準備完了」と遷移します。</p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_07.png" alt="image.png"></p>
+<h3 id="CMG-の停止"><a href="#CMG-の停止" class="headerlink" title="CMG の停止"></a>CMG の停止</h3><p>以下を実行してください。  </p>
+<p>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - 該当の CMG を選択 - [サービスの停止]  </p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_04.png" alt="image.png"></p>
+<p>実行すると ステータスの項目が「停止中」 -&gt; 「停止」と遷移します。  </p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_05.png" alt="image.png"></p>
+<h3 id="CMG-と構成情報の同期"><a href="#CMG-と構成情報の同期" class="headerlink" title="CMG と構成情報の同期"></a>CMG と構成情報の同期</h3><p>接続するクラウド管理ゲートウェイサービス接続ポイントや管理ポイント等の設定変更等が行われると、構成情報の同期が必要となります。その際は以下を実行してください。  </p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_08.png" alt="image.png"></p>
+<p>実行すると、ステータスの項目が「アップグレードしています」 -&gt; 「準備完了」と遷移後、ステータスの説明に「構成の更新が完了しました」と表示されます。</p>
+<p><img src="/blog/mecm/20220522_01/20220522_01_09.png" alt="image.png"></p>
+<h3 id="CMG-サーバー証明書の更新"><a href="#CMG-サーバー証明書の更新" class="headerlink" title="CMG サーバー証明書の更新"></a>CMG サーバー証明書の更新</h3><p>CMG のサーバー証明書の有効期限が切れる前に、サーバー証明書を更新ください。サーバー証明書のサブジェクト名、サブジェクト代替名の内容は変更せずに更新ください。</p>
+<ol>
+<li>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - [プロパティ] - [設定]タブ へ遷移します。</li>
+<li>[参照]ボタンをクリックします。  </li>
+</ol>
+<p><img src="/blog/mecm/20220522_01/20220522_01_10.png" alt="image.png"></p>
+<ol start="3">
+<li>更新したサーバー証明書を指定します。</li>
+<li>指定した証明書ファイルが選択されていることを確認します。</li>
+</ol>
+<p><img src="/blog/mecm/20220522_01/20220522_01_11.png" alt="image.png">  </p>
+<ol start="5">
+<li>ダイアログ右下の「適用」、「OK」ボタンをクリックします。</li>
+<li>CMG のステータスが「準備完了」になれば終了です。</li>
+</ol>
+<h3 id="Azure-AD-アプリケーション秘密鍵の更新"><a href="#Azure-AD-アプリケーション秘密鍵の更新" class="headerlink" title="Azure AD アプリケーション秘密鍵の更新"></a>Azure AD アプリケーション秘密鍵の更新</h3><p>Azure AD アプリケーション秘密鍵の期限が切れる前に更新します。本秘密鍵は、MECM サーバーが Azure リソースとの通信の際に使われる秘密鍵になります。<strong>期限切れしてしまうと、 MECM サーバーが Azure リソースと通信できなくなるためご注意ください。 期限が切れてしまうと Azure AD アプリケーションの再作成、及び CMG の再構築が必要になってしまいます。</strong></p>
+<p>なお、作業に該当の Azure AD のグローバル管理者権限が必要となりますので、事前に準備ください。</p>
+<ol>
+<li>[CMコンソール] - [管理] - [概要] - [クラウド サービス] - [Azure Active Directory テナント] - 利用しているテナントを選択 - 画面下部「アプリケーション」から 利用している Web アプリケーションを選択  </li>
+</ol>
+<p><img src="/blog/mecm/20220522_01/20220522_01_12.png" alt="image.png">  </p>
+<ol start="2">
+<li>「秘密鍵を更新する」をクリックする。  </li>
+</ol>
+<p><img src="/blog/mecm/20220522_01/20220522_01_13.png" alt="image.png">  </p>
+<ol start="3">
+<li>Azure AD 認証が求められたら、利用しているテナントのグローバル管理者権限でログインする。</li>
+<li>ログイン後、以下のダイアログが表示されたら 「OK」をクリックする。　　</li>
+</ol>
+<p><img src="/blog/mecm/20220522_01/20220522_01_14.png" alt="image.png">  </p>
+<ol start="5">
+<li>CM コンソールの画面を更新し、秘密キーの有効期限 (UTC) が更新されていることを確認する。</li>
+</ol>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+        
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220522_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20220520_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+          </li>
+        
+          <li>
+            <a href="../20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
+          </li>
+        
+          <li>
+            <a href="../20220519_01/">Configuration Manager で削除された機能について</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-05-13_01/">クラウド PC で日本語入力ができない場合のチェック項目について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/">MECM</a><span class="tag-list-count">55</span><ul><li class="tag-list-item tag-list-item-child-tag"><a class="tag-list-link tag-list-link-child" href="../../tags/MECM/CMG">CMG</a><span class="tag-list-count">5</span></li></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/">WSUS</a><span class="tag-list-count">38</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/">Windows 365</a><span class="tag-list-count">10</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">2022 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">2021 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">2021 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">2021 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">2020 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">2020 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">2020 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">2020 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">2019 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">2019 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2019 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">2018 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">2018 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">2018 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">2018 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">2018 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">2018 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2018 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">2017 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">2017 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">2017 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">2017 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">2017 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">2017 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2017 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">2016 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">2016 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">2016 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">2014 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">2014 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">2014 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">2013 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">2013 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">2012 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">2012 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">2012 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">2011 / 10</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/CMG/" style="font-size: 12.5px;">CMG</a> <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a> <a href="../../tags/MECM/" style="font-size: 20px;">MECM</a> <a href="../../tags/WSUS/" style="font-size: 17.5px;">WSUS</a> <a href="../../tags/Windows-365/" style="font-size: 15px;">Windows 365</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
