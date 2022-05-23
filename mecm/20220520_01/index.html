@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Endpoint Configuration Manager (以下 MECM) 環境下において、クライアント側で [Windows の設定] - [Windows Update] - [更新とセキュリティ] - [更新プログラムのチェック] をクリックした際の動作についてご紹介い">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220520_01/20220518_01/1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220520_01/1.png">
 <meta property="article:published_time" content="2022-05-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-23T04:11:06.215Z">
+<meta property="article:modified_time" content="2022-05-23T04:19:19.976Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220520_01/20220518_01/1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220520_01/1.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -99,14 +99,14 @@
         
         <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+b1278ed4-93a4-5e3a-aea8-29b8d8add57f%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+%E7%92%B0%E5%A2%83%E4%B8%8B%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+%5B%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%5D+%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220520_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220520_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220520_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20220520_01/" data-id="cl3i7o93l00330nqmeoj0gjg4" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20220520_01/" data-id="cl3i7yv5d00330mmo47xd8h51" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
 <p>今回は Microsoft Endpoint Configuration Manager (以下 MECM) 環境下において、クライアント側で [Windows の設定] - [Windows Update] - [更新とセキュリティ] - [更新プログラムのチェック] をクリックした際の動作についてご紹介いたします。</p>
-<p><img src="./20220518_01/1.png"></p>
+<p><img src="/blog/mecm/20220520_01/1.png"></p>
 <p>いいえ。受け取れません。<br>Windows の更新とセキュリティでの [更新プログラムのチェック] のクリックしますと、クライアントが ソフトウェア更新ポイントの役割が追加されたサーバーにインストールした WSUS に対し WSUS コンソールで承認された更新プログラムの有無を確認する動作となります。<br>MECM 環境下においては、WSUS で承認を行わないため [更新プログラムのチェック] をクリックしても MECM からの展開を検出せず、更新プログラムはダウンロードされません。<br>その為、MECM クライアント コンソール で各サイクルの実行にて展開を受け取る操作を行う事が、MECM からの展開を受け取れているのかを確認する正しい方法となります。</p>
 <p>展開を受け取るための MECM クライアント コンソールでの各サイクルの実行につきましては、以下ブログをご参考にしてくださいませ。<br>Title : Configuration Manager で、できる限り早く更新プログラムを適用する方法について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180619_01/">https://jpmem.github.io/blog/mecm/20180619_01/</a></p>
 <h1 id="更新プログラムのチェック-と-MECM-クライアント-コンソールでの各サイクルの実行の動作の違いについて"><a href="#更新プログラムのチェック-と-MECM-クライアント-コンソールでの各サイクルの実行の動作の違いについて" class="headerlink" title="[更新プログラムのチェック] と MECM クライアント コンソールでの各サイクルの実行の動作の違いについて"></a>[更新プログラムのチェック] と MECM クライアント コンソールでの各サイクルの実行の動作の違いについて</h1><p>Windows の更新とセキュリティでの [更新プログラムのチェック] を実行した際の動作と MECM クライアントが展開された更新プログラムを受け取る場合の動作は異なるものでありますため、その差異を補足いたします。</p>
