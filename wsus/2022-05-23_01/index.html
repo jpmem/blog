@@ -4,29 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>SCCM CB 自動クライアント アップグレード手順 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS コンソールが全く開かなくなってしまった！　WsusPool　の停止とは | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS コンソールが全く開かず、以下のような接続エラーがでてしまっているときにご一読いただきたい WsusPoolの停止 についてご紹介します。    WSUS コンソールが全く開かなくなってしまった！WSUS は、 IIS の WsusPool を介してデータベースへアクセスする仕組みになっています。WsusPool は、IIS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SCCM CB 自動クライアント アップグレード手順">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180823_01/index.html">
+<meta property="og:title" content="WSUS コンソールが全く開かなくなってしまった！　WsusPool　の停止とは">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS コンソールが全く開かず、以下のような接続エラーがでてしまっているときにご一読いただきたい WsusPoolの停止 についてご紹介します。    WSUS コンソールが全く開かなくなってしまった！WSUS は、 IIS の WsusPool を介してデータベースへアクセスする仕組みになっています。WsusPool は、IIS">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_04.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_05.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_06.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_07.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_08.png">
-<meta property="article:published_time" content="2018-08-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-23T08:37:18.669Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01%5C2022-05-23_01_1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01%5C2022-05-23_01_2.png">
+<meta property="article:published_time" content="2022-05-22T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-23T08:37:18.909Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01%5C2022-05-23_01_1.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -83,7 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20180823_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-05-23_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -92,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SCCM CB 自動クライアント アップグレード手順
+      WSUS コンソールが全く開かなくなってしまった！　WsusPool　の停止とは
     </h1>
   
 
@@ -100,49 +94,29 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+  <time datetime="2022-05-22T15:00:00.000Z" itemprop="datePublished">2022-05-23</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+1976c8ca-07ed-5e57-ae16-d2367b278093%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BSCCM+CB+%E8%87%AA%E5%8B%95%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88+%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20180823_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20180823_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20180823_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+0c51da32-576b-5ea1-8bc0-4aa4ad7dbfdd%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BWSUS+%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%8C%E5%85%A8%E3%81%8F%E9%96%8B%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%EF%BC%81%E3%80%80WsusPool%E3%80%80%E3%81%AE%E5%81%9C%E6%AD%A2%E3%81%A8%E3%81%AF%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2022-05-23_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2022-05-23_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2022-05-23_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cl3ih6l7y00150mp581lv4fyp" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="cl3ih6laj005u0mp5g74i0ilc" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>みなさま、こんにちは。</p>
-<p>日本マイクロソフト System Center Configuration Manager サポートチームです。</p>
-<p>本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。<br>SCCM CB クライアントのアップグレード方法は、以下のように、複数がございます。</p>
-<p>・自動クライアント アップグレード<br>・クライアント プッシュ インストール<br>・グループ ポリシーによるインストール<br>・ログオン スクリプトによるインストール<br>・手動インストール<br>・アップグレード インストール</p>
-<p>お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少ない方法となりますので、クライアントのアップグレードの際に、本機能のご利用をご検討いただけますと幸いです。</p>
-<h2 id="クライアント-アップグレード動作の流れ"><a href="#クライアント-アップグレード動作の流れ" class="headerlink" title="クライアント アップグレード動作の流れ"></a>クライアント アップグレード動作の流れ</h2><ol>
-<li><p>[Configuration Manager コンソール] を開き、以下の画面に移動します。<br>[管理] - [概要] - [サイトの構成] - [サイト]<br><img src="/blog/mecm/20180823_01/20180823_01_01.png"></p>
-</li>
-<li><p>リボンメニューから、[階層設定] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png"></p>
-</li>
-<li><p>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。</p>
-</li>
-<li><p>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png"></p>
-</li>
-<li><p>[OK] ボタンをクリックし、画面を閉じます。</p>
-</li>
-<li><p>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、リボンメニューから [実稼働前クライアントの昇格] をクリックします。<br>ここで、確認メッセージが表示されますので、[昇格] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png"></p>
-</li>
-</ol>
-<p>手順は、以上となります。</p>
-<p>管理対象が多い大規模の環境では、自動クライアント アップグレードの機能を有効にすることで、一気にクライアントのアップグレードがされ、ネットワークを逼迫することが懸念点として考えられますが、上記の設定画面にて、自動アップグレードの期間を長く指定してきただくことで、ネットワークの負荷を分散することができます。</p>
-<p>例えば、指定可能な最長日数の 31 としていただきますと、クライアントは、1 ~ 31 日の期間中、ランダムの日付に、アップグレードを行います。<br>念の為、具体的なクライアントのアップグレード動作を、補足説明いたしますのでご参考いただけますと幸いです。</p>
-<h2 id="クライアント-アップグレードの動作の流れ"><a href="#クライアント-アップグレードの動作の流れ" class="headerlink" title="クライアント アップグレードの動作の流れ"></a>クライアント アップグレードの動作の流れ</h2><ol>
-<li> SCCM サーバにおいて自動クライアント アップグレードを有効にする際に、アップグレード期間を指定します。</li>
-<li>クライアントが自動クライアント アップグレードのポリシーを受信します。</li>
-<li>クライアントのタスク スケジューラに、指定した日数内で、ランダムな日時に開始されるクライアント アップグレードのタスクが登録されます。</li>
-<li>登録されたタスクに開始時刻に、クライアントはそれぞれアップグレードを開始します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png"><br><img src="/blog/mecm/20180823_01/20180823_01_08.png"></li>
-</ol>
+        <p>みなさま、こんにちは。 WSUS サポート チームです。<br>今回は、 WSUS コンソールが全く開かず、以下のような接続エラーがでてしまっているときにご一読いただきたい WsusPoolの停止 についてご紹介します。<br><img src="2022-05-23_01%5C2022-05-23_01_1.png">   </p>
+<h1 id="WSUS-コンソールが全く開かなくなってしまった！"><a href="#WSUS-コンソールが全く開かなくなってしまった！" class="headerlink" title="WSUS コンソールが全く開かなくなってしまった！"></a>WSUS コンソールが全く開かなくなってしまった！</h1><p>WSUS は、 IIS の WsusPool を介してデータベースへアクセスする仕組みになっています。<br>WsusPool は、IIS のアプリケーション プールであり、IIS のワーカープロセス (w3wp.exe) として動作しますので、以下のように IIS マネージャーから WsusPool の動作状況を確認できます。<br><img src="2022-05-23_01%5C2022-05-23_01_2.png"> </p>
+<p>その為、 Windows Internal Database や SQL Server などデータベース サービスが動作しているにも関わらず、 WSUS コンソールが全く開かず上記のような接続エラーとなってしまう場合には、WsusPool が停止しデータベースへアクセスできない状態となっている可能性が考えられるのです。  </p>
+<h1 id="WsusPool-の停止とは"><a href="#WsusPool-の停止とは" class="headerlink" title="WsusPool の停止とは"></a>WsusPool の停止とは</h1><p>なぜ WsusPool が停止していると考えられるでしょうか。<br>これは、IIS の保護機能により WsusPool が停止した可能性があるからです。  </p>
+<p>WsusPool のメモリ上限値であるプライベート メモリ制限値に達した場合、リサイクルを実行しメモリを解放する動作が起こります。このリサイクルの処理が短期間に頻繁に発生すると、 IIS のラピッド フェール保護と呼ばれる機能が働き、WsusPool を停止させるのです。  </p>
+<p>ラピッド フェール保護の機能解説としては以下の公開情報をご参照ください。<br><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/web-apps/Rapid-Fail-Protection/">ラピッド フェール保護機能について</a>  </p>
+<p>その為、 WsusPool のメモリ上限値であるプライベート メモリ制限値に達してリサイクルが頻発する状態を改善することで、ラピッド フェール保護による WsusPool が停止する事象を防ぐことができます。</p>
+<h1 id="発生要因"><a href="#発生要因" class="headerlink" title="発生要因"></a>発生要因</h1><p>WsusPool のメモリ上限値であるプライベート メモリ制限値に達してしまう主な要因はなにか。<br>それは主に以下の2点です。<br>1．WsusPool のチューニングが実施されていない<br>2．クライアントのスキャン対象となる更新プログラムが多い  </p>
+<h1 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h1><p>上記の要因を解消するためには、以下の対処により改善が見込めます。    </p>
+<p>1．WsusPool のチューニング<br>WsusPool のチューニングを実施することにより、WsusPool が使用可能なプライベート メモリ上限が引き上げられる上、ラピッドフェール保護の発生条件を緩和できますので、ラピッド フェール保護の発生による WsusPool の停止を抑止することができます。<br>実施内容については、以下の公開記事にてご紹介しておりますのでご参照ください。<br> <a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/#A-IIS-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E8%A8%AD%E5%AE%9A">IIS チューニング設定</a>  </p>
+<p>2．クライアントのスキャン対象となる更新プログラムの削減<br>クライアントは WSUS 同様に IIS を介してデータベースへアクセスし更新プログラムのスキャン処理を行っています。<br>スキャン処理は、WSUS が保持する更新プログラムの情報（メタ データ）が参照され、メタ データをメモリ領域に展開するために必要なメモリ領域の確保とデータのメモリへのコピーが繰り返される為、 WsusPool のメモリ使用量を高める大きな要因となることが事例より判っております。</p>
+<p>クライアントのスキャン処理の対象は、状態が “未承認” 及び “承認済み” の更新プログラムです。<br>“拒否済み” 状態の更新プログラムはスキャン処理の対象外であり、上記のようなメタ データへのメモリへのコピーは行われません。<br>このため、状態を “拒否済み” へ変更いただくことにより、スキャン対象から外すことができ、WsusPool のメモリ使用量を抑えることができます。<br>実施内容ついては、以下の公開記事にてご紹介しておりますのでご参照ください。<br><a href="https://jpmem.github.io/blog/wsus/2017-12-11_01/">不要な更新プログラムは「拒否済み」に設定しよう！</a>  </p>
 
       
       
@@ -156,10 +130,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20180823_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2022-05-23_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -167,19 +141,10 @@
     
 <nav id="article-nav">
   
-    <a href="../20180911_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)
-        
-      </div>
-    </a>
   
-  
-    <a href="../20180823_02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20220522_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager サイトのアップグレード手順</div>
+      <div class="article-nav-title">クラウド管理ゲートウェイ (CMG) の監視と運用</div>
     </a>
   
 </nav>
@@ -198,23 +163,23 @@
       <ul>
         
           <li>
-            <a href="../../wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！　WsusPool　の停止とは</a>
+            <a href="">WSUS コンソールが全く開かなくなってしまった！　WsusPool　の停止とは</a>
           </li>
         
           <li>
-            <a href="../20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+            <a href="../../mecm/20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
           </li>
         
           <li>
-            <a href="../20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
+            <a href="../../mecm/20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
           </li>
         
           <li>
-            <a href="../20220519_01/">Configuration Manager で削除された機能について</a>
+            <a href="../../mecm/20220519_01/">Configuration Manager で削除された機能について</a>
           </li>
         
           <li>
-            <a href="../../wsus/2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
+            <a href="../2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
           </li>
         
       </ul>
