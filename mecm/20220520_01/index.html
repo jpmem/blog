@@ -4,23 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆様こんにちは。WSUS サポート チームです。 今回は Windows Server 2016 &#x2F; 2019 にて提供された新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について紹介いたします。 この新しい自動更新のオプションは、以下の累積更新プログラムを適用したビルド以降で使用可能となります。  Windows Server 2016Title :">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Endpoint Configuration Manager (以下 MECM) 環境下において、クライアント側で [Windows の設定] - [Windows Update] - [更新とセキュリティ] - [更新プログラムのチェック] をクリックした際の動作についてご紹介い">
 <meta property="og:type" content="article">
-<meta property="og:title" content="新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2020-10-12_01/index.html">
+<meta property="og:title" content="MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220520_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="皆様こんにちは。WSUS サポート チームです。 今回は Windows Server 2016 &#x2F; 2019 にて提供された新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について紹介いたします。 この新しい自動更新のオプションは、以下の累積更新プログラムを適用したビルド以降で使用可能となります。  Windows Server 2016Title :">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Endpoint Configuration Manager (以下 MECM) 環境下において、クライアント側で [Windows の設定] - [Windows Update] - [更新とセキュリティ] - [更新プログラムのチェック] をクリックした際の動作についてご紹介い">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-10-12_01/1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-10-12_01/2.png">
-<meta property="article:published_time" content="2020-10-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-23T04:11:06.255Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220520_01/20220518_01/1.png">
+<meta property="article:published_time" content="2022-05-19T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-23T04:11:06.215Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2020-10-12_01/1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220520_01/20220518_01/1.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -77,7 +76,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2020-10-12_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20220520_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -86,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について
+      MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について
     </h1>
   
 
@@ -94,32 +93,31 @@
       <div class="article-share">
         Last Update: 
         <a href="" class="article-date-single">
-  <time datetime="2020-10-11T15:00:00.000Z" itemprop="datePublished">2020-10-12</time>
+  <time datetime="2022-05-19T15:00:00.000Z" itemprop="datePublished">2022-05-20</time>
 </a>
         
         
-        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+36c1f1ec-530f-5b4f-b221-0bc7c5f9afc2%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E6%96%B0%E3%81%97%E3%81%84%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%80%8C7+-+%E8%87%AA%E5%8B%95%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%80%81%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E9%80%9A%E7%9F%A5%E3%80%81%E5%86%8D%E8%B5%B7%E5%8B%95%E3%82%92%E9%80%9A%E7%9F%A5%E3%80%8D%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fwsus%2F2020-10-12_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fwsus%2F2020-10-12_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fwsus%2F2020-10-12_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpmem/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+b1278ed4-93a4-5e3a-aea8-29b8d8add57f%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMECM+%E7%92%B0%E5%A2%83%E4%B8%8B%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B+%5B%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%5D+%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%5D%28https%3A%2F%2Fjpmem.github.io%2Fblog%2Fmecm%2F20220520_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fmecm%2F20220520_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpmem%2Fblog%2Fblob%2Fmaster%2Farticles%2Fmecm%2F20220520_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpmem.github.io/blog/wsus/2020-10-12_01/" data-id="cl3i7o94t00560nqm71ce4pxp" class="article-share-link">共有</a>
+        <a data-url="https://jpmem.github.io/blog/mecm/20220520_01/" data-id="cl3i7o93l00330nqmeoj0gjg4" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>皆様こんにちは。WSUS サポート チームです。</p>
-<p>今回は Windows Server 2016 / 2019 にて提供された新しい自動更新のオプション「7 - 自動ダウンロード、インストール時に通知、再起動を通知」について紹介いたします。</p>
-<p>この新しい自動更新のオプションは、以下の累積更新プログラムを適用したビルド以降で使用可能となります。</p>
-<ul>
-<li><p>Windows Server 2016<br>Title : 2020 年 1 月 24 日 - KB4534307 (OS ビルド 14393.3474)<br>URL : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2020-%E5%B9%B4-1-%E6%9C%88-24-%E6%97%A5-kb4534307-os-%E3%83%93%E3%83%AB%E3%83%89-14393-3474-b181594e-2c6a-14ea-e75b-678efea9d27e">https://support.microsoft.com/ja-jp/topic/2020-%E5%B9%B4-1-%E6%9C%88-24-%E6%97%A5-kb4534307-os-%E3%83%93%E3%83%AB%E3%83%89-14393-3474-b181594e-2c6a-14ea-e75b-678efea9d27e</a></p>
-</li>
-<li><p>Windows Server 2019<br>Title : 2020 年 1 月 23 日 - KB4534321 (OS ビルド 17763.1012)<br>URL : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2020-%E5%B9%B4-1-%E6%9C%88-23-%E6%97%A5-kb4534321-os-%E3%83%93%E3%83%AB%E3%83%89-17763-1012-023e84c3-f9aa-3b55-8aff-d512911c459f">https://support.microsoft.com/ja-jp/topic/2020-%E5%B9%B4-1-%E6%9C%88-23-%E6%97%A5-kb4534321-os-%E3%83%93%E3%83%AB%E3%83%89-17763-1012-023e84c3-f9aa-3b55-8aff-d512911c459f</a></p>
-</li>
-</ul>
-<p><img src="/blog/wsus/2020-10-12_01/1.png" alt="image.png">  </p>
-<p>従来の Windows Server 2016/2019 の自動再起動の制御方法につきましては、以下の公開情報にて記載した制御方法しかありませんでしたが、上記ビルド以降であれば、この新しい自動更新のオプション 7 を使用することで、更新プログラムのインストール、再起動をユーザー手動にすることができます。  </p>
-<p>Title : Windows 10 / Windows Server 2016 の Windows Update 後の自動再起動の制御方法<br>URL : <a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/52afc78a-30c0-4c2d-a9d7-2751f314bd57/windows-10-windows-server-2016-12398-windows-update?forum=jpsccmwsus">https://social.msdn.microsoft.com/Forums/ja-JP/52afc78a-30c0-4c2d-a9d7-2751f314bd57/windows-10-windows-server-2016-12398-windows-update?forum=jpsccmwsus</a>  </p>
-<p>こちらの自動更新のオプション 7 を使用すれば、「再起動待ち」の状態になったとしても、アクティブ時間外であってもユーザーが手動で再起動しない限り自動再起動されることはありません。<br>ただし、[再起動のスケジュール] をクリックして再起動をスケジュールした場合は、指定した日時で自動再起動されますのでご注意ください。</p>
-<p><img src="/blog/wsus/2020-10-12_01/2.png" alt="image.png">  </p>
-<p>また、本オプションは Windows 10 では提供されておらず、Server のみ提供されたオプションとなりますので、Windows 10 の自動再起動の制御方は従来通り「Windows 10 / Windows Server 2016 の Windows Update 後の自動再起動の制御方法」をご参照ください。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>今回は Microsoft Endpoint Configuration Manager (以下 MECM) 環境下において、クライアント側で [Windows の設定] - [Windows Update] - [更新とセキュリティ] - [更新プログラムのチェック] をクリックした際の動作についてご紹介いたします。</p>
+<p><img src="./20220518_01/1.png"></p>
+<p>いいえ。受け取れません。<br>Windows の更新とセキュリティでの [更新プログラムのチェック] のクリックしますと、クライアントが ソフトウェア更新ポイントの役割が追加されたサーバーにインストールした WSUS に対し WSUS コンソールで承認された更新プログラムの有無を確認する動作となります。<br>MECM 環境下においては、WSUS で承認を行わないため [更新プログラムのチェック] をクリックしても MECM からの展開を検出せず、更新プログラムはダウンロードされません。<br>その為、MECM クライアント コンソール で各サイクルの実行にて展開を受け取る操作を行う事が、MECM からの展開を受け取れているのかを確認する正しい方法となります。</p>
+<p>展開を受け取るための MECM クライアント コンソールでの各サイクルの実行につきましては、以下ブログをご参考にしてくださいませ。<br>Title : Configuration Manager で、できる限り早く更新プログラムを適用する方法について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180619_01/">https://jpmem.github.io/blog/mecm/20180619_01/</a></p>
+<h1 id="更新プログラムのチェック-と-MECM-クライアント-コンソールでの各サイクルの実行の動作の違いについて"><a href="#更新プログラムのチェック-と-MECM-クライアント-コンソールでの各サイクルの実行の動作の違いについて" class="headerlink" title="[更新プログラムのチェック] と MECM クライアント コンソールでの各サイクルの実行の動作の違いについて"></a>[更新プログラムのチェック] と MECM クライアント コンソールでの各サイクルの実行の動作の違いについて</h1><p>Windows の更新とセキュリティでの [更新プログラムのチェック] を実行した際の動作と MECM クライアントが展開された更新プログラムを受け取る場合の動作は異なるものでありますため、その差異を補足いたします。</p>
+<p>クライアント側で Windows の更新とセキュリティでの「更新プログラムのチェック」を実行した際の動作としましては、OS の Update Orchestrator というサービスが Windows Update Agent (WUA) に要求を出し、 WSUS の承認情報を取得しにいきます。<br>その為、MECM 環境下においては、WSUS で承認を行わないため、[更新プログラムのチェック]をクリックしても MECM からの展開を検出せず、「最新です」と表示される動作になります。</p>
+<p>一方、MECM から展開された更新プログラムを受け取る場合の動作としましては、以下の流れとなります。</p>
+<ol>
+<li>CcmExec (MECM クライアントのプロセス) が Windows Update Agent (WUA) に要求を出し、ソフトウェアの更新ポイント サーバー (WSUS サーバー) に対してスキャンを行い、更新プログラムの要否を判断します。</li>
+<li>CcmExec が [コンピューター ポリシーの取得および評価サイクル] を実行するタイミングで MECM サーバーから更新プログラムの展開情報を受信します。</li>
+<li>スキャンの結果「必要」と判断した更新プログラムが展開されている場合、展開設定に応じてダウンロード、インストールを行います。</li>
+</ol>
+<p>その為、MECM から展開されている更新プログラムが、すべて適用されているかの確認につきましては、Windows の更新とセキュリティでの [更新プログラムのチェック] ではなく、 MECM クライアント コンソールで、<a href="https://jpmem.github.io/blog/mecm/20180619_01/">上述の公開情報</a>に記載の各サイクルの実行にて展開を受け取る操作をご実施後、ダウンロードされてくる更新プログラムの有無によりご確認いただく事が可能でございます。</p>
 
       
       
@@ -133,10 +131,10 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
         
-        <a href="https://github.com/jpmem/blog/edit/master/articles/wsus/2020-10-12_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpmem/blog/edit/master/articles/mecm/20220520_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -144,19 +142,10 @@
     
 <nav id="article-nav">
   
-    <a href="../2020-11-06_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          自動更新の検出頻度ポリシーの非 WSUS 環境における動作につきまして
-        
-      </div>
-    </a>
   
-  
-    <a href="../2020-09-08_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20220519_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点</div>
+      <div class="article-nav-title">Configuration Manager で削除された機能について</div>
     </a>
   
 </nav>
@@ -175,15 +164,15 @@
       <ul>
         
           <li>
-            <a href="../../mecm/20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
+            <a href="">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
           </li>
         
           <li>
-            <a href="../../mecm/20220519_01/">Configuration Manager で削除された機能について</a>
+            <a href="../20220519_01/">Configuration Manager で削除された機能について</a>
           </li>
         
           <li>
-            <a href="../2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
+            <a href="../../wsus/2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
           </li>
         
           <li>
@@ -191,7 +180,7 @@
           </li>
         
           <li>
-            <a href="../../mecm/20220511_01/">ccmcache フォルダー配下のキャッシュ クリア方法</a>
+            <a href="../20220511_01/">ccmcache フォルダー配下のキャッシュ クリア方法</a>
           </li>
         
       </ul>
