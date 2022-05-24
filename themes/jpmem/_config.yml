@@ -1,7 +1,7 @@
 # Header
 menu:
   Home: /
-  Archives: /archives
+  Archives: archives
   サポート情報: https://cssjpn.github.io/
   US Configuration Manager Blog: https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog
 
@@ -13,11 +13,11 @@ excerpt_link: Read More
 # Sidebar
 sidebar: right
 widgets:
+- recent_posts
 - category
 - tag
 # - tagcloud
 - archive
-- recent_posts
 
 # display widgets at the bottom of index pages (pagination == 2)
 index_widgets:
