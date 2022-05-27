@@ -37,7 +37,7 @@ github:
 skip_render:
   - '_data/*.png'
   - 'BingSiteAuth.xml'
-  - 'google4a4cd09c454aa91c.html'
+  - 'google205fa0981ca0f8de.html'
 
 # Deployment
 ## Docs: https://hexo.io/doc  s/deployment.html
@@ -109,7 +109,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: jpazure
+theme: jpmem
 
 feed:
   type: atom
