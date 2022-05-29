@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、お客様をサポートする中、我々が頻繁に遭遇する「重複 GUID 問題」についてご案内させて頂きます。是非、運用されている Configuration Manager (CM) について定期的にご確認いただき、System Health を良い状態に保つ一助にして頂きたく存じます。 重複 GUID 問">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2021-09-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-24T17:17:02.320Z">
+<meta property="article:modified_time" content="2022-05-29T09:47:44.182Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -158,80 +158,14 @@
 <li>以下のマスターイメージ用の CM クライアント インストール手順を実施します。</li>
 <li>マスターイメージを取得します。</li>
 </ol>
-<h4 id="マスターイメージ用-CM-クライアント-インストール手順"><a href="#マスターイメージ用-CM-クライアント-インストール手順" class="headerlink" title="マスターイメージ用 CM クライアント インストール手順"></a>マスターイメージ用 CM クライアント インストール手順</h4><h5 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h5><ul>
-<li>SMS Agent Host サービスの停止とスタート アップの種類の変更<br>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</li>
-</ul>
-<p>また、タスクスケジューラを開き [Microsoft] - [Configuration Manager] にある [Configuration Manager Health Evaluation] タスクを右クリックして [無効] にします。<br>これによって、SMS Agent Host サービスが自動で起動しないようになります。</p>
-<h5 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h5><ol>
-<li><p>以下の手順にて、サイト コードが “未割り当て” の状態でエージェントのセットアップを行います。</p>
-<ol>
-<li>サイト サーバーより、SCCM インストール フォルダー 配下に存在する Client フォルダーをコピーし保存します。インストール フォルダーの初期設定は以下になります。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure></li>
-<li>参照コンピューターにローカル管理者権限をもつユーザーでログインします。</li>
-<li> 項番 1) でコピーした Client フォルダーを、クライアント上の任意のフォルダーに格納します。</li>
-<li>サイト サーバーと通信できないようにするため、ネットワーク ケーブルを抜きます。</li>
-<li>[管理者として実行] にてコマンド プロンプトを開き、cd コマンドでクライアントに格納した Client フォルダーに移動します。</li>
-<li>以下のコマンドを実行します。<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe</span><br></pre></td></tr></table></figure>
-※オプションなしで ccmsetup.exe を実行することにより、”未割り当て” の状態でエージェントがセットアップされます。</li>
-<li>タスクマネージャーを起動して [プロセス] タブにて ccmsetup.exe が表示されなくなるまで待ちます。</li>
-<li>[コントロール パネル] -&gt; [システムとセキュリティ] -&gt; [Configuration Manager] を開き、以下のようにサイト コードが “未割り当て” の状態であることを確認します。<ul>
-<li>[コンポーネント] タブ : 「CCM 通知エージェント」以外のすべての項目が「インストール済み」であることを確認します。</li>
-<li>※ 「CCM 通知エージェント」は「無効」になります。</li>
-<li>[サイト] タブ : 「現在の割り当てサイト コード」が空欄であることを確認します。</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>SMS Agent Host サービスの停止とスタート アップの種類の変更<br>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
-</li>
-<li><p>SCCM で使用する自己署名証明書を削除する<br>以下の手順で自己署名証明書を削除します。  </p>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</li>
-<li>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
-</ol>
-</li>
-<li><p>SCCM 独自の信頼キーと管理ポイントの証明書を削除する</p>
-</li>
-</ol>
-<p>エージェントのインストール完了後に、もしネットワークに接続して、SCCM サーバー(管理ポイント サーバー) との通信が可能となった場合、参照コンピューターが、SCCM で使用する信頼キーと管理ポイントの証明書を WMI の中に保持した状態となる可能性があります。</p>
-<p>この場合、参照コンピューターに保存されている信頼キーや管理ポイントの証明書を削除する必要があります。wbemtest より、WMI 名前空間 “root\ccm\locationservices” に接続できない場合は、SCCM サーバーと一度も接続がされていないため、問題ありません。接続できる場合は、情報を削除するため、以下の手順を実施してください。</p>
-<p>以下の内容をサンプルとしてスクリプトを作成し、ps1 ファイルとして保存します。本スクリプトを実行することで、信頼キーや管理ポイントの証明書も削除されます。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\locationservices <span class="literal">-class</span> trustedrootkey | <span class="built_in">rwmi</span></span><br></pre></td></tr></table></figure>
-
-<p>スクリプトを作成した後、参照コンピューターでコマンド プロンプトを “管理者として実行” にて起動し、<br>以下のコマンドを実行します。</p>
-<p>※) C:\Temp にスクリプト DeleteTRK.ps1 を保存した場合</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Temp</span><br><span class="line">powershell.exe DeleteTRK.ps1</span><br></pre></td></tr></table></figure>
-<p>スクリプト実行完了後、以下の手順で、正常に信頼キーや証明書が削除されたことを確認します。</p>
-<ol>
-<li><p>コマンド プロンプトを “管理者として実行” にて起動して wbemtest を実行し、”root\ccm\locationservices” 名前空間に接続します。</p>
-</li>
-<li><p>「スーパークラス名の入力」はブランクのまま、「クラスの列挙」を “再帰” を有効にして実行します。</p>
-</li>
-<li><p>一覧から “TrustedRootKey” を選択し、ダブルクリックして開きます。</p>
-</li>
-<li><p> 開いた画面で「インスタンス」をクリックします。</p>
-</li>
-<li><p> インスタンスが存在しないことを確認します。</p>
-</li>
-<li><p>SMS Agent Host サービスのスタート アップの種類の変更</p>
-</li>
-</ol>
-<p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動（遅延開始）] に変更します。SMS Agent Host サービスを開始しないように注意してください。<br>また、タスクスケジューラを開き [Microsoft] - [Configuration Manager] にある [Configuration Manager Health Evaluation] タスクを右クリックして [有効] にします。<br>SMS Agent Host サービスを手動で開始しないように注意してください。</p>
-<ol start="6">
-<li>マスターイメージの採取<br>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。</li>
-</ol>
+<h4 id="マスターイメージ-の再取得手順"><a href="#マスターイメージ-の再取得手順" class="headerlink" title="マスターイメージ の再取得手順"></a>マスターイメージ の再取得手順</h4><p>以下のブログ記事の手順をご参照ください。</p>
+<p>MECM クライアントがインストールされた PC でマスター イメージを新規取得・再取得する手順<br><a href="https://jpmem.github.io/blog/mecm/20220418_01/#B-%E6%97%A2%E3%81%AB-MECM-%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E7%8A%B6%E6%85%8B%E3%81%8B%E3%82%89%E3%80%81%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE-%E2%80%9C%E5%86%8D%E2%80%9D-%E5%8F%96%E5%BE%97%E3%82%92%E8%A1%8C%E3%81%86%E6%89%8B%E9%A0%86">B. 既に MECM クライアントがインストールされている状態から、マスター イメージの “再” 取得を行う手順</a></p>
 <h2 id="どのように問題を予防すれば良いの"><a href="#どのように問題を予防すれば良いの" class="headerlink" title="どのように問題を予防すれば良いの?"></a>どのように問題を予防すれば良いの?</h2><p>恐れながら基本的に運用による予防をお願い致します。マスターイメージをキャプチャされる際は、CM に登録されないように。また、CMクライアントで管理されている実利用の端末（検証用途ではない）が仮想マシンで<br>作成されている場合、安易に仮想マシンの複製を行わないようにご対応ください。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cl3kf6u2l001q0np8281t5sxr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cl3r4c9dm001q0ote0zfnec2g" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
