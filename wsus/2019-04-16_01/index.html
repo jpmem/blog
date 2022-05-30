@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>WSUS クライアントのグループ ポリシー:その 1 – 基本編 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。WSUS サポートチームです。 今回は、WSUS をご利用いただく環境において、クライアントに対し必須構成となる下記の 2 つのグループ ポリシーについてご紹介します。WSUS クライアントのグループ ポリシーを構成する際に、参考にしてみてください。  [イントラネットの Microsoft 更新サービスの場所を指定する] [自動更新を構成する]  ※ 今回ご案内する WSUS や W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSUS クライアントのグループ ポリシー:その 1 – 基本編">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="こんにちは。WSUS サポートチームです。 今回は、WSUS をご利用いただく環境において、クライアントに対し必須構成となる下記の 2 つのグループ ポリシーについてご紹介します。WSUS クライアントのグループ ポリシーを構成する際に、参考にしてみてください。  [イントラネットの Microsoft 更新サービスの場所を指定する] [自動更新を構成する]  ※ 今回ご案内する WSUS や W">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/image1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/image2.png">
+<meta property="article:published_time" content="2019-04-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-30T03:28:03.539Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/image1.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2019-04-16_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2019-04-15T15:00:00.000Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WSUS クライアントのグループ ポリシー:その 1 – 基本編
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2019-04-15T15:00:00.000Z" itemprop="dateUpdated">2019-04-16</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>こんにちは。WSUS サポートチームです。</p>
+<p>今回は、WSUS をご利用いただく環境において、クライアントに対し必須構成となる下記の 2 つのグループ ポリシーについてご紹介します。WSUS クライアントのグループ ポリシーを構成する際に、参考にしてみてください。</p>
+<ol>
+<li>[イントラネットの Microsoft 更新サービスの場所を指定する]</li>
+<li>[自動更新を構成する]</li>
+</ol>
+<p>※ 今回ご案内する WSUS や Windows Update に関連するポリシーは、グループ ポリシー エディターの [コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [Windows Update] 配下に配置されています。</p>
+<p>なお、Windows 8 / Windows Server 2012 以降の OS にてグループ ポリシーを設定する場合の注意点につきまして、下記の記事にて紹介しております。Windows 8 / Windows Server 2012 以降の OS にてグループ ポリシーを設定される場合には、併せて下記の記事も参照してください。</p>
+<p>Title : WSUS クライアントのグループ ポリシー : その 2 – Windows 8 / Windows Server 2012 以降編<br>URL : <a target="_blank" rel="noopener" href="http://blogs.technet.com/b/jpwsus/archive/2015/03/24/wsus-2-windows-8-windows-server-2012.aspx">http://blogs.technet.com/b/jpwsus/archive/2015/03/24/wsus-2-windows-8-windows-server-2012.aspx</a></p>
+<h2 id="1-イントラネットの-Microsoft-更新サービスの場所を指定する"><a href="#1-イントラネットの-Microsoft-更新サービスの場所を指定する" class="headerlink" title="1. [イントラネットの Microsoft 更新サービスの場所を指定する]"></a>1. [イントラネットの Microsoft 更新サービスの場所を指定する]</h2><p><img src="/blog/wsus/2019-04-16_01/image1.png"></p>
+<p>設定例 : WSUS サーバーから更新プログラムの配信を行う場合<br>——————————————————————————————<br>◆ 設定値 : [有効]<br>◆ オプション :<br> – 更新を検出するためのイントラネットの更新サービスを設定する : [&lt;WSUS サーバーの URL&gt;] ※<br> – イントラネット統計サーバーの設定 : [&lt;WSUS サーバーの URL&gt;] ※<br>——————————————————————————————<br>※ 本グループ ポリシーで指定する 2 つの URL は、必ず同一に設定する必要があります。</p>
+<p>※ Windows Server 2012 以降の WSUS では、既定で利用されるポート番号が 80、443 から 8530、8531 に変更されています。URL を指定する際はポート番号も併せて指定してください。</p>
+<p>[ポリシーの説明]<br>このグループ ポリシーを有効にすることで、クライアントが接続を行うサーバーを Windows Update / Microsoft Update のサーバーから、WSUS サーバーへ変更出来ます。</p>
+<p>このため、WSUS サーバーをご利用いただく際には、必ずこのグループ ポリシーを “有効” に設定し、オプションの 2 箇所共に同じ WSUS サーバーの URL を指定してください。</p>
+<h2 id="2-自動更新を構成する"><a href="#2-自動更新を構成する" class="headerlink" title="2. [自動更新を構成する]"></a>2. [自動更新を構成する]</h2><p><img src="/blog/wsus/2019-04-16_01/image2.png"></p>
+<p>設定例 : 新たな更新プログラムの配信された場合は、自動ダウンロードしインストールを 3:00 に自動実行する場合<br>——————————————————————————————<br>◆ 設定値 : [有効]<br>◆ オプション :<br> – 自動更新の構成 : [4 – 自動ダウンロードしインストール日時を指定]<br> – 自動メンテナンス時にインストールする : [無効] ※<br> – インストールを実行する日 : [0 – 毎日]<br> – インストールを実行する時間 : [03:00]<br>——————————————————————————————<br>※ Windows 7 / Windows Server 2008 R2 以前の環境ではこの設定はありません。詳細は「WSUS をご利用いただく上で、よくご設定いただくグループ ポリシー : その 2 – Windows 8 / Windows Server 2012 以降編」を参照ください。</p>
+<p>[ポリシーの説明]<br>このグループ ポリシーは、WSUS を利用する上で必須の設定ではありませんが、有効にすることで、更新プログラムのインストール処理を、自動実行することが出来る非常に便利なグループ ポリシーです。是非併せて設定いただくことをご検討ください。</p>
+<p>また、このグループ ポリシーのオプションにて、具体的に更新プログラムのインストール処理を「どの処理まで」自動的に実行させるかも、細かく制御することが出来ます。</p>
+<p>上述のオプションによって、Windows Update の動作がどのように制御出来るのか、正しく理解するために、まずは手動で Windows Update が実行された際にクライアント内でどのような処理が行われるのか、以下に説明します。</p>
+<h3 id="Windows-Update-の処理の実行順序"><a href="#Windows-Update-の処理の実行順序" class="headerlink" title="Windows Update の処理の実行順序"></a>Windows Update の処理の実行順序</h3><p>Windows Update が手動で実行されると、クライアント内にて、下記の順番に処理が行われます。</p>
+<p>A. 更新プログラムの検出<br>⇒ クライアントに新たに適用が必要な更新プログラムがあるかどうかの確認処理</p>
+<p>B. 更新プログラムのダウンロード<br>⇒ 「A」にて検出された更新プログラムのダウンロード処理</p>
+<p>C. 更新プログラムのインストール<br>⇒ 「B」にてダウンロードされた更新プログラムのインストール処理</p>
+<p>なお、上記の順番は、WSUS の設定に関係なく、Windows Update / Microsoft Update サイトに対して更新プログラムの確認を行うよう設定していても、同様の順番に処理されます。</p>
+<h3 id="“自動更新の構成”-オプションの設定"><a href="#“自動更新の構成”-オプションの設定" class="headerlink" title="“自動更新の構成” オプションの設定"></a>“自動更新の構成” オプションの設定</h3><p>上記の動作を踏まえ、実際に “自動更新の構成” にて、どのように Windows Update の動作を制御出来るのかご説明します。“自動更新の構成” では、上述の A ～ C の「どの処理まで」自動的に実行するのか設定することが出来ます。具体的には、各設定を行うと下記のように Windows Update の動作が自動実行されます。</p>
+<p>[2 – ダウンロードとインストールを通知] :<br>⇒ A の処理は自動実行、B 以降の処理は手動実行</p>
+<p>・ [3 – 自動ダウンロードとインストールを通知]<br>⇒ B までの処理は自動実行、C 以降の処理は手動実行</p>
+<p>・ [4 – 自動ダウンロードしインストール日時を指定]<br>⇒ A ～ C すべての処理を自動実行、C の処理は指定した日時に実行し、再起動を実行</p>
+<p>・ [5 – ローカルの管理者の設定選択を許可]<br>⇒ クライアントのコントロール パネルにて、それぞれ設定することを許可</p>
+<p>例えば、「ユーザーに操作させることなく Windows Update を自動実行したい」場合には、上記の [4] 番の設定を行うと、指定した日時に Windows Update のすべての処理が自動実行されます。逆に「ユーザーが意図しないタイミングで、Windows Update の処理が自動実行されたら困る」場合には、このグループ ポリシー自体を無効に設定すると、A ～ C の処理いずれも自動実行されないようになります。</p>
+<p>このように環境に併せて、細かく Windows Update の制御が出来るグループ ポリシーですので、ぜひ積極的にご活用ください。</p>
+<p>&lt;補足 : クライアントがドメインに参加していない場合&gt;<br>もちろん、ドメインに参加していないクライアントでも、ローカル グループ ポリシーやグループ ポリシーに対応するレジストリ値を変更することで、同様に WSUS をご利用いただけますので、是非ご参考にしてください。</p>
+<p>なお、グループポリシーの各項目とレジストリの値の対応関係につきましては、英語情報のみにて恐縮ですが、以下の公開情報がございますのでご紹介します。</p>
+<p>WSUS 3.0 SP2 の展開ガイド<br>” Configure Clients in a Non-Active Directory Environment”<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx</a><br>なお、下記の日本語版はすでにサポートを終了した前製品：WSUS 2.0 の情報ですが、多くの部分は WSUS 3.0 SP2 にも該当しますので、ご参考までに付記します。</p>
+<p>WSUS 2.0 の展開ガイド<br>“Active Directory 以外の環境で自動更新を構成する”<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cl3s67vgm00520mlggq8i3uiy" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../mecm/20190417_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Microsoft Endpoint Configuration Manager ハードウェア インベントリが収集されない時のトラブルシュート
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../mecm/20190327_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220519_01/">Configuration Manager で削除された機能について</a>
+          </li>
+        
+          <li>
+            <a href="../2022-05-18_01/">WSUS でクライアントが正常に認識されない SusClientID の重複とは</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
