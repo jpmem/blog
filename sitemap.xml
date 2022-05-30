@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jpmem.github.io/blog/wsus/2022-05-09_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpmem.github.io/blog/wsus/2022-05-18_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>https://jpmem.github.io/blog/wsus/2022-05-23_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2022-05-09_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -38,6 +38,27 @@
   
   <url>
     <loc>https://jpmem.github.io/blog/wsus/2022-04-08_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2020-08-24_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2020-09-08_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2020-10-12_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -79,27 +100,6 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/wsus/2020-08-24_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2020-09-08_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2020-10-12_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpmem.github.io/blog/wsus/2019-02-14_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -122,20 +122,6 @@
   
   <url>
     <loc>https://jpmem.github.io/blog/wsus/2020-07-21_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2018-06-29_02/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2018-07-12_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -170,7 +156,56 @@
   </url>
   
   <url>
+    <loc>https://jpmem.github.io/blog/wsus/2018-06-29_02/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2018-07-12_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpmem.github.io/blog/wsus/2017-12-11_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2017-09-08_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2017-12-05_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2014-03-05_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2014-04-02_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/wsus/2016-03-29_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -212,14 +247,7 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/wsus/2017-09-08_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2017-12-05_01/</loc>
+    <loc>https://jpmem.github.io/blog/wsus/2011-10-31_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -240,21 +268,7 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/wsus/2014-03-05_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2014-04-02_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/wsus/2016-03-29_01/</loc>
+    <loc>https://jpmem.github.io/blog/w365/2022-04-12_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -268,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/wsus/2011-10-31_01/</loc>
+    <loc>https://jpmem.github.io/blog/w365/2022-03-28_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -282,21 +296,21 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/w365/2022-04-12_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/w365/2022-03-28_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpmem.github.io/blog/w365/2021-09-13_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/w365/2021-08-04_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/w365/2021-08-11_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -324,14 +338,14 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/w365/2021-08-04_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20220520_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/w365/2021-08-11_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20220522_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -352,20 +366,6 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220520_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220522_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpmem.github.io/blog/mecm/20220501_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -373,14 +373,14 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220426_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20220421_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220421_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20220426_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -408,13 +408,6 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220408_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpmem.github.io/blog/mecm/20220328_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -429,6 +422,13 @@
   </url>
   
   <url>
+    <loc>https://jpmem.github.io/blog/mecm/20220408_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpmem.github.io/blog/mecm/20220321_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -436,21 +436,14 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220307_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/mecm/20220125_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpmem.github.io/blog/mecm/20220208_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/mecm/20220307_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -471,14 +464,7 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20211118_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/mecm/20211122_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20220125_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -499,14 +485,28 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20211028_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20211108_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20211108_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20211118_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/mecm/20211122_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpmem.github.io/blog/mecm/20211028_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -576,14 +576,14 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20181010_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20180911_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20180911_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20181010_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -646,6 +646,13 @@
   </url>
   
   <url>
+    <loc>https://jpmem.github.io/blog/mecm/20180509_01/</loc>
+    
+    <lastmod>2022-05-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpmem.github.io/blog/mecm/20180302_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -660,7 +667,7 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20180509_01/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20161007_02/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -695,14 +702,14 @@
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20161007_02/</loc>
+    <loc>https://jpmem.github.io/blog/mecm/20170208_01/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpmem.github.io/blog/mecm/20170208_01/</loc>
+    <loc>https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
@@ -738,13 +745,6 @@
   
   <url>
     <loc>https://jpmem.github.io/blog/mecm/20140818_01/</loc>
-    
-    <lastmod>2022-05-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/</loc>
     
     <lastmod>2022-05-30</lastmod>
     
