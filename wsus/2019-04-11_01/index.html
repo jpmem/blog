@@ -5,23 +5,20 @@
   
 
   
-  <title>Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows Update の “更新履歴の表示” が示す内容について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介">
+  <meta name="description" content="こんにちは。日本マイクロソフトです。 WSUS クライアント &#x2F; Windows Update に関するトラブルシュートの際に、「%windir%\SoftwareDistribution」フォルダをリネームするという、Windows Update のキャッシュ削除の対処をご案内する事が多くございます。ところがこれを実施すると、Windows Update の「更新履歴の表示」の情報が消去される、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Microsoft Defender &#x2F; System Center Endpoint Protection の定義ファイルのダウンロードの最適化について">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180308_01/index.html">
+<meta property="og:title" content="Windows Update の “更新履歴の表示” が示す内容について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-04-11_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介">
+<meta property="og:description" content="こんにちは。日本マイクロソフトです。 WSUS クライアント &#x2F; Windows Update に関するトラブルシュートの際に、「%windir%\SoftwareDistribution」フォルダをリネームするという、Windows Update のキャッシュ削除の対処をご案内する事が多くございます。ところがこれを実施すると、Windows Update の「更新履歴の表示」の情報が消去される、">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180308_01/20180308_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180308_01/20180308_01_02.png">
-<meta property="article:published_time" content="2018-03-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-02T06:29:58.759Z">
+<meta property="article:published_time" content="2019-04-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-02T06:29:58.995Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180308_01/20180308_01_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -87,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20180308_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2019-04-11_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2018-03-07T15:00:00.000Z" itemprop="datePublished">2018-03-08</time>
+  <time datetime="2019-04-10T15:00:00.000Z" itemprop="datePublished">2019-04-11</time>
 </a>
     <!--  -->
   </div>
@@ -101,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について
+      Windows Update の “更新履歴の表示” が示す内容について
     </h1>
   
 
@@ -110,32 +107,30 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2018-03-07T15:00:00.000Z" itemprop="dateUpdated">2018-03-08</time>
+    <time datetime="2019-04-10T15:00:00.000Z" itemprop="dateUpdated">2019-04-11</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
-<p>今回は Microsoft Defender または System Center Endpoint Protection (以下、SCEP) をご利用の皆様に、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法についてご紹介いたします。</p>
-<p>まず、SCEP の定義ファイルにつきましては、2018 年 3 月 8 日現在、基本的に 1 日に 6 回リリースされております。このように毎日頻繁にリリースされるため、Configuration Manager で配信する場合は、次の公開情報の通り、自動展開規則の機能を使用して、定義ファイルを配信する必要があります。</p>
-<p>Title: 定義ファイルの更新を配布するように自動展開規則を構成するには<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sccm/protect/deploy-use/endpoint-definitions-configmgr">https://docs.microsoft.com/ja-jp/sccm/protect/deploy-use/endpoint-definitions-configmgr</a></p>
-<p>自動展開規則を使用する場合、「プロパティ フィルター」を使用して Configuration Manager に同期された更新プログラムから Microsoft Defender または SCEP の定義ファイルだけを自動展開するように構成する必要がありますが、この設定においてクライアントにダウンロードされる容量を少なくするためのポイントがあります。<strong>それは「置き換えられる」を「いいえ」に設定すること</strong>です。</p>
-<p><img src="/blog/mecm/20180308_01/20180308_01_01.png"></p>
-<p>「置き換えられる」を「いいえ」に設定しなかった場合、 SCEP 定義ファイルの展開は可能ですが、上述の通り 1 日 6 回リリースされますので、以下の通り 6 つの定義ファイルが展開されることになります。</p>
-<p><img src="/blog/mecm/20180308_01/20180308_01_02.png"></p>
-<p>定義ファイルを最新化するためには、最新の 1 つの定義ファイルのみダウンロードされればよいのですが、「置き換えられる」：「いいえ」を設定しなかった場合、最大で 6 つの定義ファイルがクライアントにダウンロードされることになります。これでも最新の定義ファイルのインストールが完了すれば、定義ファイルは最新化されますが、本来は 1 つの定義ファイルのみダウンロードすれば良いにもかかわらず、古い定義ファイルもダウンロードされることになりますので、適用までに時間を要する、もしくはクライアントと配布ポイント間のネットワーク トラフィックが増大する可能性があります。</p>
-<p>そのため、もしクライアントと配布ポイント間のトラフィックにおいて、定義ファイルのダウンロードにかかるサイズが大きくなっている場合は、上述の設定をすることで、低減できますのでご確認くださいますようお願いいたします。</p>
-<p>また、定義ファイルは 1 つの定義ファイルにつき、6 世代前までの差分の定義ファイルを持っておりますので、1 日複数回など頻繁に更新を行うことで、ダウンロードされる定義ファイルのサイズも少なくなります。こちらもクライアントと配布ポイント間のネットワーク トラフィックを低減させる方法の 1 つですので、ご検討くださいませ。</p>
+        <p>こんにちは。日本マイクロソフトです。</p>
+<p>WSUS クライアント / Windows Update に関するトラブルシュートの際に、「%windir%\SoftwareDistribution」フォルダをリネームするという、Windows Update のキャッシュ削除の対処をご案内する事が多くございます。<br>ところがこれを実施すると、Windows Update の「更新履歴の表示」の情報が消去される、という副作用があり、この点についてご懸念を伺うことがあります。<br>本日は、そのご懸念に対する回答についてご案内いたします。  </p>
+<p>-　回答：  </p>
+<p>「更新履歴の表示」は、更新プログラムの適用有無を判断する材料としては使うことができない情報であり、また今後の更新プログラムの適用動作には一切影響しないことから、削除しても差し支えありません。  </p>
+<p>-　説明回答解説：  </p>
+<p>「更新履歴の表示」が示す情報は「WSUS ( またはWindows Update ) クライアントが、更新の適用を試みたという事実、およびその結果」のみです。<br>Windows Update を利用しない、ユーザー様が明示的に適用した更新プログラムについては( OS にもよりますが ) この履歴では確認ができません。  </p>
+<p>また履歴上「更新プログラム A をインストールした」とされていても、その後、手動で A をアンインストールしてしまうと、更新履歴からはそのことが判別できません。<br>このように、更新プログラムの真の適用状況 / システム内の脆弱性の有無を判断するための情報源としては機能しない内容となっています。  </p>
+<p>では、そのような適用プログラムの要否や脆弱性の有無のチェックは、Windows Update はどうやって行っているかですが、これは履歴情報を参照するのではなく、その時点のシステムの状態 (ファイル バージョン等) をそのつど確認して判定しています。<br>チェックの結果は、WSUS サーバーに、各クライアントの状態レポートとして格納されていますので、通常はそれを管理情報としてお使いいただけばよいという考え方となっています。  </p>
+<p>なお「%windir%\SoftwareDistribution」フォルダ自体が、OS のバックアップやスナップショットの対象からも除外されておりますので、システムのリストアを行うとやはりこの情報は消去されます。<br>この観点からも、更新プログラムの真の適用状況 / システム内の脆弱性の有無を判断するための情報源としては機能しない内容とご理解頂ければと存じます。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180308_01/" data-id="cl3wn1ckv000n0onwaf9339kt" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="cl3wn1cmw00560onw3s4kbawd" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -143,19 +138,19 @@
     
 <nav id="article-nav">
   
-    <a href="../20180509_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2019-04-16_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          System Center Configuration Manager に Office 365 Pro Plus の更新プログラムを同期する際の注意事項
+          WSUS クライアントのグループ ポリシー:その 1 – 基本編
         
       </div>
     </a>
   
   
-    <a href="../20180302_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20190327_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Endpoint Configuration Manager (MECM) におけるウイルス対策ソフトの除外設定について</div>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</div>
     </a>
   
 </nav>
@@ -174,23 +169,23 @@
       <ul>
         
           <li>
-            <a href="../20220529_01/">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</a>
+            <a href="../../mecm/20220529_01/">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</a>
           </li>
         
           <li>
-            <a href="../../wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
+            <a href="../2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
           </li>
         
           <li>
-            <a href="../20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+            <a href="../../mecm/20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
           </li>
         
           <li>
-            <a href="../20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
+            <a href="../../mecm/20220520_01/">MECM 環境下のクライアントにおける [更新プログラムのチェック] の動作について</a>
           </li>
         
           <li>
-            <a href="../20220519_01/">Configuration Manager で削除された機能について</a>
+            <a href="../../mecm/20220519_01/">Configuration Manager で削除された機能について</a>
           </li>
         
       </ul>
