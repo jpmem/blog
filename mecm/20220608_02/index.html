@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MECM パッケージとアプリケーションどっちを使うべき？違いを解説！ | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は MECM のパッケージとアプリケーションの違いを解説させていただきます。これから展開を行いたいコンテンツがどちらを使えば要望にマッチするのか意識しながら確認してみてください。   実行タイミングの違いパッケージとアプリケーションとで実行タイミングに大きな違いがありますのでそれぞれ解説させていただき">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MECM パッケージとアプリケーションどっちを使うべき？違いを解説！">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220608_02/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は MECM のパッケージとアプリケーションの違いを解説させていただきます。これから展開を行いたいコンテンツがどちらを使えば要望にマッチするのか意識しながら確認してみてください。   実行タイミングの違いパッケージとアプリケーションとで実行タイミングに大きな違いがありますのでそれぞれ解説させていただき">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_06.png">
+<meta property="article:published_time" content="2022-06-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-08T05:04:01.995Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220608_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2022-06-07T15:00:00.000Z" itemprop="datePublished">2022-06-08</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MECM パッケージとアプリケーションどっちを使うべき？違いを解説！
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2022-06-07T15:00:00.000Z" itemprop="dateUpdated">2022-06-08</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>今回は MECM のパッケージとアプリケーションの違いを解説させていただきます。これから展開を行いたいコンテンツがどちらを使えば要望にマッチするのか意識しながら確認してみてください。  </p>
+<h2 id="実行タイミングの違い"><a href="#実行タイミングの違い" class="headerlink" title="実行タイミングの違い"></a>実行タイミングの違い</h2><p>パッケージとアプリケーションとで実行タイミングに大きな違いがありますのでそれぞれ解説させていただきます。  </p>
+<p>※ なお、これから解説を行う実行タイミングは <strong>「必須」展開を前提</strong> としております。<br>「利用可能」展開の場合には、展開後のクライアント端末上のソフトウェア センターからのユーザー操作により実行されます。  </p>
+<h3 id="パッケージの実行タイミング"><a href="#パッケージの実行タイミング" class="headerlink" title="パッケージの実行タイミング"></a>パッケージの実行タイミング</h3><p>パッケージでは明確に実行のタイミングを指定することができます。<br>「何時何分に実行したい」などの要件が明確な場合にはパッケージの使用を検討しましょう。  </p>
+<p><img src="/blog/mecm/20220608_02/20220608_02_01.png" alt="image.png"></p>
+<p>また、任意の間隔で繰り返し実行を設定することも可能です。<br>「繰り返しパターン」では月、週、時間単位で繰り返し実行をスケジュールすることができるので、「月末に実行させたい」や「毎週金曜日に実行させたい」、「6 時間おきに実行させたい」など様々なパターンを設定可能です。  </p>
+<p><img src="/blog/mecm/20220608_02/20220608_02_02.png" alt="image.png"></p>
+<h3 id="アプリケーションの実行タイミング"><a href="#アプリケーションの実行タイミング" class="headerlink" title="アプリケーションの実行タイミング"></a>アプリケーションの実行タイミング</h3><p>アプリケーションではパッケージのような特定のタイミングで実行、繰り返し実行を設定することはできません。  </p>
+<p>アプリケーションではインストール可能となる日時と、インストールの期限を設定します。<br>クライアントがアプリケーションが展開されたことを検知すると設定されたインストール可能日時とインストール期限の間でランダムにインストール日時をスケジュールします。  </p>
+<p>なお、展開後すぐに実行させたい場合には、[アプリケーションが使用可能になる日時を指定する] のチェックを外し、「インストール期限」= [使用可能な時間後直ちに] を指定ください。</p>
+<p><img src="/blog/mecm/20220608_02/20220608_02_04.png" alt="image.png"></p>
+<h2 id="再実行の動作の違い"><a href="#再実行の動作の違い" class="headerlink" title="再実行の動作の違い"></a>再実行の動作の違い</h2><p>パッケージとアプリケーションとでは、実行が失敗した際の再実行の動作が異なります。  </p>
+<p><strong>・パッケージ → 特定の設定が必要</strong><br><strong>・アプリケーション → 設定は不要で既定で用意された機能に沿って再実行される。</strong>  </p>
+<p>パッケージでは失敗時にのみ再実行させるためには特定の設定が必要となるのに対して、アプリケーションでは失敗後、既定で設定されているアプリケーションの評価サイクルにより再実行が促されます。  </p>
+<h3 id="パッケージの再実行"><a href="#パッケージの再実行" class="headerlink" title="パッケージの再実行"></a>パッケージの再実行</h3><p>パッケージにおける再実行の動作には抑えておくべきポイントがございます。<br>詳細におきましては「<a href="https://jpmem.github.io/blog/mecm/20220421_01/">MECM パッケージの再実行の設定方法について解説！</a>」をご参照ください。  </p>
+<h3 id="アプリケーションの再実行"><a href="#アプリケーションの再実行" class="headerlink" title="アプリケーションの再実行"></a>アプリケーションの再実行</h3><p>アプリケーションの再実行におきましては、下記の [ソフトウェアの展開] クライアント設定の「展開の再評価スケジュールを指定する」のスケジュールに沿って再実行が必要かどうかを決定します。  </p>
+<p><img src="/blog/mecm/20220608_02/20220608_02_05.png" alt="image.png"></p>
+<p>この再評価スケジュールでは、該当のアプリケーションのインストール状況を確認し、未インストールと判定（後にご紹介する検出規則を元に判定します。）された場合には、このタイミングでインストールを再実行します。  </p>
+<h2 id="アプリケーション特有の機能"><a href="#アプリケーション特有の機能" class="headerlink" title="アプリケーション特有の機能"></a>アプリケーション特有の機能</h2><p>以降はアプリケーション特有の機能についてご紹介させていただきます。  </p>
+<h3 id="アプリケーションのインストール条件を設定する（検出規則）"><a href="#アプリケーションのインストール条件を設定する（検出規則）" class="headerlink" title="アプリケーションのインストール条件を設定する（検出規則）"></a>アプリケーションのインストール条件を設定する（検出規則）</h3><p>アプリケーションには検出規則というインストールを実行するかどうかの判定を行う機能がございます。例えば、特定のレジストリの値を評価し、特定の値よりも小さい場合にはインストールを行う（大きい場合にはインストールをしない）などを設定することができます。なお、検出規則はアプリケーション作成時には必ず設定が必要となります。  </p>
+<p>設定できる検出規則の種類は以下の通りです。  </p>
+<ul>
+<li><strong>ファイル システム</strong><br>ファイル/フォルダの有無、または更新日などを判定条件とすることができます。  </li>
+<li><strong>レジストリ</strong><br>特定のレジストリキーの有無や値の評価を条件とすることができます。  </li>
+<li><strong>Windows インストーラー</strong><br>msi ファイルを読み込ませることで該当のアプリケーションのインストールの有無を条件とすることができます。  </li>
+<li><strong>カスタム スクリプト</strong><br>PowerShell などのスクリプトの実行結果により、判定させることができます。スクリプトの実行結果や、STDOUT の有無などにより、判定結果を決定します。<br>詳細については、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-applications#about-custom-script-detection-methods">カスタム スクリプト検出方法について</a> を参照くださいませ。  </li>
+</ul>
+<p>レジストリを検出規則とした例です。<br>※ アプリケーションの [展開の種類] にて設定を行います。<br><img src="/blog/mecm/20220608_02/20220608_02_06.png" alt="image.png">  </p>
+<h3 id="置き換え関係の構成"><a href="#置き換え関係の構成" class="headerlink" title="置き換え関係の構成"></a>置き換え関係の構成</h3><p>置き換え関係を構成することにより、アプリケーションのインストール時に指定した置き換え関係にあるアプリケーションをアンインストールしてからインストールさせることができます。なお、置き換え規則は必要に応じて設定いただくことが可能でございますので、必須の設定ではございません。  </p>
+<p>例えば、新しいバージョンのアプリケーションをインストールさせたい場合、過去のバージョンのアプリケーションを置き換え関係として設定することで、古いバージョンをアンインストールしてから新しいバージョンのインストールを実行させることができます。  </p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>パッケージとアプリケーションの違いについて解説させていただきました。おわかりの通り、アプリケーションではパッケージにはない様々な機能を使用することができます。しかし、パッケージの方が手軽に展開を行えることもまた、ご理解いただけたかと思います。  </p>
+<p>そのため、  </p>
+<ul>
+<li><p>シンプルなコマンドの実行やアプリケーションのインストールをしたい</p>
+</li>
+<li><p>1 度だけ実行したい</p>
+</li>
+<li><p>繰り返し実行したい<br>　→　<strong>パッケージ</strong>  </p>
+</li>
+<li><p>インストールの条件を設定したい（条件を満たさない場合には自動的にインストールを促したい）</p>
+</li>
+<li><p>置き換えたいアプリケーションがある<br>　→　<strong>アプリケーション</strong>  </p>
+</li>
+</ul>
+<p>のように使い分けてみましょう！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20220608_02/" data-id="cl454lx5l003a0oroagi33glg" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/2022-06-06_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS の仕組み ダウンロード編</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
+          </li>
+        
+          <li>
+            <a href="../20220529_01/">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
+          </li>
+        
+          <li>
+            <a href="../20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
