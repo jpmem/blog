@@ -5,29 +5,20 @@
   
 
   
-  <title>SCCM CB 自動クライアント アップグレード手順 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>レプリカ WSUS サーバーの同期がタイムアウトで失敗する | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+  <meta name="description" content="皆さま こんにちは。WSUS サポート チームです。 WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。 レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SCCM CB 自動クライアント アップグレード手順">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180823_01/index.html">
+<meta property="og:title" content="レプリカ WSUS サーバーの同期がタイムアウトで失敗する">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-04-09_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+<meta property="og:description" content="皆さま こんにちは。WSUS サポート チームです。 WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。 レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_04.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_05.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_06.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_07.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_08.png">
-<meta property="article:published_time" content="2018-08-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-08T05:05:07.442Z">
+<meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-08T05:05:07.650Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -93,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20180823_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2019-04-09_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+  <time datetime="2019-04-08T15:00:00.000Z" itemprop="datePublished">2019-04-09</time>
 </a>
     <!--  -->
   </div>
@@ -107,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SCCM CB 自動クライアント アップグレード手順
+      レプリカ WSUS サーバーの同期がタイムアウトで失敗する
     </h1>
   
 
@@ -116,53 +107,42 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2018-08-22T15:00:00.000Z" itemprop="dateUpdated">2018-08-23</time>
+    <time datetime="2019-04-08T15:00:00.000Z" itemprop="dateUpdated">2019-04-09</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。</p>
-<p>日本マイクロソフト System Center Configuration Manager サポートチームです。</p>
-<p>本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。<br>SCCM CB クライアントのアップグレード方法は、以下のように、複数がございます。</p>
-<p>・自動クライアント アップグレード<br>・クライアント プッシュ インストール<br>・グループ ポリシーによるインストール<br>・ログオン スクリプトによるインストール<br>・手動インストール<br>・アップグレード インストール</p>
-<p>お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少ない方法となりますので、クライアントのアップグレードの際に、本機能のご利用をご検討いただけますと幸いです。</p>
-<h2 id="クライアント-アップグレード動作の流れ"><a href="#クライアント-アップグレード動作の流れ" class="headerlink" title="クライアント アップグレード動作の流れ"></a>クライアント アップグレード動作の流れ</h2><ol>
-<li><p>[Configuration Manager コンソール] を開き、以下の画面に移動します。<br>[管理] - [概要] - [サイトの構成] - [サイト]<br><img src="/blog/mecm/20180823_01/20180823_01_01.png"></p>
+        <p>皆さま こんにちは。WSUS サポート チームです。</p>
+<p>WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。</p>
+<p>レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。<br>親 WSUS サーバーで大量の「拒否済み」の更新プログラムがある状態で、レプリカの WSUS サーバーが同期を行うとタイムアウトが発生し、同期が失敗する可能性があることが判っています。<br>目安としましては、親 WSUS サーバーにて一度に約 1,000 件ほどの更新プログラムを手動で「拒否済み」に変更し、レプリカ WSUS サーバーで同期を行いますと、タイムアウト発生に至る場合があることを確認しております。同期の条件 (初回か2回目以降か等) や 性能面の条件 (データベースの状態、サーバー スペック、WSUS サーバーの全体的な負荷等) によっても変動いたします。<br>また、多数の「拒否済み」データをレプリカ同期において取り扱えないという点は、WSUS サーバーの設計上の問題として認識しております。</p>
+<h2 id="「拒否済み」-の更新プログラムが大量にあることでレプリカの-WSUS-サーバーで同期が失敗する主な要因"><a href="#「拒否済み」-の更新プログラムが大量にあることでレプリカの-WSUS-サーバーで同期が失敗する主な要因" class="headerlink" title="「拒否済み」 の更新プログラムが大量にあることでレプリカの WSUS サーバーで同期が失敗する主な要因"></a>「拒否済み」 の更新プログラムが大量にあることでレプリカの WSUS サーバーで同期が失敗する主な要因</h2><p>拒否済みの更新プログラムの件数が多くなりやすく、この事象が特に顕著に出やすいパターンは以下の 3 点です。</p>
+<ol>
+<li><p>WSUS サーバーの構築後、長期間にわたりサーバー クリーンアップ ウィザードを実施していないこと。</p>
 </li>
-<li><p>リボンメニューから、[階層設定] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png"></p>
+<li><p>定義更新ファイル (※) をクラスとして選択していること。<br>定義更新プログラムは、下記の弊社サイトにてご紹介しているとおり、1 日に複数回の頻度で古い更新プログラムを置き換える、新しい更新プログラムが公開されます。<br>置き換えられた古い更新プログラムは、期限切れ（配信停止の設定）となり、この更新プログラムの承認ステータスは、自動的に「拒否済み」 となります。（既定のオプション設定の場合に限ります。）<br>そのため、定義更新プログラムを同期対象としている場合には、拒否済みの更新プログラムが蓄積されやすい構成といえます。<br>なお、期限切れとなった更新プログラムは、サーバー クリーンアップ ウィザードで削除する事ができます。<br>(※)<br>＜参考情報＞<br>Title: Microsoft Defender ウイルス対策更新プログラムのソースを管理する<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/microsoft-365/security/defender-endpoint/manage-protection-updates-microsoft-defender-antivirus?view=o365-worldwide">https://docs.microsoft.com/ja-jp/microsoft-365/security/defender-endpoint/manage-protection-updates-microsoft-defender-antivirus?view=o365-worldwide</a><br>————— 一部抜粋 ———————-<br>セキュリティ インテリジェンス更新プログラムにはエンジンの更新プログラムが含まれており、月単位でリリースされます。 セキュリティ インテリジェンスの更新プログラムも 1 日に複数回配信されますが、このパッケージにはエンジンは含まれていません。<br>—————————————————-  </p>
 </li>
-<li><p>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。</p>
-</li>
-<li><p>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png"></p>
-</li>
-<li><p>[OK] ボタンをクリックし、画面を閉じます。</p>
-</li>
-<li><p>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、リボンメニューから [実稼働前クライアントの昇格] をクリックします。<br>ここで、確認メッセージが表示されますので、[昇格] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png"></p>
+<li><p>WSUS サーバー管理者様が配信不要と判断し、手動にて 「拒否済み」 にステータスを変更した更新プログラムが大量にあること。</p>
 </li>
 </ol>
-<p>手順は、以上となります。</p>
-<p>管理対象が多い大規模の環境では、自動クライアント アップグレードの機能を有効にすることで、一気にクライアントのアップグレードがされ、ネットワークを逼迫することが懸念点として考えられますが、上記の設定画面にて、自動アップグレードの期間を長く指定してきただくことで、ネットワークの負荷を分散することができます。</p>
-<p>例えば、指定可能な最長日数の 31 としていただきますと、クライアントは、1 ~ 31 日の期間中、ランダムの日付に、アップグレードを行います。<br>念の為、具体的なクライアントのアップグレード動作を、補足説明いたしますのでご参考いただけますと幸いです。</p>
-<h2 id="クライアント-アップグレードの動作の流れ"><a href="#クライアント-アップグレードの動作の流れ" class="headerlink" title="クライアント アップグレードの動作の流れ"></a>クライアント アップグレードの動作の流れ</h2><ol>
-<li> SCCM サーバにおいて自動クライアント アップグレードを有効にする際に、アップグレード期間を指定します。</li>
-<li>クライアントが自動クライアント アップグレードのポリシーを受信します。</li>
-<li>クライアントのタスク スケジューラに、指定した日数内で、ランダムな日時に開始されるクライアント アップグレードのタスクが登録されます。</li>
-<li>登録されたタスクに開始時刻に、クライアントはそれぞれアップグレードを開始します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png"><br><img src="/blog/mecm/20180823_01/20180823_01_08.png"></li>
-</ol>
+<h2 id="レプリカの-WSUS-サーバーで同期エラーの対処方法"><a href="#レプリカの-WSUS-サーバーで同期エラーの対処方法" class="headerlink" title="レプリカの WSUS サーバーで同期エラーの対処方法"></a>レプリカの WSUS サーバーで同期エラーの対処方法</h2><p>対処方法といたしましては、「拒否済み」の更新プログラムの件数を、減らす事となります。<br>拒否済みの更新プログラムの件数を削減する、3 点の方法をご紹介いたします。</p>
+<p>【手順 A】サーバー クリーンアップ ウィザードにて、 「不要な更新および更新のリビジョン」 を実行します。</p>
+<p>これによって、期限切れとなった結果、拒否済みのステータスとなっている更新プログラムを、WSUS データベースから削除する事ができます。  </p>
+<p>＜注意点＞<br>クリーンアップは 子 WSUS サーバー ⇒ 親 WSUS サーバーの順番に実行します。</p>
+<p>Title: レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください<br>URL: <a href="https://jpmem.github.io/blog/wsus/2012-06-07_01/">https://jpmem.github.io/blog/wsus/2012-06-07_01/</a>  </p>
+<p>＜補足事項＞<br>WSUS サーバーを長期的に運用され、一度もサーバー クリーンアップ ウィザードを実施されていない場合には、クリーンアップがタイムアウトしてしまう可能性がございます。<br>インデックスの再構成を実行して、WSUS データベースをメンテナンスする事によって、タイムアウトを軽減する事が可能です。<br>手順は、以下の情報もご参照下さい。</p>
+<p>Title: WSUS DB インデックスの再構成の手順について<br>URL: <a href="https://jpmem.github.io/blog/wsus/2014-03-05_01/">https://jpmem.github.io/blog/wsus/2014-03-05_01/</a>  </p>
+<p>【手順 B】 手順 A. にて解消せず、また WSUS 管理者様が明示的 (手動作業) に、手動で「拒否済み」に設定した更新プログラムが多い場合には、手動で「拒否済み」のステータス設定した更新プログラムを「未承認」に戻します。更新プログラムのステータスを「未承認」に変更することで「拒否済み」の件数が減少し、同期の失敗は解消されることが期待されます。  </p>
+<p>【手順 C】手順 A. および 手順 B. を実施して現象が改善した後にも、直ぐに現象が再発する場合や、手順 B の実施が運用ポリシー上、難しい場合には、親 WSUS サーバーの再構築を検討します。<br>配信不要な「製品」および「クラス」を同期対象から削除して再構築して頂く事によって、不要なデータが蓄積されていないクリーンな状態で運用して頂け、その結果として、レプリカ同期失敗の事象発生を回避する事が可能です。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cl454nc9i00150oph16cohaj5" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cl454ncbc00570ophge3p7dag" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -170,19 +150,19 @@
     
 <nav id="article-nav">
   
-    <a href="../20180911_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2019-04-11_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)
+          Windows Update の “更新履歴の表示” が示す内容について
         
       </div>
     </a>
   
   
-    <a href="../20180823_02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20190327_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager サイトのアップグレード手順</div>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</div>
     </a>
   
 </nav>
@@ -201,23 +181,23 @@
       <ul>
         
           <li>
-            <a href="../20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
+            <a href="../../mecm/20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
           </li>
         
           <li>
-            <a href="../../wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
+            <a href="../2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
           </li>
         
           <li>
-            <a href="../20220529_01/">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</a>
+            <a href="../../mecm/20220529_01/">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</a>
           </li>
         
           <li>
-            <a href="../../wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
+            <a href="../2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>
           </li>
         
           <li>
-            <a href="../20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
+            <a href="../../mecm/20220522_01/">クラウド管理ゲートウェイ (CMG) の監視と運用</a>
           </li>
         
       </ul>
