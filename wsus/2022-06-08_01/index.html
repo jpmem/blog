@@ -5,35 +5,20 @@
   
 
   
-  <title>WSUS の仕組み ダウンロード編 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS の仕組みについて、少し掘り下げてご紹介していきたいと思います。WSUS は更新プログラムをクライアントへ配信できる機能であることはご存じの方も多いかと思いますが、どのような過程を経て更新プログラムがクライアントに取得されるかご存じでしょうか。仕組みの理解やトラブルシューティング時にもお役立ていただけるとなっておりますのでぜひ">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS で 「削除の承認」 を設定しても  Windows 10 2004 以降 &#x2F; Windows 11 のクライアントに反映されない事象についてご紹介します。 本問題は弊社でも同様の動作になることを確認できておりますが、誠に恐縮ながら現時点で修正可否は未定です。本問題について進展がありましたら、本ブログを更新する予定ですので、ご">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS の仕組み ダウンロード編">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/index.html">
+<meta property="og:title" content="「削除の承認」が Windows 10 2004 以降 &#x2F; Windows 11 のクライアントに反映されない事象について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-06-08_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS の仕組みについて、少し掘り下げてご紹介していきたいと思います。WSUS は更新プログラムをクライアントへ配信できる機能であることはご存じの方も多いかと思いますが、どのような過程を経て更新プログラムがクライアントに取得されるかご存じでしょうか。仕組みの理解やトラブルシューティング時にもお役立ていただけるとなっておりますのでぜひ">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS で 「削除の承認」 を設定しても  Windows 10 2004 以降 &#x2F; Windows 11 のクライアントに反映されない事象についてご紹介します。 本問題は弊社でも同様の動作になることを確認できておりますが、誠に恐縮ながら現時点で修正可否は未定です。本問題について進展がありましたら、本ブログを更新する予定ですので、ご">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_6.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_12.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_13.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_14.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_7.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_8.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_2.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_3.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_4.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_9.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_10.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_11.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_5.png">
-<meta property="article:published_time" content="2022-06-05T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-08T05:18:40.018Z">
+<meta property="article:published_time" content="2022-06-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-08T05:18:40.034Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-06-06_01/2022-06-06_01_6.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -99,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2022-06-06_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-06-08_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2022-06-05T15:00:00.000Z" itemprop="datePublished">2022-06-06</time>
+  <time datetime="2022-06-07T15:00:00.000Z" itemprop="datePublished">2022-06-08</time>
 </a>
     <!--  -->
   </div>
@@ -113,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS の仕組み ダウンロード編
+      「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について
     </h1>
   
 
@@ -122,7 +107,7 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2022-06-05T15:00:00.000Z" itemprop="dateUpdated">2022-06-06</time>
+    <time datetime="2022-06-07T15:00:00.000Z" itemprop="dateUpdated">2022-06-08</time>
     
 </a>
       </div>
@@ -130,31 +115,32 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>今回は、WSUS の仕組みについて、少し掘り下げてご紹介していきたいと思います。<br>WSUS は更新プログラムをクライアントへ配信できる機能であることはご存じの方も多いかと思いますが、どのような過程を経て更新プログラムがクライアントに取得されるかご存じでしょうか。<br>仕組みの理解やトラブルシューティング時にもお役立ていただけるとなっておりますのでぜひご一読ください！</p>
-<h1 id="WSUS-の仕組み"><a href="#WSUS-の仕組み" class="headerlink" title="WSUS の仕組み"></a>WSUS の仕組み</h1><p>WSUS からクライアントが更新プログラムを取得するまでの流れ配下の通りです。（既定動作）</p>
+<p>今回は WSUS で 「削除の承認」 を設定しても  Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象についてご紹介します。</p>
+<p>本問題は弊社でも同様の動作になることを確認できておりますが、誠に恐縮ながら現時点で修正可否は未定です。<br>本問題について進展がありましたら、本ブログを更新する予定ですので、ご不便をおかけしますが、何卒ご理解賜りますようお願い申し上げます。</p>
+<h1 id="事象の概要"><a href="#事象の概要" class="headerlink" title="事象の概要"></a>事象の概要</h1><p>WSUS サーバー上で更新プログラムの 「削除の承認」 を実施しても、 Windows 10 2004 以降 / Windows 11 のクライアントで更新プログラムのアンインストールが行われません。</p>
+<h1 id="回避策"><a href="#回避策" class="headerlink" title="回避策"></a>回避策</h1><p>現時点で本動作の修正予定はございませんので、恐れ入りますが、更新プログラムのアンインストールについては、手動でアンインストールを実施するか、下記のようなコマンドをスタートアップ スクリプトやシャットダウン スクリプト、資産管理ソフトウェアより配布して、アンインストールを実施してください。</p>
+<p>下記は KB5006670 をアンインストールする場合の手順です。  </p>
+<h2 id="パッケージ-IDの確認"><a href="#パッケージ-IDの確認" class="headerlink" title="パッケージ IDの確認"></a>パッケージ IDの確認</h2><p>対象の更新プログラムがインストールされているクライアントで、以下の手順を実施し、パッケージ ID を確認します。</p>
 <ol>
-<li>WSUS 同期</li>
-<li>更新プログラムの承認</li>
-<li>クライアントが承認情報を取得</li>
+<li>コマンド プロンプトを管理者権限で起動します。  </li>
+<li>下記コマンドを実行します。  </li>
 </ol>
-<p>解説</p>
-<ol>
-<li><p>WSUS 同期<br> WSUS は、更新プログラムを同期させる際に、カタログ情報と呼ばれるメタデータをダウンロードします。<br> この時、更新プログラムのコンテンツ ファイルと呼ばれる実体ファイルはダウンロードしません。<br> このカタログ情報は実体となるコンテンツファイルよりもファイルサイズは小さいものとなり、カタログ情報は WSUS データベース (SUSDB) に格納されます。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_6.png"></p>
-<p>また、このカタログ情報は、アップストリーム サーバーがインターネットになっている場合には、Microsoft Update からダウンロードされます。<br> 一方、アップストリーム WSUS が指定されている場合は、アップストリーム WSUS からダウンロードされます。<br> アップストリームサーバーは、 WSUS コンソールにて以下より設定いただけます。<br>[オプション] &gt; [更新元及びプロキシサーバー]<br> <img src="/blog/wsus/2022-06-06_01/2022-06-06_01_12.png"></p>
-</li>
-<li><p>更新プログラムの承認<br>2-1.承認作業を実施することにより、 WSUS データベースの承認情報が変更されます。<br> <img src="/blog/wsus/2022-06-06_01/2022-06-06_01_13.png"><br> <img src="/blog/wsus/2022-06-06_01/2022-06-06_01_14.png"><br>2-2. WSUS にて承認作業が行われることによって、更新プログラムのコンテンツ ファイルのダウンロードが開始されます。<br>このとき、更新プログラムの実体となるコンテンツ ファイルが WsusContent フォルダーにダウンロードされます。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_7.png"></p>
-</li>
-<li><p>クライアントが承認情報を取得<br>クライアントは、（ランダム時間を含む）既定で約 22 時間毎に WindowsUpdate の自動更新を実行し、 WSUS へスキャン処理を実施します。自らに必要な更新プログラムが承認されていた場合には、その情報をもとに、自動更新の構成ポリシーの設定に従って適用作業を実施します。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_8.png"></p>
-</li>
+<p><code>dism /get-packages /Online</code></p>
+<ol start="3">
+<li>パッケージの一覧から KB5006670 に該当するパッケージ ID を探します。<br>※ KB5006670 の OS ビルドは、19041.1288、19042.1288、および 19043.1288 に該当します。</li>
 </ol>
-<h1 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h1><h2 id="WSUS-サーバー上のコンテンツ-ファイルの有無を確認"><a href="#WSUS-サーバー上のコンテンツ-ファイルの有無を確認" class="headerlink" title="WSUS サーバー上のコンテンツ ファイルの有無を確認"></a>WSUS サーバー上のコンテンツ ファイルの有無を確認</h2><p>1． WSUS コンソールで対象の更新プログラムを右クリックし「 ファイル情報 」を参照します。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_1.png"><br>2．更新プログラムの URI が表示されています。これが更新プログラムの実体ファイルの格納先になります。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_2.png"><br>3． WSUS サーバーのエクスプローラーから「 WsusContent 」フォルダーを開きます。<br> 　 2 ケタの英数字で名づけられたフォルダーが複数存在しますので、手順 2 で確認したファイルパス内に記載されているフォルダーをたどっていきます。<br> <img src="/blog/wsus/2022-06-06_01/2022-06-06_01_3.png"><br>4．フォルダー内に格納されているファイルが存在するかを確認します。<br> <img src="/blog/wsus/2022-06-06_01/2022-06-06_01_4.png"></p>
-<p>5． WSUS コンソール上では [更新プログラム] の表示にて、ファイルの状態列を追加し、コンテンツ ファイルのダウンロード状況を確認いただけます。<br>カラムを右クリックし、” ファイルの状態 “　を列に追加します。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_9.png"><br>“ ファイルの状態 “ 列のアイコンで「ダウンロード中」や、「インストール準備完了」(コンテンツ ファイルのダウンロードが完了したことを示す) になっているかを確認できます。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_10.png"><br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_11.png"></p>
-<h2 id="コンテンツ-ファイルの削除方法"><a href="#コンテンツ-ファイルの削除方法" class="headerlink" title="コンテンツ ファイルの削除方法"></a>コンテンツ ファイルの削除方法</h2><p>1.承認済みの更新プログラムの拒否済みへ変更します。<br>2.クリーンナップウィザードの “不要な更新ファイル” を実施しますと拒否済みとした更新プログラムのコンテンツ ファイルがサーバーから削除されます。<br><img src="/blog/wsus/2022-06-06_01/2022-06-06_01_5.png"></p>
+<p>Title: 2021 年 10 月 12 日 — KB5006670 (OS ビルド 19041.1288、19042.1288、および 19043.1288)<br>URL: <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2021-%E5%B9%B4-10-%E6%9C%88-12-%E6%97%A5-kb5006670-os-%E3%83%93%E3%83%AB%E3%83%89-19041-1288-19042-1288-%E3%81%8A%E3%82%88%E3%81%B3-19043-1288-8902fc49-af79-4b1a-99c4-f74ca886cd95">https://support.microsoft.com/ja-jp/topic/2021-%E5%B9%B4-10-%E6%9C%88-12-%E6%97%A5-kb5006670-os-%E3%83%93%E3%83%AB%E3%83%89-19041-1288-19042-1288-%E3%81%8A%E3%82%88%E3%81%B3-19043-1288-8902fc49-af79-4b1a-99c4-f74ca886cd95</a></p>
+<p>実行例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">パッケージ ID : Package_for_RollupFix~31bf3856ad364e35~amd64~~19041.1288.1.7　</span><br><span class="line">状態 : インストール済み</span><br><span class="line">リリースの種類 : Security Update</span><br><span class="line">インストール時刻 : 2021/10/13 8:45</span><br></pre></td></tr></table></figure>
+
+<h2 id="アンインストール-コマンド実行"><a href="#アンインストール-コマンド実行" class="headerlink" title="アンインストール コマンド実行"></a>アンインストール コマンド実行</h2><p>対象の更新プログラムをアンインストールしたいクライアントで、以下の手順コマンドで対象のパッケージ ID を指定し、更新プログラムをアンインストールします。<br><code>dism /Online /remove-package /PackageName:&lt;パッケージ ID&gt;</code></p>
+<p>（例）<br><code>dism /Online /remove-package /PackageName:Package_for_RollupFix~31bf3856ad364e35~amd64~~19041.1288.1.7　/quiet /Norestart</code></p>
+<p>※ /quiet は、サイレントでアンインストールするオプションです。/norestart は、更新プログラムのアンインストール後、再起動されないようにするためのオプションです。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-06_01/" data-id="cl4554rb600670opp6tvc9kv1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-08_01/" data-id="cl4554rb700690oppeuyvbb8t" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -165,19 +151,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2022-06-08_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20220608_02/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について
+          MECM パッケージとアプリケーションどっちを使うべき？違いを解説！
         
       </div>
     </a>
   
   
-    <a href="../../mecm/20220529_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2022-06-06_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">MEM における共同管理のよくある質問 (FAQ) とトラブルシューティング</div>
+      <div class="article-nav-title">WSUS の仕組み ダウンロード編</div>
     </a>
   
 </nav>
@@ -200,11 +186,11 @@
           </li>
         
           <li>
-            <a href="../2022-06-08_01/">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
+            <a href="">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
           </li>
         
           <li>
-            <a href="">WSUS の仕組み ダウンロード編</a>
+            <a href="../2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
           </li>
         
           <li>
