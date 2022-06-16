@@ -5,20 +5,23 @@
   
 
   
-  <title>WSUS でクライアントが正常に認識されない SusClientID の重複とは | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。今回はそのような事象がなぜ起こるのか対処方法を含">
+  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田です。本日は、Windows 365 Enterprise 環境を使用している際に見かける、Azure Active Directory 上の CPC-hth から始まるデバイス オブジェクトについてご紹介します。   免責事項下記内容は 2022&#x2F;6&#x2F;16 時点での内容についての記載となっております。今後内">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS でクライアントが正常に認識されない SusClientID の重複とは">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-05-18_01/index.html">
+<meta property="og:title" content="Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて">
+<meta property="og:url" content="https://jpmem.github.io/blog/w365/2022-06-16_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。今回はそのような事象がなぜ起こるのか対処方法を含">
+<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田です。本日は、Windows 365 Enterprise 環境を使用している際に見かける、Azure Active Directory 上の CPC-hth から始まるデバイス オブジェクトについてご紹介します。   免責事項下記内容は 2022&#x2F;6&#x2F;16 時点での内容についての記載となっております。今後内">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2022-05-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-16T08:03:07.539Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-06-16_01/2022-06-16-15-45-20.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-06-16_01/2022-06-16-16-08-31.png">
+<meta property="article:published_time" content="2022-06-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-16T08:03:07.483Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="Windows 365">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2022-06-16_01/2022-06-16-15-45-20.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -84,10 +87,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2022-05-18_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-w365/2022-06-16_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2022-05-17T15:00:00.000Z" itemprop="datePublished">2022-05-18</time>
+  <time datetime="2022-06-15T15:00:00.000Z" itemprop="datePublished">2022-06-16</time>
 </a>
     <!--  -->
   </div>
@@ -98,7 +101,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS でクライアントが正常に認識されない SusClientID の重複とは
+      Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて
     </h1>
   
 
@@ -107,43 +110,29 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2022-05-17T15:00:00.000Z" itemprop="dateUpdated">2022-05-18</time>
+    <time datetime="2022-06-15T15:00:00.000Z" itemprop="dateUpdated">2022-06-16</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。 WSUS サポート チームです。<br>WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。<br>今回はそのような事象がなぜ起こるのか対処方法を含めご紹介していきたいと思います。</p>
-<h1 id="SusClientID-の重複とは"><a href="#SusClientID-の重複とは" class="headerlink" title="SusClientID の重複とは"></a>SusClientID の重複とは</h1><p>WSUS サーバーはクライアントを SusClientID という一意の ID で識別しています。<br>この SusClientID は、sysprep /generalize コマンドを実行し一般化することでリセットされますが、sysprep /generalize コマンドを実行をしていないマスターイメージをもとに複製した場合、同じ SusClientID を持つ端末が複製されて、SusClientID の重複が発生します。<br>そのため、ホスト名などが異なる場合にも SusClientID が重複しておりますと同じクライアントとして認識し、クライアントが正常に認識されない事象が発生いたします。</p>
-<p>SusClientID は以下のレジストリキーにその値が格納されています。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate</span><br></pre></td></tr></table></figure>
-
-<p>重複している場合は、以下の手順にて SusClientId を削除いただきますと、SusClientId は自動生成され重複状態が解消します。</p>
-<p>手順</p>
-<ol>
-<li>問題のクライアントに管理者権限を持つユーザーでログオンし、コマンド プロンプトを「管理者として実行」にて起動します。</li>
-<li>管理者として実行にて起動したコマンド プロンプトで、下記コマンドでサービスを停止します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop usosvc</span><br><span class="line">net stop wuauserv</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>“regedit” コマンドでレジストリエディタを起動し、下記サブキーの中に存在するエントリをすべて削除します。</li>
-</ol>
-<p>・サブキー；<br>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate]</p>
-<p>・削除するエントリ：（一部は存在しない場合もあります。クライアントのバージョンや使用経緯により異なります）<br>PingID<br>AccountDomainSid<br>SusClientId<br>SusClientIdValidation</p>
-<ol start="4">
-<li>管理者として実行にて起動したコマンド プロンプトで、下記コマンドでサービスを開始します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start usosvc</span><br><span class="line">net start wuauserv</span><br></pre></td></tr></table></figure>
+        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田です。<br>本日は、Windows 365 Enterprise 環境を使用している際に見かける、Azure Active Directory 上の CPC-hth から始まるデバイス オブジェクトについてご紹介します。  </p>
+<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2022/6/16 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。  </p>
+<h3 id="CPC-hth-とは"><a href="#CPC-hth-とは" class="headerlink" title="CPC-hth とは"></a>CPC-hth とは</h3><p>Windows 365 Enterprise で使用しているテナントの Azure Active Directory を開き、[すべてのデバイス] を見ると、以下のように CPC-hth から始まるデバイス オブジェクトが存在します。  </p>
+<p><img src="/blog/w365/2022-06-16_01/2022-06-16-15-45-20.png">  </p>
+<p>CPC-hth は Azure ネットワーク接続 (ANC) のチェックを行う際に、ドメイン参加を試みるために自動で生成されるデバイス オブジェクトです。<br>ANC は内部的に 6 時間に 1 回の頻度で行われ、CPC-hth から始まるデバイス オブジェクトを削除しても、チェックのタイミングで再生成されますが、ANC のチェック毎に CPC-hth のデバイス オブジェクトが増え続けることはございませんので、ご安心ください。  </p>
+<p>■補足事項<br>オンプレミスの [Active Directory ユーザーとコンピューター] にも CPC-hth が存在することとなりますが、ANC のプロパティより以下の [組織単位] で指定した OU に CPC-hth のデバイス オブジェクトが生成されます。  </p>
+<p><img src="/blog/w365/2022-06-16_01/2022-06-16-16-08-31.png">  </p>
+<p>以上、CPC-hth から始まるデバイス オブジェクトについて、参考になれば幸いです。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-18_01/" data-id="cl4gqj27v00670mosd7pj4zpw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/w365/2022-06-16_01/" data-id="cl4gqj26v00410mosht14avw6" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
 
     </footer>
   </div>
@@ -151,19 +140,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20220519_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Configuration Manager で削除された機能について
-        
-      </div>
-    </a>
   
-  
-    <a href="../../w365/2022-05-13_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20220608_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">クラウド PC で日本語入力ができない場合のチェック項目について</div>
+      <div class="article-nav-title">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</div>
     </a>
   
 </nav>
@@ -182,7 +162,7 @@
       <ul>
         
           <li>
-            <a href="../../w365/2022-06-16_01/">Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて</a>
+            <a href="">Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて</a>
           </li>
         
           <li>
@@ -190,15 +170,15 @@
           </li>
         
           <li>
-            <a href="../2022-06-08_01/">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
+            <a href="../../wsus/2022-06-08_01/">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
           </li>
         
           <li>
-            <a href="../../w365/2022-06-06_01/">Azure ネットワーク接続 (ANC) のチェック時にエラーが出る際のチェックポイント（Azure AD デバイス同期編）</a>
+            <a href="../2022-06-06_01/">Azure ネットワーク接続 (ANC) のチェック時にエラーが出る際のチェックポイント（Azure AD デバイス同期編）</a>
           </li>
         
           <li>
-            <a href="../2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
+            <a href="../../wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
           </li>
         
       </ul>
