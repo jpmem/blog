@@ -5,19 +5,19 @@
   
 
   
-  <title>System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されるという事象が報告されて">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20190327_01/index.html">
+<meta property="og:title" content="Windows 10 &#x2F; Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019_04-04_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch">
+<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されるという事象が報告されて">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2019-03-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-20T04:13:52.356Z">
+<meta property="article:published_time" content="2019-04-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-20T04:13:52.508Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
@@ -84,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20190327_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2019_04-04_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2019-03-26T15:00:00.000Z" itemprop="datePublished">2019-03-27</time>
+  <time datetime="2019-04-03T15:00:00.000Z" itemprop="datePublished">2019-04-04</time>
 </a>
     <!--  -->
   </div>
@@ -98,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法
+      Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する
     </h1>
   
 
@@ -107,88 +107,43 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2019-03-26T15:00:00.000Z" itemprop="dateUpdated">2019-03-27</time>
+    <time datetime="2019-04-03T15:00:00.000Z" itemprop="dateUpdated">2019-04-04</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
-<p>以前のバージョンの System Center Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である System Center Configuration Manager Current Branch の場合の手順をご案内します。</p>
-<p><a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus">https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus</a></p>
-<p>System Center Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように見える場合に有効な手順です。本手順を実施してから、クライアントの再インストールを実施することで解消できる問題も多くありますので、回避優先の対処が求められる場合に、是非お役立てください。</p>
-<blockquote>
-<p><strong>注意事項 : 本手順は、SCCM クライアントがインストールされた、サイト サーバー、サイト システム サーバー (SCCM のサーバー側の管理ポイント・配布ポイントなどの役割を持つサーバー) では行わないでください。手順中で削除が必要なレジストリ キーは、SCCM のサーバー側各機能でも使用していることが多く、サイト サーバー、サイト システムとしての役割に支障をきたします。本手順は、あくまでも、クライアント OS の SCCM クライアントへのトラブルシュートや、マスター イメージ準備のためにご利用ください。</strong></p>
-</blockquote>
-<hr>
-<ol>
-<li>System Center Configuration Manager クライアントをアンインストールします。</li>
-</ol>
-<p>コマンド プロンプトを管理者として実行し、以下のコマンドを実行します。</p>
-<p><code>%Windir%\ccmsetup\ccmsetup.exe /uninstall</code></p>
-<blockquote>
-<p>コントロールパネルを開き、”Configuration Manager” という項目が消えたら、アンインストール完了と判断出来ます。また、アンインストールが成功すると、ccmsetup.log に以下のログが記録されます。</p>
-</blockquote>
-<p><code>Uninstall succeeded.</code></p>
-<ol start="2">
-<li>下記フォルダー、ファイルを削除します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%windir%\CCM</span><br><span class="line">%windir%\ccmsetup</span><br><span class="line">%windir%\SMSCFG.ini</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>下記レジストリが残存している場合、削除します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\SMS</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCM</span><br><span class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\CCMSetup</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>以下の手順で、SMS 証明書 (自己署名証明書) を削除します。</li>
-</ol>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</li>
-<li>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。「選択された証明書を永久的に削除しますか？」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール 1 に保存しますか？」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
-</ol>
-<blockquote>
-<p>PKI 証明書を利用している環境（HTTPS 構成）の場合<br>PKI 証明書を利用している場合は同様に以下の手順で PKI 証明書を削除します。</p>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [個人] - [証明書] を選択します。カスタム ストアを利用している場合は、該当箇所を選択してください。</li>
-<li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
-</ol>
-</blockquote>
-<ol start="5">
-<li>下記フォルダーに移動し、”19c5cf…” ではじまるファイルが存在する場合には削除、またはリネームして別フォルダーにコピーします。(該当のファイルが存在しない場合も問題ありません。)</li>
-</ol>
-<p><code>C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys</code></p>
-<blockquote>
-<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
-</blockquote>
-<ol start="6">
-<li>ソフトウェア センターのショートカットが含まれる下記フォルダーを削除します。SCCM 管理コンソールをインストールしている場合は、「Configuraiotn Manager コンソール」のリンクなども本フォルダーに含まれます。管理コンソールはアンインストールしない場合などは、必要に応じて「ソフトウェア センター」のショートカットのみ削除してください。</li>
-</ol>
-<p><code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft System Center</code></p>
-<blockquote>
-<p>※ ProgramData フォルダーは隠しフォルダーです。</p>
-</blockquote>
+        <p>皆さま、こんにちは。WSUS サポート チームです。</p>
+<p>Windows 10 / Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて <strong>負荷が高くなる、WsusPool が停止する</strong>、または Windows 10 / Windows Server 2016 クライアントにおいて WSUS への接続時に <strong>0x8024401c</strong> が出力されるという事象が報告されています。<br>本事象は Windows 10 / Windows Server 2016 の累積的な更新プログラムに含まれる情報が大きくなったことに起因しておりますが、既に WSUS サーバーの動作を改善した更新プログラムをリリースしておりますため、事象の詳細と合わせて紹介します。</p>
+<h2 id="詳細"><a href="#詳細" class="headerlink" title="詳細"></a>詳細</h2><p>Windows 10 / Windows Server 2016 向けの累積的な更新プログラムの情報量は、他の過去の OS 向けの更新プログラムの情報量よりも大きくなっております。このため、多数のクライアントより情報が参照された場合に、メモリ領域の確保とメモリへのコピーに使用される関数が呼び出される回数が多くなり、WSUS サーバーの負荷が高騰しやすくなります。</p>
+<p>その結果、クライアントからの接続が <strong>0x8024401c / Same as HTTP status 408 – the server timed out waiting for the request</strong> にて失敗する事象も発生することがございます。</p>
+<p>また、本事象は特に現在更新プログラムの情報量が大きくなっている Windows 10 バージョン 1607 や Windows Server 2016 で起きやすい傾向がございます。</p>
+<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><p>下記の公開情報にて紹介している更新プログラムを適用することで、事象の改善が期待できます。本更新プログラムでは、事象を改善するために、要求される毎にメモリへのコピーに使用される関数の呼び出しを効率化させる修正が含まれており、パフォーマンスの改善が期待出来ます。</p>
+<p>Title: <strong>更新プログラムのメタデータを Windows Server Update Services の処理のパフォーマンスを向上させる更新プログラム</strong><br>URL: <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on">https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on</a>  </p>
+<p>Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロールアップに含まれる形でリリースされています。修正プログラムは、Microsoft Update Catalog よりダウンロード頂けます。なお、2017 年 9 月 13 日以降にリリースされた Windows Server 2016 の累積更新プログラム、2017 年 10 月 11 日以降にリリースされた Windows Server 2012 / 2012 R2 のマンスリー品質ロールアップにも本修正は含まれておりますので、最新の累積更新プログラム、およびマンスリー品質ロールアップが適用されていれば、本問題は修正済みとご判断いただけます。</p>
+<h3 id="Windows-Server-2012-向け"><a href="#Windows-Server-2012-向け" class="headerlink" title="Windows Server 2012 向け"></a>Windows Server 2012 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039873/">https://support.microsoft.com/ja-jp/help/4039873/</a></p>
+<p>ダウンロード先 URL：</p>
+<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873</a></p>
+<h3 id="Windows-Server-2012-R2-向け"><a href="#Windows-Server-2012-R2-向け" class="headerlink" title="Windows Server 2012 R2 向け"></a>Windows Server 2012 R2 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039871/">https://support.microsoft.com/ja-jp/help/4039871/</a></p>
+<p>ダウンロード先 URL：</p>
+<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871</a></p>
+<h3 id="Windows-Server-2016-向け"><a href="#Windows-Server-2016-向け" class="headerlink" title="Windows Server 2016 向け"></a>Windows Server 2016 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039396/">https://support.microsoft.com/ja-jp/help/4039396/</a></p>
+<p>ダウンロード先 URL：</p>
+<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396</a></p>
+<p><strong>※ 更新プログラム適用後は OS の再起動が必要な場合がございますので、ご注意ください。</strong></p>
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>WSUSでは更新プログラムのデータを蓄積し続けるという特性上、新しい更新プログラムで置き換えられている旧更新プログラムを「拒否済み」として設定することで、パフォーマンス改善が見込めます。</p>
+<p>上述の更新プログラムを適用しても、事象が充分に改善されない場合には、置き換えられた更新プログラム等、不要な更新プログラムを「拒否済み」に設定することをご検討ください。詳細は以下ブログにてご案内しております。</p>
+<p>Title: 不要な更新プログラムは「拒否済み」に設定しよう！<br>URL: <a href="https://jpmem.github.io/blog/wsus/2017-12-11_01/">https://jpmem.github.io/blog/wsus/2017-12-11_01/</a></p>
+<p>Title: WSUS メンテナンスガイド新版<br>URL: <a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="cl4m83p8j001d0mk1dpwh56po" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cl4m83pb9005h0mk185oghy37" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -196,19 +151,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2019_04-04_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2019-04-09_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する
+          レプリカ WSUS サーバーの同期がタイムアウトで失敗する
         
       </div>
     </a>
   
   
-    <a href="../../wsus/2019-03-19_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20190327_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">更新プログラムに用いられるコード証明書の SHA-2 への移行について</div>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</div>
     </a>
   
 </nav>
@@ -231,11 +186,11 @@
           </li>
         
           <li>
-            <a href="../20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
+            <a href="../../mecm/20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
           </li>
         
           <li>
-            <a href="../../wsus/2022-06-08_01/">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
+            <a href="../2022-06-08_01/">「削除の承認」が Windows 10 2004 以降 / Windows 11 のクライアントに反映されない事象について</a>
           </li>
         
           <li>
@@ -243,7 +198,7 @@
           </li>
         
           <li>
-            <a href="../../wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
+            <a href="../2022-06-06_01/">WSUS の仕組み ダウンロード編</a>
           </li>
         
       </ul>
