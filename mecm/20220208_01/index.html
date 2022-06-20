@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220208_01/2022-02-08-20-03-31.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220208_01/2022-02-08-20-09-56.png">
 <meta property="article:published_time" content="2022-02-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-20T04:13:52.384Z">
+<meta property="article:modified_time" content="2022-06-20T04:16:31.822Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -130,10 +130,13 @@
 <li><p>以下の画面が表示されますので、[クエリ] タブに移動します。<br><img src="/blog/mecm/20220208_01/2022-02-08-20-03-31.png"></p>
 </li>
 <li><p>クエリを記載します。以下はシステムイベントログの ID 1500 を抽出するクエリです。</p>
-<p>EventLog(‘System’)<br>| where EventID == 1500<br>※イベントログは既定で 24 時間以内のログを抽出しますので、3 日以内など日数をしたい場合は以下のようにクエリを作成します。  </p>
-<p> EventLog(‘System’,3d)<br>| where EventID == 1500  </p>
 </li>
 </ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EventLog(&#x27;System&#x27;)  </span><br><span class="line">| where EventID == 1500  </span><br></pre></td></tr></table></figure>
+<p> ※イベントログは既定で 24 時間以内のログを抽出しますので、3 日以内など日数をしたい場合は以下のようにクエリを作成します。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EventLog(&#x27;System&#x27;,3d)  </span><br><span class="line">| where EventID == 1500  </span><br></pre></td></tr></table></figure>
+
+
 <ol start="4">
 <li>[クエリの実行] をクリックし、結果が得られたら成功です。<br><img src="/blog/mecm/20220208_01/2022-02-08-20-09-56.png"></li>
 </ol>
@@ -144,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220208_01/" data-id="cl4m83p97002f0mk11xj26lgv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220208_01/" data-id="cl4m872jh002f0omhdgbre9wj" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
