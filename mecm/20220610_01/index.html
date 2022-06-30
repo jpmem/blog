@@ -5,20 +5,22 @@
   
 
   
-  <title>Microsoft Endpoint Configuration Manager におけるワークグループ環境でのクライアントご利用手順について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。Microsoft Endpoint Configuration Manager Support Team です。 今回は、Microsoft Endpoint Configuration Manager (以下、MECM) クライアントをワークグループ環境にてご利用いただく場合に、ご注意いただきたいポイントについてご案内します。 MECM では、ワークグループ環境の MECM クライ">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Microsoft Endpoint Configuration Manager におけるワークグループ環境でのクライアントご利用手順について">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20131204_01/index.html">
+<meta property="og:title" content="パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220610_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="こんにちは。Microsoft Endpoint Configuration Manager Support Team です。 今回は、Microsoft Endpoint Configuration Manager (以下、MECM) クライアントをワークグループ環境にてご利用いただく場合に、ご注意いただきたいポイントについてご案内します。 MECM では、ワークグループ環境の MECM クライ">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2013-12-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-30T03:53:41.513Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220610_01/20220609-01_01.png">
+<meta property="article:published_time" content="2022-06-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-30T03:53:41.669Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220610_01/20220609-01_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -84,10 +86,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20131204_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20220610_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2013-12-03T15:00:00.000Z" itemprop="datePublished">2013-12-04</time>
+  <time datetime="2022-06-09T15:00:00.000Z" itemprop="datePublished">2022-06-10</time>
 </a>
     <!--  -->
   </div>
@@ -98,7 +100,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Microsoft Endpoint Configuration Manager におけるワークグループ環境でのクライアントご利用手順について
+      パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法
     </h1>
   
 
@@ -107,53 +109,101 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2013-12-03T15:00:00.000Z" itemprop="dateUpdated">2013-12-04</time>
+    <time datetime="2022-06-09T15:00:00.000Z" itemprop="dateUpdated">2022-06-10</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>こんにちは。Microsoft Endpoint Configuration Manager Support Team です。</p>
-<p>今回は、Microsoft Endpoint Configuration Manager (以下、MECM) クライアントをワークグループ環境にてご利用いただく場合に、ご注意いただきたいポイントについてご案内します。</p>
-<p>MECM では、ワークグループ環境の MECM クライアントを管理することをサポートしています。<br>しかしながら、ワークグループ環境は、 MECM サイト サーバーと同じドメインに参加している環境とは異なり、Active Directory の情報が参照できない、またドメイン環境にあるリソースへアクセスすることができないといった制限があります。<br>ここでは、ワークグループ環境にて MECM クライアントをご利用いただく際に必要となる以下の代表的な注意事項をご案内します。  </p>
-<p><strong>A. MECM クライアントのインストール</strong><br><strong>B. MECM クライアントの手動承認</strong><br><strong>C. ネットワーク アクセス アカウントの構成</strong></p>
-<p>詳細な内容は以下の通りです。  </p>
-<h2 id="A-MECM-クライアントのインストール"><a href="#A-MECM-クライアントのインストール" class="headerlink" title="A. MECM クライアントのインストール"></a>A. MECM クライアントのインストール</h2><p>ワークグループ 環境にある端末へ、MECM クライアントをインストールいただく際に、クライアントが最初に通信する管理ポイントを指定していただく必要があります。<br>そのため、MECM クライアント エージェントをインストールする際には、以下の SMSMP オプションを用いて管理ポイントを指定してください。</p>
-<p>クライアントに ccmsetup.exe のみを予め配布しておいて、インストール ソース ファイルを配布ポイントから取得する場合は、以下のコマンドを実行します。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例 : 接続先管理ポイントを mp01.contoso.com, サイトコードを P01 とする場合、コマンド プロンプトを管理者権限で起動し、以下のコマンドを実行します。</span><br><span class="line"></span><br><span class="line">CCMSetup.exe /mp:mp01.contoso.com SMSMP=mp01.contoso.com SMSSITECODE=P01</span><br></pre></td></tr></table></figure>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。<br>自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、もう少し小刻みにバージョン アップをしたいというニーズがあることを、サポート インシデントを通してご要望頂くことがございます。<br>そこで今回は、パッケージ展開機能を利用する方法についてご紹介いたします。  </p>
+<h2 id="目次"><a href="#目次" class="headerlink" title="目次"></a>目次</h2><p><strong>A. パッケージとプログラムの作成</strong><br><strong>B. パッケージの展開</strong><br><strong>C. 展開結果の確認</strong><br><strong>D. 注意事項</strong>  </p>
+<h2 id="A-パッケージとプログラムの作成"><a href="#A-パッケージとプログラムの作成" class="headerlink" title="A. パッケージとプログラムの作成"></a>A. パッケージとプログラムの作成</h2><ol>
+<li><p>プライマリ サイト サーバー上で、事前に共有フォルダーを作成します。共有ファルダ―は新規で作成し、このパッケージ専用として扱います。<br>例：**”\\PriSite\MECMClient&quot;**  </p>
+</li>
+<li><p>プライマリ サイト サーバーの以下のフォルダーにアクセスします。<br>パス：**”&lt;サイトサーバーのインストール ドライブ&gt;:\Program Files\Microsoft Configuration Manager\Client”**</p>
+</li>
+<li><p>ccmsetup.exe ファイルのみを、共有フォルダーにコピーします。(手順 5. で使います)</p>
+</li>
+<li><p>MECM コンソールを起動し、[ソフトウェア ライブラリ] &gt; [アプリケーション管理] &gt; [パッケージ] を右クリックし、[パッケージの作成] をクリックします。</p>
+</li>
+<li><p>[パッケージとプログラムの作成ウィザード] の [パッケージ] より、任意の名前を入力し、[このパッケージにソース ファイルを含める] にチェックを入れ、[参照] をクリックします。</p>
+</li>
+<li><p>[ソース フォルダー] の設定より、さらに [参照] をクリックし、共有フォルダーのパスを入力し、[OK] をクリックします。</p>
+</li>
+<li><p>[パッケージ] より、共有フォルダーのパスが登録されていることを確認し、[次へ] をクリックします。</p>
+</li>
+<li><p>[プログラムの種類] より、[標準プログラム] が選択されている状態のまま、[次へ] をクリックします。</p>
+</li>
+<li><p>[標準プログラム] より、以下の項目を設定し、[参照] をクリックします。</p>
+<ul>
+<li>名前：任意の名前   </li>
+<li>コマンド ライン：  </li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /noservice /mp:&lt;管理ポイントの FQDN&gt; SMSMP=&lt;管理ポイントの FQDN&gt; SMSSITECODE=&lt;サイト コード&gt;</span><br><span class="line">例)：ccmsetup.exe /noservice /mp:PriSite.contoso.com SMSMP=PriSite.contoso.com SMSSITECODE=PS1</span><br></pre></td></tr></table></figure>
 
-<p>- 参考情報<br>Configuration Manager のクライアント インストール プロパティについて<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties</a></p>
-<p><strong>補足情報 :</strong></p>
-<p>ccmsetup.exe を実行する際に、 <code>\\SERVER\SMS_PRI\Client\ccmsetup.exe</code> のように、共有フォルダーに配置してある ccmsetup.exe を実行する場合は、<code>/noservice</code> オプションを付与する必要があります。<br>既定では、<code>/service</code> で実行されるため、ccmsetup.exe はローカル システム アカウント (SYSTEM) で実行されます。<br>しかしながら、ワークグループ コンピューターにおいて、ccmsetup.exe が SYSTEM で実行されると、共有フォルダーからインストール モジュールをダウンロードする際に、認証が通らず失敗します。<br><code>/noservice</code> で実行することで、ユーザー アカウントで実行されますので、共有フォルダーにアクセスできるアカウントであれば、共有フォルダーからのインストール モジュールのダウンロードが成功し、インストールが進みます。<br>なお、プライマリ サイトから Client フォルダーの内容をすべてワークグループ コンピューターにコピーして、コピーした Client フォルダー配下の ccmsetup.exe を実行する場合は、ローカルのファイルを使用するため、<code>/noservice</code> を付与しなくても問題ありません。</p>
-<h2 id="B-MECM-クライアントの手動承認"><a href="#B-MECM-クライアントの手動承認" class="headerlink" title="B. MECM クライアントの手動承認"></a>B. MECM クライアントの手動承認</h2><p>MECM クライアントが、MECM サイト サーバーのリソース（配布ポイント、ソフトウェア更新ポイントなど）にアクセスする場合、TCP/IP レベルでの認証処理が行われます。</p>
-<p>ドメイン環境のクライアントについては、既定では自動的に承認されますが、ワークグループ環境のクライアントについては、手動で承認する必要があります。</p>
-<p>※既定では、下図のように「信頼されたドメインのコンピュータを自動的に承認する」が有効になっています。この設定は、[管理] - [概要] - [サイトの構成] - [サイト] を右クリックし、[階層設定] をクリックすることでご確認いただけます。</p>
-<p>手動承認手順は以下の通りです。</p>
-<h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><ol>
-<li><p>Configuration Manager コンソールを起動し、以下のとおり展開します。<br><br>資産とコンプライアンス<br>└ 概要<br>└ デバイス （または、[すべてのデスクトップ クライアントおよびサーバー クライアント] のコレクション）</p>
-<br></li>
-<li><p>右ペインに表示された対象のワークグループ コンピューターのエントリーを右クリックして、[承認] を実施してください。</p>
+<ul>
+<li>プログラムの実行条件：ユーザーのログオン状態に関係なし  </li>
+<li>実行モード：管理者権限で実行する（自動で選択されます）  </li>
+</ul>
+</li>
+<li><p>[要件] より、必要に応じて設定を行い、[次へ] をクリックします。</p>
+</li>
+<li><p>[概要] より、設定内容に誤りがないことを確認し、[次へ] をクリックします。</p>
+</li>
+<li><p>[完了] より、正常に完了したことを確認し、[閉じる] をクリックします。</p>
+</li>
+<li><p>[パッケージ] の [ナビゲーション ペイン] より、作成したパッケージが登録されていることを確認します。</p>
 </li>
 </ol>
-<p>- 参考情報<br>[デバイス] ノードを使用してクライアントを管理する- クライアントを承認する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve</a></p>
-<h2 id="C-ネットワーク-アクセス-アカウントの構成"><a href="#C-ネットワーク-アクセス-アカウントの構成" class="headerlink" title="C. ネットワーク アクセス アカウントの構成"></a>C. ネットワーク アクセス アカウントの構成</h2><p>ワークグループ環境にソフトウェアを展開するためには、ネットワーク アクセス アカウントを構成する必要があります。<br>ワークグループ 環境にあるクライアントは、ネットワーク アクセス アカウントを使用して、ドメイン環境にある配布ポイント上のリソースにアクセスします。<br>そのため、ネットワーク アクセス アカウントが構成されていない場合、クライアントは配布ポイント上のコンテンツにアクセスすることができず、認証エラーが発生します。</p>
-<p>構成手順は以下の通りです。</p>
-<h3 id="手順-1"><a href="#手順-1" class="headerlink" title="手順"></a>手順</h3><ol>
-<li><p>Configuration Manager コンソールを起動し、以下のとおり展開します。<br><br>管理<br>└ 概要<br>└ サイトの構成<br>└ サイト</p>
-<br></li>
-<li><p>[サイト コンポーネントの構成] -[ソフトウェアの配布] を選択します。</p>
+<h2 id="B-パッケージの展開"><a href="#B-パッケージの展開" class="headerlink" title="B. パッケージの展開"></a>B. パッケージの展開</h2><ol>
+<li><p>MECM コンソールより、[ソフトウェア ライブラリ] &gt; [アプリケーション管理] &gt; [パッケージ] を開きます。</p>
 </li>
-<li><p>[ネットワーク アクセス アカウント]タブを開き、[ネットワークの場所にアクセスするアカウントを指定する] にて任意のドメイン アカウントを指定します。</p>
+<li><p>先ほど作成したパッケージを右クリックし、[展開] をクリックし、[ソフトウェアの展開ウィザード] を開きます。</p>
+</li>
+<li><p>[全般] にて [コレクション] - [参照] をクリックし、展開先コレクションを指定し [OK] をクリックし、[次へ] をクリックします。</p>
+</li>
+<li><p>[コンテンツ] にて、[追加] をクリックし、配布ポイントを指定し、[次へ] をクリックします。</p>
+</li>
+<li><p>[展開設定] にて “目的” を [利用可能] とし、[次へ] をクリックします。<br>([必須] 場合にはサイレント実行されるため、テストする際には、[利用可能] とし、テストが成功することをご確認頂くことをお勧めいたします。)</p>
+</li>
+<li><p>[スケジュール] にて必要に応じたスケジュールを指定し、[次へ] をクリックします。</p>
+</li>
+<li><p>[ユーザー側の表示と操作] にて既定のまま [次へ] をクリックします。</p>
+</li>
+<li><p>[配布ポイント] にて、配布ポイントを指定して、[次へ] をクリックします。</p>
+</li>
+<li><p>[概要] にて [次へ] をクリックします。</p>
+</li>
+<li><p>ウィザードが完了したことを確認し、[閉じる] をクリックします。</p>
+</li>
+<li><p>展開後、[パッケージ] の [ナビゲーション ペイン] より、展開したパッケージのコンテンツ ステータスが緑色の円グラフになることを確認します。<br>※画面をリフレッシュして、円グラフの更新状況を確認ください。  </p>
 </li>
 </ol>
-<p>- 参考情報<br>ネットワーク アクセス アカウントの構成<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account</a></p>
-<p>コミュニティにおけるマイクロソフト社員による発言やコメントは、マイクロソフトの正式な見解またはコメントではありません。</p>
+<h2 id="C-展開結果の確認"><a href="#C-展開結果の確認" class="headerlink" title="C. 展開結果の確認"></a>C. 展開結果の確認</h2><p>パッケージ展開機能により ccmsetup.exe の配布を行うと、MECM エージェントのサービスが再起動されるため、パッケージの展開ステータスで、「プログラムで問題が発生しました (予期しなかった再起動)」 と記録されることがございます。<br>これはステータスを送付するタイミングに依存して記録されるものであり、想定動作となりますのでご留意ください。  </p>
+<p>そのため、バージョンアップが正しく行われたかどうかは、以下の確認方法を用います。<br>基本的には、MECM サーバー側でバージョンアップされていることが確認できましたら、クライアントから管理ポイントへバージョン情報が正しく渡っているため、これにより正しくクライアントが動作していることを判断します。  </p>
+<h3 id="レポートによる確認"><a href="#レポートによる確認" class="headerlink" title="レポートによる確認"></a>レポートによる確認</h3><ol>
+<li>MECM コンソールにて、[監視] &gt; [レポート] &gt; [レポート] &gt; [サイト - クライアント情報] を選択します。</li>
+<li>[Configuration Manager クライアント バージョン別の数] を右クリックし、[実行] をクリックします。</li>
+<li>レポートの結果が表示されますので、各バージョンをクリックすると、バージョン別のクライアント一覧がご確認頂けます。</li>
+</ol>
+<h3 id="デバイスの列名による確認"><a href="#デバイスの列名による確認" class="headerlink" title="デバイスの列名による確認"></a>デバイスの列名による確認</h3><ol>
+<li><p>MECM コンソールにて、[資産とコンプライアンス] &gt; [デバイス] を選択します。</p>
+</li>
+<li><p>以下の列を追加し、各状態をチェックします。<br>・[アイコン]<br>・[名前]<br>・[クライアント]<br>・[クライアント アクティビティ]<br>・[クライアント バージョン]</p>
+</li>
+<li><p>目安としては、以下の点をチェックします。<br>・アイコン：<strong>緑色でチェックが付いているか</strong><br>・クライアント アクティビティ：<strong>アクティブになっているか</strong><br>・クライアント バージョン：<strong>想定バージョンになっているか</strong></p>
+<p> <img src="/blog/mecm/20220610_01/20220609-01_01.png" alt="image.png">  </p>
+</li>
+<li><p>そのほか、実際にバージョンアップ後のクライアントに対して、<br>パッケージ展開や、ソフトウェア更新プログラムの展開を行い、目的の配信が正常に進みますか確認を行います。</p>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20131204_01/" data-id="cl50hs7jy00050npsg24wcpcx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220610_01/" data-id="cl50hs7lj003c0npsak3666sj" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -164,19 +214,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2014-03-05_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../w365/2022-06-16_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS DB インデックスの再構成の手順について
+          Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて
         
       </div>
     </a>
   
   
-    <a href="../20130507_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20220608_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Configuration Manager における MIF ファイルによるインベントリ拡張について</div>
+      <div class="article-nav-title">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</div>
     </a>
   
 </nav>
@@ -199,7 +249,7 @@
           </li>
         
           <li>
-            <a href="../20220610_01/">パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法</a>
+            <a href="">パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法</a>
           </li>
         
           <li>
