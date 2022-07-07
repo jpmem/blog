@@ -15,7 +15,7 @@
 <meta property="og:description" content="オフライン環境でも更新プログラムの管理を WSUS から行ないたい！と、弊サポート チームによくお問い合わせをいただきます。オフライン環境でも、もちろん WSUS を利用することは可能なのですが、オフライン WSUS サーバーの構築には、ちょっとしたコツや注意点がいくつかあるので、今回のブログではオフライン WSUS サーバーの構築手順と合わせて、そのような点を紹介します。是非これから構築を行われ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-07T01:14:21.094Z">
+<meta property="article:modified_time" content="2022-07-07T01:15:06.220Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -141,10 +141,29 @@
 <li><p>オンライン WSUS サーバーから更新プログラムのメタデータをエクスポートします。  </p>
 </li>
 </ol>
-<p>5.1. Microsoft Update と疎通できるオンライン WSUS サーバーにログインします。<br>5.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。<br>※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、この<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-0kb-3593-2">ブログ</a>をご参照ください。<br>例) エクスポートするメタデータを export.cab として C:\Program Files\Update Services\Tools に作成する場合 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> cd &quot;C:\Program Files\Update Services\Tools&quot; </span><br><span class="line"> wsusutil.exe export export.xml.gz export.log</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">6. オンライン WSUS サーバーから更新プログラム ファイルが保管されている WSUSContents フォルダおよび、上記の手順で出力したexport.xml.gz を USB ドライブや共有フォルダにコピーし、オフライン環境のWSUS サーバーへコピー出来るようにします。この時、WSUSContents フォルダについては、同じフォルダ構成にてコピーしてください。  </span><br><span class="line"></span><br><span class="line">## オフライン WSUS サーバーでの実施手順</span><br><span class="line">7. オフライン WSUS サーバーにて WsusContent フォルダに関する以下のアクセス権限を設定/確認します。  </span><br><span class="line"></span><br><span class="line">7.1. ドライブのルート (例：C:\ など) に、最低でも Users グループ または  Network Service アカウントに対して [読み取り] アクセス許可  </span><br><span class="line"></span><br><span class="line">7.2. WSUSContent フォルダが作成されるルートフォルダ (例: C:\WSUS など) に対し、最低でも Users グループならびに Network Service アカウントの両方に [読み取り] アクセス許可  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">8. WSUSContents フォルダを、オフライン環境のWSUS サーバーへ同じフォルダ構成にてコピーします。この手順でコピーが完了してから、次の手順を実施しないと失敗いたしますので、ご注意ください。  </span><br><span class="line"></span><br><span class="line">9. Microsoft Update と疎通できる WSUS サーバーからエクスポートした export.xml.gz ファイルを、オフライン環境 WSUS サーバーの任意の場所にコピーします。  </span><br><span class="line"></span><br><span class="line">10. オフライン WSUS サーバーにてエクスポートされた更新プログラムのメタデータをインポートします。  </span><br><span class="line"></span><br><span class="line">10.1. オフライン環境の WSUS サーバーにログインします。</span><br><span class="line">10.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。  </span><br><span class="line">　　  ※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、このブログをご参照ください。  </span><br><span class="line">例) export.cab ファイルを C:\Program Files\Update Services\Tools にコピーした場合</span><br></pre></td></tr></table></figure>
-<p>cd “C:\Program Files\Update Services\Tools”<br>wsusutil.exe import import.xml.gz import.log </p>
-<p>```</p>
+<p>5.1. Microsoft Update と疎通できるオンライン WSUS サーバーにログインします。<br>5.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。<br>※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、この<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-0kb-3593-2">ブログ</a>をご参照ください。<br>例) エクスポートするメタデータを export.cab として C:\Program Files\Update Services\Tools に作成する場合  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot; </span><br><span class="line">wsusutil.exe export export.xml.gz export.log</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>オンライン WSUS サーバーから更新プログラム ファイルが保管されている WSUSContents フォルダおよび、上記の手順で出力したexport.xml.gz を USB ドライブや共有フォルダにコピーし、オフライン環境のWSUS サーバーへコピー出来るようにします。この時、WSUSContents フォルダについては、同じフォルダ構成にてコピーしてください。  </li>
+</ol>
+<h2 id="オフライン-WSUS-サーバーでの実施手順"><a href="#オフライン-WSUS-サーバーでの実施手順" class="headerlink" title="オフライン WSUS サーバーでの実施手順"></a>オフライン WSUS サーバーでの実施手順</h2><ol start="7">
+<li>オフライン WSUS サーバーにて WsusContent フォルダに関する以下のアクセス権限を設定/確認します。  </li>
+</ol>
+<p>7.1. ドライブのルート (例：C:\ など) に、最低でも Users グループ または  Network Service アカウントに対して [読み取り] アクセス許可  </p>
+<p>7.2. WSUSContent フォルダが作成されるルートフォルダ (例: C:\WSUS など) に対し、最低でも Users グループならびに Network Service アカウントの両方に [読み取り] アクセス許可  </p>
+<ol start="8">
+<li><p>WSUSContents フォルダを、オフライン環境のWSUS サーバーへ同じフォルダ構成にてコピーします。この手順でコピーが完了してから、次の手順を実施しないと失敗いたしますので、ご注意ください。  </p>
+</li>
+<li><p>Microsoft Update と疎通できる WSUS サーバーからエクスポートした export.xml.gz ファイルを、オフライン環境 WSUS サーバーの任意の場所にコピーします。  </p>
+</li>
+<li><p>オフライン WSUS サーバーにてエクスポートされた更新プログラムのメタデータをインポートします。  </p>
+</li>
+</ol>
+<p>10.1. オフライン環境の WSUS サーバーにログインします。<br>10.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。<br>　　  ※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、このブログをご参照ください。<br>例) export.cab ファイルを C:\Program Files\Update Services\Tools にコピーした場合  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot;</span><br><span class="line">wsusutil.exe import import.xml.gz import.log  </span><br></pre></td></tr></table></figure>
+
+
 <ol start="11">
 <li>オフライン WSUS サーバーにて、手順 4 にて承認した配信を行う更新プログラムの承認を実施し、WSUS クライアントへ配信を行います。<br>※手順 4 でインストール承認し、ダウンロードが完了していない更新プログラムは、オフライン WSUS サーバーでインストール承認することは出来ませんので、ご注意ください。  </li>
 </ol>
@@ -152,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="cl5ac68y4005l0os1dxzhb25m" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="cl5ac77lr005l0nmk6r6b3qm2" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
