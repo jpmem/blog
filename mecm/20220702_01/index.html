@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？ | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220702_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-04-10-05-50.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-05-08-40-45.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-04-19-04-38.png">
+<meta property="article:published_time" content="2022-07-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T01:14:21.038Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-04-10-05-50.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220702_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2022-07-03T15:00:00.000Z" itemprop="datePublished">2022-07-04</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2022-07-03T15:00:00.000Z" itemprop="dateUpdated">2022-07-04</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート 山田です。  </p>
+<p>今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。  </p>
+<h2 id="イネーブルメント-パッケージとは？"><a href="#イネーブルメント-パッケージとは？" class="headerlink" title="イネーブルメント パッケージとは？"></a>イネーブルメント パッケージとは？</h2><p>Windows 10 1903 と 1909、2004 ～ 21H2 は共通のコア オペレーティング システムを使用しています。<br>そのため、このイネーブルメント パッケージを展開するだけで、手軽に機能更新プログラムを適用できます。<br>通常の機能更新プログラムは数 GB ほどの大きい容量ですが、イネーブルメント パッケージは数十 KB ほどのため、ネットワークもひっ迫することなく機能更新が行えるため、とても便利です。  </p>
+<h3 id="通常の機能更新プログラムとイネーブルメント-パッケージ、どちらを展開するべきか"><a href="#通常の機能更新プログラムとイネーブルメント-パッケージ、どちらを展開するべきか" class="headerlink" title="通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべきか"></a>通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべきか</h3><p>それではどちらを展開すべきか見ていきましょう。<br>具体的には、元の OS がどれを使用しているかに依存します。  </p>
+<p>■ 例 21H2 にアップグレードしたい場合<br><strong>アップグレード元の OS が 1909 以前 (1909 を含む) → 通常の機能更新プログラム（例 Windows 10 (ビジネス エディション)、バージョン 21H2、ja-jp x64 の機能更新プログラム）を展開します。</strong>  </p>
+<p><strong>アップグレード元の OS が 2004 以降 (2004 を含む) → イネーブルメント パッケージ（例 Windows 10 バージョン 21H2 x64ベースのシステムへの機能更新 2021-11 イネーブルメント パッケージ経由）を展開します。</strong>  </p>
+<p>イネーブルメント パッケージを展開するためには前提条件が存在します。<br>前提条件を満たすことで MECM で “必須判定” されますので、あらかじめご確認ください。  </p>
+<p>&lt;前提条件&gt;  </p>
+<p>■20H2 へのアップグレードの場合 (KB4562830)  </p>
+<p>・サービス スタック更新プログラム 2020 年 9 月 8 日 かそれ以降のサービス スタック更新プログラムを適用していること<br>・2020 年 10 月 13 日 KB4579311 (19041.572) かそれ以降のソフトウェア更新プログラムを適用していること  </p>
+<p>参考情報 : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/feature-update-through-windows-10-version-20h2-enablement-package-02d91e04-931e-f00d-090c-015467c49f6c">Feature Update through Windows 10, version 20H2 Enablement Package</a>  </p>
+<p>■21H1 へのアップグレードの場合</p>
+<p>・サービス スタック更新プログラム 2020 年 9 月 8 日 かそれ以降のサービス スタック更新プログラムを適用していること<br>・2021 年 5 月 11 日 KB5003173 (19041.985) かそれ以降のソフトウェア更新プログラムを適用していること  </p>
+<p>参考情報 : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/kb5000736-%E6%9C%89%E5%8A%B9%E5%8C%96%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%BF%E7%94%A8windows-10%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-21h1-%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E4%B8%BB%E3%81%AA%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0-75a01e67-3b5f-4677-8efe-42852e41c7cf">KB5000736: 有効化パッケージを使用Windows 10バージョン 21H1 に対する主な更新プログラム</a>  </p>
+<p>■21H2 へのアップグレードの場合</p>
+<p>・サービス スタック更新プログラム 2020 年 9 月 8 日 かそれ以降のサービス スタック更新プログラムを適用していること<br>・2021 年 9 月 14 日 KB5005565 (19041.1237) かそれ以降のソフトウェア更新プログラムを適用していること  </p>
+<p>参考情報 : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/kb5003791-%E6%9C%89%E5%8A%B9%E5%8C%96%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8windows-10%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-21h2-%E3%82%92%E6%9B%B4%E6%96%B0-8bc077be-18d7-4aac-81ce-6f6dad2cd384">KB5003791: 有効化パッケージWindows 10バージョン 21H2 を更新 </a>  </p>
+<h3 id="どちらが必須判定されているか確認する方法"><a href="#どちらが必須判定されているか確認する方法" class="headerlink" title="どちらが必須判定されているか確認する方法"></a>どちらが必須判定されているか確認する方法</h3><p>通常の機能更新プログラムとイネーブルメント パッケージのどちらが必須と判定しているか確認したい場合、MECM のレポート機能を使用すると一番わかりやすいです。  </p>
+<p>■クライアント端末毎に確認するレポート<br>[監視] - [レポート] - [ソフトウェア更新プログラム - A コンプライアンス] - [コンプライアンス 5 - 特定のコンピューター]  </p>
+<p>デバイス名：任意のクライアントを選択します。<br>更新クラス：Upgrades を選択します。  </p>
+<p><img src="/blog/mecm/20220702_01/2022-07-04-10-05-50.png">  </p>
+<p>上記はイネーブルメント パッケージが “必須判定” されている状態です。  </p>
+<p>■更新プログラム毎に確認するレポート<br>[監視] - [レポート] - [ソフトウェア更新プログラム - A コンプライアンス] - [コンプライアンス 8 - 更新プログラムに対して特定のコンプライアンスの状態にあるコンピューター]  </p>
+<p>更新：Windows 10 (ビジネス エディション)、バージョン 21H2、ja-jp x64 の機能更新プログラム など任意の更新プログラム<br>コレクション：対象のクライアントが所属するデバイス コレクション<br>状態名：2 - 更新を行う必要があります  </p>
+<p><img src="/blog/mecm/20220702_01/2022-07-05-08-40-45.png"></p>
+<p>上記は CL1 というデバイスが機能更新プログラムを必要と判定している状態です。  </p>
+<h4 id="補足事項"><a href="#補足事項" class="headerlink" title="補足事項"></a>補足事項</h4><p>WSUS で承認する場合も上述の考え方は同じです。<br>WSUS もレポート機能がありますので、どちらが必要と判定しているか把握したい場合はレポートを参照してください。  </p>
+<ul>
+<li>レポートを出力する手順  </li>
+</ul>
+<ol>
+<li>WSUS コンソールを開き、[WSUS サーバー名] - [コンピューター] - [すべてのコンピューター] と辿ります。  </li>
+<li>該当のクライアント名を右クリックし、[状態レポート] を選択します。  </li>
+<li>以下のように項目を選択し、[レポートの実行] を選択します。  </li>
+</ol>
+<p>次の分類に更新を含める：Upgrade<br>次の状態の更新プログラムを含める：必要  </p>
+<p><img src="/blog/mecm/20220702_01/2022-07-04-19-04-38.png">  </p>
+<p>[インストールされていません] という表記になっている場合は、該当の機能更新プログラムを必要と判定しています。  </p>
+<p>参考情報<br><a href="https://jpmem.github.io/blog/wsus/2017-09-04_02/">WSUS のレポートに表示される「状態」の項目の説明</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20220702_01/" data-id="cl5ac68x4003e0os1899vcs3y" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20220706_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          MECM 自動展開規則 ~手順解説シリーズ~
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../w365/2022-06-16_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20220706_01/">MECM 自動展開規則 ~手順解説シリーズ~</a>
+          </li>
+        
+          <li>
+            <a href="">通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-06-16_01/">Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて</a>
+          </li>
+        
+          <li>
+            <a href="../20220610_01/">パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法</a>
+          </li>
+        
+          <li>
+            <a href="../20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%89%8B%E9%A0%86%E8%A7%A3%E8%AA%AC/" rel="tag">手順解説</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
