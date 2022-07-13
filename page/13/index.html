@@ -87,6 +87,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wsus/2012-06-07_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2012-06-07_01/" class="article-date">
+  <time datetime="2012-06-06T15:00:00.000Z" itemprop="datePublished">2012-06-07</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2012-06-07_01/">レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2012-06-07_01/" class="article-date-single">    
+    
+    <time datetime="2012-06-06T15:00:00.000Z" itemprop="dateUpdated">2012-06-07</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。WSUS サポート チームです。
+サーバー クリーンアップ ウィザードは、不要なデータを整理・削除するためにお使いいただく機能ですが、WSUS サーバーをレプリカ構成 (※) されている環境では、実施上の注意点がありますのでご紹介します。
+(※) 階層構成でも、レプリカに設定していない場合は、心配ありません。
+クリーンアップ ウィザードの最初の項目「不要な更新および更新のリビジョン」は、必ず下位側のサーバー (レプリカ サーバー) で先に実行し、上位側 (マスター サーバー) はその後で実行するようお願いします。
+この逆順、つまり上位側を先に実行すると、期限切れで不要となった古い更新プログラムの情報が、下位サーバー側に「未承認」の状態で残ってしまう場合があります。下位サーバー側に残ったレコードは、再度クリーンアップを実施しても削除されません。( その時点から 30 日...
+        <p class="article-more-link">
+          <a href="../../wsus/2012-06-07_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-06-07_01/" data-id="cl5k38z86004g0msaf34g715m" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-wsus/2012-03-19_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../wsus/2012-03-19_01/" class="article-date">
@@ -134,7 +187,7 @@ https://catalog.update.microsoft.com/
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cl5k37m7u004e0nmdask4ebwt" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cl5k38z84004e0msahr5bfx31" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -195,7 +248,7 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2011-10-31_01/" data-id="cl5k37m7t004c0nmd5n47brrb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2011-10-31_01/" data-id="cl5k38z83004c0msaan4zbuck" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -229,6 +282,10 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
           </li>
         
           <li>
+            <a href="../../wsus/2022-07-07_01/">WSUS の仕組み レポート編</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20220706_01/">MECM 自動展開規則 ~手順解説シリーズ~</a>
           </li>
         
@@ -238,10 +295,6 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
         
           <li>
             <a href="../../w365/2022-06-16_01/">Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20220610_01/">パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法</a>
           </li>
         
       </ul>
