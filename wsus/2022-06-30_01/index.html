@@ -5,17 +5,17 @@
   
 
   
-  <title>WSUS DB インデックスの再構成の手順について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>WSUS サーバーのダウンロード障害について – BITS と Range ヘッダー | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。WSUS サポート チームです。   今回は、インデックスの再構成の手順をご紹介いたします。 WSUS サーバー自身には、データベースのインデックスをメンテナンスする機能が含まれていません。運用継続に伴ってデータベースのパフォーマンスが劣化する可能性があります。例えば WSUS サーバーを運用するにあたり、定期的にクリーンアップ ウィザードを実施していただくことを推奨しておりますが、今">
+  <meta name="description" content="こんにちは。WSUS サポート チームです。   今回は WSUS サーバーが Microsoft Update サイトや上位の WSUS サーバーから更新プログラムのインストーラーをダウンロードする際に、よくあるトラブル事例と対処方法をご紹介します。もし下記のような症状が出ている場合には、本ブログ記事が役立つと思います。    いくつかの更新プログラムについてのみ、ダウンロードが失敗する   ダ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS DB インデックスの再構成の手順について">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2014-03-05_01/index.html">
+<meta property="og:title" content="WSUS サーバーのダウンロード障害について – BITS と Range ヘッダー">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-06-30_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="こんにちは。WSUS サポート チームです。   今回は、インデックスの再構成の手順をご紹介いたします。 WSUS サーバー自身には、データベースのインデックスをメンテナンスする機能が含まれていません。運用継続に伴ってデータベースのパフォーマンスが劣化する可能性があります。例えば WSUS サーバーを運用するにあたり、定期的にクリーンアップ ウィザードを実施していただくことを推奨しておりますが、今">
+<meta property="og:description" content="こんにちは。WSUS サポート チームです。   今回は WSUS サーバーが Microsoft Update サイトや上位の WSUS サーバーから更新プログラムのインストーラーをダウンロードする際に、よくあるトラブル事例と対処方法をご紹介します。もし下記のような症状が出ている場合には、本ブログ記事が役立つと思います。    いくつかの更新プログラムについてのみ、ダウンロードが失敗する   ダ">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2014-03-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-13T21:00:25.400Z">
+<meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-13T21:00:25.472Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -84,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2014-03-05_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-06-30_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2014-03-04T15:00:00.000Z" itemprop="datePublished">2014-03-05</time>
+  <time datetime="2019-04-08T15:00:00.000Z" itemprop="datePublished">2019-04-09</time>
 </a>
     <!--  -->
   </div>
@@ -98,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS DB インデックスの再構成の手順について
+      WSUS サーバーのダウンロード障害について – BITS と Range ヘッダー
     </h1>
   
 
@@ -107,7 +107,7 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2014-03-04T15:00:00.000Z" itemprop="dateUpdated">2014-03-05</time>
+    <time datetime="2019-04-08T15:00:00.000Z" itemprop="dateUpdated">2019-04-09</time>
     
 </a>
       </div>
@@ -115,40 +115,37 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>こんにちは。WSUS サポート チームです。  </p>
-<p>今回は、インデックスの再構成の手順をご紹介いたします。</p>
-<p>WSUS サーバー自身には、データベースのインデックスをメンテナンスする機能が含まれていません。運用継続に伴ってデータベースのパフォーマンスが劣化する可能性があります。例えば WSUS サーバーを運用するにあたり、定期的にクリーンアップ ウィザードを実施していただくことを推奨しておりますが、今まで、定期的にクリーンアップ ウィザードを実施していない場合は、クリーンアップ処理に数時間を要することもあります。処理完了までの時間を少しでも削減するために、まずはインデックスの再構成を行ってください。</p>
-<p>このメンテナンス用スクリプトが公開されていますので、これを利用し定期的にインデックスの再構成を実施いただくことをお勧めします。<br>インデックスの再構成を行う手順は下記のとおりとなります。</p>
-<h2 id="作業概要"><a href="#作業概要" class="headerlink" title="作業概要"></a>作業概要</h2><p>WSUS のデータベースである SUSDB に対して、下記からダウンロードした WSUS データベース メンテナンス用の SQL クエリを実行します。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft-jpcssmem/WSUS/releases/latest/download/WsusDBMaintenance.sql">WsusDBMaintenance.sql</a></p>
-<p><strong>注意</strong><br>スクリプトは WSUS サーバー上で実行してください。<br>WSUS サーバーを親子構成している場合は、親子両方の WSUS サーバー上で実行してください。<br>sqlcmd を用いてスクリプトを実行する場合には、「-I」オプションを設定し、”QUOTED_IDENTIFIER” を ON としてください。  </p>
-<h2 id="作業手順"><a href="#作業手順" class="headerlink" title="作業手順"></a>作業手順</h2><p>WSUS に使用するデータベースには、SQL Server もしくは Windows Internal Database (WID) を選択できます。<br>ご利用いただいているデータベースにあわせて、以下の作業を実施してください。</p>
-<p>どちらのデータベースを現在利用しているかにつきましては、WSUS サーバーの以下のレジストリから判断できます。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Update Services\Server\Setup]</span><br><span class="line">&quot;SqlServerName&quot; </span><br></pre></td></tr></table></figure>
-
-<p>“SqlServerName” の値が <strong>%computername%\MICROSOFT##SSEE</strong> もしくは <strong>MICROSOFT##WID</strong> となっていれば、WID です。<br>それ以外は SQL Server です。</p>
-<h3 id="SQL-Server-を使用している場合"><a href="#SQL-Server-を使用している場合" class="headerlink" title="SQL Server を使用している場合"></a>SQL Server を使用している場合</h3><ol>
-<li>SQL Server Management Studio を右クリックして [管理者として実行] にて起動し、WSUS データベースが動作しているインスタンスに接続します。</li>
-<li>左ペインのデータベースのツリーから [SUSDB] を右クリックして[新しいクエリ] を選択します。</li>
-<li>クエリ画面内に、上述の WSUS データベース メンテナンス用スクリプトをコピーペーストして実行します。データベースの最適化が終了すると “Statistics for all tables have been updated” または “全テーブルの統計が更新されました” というメッセージが表示されます。</li>
-</ol>
-<h3 id="WID-を使用している場合"><a href="#WID-を使用している場合" class="headerlink" title="WID を使用している場合"></a>WID を使用している場合</h3><p>SQL Server Management Studio を下記よりダウンロード、インストールしてから、上述の SQL Server の場合と同じ要領で実行します。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#available-languages">SQL Server Management Studio (SSMS) のダウンロード</a></p>
-<p>日本語版の SSMS をインストールしたい場合、上記 Web サイト内の [日本語] のリンクをクリックすると、日本語版のダウンロードが始まります。ファイル名は、”SSMS-Setup-JPN.exe” です。<br>ダウンロードができたら、SQL Server Management Studio をインストールします。インストール後、再起動が求められることがありますので、その際は OS 再起動を実施してください。</p>
-<ol>
-<li>SQL Server Management Studio を右クリックして [管理者として実行] にて起動し、WSUS データベースが動作しているインスタンスに接続します。</li>
-</ol>
-<blockquote>
-<p>サーバーの種類 : データベース エンジン<br>サーバー名 : <code>\\.\pipe\Microsoft##WID\tsql\query</code><br>認証 : Windows 認証  </p>
-</blockquote>
-<ol start="2">
-<li>左ペインのデータベースのツリーから [SUSDB] を右クリックして[新しいクエリ] を選択します。</li>
-<li>クエリ画面内に、上述の WSUS データベース メンテナンス用スクリプトをコピーペーストして実行します。データベースの最適化が終了すると “Statistics for all tables have been updated” または “全テーブルの統計が更新されました” というメッセージが表示されます。</li>
-</ol>
+<p>今回は WSUS サーバーが Microsoft Update サイトや上位の WSUS サーバーから更新プログラムのインストーラーをダウンロードする際に、よくあるトラブル事例と対処方法をご紹介します。<br>もし下記のような症状が出ている場合には、本ブログ記事が役立つと思います。  </p>
+<ul>
+<li>いくつかの更新プログラムについてのみ、ダウンロードが失敗する  </li>
+<li>ダウンロードが異常に遅い (例えば、月例のセキュリティ更新プログラムをダウンロードするのに数日かかる、など)  </li>
+<li>アプリケーション イベントログに下記のようなエラーが記録されている  </li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">イベントの種類: エラー</span><br><span class="line">イベント ソース: Windows Server Update Services</span><br><span class="line">イベント カテゴリ: (2)</span><br><span class="line">イベント ID: 364</span><br><span class="line">日付: date</span><br><span class="line">時刻: time</span><br><span class="line">ユーザー: 該当なし</span><br><span class="line">コンピューター: ServerName</span><br><span class="line">説明:コンテンツ ファイルのダウンロードに失敗しました。原因:サーバーは必要な HTTP プロトコルをサポートしていません。バックグラウンド インテリジェント転送サービス (BITS) では、サーバーが Range プロトコル ヘッダーをサポートしている必要があります。</span><br></pre></td></tr></table></figure>
+<p>こういった場合、下記の技術情報でご紹介する対処方法をお試しください。  </p>
+<p><a target="_blank" rel="noopener" href="http://support.microsoft.com/kb/922330/ja">バックグラウンド インテリジェント転送サービスを使用してファイルをダウンロードしようとすると、次のエラー メッセージが表示される: コンテンツ ファイル ダウンロードに失敗しました</a></p>
+<p>本ブログ記事ではトラブルの詳細、対処方法とその影響についてもう少し補足してご説明します。  </p>
+<h1 id="トラブルの詳細について"><a href="#トラブルの詳細について" class="headerlink" title="トラブルの詳細について"></a>トラブルの詳細について</h1><p>WSUS サーバーが更新プログラムのインストーラーをダウンロードする際には、”Background Intelligent Transfer Service” (BITS) サービスが利用されます。<br>BITS は帯域制御の機能を持ったファイル転送の仕組みで、バックグラウンド、フォアグラウンド、と 2 種類の転送モードを持ちます。  </p>
+<p>WSUS サーバーは既定の設定で、バックグラウンド モードを利用してダウンロードを行います。<br>この時、ダウンロード要求は HTTP/1.1 の Range ヘッダーを使って、インストーラーをいくつものブロックに分けて分割ダウンロードを行います。  </p>
+<p>しかし、プロキシやネットワーク機器の設定状況によっては、Range ヘッダーを利用した通信を拒否する、通信が遅くなる、といった事象が発生することがあります。<br>これが先に挙げた症状の、よくある発生要因です。  </p>
+<h1 id="対処方法について"><a href="#対処方法について" class="headerlink" title="対処方法について"></a>対処方法について</h1><p>技術情報 KB922330 でご紹介する対処方法は、下記の 2 通りです。  </p>
+<h2 id="A-プロキシやネットワーク機器の設定を変更し、Range-ヘッダーを利用した通信をサポートするように対処する"><a href="#A-プロキシやネットワーク機器の設定を変更し、Range-ヘッダーを利用した通信をサポートするように対処する" class="headerlink" title="A. プロキシやネットワーク機器の設定を変更し、Range ヘッダーを利用した通信をサポートするように対処する"></a>A. プロキシやネットワーク機器の設定を変更し、Range ヘッダーを利用した通信をサポートするように対処する</h2><p>技術情報では具体的な製品名として SonicWALL を挙げておりますが、それ以外のネットワーク機器が影響することもありえます。<br>ただ、この対処方法はいくつものネットワーク機器を調べる必要があり、また設定を変更するとネットワーク全体に影響が及ぶため、ほとんど実施されることはありません。  </p>
+<h2 id="B-WSUS-の-BITS-をフォアグラウンド-モードに変更する"><a href="#B-WSUS-の-BITS-をフォアグラウンド-モードに変更する" class="headerlink" title="B. WSUS の BITS をフォアグラウンド モードに変更する"></a>B. WSUS の BITS をフォアグラウンド モードに変更する</h2><p>BITS の設定をフォアグラウンド モードに変更すると、Range ヘッダーを利用した分割ダウンロードは行われず、インストーラー全体をまとめて 1 つのダウンロード要求で処理します。<br>技術情報の “方法 1:プロキシ サーバーが HTTP 1.1 の範囲要求をサポートしていない” を実施するのですが、具体的には下記の 2 ステップで設定を変更しています。  </p>
+<p>・ステップ 1<br>WSUS が利用するデータベース “SUSDB” に対して、下記の SQL クエリを実行して設定値を変更する。  </p>
+<p><code>update tbConfigurationC set BitsDownloadPriorityForeground=1</code></p>
+<p>・ステップ 2<br>WSUS のサービス “Update Services” を再起動して、設定変更を反映させる。  </p>
+<p>もし設定を元に戻したい場合には、ステップ 1 で実行する SQL クエリを下記に変更して、”Update Services” を再起動します。  </p>
+<p><code>update tbConfigurationC set BitsDownloadPriorityForeground=0</code></p>
+<p>WSUS が利用する既定のデータベース Windows Internal Database に対して GUI から SQL クエリを実行したい時には、下記のブログ記事をご参照ください。  </p>
+<p><a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/f02afeaa-37e9-4ecd-bf95-39f1019ed385/wsus?forum=jpsccmwsus">WSUS データベースを簡単に操作するには (Windows Server 2012 編)</a></p>
+<h1 id="BITS-フォアグラウンド-モードの影響について"><a href="#BITS-フォアグラウンド-モードの影響について" class="headerlink" title="BITS フォアグラウンド モードの影響について"></a>BITS フォアグラウンド モードの影響について</h1><p>BITS を用いたファイル転送には帯域制御を設定可能ですが、BITS フォアグラウンド モードは帯域制御を行いません。<br>もし帯域制御をグループ ポリシー等で設定する環境では、注意が必要となります。<br>なお、WSUS が BITS を利用する際の設定のみが変更されるため、その他の場面で BITS が利用されるときの動作には影響ありません。  </p>
+<p>– 参考資料<br>タイトル: Background Intelligent Transfer Service<br>URL: <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb968799.aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/bb968799.aspx</a>  </p>
+<p><strong>(補足情報)<br>Windows 10 の機能更新プログラムなど、2 GB を超えるファイルについては、WSUS の設定で BITS フォアグラウンド モードに変更したとしても、Range ヘッダーを使って分割ダウンロードが行われます。こちらは、BITS における想定された動作となりますので、機能更新プログラムのダウンロードを実施する場合は、お手数をおかけいたしますが、ネットワーク中継機器で Range ヘッダーを許可してくださいますようお願いいたします。</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2014-03-05_01/" data-id="cl5k36psp004h0mrt47ep9bgp" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cl5k36ptw006r0mrt14y250v5" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -159,19 +156,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2014-04-02_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2019-04-09_02/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS 4.0 (Windows Server 2012) ポート番号変更について
+          オフライン WSUS サーバーの構築方法
         
       </div>
     </a>
   
   
-    <a href="../../mecm/20131204_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2019_04-04_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Endpoint Configuration Manager におけるワークグループ環境でのクライアントご利用手順について</div>
+      <div class="article-nav-title">Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する</div>
     </a>
   
 </nav>
