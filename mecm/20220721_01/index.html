@@ -5,22 +5,22 @@
   
 
   
-  <title>Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>MECM 管理コンソールでレポートが実行できない事象について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で使用するポートを既定のポート 8530 &#x2F; 8531 番から 80 番に変更している環境において、2017 年 7 月以降にリリースされたマンスリー品質ロールアップ (KB4025331 &#x2F; KB4025336 以降 ) を適用した場合に発生する事象についてご案内します。   本事象が発生した場合には、後述の手順を実施">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は MECM 管理コンソールでレポートが実行できない事象についてご案内いたします。  事象MECM コンソールをインストールしたマシンにおいて、Microsoft ReportViewer 2010 SP1 Redistributable をアンインストールした場合、MECM 管理コンソールより、レポ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows Server 2012 &#x2F; 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20200729_01/index.html">
+<meta property="og:title" content="MECM 管理コンソールでレポートが実行できない事象について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220721_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で使用するポートを既定のポート 8530 &#x2F; 8531 番から 80 番に変更している環境において、2017 年 7 月以降にリリースされたマンスリー品質ロールアップ (KB4025331 &#x2F; KB4025336 以降 ) を適用した場合に発生する事象についてご案内します。   本事象が発生した場合には、後述の手順を実施">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は MECM 管理コンソールでレポートが実行できない事象についてご案内いたします。  事象MECM コンソールをインストールしたマシンにおいて、Microsoft ReportViewer 2010 SP1 Redistributable をアンインストールした場合、MECM 管理コンソールより、レポ">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20200729_01/20200729_01_01.png">
-<meta property="article:published_time" content="2020-07-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-21T10:15:19.947Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220721_01/1.png">
+<meta property="article:published_time" content="2022-07-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-21T10:15:20.067Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20200729_01/20200729_01_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220721_01/1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -86,10 +86,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20200729_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20220721_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2020-07-28T15:00:00.000Z" itemprop="datePublished">2020-07-29</time>
+  <time datetime="2022-07-20T15:00:00.000Z" itemprop="datePublished">2022-07-21</time>
 </a>
     <!--  -->
   </div>
@@ -100,7 +100,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について
+      MECM 管理コンソールでレポートが実行できない事象について
     </h1>
   
 
@@ -109,35 +109,35 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2020-07-28T15:00:00.000Z" itemprop="dateUpdated">2020-07-29</time>
+    <time datetime="2022-07-20T15:00:00.000Z" itemprop="dateUpdated">2022-07-21</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。  </p>
-<p>今回は WSUS で使用するポートを既定のポート 8530 / 8531 番から <strong>80 番</strong>に変更している環境において、<strong>2017 年 7 月以降にリリースされたマンスリー品質ロールアップ (KB4025331 / KB4025336 以降 )</strong> を適用した場合に発生する事象についてご案内します。  </p>
-<p>本事象が発生した場合には、後述の手順を実施することで、事象を改善することができますので、ご確認くださいますようお願い申し上げます。なお、WSUS で使用しているポート番号については、WSUS 管理コンソールの以下の画面よりご確認ください。  </p>
-<p><img src="/blog/mecm/20200729_01/20200729_01_01.png">  </p>
-<h3 id="対象製品"><a href="#対象製品" class="headerlink" title="対象製品"></a>対象製品</h3><p>・Windows Server 2012 の WSUS<br>・Windows Server 2012 R2 の WSUS  </p>
-<h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>HTTP 80  ポートで構成している WSUS サーバーに対して、手動や Windows Update によって対象の更新プログラムを適用した後に、クライアントからの更新プログラムの検出処理でエラー <strong>0x8024401f / 0x80244008</strong> が発生します。  </p>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>WSUS へ対象の更新プログラムを適用すると、クライアント Web サービスにて ASP. NET Webサービスではなく WCF が用いられるようになります。この変更の一環として WSUS を動作させるために、Web サイトに対して HTTP と HTTPS の両方のポート番号のバインド設定が必要となりますが、更新プログラムを適用する以前から 80 番 (HTTP) を利用している環境では、443 番 (HTTPS) がバインドされていないために本事象が発生します。  </p>
-<p>なお、2017 年 7 月以降のマンスリー品質ロールアップには、この WSUS に対する更新が含まれますため、ご注意ください。  </p>
-<h3 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h3><p>更新プログラムを適用した状態で、WSUS サーバーに付属する wsusutil コマンドを実行し、いったん既定のポート (8530 / 8531) に戻したうえで、改めて 80 /443 番ポートに変更します。なお、本手順による WSUS サーバーへの影響はございません。  </p>
-<p>コマンド プロンプトを管理者権限で実行します。<br>以下コマンドを実行し、既定のポート (8530 / 8531) に戻します。  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“C:\Program Files\Update Services\Tools\wsusutil.exe” UseCustomWebSite true</span><br></pre></td></tr></table></figure>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>今回は MECM 管理コンソールでレポートが実行できない事象についてご案内いたします。 </p>
+<h1 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h1><p>MECM コンソールをインストールしたマシンにおいて、Microsoft ReportViewer 2010 SP1 Redistributable をアンインストールした場合、MECM 管理コンソールより、レポートを実行しても実行できない事象が発生します。<br>この事象が発生した場合、以下のログが記録されます。</p>
+<p><code>&lt;MECM コンソール インストール フォルダー&gt;\AdminConsole\AdminUILog\SmsAdminUI.log</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">System.IO.FileNotFoundException</span><br><span class="line">Could not load file or assembly &#x27;Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#x27; or one of its dependencies. The system cannot find the file specified.</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.ReportViewerWindowsForms..ctor()</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.LaunchReportFormViewControl.InitializeComponent()</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.LaunchReportFormViewControl..ctor()</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.LaunchReportDialog.InitializeReportControl()</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.LaunchReportDialog..ctor(Tag tag)</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.Actions.ShowReport(IReport report, IReportServer reportServer, IResultObject resultObject)</span><br><span class="line">   at Microsoft.ConfigurationManagement.AdminConsole.SrsReporting.Actions.LaunchReport(Object formView, ScopeNode scopeNode, ActionDescription actionDescription, IResultObject resultObject, PropertyDataUpdated propertyDataUpdated, Status status)</span><br></pre></td></tr></table></figure>
 
-<p>以下コマンドを実行し、あらためて 80 / 443 番ポートに変更します。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“C:\Program Files\Update Services\Tools\wsusutil.exe” UseCustomWebSite false</span><br></pre></td></tr></table></figure>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>MECM 管理コンソールのレポート ビューアーではレポートを表示する際に、内部的に ReportViewer ランタイムを使用しています。<br>そのため、Microsoft ReportViewer 2010 SP1 Redistributable をアンインストールすると、MECM 管理コンソールのレポート ビューアーを使用して、レポートを表示できなくなります。</p>
+<h1 id="回避策"><a href="#回避策" class="headerlink" title="回避策"></a>回避策</h1><p>MECM のレポート機能は、MECM 管理コンソールのレポート ビューアーで表示する方法と、ブラウザから表示可能な Web ベースのレポートを表示する方法が公式にサポートされております。</p>
+<p>Title: Configuration Manager でのレポートの概要 - SQL Server Reporting Services<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/introduction-to-reporting#sql-server-reporting-services">https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/introduction-to-reporting#sql-server-reporting-services</a>  </p>
+<blockquote>
+<p>Configuration Manager レポート ビューアーを使用するか、レポートへの Web ベースの接続であるレポート マネージャーを使用してレポートを表示します。</p>
+</blockquote>
+<p>ReportViewer をアンインストールしたマシンであっても、管理コンソールより対象レポートを選択し [ブラウザーで実行] をクリックすることで、ブラウザよりレポートを実行できます。<br>Microsoft ReportViewer 2010 SP1 Redistributable をアンインストールしており、コンソールからレポートが実行できない場合は、[ブラウザーで実行] をクリックする方法をご利用くださいますようお願いいたします。</p>
+<p><img src="/blog/mecm/20220721_01/1.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20200729_01/" data-id="cl5uvnyst001g0nmnfkrl7lbx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220721_01/" data-id="cl5uvnyui003m0nmn51x1hwhu" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
     </footer>
   </div>
@@ -145,19 +145,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2020-09-08_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          WSUS へスキャンを行うクライアントのセキュリティ向上の為の変更点
-        
-      </div>
-    </a>
   
-  
-    <a href="../../wsus/2020-07-21_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20220714_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS メンテナンス ガイド</div>
+      <div class="article-nav-title">Configuration Manager から更新プログラムを配信する際の再起動通知の動作について (2022 新版)</div>
     </a>
   
 </nav>
@@ -176,7 +167,7 @@
       <ul>
         
           <li>
-            <a href="../20220721_01/">MECM 管理コンソールでレポートが実行できない事象について</a>
+            <a href="">MECM 管理コンソールでレポートが実行できない事象について</a>
           </li>
         
           <li>
