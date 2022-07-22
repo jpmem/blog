@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～ | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   使い方シリーズ、今回はハードウェア インベントリで HKLM 配下の特定のレジストリを収集する方法についてご案内いたします。特定のレジストリ値を収集して、管理コンソールやレポートで確認したいという場合に本手順をお役立ていただけますと幸いです。 想定シナリオ以下のレジストリ値を収集して、値が 2 のデバイス">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220722_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   使い方シリーズ、今回はハードウェア インベントリで HKLM 配下の特定のレジストリを収集する方法についてご案内いたします。特定のレジストリ値を収集して、管理コンソールやレポートで確認したいという場合に本手順をお役立ていただけますと幸いです。 想定シナリオ以下のレジストリ値を収集して、値が 2 のデバイス">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2022-07-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-22T05:32:45.693Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="使い方">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220722_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2022-07-20T15:00:00.000Z" itemprop="datePublished">2022-07-21</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2022-07-20T15:00:00.000Z" itemprop="dateUpdated">2022-07-21</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>使い方シリーズ、今回はハードウェア インベントリで HKLM 配下の特定のレジストリを収集する方法についてご案内いたします。<br>特定のレジストリ値を収集して、管理コンソールやレポートで確認したいという場合に本手順をお役立ていただけますと幸いです。</p>
+<h1 id="想定シナリオ"><a href="#想定シナリオ" class="headerlink" title="想定シナリオ"></a>想定シナリオ</h1><p>以下のレジストリ値を収集して、値が 2 のデバイスを抽出することを目的とします。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">キー：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</span><br><span class="line">値  ：DisableIPSourceRouting (REG_DWORD)</span><br></pre></td></tr></table></figure>
+
+<p>他のレジストリ値についても、mof ファイルをレジストリ値に応じてカスタマイズすることで収集可能ですのでお試しください。</p>
+<h1 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h1><p>以下の流れで手順を進めていきます。</p>
+<ol>
+<li>MOF ファイルを作成する</li>
+<li>インベントリの収集対象に追加する</li>
+</ol>
+<h2 id="1-MOF-ファイルを作成する"><a href="#1-MOF-ファイルを作成する" class="headerlink" title="1. MOF ファイルを作成する"></a>1. MOF ファイルを作成する</h2><p>まずはテスト端末で手順をお試しください。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">キー：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</span><br><span class="line">値  ：DisableIPSourceRouting (REG_DWORD)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>取得したいレジストリ値の MOF ファイルを作成します。<br>configuration.mof 追記用とインポート用の 2 つの MOF ファイルが必要となります。<br>例えば、今回収集対象とするレジストリ値の場合は以下の通りです。</li>
+</ol>
+<ul>
+<li><p>configuration.mof</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[DYNPROPS]</span><br><span class="line">Class TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">[key] string KeyName;</span><br><span class="line">Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[DYNPROPS]</span><br><span class="line">Instance of TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">KeyName=&quot;Value&quot;;</span><br><span class="line">[PropertyContext(&quot;Local|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters|DisableIPSourceRouting&quot;),Dynamic,Provider(&quot;RegPropProv&quot;)] DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>importclass.mof</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[SMS_Report(TRUE),SMS_Group_Name(&quot;TcpipParametersInfo&quot;),SMS_Class_ID(&quot;TcpipParametersInfo&quot;)]</span><br><span class="line">Class TcpipParametersInfo: SMS_Class_Template</span><br><span class="line">&#123;</span><br><span class="line">[SMS_Report(TRUE),key] string KeyName;</span><br><span class="line">[SMS_Report(TRUE)] Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>上記 MOF ファイル内の「TcpipParametersInfo」の部分は任意の名前で構いません。<br><code>HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters</code> の部分は収集対象にしたいレジストリ キーになります。<br><code>DisableIPSourceRouting</code> の部分は収集対象にしたいレジストリ値になります。</p>
+<p>準備ができた後、検証用のコンピューターでコマンド プロンプトから MOF ファイルのあるパスに移動し、以下のコマンドを実行します。</p>
+<p><code>mofcomp -check xxxx.mof</code>　<br>（xxxx にはmof につけたファイル名を入れてください）</p>
+<p>構文チェックでエラーが出力されないことを確認しましょう。</p>
+<h2 id="2-インベントリの収集対象に追加する"><a href="#2-インベントリの収集対象に追加する" class="headerlink" title="2. インベントリの収集対象に追加する"></a>2. インベントリの収集対象に追加する</h2><ol>
+<li>最上位の Configuration Manager サイト サーバー (中央管理サイト、及びスタンドアロン プライマリ サイト) にて、以下のファイルをバックアップしておきます。</li>
+</ol>
+<p><code>\Program Files\Microsoft Configuration Manager\inboxes\clifiles.src\hinv\configuration.mof</code><br>※ \Program Files\Microsoft Configuration Manager は Configuration Manager サイトのインストール先に応じて変更されます。</p>
+<ol start="2">
+<li><p>configuration.mof をメモ帳で開き、手順 1. で作成した configuration.mof 追記用 MOF ファイルの内容を一番下に追記して保存します。具体的には、ファイル末尾の “Added extensions start/ end” の 2 行の間に挿入します。</p>
+</li>
+<li><p>上記作業により、SMS_EXECUTIVE サービスがまもなくファイルの変更を検知し、追加内容をクライアントへのポリシーに変換します。</p>
+</li>
+<li><p>最上位のサイト サーバーにて、Configuration Manager コンソールを起動し、[管理] - [クライアント設定] を開きます。</p>
+</li>
+<li><p>右上ペインに表示された [既定のクライアント設定] を右クリックして、プロパティを開きます。</p>
+</li>
+<li><p>[既定の設定] 画面のハードウェア インベントリを開き、[クラスの設定] をクリックします。</p>
+</li>
+<li><p>[インポート] ボタンをクリックして、手順 1. で作成したインポート用 MOF ファイルをインポートします。</p>
+</li>
+<li><p>追加されたクラスのチェック ボックスをオンにして、[OK] をクリックします。</p>
+</li>
+<li><p>動作確認のため、サイト管理下にある Configuration Manager クライアントが動作しているテスト マシンにおいて、コントロールパネルから Configuration Manager を開いて、以下のサイクルを順番に実行します。</p>
+</li>
+</ol>
+<ul>
+<li>[コンピューターポリシーの取得および評価サイクル]  </li>
+<li>[ハードウェア インベントリ サイクル]</li>
+</ul>
+<p>反映されたポリシーを受信するまでに時間がかかる場合がありますので、テストの際は上記サイクルを何度か実行ください。</p>
+<p>拡張したハードウェアインベントリが正常に収集されると、Configuration Manager コンソールから対象マシンを右クリックして、リソース エクスプローラを起動することで、収集したレジストリ情報をご確認いただけます。</p>
+<p>また、収集したレジストリ情報は、サイト データベースに存在するv_GS_&lt;クラス名&gt;0 ビューより参照することができます。<br>(上記例ではクラス名が TcpipParametersInfo でしたので、ビュー名は v_GS_TcpipParametersInfo0 となります。)</p>
+<h1 id="収集したレジストリ値が、サーバー側に反映されるタイミングについて"><a href="#収集したレジストリ値が、サーバー側に反映されるタイミングについて" class="headerlink" title="収集したレジストリ値が、サーバー側に反映されるタイミングについて"></a>収集したレジストリ値が、サーバー側に反映されるタイミングについて</h1><p>MOF ファイルで定義したレジストリ値は、ハードウェア インベントリ データの 1 つとして収集されます。<br>データがサイト サーバーに送信され、正常に処理が完了した時点で、データベースに格納されます。<br>また、クライアントは、サイト サーバーで設定されたスケジュールに従って、それぞれインベントリを収集します。  </p>
+<p>インベントリの実行間隔は、既定では 7 日毎に実行されるように設定されておりますので、クライアントに設定されたレジストリ値が、把握できるようになるまで、時間差が生じる可能性がございます。<br>実行間隔はクライアント設定で変更可能ですが、頻繁にインベントリ収集が行われるように設定した場合、ネットワーク トラフィックの増加、及びデータを処理するサイト サーバーの CPU 負荷の上昇といった現象が発生する場合もございます。<br>そのため、実行間隔の設定値については、クライアント台数やサイト サーバーの処理能力、ネットワーク環境を踏まえた上で、ご検討ください。</p>
+<h1 id="結果を確認する方法"><a href="#結果を確認する方法" class="headerlink" title="結果を確認する方法"></a>結果を確認する方法</h1><p>収集されたレジストリ値については、以下の 2 つの方法で確認できます。</p>
+<ol>
+<li>データベースに SQL を発行して確認する</li>
+<li>コレクションを作成して確認する</li>
+</ol>
+<h2 id="1-データベースに-SQL-を発行して確認する"><a href="#1-データベースに-SQL-を発行して確認する" class="headerlink" title="1. データベースに SQL を発行して確認する"></a>1. データベースに SQL を発行して確認する</h2><p>収集したレジストリは、サイト データベースに格納されます。<br>今回収集したレジストリ値は、v_GS_TcpipParametersInfo0 より参照できますので、以下の SQL で出力された結果より、DisableIPSourceRouting が 2 のデバイスが確認できます。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> b.Name0,a.DisableIPSourceRouting0 <span class="keyword">from</span> v_GS_TcpipParametersInfo0 a <span class="keyword">join</span> v_R_System b <span class="keyword">on</span> a.ResourceID<span class="operator">=</span>b.ResourceID</span><br><span class="line"><span class="keyword">where</span> a.DisableIPSourceRouting0<span class="operator">=</span><span class="number">2</span>  </span><br></pre></td></tr></table></figure>
+
+<p>SQL の実行方法については、以下の記事をご参照ください。</p>
+<p>Title: SQL Query 結果の出力方法について<br>URL: <a href="https://jpmem.github.io/memlog/configmgr/sql/sqlquery.html">https://jpmem.github.io/memlog/configmgr/sql/sqlquery.html</a>  </p>
+<h2 id="2-コレクションを作成して確認する"><a href="#2-コレクションを作成して確認する" class="headerlink" title="2. コレクションを作成して確認する"></a>2. コレクションを作成して確認する</h2><p>収集したレジストリ値をもとに、DisableIPSourceRouting が 2 のデバイスのみが所属するコレクションを作成します。</p>
+<ol>
+<li><p>Configuration Manager コンソールを起動し、[資産とコンプライアンス] - [デバイス コレクション] を開きます。</p>
+</li>
+<li><p>[デバイス コレクション] を右クリックし、[デバイス コレクションの作成] を選択します。</p>
+</li>
+<li><p>[デバイス コレクションの作成] ウィザードが起動します。</p>
+</li>
+<li><p>[全般] にて、次の設定を行います。  </p>
+</li>
+</ol>
+<ul>
+<li>[名前] フィールドに任意のコレクション名を記入します。</li>
+<li>[限定コレクション] の [参照] ボタンをクリックし、対象のコレクション（例：”すべてのシステム”）を選択します。</li>
+</ul>
+<ol start="5">
+<li>[メンバーシップの規則] にて以下の設定を行います。</li>
+</ol>
+<ul>
+<li>[規則の追加] - [クエリ規則] を選択します。</li>
+<li>[クエリ規則のプロパティ] の設定で、以下の設定を行います。<ul>
+<li>[名前] フィールドに適宜名前を入力します。</li>
+<li>[クエリ ステートメントの編集] をクリックします。</li>
+</ul>
+</li>
+<li>クエリ ステートメントのプロパティが開きます。<ul>
+<li>[条件] タブを選択し、黄色いボタンをクリックします。</li>
+<li>[条件プロパティ] が開きますので、以下のように条件指定して [OK] をクリックします。クエリ ステートメントのプロパティに戻り [OK] をクリックしてクエリのプロパティ画面をすべて閉じます。</li>
+</ul>
+</li>
+</ul>
+<p>&lt;DisableIPSourceRouting が 2 のデバイス 抽出用の条件&gt;  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">条件の種類：    単純な値</span><br><span class="line">属性クラス：    TcpipParametersInfo</span><br><span class="line">属性    ：      DisableIPSourceRouting</span><br><span class="line">演算子  ：      が次の値に等しい</span><br><span class="line">値      ：      2</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p>[次へ] をクリックして、ウィザードを進め、デバイス コレクションの作成ウィザードを終了します。</p>
+</li>
+<li><p>[デバイス コレクション] 画面にて作成したコレクションを右クリックして [メンバーシップの更新] を実行します。</p>
+</li>
+<li><p>作成したコレクションを右クリックして [メンバーの表示] を実行します。</p>
+</li>
+</ol>
+<p>コレクション作成後、DisableIPSourceRouting のインベントリを送信した端末の中で、その値が 2 のデバイスが作成したコレクションに表示されていきますので、経過をご確認ください。<br>最終的に、意図する端末がコレクション上に表示されているかどうかをご確認ください。</p>
+<p>※ コレクション作成の注意点<br>本手順にて利用しているクエリは、ハードウェア インベントリによって収集するように構成したレジストリ値を参照しています。</p>
+<p>期待通りのクエリ結果とならない場合は、リソース エクスプローラを利用してハードウェア インベントリの収集状況およびレジストリの値をご確認ください。</p>
+<p>Title: Configuration Manager でリソース エクスプローラーを使用してハードウェア インベントリを表示する方法<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory</a></p>
+<p>[ハードウェア] - [ワークステーションのステータス] で、最後にクライアントのハードウェア インベントリがレポートされた時間を確認します。<br>次に [ハードウェア] - [TcpipParametersInfo] で “DisableIPSourceRouting” の値を確認します。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20220722_01/" data-id="cl5w10ded003p0mo20yyr6ty6" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20220721_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          MECM 管理コンソールでレポートが実行できない事象について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20220714_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Configuration Manager から更新プログラムを配信する際の再起動通知の動作について (2022 新版)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20220721_01/">MECM 管理コンソールでレポートが実行できない事象について</a>
+          </li>
+        
+          <li>
+            <a href="">ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～</a>
+          </li>
+        
+          <li>
+            <a href="../20220714_01/">Configuration Manager から更新プログラムを配信する際の再起動通知の動作について (2022 新版)</a>
+          </li>
+        
+          <li>
+            <a href="../20220713_01/">Microsoft Endpoint Configuration Manager におけるピアキャッシュ機能について - その 2 (動作編)</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2022-07-07_01/">WSUS の仕組み レポート編</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%89%8B%E9%A0%86%E8%A7%A3%E8%AA%AC/" rel="tag">手順解説</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
