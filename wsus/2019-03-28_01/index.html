@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ | Japan Microsoft Endpoint Manager Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「みたことある！」という方も非常に多いのではないでしょうか。特に長期間運用している環境においては、起動する">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
+<meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「みたことある！」という方も非常に多いのではないでしょうか。特に長期間運用している環境においては、起動する">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_2.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_3.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_4.png">
+<meta property="article:published_time" content="2019-03-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-12T06:26:58.394Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_1.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Endpoint Manager Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2019-03-28_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2019-03-27T15:00:00.000Z" itemprop="datePublished">2019-03-28</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2019-03-27T15:00:00.000Z" itemprop="dateUpdated">2019-03-28</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
+<p>みなさま、こんにちは。WSUS サポート チームです。</p>
+<p>今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。</p>
+<p>それは、このエラーです！</p>
+<p><img src="/blog/wsus/2019-03-28_01/2019-03-28_01_1.png" alt="エラー: 接続エラー"></p>
+<p>「みたことある！」という方も非常に多いのではないでしょうか。<br>特に長期間運用している環境においては、起動するたびに発生するといったことも少なくないかと思います。<br>このエラーは単純に「接続エラー」を示すものですので、以下のように発生パターンによって、異なる対処方法を検討する必要があります。</p>
+<p>パターン1. WSUS 管理コンソールを起動すると、必ずエラーが発生する。<br><br>パターン2. 毎回ではないが、WSUS 管理コンソール起動時や「すべての更新プログラム」ビューを開く際にエラーが発生しやすい。</p>
+<p>パターン 1. の場合は、WSUS 管理コンソールが永続的にデータを参照できない状況に陥っています。<br>WSUS 管理コンソールは WSUS に対して、HTTP/HTTPS で通信しますので、ネットワーク障害が要因である可能性も考えられますが、多くの場合は以下の状況に起因しています。</p>
+<ol>
+<li>WSUS が使用する IIS アプリケーション プール WsusPool が停止している。</li>
+<li>WSUS データベース (SUSDB) をホストする SQL のサービス (Windows Internal Database、もしくは SQL Server) が停止している。</li>
+</ol>
+<p>そのため、永続的に接続エラーが発生する場合は、まず IIS のサービス (World Wide Web Publishing Service) や SQL のサービスの再起動を試してください。また、WsusPool の停止に起因する場合は「<a href="https://jpmem.github.io/blog/wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a>」の記事でご案内していますので、併せてご確認ください。</p>
+<p>さて、最も多いのがパターン 2. ですが、これは障害というより「パフォーマンス不足」に起因しております。<br>WSUS 管理コンソールは、WSUS の Web サービスを通して、SUSDB より情報を取得し、管理コンソール上に表示しておりますが、その情報の取得に時間がかかる場合に、接続エラーとなってしまい表示できないことがあります。<br>この場合、何度か試みることで表示されるようになることもありますが、パフォーマンスを改善しない限り、表示が不安定な状況が続きます。</p>
+<p>「パフォーマンス不足」に起因するこの状況に対して残念ながら根本的な対処策はありませんが、パフォーマンスを改善するための手段はいくつかあります！ここでは、「WSUS 管理コンソールにつながらない！」を解消するための 6 つのワザと題して、当サポート部門が蓄積しているワザをご紹介しちゃいます。</p>
+<p>まずは基本ワザから・・・</p>
+<h2 id="1-「インデックスの再構築」を実施する"><a href="#1-「インデックスの再構築」を実施する" class="headerlink" title="1. 「インデックスの再構築」を実施する"></a>1. 「インデックスの再構築」を実施する</h2><p>本ブログの読者の皆様やサポートに問い合わせていただいたことがある方は、ご存知の方も多いと思いますが、WSUS を運用する上で、このメンテナンスは必要不可欠です！</p>
+<p>WSUS は残念ながら、独自に SUSDB をメンテナンスする機能を有していないので、長期運用を続けることで SUSDB にデータの登録や削除が繰り返されると、インデックスの断片化が進みます。インデックスが断片化した状態においては、構築当初と比較してクエリ パフォーマンスが劣化し、動作遅延や接続エラーの多発につながります。</p>
+<p>そのため、弊社では月に 1 回は定期的に「インデックスの再構築」を実施いただくことをお勧めしております。<br>詳しい手順は、<a href="https://jpmem.github.io/blog/wsus/2014-03-05_01/">こちらの記事</a>にて紹介しておりますので、ご確認ください。(スクリプト内では、インデックスの断片化比率に応じて、インデックスの再構築や統計情報の更新を行っています。)</p>
+<h2 id="2-「WSUS-サーバー-クリーンアップ-ウィザード」を実施する"><a href="#2-「WSUS-サーバー-クリーンアップ-ウィザード」を実施する" class="headerlink" title="2. 「WSUS サーバー クリーンアップ ウィザード」を実施する"></a>2. 「WSUS サーバー クリーンアップ ウィザード」を実施する</h2><p>こちらも「インデックスの再構築」と同じく定期的な実施をお勧めしています。</p>
+<p>WSUS は同期した更新プログラムの情報を蓄積し続けるシステムです。そのため、一度データベースに格納された更新プログラムの情報は、基本的に削除できません。但し、唯一削除可能な方法として「WSUS サーバー クリーンアップ ウィザード」があります。<br>「WSUS サーバー クリーンアップ ウィザード」は、左ペインのオプションを選択すると、中央ペインに表示される一覧より選択できます。</p>
+<p>ウィザードでは 5 つのオプションを選択可能ですが、データベースから更新プログラムの情報を削除するオプションは、一番上の「不要な更新プログラムと更新プログラムのリビジョン」です。そのため、データベースからできる限り不要な更新プログラムの情報を減らしたい場合は、「不要な更新プログラムと更新プログラムのリビジョン」を選択して、ウィザードを実行してください。</p>
+<p><img src="/blog/wsus/2019-03-28_01/2019-03-28_01_2.png" alt="クリーンアップウィザード画面例"></p>
+<p>その他のオプションも不要な情報を減らすという観点では有効ですが、たまに発生する接続エラーの改善という観点では大きな効果を得られないことが多いです。そのため、ここでは言及いたしません。</p>
+<p>ちなみに、「WSUS サーバー クリーンアップ ウィザード」を実施する前には、上述の「インデックスの再構築」を実施することをお勧めします。これもインデックスが断片化しており、クエリ パフォーマンスが劣化している状態では、クリーンアップ ウィザードもタイムアウトで失敗することが多いため、事前にタイムアウトによる失敗を緩和することが目的です。それでもウィザードが最後まで終わらない場合は、「インデックスの再構築」-&gt;「クリーンアップ ウィザードの実行」の繰り返しです。</p>
+<h2 id="3-WSUS-管理コンソールのキャッシュを削除する"><a href="#3-WSUS-管理コンソールのキャッシュを削除する" class="headerlink" title="3. WSUS 管理コンソールのキャッシュを削除する"></a>3. WSUS 管理コンソールのキャッシュを削除する</h2><p>WSUS 管理コンソールは MMC の上で動作していますが、以下にキャッシュ ファイルが存在しています。</p>
+<p><code>%appdata%\Microsoft\MMC\wsus</code></p>
+<p>このキャッシュ ファイルを削除すると、これまで作成した更新ビューも削除されますが、”気持ち” 早くなります。なので、あまり大きな効果は得られませんが、できる限り早くしたい！というときにお使いください。。。</p>
+<p>続いて応用ワザ！ここからは、パフォーマンス チューニングを含みます。</p>
+<h2 id="4-不要な更新プログラムをできる限り「拒否済み」にする"><a href="#4-不要な更新プログラムをできる限り「拒否済み」にする" class="headerlink" title="4. 不要な更新プログラムをできる限り「拒否済み」にする"></a>4. 不要な更新プログラムをできる限り「拒否済み」にする</h2><p>上述の通り、WSUS は更新プログラムのデータを蓄積し続けるシステムですので、過去に同期対象としてチェックした後、現在はチェックを外した製品であっても、SUSDB に格納された更新プログラムは残存します。(クリーンアップ ウィザードで削除されるものもあります。)</p>
+<p>このような配信が不要な更新プログラムが「未承認」や「インストール承認」の状態であった場合、WSUS クライアントが「更新プログラムの確認」を行う処理において検出対象となり、スペックが低い PC の場合は確認処理の完了までに時間がかかるといった事象が発生することがあります。また、サーバー側においても、クライアントから「更新プログラムの確認」の要求を受けて、クライアント側に返す更新プログラムの情報量が多くなるため、処理負荷がかかります。</p>
+<p>そのため、配信が不要となった更新プログラムが「未承認」や「インストール承認」の状態のままである場合は、「拒否済み」のステータスに変更することで、WSUS クライアントの検出対象から外して、処理負荷を軽減することができます。</p>
+<p>不要な更新プログラムの判断方法としては、下記のような例があります。</p>
+<ol>
+<li>現在は使用していない製品に該当する更新プログラム (Windows XP、Office XP など)</li>
+<li>Itanium ベース システム用の更新プログラム (WSUS の管理対象に Itanium ベースの CPU を搭載したサーバーが含まれていない場合)</li>
+<li>置き換えられた更新プログラム</li>
+</ol>
+<p>拒否済みに設定できる更新プログラムの確認方法など、設定手順の詳細については<a href="https://jpmem.github.io/blog/wsus/2017-12-11_01/">こちらの記事</a>をご覧ください。</p>
+<h2 id="5-WsusPool-の「プライベート-メモリ制限」を引き上げる"><a href="#5-WsusPool-の「プライベート-メモリ制限」を引き上げる" class="headerlink" title="5. WsusPool の「プライベート メモリ制限」を引き上げる"></a>5. WsusPool の「プライベート メモリ制限」を引き上げる</h2><p>リリースされた更新プログラムの数も多くなったからか、Windows Server 2012 WSUS 以降、この方法をご案内することも多くなりました。上述の通り、WSUSは IIS のアプリケーション プールとして WsusPool という独自のものを使用していますが、このアプリケーション プールがリサイクルするまでにワーカー プロセスが使用できるプライベート メモリの最大容量が、既定では 1843200 KB (約 1.8 GB) に設定されています。そのため、WSUS における同期や承認の設定、多数のクライアントからの更新プログラムの取得処理などが重なって、WsusPool が使用するメモリが多くなると、繰り返しリサイクルが発生し、動作が重くなることがあります。(場合によっては、WsusPool が停止することもあります。) 空きメモリに余裕があれば、この「プライベート メモリ制限」を引き上げることで、リサイクルが発生するまでの間隔が長くなり、動作が安定します。<br>設定箇所は、</p>
+<ol>
+<li>IIS マネージャーを起動して、左ペインから [アプリケーション プール] を選択してください。</li>
+<li>中央ペインの一覧から [WsusPool] を右クリックして [詳細設定…] をクリックすると、下図の箇所で設定を変更できます。<br>当サポート部門の実績では 4000000 (4 GB) に設定いただくことで安定することが多く、それでも安定しない場合は 8000000 (8 GB) に設定いただくことも稀にあります。</li>
+</ol>
+<p><img src="/blog/wsus/2019-03-28_01/2019-03-28_01_3.png" alt="プラベートメモリ制限設定箇所"></p>
+<h2 id="6-SUSDB-をホストする-SQL-インスタンスの最小サーバー-メモリ、最大サーバー-メモリを設定する。"><a href="#6-SUSDB-をホストする-SQL-インスタンスの最小サーバー-メモリ、最大サーバー-メモリを設定する。" class="headerlink" title="6. SUSDB をホストする SQL インスタンスの最小サーバー メモリ、最大サーバー メモリを設定する。"></a>6. SUSDB をホストする SQL インスタンスの最小サーバー メモリ、最大サーバー メモリを設定する。</h2><p>SUSDB をホストする SQL も使用するメモリの最小値と最大値を設定することができますので、ここもパフォーマンス チューニングのポイントの 1 つです。最大サーバー メモリは空きメモリの状況に応じて設定していただきますが、最小サーバー メモリについては 1024 MB (1GB) に設定していただくことで安定したという実績があります。<br>設定箇所は、</p>
+<ol>
+<li>SQL Server Management Studio で SUSDB をホストする SQL インスタンスに接続します。</li>
+<li>左ペインから一番上のサーバー名を右クリックして [プロパティ] をクリックし、左ペインから[メモリ]を選択すると、下図の箇所で設定を変更できます。</li>
+<li>設定変更後は [OK] をクリックしてください。</li>
+</ol>
+<p><img src="/blog/wsus/2019-03-28_01/2019-03-28_01_4.png" alt="最小サーバーメモリ設定箇所"></p>
+<h3 id="Windows-Internal-Database-WID-を使用している場合"><a href="#Windows-Internal-Database-WID-を使用している場合" class="headerlink" title="Windows Internal Database (WID) を使用している場合"></a>Windows Internal Database (WID) を使用している場合</h3><p>Windows Internal Database (WID) を使用している場合は、SQL Server Management Studio でプロパティを開こうとすると「要求されたダイアログを表示できません」というエラーが発生します。その場合は、以下の手順で設定してください。なお、SQL Server Management Studio がインストールされている場合は、事前準備の手順は不要です。</p>
+<h4 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h4><ol>
+<li>Microsoft SQL Server 2012 Feature Pack ( <a target="_blank" rel="noopener" href="https://www.microsoft.com/ja-jp/download/details.aspx?id=29065">https://www.microsoft.com/ja-jp/download/details.aspx?id=29065</a> )にアクセスします。</li>
+<li>[＋インストール方法] をクリックして、Microsoft SQL Server 2012 Native Client より「sqlncli.msi」 をダウンロードし、対象の WSUS サーバーにインストールします。</li>
+<li>[＋インストール方法] をクリックして、Microsoft SQL Server 2012 コマンド ライン ユーティリティより「SqlCmdLnUtils.msi」をダウンロードし、インストールします。<br>※ SQL Server コマンド ユーティリティーのインストールの前提条件として、SQL Server Native Client がインストールされている必要があります。WID を利用する WSUS 環境においては、SQL Server Native Client はインストールされませんので、必ず SQL Server Native Clientを対象の WSUS サーバーにインストールしてください。</li>
+</ol>
+<h4 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h4><p>例として最小サーバー メモリを 1024 MB に設定する手順を紹介します。</p>
+<ol>
+<li>コマンドプロンプト を “管理者として実行” にて起動します。</li>
+<li>sqlcmd で WID に接続します。</li>
+</ol>
+<p>（WSUS 3.0 SP2 の場合）<br><code>sqlcmd -E -S \\.\pipe\mssql$microsoft##ssee\sql\query</code></p>
+<p>（Windows Server 2012 / 2012 R2 WSUS の場合）<br><code>sqlcmd -E -S \\.\pipe\MICROSOFT##WID\tsql\query</code></p>
+<ol start="3">
+<li><p>以下のコマンドを実行します。<br>※注意※ コマンドをコピー＆ペーストした場合、シングルクォーテーション「’」が全角で貼り付け<br>られてしまう場合があります。その場合は、半角に打ち直したうえでコマンドを実行してください。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EXEC sp_configure &#x27;show advanced options&#x27;,1</span><br><span class="line">GO</span><br><span class="line">Reconfigure</span><br><span class="line">GO</span><br><span class="line">EXEC sp_configure &#x27;min server memory&#x27;,1024</span><br><span class="line">GO</span><br><span class="line">Reconfigure</span><br><span class="line">GO</span><br></pre></td></tr></table></figure></li>
+<li><p>以下のコマンドを実行し、run_value が設定された値になっていることを確認します</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EXEC sp_configure &#x27;min server memory&#x27;</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line">出力例)</span><br><span class="line">name                                minimum     maximum     config_value run_value</span><br><span class="line">----------------------------------- ----------- ----------- ------------ -----------</span><br><span class="line">min server memory (MB)                        0  2147483647         1024        1024</span><br></pre></td></tr></table></figure></li>
+<li><p>exit を入力し、sqlcmd を終了します。</p>
+</li>
+</ol>
+<p>※ 最大サーバー メモリを設定する場合は min server memory を max server memory に置き換えてください。</p>
+<h2 id="7-最新のマンスリー品質ロールアップ-累積更新プログラムを適用する"><a href="#7-最新のマンスリー品質ロールアップ-累積更新プログラムを適用する" class="headerlink" title="7. 最新のマンスリー品質ロールアップ / 累積更新プログラムを適用する"></a>7. 最新のマンスリー品質ロールアップ / 累積更新プログラムを適用する</h2><p>Windows Server 2012 / 2012 R2 WSUS 向けにはマンスリー品質ロールアップ、Windows Server 2016 WSUS 向けには累積更新プログラムに、WSUS の修正も含まれるようになりました。例えば 2017 年 10 月のマンスリー品質ロールアップ / 累積更新プログラムには、Windows 10 1607 端末を管理する場合に CPU / メモリ 負荷が高騰する問題の修正が含まれておりますので、最新のマンスリー品質ロールアップ / 累積更新プログラムを適用することで、WSUS 自体の安定運用にもつながります。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>いかがだったでしょうか。このようなワザは TechNet などの公開情報では紹介されておりませんが、運用中のお客様に対して我々サポート部門からご提案することが非常に多いものばかりですので、是非とも WSUS の安定運用を図るためにも取り入れることをご検討ください！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-28_01/" data-id="cl7yduetj007w0moy38j3g3jl" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2019_04-04_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../mecm/20190327_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">System Center Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../w365/2022-08-09_01/">クラウド PC に接続できない場合の対処方法について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220722_01/">ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220721_01/">MECM 管理コンソールでレポートが実行できない事象について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220714_01/">Configuration Manager から更新プログラムを配信する際の再起動通知の動作について (2022 新版)</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220713_01/">Microsoft Endpoint Configuration Manager におけるピアキャッシュ機能について - その 2 (動作編)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
