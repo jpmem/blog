@@ -14,15 +14,15 @@
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
 <meta property="og:description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポート チームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な Autopilot ログについてお纏めいたします。 下記内容及び、画面ショットは 2022&#x2F;9">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/20220913_03/autopilot_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/20220913_03/autopilot_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/20220913_03/autopilot_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/autopilot_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/autopilot_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_03/autopilot_02.png">
 <meta property="article:published_time" content="2022-09-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-28T04:34:24.733Z">
+<meta property="article:modified_time" content="2022-09-28T05:36:22.919Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/intune/20220913_03/20220913_03/autopilot_03.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/intune/20220913_03/autopilot_03.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -124,8 +124,7 @@
 <h2 id="Autopilot-ログ"><a href="#Autopilot-ログ" class="headerlink" title="Autopilot ログ"></a>Autopilot ログ</h2><p>今回ご案内をするのは Intune チームからお客様にご案内をすることがある Autopilot ログの情報採取手順になります。<br><strong>このログ情報は、Autopilot が失敗している場合に事前採取をお願いしたい内容になります。</strong></p>
 <p>以下の手順で事象発生デバイスの Autopilot ログを採取してご提供ください。</p>
 <h3 id="Intune-へ登録できていない場合"><a href="#Intune-へ登録できていない場合" class="headerlink" title="[Intune へ登録できていない場合]"></a>[Intune へ登録できていない場合]</h3><p><strong>1. 該当デバイスにてエラーメッセージが表示されている画面上で Shift + F10 キーを押してコマンドプロンプトを開く</strong></p>
-<img src="./20220913_03/autopilot_03.png" width="70%">
-
+<p><img src="/blog/intune/20220913_03/autopilot_03.png"></p>
 <p><strong>2. コマンドプロンプトから下記のコマンドを実行し、autopilot 関連の情報を採取する</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mdmdiagnosticstool.exe -area Autopilot;TPM -cab C:\Temp\autopilot.cab</span><br></pre></td></tr></table></figure>
 
@@ -136,12 +135,10 @@
 <p><strong>3. C:\Temp に格納されている autopilot.cab を Microsoft 社への起票時に添付する</strong></p>
 <h3 id="Intune-へ登録できている場合"><a href="#Intune-へ登録できている場合" class="headerlink" title="[Intune へ登録できている場合]"></a>[Intune へ登録できている場合]</h3><p><strong>1. Microsoft Endpoint Manager admin center &lt; <a target="_blank" rel="noopener" href="https://endpoint.microsoft.com/">https://endpoint.microsoft.com/</a> &gt; へログインし、[デバイス] &gt;  Windows] にて対象のデバイスを選択する</strong></p>
 <p><strong>2. デバイスの [概要] ページ上部の [診断の収集] &gt; [はい] を選択すると、デバイスの [概要] ページに保留中の通知が表示される</strong></p>
-<img src="./20220913_03/autopilot_01.png" width="110%">
-
+<p><img src="/blog/intune/20220913_03/autopilot_01.png"></p>
 <p>※ 上部に [診断の収集] が表示されていない場合は、[…] &gt; [診断の収集] のように選択ください。</p>
 <p><strong>3. 左側の [モニター] 配下の [デバイス診断] を選択し、[ダウンロード] &gt; [はい] をクリックする</strong></p>
-<img src="./20220913_03/autopilot_02.png" width="90%">
-
+<p><img src="/blog/intune/20220913_03/autopilot_02.png"></p>
 <p><strong>4. 採取した診断ログを Microsoft 社への起票時に添付する</strong></p>
 <h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p>
 <p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>
@@ -149,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/intune/20220913_03/" data-id="cl8l4v8gg00030npo6dedam7x" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/intune/20220913_03/" data-id="cl8l7307700030mpmg26k7rta" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
