@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は第 1 回の「考え方篇」に引き続き、Windows Update 実行時のプロキシ設定の具体的な手法について、オススメの設定と注意点を紹介していきます。「Windows Update を実行するときにプロキシ設定って必要なの？ 」という方は、まずは「考え方篇」をご参照ください。 プロキシを利用する環境でのオススメの設定プロキシを利用する">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-28T05:59:21.625Z">
+<meta property="article:modified_time" content="2022-09-29T02:55:30.834Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -128,7 +128,7 @@
 <p>Title: ローカル エリア ネットワーク (LAN) の設定について<br>URL: <a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/</a></p>
 <p>また、WinHTTP のプロキシ設定については、以下のコマンドを管理者権限で実行することで設定が可能です。</p>
 <p><strong>&lt;&lt; WinHTTP のプロキシ設定をする場合 &gt;&gt;</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winttp set proxy proxy-server =&lt;プロキシ サーバー&gt; bypass-list=&lt;バイパス リスト&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp set proxy proxy-server =&lt;プロキシ サーバー&gt; bypass-list=&lt;バイパス リスト&gt;</span><br></pre></td></tr></table></figure>
 
 <p><strong>&lt;&lt; 上記コマンドの実行例 &gt;&gt;</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp set proxy proxy-server=&quot;myProxyServer:8080&quot; bypass-list=&quot;&lt;local&gt;;*.microsoft.com;*.foo.ne&quot;</span><br></pre></td></tr></table></figure>
@@ -162,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cl8l7whu9005x0mqx7cbs78ls" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cl8mgrwar005x0mpea5ft31s1" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
