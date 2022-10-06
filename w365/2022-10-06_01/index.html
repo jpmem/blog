@@ -5,26 +5,20 @@
   
 
   
-  <title>「指定したパッケージおよびプログラムの展開のステータス」レポートについて | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>画面キャプチャの取得を禁止する方法 | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田 です。本日は、ユーザーがクラウド PC 上で画面キャプチャの取得を禁止する方法についてご紹介させていただきます。   免責事項下記内容は 2022&#x2F;10&#x2F;6 時点での内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。   テンプレー">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「指定したパッケージおよびプログラムの展開のステータス」レポートについて">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180511_01/index.html">
+<meta property="og:title" content="画面キャプチャの取得を禁止する方法">
+<meta property="og:url" content="https://jpmem.github.io/blog/w365/2022-10-06_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。System Center Support Team です。 今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。 「指定したパッケージおよび">
+<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田 です。本日は、ユーザーがクラウド PC 上で画面キャプチャの取得を禁止する方法についてご紹介させていただきます。   免責事項下記内容は 2022&#x2F;10&#x2F;6 時点での内容についての記載となっております。今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。   テンプレー">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_03.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_04.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_05.png">
-<meta property="article:published_time" content="2018-05-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-06T06:55:12.271Z">
+<meta property="article:published_time" content="2022-10-05T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-06T06:55:12.487Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="Windows 365">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20180511_01/20180511_01_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -90,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20180511_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-w365/2022-10-06_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2018-05-10T15:00:00.000Z" itemprop="datePublished">2018-05-11</time>
+  <time datetime="2022-10-05T15:00:00.000Z" itemprop="datePublished">2022-10-06</time>
 </a>
     <!--  -->
   </div>
@@ -104,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      「指定したパッケージおよびプログラムの展開のステータス」レポートについて
+      画面キャプチャの取得を禁止する方法
     </h1>
   
 
@@ -113,58 +107,44 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2018-05-10T15:00:00.000Z" itemprop="dateUpdated">2018-05-11</time>
+    <time datetime="2022-10-05T15:00:00.000Z" itemprop="dateUpdated">2022-10-06</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。System Center Support Team です。</p>
-<p>今回は System Center Configuration Manager でパッケージ機能で配布したソフトウェアの展開状況を確認するためのレポートの 1 つである「指定したパッケージおよびプログラムの展開のステータス」レポートと「展開ステータス」の関連付けについてご紹介いたします。</p>
-<p>「指定したパッケージおよびプログラムの展開のステータス」は、パッケージ機能でソフトウェアを配信した後の展開状況を確認するために役立ちます。「ターゲット リソースのステータス」では、展開の進行状況、リソース受信ステータスでは展開を受信していない端末も含めて、全台の状況を把握することができます。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_01.png"></p>
-<p>一方、管理コンソールの [監視] - [展開] で展開ステータスからも全台の状況を把握することができますが、本レポートの「リソース受信ステータス」で表示されている No Status のリソース数と展開ステータスの統計情報に表示されている「不明」のリソース数の数が合わず、どちらが正しいのかわからないといったご意見をいただくことがございます。</p>
-<p>例えば、以下の展開ステータスでは不明が「9」ですが、上記レポートでは No Status が「7」となっており、一見すると台数が一致していません。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_02.png"></p>
-<p>これは Expired に「不明」ステータスの端末がカウントされていることによりますが、レポートの「リソース受信ステータス」と展開ステータスの各項目が以下の通り関連付いていることをおさえておけば、理解しやすくなります。</p>
-<table>
-<thead>
-<tr>
-<th align="center">リソース受信ステータス</th>
-<th align="center">展開ステータス</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Accepted</td>
-<td align="center">進行中</td>
-</tr>
-<tr>
-<td align="center">Expired</td>
-<td align="center">成功 or 不明</td>
-</tr>
-<tr>
-<td align="center">No Status</td>
-<td align="center">不明</td>
-</tr>
-</tbody></table>
-<p>例えば、上記例においてリソース受信ステータスの No Status の台数は 7 台です。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_03.png"></p>
-<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_04.png"></p>
-<p>もし、「リソース受信ステータス」と「展開ステータス」の台数が一致しない場合は、Expired のステータスによる影響がありますので、ご留意いただければと存じます。</p>
-<p>(補足)</p>
-<p>Expired は、パッケージの展開の「スケジュール」で設定した「この展開の有効期限を指定する」で指定した時刻が過ぎている場合のステータスです。</p>
-<p>一方、展開ステータスをみると不明は 9 台になっています。ただし、内訳をみると、9 台中 2 台が「有効期限切れ」になっていることがわかります。この 2 台はリソース受信ステータスでは Expired に分類されています。</p>
-<p><img src="/blog/mecm/20180511_01/20180511_01_05.png"></p>
+        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート 山田 です。<br>本日は、ユーザーがクラウド PC 上で画面キャプチャの取得を禁止する方法についてご紹介させていただきます。  </p>
+<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2022/10/6 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。  </p>
+<h3 id="テンプレートの取得"><a href="#テンプレートの取得" class="headerlink" title="テンプレートの取得"></a>テンプレートの取得</h3><ol>
+<li><p>以下のリンクより、Azure Virtual Desktop 用のテンプレートをダウンロードします。<br><a target="_blank" rel="noopener" href="https://aka.ms/avdgpo">AVDGPTemplate.cab</a>  </p>
+</li>
+<li><p>AVDGPTemplate.cab を展開し、フォルダーから以下 2 つのファイルを取り出します。  </p>
+</li>
+</ol>
+<p>terminalserver-avd.admx<br>en-us\terminalserver-avd.adml  </p>
+<ol start="3">
+<li>ドメイン コントローラー（ドメイン のグループ ポリシーで制御する場合）、またはクラウド PC（ローカル グループ ポリシーで制御する場合）上の以下のパスにそれぞれのファイルを保存します。  </li>
+</ol>
+<p>terminalserver-avd.admx 　　  →　%windir%\PolicyDefinitions フォルダー<br>en-us\terminalserver-avd.adml  →　%windir%\PolicyDefinitions\en-us フォルダー  </p>
+<ol start="4">
+<li>以下のポリシーを “有効” に設定します。  </li>
+</ol>
+<p>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [リモート デスクトップ サービス] - [リモート デスクトップ セッション ホスト] - [Azure Virtual Desktop]<br>“Enable screen capture protection”  </p>
+<ol start="5">
+<li>クラウド PC の画面キャプチャが取得できないことを確認します。  </li>
+</ol>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><p>本ポリシーは Windows や mac の端末からリモート デスクトップ アプリでクラウド PC に接続している場合にのみ動作いたします。<br>ブラウザー経由での接続や、iPad からの接続は、クラウド PC への接続自体に失敗しますので、予めご承知おきください。  </p>
+<p>■参考公開情報<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/azure/virtual-desktop/screen-capture-protection#prerequisites">前提条件</a>  </p>
+<p>以上、画面キャプチャの取得を禁止する方法のご紹介でした。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180511_01/" data-id="cl8wpf40700120mmxc48a1kal" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/w365/2022-10-06_01/" data-id="cl8wpf41z004x0mmx702h8ozc" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
 
     </footer>
   </div>
@@ -172,19 +152,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2018-06-19_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          WSUS の分類について
-        
-      </div>
-    </a>
   
-  
-    <a href="../20180509_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../intune/20220913_00/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">System Center Configuration Manager に Office 365 Pro Plus の更新プログラムを同期する際の注意事項</div>
+      <div class="article-nav-title">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</div>
     </a>
   
 </nav>
@@ -203,7 +174,7 @@
       <ul>
         
           <li>
-            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+            <a href="">画面キャプチャの取得を禁止する方法</a>
           </li>
         
           <li>
@@ -211,7 +182,7 @@
           </li>
         
           <li>
-            <a href="../20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
           </li>
         
           <li>
