@@ -87,6 +87,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wsus/2012-06-07_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2012-06-07_01/" class="article-date">
+  <time datetime="2012-06-06T15:00:00.000Z" itemprop="datePublished">2012-06-07</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2012-06-07_01/">レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2012-06-07_01/" class="article-date-single">    
+    
+    <time datetime="2012-06-06T15:00:00.000Z" itemprop="dateUpdated">2012-06-07</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。WSUS サポート チームです。
+サーバー クリーンアップ ウィザードは、不要なデータを整理・削除するためにお使いいただく機能ですが、WSUS サーバーをレプリカ構成 (※) されている環境では、実施上の注意点がありますのでご紹介します。
+(※) 階層構成でも、レプリカに設定していない場合は、心配ありません。
+クリーンアップ ウィザードの最初の項目「不要な更新および更新のリビジョン」は、必ず下位側のサーバー (レプリカ サーバー) で先に実行し、上位側 (マスター サーバー) はその後で実行するようお願いします。
+この逆順、つまり上位側を先に実行すると、期限切れで不要となった古い更新プログラムの情報が、下位サーバー側に「未承認」の状態で残ってしまう場合があります。下位サーバー側に残ったレコードは、再度クリーンアップを実施しても削除されません。( その時点から 30 日...
+        <p class="article-more-link">
+          <a href="../../wsus/2012-06-07_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-06-07_01/" data-id="cl8y91mso00550mo661h981qh" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-wsus/2012-05-01_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../wsus/2012-05-01_01/" class="article-date">
@@ -129,7 +182,7 @@ WSUS の基本的な制限事項WSUS サーバーへ同期することのでき�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-05-01_01/" data-id="cl8wpf42100530mmxbxqvd608" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-05-01_01/" data-id="cl8y91msn00530mo61eka3zwb" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -188,7 +241,7 @@ https://catalog.update.microsoft.com/
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cl8wpf42000510mmxever1ep8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cl8y91msm00510mo6gg2bgfbe" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -249,7 +302,7 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2011-10-31_01/" data-id="cl8wpf41z004z0mmx1vgi5dk8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2011-10-31_01/" data-id="cl8y91msl004z0mo6f3af7c1s" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -279,6 +332,10 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
       <ul>
         
           <li>
+            <a href="../../wsus/2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
             <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
           </li>
         
@@ -292,10 +349,6 @@ WSUS 上の「リビジョン」（改訂版）とは、更新プログラムの
         
           <li>
             <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
-          </li>
-        
-          <li>
-            <a href="../../intune/20220913_02/">ご起票時に事前採取可能なモバイルデバイス情報の採取手順</a>
           </li>
         
       </ul>

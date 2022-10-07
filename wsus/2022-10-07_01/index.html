@@ -5,28 +5,22 @@
   
 
   
-  <title>Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、Azure AD 結合によるプロビジョニング ポリシーの作成方法についてご案内します。 Hybrid Azure AD 環境を構築せずに Windows 365 Enterprise を利用したいというご要望はこれまでも多くのフィードバックを頂いておりましたが、本機能によって Hybrid A">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、Windows Server 2022 における、WSUS コンソールの表示言語で確認された既知の不具合についてお伝えいたします。 WSUS コンソールの表示言語についてWSUS コンソールは、OS の言語表示と同じ言語で表示されます。しかしながら、Windows Server 2022 では、2022 年 6 月以前の更新プログラム適">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法">
-<meta property="og:url" content="https://jpmem.github.io/blog/w365/2022-03-28_01/index.html">
+<meta property="og:title" content="Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-10-07_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。本日は、Azure AD 結合によるプロビジョニング ポリシーの作成方法についてご案内します。 Hybrid Azure AD 環境を構築せずに Windows 365 Enterprise を利用したいというご要望はこれまでも多くのフィードバックを頂いておりましたが、本機能によって Hybrid A">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、Windows Server 2022 における、WSUS コンソールの表示言語で確認された既知の不具合についてお伝えいたします。 WSUS コンソールの表示言語についてWSUS コンソールは、OS の言語表示と同じ言語で表示されます。しかしながら、Windows Server 2022 では、2022 年 6 月以前の更新プログラム適">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-06-23.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-06-54.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-07-43.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-08-05.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-08-25.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-08-41.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-09-48.png">
-<meta property="article:published_time" content="2022-03-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-07T08:52:22.091Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-10-07_01/2022-10-07_01_1.png">
+<meta property="article:published_time" content="2022-10-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-07T08:52:22.179Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="Windows 365">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/w365/2022-03-28_01/2022-03-28-18-06-23.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2022-10-07_01/2022-10-07_01_1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -92,10 +86,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-w365/2022-03-28_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2022-10-07_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2022-03-27T15:00:00.000Z" itemprop="datePublished">2022-03-28</time>
+  <time datetime="2022-10-06T15:00:00.000Z" itemprop="datePublished">2022-10-07</time>
 </a>
     <!--  -->
   </div>
@@ -106,7 +100,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows 365 Enterprise 環境の Azure AD 結合によるプロビジョニング ポリシーの作成方法
+      Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない
     </h1>
   
 
@@ -115,53 +109,26 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2022-03-27T15:00:00.000Z" itemprop="dateUpdated">2022-03-28</time>
+    <time datetime="2022-10-06T15:00:00.000Z" itemprop="dateUpdated">2022-10-07</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。Microsoft Endpoint Manager サポート チームです。<br>本日は、Azure AD 結合によるプロビジョニング ポリシーの作成方法についてご案内します。</p>
-<p>Hybrid Azure AD 環境を構築せずに Windows 365 Enterprise を利用したいというご要望はこれまでも多くのフィードバックを頂いておりましたが、本機能によって Hybrid Azure AD 環境をご用意いただかなくても、Windows 365 Enterprise をご利用いただけるようになります。<br>本機能はまだパブリック プレビュー段階ですが、その使用方法をご紹介いたします。</p>
-<h2 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h2><p>下記内容は 2022/3/28 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。</p>
-<h2 id="Azure-AD-結合について"><a href="#Azure-AD-結合について" class="headerlink" title="Azure AD 結合について"></a>Azure AD 結合について</h2><p>従来の Windows 365 Enterprise では、Hybrid Azure AD Join の環境が前提だったため、オンプレミスの環境が必要でした。<br>また、Azure 上に作成した仮想ネットワークとオンプレミスを接続しなければならないため、Windows 365 Enterprise を使用するまでに環境の構築が必要でしたが、Azure AD 結合の Microsoft のホステッド ネットワークを使用することで、オンプレミス環境や Azure の仮想ネットワークなしで Windows 365 Enterprise を使えるようになりました。</p>
-<h2 id="設定手順"><a href="#設定手順" class="headerlink" title="設定手順"></a>設定手順</h2><p>以下の順番で設定を行うことで、Microsoft のホステッド ネットワークを使用してプロビジョニング ポリシーを作成し、クラウド PC を使用することができます。</p>
-<ol>
-<li>グローバル管理者などの権限を持つアカウントで Microsoft Endpoint Manager admin center (<a target="_blank" rel="noopener" href="https://aka.ms/memac">https://aka.ms/memac</a>) にログインします。</li>
-</ol>
-<ol start="2">
-<li><p>[デバイス] - [Windows 365] - [プロビジョニング ポリシー] と辿り、[ポリシーの作成] を選択します。</p>
-</li>
-<li><p>[統合の種類] で [Azure AD 結合（プレビュー）] にチェックを入れます。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-06-23.png"></p>
-</li>
-<li><p>[ネットワーク] で [Microsoft のホステッド ネットワーク] を選択し、任意でリージョンを選択して次へ進みます。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-06-54.png"><br>※ 組み込みのネットワークと Azure network connection の違いについては後述いたします。</p>
-</li>
-<li><p>ギャラリー イメージかカスタム イメージを選択し、次へ進みます。</p>
-</li>
-</ol>
-<p><img src="/blog/w365/2022-03-28_01/2022-03-28-18-07-43.png"> 6. 言語を選択し、次へ進みます。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-08-05.png"></p>
-<ol start="7">
-<li><p>本プロビジョニング ポリシーを適用させたいグループを選択し、次へ進みます。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-08-25.png"></p>
-</li>
-<li><p>[作成] を選択し、プロビジョニング ポリシーを作成します。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-08-41.png"></p>
-</li>
-<li><p>プロビジョニングが開始されますので、クラウド PC が作成されるまで待ちます。</p>
-</li>
-</ol>
-<h2 id="組み込みのネットワークと-Azure-network-connection（旧名：オンプレミスのネットワーク接続）-の違いについて"><a href="#組み込みのネットワークと-Azure-network-connection（旧名：オンプレミスのネットワーク接続）-の違いについて" class="headerlink" title="組み込みのネットワークと Azure network connection（旧名：オンプレミスのネットワーク接続） の違いについて"></a>組み込みのネットワークと Azure network connection（旧名：オンプレミスのネットワーク接続） の違いについて</h2><p>それぞれ以下の違いがあります。</p>
-<h4 id="a-組み込みのネットワーク"><a href="#a-組み込みのネットワーク" class="headerlink" title="a. 組み込みのネットワーク"></a>a. 組み込みのネットワーク</h4><p>Windows 365 Business のように Microsoft でホストされる仮想ネットワークにクラウド PC がデプロイされます。そのため、事前に Azure 上に仮想ネットワークを用意する必要がありません。また、オンプレミス環境も必要ないため、すぐに使用可能です。<br>社内ネットワークに接続させたくない場合等にもおすすめです。</p>
-<h4 id="b-Azure-network-connection（旧名：オンプレミスのネットワーク接続）"><a href="#b-Azure-network-connection（旧名：オンプレミスのネットワーク接続）" class="headerlink" title="b. Azure network connection（旧名：オンプレミスのネットワーク接続）"></a>b. Azure network connection（旧名：オンプレミスのネットワーク接続）</h4><p>Azure 上の仮想ネットワークを使用することができるため、カスタマイズされたネットワークを使用することが出来ます。<br>[Azure network connection] - [Azure AD 結合（プレビュー）] から新規作成します。<br><img src="/blog/w365/2022-03-28_01/2022-03-28-18-09-48.png">  </p>
-<p>Hybrid Azure AD Join を利用しない（オンプレミス環境との接続を行わない）が、意図的に Azure の仮想ネットワークを使用したい場合などに利用します。<br>サブネットも指定ができますので、Windows 365 用に仮想ネットワークとサブネットを作成することで、クラウド PC のみが所属するネットワークを構築することも可能です。  </p>
-<p>以上、Azure AD 結合によるプロビジョニング ポリシーの作成方法について参考になりましたら幸いです。</p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。今回は、Windows Server 2022 における、WSUS コンソールの表示言語で確認された既知の不具合についてお伝えいたします。</p>
+<h1 id="WSUS-コンソールの表示言語について"><a href="#WSUS-コンソールの表示言語について" class="headerlink" title="WSUS コンソールの表示言語について"></a>WSUS コンソールの表示言語について</h1><p>WSUS コンソールは、OS の言語表示と同じ言語で表示されます。しかしながら、Windows Server 2022 では、2022 年 6 月以前の更新プログラム適用環境において、WSUS コンソールが英語表示のままとなる事象が確認されております。<br><img src="/blog/wsus/2022-10-07_01/2022-10-07_01_1.png"></p>
+<h1 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h1><p>本事象は弊社既知の不具合として確認されており、本事象に対する修正を含む更新プログラム KB5014665 がリリースされております。この修正内容を含む更新プログラムを適用することにより、WSUS コンソールが、OS の言語表示に従って表示されます。</p>
+<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2022-%E5%B9%B4-6-%E6%9C%88-23-%E6%97%A5%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E4%BB%A5%E5%A4%96%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0-kb5014665-108cb23c-8e38-4eb4-974a-b5a30d4bc0c4">2022 年 6 月 23 日セキュリティ以外の更新プログラム (KB5014665)</a>  </p>
+<p>（上記リリース以降の累積更新プログラムには、この修正内容が含まれております。）</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/w365/2022-03-28_01/" data-id="cl8y91mse004g0mo6dkp7c0mu" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-10-07_01/" data-id="cl8y91mtx007z0mo6ao4jfhhc" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -169,19 +136,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20220328_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)
-        
-      </div>
-    </a>
   
-  
-    <a href="../../wsus/2022-03-25_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../w365/2022-10-06_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">クライアントの更新プログラムのダウンロードが 0 %で進まない場合のチェックポイント ( WSUS )</div>
+      <div class="article-nav-title">画面キャプチャの取得を禁止する方法</div>
     </a>
   
 </nav>
@@ -200,11 +158,11 @@
       <ul>
         
           <li>
-            <a href="../../wsus/2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+            <a href="">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
           </li>
         
           <li>
-            <a href="../2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
           </li>
         
           <li>
