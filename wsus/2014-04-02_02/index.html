@@ -5,22 +5,22 @@
   
 
   
-  <title>パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法 | Japan Microsoft Endpoint Manager Support Blog</title>
+  <title>Windows Server 2012 にて WSUS のインストールに失敗する事象について | Japan Microsoft Endpoint Manager Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、">
+  <meta name="description" content="皆さま こんにちは。 WSUS サポートチームです。 Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。   以下の公開情報にて、WSUS サーバーの">
 <meta property="og:type" content="article">
-<meta property="og:title" content="パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220610_01/index.html">
+<meta property="og:title" content="Windows Server 2012 にて WSUS のインストールに失敗する事象について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/index.html">
 <meta property="og:site_name" content="Japan Microsoft Endpoint Manager Support Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、">
+<meta property="og:description" content="皆さま こんにちは。 WSUS サポートチームです。 Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。   以下の公開情報にて、WSUS サーバーの">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220610_01/20220609-01_01.png">
-<meta property="article:published_time" content="2022-06-09T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-13T00:19:45.063Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">
+<meta property="article:published_time" content="2014-04-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-13T00:19:45.103Z">
 <meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
-<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220610_01/20220609-01_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Endpoint Manager Support Blog" type="application/atom+xml">
   
@@ -86,10 +86,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20220610_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2014-04-02_02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2022-06-09T15:00:00.000Z" itemprop="datePublished">2022-06-10</time>
+  <time datetime="2014-04-01T15:00:00.000Z" itemprop="datePublished">2014-04-02</time>
 </a>
     <!--  -->
   </div>
@@ -100,7 +100,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      パッケージ展開機能による MECM クライアント エージェントのバージョンアップ方法
+      Windows Server 2012 にて WSUS のインストールに失敗する事象について
     </h1>
   
 
@@ -109,104 +109,27 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2022-06-09T15:00:00.000Z" itemprop="dateUpdated">2022-06-10</time>
+    <time datetime="2014-04-01T15:00:00.000Z" itemprop="dateUpdated">2014-04-02</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
-<p>Configuration Manager では、MECM クライアント エージェントのバージョン アップ方法が複数ございます。<br>自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、もう少し小刻みにバージョン アップをしたいというニーズがあることを、サポート インシデントを通してご要望頂くことがございます。<br>そこで今回は、パッケージ展開機能を利用する方法についてご紹介いたします。  </p>
-<h2 id="目次"><a href="#目次" class="headerlink" title="目次"></a>目次</h2><p><strong>A. パッケージとプログラムの作成</strong><br><strong>B. パッケージの展開</strong><br><strong>C. 展開結果の確認</strong><br><strong>D. 注意事項</strong>  </p>
-<h2 id="A-パッケージとプログラムの作成"><a href="#A-パッケージとプログラムの作成" class="headerlink" title="A. パッケージとプログラムの作成"></a>A. パッケージとプログラムの作成</h2><ol>
-<li><p>プライマリ サイト サーバー上で、事前に共有フォルダーを作成します。共有ファルダ―は新規で作成し、このパッケージ専用として扱います。<br>例：**”\\PriSite\MECMClient&quot;**  </p>
-</li>
-<li><p>プライマリ サイト サーバーの以下のフォルダーにアクセスします。<br>パス：**”&lt;サイトサーバーのインストール ドライブ&gt;:\Program Files\Microsoft Configuration Manager\Client”**</p>
-</li>
-<li><p>ccmsetup.exe ファイルのみを、共有フォルダーにコピーします。(手順 5. で使います)</p>
-</li>
-<li><p>MECM コンソールを起動し、[ソフトウェア ライブラリ] &gt; [アプリケーション管理] &gt; [パッケージ] を右クリックし、[パッケージの作成] をクリックします。</p>
-</li>
-<li><p>[パッケージとプログラムの作成ウィザード] の [パッケージ] より、任意の名前を入力し、[このパッケージにソース ファイルを含める] にチェックを入れ、[参照] をクリックします。</p>
-</li>
-<li><p>[ソース フォルダー] の設定より、さらに [参照] をクリックし、共有フォルダーのパスを入力し、[OK] をクリックします。</p>
-</li>
-<li><p>[パッケージ] より、共有フォルダーのパスが登録されていることを確認し、[次へ] をクリックします。</p>
-</li>
-<li><p>[プログラムの種類] より、[標準プログラム] が選択されている状態のまま、[次へ] をクリックします。</p>
-</li>
-<li><p>[標準プログラム] より、以下の項目を設定し、[参照] をクリックします。</p>
-<ul>
-<li>名前：任意の名前   </li>
-<li>コマンド ライン：  </li>
-</ul>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /noservice /mp:&lt;管理ポイントの FQDN&gt; SMSMP=&lt;管理ポイントの FQDN&gt; SMSSITECODE=&lt;サイト コード&gt;</span><br><span class="line">例)：ccmsetup.exe /noservice /mp:PriSite.contoso.com SMSMP=PriSite.contoso.com SMSSITECODE=PS1</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>プログラムの実行条件：ユーザーのログオン状態に関係なし  </li>
-<li>実行モード：管理者権限で実行する（自動で選択されます）  </li>
-</ul>
-</li>
-<li><p>[要件] より、必要に応じて設定を行い、[次へ] をクリックします。</p>
-</li>
-<li><p>[概要] より、設定内容に誤りがないことを確認し、[次へ] をクリックします。</p>
-</li>
-<li><p>[完了] より、正常に完了したことを確認し、[閉じる] をクリックします。</p>
-</li>
-<li><p>[パッケージ] の [ナビゲーション ペイン] より、作成したパッケージが登録されていることを確認します。</p>
-</li>
-</ol>
-<h2 id="B-パッケージの展開"><a href="#B-パッケージの展開" class="headerlink" title="B. パッケージの展開"></a>B. パッケージの展開</h2><ol>
-<li><p>MECM コンソールより、[ソフトウェア ライブラリ] &gt; [アプリケーション管理] &gt; [パッケージ] を開きます。</p>
-</li>
-<li><p>先ほど作成したパッケージを右クリックし、[展開] をクリックし、[ソフトウェアの展開ウィザード] を開きます。</p>
-</li>
-<li><p>[全般] にて [コレクション] - [参照] をクリックし、展開先コレクションを指定し [OK] をクリックし、[次へ] をクリックします。</p>
-</li>
-<li><p>[コンテンツ] にて、[追加] をクリックし、配布ポイントを指定し、[次へ] をクリックします。</p>
-</li>
-<li><p>[展開設定] にて “目的” を [利用可能] とし、[次へ] をクリックします。<br>([必須] 場合にはサイレント実行されるため、テストする際には、[利用可能] とし、テストが成功することをご確認頂くことをお勧めいたします。)</p>
-</li>
-<li><p>[スケジュール] にて必要に応じたスケジュールを指定し、[次へ] をクリックします。</p>
-</li>
-<li><p>[ユーザー側の表示と操作] にて既定のまま [次へ] をクリックします。</p>
-</li>
-<li><p>[配布ポイント] にて、配布ポイントを指定して、[次へ] をクリックします。</p>
-</li>
-<li><p>[概要] にて [次へ] をクリックします。</p>
-</li>
-<li><p>ウィザードが完了したことを確認し、[閉じる] をクリックします。</p>
-</li>
-<li><p>展開後、[パッケージ] の [ナビゲーション ペイン] より、展開したパッケージのコンテンツ ステータスが緑色の円グラフになることを確認します。<br>※画面をリフレッシュして、円グラフの更新状況を確認ください。  </p>
-</li>
-</ol>
-<h2 id="C-展開結果の確認"><a href="#C-展開結果の確認" class="headerlink" title="C. 展開結果の確認"></a>C. 展開結果の確認</h2><p>パッケージ展開機能により ccmsetup.exe の配布を行うと、MECM エージェントのサービスが再起動されるため、パッケージの展開ステータスで、「プログラムで問題が発生しました (予期しなかった再起動)」 と記録されることがございます。<br>これはステータスを送付するタイミングに依存して記録されるものであり、想定動作となりますのでご留意ください。  </p>
-<p>そのため、バージョンアップが正しく行われたかどうかは、以下の確認方法を用います。<br>基本的には、MECM サーバー側でバージョンアップされていることが確認できましたら、クライアントから管理ポイントへバージョン情報が正しく渡っているため、これにより正しくクライアントが動作していることを判断します。  </p>
-<h3 id="レポートによる確認"><a href="#レポートによる確認" class="headerlink" title="レポートによる確認"></a>レポートによる確認</h3><ol>
-<li>MECM コンソールにて、[監視] &gt; [レポート] &gt; [レポート] &gt; [サイト - クライアント情報] を選択します。</li>
-<li>[Configuration Manager クライアント バージョン別の数] を右クリックし、[実行] をクリックします。</li>
-<li>レポートの結果が表示されますので、各バージョンをクリックすると、バージョン別のクライアント一覧がご確認頂けます。</li>
-</ol>
-<h3 id="デバイスの列名による確認"><a href="#デバイスの列名による確認" class="headerlink" title="デバイスの列名による確認"></a>デバイスの列名による確認</h3><ol>
-<li><p>MECM コンソールにて、[資産とコンプライアンス] &gt; [デバイス] を選択します。</p>
-</li>
-<li><p>以下の列を追加し、各状態をチェックします。<br>・[アイコン]<br>・[名前]<br>・[クライアント]<br>・[クライアント アクティビティ]<br>・[クライアント バージョン]</p>
-</li>
-<li><p>目安としては、以下の点をチェックします。<br>・アイコン：<strong>緑色でチェックが付いているか</strong><br>・クライアント アクティビティ：<strong>アクティブになっているか</strong><br>・クライアント バージョン：<strong>想定バージョンになっているか</strong></p>
-<p> <img src="/blog/mecm/20220610_01/20220609-01_01.png" alt="image.png">  </p>
-</li>
-<li><p>そのほか、実際にバージョンアップ後のクライアントに対して、<br>パッケージ展開や、ソフトウェア更新プログラムの展開を行い、目的の配信が正常に進みますか確認を行います。</p>
-</li>
-</ol>
+        <p>皆さま こんにちは。 WSUS サポートチームです。</p>
+<p>Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。  </p>
+<p>以下の公開情報にて、WSUS サーバーのインストール方法について、3 点の回避策を公開しております。同様の事象が発生した場合には、トラブルの対処にお役立てください。  </p>
+<p><strong>回避策1.</strong> PowerShell を利用した WSUS サーバーのサイレント インストールを実行する。<br><strong>回避策2.</strong> 構成ファイルを手動で編集する。<br><strong>回避策3.</strong> WSUS 管理コンソールを起動して、初期構成タスクを完了する。<br><strong>－ Windows Server 2012 で WSUS サーバーの役割をインストール後に、初期構成タスクに失敗する事があります</strong><br><a target="_blank" rel="noopener" href="https://support.microsoft.com/kb/2882799/ja">https://support.microsoft.com/kb/2882799/ja</a>  </p>
+<p>※ 補足 ※<br><strong>回避策 1</strong> では、PowerShell で WSUS サーバーのインストールを実行する前に、「役割と機能の追加ウィザード」 の 「構成設定ファイルエクスポート」 にて構成設定ファイルをエクスポートする必要があります。<br><img src="/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">  </p>
+<p>以上のとおり、ご案内いたします。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220610_01/" data-id="cl96bdiyw003l0mo2bjrj5i6m" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2014-04-02_02/" data-id="cl96bdizs005d0mo2aznu0g12" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -214,19 +137,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../w365/2022-06-16_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2014-04-02_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Azure Active Directory に存在する CPC-hth から始まるデバイス オブジェクトについて
+          WSUS 4.0 (Windows Server 2012) ポート番号変更について
         
       </div>
     </a>
   
   
-    <a href="../20220608_02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2014-03-05_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</div>
+      <div class="article-nav-title">WSUS DB インデックスの再構成の手順について</div>
     </a>
   
 </nav>
@@ -245,7 +168,7 @@
       <ul>
         
           <li>
-            <a href="../../wsus/2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
           </li>
         
           <li>
@@ -257,7 +180,7 @@
           </li>
         
           <li>
-            <a href="../20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
           </li>
         
           <li>
