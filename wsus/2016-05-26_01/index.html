@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 について | Japan Microsoft Intune Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要となる更新プログラムです。必要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2016-05-26_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Blog">
+<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要となる更新プログラムです。必要">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-05-26_01/2016-05-26_01%5C2016-05-26_01.png">
+<meta property="article:published_time" content="2016-05-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-24T03:34:33.831Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2016-05-26_01/2016-05-26_01%5C2016-05-26_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Intune Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Intune / Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2016-05-26_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2016-05-25T15:00:00.000Z" itemprop="datePublished">2016-05-26</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2016-05-25T15:00:00.000Z" itemprop="dateUpdated">2016-05-26</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>皆さま、こんにちは。WSUS サポート チームです。  </p>
+<p>今回は 2016/5/4 にリリースされた Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。<br>KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、<strong>適用後に手動の手順が必要となる更新プログラム</strong>です。<br>必要となる手動の手順は <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介しておりますが、<strong>適用後手動の手順を行わなかった場合に、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します</strong>ので、本ブログ記事においても詳細にご説明いたします。<br>なお、KB3159706 は、WSUS 3.0 SP2 には提供されておりませんので、WSUS 3.0 SP2 環境に適用されることはありません。  </p>
+<h2 id="KB3159706-について"><a href="#KB3159706-について" class="headerlink" title="KB3159706 について"></a>KB3159706 について</h2><p>Windows 10 の機能アップグレード (WSUS では “Upgrades” に分類される更新プログラム) は、暗号化されたパッケージの形式で実際のリリースより前に Windows Update に公開されます。<br>これは、すべての地域に対して同時にリリースできるようにすることを目的としています。  Windows 10 のクライアントは、最初にリリースされたバージョンから暗号化されたパッケージを復号することができましたが、WSUS では復号する機能を有しておりませんでした。<br>そのため、今まで機能アップグレードを WSUS に公開するに当たり、暗号化されたパッケージを手動で復号して WSUS 用に公開しておりましたが、このプロセスは時間を要する作業であり、エラーが発生する要因となっておりました。<br>KB3159706 は、Windows Server 2012 / 2012 R2 の WSUS に暗号化されたパッケージを復号する機能を追加した更新プログラムです。<br>この KB3159706 を適用しない場合、2016 年夏にリリース予定の Windows 10 Anniversary Update など、2016 年 5 月以降に WSUS に公開される機能アップグレードについて、WSUS で配信することができません。(注 : Windows Server 2016 では、リリース時から本機能を組み込む予定です。)  </p>
+<h2 id="KB3159706-の展開方法について"><a href="#KB3159706-の展開方法について" class="headerlink" title="KB3159706 の展開方法について"></a>KB3159706 の展開方法について</h2><p>KB3159706 は、WSUS や Microsoft Update カタログに公開されておりますので、KB3159706 が同期済みか、手動で KB3159706 をインポートしていれば、WSUS を利用して展開することができます。<br>また、WSUS を利用して展開できない方々に向けて、Windows Update に対しても KB3159706 を公開しております。<br>もし Windows Update から KB3159706 を適用する場合は、オプションに KB3159706 が表示されますので、チェックをオンにしてインストールしてください。<br><img src="2016-05-26_01%5C2016-05-26_01.png">  </p>
+<h2 id="KB3159706-を適用した後に必要な手動手順について"><a href="#KB3159706-を適用した後に必要な手動手順について" class="headerlink" title="KB3159706 を適用した後に必要な手動手順について"></a>KB3159706 を適用した後に必要な手動手順について</h2><p>KB3159706 は適用した後に、手動の手順を実施することでインストールが完了します。<br>手動の手順を実施していない場合、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します。<br>そのため、意図せず KB3159706 が適用された場合は、お手数をおかけしますが、以下の適用後に必要な手動手順の実施をお願いします。(<a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介している手順です。)  </p>
+<p><strong>この更新プログラムのインストールを完了するために必要な手動の手順</strong><br>WSUS サーバーで以下の手順を実施してください。<br>なお、本手順はシステム ボリュームが C ドライブであることを前提としています。<br>(本記事内のコマンドをコピー ペーストすると、ダブル クォーテーションが全角に変換されますので、半角に修正してください。)  </p>
+<ol>
+<li>以下のコマンドを実行します。<br>(データベースに Windows Internal Database (WID) を利用している場合)</li>
+</ol>
+<p><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall /servicing</strong><br>(データベースに SQL Server を利用している場合)<br><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall SQL_INSTANCE_NAME=&lt;インスタンス名&gt; /servicing</strong><br>※ 以下のレジストリ値が MICROSOFT##WID となっていれば、WID であると判断できます。<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Update Services\Server\Setup!SqlServerName</p>
+<ol>
+<li>コマンドの実行が完了した後、サーバー マネージャーを起動します。</li>
+<li>ダッシュボードより [役割と機能の追加] をクリックします。</li>
+<li>ウィザードを進め [機能] ページで以下の機能を追加して [次へ] をクリックしていきます。  </li>
+</ol>
+<p><strong>[.NET Framework 4.5 Features] - [WCF サービス] - [HTTP アクティブ化]</strong>  </p>
+<ol>
+<li>ウィザードを完了後、サーバー マネージャーを閉じます。</li>
+<li>[管理ツール] - [サービス] より WSUS Service を再起動します。</li>
+<li>WSUS 管理コンソールに接続可能か確認します。  </li>
+</ol>
+<p>SSL 構成の WSUS の場合は、以下の手順を実施してください。 </p>
+<ol>
+<li><p>コマンド プロンプトを “管理者として実行” で起動して、以下のコマンドを実行します。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">takeown /f web.config /a</span><br><span class="line">icacls &quot;C:\Program Files\Update Services\WebServices\ClientWebService\Web.config&quot; /grant administrators:f</span><br></pre></td></tr></table></figure></li>
+<li><p>次のパスに web.config ファイルが存在することを確認します。  </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Update Services\WebServices\ClientWebService\Web.Config</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>太字</strong>部分について変更します。  </p>
+ <p>&lt;services&gt;<br>
+ &lt;service<br>
+ name="Microsoft.UpdateServices.Internal.Client"<br>
+ behaviorConfiguration="ClientWebServiceBehaviour"&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&lt;!--</strong> &nbsp;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>These 4 endpoint bindings are required for supporting both http and https</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>--&gt;</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&lt;endpoint address=""</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>binding="basicHttpBinding"</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>bindingConfiguration="SSL"</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>contract="Microsoft.UpdateServices.Internal.IClientWebService" /&gt;</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&lt;endpoint address="secured"</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>binding="basicHttpBinding"</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>bindingConfiguration="SSL"</strong><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>contract="Microsoft.UpdateServices.Internal.IClientWebService" /&gt;</strong><br>
+ &lt;endpoint address=""<br>
+ binding="basicHttpBinding"<br>
+ bindingConfiguration="ClientWebServiceBinding"<br>
+ contract="Microsoft.UpdateServices.Internal.IClientWebService" /&gt;<br>
+ &lt;endpoint address="secured"<br>
+ binding="basicHttpBinding"<br>
+ bindingConfiguration="ClientWebServiceBinding"<br>
+ contract="Microsoft.UpdateServices.Internal.IClientWebService" /&gt;<br>
+ &lt;/service&gt;<br>
+ &lt;/services&gt;</p>
+
+<p> ※ コピーペーストすると、コメントアウト部分の –  が - 1 個となりますので、- を続けて 2 個記載するように置き換えてください。  </p>
+</li>
+<li><p>続けてファイルの末尾にある以下の<strong>太字</strong>部分を変更して、web.config ファイルを上書き保存します。  </p>
+ <p>&lt;/bindings&gt;<br>
+ &lt;serviceHostingEnvironment aspNetCompatibilityEnabled="true" <strong>multipleSiteBindingsEnabled="true"</strong> /&gt;<br>
+ &lt;/system.serviceModel&gt;</p>　　</li>
+</ol>
+<p>～ 参考情報 ～<br>(英語) Update enables ESD decryption provision in WSUS in Windows Server 2012 and Windows Server 2012 R2<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/kb/3159706">https://support.microsoft.com/en-us/kb/3159706</a><br>(日本語) 更新により、Windows Server 2012 と Windows Server 2012 R2 での WSUS の ESD 復号化の準備<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/kb/3159706">https://support.microsoft.com/ja-jp/kb/3159706</a></p>
+<p>(英語) The long-term fix for KB3148812 issues<br><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/">https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2016-05-26_01/" data-id="cl9m86g6p005h0nqsaetb7rx4" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2016-09-23_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          WSUS で選択する Windows 10 の製品分類について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2016-03-29_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS で「削除の承認」を行い、更新プログラムを削除する</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
