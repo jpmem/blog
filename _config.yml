@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Title (display)
-title: Japan Microsoft Endpoint Manager Support Blog 
+title: Japan Microsoft Intune Support Blog 
 # Sub Title (display)
-subtitle: 日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。
+subtitle: 日本マイクロソフト Microsoft Intune / Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。
 # Description
-description: 日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。
+description: 日本マイクロソフトの Microsoft Intune / Microsoft Configuration Manager / Windows 365 / WSUS に関するサポート チームのブログです。
 
 # Keywords
 keywords:
