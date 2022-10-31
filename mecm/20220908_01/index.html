@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MECM パッケージで Micorosoft Defender 定義更新ファイルを展開 ~使い方シリーズ~ | Japan Microsoft Intune Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   使い方シリーズ、今回はパッケージ機能を使って Microsoft Defender の定義更新ファイルを展開する手順をステップバイステップで解説致します。万が一、ソフトウェア更新プログラムの機能を使って定義更新ファイルが配れない場合の暫定対処作として役立ちます。ぜひ確認してみてください。   1. 定義更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MECM パッケージで Micorosoft Defender 定義更新ファイルを展開 ~使い方シリーズ~">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220908_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   使い方シリーズ、今回はパッケージ機能を使って Microsoft Defender の定義更新ファイルを展開する手順をステップバイステップで解説致します。万が一、ソフトウェア更新プログラムの機能を使って定義更新ファイルが配れない場合の暫定対処作として役立ちます。ぜひ確認してみてください。   1. 定義更">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_22.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_10.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_11.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_12.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_13.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_14.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_15.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_16.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_18.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_17.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_19.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_20.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_21.png">
+<meta property="article:published_time" content="2022-09-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-31T10:41:52.999Z">
+<meta property="article:author" content="Microsoft Endpoint Manager Support Japan">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="使い方">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220908_01/20220908_01_22.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Intune Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Intune / Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20220908_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2022-09-07T15:00:00.000Z" itemprop="datePublished">2022-09-08</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MECM パッケージで Micorosoft Defender 定義更新ファイルを展開 ~使い方シリーズ~
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2022-09-07T15:00:00.000Z" itemprop="dateUpdated">2022-09-08</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>使い方シリーズ、今回はパッケージ機能を使って Microsoft Defender の定義更新ファイルを展開する手順をステップバイステップで解説致します。<br>万が一、ソフトウェア更新プログラムの機能を使って定義更新ファイルが配れない場合の暫定対処作として役立ちます。ぜひ確認してみてください。  </p>
+<h2 id="1-定義更新ファイルのダウンロード"><a href="#1-定義更新ファイルのダウンロード" class="headerlink" title="1. 定義更新ファイルのダウンロード"></a>1. 定義更新ファイルのダウンロード</h2><p>まず最初に今回適用を行いたい定義更新ファイル（mpam-fe.exe）をダウンロードします。<br>※ ご利用の環境に合わせてダウンロードするファイルをご選択くださいますようお願い申し上げます。</p>
+<p>　　<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/wdsi/defenderupdates">https://www.microsoft.com/en-us/wdsi/defenderupdates</a></p>
+<p>例えば Windows 11 の Microsoft Defender の定義更新ファイルを適用したい場合には下記からダウンロードします。</p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_22.png" alt="image.png"></p>
+<p>ダウンロードしたファイルを任意の共有フォルダーに 配置します。<br>サイト サーバー上など、サイト サーバーからアクセスできる場所であれば、どの場所でも構いません。<br>mpam-fe.exe は 32 bit 版と 64 bit 版が存在しますので、例えば以下のようなフォルダー構成でファイルを配置します。  </p>
+<p>例) サーバー名 CM01 の共有フォルダーに配置する場合<br>　※必要に応じて、32 bit 版、64 bit 番をご用意ください。</p>
+<ul>
+<li>32 bit 版 mpam-fe.exe を配置するフォルダー</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\CM\CM_PackageSource\Endpoint Protection Definition Updates\i386</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>64 bit 版 mpam-feX64.exe を配置するフォルダー</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\CM\CM_PackageSource\Endpoint Protection Definition Updates\x64</span><br></pre></td></tr></table></figure>
+
+<p>パッケージ配布を一定期間運用いただく場合、定期的に新しい mpam-fe.exe を入手し、上記フォルダーに上書き保存するようにします。  </p>
+<h2 id="2-パッケージの作成"><a href="#2-パッケージの作成" class="headerlink" title="2. パッケージの作成"></a>2. パッケージの作成</h2><p>定義更新ファイルのインストールを行うパッケージを作成します。  </p>
+<p><em><strong>2-1.</strong></em> Configuration Manager コンソールを開き、以下の場所に移動します。  </p>
+<p>[ソフトウェア ライブラリ] - [概要] - [パッケージ]  </p>
+<p><em><strong>2-2.</strong></em> リボン メニューの [ホーム] タブより、[作成] - [パッケージの作成] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_01.png" alt="image.png"></p>
+<p><em><strong>2-3.</strong></em> パッケージとプログラムの作成ウィザードが開くので、[全般] ページにて、「Endpoint Protection 定義ファイル」など任意の名前を入力します。<br>　また、[このパッケージにソース ファイルを含める] のチェック ボックスをオンにして、[参照] をクリックします。  </p>
+<p><em><strong>2-4.</strong></em> ソースフォルダーに定義ファイルの配置場所を入力し、[OK] をクリックします。<br>　上記例のとおりファイルを配置した場合は、以下のパスとなります。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\CM\CM_PackageSource\Endpoint Protection Definition Updates</span><br></pre></td></tr></table></figure>
+
+<p><img src="/blog/mecm/20220908_01/20220908_01_02.png" alt="image.png"></p>
+<p>※ x64 フォルダーや i386 フォルダーが配置されているフォルダーを選択します。  </p>
+<p><em><strong>2-5.</strong></em> [プログラムの種類] ページにて、ここでは [プログラムを作成しない] を選択して、[次へ] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_03.png" alt="image.png"></p>
+<p><em><strong>2-6.</strong></em> [次へ] をクリックしていき、ウィザードを完了します。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_04.png" alt="image.png"></p>
+<p><em><strong>2-7.</strong></em> Configuration Manager コンソールに作成したコレクションが表示されます。作成したパッケージを右クリックし、[プロパティ] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_05.png" alt="image.png"></p>
+<p><em><strong>2-8.</strong></em> プロパティより、[データソース] タブにて、[スケジュールに従って配布ポイントを更新する] のチェック ボックスをオンにします。<br>パッケージ ソースに配置されている定義ファイルが更新された際は、配布ポイントの更新が必要となりますので、自動化する設定となります。<br>スケジュールは、お客様が定義ファイルを更新されるタイミングに合わせて任意のスケジュールを設定してください。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_06.png" alt="image.png"></p>
+<h3 id="3-プログラムの作成-必要に応じて、32-bit-版も作成してください"><a href="#3-プログラムの作成-必要に応じて、32-bit-版も作成してください" class="headerlink" title="3. プログラムの作成 (必要に応じて、32 bit 版も作成してください)"></a>3. プログラムの作成 (必要に応じて、32 bit 版も作成してください)</h3><p>mpam-fe.exe を適用するためのプログラムを作成します。<br>32 bit 版と 64 bit 版を合わせて、2 つのプログラムを作成する必要があります。<br>ここでは、64 bit 版の mpam-fe.exe を適用するためのプログラムを作成する手順をご案内します。  </p>
+<p><em><strong>3-1.</strong></em> Configuration Manager コンソールを開き、以下の場所に移動します。<br>　[ソフトウェア ライブラリ] - [概要] - [パッケージ]  </p>
+<p><em><strong>3-2.</strong></em> 右上ペインより、<strong>手順 2. パッケージの作成</strong> で作成したパッケージを選択します。  </p>
+<p><em><strong>3-3.</strong></em> リボン メニューの [ホーム] タブより、[プログラムの作成] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_07.png" alt="image.png"></p>
+<p><em><strong>3-4.</strong></em> 64 bit 版の mpam-fe.exe を適用するプログラムを作成します。  </p>
+<p>　<em><strong>3-4-1.</strong></em> [プログラムの種類] ページで [標準プログラム] を選択し、[次へ] をクリックします。  </p>
+<p>　<em><strong>3-4-2.</strong></em> [標準プログラム] ページで、以下のように入力し [次へ] をクリックします。  </p>
+<ul>
+<li><p>名前 : 任意の名前 (mpam-feX64 など)  </p>
+</li>
+<li><p>コマンド ライン : <code>.\X64\mpam-fe.exe /q</code><br>([参照] ボタンより、64 bit 版の mpam-fe.exe を選択した上で、/q オプションを付加します。)  </p>
+</li>
+<li><p>プログラムの実行条件 : ユーザーのログオン状態に関係なし  </p>
+</li>
+<li><p>実行モード : 管理者権限で実行する (変更不可)  </p>
+</li>
+</ul>
+<p><img src="/blog/mecm/20220908_01/20220908_01_08.png" alt="image.png"></p>
+<p><em><strong>3-4-3.</strong></em> [要件] ページで、[指定したプラットフォームだけで実行可能] を選択し、配布対象となる 64 bit 版 Windows プラットフォームのチェック ボックスをオンにして、[次へ] をクリックします。  </p>
+<p>　　※ 32 bit 版の OS を選択しないようにしてください。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_09.png" alt="image.png"></p>
+<p><em><strong>3-4-4.</strong></em> [次へ] をクリックしていき、ウィザードを完了します。<br>64 bit 版のプログラムの作成手順は以上となります。<br>32 bit 版も管理対象に含める場合は、同様の手順でプログラムを作成してください。  </p>
+<h3 id="4-展開の作成"><a href="#4-展開の作成" class="headerlink" title="4. 展開の作成"></a>4. 展開の作成</h3><p>展開を作成して、管理対象コンピューターに定期的に定義ファイルを配布します。</p>
+<p><em><strong>4-1.</strong></em> Configuration Manager コンソールを開き、以下の場所に移動します。<br>　[ソフトウェア ライブラリ] - [概要] - [パッケージ]  </p>
+<p><em><strong>4-2.</strong></em> 右上ペインより、手順 C. で作成したパッケージを選択します。  </p>
+<p><em><strong>4-3.</strong></em> リボン メニューの [ホーム] タブより、[展開] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_10.png" alt="image.png"></p>
+<p><em><strong>4-4.</strong></em> ソフトウェアの展開ウィザードが開くので、[全般] ページにて、以下のように設定して [次へ] をクリックします。  </p>
+<ul>
+<li>ソフトウェア : mpam-feX64 (<strong>手順 3. プログラムの作成</strong> で作成した 64 bit 版 mpam-feX64.exe のプログラム)  </li>
+<li>コレクション : Endpoint Protection 定義ファイルを展開したいコレクション</li>
+</ul>
+<p><img src="/blog/mecm/20220908_01/20220908_01_11.png" alt="image.png"></p>
+<p><em><strong>4-5.</strong></em> [コンテンツ] ページにて、クライアントがアクセス可能な配布ポイントを追加して、[次へ] をクリックします。  </p>
+<p><em><strong>4-6.</strong></em> [展開設定] ページにて、以下の設定をして、[次へ] をクリックします。  </p>
+<ul>
+<li>操作 : インストール  </li>
+<li>目的 : 必須  </li>
+</ul>
+<p><img src="/blog/mecm/20220908_01/20220908_01_12.png" alt="image.png"></p>
+<p><em><strong>4-7.</strong></em> [スケジュール] ページにて、[新規] をクリックして、スケジュールを決定します。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_13.png" alt="image.png"></p>
+<p><em><strong>4-7-1.</strong></em> 割り当てスケジュールが開くので、[スケジュール] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_14.png" alt="image.png"></p>
+<p><em><strong>4-7-2.</strong></em> カスタム スケジュールが開くので、定期的にプログラムを実行するために、繰り返しパターンを設定します。  </p>
+<p>一日単位で定義ファイルを更新する場合は、[間隔指定] を選択して、間隔に「1 日間」を指定し、[OK] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_15.png" alt="image.png"></p>
+<p><em><strong>4-7-3.</strong></em> [OK] をクリックして、ダイアログを閉じます。  </p>
+<p><em><strong>4-8.</strong></em> [スケジュール] ページにて、再実行の動作に [プログラムを常に再実行する] を選択して、[次へ] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_16.png" alt="image.png"></p>
+<p><em><strong>4-9.</strong></em> [ユーザー側の表示と操作] ページにて、既定の設定のまま [次へ] をクリックします。  </p>
+<p><em><strong>4-10.</strong></em> [配布ポイント] ページにて、既定の設定のまま [次へ] をクリックします。  </p>
+<p><em><strong>4-11.</strong></em> [次へ] をクリックしていき、ウィザードを完了します。    </p>
+<p>64 bit 版の展開の作成手順は以上となります。<br>32 bit 版も管理対象に含める場合は、同様の手順で展開を作成してください。  </p>
+<p>※パッケージの再実行の動作については <a href="https://jpmem.github.io/blog/mecm/20220421_01/">こちら</a>で解説しております。  </p>
+<h3 id="5-コンテンツの配布完了を確認する"><a href="#5-コンテンツの配布完了を確認する" class="headerlink" title="5. コンテンツの配布完了を確認する"></a>5. コンテンツの配布完了を確認する</h3><p>パッケージ ソースから配布ポイントへのコンテンツの配布が完了したことを確認します。  </p>
+<p><em><strong>5-1.</strong></em> Configuration Manager コンソールを開き、以下の場所に移動します。  </p>
+<p>[ソフトウェア ライブラリ] - [概要] - [パッケージ]  </p>
+<p><em><strong>5-2.</strong></em> 右上ペインより、<strong>手順 3. プログラムの作成</strong> で作成したパッケージを選択します。  </p>
+<p><em><strong>5-3.</strong></em> リボン メニューの [ホーム] タブより、[最新の情報に更新] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_18.png" alt="image.png"></p>
+<p><em><strong>5-4.</strong></em> 右下ペインの [概要] タブにて、[コンテンツのステータス] が「成功」(<font color="MediumSeaGreen">緑色</font>) になっていることを確認します。  </p>
+<p>※「進行中」(<font color="Khaki">黄色</font>) で表示される場合、配布が進行中なので、しばらく待って再度「最新情報に更新」をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_17.png" alt="image.png"></p>
+<h3 id="6-定義ファイルが適用できるか確認する"><a href="#6-定義ファイルが適用できるか確認する" class="headerlink" title="6. 定義ファイルが適用できるか確認する"></a>6. 定義ファイルが適用できるか確認する</h3><p>上記手順実施後、クライアントでコンピューター ポリシーが取得されると、定義ファイルのダウンロードおよびインストールが行われます。<br>コンピューター ポリシーの取得は、既定では 1 時間に 1 回の間隔で実行されますが、手動で実行することもできます。<br>確認手順は、以下のとおりとなります。  </p>
+<p><em><strong>6-1.</strong></em> 展開対象となっているコンピューターのコントロール パネルを開き、Configuration Manager を開きます。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_19.png" alt="image.png"></p>
+<p><em><strong>6-2.</strong></em> [操作] タブより、[コンピューター ポリシーの取得および評価サイクル] を選択し、[直ちに実行] をクリックします。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_20.png" alt="image.png"></p>
+<p>上記手順実行後に、コンピューター ポリシーの取得が開始されます。その後、定義ファイルがダウンロードされ、更新されます。  </p>
+<p>クライアント端末側で [スタート] &gt; Windows セキュリティを開き、[ウイルスと脅威の防止の更新] の [ウイルスと驚異の防止の更新] の [前回の更新] が直近の日時になっており、定義のバージョンが更新されていれば、インストールは正常に完了しています。<br>バージョンは [Windows セキュリティ] &gt; [設定(画面左下歯車アイコン)] &gt; [バージョン情報] にてご確認いただけます。  </p>
+<p><img src="/blog/mecm/20220908_01/20220908_01_21.png" alt="image.png"></p>
+<p>なお、コンピューター ポリシーの取得には時間がかかる場合がありますので、正常に完了しない場合は、何度か <em><strong>6-2.</strong></em> の手順を実行してください。  </p>
+<h3 id="7-定義ファイル更新の際の配布手順"><a href="#7-定義ファイル更新の際の配布手順" class="headerlink" title="7. 定義ファイル更新の際の配布手順"></a>7. 定義ファイル更新の際の配布手順</h3><p>新しい定義ファイルに更新する際には、以下の手順を実行します。  </p>
+<p><em><strong>7-1.</strong></em> 手順 <strong>1. 定義更新ファイルのダウンロード</strong> で配置した定義ファイルを、新しい定義ファイルで上書きします。  </p>
+<p><em><strong>7-2.</strong></em> 手順 <strong>2-8.</strong> で指定したスケジュールに従って、配布ポイントのコンテンツが更新されます。<br>今すぐに配布ポイントのコンテンツを更新したい場合は、以下を実行します。  </p>
+<p><em><strong>7-2-1.</strong></em> Configuration Manager コンソールを開き、以下の場所に移動します。  </p>
+<p>[ソフトウェア ライブラリ] - [概要] - [パッケージ]  </p>
+<p><em><strong>7-2-2.</strong></em> 右上ペインより、手順 <strong>2. パッケージの作成</strong> で作成したパッケージを選択します。  </p>
+<p><em><strong>7-2-3.</strong></em> 右クリック メニューから、[配布ポイントの更新] を選択します。  </p>
+<p><em><strong>7-2-4.</strong></em> 配布ポイントのコンテンツが更新されます。  </p>
+<p>配布の完了ステータスの確認方法は、前述の手順 <strong>5. コンテンツの配布完了を確認する</strong> を参照してください。  </p>
+<p><em><strong>7-3.</strong></em> 手順 <strong>4. 展開の作成</strong> で指定したカスタム スケジュールに従って、パッケージが展開されます。  </p>
+<p><em><strong>7-4.</strong></em> クライアントが [コンピューター ポリシーの取得および評価サイクル] を実行した際に、パッケージがダウンロードされ、定義ファイルが更新されます。<br>既定では、 [コンピューター ポリシーの取得および評価サイクル] は60 分ごとに実行されます。</p>
+<p>定義ファイル配布の手順は以上となります。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20220908_01/" data-id="cl9wnix6l00400mrxa8x02mi7" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../intune/20220913_03/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          ご起票時に事前採取可能な Autopilot ログの採取手順
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../w365/2022-09-06_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">プロビジョニングが開始されない場合に確認するポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../wsus/2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Microsoft Endpoint Manager Support Japan<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
