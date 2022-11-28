@@ -5,17 +5,17 @@
   
 
   
-  <title>Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合) | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>Windows Server 2012 R2 WSUS から Windows Server 2019 WSUS への移行手順 (WID -&gt; WID の場合) | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。WSUS サポート チームです。 今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSUS を新規構築">
+  <meta name="description" content="こんにちは。WSUS サポート チームです。今回は Windows Server 2012 R2 にインストールした WSUS を、Windows Server 2019 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)">
+<meta property="og:title" content="Windows Server 2012 R2 WSUS から Windows Server 2019 WSUS への移行手順 (WID -&gt; WID の場合)">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2021-10-19_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="こんにちは。WSUS サポート チームです。 今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSUS を新規構築">
+<meta property="og:description" content="こんにちは。WSUS サポート チームです。今回は Windows Server 2012 R2 にインストールした WSUS を、Windows Server 2019 へ移行する手順をご紹介します。 サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。  新サーバーで WSU">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2021-10-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-27T23:25:47.929Z">
+<meta property="article:modified_time" content="2022-11-28T06:08:46.898Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -98,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows Server 2012 R2 WSUS から Windows Server 2022 WSUS への移行手順 (WID -&gt; WID の場合)
+      Windows Server 2012 R2 WSUS から Windows Server 2019 WSUS への移行手順 (WID -&gt; WID の場合)
     </h1>
   
 
@@ -114,23 +114,23 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>こんにちは。WSUS サポート チームです。</p>
-<p>今回は Windows Server 2012 R2 にインストールした WSUS を、最新の 2022 へ移行する手順をご紹介します。</p>
+        <p>こんにちは。WSUS サポート チームです。<br>今回は Windows Server 2012 R2 にインストールした WSUS を、Windows Server 2019 へ移行する手順をご紹介します。</p>
 <p>サポート ライフサイクルにあわせて、新しいバージョンへの移行を検討されている方も多いかと思います。<br>WSUS サーバーを新しいバージョンに移行する場合、以下の方法があります。</p>
 <ol>
 <li>新サーバーで WSUS を新規構築  </li>
 <li>旧サーバーでバックアップを取得し、新サーバーにリストア</li>
 </ol>
-<p>基本的には 1. 新規構築してご利用いただく方法が最もシンプルな方法になります。<br>既存のデータを引き継ぎたい場合には、今回ご紹介する 2. データベースのバックアップ / リストアをご検討ください。  </p>
+<p>基本的には 1. 新規構築してご利用いただく方法が最もシンプルで推奨される方法になります。<br>既存のデータを引き継ぎたい場合には、今回ご紹介する 2. データベースのバックアップ / リストアをご検討ください。  </p>
 <p>なお、WSUS データベースの変更に関して、こちら (<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wid-to-sql-migration">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wid-to-sql-migration</a>) にデータベースのアタッチ / デタッチの方法を掲載していますが、こちらは同一サーバー上で WSUS データベースを WID から SQL に変更することを目的とした手順であり、今回のように異なるサーバー間の移行シナリオにはご利用いただけませんのでご留意ください。  </p>
+<h1 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h1><p>下記内容は 2022/11/28 時点での検証結果をもとにご案内しております。<br>今後のバージョン変更によって動作しない可能性があり、予告なく内容が更新されることもございますので、その点ご承知置きくださいますようお願い致します。<br>なお、移行先サーバーが Windows Server 2022 の場合、現在 wsusutil postinstall が正常に動作しない問題があり、本手順をご利用いただけません。<br>そのため、Windows Server 2022 の場合は、<a href="https://jpmem.github.io/blog/wsus/2022-04-08_01/">こちら</a> に記載の「A. 一時的にレプリカ構成にする」または「B. 更新プログラム情報をファイル ベースで移行する」の手順による移行をご検討くださいますようお願いいたします。</p>
 <h1 id="WSUS-移行手順について-WID-gt-WID"><a href="#WSUS-移行手順について-WID-gt-WID" class="headerlink" title="WSUS 移行手順について (WID -&gt; WID)"></a>WSUS 移行手順について (WID -&gt; WID)</h1><ul>
-<li><p>前提条件<br>移行元 サーバー : Windows Server 2012 R2 の WSUS 環境<br>移行先 サーバー : Windows Server 2022 の WSUS 環境<br>WSUS は移行元も移行先もデータベースに Windows Internal Database (WID) を利用していることを前提とします。</p>
+<li><p>前提条件<br>移行元 サーバー : Windows Server 2012 R2 の WSUS 環境<br>移行先 サーバー : Windows Server 2019 の WSUS 環境<br>WSUS は移行元も移行先もデータベースに Windows Internal Database (WID) を利用していることを前提とします。</p>
 </li>
-<li><p>手順<br>Windows Server 2022 の WSUS のインストールとデータ移行の手順は以下の通りです。</p>
+<li><p>手順<br>Windows Server 2019 の WSUS のインストールとデータ移行の手順は以下の通りです。</p>
 </li>
 </ul>
 <ol>
-<li>Windows Server 2022 の WSUS のインストール  </li>
+<li>Windows Server 2019 の WSUS のインストール  </li>
 <li>データ移行  <ol>
 <li>WSUS 更新プログラム バイナリを移行する  </li>
 <li>WSUS セキュリティ グループを移行する  </li>
@@ -144,10 +144,7 @@
 <li>完了確認  </li>
 </ol>
 <p>各手順の詳細を以下に記載いたします。</p>
-<br>  
-<br>  
-
-<h1 id="1-Windows-Server-2022-への-WSUS-インストール"><a href="#1-Windows-Server-2022-への-WSUS-インストール" class="headerlink" title="1.Windows Server 2022 への WSUS インストール"></a>1.Windows Server 2022 への WSUS インストール</h1><p>まず初めに、Windows Server 2022 の WSUS のインストールは、サーバー マネージャーから[役割と機能の追加] をクリックして、インストールします。こちらの手順は以下の公開情報をご参照ください。<br><br>  </p>
+<h1 id="1-Windows-Server-2019-への-WSUS-インストール"><a href="#1-Windows-Server-2019-への-WSUS-インストール" class="headerlink" title="1.Windows Server 2019 への WSUS インストール"></a>1.Windows Server 2019 への WSUS インストール</h1><p>まず初めに、Windows Server 2019 の WSUS のインストールは、サーバー マネージャーから[役割と機能の追加] をクリックして、インストールします。こちらの手順は以下の公開情報をご参照ください。</p>
 <ul>
 <li>手順 1:WSUS サーバー ロールをインストールする<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/1-install-the-wsus-server-role">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/1-install-the-wsus-server-role</a></li>
 </ul>
@@ -223,7 +220,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RESTORE DATABASE [SUSDB] FROM DISK = N&#x27;C:\SUSDB.bak&#x27; WITH FILE = 1, MOVE N&#x27;SUSDB&#x27; TO N&#x27;c:\Windows\WID\Data\susdb.mdf&#x27;, MOVE N&#x27;SUSDB_log&#x27; TO N&#x27;c:\Windows\WID\Data\SUSDB_log.ldf&#x27;, NOUNLOAD, STATS = 10</span><br></pre></td></tr></table></figure></li>
 <li><p>この結果として、次のエラー メッセージが表示される場合があります。エラー メッセージを無視して、続行してください。<br>メッセージ 3605、レベル 16、状態 1、行 1<br>データベース ‘SUSDB’ のスキーマの検証が失敗しました。<br>メッセージ 3013、レベル 16、状態 1、行 1<br>RESTORE DATABASE が異常終了しています。</p>
 </li>
-<li><p>移行先 WSUS サーバー (Windows Server 2022) でコマンド プロンプトを [管理者として実行] にて開き、次のコマンドを実行します。<br>例) WSUS のインストール フォルダーが D:\WSUS の場合</p>
+<li><p>移行先 WSUS サーバー (Windows Server 2019) でコマンド プロンプトを [管理者として実行] にて開き、次のコマンドを実行します。<br>例) WSUS のインストール フォルダーが D:\WSUS の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %programfiles%\Update Services\Tools</span><br><span class="line">wsusutil postinstall content_dir=D:\WSUS  </span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="2-5-WSUS-サーバー-ID-を変更する"><a href="#2-5-WSUS-サーバー-ID-を変更する" class="headerlink" title="2.5. WSUS サーバー ID を変更する"></a>2.5. WSUS サーバー ID を変更する</h2><p>移行先サーバーの WSUS サーバー ID は変更する必要があります。この手順を実行すると、移行プロセス中に WSUS 管理のクライアントは影響を受けなくなります。移行元サーバーと移行先サーバーが同じ ID を使用して実行されている場合、サーバーの一方に対して変更を行うと、クライアントとサーバー間の通信は失敗します。</p>
@@ -257,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="clazzpbl7007h0ms12xet1a79" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="clb0e3jw3008s0mnyfu5m8dt1" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
