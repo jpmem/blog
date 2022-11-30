@@ -7,19 +7,19 @@
   
   <title>WSUS メンテナンスガイド新版 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。 A. IIS チューニング設定B. カスタム インデックスの追加C.">
+  <meta name="description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。 具体的には、下記の C と E と F が定期的な実施が必要でござい">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS メンテナンスガイド新版">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。 A. IIS チューニング設定B. カスタム インデックスの追加C.">
+<meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。 具体的には、下記の C と E と F が定期的な実施が必要でござい">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-09_01/2022-05-09_01_2.png">
 <meta property="article:published_time" content="2022-05-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-28T07:16:01.216Z">
+<meta property="article:modified_time" content="2022-11-30T01:39:18.104Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -120,6 +120,7 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>みなさま、こんにちは。 WSUS サポート チームです。<br>今回は、 WSUS でご実施いただきたいメンテナンスについてご紹介します。<br>長期運用や利用状況に従って、 WSUS のパフォーマンスは低下してしまいます。<br>WSUS を安定稼働させるためには日頃のメンテナンスが非常に重要となります為、ご利用環境での定期的な実施をご検討ください。</p>
+<p>具体的には、下記の C と E と F が定期的な実施が必要でございます。<br>また、A と B は一度きりの作業です。D は、C を定期的に実施していましてもパフォーマンスが改善しない場合に実施を検討頂ければと存じます。</p>
 <p>A. IIS チューニング設定<br>B. カスタム インデックスの追加<br>C. WSUS DB インデックスの再構成<br>D. データベースの統計情報の更新とインデックスの再構築<br>E. 不要な更新プログラムを「拒否済み」にする<br>F. WSUS のクリーンアップ ウィザード  </p>
 <h1 id="A-IIS-チューニング設定"><a href="#A-IIS-チューニング設定" class="headerlink" title="A. IIS チューニング設定"></a>A. IIS チューニング設定</h1><p>クライアントから大量のスキャンが要求された場合に、WsusPool でメモリのリサイクルが頻発することにより、IIS の保護機能が働き WsusPool が停止するという事象が発生することがあります。その為、予め IIS のチューニング設定を実施することがお勧めです。<br>※以下の値はあくまでも参考値ですので、ご利用環境に合わせてパフォーマンスモニターなどをご利用いただきご調整ください。</p>
 <p>具体的な手順は以下のとおりです。</p>
@@ -183,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-09_01/" data-id="clb0gi3vz007z0mlfe93b72d5" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-09_01/" data-id="clb2zcq92007r0mpc0stuct1s" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
