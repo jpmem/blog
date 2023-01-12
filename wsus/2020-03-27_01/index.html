@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>SUSDB.mdf が肥大化したときの対処方法について | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート担当です。本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。 長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。このときは、まず WSUS クリー">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUSDB.mdf が肥大化したときの対処方法について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2020-03-27_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート担当です。本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。 長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。このときは、まず WSUS クリー">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-03-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-12T06:33:44.958Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2020-03-27_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-03-26T15:00:00.000Z" itemprop="datePublished">2020-03-27</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SUSDB.mdf が肥大化したときの対処方法について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2020-03-26T15:00:00.000Z" itemprop="dateUpdated">2020-03-27</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
+<p>みなさま、こんにちは。WSUS サポート担当です。<br>本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。</p>
+<p>長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。<br>このときは、まず WSUS クリーンアップ ウィザードを実施して、データベース内の不要なレコードを削除します。</p>
+<p><a href="https://jpmem.github.io/blog/wsus/2017-12-05_01/">WSUS のクリーンアップ ウィザードについて</a></p>
+<p>ただし、クリーンアップ ウィザードでレコードを削除するだけでは、一度肥大化した SUSDB.mdf の<br>ファイルサイズ自体は縮小されません。追加で SQL Server Management Studio や sqlcmd を使用して、<br>SUSDB を圧縮する必要があります。</p>
+<p>手順は以下の通りですので、SUSDB の圧縮が必要になった場合、実施をご検討ください。</p>
+<h2 id="データベース-ファイル-mdf-の圧縮"><a href="#データベース-ファイル-mdf-の圧縮" class="headerlink" title="データベース ファイル (.mdf) の圧縮"></a>データベース ファイル (.mdf) の圧縮</h2><p>本手順を実施することで、WSUS のデータベース ファイルの圧縮を実施し、容量を削減いたします。</p>
+<h3 id="本手順を実施することによる影響につきまして"><a href="#本手順を実施することによる影響につきまして" class="headerlink" title="本手順を実施することによる影響につきまして"></a>本手順を実施することによる影響につきまして</h3><p>本手順の実施にあたって、WSUS や IIS のサービスの停止の必要などは必要ございません。</p>
+<p>なお、データベース ファイル (.mdf) に対して圧縮処理を実施する場合、データベース ファイルのオフセットの末尾に存在するデータページを、オフセットの先頭側に存在する空き領域に移動する処理を実施した後、オフセットの末尾のアドレスを変更し、ファイル内の未使用領域を オペレーティング システム側に解放するという動作が行われております。</p>
+<p>そのため、圧縮処理実行時に、以下のような影響が発生する可能性が考えられます。</p>
+<ol>
+<li>WSUS の処理の中で、移動中のデータページが参照される状況になった場合は、ブロッキングが発生し、処理のパフォーマンスが低下する可能性がある</li>
+<li>圧縮対象のデータベースに対して WSUS から絶えず処理が行われる状況の場合、圧縮処理のデータページの移動処理 でブロッキングが発生し、圧縮処理の完了までに時間を要する可能性がある</li>
+<li>圧縮対象のデータベース内で、移動対象となるデータページが多数存在する場合、多数のデータページの移動処理が行われることに伴い、Disk I/O、CPU、メモリ などのマシンリソース負荷が通常時よりも高くなる可能性があり、マシン全体的なパフォーマンスが低下する可能性がある</li>
+</ol>
+<h3 id="実施手順"><a href="#実施手順" class="headerlink" title="実施手順"></a>実施手順</h3><p>下記の手順にて、WSUS のデータベース ファイルの圧縮を実施します。</p>
+<ol>
+<li>SQL Server Management Studio を起動し、下記のパラメータを入力してデータベースへ [接続] を行います。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">サーバーの種類 : データベース エンジン</span><br><span class="line">サーバー名 : &lt;サーバー名&gt;\インスタンス名</span><br><span class="line">認証 : Windows 認証</span><br><span class="line">※ WID の場合、サーバー名には \\.\pipe\Microsoft##WID\tsql\query を指定します。</span><br></pre></td></tr></table></figure></li>
+<li>左ペインの [データベース] を展開し、 [SUSDB] を右クリックし、[タスク]、[圧縮] の順にポイントし、[ファイル] をクリックします。</li>
+<li>「ファイルの種類」に [データ] が選択されていることを確認します。[データ] が選択されている場合、mdf ファイルが圧縮対象となります。</li>
+<li> [未使用領域の解放前にページを再構成する] を選択して、「圧縮先のファイル」に圧縮後のファイル サイズを指定します。指定可能な値は (最小 XXXX MB) が参考になりますが、急激にサイズを縮小した場合、圧縮処理の過程で巨大な一時ファイルが作成される場合があります。</li>
+<li>値を指定した後、ウインドウ上部の [スクリプト] をクリックして、ウィザードは [キャンセル] をクリックします。</li>
+<li>右上ペインのクエリ画面に以下のような SQL が自動生成されておりますので、そのクエリ画面を選択して [実行] をクリックします。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例) 圧縮後のサイズが、200 MB の場合</span><br><span class="line">USE [SUSDB]</span><br><span class="line">GO</span><br><span class="line">DBCC SHRINKFILE (N&#x27;SUSDB&#x27; , 200)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure></li>
+<li>クエリ実行完了後、再び [データベース] - [SUSDB] を右クリックし、[プロパティ] を選択します。</li>
+<li>[データベースのプロパティ] ウインドウにて [ファイル] ページを開きます。</li>
+<li>「初期サイズ」の列を確認し、ファイル サイズが圧縮されていることを確認します。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-03-27_01/" data-id="clcspt11u007n0npkc0l13irq" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2020-07-21_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          WSUS メンテナンス ガイド
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2019-04-23_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS で不要な更新プログラムのインストーラーを削除する</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

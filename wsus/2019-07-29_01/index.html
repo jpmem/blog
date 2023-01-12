@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>「3 – 自動ダウンロードとインストールを通知」 を選択していても、機能更新プログラムが自動インストールされてしまう問題 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)  2019&#x2F;2&#x2F;12 更新 本問題の修正状況について開発部門より進展があり、バージョン 1809 以外の環境に対しては、2019 年 3 月の第 3 週 (3&#x2F;18 週) に本問題に対する修正を含む更新プログラムをリリースする予定であることが確認出来ております。予定に変更やアップデートがございましたら、随">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「3 – 自動ダウンロードとインストールを通知」 を選択していても、機能更新プログラムが自動インストールされてしまう問題">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-07-29_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)  2019&#x2F;2&#x2F;12 更新 本問題の修正状況について開発部門より進展があり、バージョン 1809 以外の環境に対しては、2019 年 3 月の第 3 週 (3&#x2F;18 週) に本問題に対する修正を含む更新プログラムをリリースする予定であることが確認出来ております。予定に変更やアップデートがございましたら、随">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-07-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-12T06:33:44.958Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2019-07-29_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-07-27T15:00:00.000Z" itemprop="datePublished">2020-07-28</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      「3 – 自動ダウンロードとインストールを通知」 を選択していても、機能更新プログラムが自動インストールされてしまう問題
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2020-07-27T15:00:00.000Z" itemprop="dateUpdated">2020-07-28</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
+<hr>
+<p>2019/2/12 更新</p>
+<p>本問題の修正状況について開発部門より進展があり、バージョン 1809 以外の環境に対しては、2019 年 3 月の第 3 週 (3/18 週) に本問題に対する修正を含む更新プログラムをリリースする予定であることが確認出来ております。予定に変更やアップデートがございましたら、随時本ブログを更新してまいります。</p>
+<hr>
+<p>2019/7/29 更新</p>
+<p>本問題の修正については、それぞれ各バージョンにおいてリリースが完了し、以下以降の累積更新プログラムを適用することで、問題の修正を適用していただくことが可能でございます。今後の対策としては以下以降にリリースされた累積更新プログラムを適用することを検討くださいますようお願いいたします。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4489888/windows-10-update-kb4489888">1703 向け : 2019 年 3 月 20 日 — KB4489888 (OS ビルド 15063.1716)</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4489890/windows-10-update-kb4489890">1709 向け : 2019 年 3 月 20 日 — KB4489890 (OS ビルド 16299.1059)</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4489894/windows-10-update-kb4489894">1803 向け : 2019 年 3 月 20 日 — KB4489894 (OS ビルド 17134.677)</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4505658/windows-10-update-kb4505658">1809 向け : 2019 年 7 月 23 日 — KB4505658 (OS ビルド 17763.652)</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4501375/windows-10-update-kb4501375">1903 向け : 2019 年 6 月 28 日 - KB4501375 (OS ビルド 18362.207)</a></li>
+</ul>
+<hr>
+<p>みなさま、こんにちは。WSUS サポート チームです。</p>
+<p>今回は Windows 10 バージョン 1703 以降の環境で、機能更新プログラムの配信時に以下のグループ ポリシーを設定しても、自動的にインストールまで進んでしまう問題について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update]</span><br><span class="line">-&gt; [自動更新を構成する] を ”有効”、オプションにて [3 – 自動ダウンロードとインストールを通知] に指定</span><br></pre></td></tr></table></figure>
+
+<h2 id="事象の概要"><a href="#事象の概要" class="headerlink" title="事象の概要"></a>事象の概要</h2><p>上記の設定を実施している場合でも、機能更新プログラムの配信時に Windows 10 バージョン 1703 以降の環境では、インストールまでが自動実行されてしまう問題が発生してしまいます。なお、この問題は月々リリースされている品質更新プログラムや、機能更新プログラム以外のその他の更新プログラムでは発生いたしません。</p>
+<p>なお、本問題が発生した場合でも、再起動の時間はアクティブ時間によって制御されます。</p>
+<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><p>大変恐縮ながら、現時点で根本的な対処方法はありません。回避策として機能更新プログラムの配信時に以下のような設定を検討していただいております。</p>
+<h3 id="回避策-1-更新プログラムの検出処理までを自動実行させる"><a href="#回避策-1-更新プログラムの検出処理までを自動実行させる" class="headerlink" title="回避策 1 : 更新プログラムの検出処理までを自動実行させる"></a>回避策 1 : 更新プログラムの検出処理までを自動実行させる</h3><p>機能更新プログラムのインストール処理を、必ずユーザーが任意のタイミングで始められるようにしたい場合には、以下のグループ ポリシーを設定することで本問題を回避することが可能です。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update]</span><br><span class="line">-&gt; [自動更新を構成する] を ”有効”、オプションにて [2 – ダウンロードとインストールを通知] に指定</span><br></pre></td></tr></table></figure>
+
+<p>ただし、この回避策を実施した場合には、ユーザーが Windows Update を開始したタイミングで、機能更新プログラムのダウンロードから行われる挙動となるため、ダウンロードに長時間を要する可能性があるような環境では注意が必要です。</p>
+<h3 id="回避策-2-更新プログラムのインストールまでを自動実行し、再起動を任意のタイミングで実施する"><a href="#回避策-2-更新プログラムのインストールまでを自動実行し、再起動を任意のタイミングで実施する" class="headerlink" title="回避策 2 : 更新プログラムのインストールまでを自動実行し、再起動を任意のタイミングで実施する"></a>回避策 2 : 更新プログラムのインストールまでを自動実行し、再起動を任意のタイミングで実施する</h3><p>機能更新プログラムの適用時には、そのほとんどの処理が再起動時に実行されます。このため、以下の設定でインストールまでを自動実行し、再起動の処理をユーザーがログインしている場合には実行しないようにすることで、可能な限り、ユーザーの任意のタイミングで再起動および再起動に伴う、機能更新プログラムの適用処理を実施させることが可能です。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update]</span><br><span class="line">-&gt; [スケジュールされた自動更新のインストールで、ログオンしているユーザーがいる場合には自動的に再起動しない] を &quot;有効&quot;</span><br><span class="line">-&gt; [自動更新を構成する] を ”有効”、オプションにて [4 – 自動ダウンロードしインストール日時を指定] に指定</span><br></pre></td></tr></table></figure>
+
+<p>この回避策の場合、更新プログラムのダウンロード、インストールはバックグラウンドで自動実行することが可能です。ただし、ユーザーがログインしていない場合には、再起動が自動実行される恐れがあるため、必ずユーザー任意のタイミングで機能更新プログラムの適用を行いたい場合には注意が必要です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-07-29_01/" data-id="clcspt11t007j0npkg4mr3nt1" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../mecm/20200729_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2020-07-28_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS (Windows Server 2012/Windows Server 2012 R2) の同期処理が失敗する事象について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>WSUS 環境のネットワーク帯域制御について | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) こんにちは。SCCM &amp; WSUS サポート チームです。WSUS をご利用のお客様からネットワーク帯域を絞る設定方法の有無について、お問い合わせいただくことがあります。OS や Office のサービス パックはインストーラーの容量が特に大きく、インストール承認のタイミングでネットワークが圧迫さ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSUS 環境のネットワーク帯域制御について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-03-29_02/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) こんにちは。SCCM &amp; WSUS サポート チームです。WSUS をご利用のお客様からネットワーク帯域を絞る設定方法の有無について、お問い合わせいただくことがあります。OS や Office のサービス パックはインストーラーの容量が特に大きく、インストール承認のタイミングでネットワークが圧迫さ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-29_02/2019-03-29_02_1.png">
+<meta property="article:published_time" content="2019-03-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-12T06:33:44.954Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2019-03-29_02/2019-03-29_02_1.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2019-03-29_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2019-03-28T15:00:00.000Z" itemprop="datePublished">2019-03-29</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WSUS 環境のネットワーク帯域制御について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2019-03-28T15:00:00.000Z" itemprop="dateUpdated">2019-03-29</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
+<p>こんにちは。SCCM &amp; WSUS サポート チームです。<br>WSUS をご利用のお客様からネットワーク帯域を絞る設定方法の有無について、お問い合わせいただくことがあります。<br>OS や Office のサービス パックはインストーラーの容量が特に大きく、インストール承認のタイミングでネットワークが圧迫された、という緊急対応も個人的に経験があります。</p>
+<p>取り急ぎ更新プログラムの配布を緊急停止するのであれば、WSUS サーバーの IIS (World Wide Web Publishing Services サービス) を停止させます。<br>WSUS クライアントは WSUS サーバー上の IIS に対してダウンロード要求を送信するため、IIS を停止させるとダウンロードが止まります。(注 : インストーラーを WSUS サーバー上に持たない設定であれば、この方法は有効ではありません。)</p>
+<p>ただこれは一時的な対処のため、根本的に問題を解決する場合には、ネットワーク帯域制御の計画が必要です。<br>設定方法にはいくつかのパターンがありますので、ご利用の環境に適した設定の導入をご検討ください。</p>
+<p>A. インストール承認のタイミングを分散させる<br>B. 高速インストール ファイルをダウンロードする<br>C. WSUS クライアントの BITS 帯域制御を設定する<br>D. WSUS サーバーの IIS 帯域制御を設定する  </p>
+<h2 id="A-インストール承認のタイミングを分散させる"><a href="#A-インストール承認のタイミングを分散させる" class="headerlink" title="A. インストール承認のタイミングを分散させる"></a>A. インストール承認のタイミングを分散させる</h2><p>WSUS クライアントをいくつかのグループに分け、インストール承認のタイミングをずらします。<br>例えば部署ごとにクライアントをグループ分けし、部署 A は今週、部署 B は来週、部署 C は翌月<br>と、インストール承認を段階的に設定します。</p>
+<p>一度にダウンロード要求を送信する WSUS クライアントの台数を減らすことで、ネットワーク圧迫のピークを分散させます。</p>
+<h2 id="B-高速インストール-ファイルをダウンロードする"><a href="#B-高速インストール-ファイルをダウンロードする" class="headerlink" title="B. 高速インストール ファイルをダウンロードする"></a>B. 高速インストール ファイルをダウンロードする</h2><p>WSUS 管理コンソールよりオプション [高速インストール ファイルをダウンロードする] を有効にします。</p>
+<p>本オプションを有効にすると、Microsoft Update サイトから WSUS サーバーへダウンロードされるファイルの容量が、大幅に増えます。WSUS が同期する更新の種類、量にもよりますが、公開情報 “Design a WSUS Storage Strategy” では 4 倍になるとの紹介もあります。</p>
+<p>ただ、WSUS クライアントが WSUS サーバーからダウンロードするファイルの容量は、減らすことが出来ます。<br>これは WSUS クライアントのファイル状況に応じてインストーラー全体ではなく、必要な差分データのみをダウンロードする形に動作が変わるためです。</p>
+<p>クライアントの状況によってどの程度の通信が減らせるかは異なるため、必ず xx% 通信を減らせるとは言えませんが、もし WSUS サーバーのディスク容量に余裕があれば本オプションの利用をご検討下さい。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>親子構成の WSUS サーバー環境で、子側のオプション [高速インストール ファイルをダウンロードする] を有効にすると、親側のコンテンツ容量も肥大化します。</p>
+<h2 id="C-WSUS-クライアントの-BITS-帯域制御を設定する"><a href="#C-WSUS-クライアントの-BITS-帯域制御を設定する" class="headerlink" title="C. WSUS クライアントの BITS 帯域制御を設定する"></a>C. WSUS クライアントの BITS 帯域制御を設定する</h2><p>WSUS クライアントが WSUS サーバーからインストーラーをダウンロードする際には、”Background Intelligent Transfer Service” (BITS) サービスが動作します。<br>BITS には帯域制御のオプションがあり、ローカル ポリシーやグループ ポリシーで設定を行うことが出来ます。</p>
+<p>ポリシー [BITS バックグラウンド転送の最大ネットワーク帯域幅を制限する] を適切に構成することで、WSUS クライアントがダウンロードする際の帯域を制御します。<br>具体的には BITS が使用する帯域の上限値 (kbps) を指定することが出来ます。</p>
+<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><p>WSUS サーバーが Microsoft Update サイト、または親 WSUS サーバーからインストーラーをダウンロードする際の通信にも、<br>BITS が利用されます。<br>WSUS サーバーが同期を行う通信を帯域制御したい場合には、同じポリシーを利用可能です。</p>
+<p>ただし、WSUS サーバーの BITS 転送を既定の “バックグラウンド転送” から “フォアグラウンド転送” に変更した場合には、<br>帯域制御のポリシーを適用出来ません。<br>詳細は下記のブログ投稿をご参照ください。</p>
+<p><a href="https://jpmem.github.io/blog/wsus/2022-06-30_01/">WSUS サーバーのダウンロード障害について – BITS と Range ヘッダー</a></p>
+<h2 id="D-WSUS-サーバーの-IIS-帯域制御を設定する"><a href="#D-WSUS-サーバーの-IIS-帯域制御を設定する" class="headerlink" title="D. WSUS サーバーの IIS 帯域制御を設定する"></a>D. WSUS サーバーの IIS 帯域制御を設定する</h2><p>BITS の帯域制御はダウンロード要求側の制御ですが、WSUS サーバー上の IIS 設定を変更することで、ダウンロード応答側での制御も可能です。</p>
+<p><img src="/blog/wsus/2019-03-29_02/2019-03-29_02_1.png" alt="IIS帯域制御設定箇所"></p>
+<p>※ WSUS のポートを 80 に変更している場合は、Default Web Site のほうの設定を変更します。</p>
+<p>これらのオプションを設定することで、ダウンロード応答側の帯域を制御します。<br>先ほどの BITS は単位 “kbps” でしたが、この IIS 設定は単位が “バイト/秒” または “キロバイト/秒” です。ご注意ください。</p>
+<h3 id="参考情報"><a href="#参考情報" class="headerlink" title="参考情報"></a>参考情報</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://technet.microsoft.com/en-us/library/dd939908.aspx">Design for Optimized Performance</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-29_02/" data-id="clcspt11o00770npkfxjkcs1y" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2019-03-29_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          WSUS データベースを簡単に操作するには (Windows Server 2012 編)
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2019-03-28_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
