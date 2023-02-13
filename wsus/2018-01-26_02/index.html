@@ -5,23 +5,20 @@
   
 
   
-  <title>WSUS 上の Windows 10 の機能更新プログラムのタイトルについて | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>WSUS での Windows 10 管理まとめ | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 WSUS 上では、機能更新プログラムは下記のように似たようなタイトルの機能更新プログラムが 2 つの表示されます。今回はこの 2 つのどちらを承認すべきか悩む方に向けたブログとなります。  上記の 2 つの機能更新プログラムの違いは、配信対象のクライアントのライセンスの違いとなります。上記の例では、ボリューム ライセンスを利用しているクライア">
+  <meta name="description" content="こんにちは。WSUS サポート チームです。Windows 10 がリリースされてから月日が立ち、WSUS で Windows 10 を管理されるお客様も増えてきています。 このブログ記事では、そんなお客様に向けて Windows 10 の管理に関してこれまで公開してきたブログや公開情報を纏めて紹介します。これからも順次更新していきますので、乞うご期待ください！ Windows 10 のサポート">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS 上の Windows 10 の機能更新プログラムのタイトルについて">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2018-01-26_01/index.html">
+<meta property="og:title" content="WSUS での Windows 10 管理まとめ">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2018-01-26_02/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 WSUS 上では、機能更新プログラムは下記のように似たようなタイトルの機能更新プログラムが 2 つの表示されます。今回はこの 2 つのどちらを承認すべきか悩む方に向けたブログとなります。  上記の 2 つの機能更新プログラムの違いは、配信対象のクライアントのライセンスの違いとなります。上記の例では、ボリューム ライセンスを利用しているクライア">
+<meta property="og:description" content="こんにちは。WSUS サポート チームです。Windows 10 がリリースされてから月日が立ち、WSUS で Windows 10 を管理されるお客様も増えてきています。 このブログ記事では、そんなお客様に向けて Windows 10 の管理に関してこれまで公開してきたブログや公開情報を纏めて紹介します。これからも順次更新していきますので、乞うご期待ください！ Windows 10 のサポート">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-01-26_01/2018-01-26_01_1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-01-26_01/2018-01-26_01_2.png">
 <meta property="article:published_time" content="2018-01-25T15:00:00.000Z">
 <meta property="article:modified_time" content="2023-02-13T06:41:27.309Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2018-01-26_01/2018-01-26_01_1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -87,7 +84,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2018-01-26_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2018-01-26_02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
   <time datetime="2018-01-25T15:00:00.000Z" itemprop="datePublished">2018-01-26</time>
@@ -101,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS 上の Windows 10 の機能更新プログラムのタイトルについて
+      WSUS での Windows 10 管理まとめ
     </h1>
   
 
@@ -117,27 +114,55 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>WSUS 上では、機能更新プログラムは下記のように似たようなタイトルの機能更新プログラムが 2 つの表示されます。今回はこの 2 つのどちらを承認すべきか悩む方に向けたブログとなります。</p>
-<p><img src="/blog/wsus/2018-01-26_01/2018-01-26_01_1.png" alt="ビジネス エディション"><br><img src="/blog/wsus/2018-01-26_01/2018-01-26_01_2.png" alt="コンシューマー エディション"></p>
-<p>上記の 2 つの機能更新プログラムの違いは、配信対象のクライアントのライセンスの違いとなります。上記の例では、<strong>ボリューム ライセンスを利用しているクライアントに対してはビジネス エディション</strong>を、<strong>それ以外のリテール ライセンス等を利用しているクライアントにはコンシューマー エディション</strong>を配信する必要があります。</p>
-<p>このため、WSUS 配下にボリューム ライセンスを利用しているクライアントと、リテール ライセンスを利用しているクライアントが両方いる場合には、2 つの機能更新プログラム共に承認していただく必要があります。</p>
-<p>また、機能更新プログラムのタイトルは、以下のようにバージョンによっても少し異なるため注意してください。</p>
-<h2 id="ボリューム-ライセンスのクライアントを対象にした機能更新プログラムのタイトル例"><a href="#ボリューム-ライセンスのクライアントを対象にした機能更新プログラムのタイトル例" class="headerlink" title="ボリューム ライセンスのクライアントを対象にした機能更新プログラムのタイトル例"></a>ボリューム ライセンスのクライアントを対象にした機能更新プログラムのタイトル例</h2><ul>
-<li>Windows 10 (ビジネス エディション)、バージョン 1709、ja-jp の機能更新プログラム</li>
-<li>Windows 10 Enterprise、バージョン 1703、ja-jp の機能更新プログラム</li>
-<li>Windows 10 Enterprise、バージョン 1607、ja-jp の機能更新プログラム</li>
-</ul>
-<h2 id="リテール-ライセンス等のクライアントを対象にした機能更新プログラムのタイトル例"><a href="#リテール-ライセンス等のクライアントを対象にした機能更新プログラムのタイトル例" class="headerlink" title="リテール ライセンス等のクライアントを対象にした機能更新プログラムのタイトル例"></a>リテール ライセンス等のクライアントを対象にした機能更新プログラムのタイトル例</h2><ul>
-<li>Windows 10 (コンシューマー エディション)、バージョン 1709、ja-jp の機能更新プログラム</li>
-<li>Windows 10 Enterprise、バージョン 1703、ja-jp、製品版の機能更新プログラム</li>
-<li>Windows 10 Enterprise、バージョン 1607、ja-jp、Retail の機能更新プログラム</li>
-</ul>
+        <p>こんにちは。WSUS サポート チームです。<br>Windows 10 がリリースされてから月日が立ち、WSUS で Windows 10 を管理されるお客様も増えてきています。</p>
+<p>このブログ記事では、そんなお客様に向けて Windows 10 の管理に関してこれまで公開してきたブログや公開情報を纏めて紹介します。これからも順次更新していきますので、乞うご期待ください！</p>
+<h2 id="Windows-10-のサポート-モデル"><a href="#Windows-10-のサポート-モデル" class="headerlink" title="Windows 10 のサポート モデル"></a>Windows 10 のサポート モデル</h2><p>LTSC 以外の Windows 10 を管理する場合には、WaaS のサポート モデルに沿って、<strong>必ず継続的</strong>にアップグレードをする必要があります。基本的な WaaS (Windows as a Service) の考え方は、下記の公開情報にて紹介しているので、ご参考としてください。</p>
+<p><strong>サービスとしての Windows のクイック ガイド</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/deployment/update/waas-quick-start">https://learn.microsoft.com/ja-jp/windows/deployment/update/waas-quick-start</a></p>
+<p>また、各 Windows 10 バージョンのサポート期間は下記にて紹介しています。<br><strong>Windows ライフサイクルのファクト シート</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/lifecycle/faq/windows">https://learn.microsoft.com/ja-jp/lifecycle/faq/windows</a>  </p>
+<p>各バージョンや更新プログラムのリリース履歴については、下記の公開情報を用意しています。  </p>
+<p><strong>Windows 10 のリリース情報</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/release-health/release-information">https://learn.microsoft.com/ja-jp/windows/release-health/release-information</a></p>
+<p><strong>Windows 10 の更新履歴</strong><br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-8127c2c6-6edf-4fdf-8b9f-0f7be1ef3562">https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-8127c2c6-6edf-4fdf-8b9f-0f7be1ef3562</a>  </p>
+<h2 id="WSUS-サーバー設計時の-Tips"><a href="#WSUS-サーバー設計時の-Tips" class="headerlink" title="WSUS サーバー設計時の Tips"></a>WSUS サーバー設計時の Tips</h2><p>WSUS からアップグレードを配信するためには、事前に準備が必要です。詳細は下記ブログで紹介しています。  </p>
+<p><strong>WSUS サーバーからの Windows 10 のアップグレードの配信</strong><br><a href="https://jpmem.github.io/blog/wsus/2016-02-11_01/">https://jpmem.github.io/blog/wsus/2016-02-11_01/</a></p>
+<p>また、各 OS の WSUS の最新バージョンについては下記ブログで紹介しているため、基本的に最新バージョンを利用することをご検討ください。  </p>
+<p><strong>WSUS サーバーのバージョン番号について</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-18">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-18</a>  </p>
+<p>アップグレードや更新プログラムの累積化に伴って Windows 10 では更新プログラムのサイズが大きくなっています。WSUS 利用時のネットワーク帯域制御方法については下記で紹介しています。</p>
+<p><strong>WSUS 環境のネットワーク帯域制御について</strong><br><a href="https://jpmem.github.io/blog/wsus/2019-03-29_02/">https://jpmem.github.io/blog/wsus/2019-03-29_02/</a>  </p>
+<p><strong>Windows 10 バージョン 1607 の環境にて BranchCache を利用する際の条件</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-1607-branchcache">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-1607-branchcache</a>  </p>
+<p><strong>配信の最適化について #1 概要篇</strong><br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2022/02/28/WindowsUpdate/DO/AboutDO_1/">https://jpwinsup.github.io/blog/2022/02/28/WindowsUpdate/DO/AboutDO_1/</a>  </p>
+<p>Windows 10 を管理するためにオプションにて選択する製品等については、下記にて紹介しています。</p>
+<p><strong>WSUS で選択する Windows 10 の製品分類について</strong><br><a href="https://jpmem.github.io/blog/wsus/2016-09-23_01/">https://jpmem.github.io/blog/wsus/2016-09-23_01/</a></p>
+<p><strong>Windows 10 LTSB の 更新プログラムを WSUS で同期する際の注意事項について</strong><br><a href="https://jpmem.github.io/blog/wsus/2017-08-09_01/">https://jpmem.github.io/blog/wsus/2017-08-09_01/</a></p>
+<p><strong>WSUS 上の Windows 10 の機能更新プログラムのタイトルについて</strong><br><a href="https://jpmem.github.io/blog/wsus/2018-01-26_01/">https://jpmem.github.io/blog/wsus/2018-01-26_01/</a></p>
+<p>WSUS サーバーのメンテナンス手法は以下ブログで紹介しているため、設計時より実施を検討していただけると運用時に不要な問題が発生することを防いでいただけます。</p>
+<p><strong>WSUS メンテナンス ガイド新版</strong><br><a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a>  </p>
+<h2 id="クライアント側の設計時の-Tips"><a href="#クライアント側の設計時の-Tips" class="headerlink" title="クライアント側の設計時の Tips"></a>クライアント側の設計時の Tips</h2><p>クライアント側での自動更新の動作の制御については、下記ブログで紹介しています。</p>
+<p><strong>Windows 10 の Windows Update の自動更新設定</strong><br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2022/03/07/WindowsUpdate/WUA/Windows-update-automatic-update/">https://jpwinsup.github.io/blog/2022/03/07/WindowsUpdate/WUA/Windows-update-automatic-update/</a>  </p>
+<p>また、WSUS クライアントのグループ ポリシーの動作については、以下をご参考としてください。</p>
+<p><strong>WSUS クライアントのグループ ポリシー : その 1 – 基本編</strong><br><a href="https://jpmem.github.io/blog/wsus/2019-04-16_01/">https://jpmem.github.io/blog/wsus/2019-04-16_01/</a></p>
+<p><strong>WSUS クライアントのグループ ポリシー : その 2 – Windows 8 / Windows Server 2012 以降編</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-2-windows-8-windows-server-2012">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-2-windows-8-windows-server-2012</a>  </p>
+<p><strong>WSUS クライアントのグループ ポリシー : その 3 – Windows 10 基本編</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-gp3">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-gp3</a>  </p>
+<p>更新プログラム適用後の再起動の制御を行うグループ ポリシーについては、下記ブログで紹介しております。</p>
+<p><strong>Windows 10 / Windows Server 2016 の Windows Update 後の自動再起動の制御方法</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/manage-reboot">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/manage-reboot</a>  </p>
+<p>WSUS サーバーとクライアントの間にプロキシが存在する場合には、必ずネットワーク環境に合わせて適切にプロキシを構成する必要があります。下記の情報をご確認ください。</p>
+<p><strong>プロキシ サーバー経由での Windows Update へのアクセスについて</strong><br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2022/03/08/WindowsUpdate/WUA/WindowsUpdateThroughProxy/">https://jpwinsup.github.io/blog/2022/03/08/WindowsUpdate/WUA/WindowsUpdateThroughProxy/</a>  </p>
+<h2 id="よくお問い合わせいただく-WSUS-サーバーの既知の問題"><a href="#よくお問い合わせいただく-WSUS-サーバーの既知の問題" class="headerlink" title="よくお問い合わせいただく WSUS サーバーの既知の問題"></a>よくお問い合わせいただく WSUS サーバーの既知の問題</h2><p>よくお問い合わせをいただく既知の問題については、ブログを用意していますのでご参考としてください。</p>
+<p><strong>Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバー の負荷が高騰する</strong><br><a href="https://jpmem.github.io/blog/wsus/2019_04-04_01/">https://jpmem.github.io/blog/wsus/2019_04-04_01/</a></p>
+<p><strong>WSUS 上で KB4022730 のダウンロードに失敗する</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-kb4022730">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-kb4022730</a>  </p>
+<p><strong>Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について</strong><br><a href="https://jpmem.github.io/blog/mecm/20200729_01/">https://jpmem.github.io/blog/mecm/20200729_01/</a></p>
+<h2 id="よくお問い合わせいただくクライアントの既知の問題"><a href="#よくお問い合わせいただくクライアントの既知の問題" class="headerlink" title="よくお問い合わせいただくクライアントの既知の問題"></a>よくお問い合わせいただくクライアントの既知の問題</h2><p>クライアント側の問題についても、以下のブログを用意しております。</p>
+<p><strong>Windows 10 バージョン1607 で更新プログラム適用後の自動再起動が実施されない</strong><br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2022/02/26/WindowsUpdate/WUA/NoAutomaticRestartAfterApplyingUpdates/">https://jpwinsup.github.io/blog/2022/02/26/WindowsUpdate/WUA/NoAutomaticRestartAfterApplyingUpdates/</a>  </p>
+<p><strong>Windows 10 機能更新プログラムインストール後の再起動について</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/update-and-restart">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/update-and-restart</a>  </p>
+<p><strong>Windows 10 の WSUS クライアントが Windows Update から更新プログラムを取得するようになってしまう事象について</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/windows-10-1607-wufb">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/windows-10-1607-wufb</a>  </p>
+<p><strong>Windows 10 バージョン 1607 および Windows Server 2016 の環境で、更新プログラムのダウンロードが途中から進まなくなる問題について</strong><br><a href="https://jpmem.github.io/blog/wsus/2016-10-28_01/">https://jpmem.github.io/blog/wsus/2016-10-28_01/</a>  </p>
+<p><strong>「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について</strong><br><a href="https://jpmem.github.io/blog/wsus/2022-06-08_01/">https://jpmem.github.io/blog/wsus/2022-06-08_01/</a></p>
+<p><strong>Windows 10 / Windows Server 2016 で イベント ID 7043 (UsoSvc) が発生する</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-7043">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-7043</a>  </p>
+<p><strong>Windows 10 でコマンドプロンプト (usoclient.exe) が一瞬表示される</strong><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-usoclient">https://learn.microsoft.com/ja-jp/archive/blogs/jpwsus/win10-usoclient</a>  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-01-26_01/" data-id="cle2g68lg006j0opkd33w75g6" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-01-26_02/" data-id="cle2g68lh006l0opk6r8q08af" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -148,19 +173,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2018-02-02_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../2018-01-26_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          ReportingEvents.log の見方
+          WSUS 上の Windows 10 の機能更新プログラムのタイトルについて
         
       </div>
     </a>
   
   
-    <a href="../2018-01-26_02/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2017-12-11_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS での Windows 10 管理まとめ</div>
+      <div class="article-nav-title">不要な更新プログラムは「拒否済み」に設定しよう！</div>
     </a>
   
 </nav>
