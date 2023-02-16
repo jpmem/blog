@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>WSUS 構築マニュアル | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS 環境構築手順 手順a. 役割と機能のインストールb. WSUS の設定    a. 役割と機能のインストールサーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能を">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSUS 構築マニュアル">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2023-02-16_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS 環境構築手順 手順a. 役割と機能のインストールb. WSUS の設定    a. 役割と機能のインストールサーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能を">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-02-16_01/2023-02-16_01_1.png">
+<meta property="article:published_time" content="2023-02-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-16T07:23:49.679Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2023-02-16_01/2023-02-16_01_1.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2023-02-16_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2023-02-15T15:00:00.000Z" itemprop="datePublished">2023-02-16</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WSUS 構築マニュアル
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2023-02-15T15:00:00.000Z" itemprop="dateUpdated">2023-02-16</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。</p>
+<hr>
+<h2 id="WSUS-環境構築手順"><a href="#WSUS-環境構築手順" class="headerlink" title="WSUS 環境構築手順"></a>WSUS 環境構築手順</h2><ul>
+<li>手順<br>a. 役割と機能のインストール<br>b. WSUS の設定  </li>
+</ul>
+<h3 id="a-役割と機能のインストール"><a href="#a-役割と機能のインストール" class="headerlink" title="a. 役割と機能のインストール"></a>a. 役割と機能のインストール</h3><p>サーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能をインストールします。<br>なお、WSUS サーバーのデータベースに、SQL Server をご利用の場合は、利用するデータベースを指定する際にインスタンス名をご指定ください。  </p>
+<ol>
+<li>[サーバー マネージャー] を起動します。  </li>
+<li>画面右上の [管理] メニューを選択し、[役割と機能の追加]を選択します。  </li>
+<li>[開始する前に] ページにて、[次へ] ボタンを選択します。  </li>
+<li>[サーバーの選択] ページにて、[次へ] ボタンを選択します。  </li>
+<li>[サーバーの役割] ページにて、[Windows Server Update Services] チェック ボックスをオンにします。</li>
+<li>[役割と機能の追加ウィザード] ダイアログ ボックスが表示されます。<br>[管理ツールを含める (存在する場合)] チェック ボックスがオンであることを確認し、 [機能の追加] ボタンを選択します。</li>
+<li>[Web サーバー (IIS)] のチェックが入っていることを確認します。  </li>
+<li>[次へ] を選択します。  </li>
+<li>[機能] ページにて、 Windows Internal Database をご利用の場合には　[Windows Internal Database] チェック ボックスがオンであることを確認します。SQL サーバーをご利用の場合には　[Windows Internal Database] チェック ボックスをオフにします。</li>
+<li>[次へ] を選択します。  </li>
+<li>[WSUS]ページにて、[次へ] ボタンを選択します。  </li>
+<li>[役割サービス]ページにて、WSUS で使用するデータベースを指定します。Windows Internal Database をご利用の場合には、WID Connectivity へのチェックをオンにします。SQL サーバーをご利用の場合には、SQL Server Connectivity へのチェックをオンにします。 Windows Internal Database 又は SQL サーバーいずれをご利用の場合も、WSUS Services へのチェックは必ずオンのままとします。</li>
+<li>[コンテンツ] ページにて、更新プログラムのコンテンツの格納場所となるフォルダー (WsusContent フォルダー) の場所を指定します。</li>
+<li><ol start="12">
+<li>にて、SQL Server Connectivity を選択した場合には、DBインスタンスを指定し、[接続を確認する]を押下します。</li>
+</ol>
+</li>
+<li>[WSUSサーバーの役割（IIS）]ページにて、[次へ] ボタンを選択します。  </li>
+<li>[役割サービス]ページにて、[次へ] ボタンを選択します。  </li>
+<li>[確認] ページにて、[インストール] ボタンを選択します。  </li>
+<li>WSUS のインストールが完了した後、サーバー マネージャー 右上フラグマークのアイコンより [インストール後のタスクを起動する] をクリックします。 テキストが 「サーバーが構成されるまでしばらくお待ちください」に変わります。 タスクが完了後、 「構成は正常に完了しました」が表示されることを確認します。<br><img src="/blog/wsus/2023-02-16_01/2023-02-16_01_1.png"></li>
+</ol>
+<h3 id="b-WSUS-の設定"><a href="#b-WSUS-の設定" class="headerlink" title="b. WSUS の設定"></a>b. WSUS の設定</h3><ol>
+<li>[サーバー マネージャー] を起動します。  </li>
+<li>右上[ツール]より、[Windows Server Update Services] を選択します。</li>
+<li>[はじめに] ページにて、[次へ]　ボタンを選択します。</li>
+<li>[Microsoft Update 品質向上プログラム] ページにて、[次へ]　ボタンを選択します。(任意で選択ください)</li>
+<li>[アップストリームサーバーの選択] ページにて、更新プログラムの同期元を選択します。 </li>
+<li>プロキシを指定する場合は、[プロキシサーバーの指定] ページにて設定し、[次へ]　ボタンを選択します。</li>
+<li>[接続の開始] をクリックし、更新情報をダウンロードします。 </li>
+<li>[言語の選択] ページにて、英語（必須）及び必要に応じて追加言語を指定してください。  </li>
+<li>[製品の選択] ページにて、同期対象とする製品を選択します。</li>
+<li>[分類の選択] ページにて、同期対象とする分類を選択します。  </li>
+<li>[同期スケジュールの設定] ページにて、同期スケジュールを指定します。  </li>
+<li>[終了] ページにて、初期同期を開始する場合には[初期同期を開始します] チェック ボックスをオンにします。 </li>
+<li>[完了] ボタンをクリックします。</li>
+</ol>
+<p>※8. 言語の選択においては、すべての更新プログラムは英語の言語パックに基づくため、必ず英語を含めてください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/plan/plan-your-wsus-deployment#14-choose-wsus-update-languages">WSUS 更新プログラムの言語を選択する</a><br>※9. 製品名に”drivers”や”upgrade &amp; servicing drivers”含まれる製品項目は、ドライバー製品向けの更新プログラムです。該当製品のドライバーに対して更新が必要な場合のみ選択してください。<br>※10. 分類についてはこちらをご参照ください。<br> <a href="https://jpmem.github.io/blog/wsus/2018-06-19_01/">WSUS の分類について</a><br>上記ブログの 「ポイント : 特別な利用がない限り [ドライバ] の分類は絶対に選択しない」 に記載の通り、[ドライバ] の分類は、リリースされている更新プログラムの数が非常に多く、同期対象としますと数万件の更新プログラムが同期され、WSUS のパフォーマンスに大きな影響を与える可能性が高い為、チェックは入れないことをお勧めいたします。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-02-16_01/" data-id="cle6s085k008v0no9b0ei7r21" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../2022-10-07_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">WSUS 構築マニュアル</a>
+          </li>
+        
+          <li>
+            <a href="../2022-10-07_01/">Window Server 2022 にて WSUS コンソールの言語表示が日本語にならない</a>
+          </li>
+        
+          <li>
+            <a href="../../w365/2022-10-06_01/">画面キャプチャの取得を禁止する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../intune/20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20220930_01/">CVE-2022-37972 Microsoft Endpoint Configuration Manager の脆弱性について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
