@@ -7,18 +7,18 @@
   
   <title>通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？ | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H2 や 22H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべき？">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220702_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート 山田です。   今回は MECM や WSUS で、Windows 10 の OS を 21H2 や 22H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。   イネーブルメント パッケージとは？Windows 10 1903">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-04-10-05-50.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-05-08-40-45.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220702_01/2022-07-04-19-04-38.png">
 <meta property="article:published_time" content="2022-07-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-02T03:37:32.477Z">
+<meta property="article:modified_time" content="2023-03-02T06:03:26.112Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -119,8 +119,8 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>みなさま、こんにちは。Configuration Manager サポート 山田です。  </p>
-<p>今回は MECM や WSUS で、Windows 10 の OS を 21H1 や 21H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。  </p>
-<h2 id="イネーブルメント-パッケージとは？"><a href="#イネーブルメント-パッケージとは？" class="headerlink" title="イネーブルメント パッケージとは？"></a>イネーブルメント パッケージとは？</h2><p>Windows 10 1903 と 1909、2004 ～ 21H2 は共通のコア オペレーティング システムを使用しています。<br>そのため、このイネーブルメント パッケージを展開するだけで、手軽に機能更新プログラムを適用できます。<br>通常の機能更新プログラムは数 GB ほどの大きい容量ですが、イネーブルメント パッケージは数十 KB ほどのため、ネットワークもひっ迫することなく機能更新が行えるため、とても便利です。  </p>
+<p>今回は MECM や WSUS で、Windows 10 の OS を 21H2 や 22H2 などへアップグレードしたい場合、通常の機能更新プログラムとイネーブルメント パッケージのどちらを展開、承認するべきか解説させていただきます。  </p>
+<h2 id="イネーブルメント-パッケージとは？"><a href="#イネーブルメント-パッケージとは？" class="headerlink" title="イネーブルメント パッケージとは？"></a>イネーブルメント パッケージとは？</h2><p>Windows 10 1903 と 1909、2004 ～ 22H2 は共通のコア オペレーティング システムを使用しています。<br>そのため、このイネーブルメント パッケージを展開するだけで、手軽に機能更新プログラムを適用できます。<br>通常の機能更新プログラムは数 GB ほどの大きい容量ですが、イネーブルメント パッケージは数十 KB ほどのため、ネットワークもひっ迫することなく機能更新が行えるため、とても便利です。  </p>
 <h3 id="通常の機能更新プログラムとイネーブルメント-パッケージ、どちらを展開するべきか"><a href="#通常の機能更新プログラムとイネーブルメント-パッケージ、どちらを展開するべきか" class="headerlink" title="通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべきか"></a>通常の機能更新プログラムとイネーブルメント パッケージ、どちらを展開するべきか</h3><p>それではどちらを展開すべきか見ていきましょう。<br>具体的には、元の OS がどれを使用しているかに依存します。  </p>
 <p>■ 例 21H2 にアップグレードしたい場合<br><strong>アップグレード元の OS が 1909 以前 (1909 を含む) → 通常の機能更新プログラム（例 Windows 10 (ビジネス エディション)、バージョン 21H2、ja-jp x64 の機能更新プログラム）を展開します。</strong>  </p>
 <p><strong>アップグレード元の OS が 2004 以降 (2004 を含む) → イネーブルメント パッケージ（例 Windows 10 バージョン 21H2 x64ベースのシステムへの機能更新 2021-11 イネーブルメント パッケージ経由）を展開します。</strong>  </p>
@@ -135,6 +135,9 @@
 <p>■21H2 へのアップグレードの場合</p>
 <p>・サービス スタック更新プログラム 2020 年 9 月 8 日 かそれ以降のサービス スタック更新プログラムを適用していること<br>・2021 年 9 月 14 日 KB5005565 (19041.1237) かそれ以降のソフトウェア更新プログラムを適用していること  </p>
 <p>参考情報 : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/kb5003791-%E6%9C%89%E5%8A%B9%E5%8C%96%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8windows-10%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-21h2-%E3%82%92%E6%9B%B4%E6%96%B0-8bc077be-18d7-4aac-81ce-6f6dad2cd384">KB5003791: 有効化パッケージWindows 10バージョン 21H2 を更新 </a>  </p>
+<p>■22H2 へのアップグレードの場合</p>
+<p>・Windows 10バージョン 2004 のサービス スタック更新プログラム: 2020 年 9 月 8 日またはそれ以降のサービス スタック更新プログラム<br>・2022 年 7 月 26 日 — KB5015878 (19041.1865) 以降の累積的な更新プログラム  </p>
+<p>参考情報 : <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/kb5015684-%E6%9C%89%E5%8A%B9%E5%8C%96%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9Fwindows-10%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-22h2-%E3%81%AE%E6%B3%A8%E7%9B%AE%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0-09d43632-f438-47b5-985e-d6fd704eee61">KB5015684: 有効化パッケージを使用したWindows 10バージョン 22H2 の注目の更新プログラム</a></p>
 <h3 id="どちらが必須判定されているか確認する方法"><a href="#どちらが必須判定されているか確認する方法" class="headerlink" title="どちらが必須判定されているか確認する方法"></a>どちらが必須判定されているか確認する方法</h3><p>通常の機能更新プログラムとイネーブルメント パッケージのどちらが必須と判定しているか確認したい場合、MECM のレポート機能を使用すると一番わかりやすいです。  </p>
 <p>■クライアント端末毎に確認するレポート<br>[監視] - [レポート] - [ソフトウェア更新プログラム - A コンプライアンス] - [コンプライアンス 5 - 特定のコンピューター]  </p>
 <p>デバイス名：任意のクライアントを選択します。<br>更新クラス：Upgrades を選択します。  </p>
@@ -161,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220702_01/" data-id="cleqk3574003n0nru6nnf0xaa" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220702_01/" data-id="cleqpas6p003n0nod34lpdw07" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
