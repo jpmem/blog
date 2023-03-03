@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Configuration Manager で PowerShell スクリプトを配布する | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は Configuration Manager で PowerShell スクリプトを配布する手順についてご紹介いたします。PowerShell スクリプトは、こちらの記事で紹介したスクリプト機能でも配布可能ですが、繰り返し実行することを想定してパッケージ機能で配布する手順をご紹介します。定期的なメンテナ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager で PowerShell スクリプトを配布する">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230303_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は Configuration Manager で PowerShell スクリプトを配布する手順についてご紹介いたします。PowerShell スクリプトは、こちらの記事で紹介したスクリプト機能でも配布可能ですが、繰り返し実行することを想定してパッケージ機能で配布する手順をご紹介します。定期的なメンテナ">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2023-03-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-03T02:06:23.924Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="使い方">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20230303_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2023-03-02T15:00:00.000Z" itemprop="datePublished">2023-03-03</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager で PowerShell スクリプトを配布する
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2023-03-02T15:00:00.000Z" itemprop="dateUpdated">2023-03-03</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>本日は Configuration Manager で PowerShell スクリプトを配布する手順についてご紹介いたします。<br>PowerShell スクリプトは、<a href="https://jpmem.github.io/blog/mecm/20211025_01/">こちらの記事</a>で紹介したスクリプト機能でも配布可能ですが、繰り返し実行することを想定してパッケージ機能で配布する手順をご紹介します。<br>定期的なメンテナンスを行うスクリプトや、NOIDMIF ファイルを定期的に作成してカスタム インベントリを収集する場合にも使用できますので、ご活用ください。</p>
+<h1 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h1><p>配布したい PowerShell スクリプト ファイルを作成します。名前は、sample.ps1 などの任意の名前にします。  </p>
+<h1 id="パッケージの作成手順"><a href="#パッケージの作成手順" class="headerlink" title="パッケージの作成手順"></a>パッケージの作成手順</h1><ol>
+<li>管理コンソールを起動し [ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ] を開きます。  </li>
+<li>[パッケージ] を右クリックし、[パッケージの作成] をクリックします。  </li>
+<li>[パッケージとプログラムの作成ウィザード] が表示されますので、[名前] に任意の名前を入力し、[このパッケージにソース ファイルを含める] にチェックを入れます。  </li>
+<li>[ソース フォルダー] の参照ボタンをクリックし、事前準備で用意したスクリプト ファイルの格納場所 (\<SERVER>\Share\PowerShell など) を指定します。  </li>
+<li>次のページで、[標準プログラム] を指定します。  </li>
+<li>次のページで、[名前] に任意の名前を指定し、ログオン状態に関わらずスクリプトを実行するために次のように指定します。<br>・コマンドライン<br><code>&quot;%Windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File sample.ps1</code><br>(※) -File パラメータには、スクリプト ファイル名を指定してください<br>・プログラムの実行条件<br>ユーザーのログオン状態に関係なし<br>・実行モード<br>管理者権限で実行する  </li>
+<li>その他の設定項目は、既定のまま、パッケージの作成を完了します。  </li>
+</ol>
+<h1 id="パッケージの展開手順"><a href="#パッケージの展開手順" class="headerlink" title="パッケージの展開手順"></a>パッケージの展開手順</h1><ol>
+<li>作成されたパッケージを右クリックし、[展開] をクリックします。  </li>
+<li>ソフトウェアの展開ウィザードが開きます。[参照] をクリックし、配布先のコレクションを指定して [次へ] をクリックします。  </li>
+<li>[コンテンツ] ページにおいて、[追加] をクリックし配布ポイントを選択し、[次へ] をクリックします。  </li>
+<li>[展開設定] ページにおいて、目的を [必須] にし [次へ] をクリックします。<br>※ 必須とすることで、ユーザー操作が必要なく、インストールが完了します。  </li>
+<li>[展開スケジュール] ページからスケジュールを以下のように設定し、[次へ] をクリックします。<br>・割り当てスケジュールの [新規] をクリックし、[次のイベントの直後に割り当てる] &gt; [直ちに] をクリックして、[OK] をクリックします。<br>・再実行の動作を [プログラムを常に再実行する] を選択します。<br>※スクリプト ファイルを 1 回だけではなく繰り返し実行させておきたい場合は、割り当てスケジュールの [新規] をクリックし、[次のスケジュールに割り当てる] &gt; [スケジュール] をクリック、[間隔指定] より、例えば 「3 時間」と指定して [OK] をクリックします。  </li>
+<li>[ユーザー側の表示と操作] において、通知設定を設定し [次へ] をクリックします。通知させたくない場合は、[割り当てられたプログラムの個別の実行をユーザーに許可する] をオフにします。  </li>
+<li>[配布ポイント] ページにおいて、展開設定を設定し [次へ] をクリックします。(他のパッケージの展開設定と合わせて頂くとよいかと存じます。)  </li>
+<li>以降のページを進み、ソフトウェアの展開ウィザードが正常に完了することを確認します。  </li>
+</ol>
+<p>上記の手順を実施いただくことで、クライアントへの展開は完了します。  </p>
+<p>上記以外の設定項目につきましては、ご要件に応じて適宜変更をいただけます。各項目のご説明については、次の公開情報をご確認ください。<br>　<br>Title: パッケージとプログラムを作成する<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#create-a-package-and-program">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#create-a-package-and-program</a></p>
+<p>Title: パッケージとプログラムをデプロイする<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#deploy-packages-and-programs">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#deploy-packages-and-programs</a></p>
+<h1 id="実行結果の確認方法"><a href="#実行結果の確認方法" class="headerlink" title="実行結果の確認方法"></a>実行結果の確認方法</h1><p>パッケージ機能で配布した場合、リターンコードが 0 か 3010 以外であれば、「失敗」判定されます。<br>そのため、インポートが失敗した端末は、「監視」の「展開ステータス」にて、対象パッケージの展開ステータスを把握し、失敗のステータスに分類されますので、そちらでご確認ください。  </p>
+<h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><h2 id="パッケージの配布を停止したい場合"><a href="#パッケージの配布を停止したい場合" class="headerlink" title="パッケージの配布を停止したい場合"></a>パッケージの配布を停止したい場合</h2><p>作成したパッケージの配布を停止する場合、管理コンソールより、[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ] を開きます。<br>プログラムを選択し、下ペインより [プログラム] に移動します。下ペインより、プログラム名を右クリック &gt; 無効 をクリックします。ポップアップが表示されるので [はい] をクリックします。<br>再度、クライアント上でスクリプトを実行する場合は、プログラムを [有効] とします。  </p>
+<h2 id="展開してから実行されるまでの流れについて"><a href="#展開してから実行されるまでの流れについて" class="headerlink" title="展開してから実行されるまでの流れについて"></a>展開してから実行されるまでの流れについて</h2><p>パッケージを展開した後は、クライアント側で [コンピューター ポリシーの取得および評価サイクル] が実行されることで、スクリプトのダウンロードと実行が行われます。こちらは既定で 60 ～ 120 分間隔で実行されています。<br>なお、できる限り早く実行させたい場合は、「クライアント通知」という機能を使用すれば、「コンピューターポリシーの取得および評価サイクル」を直ちに実行するように、サーバー側からクライアントに通知させることができますので、こちらもご利用ください。(デバイス単位でもコレクション単位でも実行可能です。)    </p>
+<p>Title: Configuration Manager でのクライアント通知<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20230303_01/" data-id="clerw9t2g00480nm7guvm1m5x" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/2023-03-01_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">期限が切れた更新プログラムについて</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Configuration Manager で PowerShell スクリプトを配布する</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2023-03-01_01/">期限が切れた更新プログラムについて</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2023-02-28_01/">WSUS のトラブルシューティングに役立つリンク集</a>
+          </li>
+        
+          <li>
+            <a href="../20230220_01/">Configuration Manager クライアントの OS が意図せずにアップグレードしてしまった際の対処策について</a>
+          </li>
+        
+          <li>
+            <a href="../20230217_01/">Configuration Manager における更新プログラムの適用状況の確認方法について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
