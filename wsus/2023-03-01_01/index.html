@@ -14,16 +14,16 @@
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、弊社で期限が切れの扱いとした更新プログラムについて、WSUS 上ではどのような動きとなるかご紹介いたします。是非ご一読いただき、WSUS の動作の理解にお役立てください。 期限が切れた更新プログラムとは弊社開発側で公開を停止した更新プログラムです。期限切れの更新プログラムは、更新プログラムのメタデータの情報に期限切れの内容が加えられ新">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-02_01/2023-03-01_01-1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-01_01-1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-01_01-2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-01_01-3.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-01_01-4.png">
 <meta property="article:published_time" content="2023-02-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-03T03:46:23.191Z">
+<meta property="article:modified_time" content="2023-03-03T03:59:16.385Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-02_01/2023-03-01_01-1.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2023-03-01_01/2023-03-01_01-1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -122,7 +122,7 @@
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は、弊社で期限が切れの扱いとした更新プログラムについて、WSUS 上ではどのような動きとなるかご紹介いたします。<br>是非ご一読いただき、WSUS の動作の理解にお役立てください。</p>
 <h1 id="期限が切れた更新プログラムとは"><a href="#期限が切れた更新プログラムとは" class="headerlink" title="期限が切れた更新プログラムとは"></a>期限が切れた更新プログラムとは</h1><p>弊社開発側で公開を停止した更新プログラムです。期限切れの更新プログラムは、更新プログラムのメタデータの情報に期限切れの内容が加えられ新たな改訂版となります。</p>
-<h1 id="WSUSはいつ期限切れ情報を受け取るか"><a href="#WSUSはいつ期限切れ情報を受け取るか" class="headerlink" title="WSUSはいつ期限切れ情報を受け取るか"></a>WSUSはいつ期限切れ情報を受け取るか</h1><p>更新プログラムのメタデータの内容が変更された場合、その改訂版の情報は WSUSの 同期処理の際に受け取る動作となります。<br>更新プログラムの改訂版についてはこちらの記事をご参照ください。 <a href="https://jpmem.github.io/blog/wsus/2011-10-31_01/">「リビジョン（改訂版）」について</a><br>なお、既に期限切れとなった更新プログラムについては、これまで同期されていなかった場合、新たにWSUSに着信することはありません。<br><img src="2023-03-02_01/2023-03-01_01-1.png"></p>
+<h1 id="WSUSはいつ期限切れ情報を受け取るか"><a href="#WSUSはいつ期限切れ情報を受け取るか" class="headerlink" title="WSUSはいつ期限切れ情報を受け取るか"></a>WSUSはいつ期限切れ情報を受け取るか</h1><p>更新プログラムのメタデータの内容が変更された場合、その改訂版の情報は WSUSの 同期処理の際に受け取る動作となります。<br>更新プログラムの改訂版についてはこちらの記事をご参照ください。 <a href="https://jpmem.github.io/blog/wsus/2011-10-31_01/">「リビジョン（改訂版）」について</a><br>なお、既に期限切れとなった更新プログラムについては、これまで同期されていなかった場合、新たにWSUSに着信することはありません。<br><img src="/blog/wsus/2023-03-01_01/2023-03-01_01-1.png"></p>
 <h1 id="期限切れの更新プログラムに対する-WSUS-のふるまい"><a href="#期限切れの更新プログラムに対する-WSUS-のふるまい" class="headerlink" title="期限切れの更新プログラムに対する WSUS のふるまい"></a>期限切れの更新プログラムに対する WSUS のふるまい</h1><p>期限切れの更新プログラムに対して WSUS 上で承認作業を実施した場合には処理が失敗します。<br><img src="/blog/wsus/2023-03-01_01/2023-03-01_01-2.png"></p>
 <p>また、WSUS の既定の動作では、新しい改訂版により期限切れとなった更新プログラムを自動的に拒否済みへ変更する機能が有効化されています。　　<br><img src="/blog/wsus/2023-03-01_01/2023-03-01_01-3.png"></p>
 <h1 id="期限切れの更新プログラムは承認できるの？"><a href="#期限切れの更新プログラムは承認できるの？" class="headerlink" title="期限切れの更新プログラムは承認できるの？"></a>期限切れの更新プログラムは承認できるの？</h1><p>期限切れの更新プログラムは新たなリビジョンとして着信します。上述の通り、期限切れのリビジョンに対しては承認ができなくなりますが、過去のリビジョンを承認することができます。ただし、基本的には弊社が公開停止した更新プログラムであるため、置き換えられた新しい更新プログラムを適用することをご検討ください。<br>更新プログラムを右クリック &gt; [リビジョン履歴] &gt; 過去のリビジョンを右クリック &gt; [承認]<br><img src="/blog/wsus/2023-03-01_01/2023-03-01_01-4.png">  </p>
@@ -130,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-03-01_01/" data-id="clerzudvn00980nlk36df7vnl" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-03-01_01/" data-id="cles0ay7900980nt821kj95vv" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
