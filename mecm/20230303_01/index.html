@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 本日は Configuration Manager で PowerShell スクリプトを配布する手順についてご紹介いたします。PowerShell スクリプトは、こちらの記事で紹介したスクリプト機能でも配布可能ですが、繰り返し実行することを想定してパッケージ機能で配布する手順をご紹介します。定期的なメンテナ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-03-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-03T02:06:23.924Z">
+<meta property="article:modified_time" content="2023-03-03T03:46:23.063Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="使い方">
@@ -140,7 +140,7 @@
 <p>上記の手順を実施いただくことで、クライアントへの展開は完了します。  </p>
 <p>上記以外の設定項目につきましては、ご要件に応じて適宜変更をいただけます。各項目のご説明については、次の公開情報をご確認ください。<br>　<br>Title: パッケージとプログラムを作成する<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#create-a-package-and-program">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#create-a-package-and-program</a></p>
 <p>Title: パッケージとプログラムをデプロイする<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#deploy-packages-and-programs">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs#deploy-packages-and-programs</a></p>
-<h1 id="実行結果の確認方法"><a href="#実行結果の確認方法" class="headerlink" title="実行結果の確認方法"></a>実行結果の確認方法</h1><p>パッケージ機能で配布した場合、リターンコードが 0 か 3010 以外であれば、「失敗」判定されます。<br>そのため、インポートが失敗した端末は、「監視」の「展開ステータス」にて、対象パッケージの展開ステータスを把握し、失敗のステータスに分類されますので、そちらでご確認ください。  </p>
+<h1 id="実行結果の確認方法"><a href="#実行結果の確認方法" class="headerlink" title="実行結果の確認方法"></a>実行結果の確認方法</h1><p>パッケージ機能で配布した場合、スクリプトのリターン コードが 0 か 3010 以外であれば、「失敗」判定されます。<br>そのため、スクリプトの実行に失敗した端末は、「監視」の「展開ステータス」にて、対象パッケージの展開ステータスを把握し、失敗のステータスに分類されますので、そちらでご確認ください。  </p>
 <h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><h2 id="パッケージの配布を停止したい場合"><a href="#パッケージの配布を停止したい場合" class="headerlink" title="パッケージの配布を停止したい場合"></a>パッケージの配布を停止したい場合</h2><p>作成したパッケージの配布を停止する場合、管理コンソールより、[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ] を開きます。<br>プログラムを選択し、下ペインより [プログラム] に移動します。下ペインより、プログラム名を右クリック &gt; 無効 をクリックします。ポップアップが表示されるので [はい] をクリックします。<br>再度、クライアント上でスクリプトを実行する場合は、プログラムを [有効] とします。  </p>
 <h2 id="展開してから実行されるまでの流れについて"><a href="#展開してから実行されるまでの流れについて" class="headerlink" title="展開してから実行されるまでの流れについて"></a>展開してから実行されるまでの流れについて</h2><p>パッケージを展開した後は、クライアント側で [コンピューター ポリシーの取得および評価サイクル] が実行されることで、スクリプトのダウンロードと実行が行われます。こちらは既定で 60 ～ 120 分間隔で実行されています。<br>なお、できる限り早く実行させたい場合は、「クライアント通知」という機能を使用すれば、「コンピューターポリシーの取得および評価サイクル」を直ちに実行するように、サーバー側からクライアントに通知させることができますので、こちらもご利用ください。(デバイス単位でもコレクション単位でも実行可能です。)    </p>
 <p>Title: Configuration Manager でのクライアント通知<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification</a></p>
@@ -148,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230303_01/" data-id="clerw9t2g00480nm7guvm1m5x" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230303_01/" data-id="clerzudso00480nlk8ld7hgww" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
@@ -160,9 +160,9 @@
 <nav id="article-nav">
   
   
-    <a href="../../wsus/2023-03-01_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20230303_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">期限が切れた更新プログラムについて</div>
+      <div class="article-nav-title">コンプライアンス機能で PowerShell スクリプトを使用して準拠状態をチェックする方法</div>
     </a>
   
 </nav>
@@ -185,6 +185,10 @@
           </li>
         
           <li>
+            <a href="../20230303_02/">コンプライアンス機能で PowerShell スクリプトを使用して準拠状態をチェックする方法</a>
+          </li>
+        
+          <li>
             <a href="../../wsus/2023-03-01_01/">期限が切れた更新プログラムについて</a>
           </li>
         
@@ -194,10 +198,6 @@
         
           <li>
             <a href="../20230220_01/">Configuration Manager クライアントの OS が意図せずにアップグレードしてしまった際の対処策について</a>
-          </li>
-        
-          <li>
-            <a href="../20230217_01/">Configuration Manager における更新プログラムの適用状況の確認方法について</a>
           </li>
         
       </ul>
