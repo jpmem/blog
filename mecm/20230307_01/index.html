@@ -5,14 +5,14 @@
   
 
   
-  <title>構成項目で特定レジストリ値をセットする方法 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>コンプライアンス機能で特定レジストリ値をセットする方法 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager の 構成項目 という機能で特定のレジストリ値をセットする方法についてご紹介いたします。クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。ワークグル">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値をセットする方法についてご紹介いたします。クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。ワークグルー">
 <meta property="og:type" content="article">
-<meta property="og:title" content="構成項目で特定レジストリ値をセットする方法">
+<meta property="og:title" content="コンプライアンス機能で特定レジストリ値をセットする方法">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230307_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager の 構成項目 という機能で特定のレジストリ値をセットする方法についてご紹介いたします。クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。ワークグル">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値をセットする方法についてご紹介いたします。クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。ワークグルー">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230307_01/2023-03-07-12-00-44.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230307_01/2023-03-07-13-02-36.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230307_01/2023-03-07-13-10-58.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230307_01/2023-03-07-13-11-10.png">
 <meta property="article:published_time" content="2023-03-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-07T08:55:41.788Z">
+<meta property="article:modified_time" content="2023-03-07T08:59:28.083Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="使い方">
@@ -106,7 +106,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      構成項目で特定レジストリ値をセットする方法
+      コンプライアンス機能で特定レジストリ値をセットする方法
     </h1>
   
 
@@ -123,8 +123,8 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。  </p>
-<p>本日は Configuration Manager の 構成項目 という機能で特定のレジストリ値をセットする方法についてご紹介いたします。<br>クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。<br>ワークグループのクライアントでドメインのグループ ポリシーが適用できない場合などにも有効ですので、ぜひご活用ください。  </p>
-<p>今回は例として、DisableWindowsUpdateAccess というレジストリ値をセットする方法をご紹介します。  </p>
+<p>本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値をセットする方法についてご紹介いたします。<br>クライアントに特定のレジストリ値をセットしたいというときに、別途スクリプトを作成して、それをパッケージで展開する必要なくレジストリ値をセットできます。<br>ワークグループのクライアントでドメインのグループ ポリシーが適用できない場合などにも有効ですので、ぜひご活用ください。  </p>
+<p>今回は例として、HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate 配下にある DisableWindowsUpdateAccess というレジストリ値をセットする方法をご紹介します。  </p>
 <h1 id="手順-1-構成項目の作成"><a href="#手順-1-構成項目の作成" class="headerlink" title="手順 1: 構成項目の作成"></a>手順 1: 構成項目の作成</h1><ol>
 <li>[資産とコンプライアンス] - [概要] - [コンプライアンス設定] - [構成項目] を右クリックし、[構成項目の作成] を選択します。  </li>
 <li>[全般] ページにて、任意の名前を指定し、デバイスの指定において [Windows デスクトップおよびサーバー] を選択し [次へ] をクリックします。  </li>
@@ -161,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230307_01/" data-id="cley0nkd4004e0no2agcv5i6m" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230307_01/" data-id="cley0sexe004e0nmr9jmy8ncc" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
@@ -194,7 +194,7 @@
       <ul>
         
           <li>
-            <a href="">構成項目で特定レジストリ値をセットする方法</a>
+            <a href="">コンプライアンス機能で特定レジストリ値をセットする方法</a>
           </li>
         
           <li>
