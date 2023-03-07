@@ -86,6 +86,111 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wsus/2020-07-21_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2020-07-21_01/" class="article-date">
+  <time datetime="2020-07-20T15:00:00.000Z" itemprop="datePublished">2020-07-21</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2020-07-21_01/">WSUS メンテナンス ガイド</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2020-07-21_01/" class="article-date-single">    
+    
+    <time datetime="2020-07-20T15:00:00.000Z" itemprop="dateUpdated">2020-07-21</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。WSUS サポート チームです。本日は WSUS サーバーのメンテナンス方法について、纏めてご紹介をいたします。
+WSUS は月々リリースされる更新プログラムを配信出来るよう、更新プログラムの情報をサーバー上に溜め込む必要があります。しかし、この製品の性質上、日々メンテナンスを実施しないと、データベースや情報が肥大化し、様々な障害や弊害が発生しやすくなってしまいます。弊サポート部門へいただく様々なお問い合わせも、最終的にはこのいずれかの対処に行き着くことが、ほとんどですので是非 WSUS をこれから導入・構築される方々、また既に運用されている方々は、ご一読ください！
+WSUS の各種メンテナンス一般的な WSUS のメンテナンスとして、下記の 3 種類のメンテナンスは更新プログラムのリリースと合わせて、月 1 回程度実行していただくことをオススメしております。各メンテ...
+        <p class="article-more-link">
+          <a href="../../wsus/2020-07-21_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="clexzxqx600830oqfeg0v85v1" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wsus/2020-03-27_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2020-03-27_01/" class="article-date">
+  <time datetime="2020-03-26T15:00:00.000Z" itemprop="datePublished">2020-03-27</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2020-03-27_01/">SUSDB.mdf が肥大化したときの対処方法について</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2020-03-27_01/" class="article-date-single">    
+    
+    <time datetime="2020-03-26T15:00:00.000Z" itemprop="dateUpdated">2020-03-27</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
+みなさま、こんにちは。WSUS サポート担当です。本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。
+長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。このときは、まず WSUS クリーンアップ ウィザードを実施して、データベース内の不要なレコードを削除します。
+WSUS のクリーンアップ ウィザードについて
+ただし、クリーンアップ ウィザードでレコードを削除するだけでは、一度肥大化した SUSDB.mdf のファイルサイズ自体は縮小されません。追加で SQL Server Management Studio や sqlcmd を使用して、SUSDB を圧縮する必要があります。
+...
+        <p class="article-more-link">
+          <a href="../../wsus/2020-03-27_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-03-27_01/" data-id="clexzxqx500810oqf7sboectj" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-wsus/2019-04-23_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../wsus/2019-04-23_01/" class="article-date">
@@ -125,7 +230,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cles0i1tj007r0no19qowffgz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="clexzxqx2007v0oqf7mpie6cl" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -178,7 +283,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20190417_01/" data-id="cles0i1nz001o0no1e9hmam1r" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20190417_01/" data-id="clexzxqu4001o0oqf1infe0h6" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -234,7 +339,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cles0i1ti007p0no1883s8ao6" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="clexzxqx2007t0oqffnxcar1f" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -288,7 +393,7 @@ WSUS クライアント / Windows Update に関するトラブルシュートの
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="cles0i1th007n0no1elwn1idp" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="clexzxqx1007r0oqf88am4xga" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -339,7 +444,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cles0i1tf007j0no18kg1f1o5" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="clexzxqwz007n0oqfcigr2j1n" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -391,7 +496,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="cles0i1tg007l0no1bzuq4hmr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="clexzxqx0007p0oqfcv5y0l36" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -447,7 +552,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cles0i1u9008x0no1azsa4c2e" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="clexzxqxl00910oqf825bf0jn" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -498,111 +603,7 @@ Windows 10 / Windows Server 2016 の更新プログラムを同期しているWS
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cles0i1tm007v0no12wcthwx6" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2019-03-29_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2019-03-29_01/" class="article-date">
-  <time datetime="2019-03-28T15:00:00.000Z" itemprop="datePublished">2019-03-29</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-03-29_01/">WSUS データベースを簡単に操作するには (Windows Server 2012 編)</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2019-03-29_01/" class="article-date-single">    
-    
-    <time datetime="2019-03-28T15:00:00.000Z" itemprop="dateUpdated">2019-03-29</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
-みなさま、こんにちは。WSUS サポート チームです。
-本日は、Windows Internal Database (WID) に接続する Tips をご紹介します。
-Windows Server Update Services (WSUS) では、カタログ情報を保存するデータベースとして、Windows Internal Database (WID) または Microsoft SQL Server のいずれかを使用することができます。WID は、Windows に組み込まれているミニマムなデータベースです。
-通常の WSUS 運用においては、データベースを外部ツールから操作する必要はありませんが、データベースのメンテナンスやバックアップの実行などでデータベースに接続して操作する局面が生じること...
-        <p class="article-more-link">
-          <a href="../../wsus/2019-03-29_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-29_01/" data-id="cles0i1td007f0no11q3l2fz8" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2019-03-29_02" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2019-03-29_02/" class="article-date">
-  <time datetime="2019-03-28T15:00:00.000Z" itemprop="datePublished">2019-03-29</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-03-29_02/">WSUS 環境のネットワーク帯域制御について</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2019-03-29_02/" class="article-date-single">    
-    
-    <time datetime="2019-03-28T15:00:00.000Z" itemprop="dateUpdated">2019-03-29</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
-こんにちは。SCCM &amp; WSUS サポート チームです。WSUS をご利用のお客様からネットワーク帯域を絞る設定方法の有無について、お問い合わせいただくことがあります。OS や Office のサービス パックはインストーラーの容量が特に大きく、インストール承認のタイミングでネットワークが圧迫された、という緊急対応も個人的に経験があります。
-取り急ぎ更新プログラムの配布を緊急停止するのであれば、WSUS サーバーの IIS (World Wide Web Publishing Services サービス) を停止させます。WSUS クライアントは WSUS サーバー上の IIS に対してダウンロード要求を送信するため、IIS を停止させるとダウンロードが止まります。(注 : インストーラ...
-        <p class="article-more-link">
-          <a href="../../wsus/2019-03-29_02/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-29_02/" data-id="cles0i1te007h0no19sosfw71" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="clexzxqx4007z0oqf8n4e3p9c" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -632,6 +633,14 @@ Windows Server Update Services (WSUS) では、カタログ情報を保存する
       <ul>
         
           <li>
+            <a href="../../mecm/20230307_01/">構成項目で特定レジストリ値をセットする方法</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20230306_01/">ハードウェア インベントリで特定の WMI クラスを収集する ～使い方シリーズ～</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20230303_01/">Configuration Manager で PowerShell スクリプトを配布する</a>
           </li>
         
@@ -641,14 +650,6 @@ Windows Server Update Services (WSUS) では、カタログ情報を保存する
         
           <li>
             <a href="../../wsus/2023-03-01_01/">期限が切れた更新プログラムについて</a>
-          </li>
-        
-          <li>
-            <a href="../../wsus/2023-02-28_01/">WSUS のトラブルシューティングに役立つリンク集</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20230220_01/">Configuration Manager クライアントの OS が意図せずにアップグレードしてしまった際の対処策について</a>
           </li>
         
       </ul>
