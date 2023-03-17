@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>コンプライアンス機能で特定レジストリ値の状態をチェックする方法 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値の状態をチェックする方法についてご紹介いたします。本手順を実施することで、特定のレジストリ値をチェックし、その値になっている場合、クライアントが “準拠している” と判定させることが可能でございます。その">
+<meta property="og:type" content="article">
+<meta property="og:title" content="コンプライアンス機能で特定レジストリ値の状態をチェックする方法">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230309_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値の状態をチェックする方法についてご紹介いたします。本手順を実施することで、特定のレジストリ値をチェックし、その値になっている場合、クライアントが “準拠している” と判定させることが可能でございます。その">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-08-41.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-08-01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-12-52.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-17-19.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-21-17.png">
+<meta property="article:published_time" content="2023-03-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-17T05:38:44.390Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="使い方">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-08-41.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20230309_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2023-03-08T15:00:00.000Z" itemprop="datePublished">2023-03-09</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      コンプライアンス機能で特定レジストリ値の状態をチェックする方法
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2023-03-08T15:00:00.000Z" itemprop="dateUpdated">2023-03-09</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。  </p>
+<p>本日は Configuration Manager のコンプライアンス機能で特定のレジストリ値の状態をチェックする方法についてご紹介いたします。<br>本手順を実施することで、特定のレジストリ値をチェックし、その値になっている場合、クライアントが “準拠している” と判定させることが可能でございます。そのため、以下のようにご判断いただくことができます。  </p>
+<p>準拠している　 ＝ 特定のレジストリ値が設定されている<br>準拠していない ＝ 特定のレジストリ値が設定されていない  </p>
+<p>今回は例として、HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate 配下にある DisableWindowsUpdateAccess というレジストリ値が “1” であることをチェックする方法をご紹介します。  </p>
+<h1 id="手順-1-構成項目の作成"><a href="#手順-1-構成項目の作成" class="headerlink" title="手順 1: 構成項目の作成"></a>手順 1: 構成項目の作成</h1><ol>
+<li>[資産とコンプライアンス] - [概要] - [コンプライアンス設定] - [構成項目] を右クリックし、[構成項目の作成] を選択します。  </li>
+<li>[全般] ページにて、任意の名前を指定し、デバイスの指定において [Windows デスクトップおよびサーバー] を選択し [次へ] をクリックします。  </li>
+<li>[サポートされているプラットフォーム] ページにて、任意で対象の Windows バージョンを選択し「次へ」をクリックします。  </li>
+<li>[設定] ページにて、[新規] をクリックします。  </li>
+<li>[全般] タブにて、任意の名前を指定し以下の設定を行います。<br>・設定の種類 ： レジストリ値<br>・データ型 : 整数<br>・ハイブ名：HKEY_LOCAL_MACHINE<br>・キー名：SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate<br>・値の名前：DisableWindowsUpdateAccess  </li>
+</ol>
+<p><img src="/blog/mecm/20230309_01/2023-03-09-14-08-41.png"></p>
+<ol start="6">
+<li>[コンプライアンス規則] タブにて、[新規] をクリックし以下の設定を行い [OK] を選択します。<br>・名前：任意の名前<br>・規則の種類：値<br>・演算子：次の値と等しい<br>・次の値の場合：1<br>・サポートされている場合は準拠していない規則を修正する : オフ<br>・この設定インスタンスが見つからない場合はコンプライアンス違反としてレポートする : オン  </li>
+</ol>
+<p><img src="/blog/mecm/20230309_01/2023-03-09-14-08-01.png"></p>
+<p>※注意：[この設定インスタンスが見つからない場合はコンプライアンス違反としてレポートする] チェックは必ず “オン” に設定してください。オフの場合、該当のレジストリ値が存在しない場合、”準拠している” と判定されます。</p>
+<ol start="7">
+<li>[次へ] を選択していき、構成項目の作成を完了します。  </li>
+</ol>
+<h1 id="手順-2-構成基準の作成と展開"><a href="#手順-2-構成基準の作成と展開" class="headerlink" title="手順 2: 構成基準の作成と展開"></a>手順 2: 構成基準の作成と展開</h1><p>作成した構成項目を含む構成基準を作成・展開します。クライアントはこの構成基準を受信して評価することで、準拠状態をサーバーに報告します。  </p>
+<ol>
+<li>[資産とコンプライアンス] - [概要] - [コンプライアンス設定] - [構成基準] を右クリックし、[構成基準の作成] を選択します。  </li>
+<li>任意の名前を指定し、画面中央部にある [構成データ] で [追加] を選択し、[構成項目] を選択します。  </li>
+<li>手順 1 で作成した構成項目を指定して、画面中央部にある [追加] をクリックし、[OK] を選択します。  </li>
+<li>[OK] を選択します。  </li>
+<li>作成した構成基準を右クリックし [展開] を選択します。  </li>
+<li>以下の設定を実施し [OK] を選択します。<br>・「利用可能な構成基準」から作成した構成基準を選択して [追加] をクリックし「選択した構成基準」に表示されていることを確認します。<br>・[サポートされている場合は準拠していない規則を修復する]: オフ<br>・「コレクション」にて展開対象のコレクションを選択します。<br>・「スケジュール」にて、構成基準の評価スケジュールを指定します。（既定では 7 日に 1 回）  </li>
+</ol>
+<p><img src="/blog/mecm/20230309_01/2023-03-09-14-12-52.png"></p>
+<p>※注意：[サポートされている場合は準拠していない規則を修復する] チェックは必ず “オフ” に設定してください。オンにすると、レジストリ値が修復されてしまいます。  </p>
+<h1 id="実行結果の確認方法"><a href="#実行結果の確認方法" class="headerlink" title="実行結果の確認方法"></a>実行結果の確認方法</h1><p>構成基準を展開した後、クライアント側で、コントロール パネルを開き、表示方法を “小さいアイコン” に変更し、[Configuration Manager] を開いて [操作] タブより [コンピューター ポリシーの取得および評価サイクル] を選択し、[直ちに実行] を何度かクリックします。その後 [構成] タブを開き、[最新の情報に更新] をクリックすると、展開した構成基準の名前が表示されます。<br>最初は「コンプライアンスの状態」が「不明」となっていますので [評価] をクリックします。「準拠している」となった場合、この構成基準は「準拠」として、既定で 15 分以内にサーバー側に状態メッセージとして報告されます。  </p>
+<p><img src="/blog/mecm/20230309_01/2023-03-09-14-17-19.png"></p>
+<p>上図のように “準拠している” と判定されている場合、DisableWindowsUpdateAccess が “1” であると判断できます。  </p>
+<h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><h2 id="構成基準の実行タイミングについて"><a href="#構成基準の実行タイミングについて" class="headerlink" title="構成基準の実行タイミングについて"></a>構成基準の実行タイミングについて</h2><p>構成基準を展開した後は、クライアント側で [コンピューター ポリシーの取得および評価サイクル] が実行されることで、最大 2 時間以内で構成基準がスケジューリングされ実行されます。<br>コンピューター ポリシーの受信サイクルについては、既定で 60 分間隔で実行されています。<br>なお、できる限り早く実行させたい場合は、「クライアント通知」という機能を使用すれば、「コンピューターポリシーの取得および評価サイクル」を直ちに実行するように、サーバー側からクライアントに通知させることができますので、こちらもご利用ください。(デバイス単位でもコレクション単位でも実行可能です。)  </p>
+<p>Title: Configuration Manager でのクライアント通知<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification</a></p>
+<h2 id="“準拠している”-コレクションの作成"><a href="#“準拠している”-コレクションの作成" class="headerlink" title="“準拠している” コレクションの作成"></a>“準拠している” コレクションの作成</h2><p>レジストリ値が存在する端末、すなわち “準拠している” クライアントのみを含むコレクションを作成することも可能です。  </p>
+<p>作成した構成基準の [展開] を右クリックして [新しいコレクションの作成] - [準拠している] を選択します。<br>ウィザードを進めてコレクションを作成することで、今回の構成基準に対して “準拠している” 端末のみを含むコレクションを作成できます。<br>“準拠していない” コレクションも作成可能ですので、用途に応じてお使い分けください。<br><img src="/blog/mecm/20230309_01/2023-03-09-14-21-17.png"></p>
+<h3 id="関連ブログ"><a href="#関連ブログ" class="headerlink" title="関連ブログ"></a>関連ブログ</h3><p>ハードウェア インベントリで特定のレジストリ値を収集したい場合は、こちらのブログをご参照ください。<br><a href="https://jpmem.github.io/blog/mecm/20220722_01/">ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～</a>  </p>
+<p>特定のレジストリ値をセットしたい場合は、こちらのブログをご参照ください。<br><a href="https://jpmem.github.io/blog/mecm/20230307_01/">コンプライアンス機能で特定レジストリ値をセットする方法</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20230309_01/" data-id="clfc40sog004g0np4cji39ir1" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20230307_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">コンプライアンス機能で特定レジストリ値をセットする方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">コンプライアンス機能で特定レジストリ値の状態をチェックする方法</a>
+          </li>
+        
+          <li>
+            <a href="../20230307_01/">コンプライアンス機能で特定レジストリ値をセットする方法</a>
+          </li>
+        
+          <li>
+            <a href="../20230306_01/">ハードウェア インベントリで特定の WMI クラスを収集する ～使い方シリーズ～</a>
+          </li>
+        
+          <li>
+            <a href="../20230303_01/">Configuration Manager で PowerShell スクリプトを配布する</a>
+          </li>
+        
+          <li>
+            <a href="../20230303_02/">コンプライアンス機能で PowerShell スクリプトを使用して準拠状態をチェックする方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
