@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。Configuration Manager サポートチームです。 本ポストでは、Configuration Manager の ReportServer データベースのトランザクションログ肥大化への対策をご紹介いたします。 Configuration Manager でレポート機能を利用されている環境で、ReportServer データベースのトランザクションログファイルが肥大化し、H">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-23T06:31:30.752Z">
+<meta property="article:modified_time" content="2023-03-23T06:37:22.747Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -128,17 +128,24 @@
 <li><p>現在のトランザクションログサイズと使用率を確認します。肥大化していると対象のデータベースは、トランザクションログファイルが大きく使用率が高いことが確認いただけます。  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dbcc sqlperf(logspace);  </span><br><span class="line">go  </span><br></pre></td></tr></table></figure></li>
 <li><p>データベース復旧モデルを「単純」に変更します。  </p>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use master  </span><br><span class="line">go  </span><br><span class="line">alter database &lt;データベース名&gt; set recovery simple;  </span><br></pre></td></tr></table></figure></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use master  </span><br><span class="line">go  </span><br><span class="line">alter database &lt;データベース名&gt; set recovery simple;  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">例: データベース名が ReportServer の場合  </span><br></pre></td></tr></table></figure>
-<p>use master;<br>go<br>alter database ReportServer set recovery simple;<br>go  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上記の実行により、復旧モデルの変更とチェックポイントが実行されます。単純復旧モデルとなりチェックポイントが実行されますと、トランザクションレコードを切り捨て、空き領域となります。  </span><br><span class="line">復旧モデルの変更は、対象データベースがトランザクション実行中でも、使用中のユーザーがいても実行できます。変更に伴い、再起動なども必要ありません。</span><br><span class="line">ここで再び、上記 3. の dbcc sqlperf(logspace) を実行しますと、ファイルサイズは同じでも使用率が減少していると思います。  </span><br><span class="line"></span><br><span class="line">## 2. トランザクションログの縮小</span><br><span class="line">1. トランザクションログファイルの論理名とサイズを確認します。論理名の欄には、ReportServer_log と出力されます。  </span><br></pre></td></tr></table></figure>
-<p>Use &lt;データベース名&gt;<br>Go<br>select file_id,name [論理名] ,CAST(size as BIGINT)*8192/1024/1024 [LogSize(MB)],physical_name from sys.database_files where type_desc = ‘log’;  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. トランザクションログを圧縮します。トランザクションログファイルの論理名、圧縮後のサイズ（ターゲットサイズ）を指定し、圧縮を実行します。  </span><br><span class="line">※トランザクションログに空きがあるにも関わらず指定したターゲットサイズまで圧縮されないことがあります。 </span><br><span class="line">```  </span><br><span class="line">Use &lt;データベース名&gt;;  </span><br><span class="line">Go  </span><br><span class="line">dbcc shrinkfile(&#x27;論理名&#x27;,ターゲットサイズ(MB));  </span><br><span class="line">go  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">例: 論理名が ReportServer_log、圧縮後のサイズを 1 GB とする場合  </span><br></pre></td></tr></table></figure>
-<p>use ReportServer;<br>go<br>dbcc shrinkfile(‘ReportServer_log’, 1024); go  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">トランザクションログファイルは、内部的に仮想ログ ファイルに分割されています。並び順が後ろの方の仮想ログを現在使用中の場合には、その位置までしか圧縮できず、十分に圧縮されない場合があるためです。この場合には、しばらく時間を空け、対象データベースに対してチェックポイントを実行後に、圧縮を再度実行して下さい。  </span><br><span class="line"></span><br><span class="line">- チェックポイントの実行  </span><br></pre></td></tr></table></figure>
-<p>use &lt;データベース名&gt;;<br>go<br>checkpoint;<br>go  </p>
-<p>```  </p>
+<p>例: データベース名が ReportServer の場合  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use master;  </span><br><span class="line">go  </span><br><span class="line">alter database ReportServer set recovery simple;  </span><br><span class="line">go  </span><br></pre></td></tr></table></figure>
+
+<p>上記の実行により、復旧モデルの変更とチェックポイントが実行されます。単純復旧モデルとなりチェックポイントが実行されますと、トランザクションレコードを切り捨て、空き領域となります。<br>復旧モデルの変更は、対象データベースがトランザクション実行中でも、使用中のユーザーがいても実行できます。変更に伴い、再起動なども必要ありません。<br>ここで再び、上記 3. の dbcc sqlperf(logspace) を実行しますと、ファイルサイズは同じでも使用率が減少していると思います。  </p>
+<h2 id="2-トランザクションログの縮小"><a href="#2-トランザクションログの縮小" class="headerlink" title="2. トランザクションログの縮小"></a>2. トランザクションログの縮小</h2><ol>
+<li><p>トランザクションログファイルの論理名とサイズを確認します。論理名の欄には、ReportServer_log と出力されます。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Use &lt;データベース名&gt;  </span><br><span class="line">Go  </span><br><span class="line">select file_id,name [論理名] ,CAST(size as BIGINT)*8192/1024/1024 [LogSize(MB)],physical_name from sys.database_files where type_desc = &#x27;log&#x27;;  </span><br></pre></td></tr></table></figure></li>
+<li><p>トランザクションログを圧縮します。トランザクションログファイルの論理名、圧縮後のサイズ（ターゲットサイズ）を指定し、圧縮を実行します。<br>※トランザクションログに空きがあるにも関わらず指定したターゲットサイズまで圧縮されないことがあります。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Use &lt;データベース名&gt;;  </span><br><span class="line">Go  </span><br><span class="line">dbcc shrinkfile(&#x27;論理名&#x27;,ターゲットサイズ(MB));  </span><br><span class="line">go  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>例: 論理名が ReportServer_log、圧縮後のサイズを 1 GB とする場合  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use ReportServer;  </span><br><span class="line">go  </span><br><span class="line">dbcc shrinkfile(&#x27;ReportServer_log&#x27;, 1024); go  </span><br></pre></td></tr></table></figure>
+
+<p>トランザクションログファイルは、内部的に仮想ログ ファイルに分割されています。並び順が後ろの方の仮想ログを現在使用中の場合には、その位置までしか圧縮できず、十分に圧縮されない場合があるためです。この場合には、しばらく時間を空け、対象データベースに対してチェックポイントを実行後に、圧縮を再度実行して下さい。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use &lt;データベース名&gt;;  </span><br><span class="line">go  </span><br><span class="line">checkpoint;  </span><br><span class="line">go  </span><br></pre></td></tr></table></figure>
+
 <p>手順は以上となります。  </p>
 <h1 id="参考情報"><a href="#参考情報" class="headerlink" title="参考情報"></a>参考情報</h1><p>復旧モデルと、ログ管理の詳細については、以下の技術文書もよろしければご参照ください。  </p>
 <p>Title: 単純復旧モデルでのバックアップ<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/previous-versions/sql/sql-server-2008/ms191164(v=sql.100)?redirectedfrom=MSDN">https://learn.microsoft.com/ja-jp/previous-versions/sql/sql-server-2008/ms191164(v=sql.100)?redirectedfrom=MSDN</a></p>
@@ -153,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180629_01/" data-id="clfkqjs0000160oqu3viaf0qv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180629_01/" data-id="clfkqrdc100160nt26oglew5v" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
