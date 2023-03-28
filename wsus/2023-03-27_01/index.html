@@ -7,12 +7,12 @@
   
   <title>WSUS 経由で WebView2 Runtime を更新する手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。 1. WebView2 の自動更新を制御するWSUSで WebView2 Runtime の更新を管理する場合、WebView2">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。なお、本記事は WebView2 Runtime のバージョンを WSUS 経由で更新する際の手順となります。WebView2 R">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS 経由で WebView2 Runtime を更新する手順">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2023-03-27_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。 1. WebView2 の自動更新を制御するWSUSで WebView2 Runtime の更新を管理する場合、WebView2">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。なお、本記事は WebView2 Runtime のバージョンを WSUS 経由で更新する際の手順となります。WebView2 R">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-27_01/2023-03-27_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-27_01/2023-03-27_01_2.png">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-27_01/2023-03-27_01_4.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-03-27_01/2023-03-27_01_5.png">
 <meta property="article:published_time" content="2023-03-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-27T08:35:20.960Z">
+<meta property="article:modified_time" content="2023-03-28T08:06:41.426Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -121,18 +121,18 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。<br>WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。</p>
+<p>今回は、WSUS 経由で WebView2 Runtime を更新する手順をご紹介いたします。<br>WSUS より WebView2 Runtime の更新を 管理する場合に参考となるかと存じますので是非ご一読ください。<br>なお、本記事は WebView2 Runtime のバージョンを WSUS 経由で更新する際の手順となります。WebView2 Runtime の初期インストールにつきましては、WSUS から配信することはできませんのでご留意ください。  </p>
 <h1 id="1-WebView2-の自動更新を制御する"><a href="#1-WebView2-の自動更新を制御する" class="headerlink" title="1. WebView2 の自動更新を制御する"></a>1. WebView2 の自動更新を制御する</h1><p>WSUSで WebView2 Runtime の更新を管理する場合、WebView2 Runtime 自動更新を制御しておく必要があります。以下の公開ブログにてご案内させていただいております WebView2 Runtime の更新制御するためのポリシーまたはレジストリを追加いただくようお願いいたします。なお、こちらのポリシーについては Active Directory 配下のクライアントである必要がございますのでご留意ください。  <a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/how-and-why-to-update-edge/#4-WebView2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%88%B6%E5%BE%A1">4) WebView2 の更新制御</a></p>
-<h1 id="2-WSUS-から-WebView2-の更新を配信する"><a href="#2-WSUS-から-WebView2-の更新を配信する" class="headerlink" title="2. WSUS から WebView2 の更新を配信する"></a>2. WSUS から WebView2 の更新を配信する</h1><p>WSUS コンソールで [ オプション ] &gt; [ 製品と分類 ]<br>製品： Microsoft Edge 、分類： 更新 にチェックを追加し、更新プログラムを同期します。<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_1.png">  </p>
+<h1 id="2-WSUS-から-WebView2-の更新を配信する"><a href="#2-WSUS-から-WebView2-の更新を配信する" class="headerlink" title="2. WSUS から WebView2 の更新を配信する"></a>2. WSUS から WebView2 の更新を配信する</h1><p>WSUS コンソールで [ オプション ] &gt; [ 製品と分類 ] を開きます。<br>製品： Microsoft Edge 、分類： 更新 にチェックを追加し、更新プログラムを同期します。<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_1.png">  </p>
 <p>WebView2 Runtime 向けの更新プログラムが同期されますので、WSUS にて承認作業を行います。<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_2.png"></p>
-<p>クライアントが WSUS にアクセスしたタイミングで承認情報を受け取り、更新プログラムが適用処理が実施されます。<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_3.png"></p>
+<p>クライアントが WSUS にアクセスしたタイミングで承認情報を受け取り、更新プログラムの適用処理が行われます。具体的には、クライアントは、（ランダム時間を含む）既定で約 22 時間毎に WSUS へ検出処理が行われ、自動更新の設定に基づきダウンロード、インストールの処理を実施します。<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_3.png"></p>
 <p>WebView2 Runtime のバージョンが更新されます。<br>更新プログラム適用前<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_4.png"></p>
 <p>更新プログラム適用後<br><img src="/blog/wsus/2023-03-27_01/2023-03-27_01_5.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-03-27_01/" data-id="clfqkqfsw009k0oo5d77t6mbs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-03-27_01/" data-id="clfrz5fka009k0mmm2vf02jag" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
