@@ -16,8 +16,9 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_2.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_3.png">
 <meta property="article:published_time" content="2022-05-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-28T08:06:41.402Z">
+<meta property="article:modified_time" content="2023-03-30T08:37:33.814Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -124,6 +125,8 @@
 <p>WsusPool のメモリ上限値であるプライベート メモリ制限値に達した場合、リサイクルを実行しメモリを解放する動作が起こります。このリサイクルの処理が短期間に頻繁に発生すると、 IIS のラピッド フェール保護と呼ばれる機能が働き、WsusPool を停止させるのです。  </p>
 <p>ラピッド フェール保護の機能解説としては以下の公開情報をご参照ください。<br><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/web-apps/Rapid-Fail-Protection/">ラピッド フェール保護機能について</a>  </p>
 <p>その為、 WsusPool のメモリ上限値であるプライベート メモリ制限値に達してリサイクルが頻発する状態を改善することで、ラピッド フェール保護による WsusPool が停止する事象を防ぐことができます。</p>
+<h1 id="WsusPool-の開始"><a href="#WsusPool-の開始" class="headerlink" title="WsusPool の開始"></a>WsusPool の開始</h1><p>WSUS のインターネット インフォメーション サービス (IIS) マネージャーにて、アプリケーション プールの WsusPool を右クリック頂き、[開始] を押下する事で、WsusPool を開始出来ます。<br><img src="/blog/wsus/2022-05-23_01/2022-05-23_01_3.png">   </p>
+<p>しかしながら、WsusPool を開始しても、下記「発生要因」を解消しない限り直ぐに停止してしまう可能性が高いものになります。その為、 WsusPool を開始する前に「対処方法」の実施を優先してください。  </p>
 <h1 id="発生要因"><a href="#発生要因" class="headerlink" title="発生要因"></a>発生要因</h1><p>WsusPool のメモリ上限値であるプライベート メモリ制限値に達してしまう主な要因はなにか。<br>それは主に以下の2点です。<br>1．WsusPool のチューニングが実施されていない<br>2．クライアントのスキャン対象となる更新プログラムが多い  </p>
 <h1 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h1><p>上記の要因を解消するためには、以下の対処により改善が見込めます。    </p>
 <h2 id="1．WsusPool-のチューニング"><a href="#1．WsusPool-のチューニング" class="headerlink" title="1．WsusPool のチューニング"></a>1．WsusPool のチューニング</h2><p>WsusPool のチューニングを実施することにより、WsusPool が使用可能なプライベート メモリ上限が引き上げられる上、ラピッドフェール保護の発生条件を緩和できますので、ラピッド フェール保護の発生による WsusPool の停止を抑止することができます。<br>実施内容については、以下の公開記事にてご紹介しておりますのでご参照ください。<br> <a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/#A-IIS-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E8%A8%AD%E5%AE%9A">IIS チューニング設定</a>  </p>
@@ -133,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="clfrz5fk300910mmm4jz3gli2" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="clfuv4vtw00910nrweg3m150c" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
