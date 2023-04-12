@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer 基本的な使い方) | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は、Configuration Manager にカスタム セキュリティ ロールを作成し、管理コンソールのアクセス制御を行う方法をご案内します。 Configuration Manager にはロールベースのアクセス制御を行う機能が備わっており、「完全な権利を持つ管理者」や「読み取り専用アナリスト」な">
+<meta property="og:type" content="article">
+<meta property="og:title" content="カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer 基本的な使い方)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230412_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は、Configuration Manager にカスタム セキュリティ ロールを作成し、管理コンソールのアクセス制御を行う方法をご案内します。 Configuration Manager にはロールベースのアクセス制御を行う機能が備わっており、「完全な権利を持つ管理者」や「読み取り専用アナリスト」な">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_09.png">
+<meta property="article:published_time" content="2023-04-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-12T08:00:26.791Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20230412_01/20230412_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20230412_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2023-04-11T15:00:00.000Z" itemprop="datePublished">2023-04-12</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer 基本的な使い方)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2023-04-11T15:00:00.000Z" itemprop="dateUpdated">2023-04-12</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>今回は、Configuration Manager にカスタム セキュリティ ロールを作成し、管理コンソールのアクセス制御を行う方法をご案内します。</p>
+<p>Configuration Manager にはロールベースのアクセス制御を行う機能が備わっており、「完全な権利を持つ管理者」や「読み取り専用アナリスト」など、異なるアクセス許可の組み合わせを割り当て済みの幾つかのセキュリティ ロールが予め用意されています。そして、任意のユーザーやグループに一つ以上のセキュリティ ロールを割り当てることで、ロール ベースのアクセス制御(RBAC)を実現することが可能です。</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/configure-role-based-administration">Configuration Managerのロールベースの管理を構成する</a></p>
+<p>更に、組み込みのセキュリティ ロールとは異なる単位でアクセス許可を設定したい場合は、任意のアクセス許可を割り当てたカスタム セキュリティ ロールを新規に作成することが可能ですが、各アクセス許可が具体的にどの操作を表すか、アクセス許可の名称からは判断が難しい場合があるため、アクセス許可と管理コンソール上の操作との紐づけについてしばしばお問い合わせいただくことがあります。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_01.png" alt="図 1: アクセス許可の例"></p>
+<p>実際にアクセス許可を割り当てた上で動作確認する方法もありますが、この様な場合は、Configuration Manager ツールと呼ばれる付属ツール一式に含まれる「RBA Viewer」をご利用いただくことをお勧めします。RBA Viewer は、実際の管理コンソール上の各項目にどのアクセス許可が必要か確認しながらセキュリティ ロールを設計し、設計した内容を管理コンソールからインポート可能な形式でエクスポート可能なツールです。また、既存のセキュリティ ロールを読み込み、管理コンソール上の表示のイメージの確認を行うことも可能です。</p>
+<p>そこで当記事では、RBA Viewer の使用にフォーカスしながら、実際にアクセス許可を構成し、カスタム セキュリティ ロールを作成するまでの流れをご説明します。</p>
+<p>なお、Configuration Manager では、セキュリティ ロールとは別に、セキュリティ スコープを併用することで更に各オブジェクトのアクセス制御を行うことが可能です。また、管理ユーザー単位で各コレクションへのアクセスを制御することも可能ですが、いずれも当記事では触れません。セキュリティ ロールと併せて設定を行う場合は、それぞれ以下のドキュメントをご確認ください。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/configure-role-based-administration#configure-security-scopes-for-an-object">セキュリティ スコープの構成方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/configure-role-based-administration#configure-collections-to-manage-security">コレクションのアクセス許可</a></li>
+</ul>
+<h2 id="RBA-Viewer-の概要"><a href="#RBA-Viewer-の概要" class="headerlink" title="RBA Viewer の概要"></a>RBA Viewer の概要</h2><p>製品のドキュメントとしては以下でご案内しています。実行前に前提条件をご確認ください。</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/support/rbaviewer">ロールベース管理および監査ツール</a></p>
+<p>RBA Viewer は、バージョン 2107 以降は管理コンソールとともにインストールされますが、スタートメニューには表示されないため、起動する場合は管理コンソールのインストール先ディレクトリ(既定では <code>\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole\bin</code>)内の <code>RBAViewer.exe</code> を直接実行します。必要に応じてショートカットを作成しておくと良いです。</p>
+<p>RBA Viewer を起動すると、図 2 の様なウィンドウが起動します。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_02.png" alt="図 2: RBA Viewer のウィンドウ"></p>
+<p>カスタム セキュリティ ロールを設計する際は、基本的には以下の流れで操作を行うことになりますが、詳細は以下のセクションで随時ご説明します。</p>
+<ol>
+<li>左上の [Security Roles] からベースとなるセキュリティ ロールを選択し、読み込む</li>
+<li>左下の [Analyze] ボタンをクリックし、選択済みのアクセス許可の内容を、右側の Admin Console タブに反映する</li>
+<li>右側の Admin Console タブでアクセスが必要/不要な項目を確認し、左側のアクセス許可の有効化/無効化を行う</li>
+<li>Admin Console タブの内容が満足する結果となるまで 2 と 3 を繰り返す</li>
+<li>選択したアクセス許可を左下の [Export] ボタンで XML ファイルにエクスポートする</li>
+<li>管理コンソールで、XML ファイルをカスタム セキュリティ ロールとしてインポートする</li>
+<li>管理コンソールで、インポートしたカスタム セキュリティ ロールの動作確認を行う</li>
+</ol>
+<h2 id="既存のセキュリティ-ロールのアクセス許可を確認する"><a href="#既存のセキュリティ-ロールのアクセス許可を確認する" class="headerlink" title="既存のセキュリティ ロールのアクセス許可を確認する"></a>既存のセキュリティ ロールのアクセス許可を確認する</h2><p>RBA Viewer を起動した直後は全てのアクセス許可が選択された状態ですが、[Security Roles] から既存のセキュリティ ロールを選択することで、そのセキュリティ ロールに割り当てられているアクセス許可のみが選択された状態になります。[Security Roles] から選択可能なセキュリティ ロールは、カスタム セキュリティ ロールを除き英語表記となりますが、概ね直訳のため、以下のリンク先を参考に選択ください。</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/fundamentals-of-role-based-administration#security-roles">組み込みのセキュリティ ロール一覧</a></p>
+<p>今回は、組み込みのセキュリティ ロールの一つである「読み取り専用アナリスト(Read-only Analyst)」を選択することにします。読み取り専用アナリストは、その名の通り読み取り専用のロールであり、基本的に変更操作を行えない様にアクセス許可が割り当てられています。そのため、読み取り専用アナリストをベースにして不要なアクセス許可を削除することで、権限の弱いロールを設計することが可能です。</p>
+<p>それでは実際に [Security Roles] からセキュリティ ロール「Read-only Analyst」を選択し、読み込んでみます。セキュリティ ロールの読み込みを行うと、図 3 の様に左側のアクセス許可の幾つかが有効化されます。なお、管理コンソールからカスタム セキュリティ ロールを新規作成する場合はベースとなるセキュリティ ロールの選択が必要ですが、RBA Viewer で設計を行うにあたっては、既存のセキュリティ ロールの読み込みは必ずしも必要ではありません。例えばごく一部の項目のみ表示可能なロールを設計したい場合は、読み込みを行わずにゼロからアクセス許可を追加した方が早いこともありますので、ニーズに合わせて判断ください。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_03.png" alt="図 3: 読み取り専用アナリスト(Read-only Analyst) 選択後"></p>
+<p>セキュリティ ロールの読み込み直後は、右側の Admin Console タブに変化はありません。アクセス許可の有効化や無効化を行っても即時に反映されないため、現在のアクセス許可に基づく管理コンソールのイメージを確認したい場合は、[Analyze] をクリックする必要があります。アクセス許可を変更した際は、クリックを忘れないようにご注意ください。</p>
+<p>Admin Console タブ内は、実際の管理コンソールの様に各メニュー項目をクリックし動作を確認することが可能です。例えば <code>[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ]</code> を選択すると図 4 の様に表示されますが、この画面に到るまでに管理コンソール上に <code>[ソフトウェア ライブラリ]</code> のメニュー項目が表示されており、更に <code>[パッケージ]</code> が選択可能となっていた筈です。これは、現在のアクセス許可の選択に基づいた場合、それぞれが表示および選択可能となっていることを表します。すなわち、Admin Console タブ内で実際にできることが管理コンソールでできることになるため、実際の管理コンソールを操作しなくてもイメージを掴むことが可能です。なお、Admin Console タブには、選択したメニュー項目によって実際のレコードの内容が表示されますが、RBA Viewer で行った操作が Configuration Manager へ影響を与えることはありませんので、色々な項目の表示を試してみてください。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_04.png" alt="図 4: パッケージの選択後"></p>
+<p>ここまでの操作でお気づきかもしれませんが、Admin Console タブで項目を選択すると、画面右側の「Tasks」の下に、「Actions」や「Query Actions」という項目が表示されます。これらはメニュー項目内で実施できるアクションの分類を表しますが、それぞれ以下の意味です。</p>
+<ul>
+<li>Actions: レコードに関係なく、その項目内で実行可能なアクション(コンソール画面上部のボタン)</li>
+<li>Query Actions: その項目内に表示されるレコードに対して実行可能なアクション(レコードを選択した状態で表示されるコンソール画面上部のボタンや右クリックメニューの内容)</li>
+</ul>
+<p>また、それぞれの分類の配下に表示されているアクションの内容により文字色が黒であったりグレーであったりしますが、それぞれ以下の意味です。</p>
+<ul>
+<li>黒: 実行が許可されているアクション</li>
+<li>グレー: 実行が許可されていないアクション</li>
+</ul>
+<p>例えば <code>[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ]</code> の場合は、図 4 では</p>
+<ul>
+<li>Actions<ul>
+<li>作成=&gt;(グレー)</li>
+</ul>
+</li>
+<li>Query Actions<ul>
+<li>パッケージ=&gt;(黒)</li>
+<li>パッケージ変換=&gt;(グレー)</li>
+<li>展開=&gt;(黒)</li>
+<li>分類=&gt;(グレー)</li>
+<li>プロパティ=&gt;(黒)</li>
+</ul>
+</li>
+</ul>
+<p>の様に表示されていますが、これはパッケージの作成は不可であるものの、既存の各パッケージに対する一部のアクションが許可されていることを表します。なお、各アクションの末尾に「=&gt;」が付与されている場合はそのアクションは入れ子になっていることを表し、例えば上記は [展開] が黒ですが、この場合はパッケージの展開が可能と判断するのではなく、[展開] をクリックして表示される配下のアクションの状態を確認して判断します。</p>
+<p>実際に [展開] をクリックすると図 5 の様に</p>
+<ul>
+<li>展開=&gt;(黒)<ul>
+<li>展開(グレー)</li>
+<li>コンテンツの配布(黒)</li>
+<li>配布ポイントの更新(グレー)</li>
+</ul>
+</li>
+</ul>
+<p>であることを確認できますが、これ以上入れ子になっていないため、この時点で [コンテンツの配布] が許可されていると判断可能です。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_05.png" alt="図 5: 展開をクリックした後"></p>
+<p>ここまでで、セキュリティ ロールの読み込みから Admin Console タブの確認方法をご説明しましたが、次のセクションからは実際にセキュリティ ロールを設計する上で必要となるアクセス許可の追加や削除の方法についてご説明します。</p>
+<h2 id="必要なアクセス許可を追加する"><a href="#必要なアクセス許可を追加する" class="headerlink" title="必要なアクセス許可を追加する"></a>必要なアクセス許可を追加する</h2><p>実行が許可されていないアクションはグレーの文字で表示されることをご説明しましたが、各アクションの許可をするためには何らかのアクセス許可を付与する必要があります。具体的にどのアクセス許可が必要となるかは、該当のアクションにマウスのカーソルを置くと表示されるポップアップの内容から確認できます。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_06.png" alt="図 6: 項目にマウスのカーソルを置いた場合"></p>
+<p>例えば図 6 では、パッケージの [展開] がグレーアウトされている状態で [展開] にカーソルを置くと</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">コレクション: Read/Deploy Packages</span><br><span class="line">パッケージ: Read</span><br></pre></td></tr></table></figure>
+<p>と表示されていますが、これは、[展開] を行うためにはコレクションの Read および Deploy Packages とパッケージの Read のアクセス許可が必要であることを表します。すなわち、これらのアクセス許可を追加することで、パッケージの [展開] が可能となることが分かります。実際にそれぞれのアクセス許可をウィンドウの左側から探して有効化し [Analyze] をクリックすると、図 7 の様に [展開] がグレーから黒へ変わります。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_07.png" alt="図 7: アクセス許可を追加後"></p>
+<p>この様に、管理コンソールから行いたい操作や表示したい項目にマウスのカーソルを置くことで必要なアクセス許可を確認することができます。</p>
+<p>なお、日本語版の管理コンソールでは Read や Deploy Package の部分はそれぞれ「読み取り」と「パッケージの展開」と翻訳されるため表記は異なりますが、RBA Viewer からエクスポートした XML ファイルを管理コンソールにインポートした後は、日本語表記へ置き換わります。</p>
+<h2 id="不要なアクセス許可を削除する"><a href="#不要なアクセス許可を削除する" class="headerlink" title="不要なアクセス許可を削除する"></a>不要なアクセス許可を削除する</h2><p>実行可能なアクションや表示可能な項目を不許可にしたり非表示にする場合は、アクセス許可の追加時と同じ要領でアクセス許可を確認し、それらを無効化することで可能です。</p>
+<p>例えば <code>[ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ]</code> の場合は</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">パッケージ: Read</span><br></pre></td></tr></table></figure>
+<p>のアクセス許可が必要ですが、これを無効化することで図 8 の様に非表示にすることが可能です。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_08.png" alt="図 8: パッケージを非表示にした状態"></p>
+<h2 id="設計内容を-Configuration-Manager-へインポートする"><a href="#設計内容を-Configuration-Manager-へインポートする" class="headerlink" title="設計内容を Configuration Manager へインポートする"></a>設計内容を Configuration Manager へインポートする</h2><p>セキュリティ ロールの設計が完了したら、[Export] ボタンをクリックすることで XML ファイルへエクスポートすることができますが、この XML ファイルを管理コンソールからインポートを行うことで、一つのセキュリティ ロールとして扱える様になります。</p>
+<p>XML ファイルをインポートする際は、図 9 の様に管理コンソールで <code>[管理] - [概要] - [セキュリティ] - [セキュリティ ロール]</code> を開き、[セキュリティ ロールのインポート] をクリックします。インポート後は、ファイル名と同じ名称のセキュリティ ロールが作成されます(名称は変更可能です)。実際に管理コンソールで動作確認を行った上で、正式に利用いただければ幸いです。</p>
+<p><img src="/blog/mecm/20230412_01/20230412_01_09.png" alt="図 9: セキュリティ ロールのインポート"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20230412_01/" data-id="clgdej70p004o0nlj7hqp2lxx" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20230404_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Configuration Manager のリリース サイクル変更のお知らせ</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer 基本的な使い方)</a>
+          </li>
+        
+          <li>
+            <a href="../20230404_01/">Configuration Manager のリリース サイクル変更のお知らせ</a>
+          </li>
+        
+          <li>
+            <a href="../20230327_01/">ソフトウェアの更新ポイントがクライアントのスキャン先として設定されない原因と対応の例 - CWuaHandler::SetCategoriesForStateReportingExclusion</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2023-03-27_01/">WSUS 経由で WebView2 Runtime を更新する手順</a>
+          </li>
+        
+          <li>
+            <a href="../20230316_01/">Microsoft Configuration Manager 自習書シリーズ 1 Microsoft Configuration Manager とは</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
