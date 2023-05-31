@@ -5,22 +5,22 @@
   
 
   
-  <title>Windows Server 2012 にて WSUS のインストールに失敗する事象について | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>Configuration Manager クライアントで Windows Update 配下のポリシーが意図せず未構成になってしまう事象について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆さま こんにちは。 WSUS サポートチームです。 Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。   以下の公開情報にて、WSUS サーバーの">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、Configuration Manager クライアントで Windows Update 配下のポリシーが未構成になってしまう事象についてご紹介いたします。該当のポリシーのパスは以下です。   [コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Wi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows Server 2012 にて WSUS のインストールに失敗する事象について">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/index.html">
+<meta property="og:title" content="Configuration Manager クライアントで Windows Update 配下のポリシーが意図せず未構成になってしまう事象について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230427_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="皆さま こんにちは。 WSUS サポートチームです。 Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。   以下の公開情報にて、WSUS サーバーの">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、Configuration Manager クライアントで Windows Update 配下のポリシーが未構成になってしまう事象についてご紹介いたします。該当のポリシーのパスは以下です。   [コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Wi">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">
-<meta property="article:published_time" content="2014-04-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-31T01:30:17.871Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230427_01/2023-04-28-08-58-50.png">
+<meta property="article:published_time" content="2023-05-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-31T01:30:17.843Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
-<meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20230427_01/2023-04-28-08-58-50.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -86,10 +86,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2014-04-02_02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20230427_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2014-04-01T15:00:00.000Z" itemprop="datePublished">2014-04-02</time>
+  <time datetime="2023-05-01T15:00:00.000Z" itemprop="datePublished">2023-05-02</time>
 </a>
     <!--  -->
   </div>
@@ -100,7 +100,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Windows Server 2012 にて WSUS のインストールに失敗する事象について
+      Configuration Manager クライアントで Windows Update 配下のポリシーが意図せず未構成になってしまう事象について
     </h1>
   
 
@@ -109,27 +109,41 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2014-04-01T15:00:00.000Z" itemprop="dateUpdated">2014-04-02</time>
+    <time datetime="2023-05-01T15:00:00.000Z" itemprop="dateUpdated">2023-05-02</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>皆さま こんにちは。 WSUS サポートチームです。</p>
-<p>Windows Server 2012 にて、WSUS サーバーを構築中のお客様より、「 Windows Server 2012 で 役割と機能の追加ウィザードを利用し、WSUS サーバーをインストールした際、インストール後の初期構成タスクに失敗する。」 というお問い合わせをいただくことがあります。  </p>
-<p>以下の公開情報にて、WSUS サーバーのインストール方法について、3 点の回避策を公開しております。同様の事象が発生した場合には、トラブルの対処にお役立てください。  </p>
-<p><strong>回避策1.</strong> PowerShell を利用した WSUS サーバーのサイレント インストールを実行する。<br><strong>回避策2.</strong> 構成ファイルを手動で編集する。<br><strong>回避策3.</strong> WSUS 管理コンソールを起動して、初期構成タスクを完了する。<br><strong>－ Windows Server 2012 で WSUS サーバーの役割をインストール後に、初期構成タスクに失敗する事があります</strong><br><a target="_blank" rel="noopener" href="https://support.microsoft.com/kb/2882799/ja">https://support.microsoft.com/kb/2882799/ja</a>  </p>
-<p>※ 補足 ※<br><strong>回避策 1</strong> では、PowerShell で WSUS サーバーのインストールを実行する前に、「役割と機能の追加ウィザード」 の 「構成設定ファイルエクスポート」 にて構成設定ファイルをエクスポートする必要があります。<br><img src="/blog/wsus/2014-04-02_02/2014-04-02_02_01.png">  </p>
-<p>以上のとおり、ご案内いたします。  </p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>本日は、Configuration Manager クライアントで Windows Update 配下のポリシーが未構成になってしまう事象についてご紹介いたします。該当のポリシーのパスは以下です。  </p>
+<p>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update]  </p>
+<p>Configuration Manager でソフトウェア更新プログラムの管理を行っている場合、以下のポリシーが “有効” になりますが、これらのポリシーが意図せず “未構成” になってしまうケースがございます。  </p>
+<p>・[イントラネットの Microsoft 更新サービスの場所を指定する]<br>・[Windows Update に対するスキャンを発生させる更新遅延ポリシーを許可しない]<br>・[イントラネットの Microsoft 更新サービスの保存場所にある署名済み更新を許可する]  </p>
+<p>このケースに当てはまった場合、特に [イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーが “未構成” になってしまった場合、ソフトウェア更新ポイント（WSUS）サーバーに対してスキャンされないため、インターネットの Windows Update に対してスキャンを行ってしまいます。<br>その結果、意図しない機能更新プログラムや品質更新プログラムがダウンロード、インストールされてしまうため、更新プログラムの管理が行えなくなります。  </p>
+<p>想定される要因として以下 3 つが挙げられ、それぞれの場合について記載させていただきますので、トラブルシューティングのご参考になれば幸いです。  </p>
+<ol>
+<li>Configuration Manager クライアントをアンインストールした。  </li>
+<li>クライアント設定で [クライアントのソフトウェア更新プログラムを有効にする] の設定を “いいえ” にした。  </li>
+<li>60 日間、管理ポイントと通信を行っていない。  </li>
+</ol>
+<h3 id="1-Configuration-Manager-クライアントをアンインストールした。"><a href="#1-Configuration-Manager-クライアントをアンインストールした。" class="headerlink" title="1. Configuration Manager クライアントをアンインストールした。"></a>1. Configuration Manager クライアントをアンインストールした。</h3><p>クライアントをアンインストールすると、Configuration Manager で管理されなくなるため、上記 3 つのポリシーは “未構成” になります。<br>対処としては Configuration Manager クライアントをインストールすることです。  </p>
+<h3 id="2-クライアント設定で-クライアントのソフトウェア更新プログラムを有効にする-の設定を-“いいえ”-にした。"><a href="#2-クライアント設定で-クライアントのソフトウェア更新プログラムを有効にする-の設定を-“いいえ”-にした。" class="headerlink" title="2. クライアント設定で [クライアントのソフトウェア更新プログラムを有効にする] の設定を “いいえ” にした。"></a>2. クライアント設定で [クライアントのソフトウェア更新プログラムを有効にする] の設定を “いいえ” にした。</h3><p>クライアント設定の [ソフトウェア更新プログラム] にて、[クライアントのソフトウェア更新プログラムを有効にする] の設定を “いいえ” に変更した際、[イントラネットの Microsoft 更新サービスの場所を指定する] のローカル ポリシーが “未構成” になります。  </p>
+<p><img src="/blog/mecm/20230427_01/2023-04-28-08-58-50.png">  </p>
+<p>対処としては上記の [クライアントのソフトウェア更新プログラムを有効にする] の設定を “はい” に設定することです。  </p>
+<h3 id="3-60-日間、管理ポイントと通信を行っていない。"><a href="#3-60-日間、管理ポイントと通信を行っていない。" class="headerlink" title="3. 60 日間、管理ポイントと通信を行っていない。"></a>3. 60 日間、管理ポイントと通信を行っていない。</h3><p>Configuration Manager の管理ポイントから取得するポリシーには有効期限が 60日に設定されており、この有効期限の間に管理ポイントと通信をしなかった場合にポリシーが削除されます。  </p>
+<p>ポリシーが削除されたあと、CcmExec サービスが起動することにより、上述のポリシーが “未構成” になってしまいます。<br>なお、再度クライアントが Configuration Manager の管理ポイントと通信を行うとポリシーの取得を行います。<br>その後、ソフトウェア更新ポイントへのスキャンのタイミングで、管理ポイントにソフトウェア更新ポイントの場所を問い合わせ、上述のポリシーがローカル グループ ポリシーに書き込まれます。  </p>
+<p>上記のため、対処としては管理ポイントと通信させることです。  </p>
+<p>以上、ご参考になりましたら幸いです。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2014-04-02_02/" data-id="clib166jt00690ov2crt7ha5x" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230427_01/" data-id="clib166j6004q0ov24hss9oz3" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
     </footer>
   </div>
@@ -137,19 +151,19 @@
     
 <nav id="article-nav">
   
-    <a href="../2014-04-02_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../20230530_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS 4.0 (Windows Server 2012) ポート番号変更について
+          オンプレミス環境向け UUP 更新プログラムを提供開始しました
         
       </div>
     </a>
   
   
-    <a href="../2014-03-05_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../wsus/2023-05-02_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS DB インデックスの再構成の手順について</div>
+      <div class="article-nav-title">WSUS の仕組み クライアント編</div>
     </a>
   
 </nav>
@@ -168,23 +182,23 @@
       <ul>
         
           <li>
-            <a href="../../mecm/20230530_01/">オンプレミス環境向け UUP 更新プログラムを提供開始しました</a>
+            <a href="../20230530_01/">オンプレミス環境向け UUP 更新プログラムを提供開始しました</a>
           </li>
         
           <li>
-            <a href="../../mecm/20230427_01/">Configuration Manager クライアントで Windows Update 配下のポリシーが意図せず未構成になってしまう事象について</a>
+            <a href="">Configuration Manager クライアントで Windows Update 配下のポリシーが意図せず未構成になってしまう事象について</a>
           </li>
         
           <li>
-            <a href="../2023-05-02_01/">WSUS の仕組み クライアント編</a>
+            <a href="../../wsus/2023-05-02_01/">WSUS の仕組み クライアント編</a>
           </li>
         
           <li>
-            <a href="../../mecm/20230412_01/">カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer の基本的な使い方)</a>
+            <a href="../20230412_01/">カスタム セキュリティ ロールで RBAC を設計する方法(RBA Viewer の基本的な使い方)</a>
           </li>
         
           <li>
-            <a href="../../mecm/20230404_01/">Configuration Manager のリリース サイクル変更のお知らせ</a>
+            <a href="../20230404_01/">Configuration Manager のリリース サイクル変更のお知らせ</a>
           </li>
         
       </ul>
