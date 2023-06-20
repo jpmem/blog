@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-06-16_01/2023-06-16_01_1.png">
 <meta property="article:published_time" content="2023-06-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-20T04:24:41.353Z">
+<meta property="article:modified_time" content="2023-06-20T04:32:42.563Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -193,7 +193,7 @@
 <p>コマンド プロンプトの場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">del %ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr0.dat</span><br><span class="line">del %ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr1.dat</span><br></pre></td></tr></table></figure>
 <p>PowerShell コンソールの場合</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\*&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\qmgr0.dat&quot;</span><br><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\qmgr1.dat&quot;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li> Windows 10 バージョン 1703 以降 / Windows Server 2019 以降の場合</li>
@@ -234,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj3s7jd3009y0nom3qntdvtt" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj3shv43009y0nsmgvlqh5ga" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
