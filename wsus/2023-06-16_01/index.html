@@ -14,11 +14,13 @@
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は、WSUS から更新プログラムが配信されない問題が発生したときのチェックポイントをご紹介します。WSUS から更新プログラムが配信される仕組みについては、こちらの記事でご紹介しておりますので、こちらも是非ご確認ください。 設定値のチェックWSUS クライアントの接続先となる WSUS サーバーについては、以下のドメイン ポリシー &#x2F; ロ">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-06-16_01/2023-06-16_01_1.png">
 <meta property="article:published_time" content="2023-06-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-16T02:11:06.129Z">
+<meta property="article:modified_time" content="2023-06-20T04:18:12.140Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2023-06-16_01/2023-06-16_01_1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -116,16 +118,18 @@
       
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は、WSUS から更新プログラムが配信されない問題が発生したときのチェックポイントをご紹介します。<br>WSUS から更新プログラムが配信される仕組みについては、<a href="https://jpmem.github.io/blog/wsus/2023-05-02_01/">こちらの記事</a>でご紹介しておりますので、こちらも是非ご確認ください。</p>
-<h2 id="設定値のチェック"><a href="#設定値のチェック" class="headerlink" title="設定値のチェック"></a>設定値のチェック</h2><p>WSUS クライアントの接続先となる WSUS サーバーについては、以下のドメイン ポリシー / ローカル ポリシーやレジストリで指定します。  </p>
+<h1 id="設定値のチェック"><a href="#設定値のチェック" class="headerlink" title="設定値のチェック"></a>設定値のチェック</h1><p>WSUS クライアントの接続先となる WSUS サーバーについては、以下のドメイン ポリシー / ローカル ポリシーやレジストリで指定します。  </p>
 <ul>
-<li>ポリシー<br>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [イントラネットの Microsoft 更新サービスの場所を指定する]<br>または<br>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]  </li>
+<li>ポリシー  </li>
 </ul>
+<p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [イントラネットの Microsoft 更新サービスの場所を指定する]</strong><br>または<br><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]</strong>  </p>
 <p>これらのポリシーが構成されると、下記レジストリ値がセットされます。</p>
 <ul>
-<li>レジストリ<br>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate<br>WUServer: &lt;WSUS サーバーの URL&gt;<br>WUStatusServer: &lt;WSUS サーバーの URL&gt;<br>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate<br>UseWUServer: 1  </li>
+<li>レジストリ  </li>
 </ul>
-<p>そのため、まずはレジストリ エディター (regedit) より、このレジストリに正しい値がセットされているかを確認しましょう。<br>もし、想定しない WSUS サーバーの URL がセットされている場合は、ドメイン ポリシーまたはローカル ポリシーの設定値を見直して、正しい値をセットしてください。</p>
-<h2 id="クライアントと-WSUS-の疎通チェック"><a href="#クライアントと-WSUS-の疎通チェック" class="headerlink" title="クライアントと WSUS の疎通チェック"></a>クライアントと WSUS の疎通チェック</h2><p>WSUS クライアントが WSUS サーバーから更新プログラムを受信するためには、WSUS サーバーに対して HTTP リクエストが送信できるネットワーク環境である必要があります。<br>WSUS サーバーの接続先となる URL については、上述で説明したレジストリ値に格納されています。<br>URL が IP アドレスではなく FQDN やホスト名になっている場合、名前解決ができるか確認する必要がありますので、まずはターミナルや PowerShell コンソールを開いて以下のコマンドを実行し IP アドレスを取得できるか確認しましょう。</p>
+<p><strong>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate</strong><br><strong>WUServer: &lt;WSUS サーバーの URL&gt;</strong><br><strong>WUStatusServer: &lt;WSUS サーバーの URL&gt;</strong><br><strong>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate</strong><br><strong>UseWUServer: 1</strong>  </p>
+<p>まずはレジストリ エディター (regedit) より、このレジストリに正しい値がセットされているかを確認しましょう。<br>もし、想定しない WSUS サーバーの URL がセットされている場合は、ドメイン ポリシーまたはローカル ポリシーの設定値を見直して、正しい値をセットしてください。</p>
+<h1 id="クライアントと-WSUS-の疎通チェック"><a href="#クライアントと-WSUS-の疎通チェック" class="headerlink" title="クライアントと WSUS の疎通チェック"></a>クライアントと WSUS の疎通チェック</h1><p>WSUS クライアントが WSUS サーバーから更新プログラムを受信するためには、WSUS サーバーに対して HTTP リクエストが送信できるネットワーク環境である必要があります。<br>WSUS サーバーの接続先となる URL については、上述で説明したレジストリ値に格納されています。<br>URL が IP アドレスではなく FQDN やホスト名になっている場合、名前解決ができるか確認する必要がありますので、まずはターミナルや PowerShell コンソールを開いて以下のコマンドを実行し IP アドレスを取得できるか確認しましょう。</p>
 <p>例) URL が <a target="_blank" rel="noopener" href="http://wsus.contoso.com:8530/">http://WSUS.contoso.com:8530</a> の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup WSUS.contoso.com</span><br></pre></td></tr></table></figure>
 
@@ -140,7 +144,7 @@
 <p>出力例  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StatusCode        : 200</span><br><span class="line">StatusDescription : OK</span><br><span class="line">...&lt;省略&gt;</span><br></pre></td></tr></table></figure>
 
-<p>もし、StausCode が 407 の Proxy Authentication Required エラーなどが返された場合、プロキシを経由して WSUS サーバーにアクセスした結果、認証ができずに失敗していることが疑われます。<br>そのときは、以下のコマンドで WinHTTP のプロキシ設定を確認してください。  </p>
+<h1 id="プロキシ設定を確認する"><a href="#プロキシ設定を確認する" class="headerlink" title="プロキシ設定を確認する"></a>プロキシ設定を確認する</h1><p>もし、更新プログラムの確認時に StausCode が 407 の Proxy Authentication Required エラーなどが返された場合、プロキシを経由して WSUS サーバーにアクセスした結果、認証ができずに失敗していることが疑われます。<br>そのときは、以下のコマンドで WinHTTP のプロキシ設定を確認してください。  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp show proxy</span><br></pre></td></tr></table></figure>
 
 <p>もし、設定されている場合、バイパスリストに WSUS サーバーの FQDN やそのドメインが含まれていなければ、プロキシを経由することになります。<br>その場合は、プロキシ設定が不要であればリセットするか、バイパスリストに WSUS サーバーを追加することをご検討ください。  </p>
@@ -155,16 +159,99 @@
 </li>
 </ul>
 <p>プロキシを経由していないにもかかわらず、StausCode が 503 などのサーバー エラーが返された場合、WSUS サーバー側で問題が発生している可能性があるので、次の確認に進みます。</p>
-<h2 id="WSUS-サーバーの正常性チェック"><a href="#WSUS-サーバーの正常性チェック" class="headerlink" title="WSUS サーバーの正常性チェック"></a>WSUS サーバーの正常性チェック</h2><p>WsusPool の停止などによって、WSUS サーバーが正常に動作していない場合、クライアントからの更新プログラムの確認がエラーとなります。<br>WsusPool の停止が発生している場合、WSUS 管理コンソールが開けない状態となりますので、まず WSUS サーバーにログオンし、WSUS 管理コンソールを起動して、情報が確認できるかどうかご確認ください。  </p>
+<h1 id="WSUS-サーバーの正常性チェック"><a href="#WSUS-サーバーの正常性チェック" class="headerlink" title="WSUS サーバーの正常性チェック"></a>WSUS サーバーの正常性チェック</h1><p>WsusPool の停止などによって、WSUS サーバーが正常に動作していない場合、クライアントからの更新プログラムの確認がエラーとなります。<br>WsusPool の停止が発生している場合、WSUS 管理コンソールが開けない状態となりますので、まず WSUS サーバーにログオンし、WSUS 管理コンソールを起動して、情報が確認できるかどうかご確認ください。  </p>
 <p>WSUS コンソール起動時にエラーが発生して情報が確認できない場合は、<a href="https://jpmem.github.io/blog/wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a> の記事をもとに対処を実施しましょう。</p>
-<h2 id="上記のいずれも問題なかった場合"><a href="#上記のいずれも問題なかった場合" class="headerlink" title="上記のいずれも問題なかった場合"></a>上記のいずれも問題なかった場合</h2><p>WSUS サーバーも問題なく動作しており、クライアントとサーバー間の接続も問題なかった場合は、WSUS サーバーのパフォーマンス劣化により、クライアントからのリクエストに対する応答に時間がかかることで、タイムアウト エラーが発生している可能性があります。<br>この場合は、まず対象の WSUS サーバーで <a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">WSUS メンテナンスガイド新版</a> を実施いただき、WSUS サーバーのメンテナンスを実施しましょう。これによって、パフォーマンスを改善し、応答までの時間短縮を試みます。  </p>
+<h1 id="Windows-Update-クライアントの情報をクリアする"><a href="#Windows-Update-クライアントの情報をクリアする" class="headerlink" title="Windows Update クライアントの情報をクリアする"></a>Windows Update クライアントの情報をクリアする</h1><p>ネットワークやサーバー側に問題がなかった場合、Windows Update クライアントがキャッシュしているファイルの問題の影響で、問題が発生している可能性があります。<br>その場合は、以下の手順で Windows Update クライアントの情報をクリアにした後、事象が解消されるかどうかご確認ください。</p>
+<h2 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h2><ul>
+<li>[更新履歴の表示] の情報がクリアされます。(作業履歴の情報ですので 現時点の適用状態や今後の適用動作には全く影響ありません)</li>
+<li>過去クライアント側の操作によって「非表示」設定（処理対象から除外）していた更新プログラムが存在する場合は、その設定が解除されます。</li>
+<li>次回 WSUS にアクセスした際にキャッシュされていた情報を再ダウンロードします。 そのため、同時に多数の端末が実施した場合にはネットワークの負荷が発生する場合があります。</li>
+</ul>
+<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><p>以下ステップを順にご実施ください。</p>
+<ol>
+<li>Windows Update 関連サービスの停止</li>
+<li>SoftwareDistribution フォルダーのリネーム </li>
+<li>BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)  </li>
+<li>Windows Update 関連サービスの開始</li>
+<li>更新プログラム検出の確認</li>
+</ol>
+<p>各手順の詳細は以下の通りです。</p>
+<ol>
+<li>Windows Update 関連サービスの停止<br>管理者として実行にて起動したコマンド プロンプト、またはターミナルから以下のコマンドを実行して、サービスを停止します。  </li>
+</ol>
+<ul>
+<li><p>Windows Server 2012 / 2012 R2 の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop wuauserv</span><br><span class="line">net stop bits</span><br></pre></td></tr></table></figure></li>
+<li><p>Windows Server 2016 の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net stop usosvc</span><br><span class="line">net stop wuauserv</span><br><span class="line">net stop bits</span><br></pre></td></tr></table></figure></li>
+<li><p>Windows 10 / Windows 11 / Windows Server 2019 以降の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net stop usosvc</span><br><span class="line">net stop wuauserv</span><br><span class="line">net stop bits</span><br><span class="line">net stop dosvc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>SoftwareDistribution フォルダーのリネーム<br>以下のコマンドを実行して、更新プログラムが保存されている SoftwareDistribution フォルダーをリネームします。<br>SoftwareDistribution フォルダーは、Windows Update に使用されます。例えば Software Distribution フォルダー配下の Download フォルダーにはダウンロードされた更新プログラムが一時的に保管されます。SoftwareDistribution フォルダーをリネームすることで、これまでダウンロードされた更新プログラムやデータベースの情報がクリアされます。  </li>
+</ol>
+<p>コマンド プロンプトの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ren %systemroot%\SoftwareDistribution SoftwareDistribution.old</span><br></pre></td></tr></table></figure>
+
+<p>PowerShell コンソール / ターミナルの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rename-Item &quot;$env:systemroot\SoftwareDistribution&quot; &quot;$env:systemroot\SoftwareDistribution.old&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)<br>以下のコマンドを実行して、ダウンロード中の BITS ジョブを削除します。<br>Windows 10 までの Windows Update は BITS という Windows の機能を利用して、アイドル中のネットワーク回線の帯域幅を使用して、バックグラウンドで更新プログラムをダウンロードします。ダウンロードに失敗した更新プログラムが BITS キューに滞留している場合、以下のコマンドを順番に実行してキューから削除することで、新しくダウンロード ジョブが作成され、ダウンロードに成功する可能性があります。  </li>
+</ol>
+<ul>
+<li>Windows 10 バージョン 1703 以前、Windows Server 2012 / 2012 R2 / 2016 の場合  </li>
+</ul>
+<p>コマンド プロンプトの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">del %ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr0.dat</span><br><span class="line">del %ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr1.dat</span><br></pre></td></tr></table></figure>
+<p>PowerShell コンソールの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\*&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li> Windows 10 バージョン 1703 以降 / Windows Server 2019 以降の場合</li>
+</ul>
+<p>コマンド プロンプトの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del /Q %ALLUSERSPROFILE%\Microsoft\Network\Downloader\*</span><br></pre></td></tr></table></figure>
+<p>PowerShell コンソール / ターミナルの場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\*&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Windows Update 関連サービスの開始<br>以下のコマンドを実行して、項番 1) で停止したサービスを開始します。最初から停止済みのサービスがあった場合は、開始しなくても構いません。</li>
+</ol>
+<ul>
+<li><p>Windows Server 2012 / 2012 R2 の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start wuauserv</span><br><span class="line">net start bits</span><br></pre></td></tr></table></figure></li>
+<li><p>Windows Server 2016 の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net start usosvc</span><br><span class="line">net start wuauserv</span><br><span class="line">net start bits</span><br></pre></td></tr></table></figure></li>
+<li><p>Windows 10 / Windows 11 / Windows Server 2019 以降の場合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net start usosvc</span><br><span class="line">net start wuauserv</span><br><span class="line">net start bits</span><br><span class="line">net start dosvc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>更新プログラム検出の確認<br>上記の手順を実施して Windows Update クライアントの情報をクリアした後、以下の手順で更新プログラムの確認を実行します。<br>Windows 10 / Windows Server 2016 以降 / Windows 11 の場合、更新プログラムのチェック実行後、更新プログラムを検出すると、更新プログラムのインストールが開始されることがありますので、予めご留意ください。</li>
+</ol>
+<ul>
+<li>Windows Server 2012 / 2012 R2 の場合<br>[コントロール パネル] - [システムとセキュリティ] - [Windows Update] を開き [更新プログラムの確認] をクリック  </li>
+<li>Windows 10 / Windows Server 2016 以降の場合<br>[設定] - [更新とセキュリティ] - [Windows Update] を開き [更新プログラムのチェック] をクリック</li>
+<li>Windows 11 の場合<br>[設定] - [Windows Update] を開き [更新プログラムのチェック] をクリック  </li>
+</ul>
+<p>コマンドで実行する場合は、以下のコマンドを実行してください。</p>
+<ul>
+<li>Windows Server 2012 / 2012 R2 の場合<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wuauclt /detectnow</span><br></pre></td></tr></table></figure></li>
+<li>Windows 10 / Windows 11 / Windows Server 2016 以降の場合<br>コマンド プロンプトから実行可能なコマンドは用意されておりませんので、以下の PowerShell コマンドを管理者として実行にて起動した PowerShell コンソールやターミナルより実行してください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$AutoUpdates = New-Object -ComObject &quot;Microsoft.Update.AutoUpdate&quot;</span><br><span class="line">$AutoUpdates.DetectNow()</span><br></pre></td></tr></table></figure>
+※ 上記 PowerShell コマンドによる検出処理の実行につきましては Windows 10 version 1709 以降のバージョンでは下記ポリシーにて設定いただいている検出頻度 (既定では 22 時間) 以内で実行した場合に、ブロックされる処理が組み込まれており、実行されませんので、ご留意ください。</li>
+<li>ポリシー  </li>
+</ul>
+<p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [自動更新の検出頻度]</strong></p>
+<p>例えば、最後に「更新プログラムのチェック」が実行された時刻が 1 時の場合、このコマンドは既定値ですと 22 時間後である 23 時までの間機能しないということです。本 PowerShell コマンドを実行して、機能した場合、以下のように [Windows Update] 画面に「更新プログラムを確認しています…」が表示されます。</p>
+<p><img src="/blog/wsus/2023-06-16_01/2023-06-16_01_1.png"></p>
+<h1 id="上記のいずれも問題なかった場合"><a href="#上記のいずれも問題なかった場合" class="headerlink" title="上記のいずれも問題なかった場合"></a>上記のいずれも問題なかった場合</h1><p>WSUS サーバーも問題なく動作しており、クライアントとサーバー間の接続も問題なかった場合は、WSUS サーバーのパフォーマンス劣化により、クライアントからのリクエストに対する応答に時間がかかることで、タイムアウト エラーが発生している可能性があります。<br>この場合は、まず対象の WSUS サーバーで <a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">WSUS メンテナンスガイド新版</a> を実施いただき、WSUS サーバーのメンテナンスを実施しましょう。これによって、パフォーマンスを改善し、応答までの時間短縮を試みます。  </p>
 <p>これでもタイムアウトが発生する場合は、可能な限り WSUS サーバー側で不要な更新プログラムを「拒否済み」に設定する対処方法が効果的です。<br>例えば、Windows Server 2016 など、リリースされてから時間が経過している OS の累積更新プログラムについては、過去の更新プログラムとの置換関係を保持し続けている関係上、カタログ情報（メタデータ）が肥大化しているため、「未承認」や「インストール承認」の更新プログラムが多いと、タイムアウト エラーなどが発生しやすくなります。  </p>
 <p>OS の累積更新プログラムについては、最新の更新プログラムを配信していれば、それによって置き換えられた更新プログラムを配信しても、クライアント側に配信されませんので、特別な要件が無い限り「未承認」や「インストール承認」のままにしておく必要はありません。<br>例えば、2023 年 6 月の Windows Server 2016 累積更新プログラムを「インストール承認」している場合、それによって置き換えられた更新プログラムは「拒否済み」にすることができます。<br>「拒否済み」については、<a href="https://jpmem.github.io/blog/wsus/2017-12-11_01/">不要な更新プログラムは「拒否済み」に設定しよう！</a>にて紹介していますので、実施をご検討ください。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clixxocrf009y0nlq64eq41l3" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj3rz55g009y0op7a0y655lv" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
