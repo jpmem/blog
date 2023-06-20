@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-06-16_01/2023-06-16_01_1.png">
 <meta property="article:published_time" content="2023-06-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-20T04:18:12.140Z">
+<meta property="article:modified_time" content="2023-06-20T04:24:41.353Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -168,17 +168,9 @@
 <li>次回 WSUS にアクセスした際にキャッシュされていた情報を再ダウンロードします。 そのため、同時に多数の端末が実施した場合にはネットワークの負荷が発生する場合があります。</li>
 </ul>
 <h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><p>以下ステップを順にご実施ください。</p>
-<ol>
-<li>Windows Update 関連サービスの停止</li>
-<li>SoftwareDistribution フォルダーのリネーム </li>
-<li>BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)  </li>
-<li>Windows Update 関連サービスの開始</li>
-<li>更新プログラム検出の確認</li>
-</ol>
+<p><strong>1. Windows Update 関連サービスの停止</strong><br><strong>2. SoftwareDistribution フォルダーのリネーム</strong><br><strong>3. BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)</strong><br><strong>4. Windows Update 関連サービスの開始</strong><br><strong>5. 更新プログラム検出の確認</strong></p>
 <p>各手順の詳細は以下の通りです。</p>
-<ol>
-<li>Windows Update 関連サービスの停止<br>管理者として実行にて起動したコマンド プロンプト、またはターミナルから以下のコマンドを実行して、サービスを停止します。  </li>
-</ol>
+<h3 id="1-Windows-Update-関連サービスの停止"><a href="#1-Windows-Update-関連サービスの停止" class="headerlink" title="1. Windows Update 関連サービスの停止"></a><strong>1. Windows Update 関連サービスの停止</strong></h3><p>管理者として実行にて起動したコマンド プロンプト、またはターミナルから以下のコマンドを実行して、サービスを停止します。  </p>
 <ul>
 <li><p>Windows Server 2012 / 2012 R2 の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop wuauserv</span><br><span class="line">net stop bits</span><br></pre></td></tr></table></figure></li>
@@ -187,18 +179,14 @@
 <li><p>Windows 10 / Windows 11 / Windows Server 2019 以降の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net stop usosvc</span><br><span class="line">net stop wuauserv</span><br><span class="line">net stop bits</span><br><span class="line">net stop dosvc</span><br></pre></td></tr></table></figure></li>
 </ul>
-<ol start="2">
-<li>SoftwareDistribution フォルダーのリネーム<br>以下のコマンドを実行して、更新プログラムが保存されている SoftwareDistribution フォルダーをリネームします。<br>SoftwareDistribution フォルダーは、Windows Update に使用されます。例えば Software Distribution フォルダー配下の Download フォルダーにはダウンロードされた更新プログラムが一時的に保管されます。SoftwareDistribution フォルダーをリネームすることで、これまでダウンロードされた更新プログラムやデータベースの情報がクリアされます。  </li>
-</ol>
+<h3 id="2-SoftwareDistribution-フォルダーのリネーム"><a href="#2-SoftwareDistribution-フォルダーのリネーム" class="headerlink" title="2. SoftwareDistribution フォルダーのリネーム"></a><strong>2. SoftwareDistribution フォルダーのリネーム</strong></h3><p>以下のコマンドを実行して、更新プログラムが保存されている SoftwareDistribution フォルダーをリネームします。<br>SoftwareDistribution フォルダーは、Windows Update に使用されます。例えば Software Distribution フォルダー配下の Download フォルダーにはダウンロードされた更新プログラムが一時的に保管されます。SoftwareDistribution フォルダーをリネームすることで、これまでダウンロードされた更新プログラムやデータベースの情報がクリアされます。  </p>
 <p>コマンド プロンプトの場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ren %systemroot%\SoftwareDistribution SoftwareDistribution.old</span><br></pre></td></tr></table></figure>
 
 <p>PowerShell コンソール / ターミナルの場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rename-Item &quot;$env:systemroot\SoftwareDistribution&quot; &quot;$env:systemroot\SoftwareDistribution.old&quot;</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)<br>以下のコマンドを実行して、ダウンロード中の BITS ジョブを削除します。<br>Windows 10 までの Windows Update は BITS という Windows の機能を利用して、アイドル中のネットワーク回線の帯域幅を使用して、バックグラウンドで更新プログラムをダウンロードします。ダウンロードに失敗した更新プログラムが BITS キューに滞留している場合、以下のコマンドを順番に実行してキューから削除することで、新しくダウンロード ジョブが作成され、ダウンロードに成功する可能性があります。  </li>
-</ol>
+<h3 id="3-BITS-のジョブを削除-Windows-11-の場合、本手順は不要です。"><a href="#3-BITS-のジョブを削除-Windows-11-の場合、本手順は不要です。" class="headerlink" title="3. BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)"></a><strong>3. BITS のジョブを削除 (Windows 11 の場合、本手順は不要です。)</strong></h3><p>以下のコマンドを実行して、ダウンロード中の BITS ジョブを削除します。<br>Windows 10 までの Windows Update は BITS という Windows の機能を利用して、アイドル中のネットワーク回線の帯域幅を使用して、バックグラウンドで更新プログラムをダウンロードします。ダウンロードに失敗した更新プログラムが BITS キューに滞留している場合、以下のコマンドを順番に実行してキューから削除することで、新しくダウンロード ジョブが作成され、ダウンロードに成功する可能性があります。  </p>
 <ul>
 <li>Windows 10 バージョン 1703 以前、Windows Server 2012 / 2012 R2 / 2016 の場合  </li>
 </ul>
@@ -215,9 +203,7 @@
 <p>PowerShell コンソール / ターミナルの場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-Item &quot;$env:allusersprofile\Microsoft\Network\Downloader\*&quot;</span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>Windows Update 関連サービスの開始<br>以下のコマンドを実行して、項番 1) で停止したサービスを開始します。最初から停止済みのサービスがあった場合は、開始しなくても構いません。</li>
-</ol>
+<h3 id="4-Windows-Update-関連サービスの開始"><a href="#4-Windows-Update-関連サービスの開始" class="headerlink" title="4. Windows Update 関連サービスの開始"></a><strong>4. Windows Update 関連サービスの開始</strong></h3><p>以下のコマンドを実行して、項番 1) で停止したサービスを開始します。最初から停止済みのサービスがあった場合は、開始しなくても構いません。</p>
 <ul>
 <li><p>Windows Server 2012 / 2012 R2 の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start wuauserv</span><br><span class="line">net start bits</span><br></pre></td></tr></table></figure></li>
@@ -226,9 +212,7 @@
 <li><p>Windows 10 / Windows 11 / Windows Server 2019 以降の場合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net start usosvc</span><br><span class="line">net start wuauserv</span><br><span class="line">net start bits</span><br><span class="line">net start dosvc</span><br></pre></td></tr></table></figure></li>
 </ul>
-<ol start="5">
-<li>更新プログラム検出の確認<br>上記の手順を実施して Windows Update クライアントの情報をクリアした後、以下の手順で更新プログラムの確認を実行します。<br>Windows 10 / Windows Server 2016 以降 / Windows 11 の場合、更新プログラムのチェック実行後、更新プログラムを検出すると、更新プログラムのインストールが開始されることがありますので、予めご留意ください。</li>
-</ol>
+<h3 id="5-更新プログラム検出の確認"><a href="#5-更新プログラム検出の確認" class="headerlink" title="5. 更新プログラム検出の確認"></a><strong>5. 更新プログラム検出の確認</strong></h3><p>上記の手順を実施して Windows Update クライアントの情報をクリアした後、以下の手順で更新プログラムの確認を実行します。<br>Windows 10 / Windows Server 2016 以降 / Windows 11 の場合、更新プログラムのチェック実行後、更新プログラムを検出すると、更新プログラムのインストールが開始されることがありますので、予めご留意ください。</p>
 <ul>
 <li>Windows Server 2012 / 2012 R2 の場合<br>[コントロール パネル] - [システムとセキュリティ] - [Windows Update] を開き [更新プログラムの確認] をクリック  </li>
 <li>Windows 10 / Windows Server 2016 以降の場合<br>[設定] - [更新とセキュリティ] - [Windows Update] を開き [更新プログラムのチェック] をクリック</li>
@@ -239,7 +223,6 @@
 <li>Windows Server 2012 / 2012 R2 の場合<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wuauclt /detectnow</span><br></pre></td></tr></table></figure></li>
 <li>Windows 10 / Windows 11 / Windows Server 2016 以降の場合<br>コマンド プロンプトから実行可能なコマンドは用意されておりませんので、以下の PowerShell コマンドを管理者として実行にて起動した PowerShell コンソールやターミナルより実行してください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$AutoUpdates = New-Object -ComObject &quot;Microsoft.Update.AutoUpdate&quot;</span><br><span class="line">$AutoUpdates.DetectNow()</span><br></pre></td></tr></table></figure>
 ※ 上記 PowerShell コマンドによる検出処理の実行につきましては Windows 10 version 1709 以降のバージョンでは下記ポリシーにて設定いただいている検出頻度 (既定では 22 時間) 以内で実行した場合に、ブロックされる処理が組み込まれており、実行されませんので、ご留意ください。</li>
-<li>ポリシー  </li>
 </ul>
 <p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [自動更新の検出頻度]</strong></p>
 <p>例えば、最後に「更新プログラムのチェック」が実行された時刻が 1 時の場合、このコマンドは既定値ですと 22 時間後である 23 時までの間機能しないということです。本 PowerShell コマンドを実行して、機能した場合、以下のように [Windows Update] 画面に「更新プログラムを確認しています…」が表示されます。</p>
@@ -251,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj3rz55g009y0op7a0y655lv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj3s7jd3009y0nom3qntdvtt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
