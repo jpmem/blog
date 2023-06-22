@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-06-16_01/2023-06-16_01_1.png">
 <meta property="article:published_time" content="2023-06-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-22T03:36:34.523Z">
+<meta property="article:modified_time" content="2023-06-22T07:53:46.835Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta property="article:tag" content="チェックポイント">
@@ -220,7 +220,7 @@
 <p>コマンドで実行する場合は、以下のコマンドを実行してください。</p>
 <ul>
 <li>Windows Server 2012 / 2012 R2 の場合<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wuauclt /detectnow</span><br></pre></td></tr></table></figure></li>
-<li>Windows 10 / Windows 11 / Windows Server 2016 以降の場合<br>コマンド プロンプトから実行可能なコマンドは用意されておりませんので、以下の PowerShell コマンドを管理者として実行にて起動した PowerShell コンソールやターミナルより実行してください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$AutoUpdates = New-Object -ComObject &quot;Microsoft.Update.AutoUpdate&quot;</span><br><span class="line">$AutoUpdates.DetectNow()</span><br></pre></td></tr></table></figure>
+<li>Windows 10 / Windows 11 / Windows Server 2016 以降の場合<br>コマンド プロンプトから実行可能なコマンドは用意されておりませんので、以下の PowerShell コマンドを PowerShell コンソールやターミナルより実行してください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$AutoUpdates = New-Object -ComObject &quot;Microsoft.Update.AutoUpdate&quot;</span><br><span class="line">$AutoUpdates.DetectNow()</span><br></pre></td></tr></table></figure>
 ※ 上記 PowerShell コマンドによる検出処理の実行につきましては Windows 10 version 1709 以降のバージョンでは下記ポリシーにて設定いただいている検出頻度 (既定では 22 時間) 以内で実行した場合に、ブロックされる処理が組み込まれており、実行されませんので、ご留意ください。</li>
 </ul>
 <p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [自動更新の検出頻度]</strong></p>
@@ -233,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj6ldbkv009z0os56d3qa49v" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-06-16_01/" data-id="clj6uk3dc009z0no24eh9gthg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li></ul>
