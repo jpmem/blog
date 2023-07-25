@@ -15,7 +15,7 @@
 <meta property="og:description" content="オフライン環境でも更新プログラムの管理を WSUS から行ないたい！と、弊サポート チームによくお問い合わせをいただきます。オフライン環境でも、もちろん WSUS を利用することは可能なのですが、オフライン WSUS サーバーの構築には、ちょっとしたコツや注意点がいくつかあるので、今回のブログではオフライン WSUS サーバーの構築手順と合わせて、そのような点を紹介します。是非これから構築を行われ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-25T00:31:11.768Z">
+<meta property="article:modified_time" content="2023-07-25T00:37:44.741Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta property="article:tag" content="構築マニュアル">
@@ -117,7 +117,7 @@
       
         <p>オフライン環境でも更新プログラムの管理を WSUS から行ないたい！と、弊サポート チームによくお問い合わせをいただきます。オフライン環境でも、もちろん WSUS を利用することは可能なのですが、オフライン WSUS サーバーの構築には、ちょっとしたコツや注意点がいくつかあるので、今回のブログではオフライン WSUS サーバーの構築手順と合わせて、そのような点を紹介します。<br>是非これから構築を行われる方や、試しに構築してみたけど上手くいかないという方の一助となれば幸いです。  </p>
 <h1 id="必要な構成"><a href="#必要な構成" class="headerlink" title="必要な構成"></a>必要な構成</h1><p>オフライン環境に WSUS を用意するためには、下記の 2 台の WSUS サーバーを用意する必要があります。  </p>
-<p>※重要※<br><strong>オンライン WSUS サーバーとオフライン WSUS サーバーは、WSUS のバージョンと更新プログラムの適用状況を合わせる必要があります。</strong>  </p>
+<p><strong>※重要※ オンライン WSUS サーバーとオフライン WSUS サーバーは、WSUS のバージョンと更新プログラムの適用状況を合わせる必要があります。</strong>  </p>
 <ul>
 <li>インターネットと接続できるオンライン WSUS サーバー  </li>
 <li>オフラインネットワーク内のオフライン WSUS サーバー  </li>
@@ -129,7 +129,8 @@
 </ul>
 <p>具体的には下記の順に作業を進めていきます。  </p>
 <ol>
-<li>インターネットと接続できる WSUS サーバーにて、Microsoft Update サイトよりカタログ情報やコンテンツデータをダウンロードします。<br>※ この時に、必ずオフライン側で配信したい更新プログラムをオンラインの WSUS サーバーでインストール承認して、ダウンロードしておく必要があります。この時点で、オフラインで必要なファイルをダウンロードしていない場合、構築に必ず失敗します。<br>wsusutil コマンドにてカタログ情報をインターネットと接続できるWSUS サーバーからエクスポートします。  </li>
+<li>インターネットと接続できる WSUS サーバーにて、Microsoft Update サイトよりカタログ情報やコンテンツデータをダウンロードします。<br>※ この時に、必ずオフライン側で配信したい更新プログラムをオンラインの WSUS サーバーでインストール承認して、ダウンロードしておく必要があります。この時点で、オフラインで必要なファイルをダウンロードしていない場合、構築に必ず失敗します。  </li>
+<li>wsusutil コマンドにてカタログ情報をインターネットと接続できるWSUS サーバーからエクスポートします。  </li>
 <li>インターネットと接続できる WSUS サーバーからリムーバブルメディアに、エクスポートした情報と、コンテンツデータをコピーします。  </li>
 <li>オフラインネットワーク内の WSUS サーバーへリムーバブルメディアから、エクスポートされた情報と、コンテンツデータをペーストします。  </li>
 <li>オフラインネットワーク内の WSUS サーバーにて wsusutil コマンドにてインポートします。  </li>
@@ -143,9 +144,11 @@
 </li>
 </ol>
 <p>※ オフライン環境の WSUS につきましては、下記の通りオプションを設定してください。オフラインの WSUS では、オンライン環境からエクスポートしたコンテンツや メタデータをインポートするため、同期処理を行わないように、設定をする必要があります。</p>
-<p> – [更新ファイルと更新言語] の [更新ファイル] タブおよび [言語の更新] タブの内容を、オンラインとオフライン WSUS サーバーにて相違のないように設定してください。  </p>
-<p> – [更新元およびプロキシサーバー] の [更新元] を [Microsoft Update から同期する] に設定してください。  </p>
-<p> – [同期スケジュール] を [手動で同期する] に設定してください。  </p>
+<ul>
+<li>[更新ファイルと更新言語] の [更新ファイル] タブおよび [言語の更新] タブの内容を、オンラインとオフライン WSUS サーバーにて相違のないように設定してください。  </li>
+<li>[更新元およびプロキシサーバー] の [更新元] を [Microsoft Update から同期する] に設定してください。  </li>
+<li>[同期スケジュール] を [手動で同期する] に設定してください。  </li>
+</ul>
 <h2 id="オンライン-WSUS-サーバーでの実施手順"><a href="#オンライン-WSUS-サーバーでの実施手順" class="headerlink" title="オンライン WSUS サーバーでの実施手順"></a>オンライン WSUS サーバーでの実施手順</h2><ol start="3">
 <li><p>Microsoft Update とオンライン WSUS サーバーを同期させ、メタデータを同期します。  </p>
 </li>
@@ -185,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="clkhka1tt008a0nnzb1v00qoz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="clkhkigwh008a0np83c2hcays" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
