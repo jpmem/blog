@@ -15,9 +15,10 @@
 <meta property="og:description" content="オフライン環境でも更新プログラムの管理を WSUS から行ないたい！と、弊サポート チームによくお問い合わせをいただきます。オフライン環境でも、もちろん WSUS を利用することは可能なのですが、オフライン WSUS サーバーの構築には、ちょっとしたコツや注意点がいくつかあるので、今回のブログではオフライン WSUS サーバーの構築手順と合わせて、そのような点を紹介します。是非これから構築を行われ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-20T08:32:24.804Z">
+<meta property="article:modified_time" content="2023-07-25T00:31:11.768Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="構築マニュアル">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
@@ -116,17 +117,29 @@
       
         <p>オフライン環境でも更新プログラムの管理を WSUS から行ないたい！と、弊サポート チームによくお問い合わせをいただきます。オフライン環境でも、もちろん WSUS を利用することは可能なのですが、オフライン WSUS サーバーの構築には、ちょっとしたコツや注意点がいくつかあるので、今回のブログではオフライン WSUS サーバーの構築手順と合わせて、そのような点を紹介します。<br>是非これから構築を行われる方や、試しに構築してみたけど上手くいかないという方の一助となれば幸いです。  </p>
 <h1 id="必要な構成"><a href="#必要な構成" class="headerlink" title="必要な構成"></a>必要な構成</h1><p>オフライン環境に WSUS を用意するためには、下記の 2 台の WSUS サーバーを用意する必要があります。  </p>
-<p>※重要※<br>オンライン WSUS サーバーとオフライン WSUS サーバーは、WSUS のバージョンと更新プログラムの適用状況を合わせる必要があります。  </p>
-<p>– インターネットと接続できるオンライン WSUS サーバー<br>– オフラインネットワーク内のオフライン WSUS サーバー  </p>
+<p>※重要※<br><strong>オンライン WSUS サーバーとオフライン WSUS サーバーは、WSUS のバージョンと更新プログラムの適用状況を合わせる必要があります。</strong>  </p>
+<ul>
+<li>インターネットと接続できるオンライン WSUS サーバー  </li>
+<li>オフラインネットワーク内のオフライン WSUS サーバー  </li>
+</ul>
 <h1 id="構築手順の概要"><a href="#構築手順の概要" class="headerlink" title="構築手順の概要"></a>構築手順の概要</h1><p>オフライン WSUS サーバーの構築時には、オンライン WSUS サーバーから下記の 2 つのデータを移行し、オフライン WSUS サーバーへインポートします。  </p>
-<p>– カタログのメタデータ (更新プログラムのリスト)<br>– WsusContent フォルダ (更新ファイル)   </p>
+<ul>
+<li>カタログのメタデータ (更新プログラムのリスト)  </li>
+<li>WsusContent フォルダ (更新ファイル)   </li>
+</ul>
 <p>具体的には下記の順に作業を進めていきます。  </p>
-<p>インターネットと接続できる WSUS サーバーにて、Microsoft Update サイトよりカタログ情報やコンテンツデータをダウンロードします。<br>※ この時に、必ずオフライン側で配信したい更新プログラムをオンラインの WSUS サーバーでインストール承認して、ダウンロードしておく必要があります。この時点で、オフラインで必要なファイルをダウンロードしていない場合、構築に必ず失敗します。<br>wsusutil コマンドにてカタログ情報をインターネットと接続できるWSUS サーバーからエクスポートします。<br>インターネットと接続できる WSUS サーバーからリムーバブルメディアに、エクスポートした情報と、コンテンツデータをコピーします。<br>オフラインネットワーク内の WSUS サーバーへリムーバブルメディアから、エクスポートされた情報と、コンテンツデータをペーストします。<br>オフラインネットワーク内の WSUS サーバーにて wsusutil コマンドにてインポートします。<br>オフラインネットワーク内の WSUS サーバーにて対象の更新プログラムを承認し、配布します。  </p>
+<ol>
+<li>インターネットと接続できる WSUS サーバーにて、Microsoft Update サイトよりカタログ情報やコンテンツデータをダウンロードします。<br>※ この時に、必ずオフライン側で配信したい更新プログラムをオンラインの WSUS サーバーでインストール承認して、ダウンロードしておく必要があります。この時点で、オフラインで必要なファイルをダウンロードしていない場合、構築に必ず失敗します。<br>wsusutil コマンドにてカタログ情報をインターネットと接続できるWSUS サーバーからエクスポートします。  </li>
+<li>インターネットと接続できる WSUS サーバーからリムーバブルメディアに、エクスポートした情報と、コンテンツデータをコピーします。  </li>
+<li>オフラインネットワーク内の WSUS サーバーへリムーバブルメディアから、エクスポートされた情報と、コンテンツデータをペーストします。  </li>
+<li>オフラインネットワーク内の WSUS サーバーにて wsusutil コマンドにてインポートします。  </li>
+<li>オフラインネットワーク内の WSUS サーバーにて対象の更新プログラムを承認し、配布します。  </li>
+</ol>
 <p>さらに詳細な手順は下記にご案内します。  </p>
 <h1 id="構築手順の詳細"><a href="#構築手順の詳細" class="headerlink" title="構築手順の詳細"></a>構築手順の詳細</h1><h2 id="オンライン-WSUS-サーバー、オフライン-WSUS-サーバーで共通の手順"><a href="#オンライン-WSUS-サーバー、オフライン-WSUS-サーバーで共通の手順" class="headerlink" title="オンライン WSUS サーバー、オフライン WSUS サーバーで共通の手順"></a>オンライン WSUS サーバー、オフライン WSUS サーバーで共通の手順</h2><ol>
-<li><p>下記の公開情報の手順に従い、オンライン WSUS サーバーとオフライン WSUS サーバーをインストールします。<br>– <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh852338(v=ws.11)?redirectedfrom=MSDN">手順 2: WSUS サーバーの役割をインストールする</a><br>※ WSUS に適用する更新プログラムはこちらのブログで紹介しています。オンライン WSUS サーバーとオフライン WSUS サーバーは更新プログラムの適用状況も含めて、バージョンは合わせる必要があるので、注意してください。  </p>
+<li><p>下記の公開情報の手順に従い、オンライン WSUS サーバーとオフライン WSUS サーバーをインストールします。<br>– <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/1-install-the-wsus-server-role">手順 1:WSUS サーバー ロールをインストールする</a><br>※ WSUS に適用する更新プログラムはこちらのブログで紹介しています。オンライン WSUS サーバーとオフライン WSUS サーバーは更新プログラムの適用状況も含めて、バージョンは合わせる必要があるので、注意してください。  </p>
 </li>
-<li><p>下記の手順に従い、オプション設定の変更を必要に応じて行います。<br>– <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh852346(v=ws.11)?redirectedfrom=MSDN">手順 3: WSUS を構成する</a>    </p>
+<li><p>下記の手順に従い、オプション設定の変更を必要に応じて行います。<br>– <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus">手順 2:WSUS を構成する</a>    </p>
 </li>
 </ol>
 <p>※ オフライン環境の WSUS につきましては、下記の通りオプションを設定してください。オフラインの WSUS では、オンライン環境からエクスポートしたコンテンツや メタデータをインポートするため、同期処理を行わないように、設定をする必要があります。</p>
@@ -141,7 +154,8 @@
 <li><p>オンライン WSUS サーバーから更新プログラムのメタデータをエクスポートします。  </p>
 </li>
 </ol>
-<p>5.1. Microsoft Update と疎通できるオンライン WSUS サーバーにログインします。<br>5.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。<br>※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、この<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-0kb-3593-2">ブログ</a>をご参照ください。<br>例) エクスポートするメタデータを export.cab として C:\Program Files\Update Services\Tools に作成する場合  </p>
+<p>5.1. Microsoft Update と疎通できるオンライン WSUS サーバーにログインします。<br>5.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。  </p>
+<p>例) エクスポートするメタデータを export.cab として C:\Program Files\Update Services\Tools に作成する場合  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot; </span><br><span class="line">wsusutil.exe export export.xml.gz export.log</span><br></pre></td></tr></table></figure>
 
 <ol start="6">
@@ -160,9 +174,9 @@
 <li><p>オフライン WSUS サーバーにてエクスポートされた更新プログラムのメタデータをインポートします。  </p>
 </li>
 </ol>
-<p>10.1. オフライン環境の WSUS サーバーにログインします。<br>10.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。<br>　　  ※ Windows Server 2012 R2 より前の環境では更新プログラムの適用を行っていないと、下記のコマンドの実行が出来ません。詳細につきましては、このブログをご参照ください。<br>例) export.cab ファイルを C:\Program Files\Update Services\Tools にコピーした場合  </p>
+<p>10.1. オフライン環境の WSUS サーバーにログインします。<br>10.2. 管理者権限にてコマンドプロンプトを起動し、以下のコマンドを実行します。  </p>
+<p>例) export.cab ファイルを C:\Program Files\Update Services\Tools にコピーした場合  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Update Services\Tools&quot;</span><br><span class="line">wsusutil.exe import import.xml.gz import.log  </span><br></pre></td></tr></table></figure>
-
 
 <ol start="11">
 <li>オフライン WSUS サーバーにて、手順 4 にて承認した配信を行う更新プログラムの承認を実施し、WSUS クライアントへ配信を行います。<br>※手順 4 でインストール承認し、ダウンロードが完了していない更新プログラムは、オフライン WSUS サーバーでインストール承認することは出来ませんので、ご注意ください。  </li>
@@ -171,10 +185,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="clkaw9mw2008a0nmm5k9id6qm" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="clkhka1tt008a0nnzb1v00qoz" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
 
     </footer>
   </div>
