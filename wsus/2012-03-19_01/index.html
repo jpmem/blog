@@ -7,15 +7,15 @@
   
   <title>Microsoft Update カタログの活用法について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。WSUS サポートチームです。 WSUS 管理者のみなさまは、Microsoft Update カタログをご利用でしょうか。 https:&#x2F;&#x2F;www.catalog.update.microsoft.com&#x2F;home.aspx このカタログ サイトは WSUS を運用する上で、とても便利な情報を参照することが出来ます。以下に代表的な活用法について、ご紹介します。  特定の更新プログラム">
+  <meta name="description" content="2012-03-19 初版公開2023-08-01 更新- 「1. 特定の更新プログラムのみ WSUS へインポートしたい」の内容とインポート関連の内容を削除しました。新しい更新プログラムのインポート方法は こちらの記事 をご確認ください。   こんにちは。WSUS サポートチームです。 WSUS 管理者のみなさまは、Microsoft Update カタログをご利用でしょうか。 https:&#x2F;&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Microsoft Update カタログの活用法について">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2012-03-19_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="こんにちは。WSUS サポートチームです。 WSUS 管理者のみなさまは、Microsoft Update カタログをご利用でしょうか。 https:&#x2F;&#x2F;www.catalog.update.microsoft.com&#x2F;home.aspx このカタログ サイトは WSUS を運用する上で、とても便利な情報を参照することが出来ます。以下に代表的な活用法について、ご紹介します。  特定の更新プログラム">
+<meta property="og:description" content="2012-03-19 初版公開2023-08-01 更新- 「1. 特定の更新プログラムのみ WSUS へインポートしたい」の内容とインポート関連の内容を削除しました。新しい更新プログラムのインポート方法は こちらの記事 をご確認ください。   こんにちは。WSUS サポートチームです。 WSUS 管理者のみなさまは、Microsoft Update カタログをご利用でしょうか。 https:&#x2F;&#x2F;">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2012-03-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-31T10:12:43.996Z">
+<meta property="article:modified_time" content="2023-08-01T01:39:21.023Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -114,46 +114,30 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>こんにちは。WSUS サポートチームです。</p>
+        <p><strong>2012-03-19 初版公開</strong><br><strong>2023-08-01 更新</strong><br><strong>- 「1. 特定の更新プログラムのみ WSUS へインポートしたい」の内容とインポート関連の内容を削除しました。新しい更新プログラムのインポート方法は <a href="https://jpmem.github.io/blog/wsus/2023-07-27_01/">こちらの記事</a> をご確認ください。</strong>  </p>
+<p>こんにちは。WSUS サポートチームです。</p>
 <p>WSUS 管理者のみなさまは、Microsoft Update カタログをご利用でしょうか。</p>
 <p><a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/home.aspx">https://www.catalog.update.microsoft.com/home.aspx</a></p>
 <p>このカタログ サイトは WSUS を運用する上で、とても便利な情報を参照することが出来ます。<br>以下に代表的な活用法について、ご紹介します。</p>
 <ol>
-<li>特定の更新プログラムのみ WSUS へインポートしたい</li>
 <li>ある更新プログラムの属するクラスが知りたい</li>
 <li>更新プログラムの置き換え関係を調べたい</li>
 <li>更新プログラムのインストーラー収集</li>
 </ol>
-<h2 id="1-特定の更新プログラムのみ-WSUS-へインポートしたい"><a href="#1-特定の更新プログラムのみ-WSUS-へインポートしたい" class="headerlink" title="1. 特定の更新プログラムのみ WSUS へインポートしたい"></a>1. 特定の更新プログラムのみ WSUS へインポートしたい</h2><p>例えば 特定の更新プログラムを社内に配布したいが、WSUS で同期していないクラスに含まれる場合、その WSUS には該当の更新プログラムの情報がありません。<br>対象のクラスを同期対象に含めれば問題は解決されますが、該当の更新プログラムも意図せず同期されてしまいます。</p>
-<p>そういった場合には、下記手順にて Microsoft Update カタログより、配信対象の更新プログラムのみをインポートする方法がお勧めです。</p>
-<ol>
-<li>WSUS 管理コンソールを開き、左ペインの [更新プログラム] を右クリックして [更新のインポート] をクリックします。</li>
-<li>ブラウザが起動し、Microsoft Update カタログ サイトが開きます。<br>(※ 初回アクセス時のみ、Microsoft Update Catalog アドオンのインストールが必要です。)</li>
-<li>更新プログラムの名前、KB 番号などで検索し、WSUS へインポートしたい更新について [追加] ボタンをクリックします。</li>
-<li>[バスケットの表示] をクリックすると、追加した更新プログラムが表示されます。</li>
-<li>[インポート] ボタンをクリックすると、更新プログラムの情報が WSUS へインポートされます。</li>
-</ol>
-<p>※ 注意 : Windows Server 2016 の WSUS を利用している場合には、エラー「この更新プログラムは Windows Server Update Services にインポートできません。<br>(理由: お使いのバージョンの WSUS と互換性がありません) 」が発生する問題が報告されています。本問題については対処方法を含め、以下のブログで紹介しておりますため、エラーが発生した場合は、こちらを参照ください。</p>
-<p>Windows Server 2016 の WSUS で更新プログラムのインポート時に互換性の問題が発生する事象<br><a href="https://jpmem.github.io/blog/wsus/2018-04-11_01/">https://jpmem.github.io/blog/wsus/2018-04-11_01/</a></p>
-<ol start="6">
-<li>インポート後に WSUS 管理コンソールを開いて、更新プログラムが追加されたことをご確認ください。<br>その後のインストール承認処理などは、通常の方法で同期した更新プログラムと同じです。</li>
-</ol>
-<h2 id="2-ある更新プログラムの属するクラスが知りたい"><a href="#2-ある更新プログラムの属するクラスが知りたい" class="headerlink" title="2. ある更新プログラムの属するクラスが知りたい"></a>2. ある更新プログラムの属するクラスが知りたい</h2><p>更新プログラムのクラスが何なのかが分からない場合もあります。そういった場合には Microsoft Update カタログで対象の更新プログラムを検索し、更新プログラムの “タイトル” をクリックします。</p>
+<h2 id="1-ある更新プログラムの属するクラスが知りたい"><a href="#1-ある更新プログラムの属するクラスが知りたい" class="headerlink" title="1. ある更新プログラムの属するクラスが知りたい"></a>1. ある更新プログラムの属するクラスが知りたい</h2><p>更新プログラムのクラスが何なのかが分からない場合もあります。そういった場合には Microsoft Update カタログで対象の更新プログラムを検索し、更新プログラムの “タイトル” をクリックします。</p>
 <p>表示されたポップアップの [概要] タブ内に [分類] として、WSUS のクラスに関する情報が表示されます。</p>
-<p>なお、Microsoft Update カタログ サイトで検索を行ってもヒットしない更新は、Microsoft Update カタログに未登録です。<br>カタログに未登録の更新は、WSUS サーバーへ同期させることが出来ません。<br>よくご相談いただく、特定の問題を修正する hotfix は、一般的にカタログ未登録です。</p>
-<h2 id="3-更新プログラムの置き換え関係を調べたい"><a href="#3-更新プログラムの置き換え関係を調べたい" class="headerlink" title="3. 更新プログラムの置き換え関係を調べたい"></a>3. 更新プログラムの置き換え関係を調べたい</h2><p>毎月リリースされるセキュリティ更新プログラムによくある話題として、更新の置換関係があります。<br>例えば定期的にリリースされる Windows の品質更新プログラムは、累積であり、最新版が以前の修正内容を含むため、置換関係が設定されています。<br>こういった場合に、Microsoft Update カタログで当該の更新に関する詳細情報を表示すると、下記を確認することが出来ます。</p>
+<p>なお、Microsoft Update カタログ サイトで検索を行ってもヒットしない更新は、Microsoft Update カタログに未登録です。<br>カタログに未登録の更新は、WSUS サーバーへ同期させることが出来ません。</p>
+<h2 id="2-更新プログラムの置き換え関係を調べたい"><a href="#2-更新プログラムの置き換え関係を調べたい" class="headerlink" title="2. 更新プログラムの置き換え関係を調べたい"></a>2. 更新プログラムの置き換え関係を調べたい</h2><p>毎月リリースされるセキュリティ更新プログラムによくある話題として、更新の置換関係があります。<br>例えば定期的にリリースされる Windows の品質更新プログラムは、累積であり、最新版が以前の修正内容を含むため、置換関係が設定されています。<br>こういった場合に、Microsoft Update カタログで当該の更新に関する詳細情報を表示すると、下記を確認することが出来ます。</p>
 <p>[パッケージの詳細] タブを開くと、置換関係に関連する情報が表示されます。</p>
 <p>“この更新プログラムは、次の更新プログラムで置き換えられました”<br>–&gt; もっと新しい更新が存在する場合に、その更新に関する情報が入ります</p>
 <p>“この更新プログラムは、次の更新プログラムを置き換えます”<br>–&gt; この更新が置き換える古い更新プログラムに関する情報が入ります</p>
 <p>ある KB 番号のセキュリティ更新を適用したいが Windows Update で適用対象として検出されない、というお問い合わせをいただくことがあります。<br>そういった場合には当該の KB を置き換えるより新しい更新の有無をチェックし、既に新しい更新が適用済みであれば古い更新は検出されないことを回答しています。</p>
-<h2 id="4-更新プログラムのインストーラー収集"><a href="#4-更新プログラムのインストーラー収集" class="headerlink" title="4. 更新プログラムのインストーラー収集"></a>4. 更新プログラムのインストーラー収集</h2><p>インターネットへ接続できないオフライン環境へ更新を適用する際には、オンラインの別環境でインストーラーをダウンロードする必要があります。<br>ダウンロード センターを使用して個別にダウンロードする方法もありますが、Microsoft Update カタログを使って一括ダウンロードも出来ます。</p>
-<p>パターン A の例としてステップ 6 で [インポート] ボタンをクリックしましたが、オプション [直接インポート Windows Server Update Services] をオフにすることで、ダウンロードが可能です。</p>
-<p>なお、WSUS サーバー以外の端末で Microsoft Update カタログを開く場合には、WSUS サーバーへのインポートは出来ず、ダウンロードのみ可能です。</p>
+<h2 id="3-更新プログラムのインストーラー収集"><a href="#3-更新プログラムのインストーラー収集" class="headerlink" title="3. 更新プログラムのインストーラー収集"></a>3. 更新プログラムのインストーラー収集</h2><p>インターネットへ接続できないオフライン環境へ更新を適用する際には、オンラインの別環境でインストーラーをダウンロードする必要があります。<br>ダウンロード センターを使用して個別にダウンロードする方法もありますが、Microsoft Update カタログを使って一括ダウンロードも出来ます。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="clkqpp24j00620nmv4ghme6rs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="clkrmsogw00620npb7tkacxv2" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
