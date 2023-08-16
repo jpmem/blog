@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>suffixがcloudapp.netなCMGの仮想マシンスケールセットへの移行について | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、 Microsoft Configuration Manager (ConfigMgr) において、suffix が cloudapp.net である、クラウド サービス(クラシック) ベースのクラウド管理ゲートウェイ (CMG) を仮想マシンスケールセット （VMSS) の CMG に移行する方法につ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="suffixがcloudapp.netなCMGの仮想マシンスケールセットへの移行について">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20230816_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、 Microsoft Configuration Manager (ConfigMgr) において、suffix が cloudapp.net である、クラウド サービス(クラシック) ベースのクラウド管理ゲートウェイ (CMG) を仮想マシンスケールセット （VMSS) の CMG に移行する方法につ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_02.png">
+<meta property="article:published_time" content="2023-08-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-16T02:36:20.758Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="CMG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_03.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20230816_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2023-08-15T15:00:00.000Z" itemprop="datePublished">2023-08-16</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      suffixがcloudapp.netなCMGの仮想マシンスケールセットへの移行について
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2023-08-15T15:00:00.000Z" itemprop="dateUpdated">2023-08-16</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、 Microsoft Configuration Manager (ConfigMgr) において、suffix が cloudapp.net である、クラウド サービス(クラシック) ベースのクラウド管理ゲートウェイ (CMG) を仮想マシンスケールセット （VMSS) の CMG に移行する方法についてご案内させて頂きます。</p>
+<p>以前も下記記事でご案内させて頂いている通り、クライアントからアクセスする際に使われる URL (サービス名) が 展開名と同じ、 [ホスト名].cloudapp.net の CMG については VMSS の CMG への変換が利用できません。それは、VMSS への変換に伴い、展開名の URL の形式が [ホスト名].[リージョン名].cloudapp.azure.com に変わりますが、その変更をクライアント側に伝える手段が無いためです。DNS サーバーに CNAME レコードにより、お客様独自の サービス名を、[ホスト名].cloudapp.net の エイリアスとして登録されていたお客様であれば、CNAME レコードのエイリアスを変更するだけで対処が出来るのですが、それが使えないため、 VMSS 版 CMG への変換をご提供していません。</p>
+<p>仮想マシン スケールセットのクラウド管理ゲートウェイについて<br><a href="https://jpmem.github.io/blog/mecm/20211212_01/">https://jpmem.github.io/blog/mecm/20211212_01/</a>  </p>
+<p>そのため、サービス名を [ホスト名].cloudapp.net として設定した CMG をお使いのお客様は、VMSS 版 CMG への移行に当たって、変換ではなく、CMG の再構築を実施頂く必要がございます。</p>
+<p>なお、上記記事でもご案内の通り、 MECM CB 2203 以降、クラウドサービス (クラシック) 版の CMG のデプロイは利用できなくなっております。 MECM CB 2203 へアップグレードする際の前提条件チェックでも警告されますが、アップグレード後も構築済みのクラウドサービス (クラシック)のご利用は可能なものの、一度でも削除すると、再デプロイできなくなるため、出来る限り早く VMSS 版の CMG への移行を推奨しております。</p>
+<h2 id="VMSS-版-CMG-への移行にあたっての課題"><a href="#VMSS-版-CMG-への移行にあたっての課題" class="headerlink" title="VMSS 版 CMG への移行にあたっての課題"></a>VMSS 版 CMG への移行にあたっての課題</h2><p>上記でも触れたとおり、VMSS 版 CMG の利用により クライアントが CMG に繋がる際に利用する FQDN が変わるため、その変更をクライアントに伝える手段が必要となります。インターネットとイントラネット ( VPN 接続を含む)を行き来するようなご利用をされている端末であれば、イントラネットに接続した際に 新しい URL をクライアントに伝えることが出来ますが、インターネット経由でしか繋げないクライアントの場合、新しい URL が分からないため、二度と ConfgMgr へ接続出来なくなるといった課題が生じます。</p>
+<p>また、新規構築した VMSS 版の CMG では、もちろん、移行前の CMG で配布していたコンテンツが引き継がれていないため、移行前の CMG で配布していた コンテンツ を アップロード する必要が出てきます。ConfigMgr CB 2211 以降では、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/deploy-and-manage-content#start-cmdistributionpointmigration">Start-CMDistributionPointMigration コマンドレット</a> が利用可能になりました。本記事ではこちらの コマンドレット を利用しますが、ConfigMgr CB 2207 以前の環境では利用出来ないので、旧 CMG の プロパティ から配布コンテンツ の リスト をスクリーンショット等で採取しておき、 手動で1つ1つ プライマリ サイト サーバー から配布する必要がございます。</p>
+<h2 id="上記課題に対する対策"><a href="#上記課題に対する対策" class="headerlink" title="上記課題に対する対策"></a>上記課題に対する対策</h2><p>上記、二つの課題に対応するため、以下の対策を実施します。</p>
+<ol>
+<li>クラウド サービス(クラシック)版と VMSS 版 CMG を、VMSS 版 CMG の URL がクライアントに伝わるまで、並行稼働する。クライアントに伝わったかどうかはスクリプト機能を使って収集する。電源断等でスクリプトが伝わったかどうか不明なクライアントに対しては手動で設定変更させる。</li>
+<li>Start-CMDistributionMigration コマンドレットを使う。</li>
+</ol>
+<h3 id="必要なコスト"><a href="#必要なコスト" class="headerlink" title="必要なコスト"></a>必要なコスト</h3><p>上記対応策では、二つの CMG を並行稼働させるため、並行稼働期間中、クラウド管理ゲートウェイのコストが約 2 倍となります。また、それぞれの CMG からの通信を中継するため、クラウド管理ゲートウェイ接続ポイント (CMG-CP) が動作するサーバーを追加で用意する必要がございます。（2 個の CMG からの通信を 1 つの CMG-CP では中継できません。それぞれの CMG 用の CMG-CP を用意する必要がございます)</p>
+<h3 id="実施手順"><a href="#実施手順" class="headerlink" title="実施手順"></a>実施手順</h3><ol>
+<li><p>VMSS 版 CMG とその通信を中継する CMG-CP を作成します。以下でご案内している手順をご参考にしていただければと存じます。<br>クラウド管理ゲートウェイ (CMG) の構築手順例<br><a href="https://jpmem.github.io/blog/mecm/20220501_01/">https://jpmem.github.io/blog/mecm/20220501_01/</a>  </p>
+</li>
+<li><p>[ConfigMgrコンソール] - 画面左上の下▼ボタンをクリック - [Windows PowerShell で接続する]をクリックします。<br><img src="/blog/mecm/20230816_01/20230816_01_03.png"></p>
+</li>
+<li><p>Start-CMDistributionMigration コマンドレットで以下を実行します。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start-CMDistributionPointMigration -SourceDistributionPointName [旧クラウド管理ゲートウェイのFQDN] -DestinationDistributionPointName [新クラウド管理ゲートウェイのFQDN]</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>実行後、以下を実行し複製状況を確認します。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-CMDistributionPointMigrationContentStatus -SourceDistributionPointName [旧クラウド管理ゲートウェイのFQDN] -DestinationDistributionPointName [新クラウド管理ゲートウェイのFQDN]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>実行中は以下のように進行状態が表示されます。<br><img src="/blog/mecm/20230816_01/20230816_01_01.png"></p>
+<p>実行が完了すると何も表示されなくなります。<br><img src="/blog/mecm/20230816_01/20230816_01_02.png"></p>
+<ol start="5">
+<li>スクリプト機能を使って、以下のスクリプトにより新規に作成した VMSS 版 CMG の情報がクライアント側に伝わっているかを定期的に確認します。以下のスクリプトを実行すると、クライアントに伝わっている CMG の FQDN が ;(セミコロン) を区切り文字として取得可能です。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$RegPath = &quot;HKLM:\SOFTWARE\Microsoft\CCM\&quot;</span><br><span class="line">$RegKey  = &quot;CMGFQDNs&quot;</span><br><span class="line"></span><br><span class="line">$cmgfqdns = Get-ItemPropertyValue $RegPath -Name $RegKey</span><br><span class="line"></span><br><span class="line">if($null -ne $cmgfqdns)&#123;</span><br><span class="line">    Write-Host $cmgfqdns</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    Write-Host &quot;No CMG&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>スクリプト機能のご紹介<br><a href="https://jpmem.github.io/blog/mecm/20211025_01/">https://jpmem.github.io/blog/mecm/20211025_01/</a>  </p>
+<ol start="6">
+<li>クライアント側に十分に VMSS 版 CMG の情報が伝わったら、クラウド サービス(クラシック)側の CMG を削除します。</li>
+<li>電源断等で FQDN 情報が伝わらなかったクライアントに対しては別途、イントラ内管理ポイントに接続させるか、ccmsetup による ConfigMgr クライアント再インストールで対応します。ccmsetup で VMSS 版 CMG の FQDN を設定するには、 CCMHOSTNAME オプションを使用します。以下、コマンドの例です。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /NoCRLCheck /mp:[CMGのFQDN ]SMSMP=[イントラの管理ポイント] CCMHOSTNAME=[CMGのFQDN] SMSSITECODE=[サイトコード]</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20230816_01/" data-id="clld4frqz00520nnz0ouvbfnx" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20230813_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">リモート配布ポイントへ コンテンツ が配布出来ないときの トラブルシューティング</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">suffixがcloudapp.netなCMGの仮想マシンスケールセットへの移行について</a>
+          </li>
+        
+          <li>
+            <a href="../20230813_01/">リモート配布ポイントへ コンテンツ が配布出来ないときの トラブルシューティング</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2023-07-27_01/">Microsoft Update カタログから更新プログラムをインポートする手順が変更されました</a>
+          </li>
+        
+          <li>
+            <a href="../20230720_01/">Configuration Manager ベーシック ナレッジ シリーズ 1 - Configuration Manager から展開できる機能のご紹介</a>
+          </li>
+        
+          <li>
+            <a href="../20230601_01/">WSUS で Windows 11 クライアントが Windows 10 と表示される事象について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
