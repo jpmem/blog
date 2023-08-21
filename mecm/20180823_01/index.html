@@ -5,14 +5,14 @@
   
 
   
-  <title>SCCM CB 自動クライアント アップグレード手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>Configuration Manager 自動クライアント アップグレード手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+  <meta name="description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SCCM CB 自動クライアント アップグレード手順">
+<meta property="og:title" content="Configuration Manager 自動クライアント アップグレード手順">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180823_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。 日本マイクロソフト System Center Configuration Manager サポートチームです。 本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。SCCM CB クラ">
+<meta property="og:description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_02.png">
@@ -21,9 +21,8 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_05.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_07.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_08.png">
 <meta property="article:published_time" content="2018-08-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-17T04:28:33.771Z">
+<meta property="article:modified_time" content="2023-08-21T09:36:20.327Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -107,7 +106,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SCCM CB 自動クライアント アップグレード手順
+      Configuration Manager 自動クライアント アップグレード手順
     </h1>
   
 
@@ -123,43 +122,42 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。</p>
-<p>日本マイクロソフト System Center Configuration Manager サポートチームです。</p>
-<p>本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。<br>SCCM CB クライアントのアップグレード方法は、以下のように、複数がございます。</p>
-<p>・自動クライアント アップグレード<br>・クライアント プッシュ インストール<br>・グループ ポリシーによるインストール<br>・ログオン スクリプトによるインストール<br>・手動インストール<br>・アップグレード インストール</p>
-<p>お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少ない方法となりますので、クライアントのアップグレードの際に、本機能のご利用をご検討いただけますと幸いです。</p>
-<h2 id="クライアント-アップグレード動作の流れ"><a href="#クライアント-アップグレード動作の流れ" class="headerlink" title="クライアント アップグレード動作の流れ"></a>クライアント アップグレード動作の流れ</h2><ol>
-<li><p>[Configuration Manager コンソール] を開き、以下の画面に移動します。<br>[管理] - [概要] - [サイトの構成] - [サイト]<br><img src="/blog/mecm/20180823_01/20180823_01_01.png"></p>
-</li>
-<li><p>リボンメニューから、[階層設定] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png"></p>
-</li>
-<li><p>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。</p>
-</li>
-<li><p>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png"></p>
-</li>
-<li><p>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png"></p>
-</li>
-<li><p>[OK] ボタンをクリックし、画面を閉じます。</p>
-</li>
-<li><p>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、リボンメニューから [実稼働前クライアントの昇格] をクリックします。<br>ここで、確認メッセージが表示されますので、[昇格] をクリックします。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png"></p>
-</li>
+        <p><strong>2018/08/23 初版公開</strong><br><strong>2023/08/16 更新</strong><br><strong>- 最新バージョンの動作に合わせ記載を修正しました。</strong>  </p>
+<p>みなさま、こんにちは。  </p>
+<p>日本マイクロソフト Configuration Manager サポートチームです。  </p>
+<p>本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。<br>クライアントのアップグレード方法は、以下のように、複数がございます。  </p>
+<p>・自動クライアント アップグレード<br>・クライアント プッシュ インストール<br>・グループ ポリシーによるインストール<br>・ログオン スクリプトによるインストール<br>・手動インストール<br>・アップグレード インストール  </p>
+<p>お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少ない方法となりますので、クライアントのアップグレードの際に、本機能のご利用をご検討いただけますと幸いです。  </p>
+<h2 id="自動クライアント-アップグレードの手順"><a href="#自動クライアント-アップグレードの手順" class="headerlink" title="自動クライアント アップグレードの手順"></a>自動クライアント アップグレードの手順</h2><ol>
+<li>[Configuration Manager コンソール] を開き、[管理] - [概要] - [サイトの構成] - [サイト] に移動します。<br><img src="/blog/mecm/20180823_01/20180823_01_01.png">  </li>
+<li>対象のサイトを選択し、リボンメニューから [階層設定] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png">  </li>
+<li>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png">  </li>
+<li>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、<br>“実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png">  </li>
+<li>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png">  </li>
+<li>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png">  </li>
+<li>[OK] ボタンを選択し、画面を閉じます。  </li>
+<li>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、<br>リボンメニューから [実稼働前クライアントの昇格] を選択します。<br>ここで、確認メッセージが表示されますので、[昇格] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png">  </li>
 </ol>
-<p>手順は、以上となります。</p>
-<p>管理対象が多い大規模の環境では、自動クライアント アップグレードの機能を有効にすることで、一気にクライアントのアップグレードがされ、ネットワークを逼迫することが懸念点として考えられますが、上記の設定画面にて、自動アップグレードの期間を長く指定してきただくことで、ネットワークの負荷を分散することができます。</p>
-<p>例えば、指定可能な最長日数の 31 としていただきますと、クライアントは、1 ~ 31 日の期間中、ランダムの日付に、アップグレードを行います。<br>念の為、具体的なクライアントのアップグレード動作を、補足説明いたしますのでご参考いただけますと幸いです。</p>
+<p>手順は、以上となります。  </p>
+<p>管理対象が多い大規模の環境では、自動クライアント アップグレードの機能を有効にすることで、一気にクライアントのアップグレードがされ、ネットワークを逼迫することが懸念点として考えられますが、上記の設定画面にて、自動アップグレードの期間を長く指定してきただくことで、ネットワークの負荷を分散することができます。  </p>
+<p>例えば、指定可能な最長日数の 31 としていただきますと、クライアントは、1 ~ 31 日の期間中、ランダムの日付に、アップグレードを行います。<br>念の為、具体的なクライアントのアップグレード動作を、補足説明いたしますのでご参考いただけますと幸いです。  </p>
 <h2 id="クライアント-アップグレードの動作の流れ"><a href="#クライアント-アップグレードの動作の流れ" class="headerlink" title="クライアント アップグレードの動作の流れ"></a>クライアント アップグレードの動作の流れ</h2><ol>
-<li> SCCM サーバにおいて自動クライアント アップグレードを有効にする際に、アップグレード期間を指定します。</li>
-<li>クライアントが自動クライアント アップグレードのポリシーを受信します。</li>
-<li>クライアントのタスク スケジューラに、指定した日数内で、ランダムな日時に開始されるクライアント アップグレードのタスクが登録されます。</li>
-<li>登録されたタスクに開始時刻に、クライアントはそれぞれアップグレードを開始します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png"><br><img src="/blog/mecm/20180823_01/20180823_01_08.png"></li>
+<li>ConfigMgr サーバーにおいて自動クライアント アップグレードを有効にする際に、アップグレード期間を指定します。  </li>
+<li>クライアントが自動クライアント アップグレードのポリシーを受信します。  </li>
+<li>クライアント ポリシーを受信後、WMI の CCM_ClientUpgrade クラス の IsEnabled プロパティが “True” に変更されます。<br>CCM_ClientUpgrade クラスは、以下の PowerShell コマンドレットで確認可能です。  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gwmi -namespace root\ccm\policy\machine\actualconfig -class CCM_ClientUpgrade</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>ConfigMgr クライアントが上記の WMI の変更を検知し、ccmsetup のコンテンツ ダウンロードを行います。  </li>
+<li>ダウンロード完了後、ClientServicing が ccmsetup を実行します。実行時、[次の日数以内にクライアントを自動アップグレードする] で設定した期間を考慮してランダマイズされた日時でスケジュールされます。  </li>
+<li>上記でスケジュールされた日時になるとアップグレードが実行されます。  </li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cllenvxql001e0omn8dtagcwf" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cllkon4wo001e0nrx3ncxeeem" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
