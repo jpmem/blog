@@ -7,16 +7,16 @@
   
   <title>WSUS 構築マニュアル | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS 環境構築手順 手順a. 役割と機能のインストールb. WSUS の設定    a. 役割と機能のインストールサーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能を">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS の概要と構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS の概要 WSUS の概要目次a. WSUS とはb. WSUS を利用するメリット    a. WSUS とはWSUS (Windows Server Update Services) とは、Windows OS のコンピュータ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS 構築マニュアル">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2023-02-16_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS 環境構築手順 手順a. 役割と機能のインストールb. WSUS の設定    a. 役割と機能のインストールサーバー マネージャーを使用して、WSUS サーバー、IIS、Windows Internal Database の役割と機能を">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS の概要と構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。  WSUS の概要 WSUS の概要目次a. WSUS とはb. WSUS を利用するメリット    a. WSUS とはWSUS (Windows Server Update Services) とは、Windows OS のコンピュータ">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-02-16_01/2023-02-16_01_1.png">
 <meta property="article:published_time" content="2023-02-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-21T09:36:20.703Z">
+<meta property="article:modified_time" content="2023-09-05T04:52:21.996Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta property="article:tag" content="構築マニュアル">
@@ -117,8 +117,18 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS 構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。</p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。<br>今回は、WSUS の概要と構築手順についてご紹介します。WSUS 環境構築予定の方は是非ご一読ください。</p>
 <hr>
+<h2 id="WSUS-の概要"><a href="#WSUS-の概要" class="headerlink" title="WSUS の概要"></a>WSUS の概要</h2><ul>
+<li>WSUS の概要目次<br>a. WSUS とは<br>b. WSUS を利用するメリット  </li>
+</ul>
+<h3 id="a-WSUS-とは"><a href="#a-WSUS-とは" class="headerlink" title="a. WSUS とは"></a>a. WSUS とは</h3><p>WSUS (Windows Server Update Services) とは、Windows OS のコンピューターへの更新プログラムの適用の制御を行うアプリケーションです。<br>管理対象の更新プログラムは、Windows OS や Microsoft 365 Apps、Microsoft Defender ウイルス対策のセキュリティ インテリジェンス更新プログラムなど様々ございます。  </p>
+<p>WSUS の主な目的は下記の 2 点となりますので、それぞれメリットを後述させていただきます。<br>・更新プログラムの適用状況の一元管理ができる<br>・インターネットへの大きなネットワーク トラフィックが発生するリスクがなくなる  </p>
+<p>下記公開情報に WSUS の概要が記載されております。<br>Title : Windows Server Update Services (WSUS)<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/get-started/windows-server-update-services-wsus">https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/get-started/windows-server-update-services-wsus</a>  </p>
+<h3 id="b-WSUS-を利用するメリット"><a href="#b-WSUS-を利用するメリット" class="headerlink" title="b. WSUS を利用するメリット"></a>b. WSUS を利用するメリット</h3><p>下記に WSUS を利用することのメリットをご紹介します。  </p>
+<p>【更新プログラムの適用状況の一元管理ができる】<br>管理対象の社内のクライアント何台にどの更新プログラムが必要なのか、更新プログラムの適用状況を確認することができます。<br>なお、適用状況の確認は表やグラフ表示で閲覧できるほか、レポートを PDF や Excel 形式でダウンロードすることも可能です。<br>また、WSUS コンソールにて、配信したい更新プログラムを “承認” することで、”承認” された更新プログラムのみが対象のクライアントに配信されますので、インターネットの Windows Update から各クライアントが更新プログラムを受け取る運用と異なり、特定の更新プログラムを配信しないといった選択もできます。<br>複数のクライアントをひとまとめにしたコンピューター グループを作成し、そのコンピューター グループに対して更新プログラムを配信するという運用も可能です。  </p>
+<p>【インターネットへの大きなネットワーク トラフィックが発生するリスクがなくなる】<br>WSUS から配信した更新プログラムは基本的に社内のプライベート ネットワーク経由でクライアントに配信されるため、各クライアントからインターネットへの接続を抑制することが可能です。<br>そのため、インターネットへの大きなネットワーク トラフィックが発生するリスクが小さくなります。  </p>
+<p>下記弊社ブログで WSUS の基本的な仕組みを紹介しております。<br>Title : WSUS の仕組み ダウンロード編<br>URL : <a href="https://jpmem.github.io/blog/wsus/2022-06-06_01/">https://jpmem.github.io/blog/wsus/2022-06-06_01/</a>  </p>
 <h2 id="WSUS-環境構築手順"><a href="#WSUS-環境構築手順" class="headerlink" title="WSUS 環境構築手順"></a>WSUS 環境構築手順</h2><ul>
 <li>手順<br>a. 役割と機能のインストール<br>b. WSUS の設定  </li>
 </ul>
@@ -166,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-02-16_01/" data-id="cllkon51q009y0nrx95d68vbr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-02-16_01/" data-id="clm5u3psw009y0npxdd1p5s8l" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
