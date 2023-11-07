@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 特定の条件下にある Windows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プログラムが配布されない事象についてご案内いたします。 事象についてWindows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-11-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-07T08:29:15.063Z">
+<meta property="article:modified_time" content="2023-11-07T08:33:15.904Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -130,22 +130,23 @@
 <h1 id="原因について"><a href="#原因について" class="headerlink" title="原因について"></a>原因について</h1><p>発生条件に当てはまるデバイスについては、Configuration Manager を利用して Windows 更新プログラムを取得するのではなく、Windows Update 経由で Windows 更新プログラムを取得する動作に変更されます。<br>これはデュアルスキャンと呼称され、Configuration Manager から Windows Defender の定義ファイルや OS の更新プログラムが配布されなくなります。<br>Configuration Manager クライアントは、既定でこのデュアル スキャンを抑止するレジストリをセットしますが、Windows 11 においては、抑止するための以下のレジストリが正しくセットされていないために、意図せずデュアルスキャンが発生します。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</span><br><span class="line">UseUpdateClassPolicySource</span><br></pre></td></tr></table></figure>
 
-<h1 id="対処について"><a href="#対処について" class="headerlink" title="対処について"></a>対処について</h1><p>以下の 1 ～ 3 のいずれかの対処を行うことで、本事象は解消します。</p>
-<h2 id="1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする。"><a href="#1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする。" class="headerlink" title="1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする。"></a>1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする。</h2><p>Configuration Manager 2303 修正プログラム (KB25506239) および、Configuration Manager 2309 にはデュアルスキャンの動作を抑制するためのレジストリである UseUpdateClassPolicySource を自動で構成するための修正がされております。<br>そのため、サーバーを本バージョンにアップグレードした後、問題のクライアント端末にインストールされている Configuration Manager クライアントをアップグレードしてください。</p>
+<h1 id="対処について"><a href="#対処について" class="headerlink" title="対処について"></a>対処について</h1><p>以下の 1 ～ 3 のいずれかの対処を行うことで、本事象は解消します。  </p>
+<h2 id="1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする"><a href="#1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする" class="headerlink" title="1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする"></a>1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする</h2><p>Configuration Manager 2303 修正プログラム (KB25506239) および、Configuration Manager 2309 にはデュアルスキャンの動作を抑制するためのレジストリである UseUpdateClassPolicySource を自動で構成するための修正がされております。<br>そのため、サーバーを本バージョンにアップグレードした後、問題のクライアント端末にインストールされている Configuration Manager クライアントをアップグレードしてください。</p>
 <p>修正プログラムのインポート方法については<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/hotfix/2303/25073607#update-information-for-microsoft--configuration-manager">こちら</a>をご確認ください。</p>
 <p>また、Configuration Manager 2309 にも本修正は含まれております。</p>
-<h2 id="2．1-の対処ができず、以下のグループポリシー-ローカルグループポリシー-が必要ない場合には未構成とし構成されないようにする。"><a href="#2．1-の対処ができず、以下のグループポリシー-ローカルグループポリシー-が必要ない場合には未構成とし構成されないようにする。" class="headerlink" title="2．1 の対処ができず、以下のグループポリシー (ローカルグループポリシー) が必要ない場合には未構成とし構成されないようにする。"></a>2．1 の対処ができず、以下のグループポリシー (ローカルグループポリシー) が必要ない場合には未構成とし構成されないようにする。</h2><p>. [コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update] -&gt; [Windows Update から提供される更新プログラムの管理] -&gt; [品質更新プログラムをいつ受信するかを選択してください]   </p>
+<h2 id="2．Windows-Update-for-Business-のグループポリシー-ローカルグループポリシー-が不要な場合、未構成にする"><a href="#2．Windows-Update-for-Business-のグループポリシー-ローカルグループポリシー-が不要な場合、未構成にする" class="headerlink" title="2．Windows Update for Business のグループポリシー (ローカルグループポリシー) が不要な場合、未構成にする"></a>2．Windows Update for Business のグループポリシー (ローカルグループポリシー) が不要な場合、未構成にする</h2><p>項番 1. の対処ができない場合は、以下のグループポリシーを未構成にすることで、デュアルスキャンの動作を抑止することができます。</p>
+<p>. [コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update] -&gt; [Windows Update から提供される更新プログラムの管理] -&gt; [品質更新プログラムをいつ受信するかを選択してください]   </p>
 <p>直接レジストリに設定をしている場合には以下を削除ください。<br>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate : DeferQualityUpdatesPeriodInDays</p>
 <p>・[コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update] -&gt; [Windows Update から提供される更新プログラムの管理] -&gt; [プレビュービルドや機能更新プログラムをいつ受信するかを選択してください]  </p>
 <p>直接レジストリに設定をしている場合には以下を削除ください。<br>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate : DeferFeatureUpdatesPeriodInDays</p>
-<h2 id="3．1-および-2-の対処ができない場合にはデュアルスキャンを回避するためのレジストリを追加する。"><a href="#3．1-および-2-の対処ができない場合にはデュアルスキャンを回避するためのレジストリを追加する。" class="headerlink" title="3．1 および 2 の対処ができない場合にはデュアルスキャンを回避するためのレジストリを追加する。"></a>3．1 および 2 の対処ができない場合にはデュアルスキャンを回避するためのレジストリを追加する。</h2><p>UseUpdateClassPolicySource を構成することにより、デュアルスキャンの動作を抑制することが可能です。本レジストリを構成した時の影響は特にございません。   </p>
+<h2 id="3．デュアルスキャンを回避するためのレジストリを手動で追加する"><a href="#3．デュアルスキャンを回避するためのレジストリを手動で追加する" class="headerlink" title="3．デュアルスキャンを回避するためのレジストリを手動で追加する"></a>3．デュアルスキャンを回避するためのレジストリを手動で追加する</h2><p>項番 1. 項番 2. の対処ができない場合は、UseUpdateClassPolicySource を構成することにより、デュアルスキャンの動作を抑制することが可能です。本レジストリを構成した時の影響は特にございません。   </p>
 <p>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU<br>値の名前：UseUpdateClassPolicySource<br>値のデータ：1<br>値の種類：REG_DWORD  </p>
 <p>Configuration Manager を利用してレジストリを構成する手順については、<a href="https://jpmem.github.io/blog/mecm/20230307_01/">コンプライアンス機能で特定レジストリ値をセットする方法</a>を参照ください。<br>なお、Configuration Manager 2303 修正プログラムの適用、または Configuration Manager 2309 にアップグレードして本事象を解消した後は、本構成基準の展開は無効または削除ください。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20231102_02/" data-id="cloo2l9ld00630no20ce2gbir" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20231102_02/" data-id="cloo2qg6i00560nmv3c3j5s9e" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
