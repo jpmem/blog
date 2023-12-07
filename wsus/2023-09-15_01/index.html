@@ -5,20 +5,26 @@
   
 
   
-  <title>更新プログラムに用いられるコード証明書の SHA-2 への移行について | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>HTTPS 構成の WSUS 環境構築マニュアル | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 以下の公開情報でも紹介している通り、Microsoft ではセキュリティ保護のために SHA-1 から SHA-2 への移行を段階的に進めております。  Protecting Against Weak Cryptographic Algorithmshttps:&#x2F;&#x2F;docs.microsoft.com&#x2F;ja-jp&#x2F;previous-versi">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、HTTPS 構成 の WSUS 構築手順についてご紹介します。HTTPS 構成とすることをご検討いただく際に是非ご一読ください。  HTTPS 構成の WSUS 環境構築手順 手順a. サーバー証明書の準備b. サーバー証明書のインポートc. サーバー証明書のバインドd. HTTPS の構成e. クライアントの参照する WSUS サーバ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="更新プログラムに用いられるコード証明書の SHA-2 への移行について">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-03-19_01/index.html">
+<meta property="og:title" content="HTTPS 構成の WSUS 環境構築マニュアル">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 以下の公開情報でも紹介している通り、Microsoft ではセキュリティ保護のために SHA-1 から SHA-2 への移行を段階的に進めております。  Protecting Against Weak Cryptographic Algorithmshttps:&#x2F;&#x2F;docs.microsoft.com&#x2F;ja-jp&#x2F;previous-versi">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、HTTPS 構成 の WSUS 構築手順についてご紹介します。HTTPS 構成とすることをご検討いただく際に是非ご一読ください。  HTTPS 構成の WSUS 環境構築手順 手順a. サーバー証明書の準備b. サーバー証明書のインポートc. サーバー証明書のバインドd. HTTPS の構成e. クライアントの参照する WSUS サーバ">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2019-03-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-07T04:59:35.729Z">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/2023-06-23_02/2023-06-23_02-1.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/2023-06-23_02/2023-06-23_02-2.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/2023-06-23_02/2023-06-23_02-3.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/2023-06-23_02/2023-06-23_02-4.png">
+<meta property="article:published_time" content="2023-09-14T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-07T04:59:35.801Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
+<meta property="article:tag" content="構築マニュアル">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2023-09-15_01/2023-06-23_02/2023-06-23_02-1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -84,10 +90,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2019-03-19_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2023-09-15_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2019-03-18T15:00:00.000Z" itemprop="datePublished">2019-03-19</time>
+  <time datetime="2023-09-14T15:00:00.000Z" itemprop="datePublished">2023-09-15</time>
 </a>
     <!--  -->
   </div>
@@ -98,7 +104,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      更新プログラムに用いられるコード証明書の SHA-2 への移行について
+      HTTPS 構成の WSUS 環境構築マニュアル
     </h1>
   
 
@@ -107,32 +113,58 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2019-03-18T15:00:00.000Z" itemprop="dateUpdated">2019-03-19</time>
+    <time datetime="2023-09-14T15:00:00.000Z" itemprop="dateUpdated">2023-09-15</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>以下の公開情報でも紹介している通り、<br>Microsoft ではセキュリティ保護のために SHA-1 から SHA-2 への移行を段階的に進めております。</p>
-<ul>
-<li>Protecting Against Weak Cryptographic Algorithms<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn375961(v=ws.11)?redirectedfrom=MSDN">https://docs.microsoft.com/ja-jp/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn375961(v=ws.11)?redirectedfrom=MSDN</a></li>
+        <p>みなさま、こんにちは。WSUS サポート チームです。今回は、HTTPS 構成 の WSUS 構築手順についてご紹介します。HTTPS 構成とすることをご検討いただく際に是非ご一読ください。</p>
+<hr>
+<h2 id="HTTPS-構成の-WSUS-環境構築手順"><a href="#HTTPS-構成の-WSUS-環境構築手順" class="headerlink" title="HTTPS 構成の WSUS 環境構築手順"></a>HTTPS 構成の WSUS 環境構築手順</h2><ul>
+<li>手順<br>a. サーバー証明書の準備<br>b. サーバー証明書のインポート<br>c. サーバー証明書のバインド<br>d. HTTPS の構成<br>e. クライアントの参照する WSUS サーバーの設定<br>f. クライアントのアクセス確認</li>
 </ul>
-<p>この一環として Windows Update や WSUS 等から配信される更新プログラムに付与されているコード署名証明書についても、SHA-2 へ移行を行うことを予定しております。  </p>
-<p>具体的なタイムラインについては、以下の公開情報で最新の情報を随時紹介しております。特に WSUS 3.0 SP2 や Windows 7 SP1、Windows Server 2008 SP2、Windows Server 2008 R2 SP1 を利用しているお客様は、これからリリースされる SHA-2 の証明書のみが付与された更新プログラムを適用・配信するために、期限までに更新プログラムの適用が必要になります。</p>
-<p>適用すべき更新プログラムや今後の移行スケジュールの情報は、次の公開情報に記載しております。<br>ご一読いただき、期限までに更新プログラムを適用くださいますようお願いいたします。</p>
-<ul>
-<li>Windows および WSUS の 2019 sha-2 コード署名のサポートの要件<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4472027/2019-sha-2-code-signing-support-requirement-for-windows-and-wsus">https://support.microsoft.com/ja-jp/help/4472027/2019-sha-2-code-signing-support-requirement-for-windows-and-wsus</a></li>
-</ul>
+<h3 id="a-サーバー証明書準備"><a href="#a-サーバー証明書準備" class="headerlink" title="a. サーバー証明書準備"></a>a. サーバー証明書準備</h3><p>参考として、Active Directory 証明書サービスを利用して証明書を発行することができますのでご紹介します。<br>Active Directory 証明書サービスを利用して、エンタープライズ CA を構築し、テンプレートの複製を利用することで、Active Directory 配下のクライアントが証明書の発行要求を行うことができます。  </p>
+<p>１．Active Directoryサーバーにて、役割と機能の追加から「Active Directory 証明書サービス」を追加します。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority#to-install-active-directory-certificate-services">Active Directory Certificate Services をインストールするには</a>  </p>
+<p>２．Active Directoryサーバーにて、証明機関を開き、[証明書テンプレート]-[管理]より、[Webサーバー]を選択しテンプレートの複製を行います。<br>３．Active Directoryサーバーにて、証明機関を開き、[証明書テンプレート]より、[新規作成]を選択し[発行する証明書テンプレート]から、２．で複製した [Webサーバー] のテンプレートを選択します。<br>４．WSUS サーバーにて、証明書ストアを開き、[個人用]-[証明書] から、[すべてのタスク]―[新しい証明書の要求] を行い、３で作成した [Webサーバー] の証明書を要求します。</p>
+<h3 id="b-サーバー証明書のインポート"><a href="#b-サーバー証明書のインポート" class="headerlink" title="b. サーバー証明書のインポート"></a>b. サーバー証明書のインポート</h3><p>使用するサーバー証明書を個人用 証明書ストア にインポートします。  </p>
+<ol>
+<li>WSUS サーバーで、インターネット インフォメーション サービス (IIS) マネージャを起動します。  </li>
+<li>左ペインより、サーバー名を選択します。  </li>
+<li>中央ペインより [サーバー証明書] を選択します。  </li>
+<li>右ペインより [インポート] を選択します。  </li>
+<li>証明書ファイルを選択後、パスワードを入力し、[OK] をクリックします。<br>※　WSUS サーバーの 個人用 証明書ストアに使用する証明書が既に存在する場合はこの手順の実施は不要です。</li>
+</ol>
+<h3 id="c-サーバー証明書のバインド"><a href="#c-サーバー証明書のバインド" class="headerlink" title="c. サーバー証明書のバインド"></a>c. サーバー証明書のバインド</h3><p>インターネットインフォメーション サービス (IIS) にて、サーバー証明書をバインドします。  </p>
+<ol>
+<li>インターネットインフォメーション サービス (IIS) マネージャより、[サイト] を展開し、 WSUS にて利用している Web サイト (既定 「 WSUS の管理」) を右クリックして、[バインドの編集] をクリックします。  </li>
+<li>サイトバインドにて、8531 を選択し [編集] をクリックします。(カスタムポートをご利用の場合、ご利用の Web サイトより同様に サイトバインドにて 443 を選択します。)<br><img src="2023-06-23_02/2023-06-23_02-1.png">  </li>
+<li> [ SSL 証明書] にて、登録したサーバー証明書を選択し、[OK] をクリックします。  </li>
+<li>[閉じる] をクリックして [サイト バインド] ダイアログ ボックスを終了します。<br><img src="2023-06-23_02/2023-06-23_02-2.png">  </li>
+</ol>
+<h3 id="d-HTTPS-の構成"><a href="#d-HTTPS-の構成" class="headerlink" title="d. HTTPS の構成"></a>d. HTTPS の構成</h3><p>インターネットインフォメーション サービス ( IIS ) にて、 HTTPS を有効化します。  </p>
+<ol>
+<li><p>インターネットインフォメーション サービス ( IIS ) マネージャより[サイト] を展開し、 WSUS にて利用している Webサイトを展開します。  </p>
+</li>
+<li><p>WSUS Web サイトの下にある APIRemoting30、ClientWebService、DSSAuthWebService、ServerSyncWebService および SimpleAuthWebService の各仮想ディレクトリで、次の手順を実行します。なお、一部の Web サービス で HTTP の通信を利用する仕様の為、Web サイト全体を HTTPS 構成にすることはできませんのでご留意ください。<br>&lt; 参考情報 &gt; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus#232-configure-the-wsus-servers-iis-web-server-to-use-ssl-for-some-connections">2.3.2. 一部の接続に SSL を使用するように WSUS サーバーの IIS Web サーバーを構成する</a><br>2-1. [機能ビュー] で [ SSL 設定] をダブルクリックします。<br>2-2. [ SSL 設定] ページで、[ SSL が必要] を選択します。<br>2-3. [操作] ウィンドウで、[適用] をクリックします。<br><img src="2023-06-23_02/2023-06-23_02-3.png">  </p>
+</li>
+<li><p>インターネットインフォメーション サービス ( IIS ) マネージャを閉じます。</p>
+</li>
+<li><p>コマンドプロンプトを管理者権限で立ち上げ 「C:\Program Files\Update Services\Tools」 フォルダに移動します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> cd C:\Program Files\Update Services\Tools</span><br><span class="line">```  </span><br><span class="line">次のコマンドを実行します。  </span><br><span class="line">```  </span><br><span class="line">WSUSUtil.exe configuressl &lt; WSUS サーバーの FQDN&gt;  </span><br><span class="line">```  </span><br><span class="line"> </span><br><span class="line">### e. クライアントの参照する WSUS サーバーの設定</span><br><span class="line">上述の a,b,c の手順にて、WSUS サーバーの HTTPS を有効化した後、クライアントが WSUS との通信において HTTPS を利用できるように構成します。下記ポリシーにて、WSUS サーバーの通信プロトコル及びポート番号をご指定ください。  </span><br><span class="line"></span><br><span class="line">・ポリシー  </span><br><span class="line">[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [イントラネットの Microsoft 更新サービスの場所を指定する]  </span><br><span class="line">または  </span><br><span class="line">[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>例　https://&lt; WSUS サーバーのFQDN &gt;:8531<br>```<br><img src="2023-06-23_02/2023-06-23_02-4.png">  </p>
+</li>
+</ol>
+<h3 id="f-クライアントのアクセス確認"><a href="#f-クライアントのアクセス確認" class="headerlink" title="f. クライアントのアクセス確認"></a>f. クライアントのアクセス確認</h3><p>クライアントが HTTPS で WSUS サーバーへ通信を行えることを確認します。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-19_01/" data-id="clpuqb7o2008c0nnlab8oadhc" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-09-15_01/" data-id="clpuqb7ot00aj0nnl2dkp7f0t" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
 
     </footer>
   </div>
@@ -140,19 +172,19 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20190327_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20230928_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法
+          Microsoft Configuration Manager 自習書シリーズ 2 Microsoft Configuration Manager FAQ よりライセンスについての解説
         
       </div>
     </a>
   
   
-    <a href="../2019-02-14_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20230816_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS の同期先の URL の追加について</div>
+      <div class="article-nav-title">suffix が cloudapp.net な CMG の仮想マシンスケールセットへの移行について</div>
     </a>
   
 </nav>
@@ -179,7 +211,7 @@
           </li>
         
           <li>
-            <a href="../2023-09-15_01/">HTTPS 構成の WSUS 環境構築マニュアル</a>
+            <a href="">HTTPS 構成の WSUS 環境構築マニュアル</a>
           </li>
         
           <li>
