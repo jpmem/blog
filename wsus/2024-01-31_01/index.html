@@ -5,24 +5,20 @@
   
 
   
-  <title>WSUS 上に配信が必要な更新プログラムが同期されてこない！と思ったら | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>WSUS サーバーのコンピューター名変更について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は「配信したい更新プログラムが WSUS 上に同期されてこない！」という場合に、実施すべき対応や一般的に考えられる要因について紹介をしてまいります。   対応方法まずは WSUS 上に本当に更新プログラムが存在しないか、念のため検索して確認を行います。   WSUS 管理コンソール上の以下の箇所より、同期されている更新プログラムの検索が可">
+  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS サーバーのコンピューター名変更に際してご留意いただきたい事項をご説明いたします。    WSUS サーバーのコンピューター名変更に伴う留意事項WSUS サーバーのコンピューター名の変更につきましては、WSUS の公開情報にその手順のご案内が存在しないことから、弊社開発部署にて公式にテストされていない操作となりサポートされないも">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS 上に配信が必要な更新プログラムが同期されてこない！と思ったら">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2018-07-12_01/index.html">
+<meta property="og:title" content="WSUS サーバーのコンピューター名変更について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2024-01-31_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は「配信したい更新プログラムが WSUS 上に同期されてこない！」という場合に、実施すべき対応や一般的に考えられる要因について紹介をしてまいります。   対応方法まずは WSUS 上に本当に更新プログラムが存在しないか、念のため検索して確認を行います。   WSUS 管理コンソール上の以下の箇所より、同期されている更新プログラムの検索が可">
+<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS サーバーのコンピューター名変更に際してご留意いただきたい事項をご説明いたします。    WSUS サーバーのコンピューター名変更に伴う留意事項WSUS サーバーのコンピューター名の変更につきましては、WSUS の公開情報にその手順のご案内が存在しないことから、弊社開発部署にて公式にテストされていない操作となりサポートされないも">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-07-12_01/2022-04-15-13-59-41.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-07-12_01/2022-04-22-15-06-53.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2018-07-12_01/2022-04-22-15-39-37.png">
-<meta property="article:published_time" content="2018-07-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-31T00:30:55.221Z">
+<meta property="article:published_time" content="2024-01-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-31T00:30:55.297Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2018-07-12_01/2022-04-15-13-59-41.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -88,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2018-07-12_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2024-01-31_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2018-07-11T15:00:00.000Z" itemprop="datePublished">2018-07-12</time>
+  <time datetime="2024-01-30T15:00:00.000Z" itemprop="datePublished">2024-01-31</time>
 </a>
     <!--  -->
   </div>
@@ -102,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS 上に配信が必要な更新プログラムが同期されてこない！と思ったら
+      WSUS サーバーのコンピューター名変更について
     </h1>
   
 
@@ -111,40 +107,36 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2018-07-11T15:00:00.000Z" itemprop="dateUpdated">2018-07-12</time>
+    <time datetime="2024-01-30T15:00:00.000Z" itemprop="dateUpdated">2024-01-31</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。</p>
-<p>今回は「配信したい更新プログラムが WSUS 上に同期されてこない！」という場合に、実施すべき対応や一般的に考えられる要因について紹介をしてまいります。  </p>
-<h4 id="対応方法"><a href="#対応方法" class="headerlink" title="対応方法"></a>対応方法</h4><p>まずは WSUS 上に本当に更新プログラムが存在しないか、念のため検索して確認を行います。  </p>
-<p>WSUS 管理コンソール上の以下の箇所より、同期されている更新プログラムの検索が可能ですので、KB 番号やタイトル等から対象の更新プログラムが同期されていないか確認を行います。  </p>
-<p><img src="/blog/wsus/2018-07-12_01/2022-04-15-13-59-41.png">  </p>
-<p>もし検索結果に対象の更新プログラムが存在しない場合には、個別に Microsoft Update カタログから対象の更新プログラムをインポートする方法がオススメです。インポートの手順については、以下のブログにて紹介しているので、こちらをご参考にしてください。  </p>
-<h5 id="Microsoft-Update-カタログの活用法について-A-特定の更新プログラムのみ-WSUS-へインポートしたい"><a href="#Microsoft-Update-カタログの活用法について-A-特定の更新プログラムのみ-WSUS-へインポートしたい" class="headerlink" title="Microsoft Update カタログの活用法について - A. 特定の更新プログラムのみ WSUS へインポートしたい"></a>Microsoft Update カタログの活用法について - A. 特定の更新プログラムのみ WSUS へインポートしたい</h5><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/archive/blogs/jpwsus/microsoft-update#a">https://docs.microsoft.com/en-us/archive/blogs/jpwsus/microsoft-update#a</a>  </p>
-<h4 id="考えられる原因"><a href="#考えられる原因" class="headerlink" title="考えられる原因"></a>考えられる原因</h4><p>ではなぜこのような事が発生してしまうのでしょうか。よくあるパターンとして以下のような要因が考えられます。  </p>
-<ul>
-<li>「製品と分類」の設定にて、対象の更新プログラム・製品や分類が選択されていない  </li>
-<li>対象の更新プログラムが WSUS へ公開されていない  </li>
-<li>弊社サイトと WSUS の同期に失敗している  </li>
-</ul>
-<h4 id="「製品と分類」の設定にて、対象の更新プログラムの製品や分類が選択されていない"><a href="#「製品と分類」の設定にて、対象の更新プログラムの製品や分類が選択されていない" class="headerlink" title="「製品と分類」の設定にて、対象の更新プログラムの製品や分類が選択されていない"></a>「製品と分類」の設定にて、対象の更新プログラムの製品や分類が選択されていない</h4><p>対象の更新プログラムが、リリースされている製品や分類にチェックが入っていない場合には、WSUS 上に対象の更新プログラムは同期されてきません。対象の更新プログラムの製品や分類については、<a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a>から確認が出来ます。  </p>
-<p>例えば、<a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a>上で検索して、以下のように表示される更新プログラムは、製品は「Windows 10 Anniversary Update and Later Servicing Drivers」、分類は「ドライバ」としてリリースされています。このため、以下の更新プログラムについてはオプションの「製品と分類」にて、この両方にチェックが入っていないと同期されてきません。  </p>
-<p><img src="/blog/wsus/2018-07-12_01/2022-04-22-15-06-53.png">  </p>
-<p>「製品と分類」の設定を変更し、今回必要な製品や分類にチェックを入れてしまう方法も対処の 1 つではあるのですが、必要な更新プログラム以外も同期されて来てしまうため、対処方法としてはあまりオススメできません。上述の通り、カタログからインポートする方法であれば、必要な更新プログラムだけを同期出来るため、こちらについて実施をご検討ください。  </p>
-<h4 id="対象の更新プログラムが-WSUS-へ公開されていない"><a href="#対象の更新プログラムが-WSUS-へ公開されていない" class="headerlink" title="対象の更新プログラムが WSUS へ公開されていない"></a>対象の更新プログラムが WSUS へ公開されていない</h4><p>更新プログラムの中には、そもそも WSUS で自動的に承認・配信されないように、敢えて更新プログラムの開発したチームが WSUS へ直接公開していないものもあります。</p>
-<p>こういった更新プログラムでも、<a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a>上に存在する更新プログラムであれば、インポートし WSUS から配信することが可能なので、上述の対応方法を実施いただけます。  </p>
-<h4 id="弊社サイトと-WSUS-の同期に失敗している"><a href="#弊社サイトと-WSUS-の同期に失敗している" class="headerlink" title="弊社サイトと WSUS の同期に失敗している"></a>弊社サイトと WSUS の同期に失敗している</h4><p>弊社サイトと WSUS の同期に失敗している場合には、新しい更新プログラムについて WSUS 上に着信出来ません。</p>
-<p>なぜ失敗しているかは個別にトラブル シューティングが必要ですが、WSUS 上でいつ同期が行われたか、また同期の結果については管理コンソール上の以下の箇所より確認が可能です。  </p>
-<p><img src="/blog/wsus/2018-07-12_01/2022-04-22-15-39-37.png"></p>
+        <p>みなさま、こんにちは。WSUS サポート チームです。今回は、WSUS サーバーのコンピューター名変更に際してご留意いただきたい事項をご説明いたします。  </p>
+<hr>
+<h2 id="WSUS-サーバーのコンピューター名変更に伴う留意事項"><a href="#WSUS-サーバーのコンピューター名変更に伴う留意事項" class="headerlink" title="WSUS サーバーのコンピューター名変更に伴う留意事項"></a>WSUS サーバーのコンピューター名変更に伴う留意事項</h2><p>WSUS サーバーのコンピューター名の変更につきましては、WSUS の公開情報にその手順のご案内が存在しないことから、弊社開発部署にて公式にテストされていない操作となりサポートされないものとなります。<br>そのため、WSUS の役割をインストール後にコンピューター名の変更作業が必要な場合は、後述の “WSUS の役割の再インストール” のご実施をご検討いただきますようお願い申し上げます。  </p>
+<h2 id="報告事例"><a href="#報告事例" class="headerlink" title="報告事例"></a>報告事例</h2><p>コンピューター名変更後、WSUS コンソールに作成された更新ビューが表示できなくなるとの報告がございます。<br>こちらは、Microsoft Management Console(MMC) のキャッシュ情報に変更前のコンピューター名が格納されていることに起因し、下記のイベントログ （ ID：7032 ）が記録され、MMC キャッシュの情報を読み込むことができないために発生いたします。  </p>
+<pre><code>警告    20xx/xx/xx 10:35:00    Windows Server Update Services    7032
+WSUS 管理コンソールは、リモート API 経由で WSUS サーバーに接続できませんでした。  
+
+Update Services サービス、 IIS および SQL がサーバー上で実行されていることを確認してください。問題が解決しない場合は、IIS、SQL、および Update Services サービスを再起動してみてください。  
+
+System.Net.Sockets.SocketException -- そのようなホストは不明です。
+</code></pre>
+<h3 id="コンピューター名変更に伴う-WSUS-の役割の再インストール"><a href="#コンピューター名変更に伴う-WSUS-の役割の再インストール" class="headerlink" title="コンピューター名変更に伴う WSUS の役割の再インストール"></a>コンピューター名変更に伴う WSUS の役割の再インストール</h3><p>コンピューター名を変更する場合は、以下でご紹介する手順により、一度 WSUS の役割をアンインストールしコンピューター名を変更後に WSUS の役割を再インストールし、事前に取得したバックアップデータから復元を行う手順を実施いただけますようお願いいたします。</p>
+<p>※残念ながら WSUS の役割を再インストールした場合でも、上記 “報告事例” にございます更新ビューを引き継ぐことはできませんので、ご留意いただけますようお願い申し上げます。  </p>
+<p>&lt;実施手順&gt;<br>手順1. WSUS データベースをバックアップする<br>手順2. WSUS の役割をアンインストール<br>手順3. WSUS コンピューター名を変更する<br>手順4. WSUS の役割をインストールする<br>手順5. WSUS データベースを復元する<br>手順6. WSUS クライアントを新しい コンピューター名に接続する設定  </p>
+<p>手順 1. および手順 5. につきましては、次の情報に詳細手順の記載がございますのでご参照ください。<br><a href="https://jpmem.github.io/blog/wsus/2021-10-19_01/">Windows Server 2012 R2 WSUS から Windows Server 2019 WSUS への移行手順 (WID -&gt; WID の場合)</a><br>2.3. WSUS データベースをバックアップする<br>2.4. WSUS データベースのバックアップを移行先サーバーで復元する  </p>
+<p>手順2. 次の情報に詳細手順の記載がございますのでご参照ください。以下の記事でご紹介の手順を実施します。<br><a href="https://jpmem.github.io/blog/wsus/2022-03-29_01/">WSUS アンインストール手順について (Windows Server 2022 対応版)</a></p>
+<p>手順4. 次の情報に詳細手順の記載がございますのでご参照ください。以下の記事でご紹介の “a. 役割と機能のインストール” を実施します。<br><a href="https://jpmem.github.io/blog/wsus/2023-02-16_01/">WSUS 構築マニュアル</a><br>参照項目　a. 役割と機能のインストール  </p>
+<p>手順 6につきましては、次の情報に詳細手順の記載がございますのでご参照ください。<br><a href="https://jpmem.github.io/blog/wsus/2019-04-16_01/">WSUS クライアントのグループ ポリシー:その 1 – 基本編</a><br>参照項目　1. [イントラネットの Microsoft 更新サービスの場所を指定する]  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-07-12_01/" data-id="cls11xji3008c0nmygt8u6d1r" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2024-01-31_01/" data-id="cls11xjiu00ar0nmygh9g7xsv" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -155,19 +147,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20180719_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Configuration Manager から更新プログラムを配信する際の再起動動作について
-        
-      </div>
-    </a>
   
-  
-    <a href="../2020-08-24_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20240110_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Update カタログから更新プログラムの手動インポートに失敗する事象について</div>
+      <div class="article-nav-title">Configuration Manager Current Branch 2309 にて変更となった Microsoft ODBC Driver for SQL Server の要件のご紹介</div>
     </a>
   
 </nav>
@@ -186,7 +169,7 @@
       <ul>
         
           <li>
-            <a href="../2024-01-31_01/">WSUS サーバーのコンピューター名変更について</a>
+            <a href="">WSUS サーバーのコンピューター名変更について</a>
           </li>
         
           <li>
