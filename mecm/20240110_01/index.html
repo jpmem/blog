@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   Configuration Manager Current Branch 2309 のアップグレードにて Microsoft ODBC Driver for SQL Server の要件が変更になっております。要件を満たさない場合はアップグレードの前提条件チェックで失敗してしまうため、今回は対応方法をご紹">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2024-01-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-29T07:26:21.847Z">
+<meta property="article:modified_time" content="2024-03-05T06:55:40.469Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -116,8 +116,10 @@
       
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
 <p>Configuration Manager Current Branch 2309 のアップグレードにて Microsoft ODBC Driver for SQL Server の要件が変更になっております。<br>要件を満たさない場合はアップグレードの前提条件チェックで失敗してしまうため、今回は対応方法をご紹介させて頂きます。  </p>
-<h1 id="Microsoft-ODBC-Driver-for-SQL-Server-の要件に関する情報"><a href="#Microsoft-ODBC-Driver-for-SQL-Server-の要件に関する情報" class="headerlink" title="Microsoft ODBC Driver for SQL Server の要件に関する情報"></a>Microsoft ODBC Driver for SQL Server の要件に関する情報</h1><p>サイト サーバーとサイト システムの役割を持つサーバーにおいて ODBC Driver for SQL Server 18.1.0 以降の ODBC ドライバーのインストールが必要です。<br>配布ポイントや管理ポイントなど Configuration Manager の役割を持つサーバーには、インストールが必要となります。  </p>
+<h1 id="Microsoft-ODBC-Driver-for-SQL-Server-の要件に関する情報"><a href="#Microsoft-ODBC-Driver-for-SQL-Server-の要件に関する情報" class="headerlink" title="Microsoft ODBC Driver for SQL Server の要件に関する情報"></a>Microsoft ODBC Driver for SQL Server の要件に関する情報</h1><p>サイト サーバーとサイト システムの役割を持つサーバーにおいて ODBC Driver for SQL Server 18.1.0 以降の ODBC ドライバーのインストールが必要です。  </p>
 <p>Title : 現在のブランチのバージョン 2309 の新機能 Configuration Manager - Configuration Managerの SQL ODBC ドライバー サポートの概要<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/whats-new-in-version-2309#introducing-sql-odbc-driver-support-for-configuration-manager">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/whats-new-in-version-2309#introducing-sql-odbc-driver-support-for-configuration-manager</a>  </p>
+<p>下記公開情報で SQL Server ODBC ドライバーのインストールが必要なサイト サーバーとサイト システムの役割を持つサーバーを確認できます。<br>例えば、配布ポイントにはインストールは必要ございません。  </p>
+<p>Title : Configuration Managerのサイトとサイト システムの前提条件<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/configs/site-and-site-system-prerequisites">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/configs/site-and-site-system-prerequisites</a></p>
 <h1 id="Microsoft-ODBC-Driver-for-SQL-Server-のインストール方法"><a href="#Microsoft-ODBC-Driver-for-SQL-Server-のインストール方法" class="headerlink" title="Microsoft ODBC Driver for SQL Server のインストール方法"></a>Microsoft ODBC Driver for SQL Server のインストール方法</h1><p>以下の手順でインストールをご実施くださいませ。  </p>
 <ol>
 <li>以下の URL より、18.1.0 以降のバージョンの Microsoft ODBC Driver for SQL Server をダウンロードします。  </li>
@@ -131,12 +133,12 @@
 <li>[インストール] をクリックします。  </li>
 <li>インストールの完了画面で [完了] をクリックしたら、インストール完了です。  </li>
 </ol>
-<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>Microsoft ODBC Driver for SQL Server のインストールによる OS 再起動は発生いたしませんので、ご安心くださいませ。  </p>
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>Microsoft ODBC Driver for SQL Server のインストールによる OS 再起動は発生いたしませんので、ご安心くださいませ。<br>また、サイト サーバーの役割を持つサーバーのみに SQL Server 18.1.0 以降の ODBC ドライバーをインストールすることで、ConfigMgr 2309 のバージョンアップにおける前提条件チェックに合格します。<br>ConfigMgr 2309 へのバージョンアップを実施しますと、管理ポイント等のサイト システム サーバーには必要に応じて SQL Server ODBC ドライバーがインストールされる動作となりますため、サイト サーバーの役割を持つサーバーにのみ SQL Server 18.1.0 以降の ODBC ドライバーのインストールを実施後、ConfigMgr 2309 へのバージョンアップを実施ください。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20240110_01/" data-id="clt6wjiqr006a0mrl8zzs9kiz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20240110_01/" data-id="clte0nat3006a0np2byxc1qsh" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
