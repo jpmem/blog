@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
 <meta property="og:description" content="Configuration Manager では、サイト システムの役割をインストールすることで、様々な機能を拡張することができます。サイト システムの役割をインストールしたサーバーを、サイト システム サーバーと言います。この投稿では代表的なサイト システム サーバーがどのような機能を使えるようにするものなのかを説明していきます。 ( ) 内は英語名称および略称です。 管理ポイント (Manag">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20240216_01/2024-02-09_1.PNG">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20240216_01/2024-02-09_1.png">
 <meta property="article:published_time" content="2024-02-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-08T01:38:54.354Z">
+<meta property="article:modified_time" content="2024-03-08T06:51:33.790Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20240216_01/2024-02-09_1.PNG">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20240216_01/2024-02-09_1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -124,7 +124,7 @@
 <p>・アプリケーション コンテンツ<br>・ソフトウェア パッケージ<br>・ソフトウェア更新プログラム<br>・OS イメージ<br>・ブート イメージ  </p>
 <p>コンテンツの大きさにより、ダウンロードに使用する通信量を懸念される場合、配布ポイント サーバーを要所に配置することでネットワーク回線の負荷軽減が期待できます。<br>例えば、サーバーとは地理的に離れた場所にクライアントが存在し、ネットワークの通信を可能な限り抑えたい場合には、拠点となるポイントに配布ポイントを配置することを検討します。<br>クライアントが通信をおこなう配布ポイントをコントロールするには、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-group-procedures">“境界” と “境界グループ”</a> の設定も忘れずに行いましょう。</p>
 <h2 id="ソフトウェアの更新ポイント-Software-update-point-SUP"><a href="#ソフトウェアの更新ポイント-Software-update-point-SUP" class="headerlink" title="ソフトウェアの更新ポイント (Software update point / SUP)"></a>ソフトウェアの更新ポイント (Software update point / SUP)</h2><p>Windows Server Update Services (WSUS) と連携し、Microsoft Update や上位 WSUS からメタデータ (更新プログラムのカタログ情報) を同期します。<br>クライアントはソフトウェアの更新ポイントに更新プログラムの確認 (コンプライアンス スキャン) を定期実行し、自分自身に各更新プログラムのインストールが必要か、不要かを判定しています。<br>また Configuration Manager ではクライアントがインストールを必要としている状態を “必須” と表現し、”必須” と判定した更新プログラムのみ、コンテンツのダウンロード・インストールを行います。</p>
-<p>こちらの図は、Configuration Manager クライアントが更新プログラムの配信を受け取り、インストールされるまでの処理のイメージとなります。<br><img src="/blog/mecm/20240216_01/2024-02-09_1.PNG" alt="image.PNG"></p>
+<p>こちらの図は、Configuration Manager クライアントが更新プログラムの配信を受け取り、インストールされるまでの処理のイメージとなります。<br><img src="/blog/mecm/20240216_01/2024-02-09_1.png" alt="image.PNG"></p>
 <p>① 管理者が、更新プログラムの配信の設定をします。ポリシー情報が MP のデータベースに格納されます。<br>② クライアントは、定期的にポリシーの確認を行っています。MP に更新されたポリシー情報があれば、ポリシーをダウンロードをします。<br>③ クライアントは、定期的にコンプライアンス スキャンを行っています。<br>④ クライアントは、② のポリシーを評価し、③ で “必須” と判定した更新プログラムが含まれる場合は、展開スケジュールに従って配布ポイントからコンテンツ ダウンロードをおこないます。<br>⑤ クライアントは、展開スケジュールに従って、ダウンロード済みの更新プログラムをインストールします。</p>
 <h2 id="サービス接続ポイント-Service-connection-point-SCP"><a href="#サービス接続ポイント-Service-connection-point-SCP" class="headerlink" title="サービス接続ポイント (Service connection point / SCP)"></a>サービス接続ポイント (Service connection point / SCP)</h2><p>Configuration Manager のバージョンアップをおこなうために欠かせない役割がサービス接続ポイントです。サービス接続ポイントには [オンライン モード] 、[オフライン モード] があり、モードに応じた処理で新しい更新プログラムの同期をおこないます。<br>Configuration Manager では <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/current-branch-versions-supported">サポート ライフ サイクル</a> が 18 か月ごとに定義されていますので、余裕をもったバージョン アップの計画をお願いいたします。</p>
 <p>※ オンライン モードは <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints">こちら</a> のインターネット要件を満たす必要があります。</p>
@@ -135,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20240216_01/" data-id="clthzngwu006c0on93t0nhhpb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20240216_01/" data-id="cltiatkmp006c0noe8mj0aq2t" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
