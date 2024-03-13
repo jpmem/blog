@@ -7,19 +7,19 @@
   
   <title>「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「みたことある！」という方も非常に多いのではないでしょうか。特に長期間運用している環境においては、起動する">
+  <meta name="description" content="2019&#x2F;03&#x2F;28 初版公開2024&#x2F;03&#x2F;13 レプリカ構成における注意事項を追記しました。   (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「み">
 <meta property="og:type" content="article">
 <meta property="og:title" content="「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「みたことある！」という方も非常に多いのではないでしょうか。特に長期間運用している環境においては、起動する">
+<meta property="og:description" content="2019&#x2F;03&#x2F;28 初版公開2024&#x2F;03&#x2F;13 レプリカ構成における注意事項を追記しました。   (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。 それは、このエラーです！  「み">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_3.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-28_01/2019-03-28_01_4.png">
 <meta property="article:published_time" content="2019-03-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-11T06:50:32.136Z">
+<meta property="article:modified_time" content="2024-03-13T04:31:31.585Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,8 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
+        <p>2019/03/28 初版公開<br>2024/03/13 レプリカ構成における注意事項を追記しました。  </p>
+<p>(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)</p>
 <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。</p>
 <p>それは、このエラーです！</p>
@@ -144,6 +145,7 @@
 <p><img src="/blog/wsus/2019-03-28_01/2019-03-28_01_2.png" alt="クリーンアップウィザード画面例"></p>
 <p>その他のオプションも不要な情報を減らすという観点では有効ですが、たまに発生する接続エラーの改善という観点では大きな効果を得られないことが多いです。そのため、ここでは言及いたしません。</p>
 <p>ちなみに、「WSUS サーバー クリーンアップ ウィザード」を実施する前には、上述の「インデックスの再構築」を実施することをお勧めします。これもインデックスが断片化しており、クエリ パフォーマンスが劣化している状態では、クリーンアップ ウィザードもタイムアウトで失敗することが多いため、事前にタイムアウトによる失敗を緩和することが目的です。それでもウィザードが最後まで終わらない場合は、「インデックスの再構築」-&gt;「クリーンアップ ウィザードの実行」の繰り返しです。</p>
+<p><strong>注意</strong><br>階層構成（レプリカ）の WSUS をご利用の場合、「不要な更新プログラムと更新プログラムのリビジョン」の項目は必ず下位側のサーバー (レプリカ サーバー) で先に実行し、上位側 (マスター サーバー) はその後で実行するよう注意してください。詳細は、以下のブログをご参照ください。<br><a href="https://jpmem.github.io/blog/wsus/2019-03-28_01/">レプリカ構成では サーバー クリーンアップ ウィザード にご注意ください</a></p>
 <h2 id="3-WSUS-管理コンソールのキャッシュを削除する"><a href="#3-WSUS-管理コンソールのキャッシュを削除する" class="headerlink" title="3. WSUS 管理コンソールのキャッシュを削除する"></a>3. WSUS 管理コンソールのキャッシュを削除する</h2><p>WSUS 管理コンソールは MMC の上で動作していますが、以下にキャッシュ ファイルが存在しています。</p>
 <p><code>%appdata%\Microsoft\MMC\wsus</code></p>
 <p>このキャッシュ ファイルを削除すると、これまで作成した更新ビューも削除されますが、”気持ち” 早くなります。なので、あまり大きな効果は得られませんが、できる限り早くしたい！というときにお使いください。。。</p>
@@ -199,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-28_01/" data-id="cltml3sph00bv0nmp84q3577j" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-28_01/" data-id="cltpb0q4d00bv0nn7fydi99ci" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
