@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-07-21_01/image-20210731021324032.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-07-21_01/image-20210731021339489.png">
 <meta property="article:published_time" content="2020-07-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-14T03:44:51.798Z">
+<meta property="article:modified_time" content="2024-03-14T08:01:53.117Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -139,7 +139,7 @@
 </ul>
 <h2 id="メンテナンスの自動化"><a href="#メンテナンスの自動化" class="headerlink" title="メンテナンスの自動化"></a>メンテナンスの自動化</h2><p>それでは各メンテナンスを自動化する方法について、それぞれ紹介していきます。</p>
 <h3 id="SUSDB-のインデックス再構築をタスク-スケジューラから自動実行させる"><a href="#SUSDB-のインデックス再構築をタスク-スケジューラから自動実行させる" class="headerlink" title="SUSDB のインデックス再構築をタスク スケジューラから自動実行させる"></a>SUSDB のインデックス再構築をタスク スケジューラから自動実行させる</h3><ol>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/microsoft-jpcssmem/WSUS/releases/latest/download/WsusDBMaintenance.sql">こちら</a>より、インデックスの SUSDB のインデックス再構築を行うスクリプトを入手し、WSUS サーバー上に保存します。(WsusDBMaintenance.sql 等)</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/WsusDBMaintenance.sql">こちら</a>より、インデックスの SUSDB のインデックス再構築を行うスクリプトを入手し、WSUS サーバー上に保存します。(WsusDBMaintenance.sql 等)</p>
 </li>
 <li><p>スタート メニューより、タスク スケジューラを立ち上げます。</p>
 </li>
@@ -172,7 +172,7 @@
 <li>インデックスの再構築の自動化の手順と同様にタスクの作成を完了 (上述の手順 6 ～ 7) させます。</li>
 <li>試しに作成したタスクを右クリックして [実行する] を選択して実行してみましょう。出力ファイルに以下のようにエラー等が出力されていなければ、正常に登録されています。<br>出来ています。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">削除された古い更新プログラム:0</span><br><span class="line">拒否された期限切れの更新プログラム: 0</span><br><span class="line">削除された古い更新プログラム:87</span><br><span class="line">圧縮された更新プログラム:0</span><br><span class="line">削除された古いコンピューター:0</span><br><span class="line">解放されたディスク領域:0</span><br></pre></td></tr></table></figure>
 <h3 id="不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる"><a href="#不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる" class="headerlink" title="不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる"></a>不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる</h3></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/microsoft-jpcssmem/WSUS/releases/latest/download/Decline-SupersededUpdates.ps1">こちら</a> より、置き換えられた更新プログラムを「拒否済み」に設定するスクリプトを入手し、WSUS サーバー上に保存します。(Decline-SupersededUpdates.ps1 等)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/Decline-SupersededUpdates.ps1">こちら</a> より、置き換えられた更新プログラムを「拒否済み」に設定するスクリプトを入手し、WSUS サーバー上に保存します。(Decline-SupersededUpdates.ps1 等)</li>
 <li>インデックスの再構築の時と同様にタスク スケジューラを起動し、基本タスクの作成を行ない、不要な更新プログラムの「拒否済み」設定を実行するスケジュールを指定 (上述の手順 2 ~ 4) します。<br>※ こちらもインデックスの再構築やクリーンアップ ウィザードとはスケジュールが被らないよう、他のメンテナンスの実行開始の数時間後や別の日等を指定します。</li>
 <li>[プログラムの開始] を選択して、以下のようにスクリプトを指定します。本指定については、利用しているポート番号によって -Port 以降の指定を変更する必要があるので、ご注意ください。Windows Server 2012 以降の WSUS 環境は既定で 8530 となります。<br><code>powershell -ExecutionPolicy Unrestricted -Command &quot;C:\WSUS\Decline-SupersededUpdates.ps1 -UpdateServer localhost -Port 8530&quot;</code>  </li>
 <li>インデックスの再構築の自動化の手順と同様にタスクの作成を完了 (上述の手順 6 ～ 7) させます。</li>
@@ -182,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="cltqosk5j00970ooa5qtqe485" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="cltqxz49i00970nnuav9i8bb3" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
