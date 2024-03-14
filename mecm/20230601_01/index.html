@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230601_01/2023-06-01-16-33-48.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230601_01/2023-06-30-14-29-00.png">
 <meta property="article:published_time" content="2023-06-29T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-13T07:13:56.205Z">
+<meta property="article:modified_time" content="2024-03-14T03:37:04.479Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -122,19 +122,19 @@
         <p><strong>2023/06/01 初版公開</strong><br><strong>2023/06/30 更新</strong><br><strong>- [回避策] の内容を修正しました。</strong><br><strong>- バージョン情報の確認方法を [補足] として追記しました。</strong>  </p>
 <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は WSUS で Windows 11 クライアントが Windows 10 と表示される事象についてご紹介します。</p>
-<p>本問題は弊社でも同様の動作になることを確認できておりますが、誠に恐縮ながら現時点で修正可否は未定です。<br>本問題について進展がありましたら、本ブログを更新する予定ですので、ご不便をおかけしますが、何卒ご理解賜りますようお願い申し上げます。</p>
-<h2 id="事象の概要"><a href="#事象の概要" class="headerlink" title="事象の概要"></a>事象の概要</h2><p>WSUS サーバー上でコンピューターの一覧を表示した場合、Windows 11 であってもオペレーティング システムの表示項目は Windows 10 と表示されます。<br><img src="/blog/mecm/20230601_01/2023-06-01-16-32-45.png"></p>
+<p>本問題は弊社でも同様の動作になることを確認できておりますが、誠に恐縮ながら現時点で修正は予定されておりません。<br>ご不便をおかけしますが、何卒ご理解賜りますようお願い申し上げます。</p>
+<h1 id="事象の概要"><a href="#事象の概要" class="headerlink" title="事象の概要"></a>事象の概要</h1><p>WSUS サーバー上でコンピューターの一覧を表示した場合、Windows 11 であってもオペレーティング システムの表示項目は Windows 10 と表示されます。<br><img src="/blog/mecm/20230601_01/2023-06-01-16-32-45.png"></p>
 <p>本事象はクライアント バージョンを判断するための情報が Windows 10 と Windows 11 で共通であるため発生いたしますが、表示上の問題であり更新プログラムの管理動作には影響はございません。<br><img src="/blog/mecm/20230601_01/2023-06-01-16-33-09.png"></p>
-<h2 id="回避策"><a href="#回避策" class="headerlink" title="回避策"></a>回避策</h2><p>現時点で本動作の修正予定はございませんので、恐れ入りますが、クライアントのオペレーティング システムの判別には表示列を追加し、バージョンの情報をご確認ください。<br>なお、現在確認できているバージョンの情報は下記の通りでございますが、今後変更される可能性がございますのでお含みおきいただけますと幸いです。  </p>
+<h1 id="回避策"><a href="#回避策" class="headerlink" title="回避策"></a>回避策</h1><p>クライアントのオペレーティング システムの判別には表示列を追加し、バージョンの情報をご確認ください。<br>なお、現在確認できているバージョンの情報は下記の通りでございますが、今後変更される可能性がございますのでお含みおきいただけますと幸いです。  </p>
 <p>Windows 11 21H2：10.0.22000 から始まるバージョン<br>Windows 11 22H2 以降：923 から始まるバージョン  </p>
 <p><img src="/blog/mecm/20230601_01/2023-06-01-16-33-48.png"></p>
-<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>バージョンの情報は、%windir%\System32\wuaueng.dll のバージョンが表示されます。<br>上記バージョン以外が表示された場合は、必要に応じてご確認いただけますと幸いです。  </p>
+<h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><p>バージョンの情報は、%windir%\System32\wuaueng.dll のバージョンが表示されます。<br>上記バージョン以外が表示された場合は、必要に応じてご確認いただけますと幸いです。  </p>
 <p>// Windows 11 22H2 (OS ビルド 22621.1848) の場合<br><img src="/blog/mecm/20230601_01/2023-06-30-14-29-00.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230601_01/" data-id="cltpgtlbw005w0nrwd5ml11qr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230601_01/" data-id="cltqoijy7005w0no2a9ho6v4q" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
