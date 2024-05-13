@@ -5,22 +5,20 @@
   
 
   
-  <title>System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>共同管理クライアントで Endpoint Protection ワークロードを Intune に設定した場合に影響を受ける不具合のご案内 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順をご紹介します。本手順を利用いただきますと、クライアント エージェントをアンインストールすることなく、再イメージングが可能です。">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   ConfigMgr CB 2403 及び CB 2309 に KB25858444 を適用した環境において、以下でご案内します不具合が報告されております。現時点で不具合の修正時期は未定となっておりますが、リリースノートにて追加情報が更新されますので、ご確認頂きますようお願い致します。   事象に該当する環">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20171025_01/index.html">
+<meta property="og:title" content="共同管理クライアントで Endpoint Protection ワークロードを Intune に設定した場合に影響を受ける不具合のご案内">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20240510_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="皆様、こんにちは。System Center Configuration Manager サポート チームです。 今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順をご紹介します。本手順を利用いただきますと、クライアント エージェントをアンインストールすることなく、再イメージングが可能です。">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   ConfigMgr CB 2403 及び CB 2309 に KB25858444 を適用した環境において、以下でご案内します不具合が報告されております。現時点で不具合の修正時期は未定となっておりますが、リリースノートにて追加情報が更新されますので、ご確認頂きますようお願い致します。   事象に該当する環">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171025_01/image-20211018164229282.png">
-<meta property="article:published_time" content="2017-10-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-05-13T00:48:43.975Z">
+<meta property="article:published_time" content="2024-05-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-13T00:48:44.183Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20171025_01/image-20211018164229282.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -86,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20171025_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20240510_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2017-10-24T15:00:00.000Z" itemprop="datePublished">2017-10-25</time>
+  <time datetime="2024-05-09T15:00:00.000Z" itemprop="datePublished">2024-05-10</time>
 </a>
     <!--  -->
   </div>
@@ -100,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順
+      共同管理クライアントで Endpoint Protection ワークロードを Intune に設定した場合に影響を受ける不具合のご案内
     </h1>
   
 
@@ -109,80 +107,50 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2017-10-24T15:00:00.000Z" itemprop="dateUpdated">2017-10-25</time>
+    <time datetime="2024-05-09T15:00:00.000Z" itemprop="dateUpdated">2024-05-10</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
-<p>今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順をご紹介します。本手順を利用いただきますと、クライアント エージェントをアンインストールすることなく、再イメージングが可能です。</p>
-<p>利用シナリオとしては VDI クライアントやイメージ展開を他社製品で行う場合に SCCM エージェントをインストールしておきたい状況を想定しております。</p>
-<p>同じ参照コンピューターで、再度マスター イメージを取得するシナリオは度々発生するかと思いますが、System Center Configuration Manager クライアントが動作していると、端末に一意の情報が保持されておりますので、それを削除した上で、マスター イメージを再取得する必要があります。本手順を実施していない場合は、展開後に一意の情報が重複して、正常に管理することができなくなりますので、ご留意くださいますようお願い申し上げます。</p>
-<h2 id="対象製品"><a href="#対象製品" class="headerlink" title="対象製品"></a>対象製品</h2><p>System Center 2012 Configuration Manager</p>
-<p>System Center 2012 R2 Configuration Manager</p>
-<p>System Center Configuration Manager LTSB</p>
-<p>Microsoft Endpoint Configuration Manager Current Branch</p>
-<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><p>次の手順を実施して、サイト コードをクリアし、一意の情報を削除してから、マスター イメージを採取します。</p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
+<p>ConfigMgr CB 2403 及び CB 2309 に KB25858444 を適用した環境において、以下でご案内します不具合が報告されております。<br>現時点で不具合の修正時期は未定となっておりますが、リリースノートにて追加情報が更新されますので、ご確認頂きますようお願い致します。  </p>
+<h3 id="事象に該当する環境"><a href="#事象に該当する環境" class="headerlink" title="事象に該当する環境"></a>事象に該当する環境</h3><p>ConfigMgr CB 2403 及び CB 2309 KB25858444 適用環境である、以下のクライアントをお使いの場合  </p>
+<ul>
+<li>ConfigMgr CB 2403: 5.00.9128.1007  </li>
+<li>ConfigMgr CB 2309 + KB25858444: 5.00.9122.1018  </li>
+</ul>
+<p>かつ、以下の設定をお使いの場合。  </p>
+<ul>
+<li>共同管理環境を有効にしており、Endpoint Protection ワークロードを Intune もしくは パイロット Intune 側に寄せている  </li>
+</ul>
+<h3 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h3><p>ワークロードを Intune に寄せているのにもかかわらず、Endpoint Protection のポリシーが Intune から管理されなくなります。  </p>
+<h3 id="ワークアラウンド"><a href="#ワークアラウンド" class="headerlink" title="ワークアラウンド"></a>ワークアラウンド</h3><h4 id="該当の-Version-をご利用でないお客様"><a href="#該当の-Version-をご利用でないお客様" class="headerlink" title="該当の Version をご利用でないお客様"></a>該当の Version をご利用でないお客様</h4><p>影響を受ける設定をお使いの場合は、修正がリリースされるまで、 ConfigMgr CB 2403 もしくは 2309 KB25858444 の適用をお控えください。  </p>
+<h4 id="該当の-Version-へのアップデートを計画されているお客様"><a href="#該当の-Version-へのアップデートを計画されているお客様" class="headerlink" title="該当の Version へのアップデートを計画されているお客様"></a>該当の Version へのアップデートを計画されているお客様</h4><p>上記影響を受けるにもかかわらず、ConfigMgr CB 2403 もしくは 2309 KB25858444 の適用が必要なお客様は、該当のクライアントのバージョンアップを回避するため、階層設定にてクライアント自動アップグレードを無効化ください。詳細については下記を参照ください。  </p>
+<p>Title : 運用前コレクションでクライアントのアップグレードをテストする方法<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/upgrade/test-client-upgrades">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/upgrade/test-client-upgrades</a>  </p>
+<p>また、「実稼働前クライアントの昇格」をご利用なさらないでください。詳細については下記を参照ください。  </p>
+<p>Title : 新しいクライアントを運用環境に昇格させる<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/upgrade/test-client-upgrades#promote-a-new-client-to-production">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/upgrade/test-client-upgrades#promote-a-new-client-to-production</a>  </p>
+<h4 id="すでに該当のクライアントをご利用の場合"><a href="#すでに該当のクライアントをご利用の場合" class="headerlink" title="すでに該当のクライアントをご利用の場合"></a>すでに該当のクライアントをご利用の場合</h4><p>ConfigMgrにて、該当の共同管理端末が所属するコレクションに、[クライアント設定] - [Endpoint Protection] - [クライアント コンピューターのEndpoint Protection クライアントを管理する] の値を 「いいえ」に変更したクライアント設定を配布ください。 これにより、 Intune 側のポリシーが適用されるようになります。  </p>
+<h3 id="該当リリースノートのリンク及び抄訳"><a href="#該当リリースノートのリンク及び抄訳" class="headerlink" title="該当リリースノートのリンク及び抄訳"></a>該当リリースノートのリンク及び抄訳</h3><p> Title: Security configurations removed from Intune<br>URL:<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/mem/configmgr/core/servers/deploy/install/release-notes#security-configurations-removed-from-intune">https://learn.microsoft.com/en-us/mem/configmgr/core/servers/deploy/install/release-notes#security-configurations-removed-from-intune</a><br>— &lt;抄訳&gt; —<br>Microsoft Defender のセキュリティ構成が、Configuration Manager バージョン 2403 に更新した後、または 2309 の更新プログラムのロールアップをインストールした後、Microsoft Intune で管理されなくなります。  </p>
+<p>この現象は、Intune で確認すると、Microsoft セキュリティ スコア値の低下として表示されます。この問題は、Configuration Manager クライアントのアップグレード後に、セキュリティ ポリシーの構成データがクライアントから誤って削除されるために発生します。   </p>
+<p>クライアントのセキュリティ スコアの低下は、次の条件で発生します。  </p>
 <ol>
-<li>SMS Agent Host サービスの停止とスタート アップの種類の変更</li>
-<li>サイト コードのクリアと信頼キーの削除</li>
-<li>自己署名証明書の削除</li>
-<li>SMSCFG.ini の削除</li>
-<li>SMS Agent Host サービスのスタート アップの種類の変更</li>
-<li>マスターイメージの採取</li>
+<li>Configuration Manager クライアントは、Microsoft Intune と共同管理されています。  </li>
+<li>デバイス構成 - &gt; Endpoint Protection ワークロードは、Intune でアクティブに管理されます。詳細については、「ワークロードを切り替える方法」を参照してください。  </li>
+<li>クライアント設定で [クライアント コンピューターの Endpoint Protection クライアントを管理する] の値が [はい] に設定されている。詳細については、「Endpoint Protection を有効にし、カスタム クライアント設定を構成するには」を参照してください。  </li>
 </ol>
-<p>各手順の詳細は以下の通りです。</p>
-<h3 id="1-SMS-Agent-Host-サービスの停止とスタート-アップの種類の変更"><a href="#1-SMS-Agent-Host-サービスの停止とスタート-アップの種類の変更" class="headerlink" title="1. SMS Agent Host サービスの停止とスタート アップの種類の変更"></a>1. SMS Agent Host サービスの停止とスタート アップの種類の変更</h3><p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを停止します。また、マスター イメージ採取前に自動でサービスが起動しないように、右クリックしてプロパティを開き、スタートアップの種類を [手動] に変更します。</p>
-<p>(注意) 以下の場所にある Configuration Manager Health Evaluation タスクが実行された場合、自動で SMS Agent Host サービスが起動します。手順の項番 2. ～ 5. の実行に時間がかかる場合は、手順実行中は本タスクを無効にしてください。</p>
-<p><img src="/blog/mecm/20171025_01/image-20211018164229282.png" alt="image-20211018164229282"></p>
-<h3 id="2-信頼されたルート-キーの削除とサイト-コードのクリア"><a href="#2-信頼されたルート-キーの削除とサイト-コードのクリア" class="headerlink" title="2. 信頼されたルート キーの削除とサイト コードのクリア"></a>2. 信頼されたルート キーの削除とサイト コードのクリア</h3><p>管理者として実行にて起動した PowerShell コンソールで以下のコマンドを実行していき、信頼されたルート キー (TrustedRootKey) の削除とサイト コードのクリアし、サイト コードの自動割り当てを有効します。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\locationservices <span class="literal">-class</span> trustedrootkey | <span class="built_in">rwmi</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$oSMSClient</span>=<span class="built_in">New-Object</span> <span class="literal">-comobject</span> Microsoft.SMS.Client</span><br><span class="line"><span class="variable">$oSMSClient</span>.RemoveAssignedSites()</span><br><span class="line"><span class="variable">$oSMSClient</span>.EnableAutoAssignment(<span class="variable">$True</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-自己署名証明書の削除"><a href="#3-自己署名証明書の削除" class="headerlink" title="3. 自己署名証明書の削除"></a>3. 自己署名証明書の削除</h3><ol>
-<li><p>コマンド プロンプトを開き、”mmc” を入力して実行します。</p>
-</li>
-<li><p>[ファイル] - [スナップインの追加と削除] をクリックします。</p>
-</li>
-<li><p>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</p>
-</li>
-<li><p>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</p>
-</li>
-<li><p>“ローカル コンピューター” にチェックし、[完了] をクリックします。</p>
-</li>
-<li><p>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</p>
-</li>
-<li><p>左ペインにて、[証明書] - [SMS] - [証明書] を選択します。</p>
-</li>
-<li><p>中央ペインに表示された 2 つの “SMS” 証明書に対して、それぞれ右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか ? 」というメッセージが表示されますので、[はい] を選択します。</p>
-</li>
-<li><p>[ファイル] - [終了] をクリックします。「 コンソールの設定を コンソール 1  に保存しますか ? 」というメッセージが表示されますので、 [いいえ] を選択して、 mmc を終了します。<br>以下の手順で自己署名証明書を削除します。</p>
-</li>
-</ol>
-<p><strong>※</strong> <strong>PKI</strong> <strong>証明書を利用している環境</strong> <strong>(HTTPS 構成)</strong> <strong>の場合</strong></p>
-<p>PKI 証明書を利用している場合は同様に以下の手順で PKI 証明書を削除します。</p>
-<ol>
-<li>コマンド プロンプトを開き、”mmc” を入力して実行します。</li>
-<li>[ファイル] - [スナップインの追加と削除] をクリックします。</li>
-<li>左ペインから [証明書] をクリックして [追加] ボタンをクリックします。</li>
-<li>“コンピューター アカウント” にチェックを入れて、[次へ] をクリックします。</li>
-<li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
-<li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
-<li>左ペインにて、[証明書] - [個人] - [証明書] を選択します。カスタム ストアを利用している場合は、該当箇所を選択してください。</li>
-<li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか ? 」というメッセージが表示されますので、[はい] を選択します。</li>
-<li>[ファイル] - [終了] をクリックします。「 コンソールの設定を コンソール 1 に保存しますか ? 」というメッセージが表示されますので、 [いいえ] を選択して、 mmc を終了します。</li>
-</ol>
-<h3 id="4-SMSCFG-ini-の削除"><a href="#4-SMSCFG-ini-の削除" class="headerlink" title="4. SMSCFG.ini の削除"></a>4. SMSCFG.ini の削除</h3><p>Configuration Manager 一意の識別子の情報が格納されている SMSCFG.ini を削除します。<br>ファイルは、 以下の場所に存在します。</p>
-<p><code>%windir%\SMSCFG.ini</code></p>
-<h3 id="5-SMS-Agent-Host-サービスのスタート-アップの種類の変更"><a href="#5-SMS-Agent-Host-サービスのスタート-アップの種類の変更" class="headerlink" title="5. SMS Agent Host サービスのスタート アップの種類の変更"></a>5. SMS Agent Host サービスのスタート アップの種類の変更</h3><p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動  (遅延開始) ] に変更します。SMS Agent Host サービスを開始しないように注意してください。</p>
-<p>(注意) 手順実施中に Configuration Manager Health Evaluation タスクを無効にした場合は、有効に戻してください。</p>
-<h3 id="6-マスターイメージの採取"><a href="#6-マスターイメージの採取" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。 (System Center Configuration Manager のキャプチャー メディアを使用すれば、 sysprep /generalize  は内部的に自動実行されます。 かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。 )</p>
+<p>影響を受ける可能性のある環境をお持ちのお客様は、修正プログラムが利用可能になるまで、バージョン 2403 または 2309 更新プログラムのロールアップの展開を待つ必要があります。 環境が既に更新されているが、新しいクライアントがまだインストールされていない場合は、以下の詳細を参照してください。  </p>
+<ul>
+<li>有効にする場合は、実稼働前クライアントを使用して実稼働前コレクション内のすべてのクライアントを自動的にアップグレードする階層設定を無効にします。詳細については、「実稼働前コレクションを使用するためのクライアントの自動アップグレードの構成」を参照してください。  </li>
+<li>「実稼働前クライアントの昇格」アクションの使用は避けてください。詳細については、「新しいクライアントを運用環境に昇格させる」を参照してください。<br>クライアントが既に更新されている場合は、クライアント設定で [クライアント コンピューター上の Endpoint Protection クライアントの管理] の値を [いいえ] に設定します。これは、共同管理クライアントを持つコレクションに対してのみ実行できます。Microsoft Intune ポリシーが再適用され、クライアントは再び期待どおりに管理されます。  </li>
+</ul>
+<p>このメモは、追加情報が利用可能になり次第更新されます。<br>— &lt;抄訳&gt; —  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20171025_01/" data-id="clw48x707001p0nrrezitgmps" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20240510_01/" data-id="clw48x71z006e0nrr4oglcvo3" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -193,19 +161,10 @@
     
 <nav id="article-nav">
   
-    <a href="../20171107_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを取得する手順 (ワークグループ対応版)
-        
-      </div>
-    </a>
   
-  
-    <a href="../../wsus/2017-09-08_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../wsus/2024-05-02_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows 10 / Windows Server 2016 でも Windows Update の自動更新は止められます</div>
+      <div class="article-nav-title">自動承認規則の &#34;承認の期日の設定&#34; について</div>
     </a>
   
 </nav>
@@ -224,7 +183,7 @@
       <ul>
         
           <li>
-            <a href="../20240510_01/">共同管理クライアントで Endpoint Protection ワークロードを Intune に設定した場合に影響を受ける不具合のご案内</a>
+            <a href="">共同管理クライアントで Endpoint Protection ワークロードを Intune に設定した場合に影響を受ける不具合のご案内</a>
           </li>
         
           <li>
