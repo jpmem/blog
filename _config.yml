@@ -3,25 +3,23 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Title (display)
-title: Japan Microsoft Endpoint Manager Support Blog 
+title: Japan Microsoft Configuration Manager Support Team Blog 
 # Sub Title (display)
-subtitle: 日本マイクロソフト Microsoft Endpoint Manager サポート チームのブログです。
+subtitle: 日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。
 # Description
-description: 日本マイクロソフトの Microsoft Endpoint Manager に関するサポート情報のブログです。
+description: 日本マイクロソフトの Microsoft Configuration Manager / Windows 365 / WSUS に関するサポート チームのブログです。
 
 # Keywords
 keywords:
   - MECM
-  - Intune
   - WSUS
   - Windows 365
 
-author: Microsoft Endpoint Manager Support Japan
+author: Japan Microsoft Configuration Manager Support Team
 
 root_tag_generator:
   root_tag_names:
     - MECM
-    - Intune
     - WSUS
     - Windows 365
   sub_tag_limit: 20
