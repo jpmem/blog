@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。WSUS サポート チームです。   今回は WSUS サーバーが Microsoft Update サイトや上位の WSUS サーバーから更新プログラムのインストーラーをダウンロードする際に、よくあるトラブル事例と対処方法をご紹介します。もし下記のような症状が出ている場合には、本ブログ記事が役立つと思います。    いくつかの更新プログラムについてのみ、ダウンロードが失敗する   ダ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-01-14T01:05:51.132Z">
+<meta property="article:modified_time" content="2025-01-16T02:56:08.333Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -123,7 +123,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">イベントの種類: エラー</span><br><span class="line">イベント ソース: Windows Server Update Services</span><br><span class="line">イベント カテゴリ: (2)</span><br><span class="line">イベント ID: 364</span><br><span class="line">日付: date</span><br><span class="line">時刻: time</span><br><span class="line">ユーザー: 該当なし</span><br><span class="line">コンピューター: ServerName</span><br><span class="line">説明:コンテンツ ファイルのダウンロードに失敗しました。原因:サーバーは必要な HTTP プロトコルをサポートしていません。バックグラウンド インテリジェント転送サービス (BITS) では、サーバーが Range プロトコル ヘッダーをサポートしている必要があります。</span><br></pre></td></tr></table></figure>
 <p>こういった場合、下記の技術情報でご紹介する対処方法をお試しください。  </p>
-<p><a target="_blank" rel="noopener" href="http://support.microsoft.com/kb/922330/ja">バックグラウンド インテリジェント転送サービスを使用してファイルをダウンロードしようとすると、次のエラー メッセージが表示される: コンテンツ ファイル ダウンロードに失敗しました</a></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/windows-server/networking/cannot-download-file-background-intelligent-transfer-service">バックグラウンド インテリジェント転送サービスを使用してファイルをダウンロードしようとすると、次のエラー メッセージが表示される: コンテンツ ファイル ダウンロードに失敗しました</a></p>
 <p>本ブログ記事ではトラブルの詳細、対処方法とその影響についてもう少し補足してご説明します。  </p>
 <h1 id="トラブルの詳細について"><a href="#トラブルの詳細について" class="headerlink" title="トラブルの詳細について"></a>トラブルの詳細について</h1><p>WSUS サーバーが更新プログラムのインストーラーをダウンロードする際には、”Background Intelligent Transfer Service” (BITS) サービスが利用されます。<br>BITS は帯域制御の機能を持ったファイル転送の仕組みで、バックグラウンド、フォアグラウンド、と 2 種類の転送モードを持ちます。  </p>
 <p>WSUS サーバーは既定の設定で、バックグラウンド モードを利用してダウンロードを行います。<br>この時、ダウンロード要求は HTTP/1.1 の Range ヘッダーを使って、インストーラーをいくつものブロックに分けて分割ダウンロードを行います。  </p>
@@ -137,15 +137,15 @@
 <p>もし設定を元に戻したい場合には、ステップ 1 で実行する SQL クエリを下記に変更して、”Update Services” を再起動します。  </p>
 <p><code>update tbConfigurationC set BitsDownloadPriorityForeground=0</code></p>
 <p>WSUS が利用する既定のデータベース Windows Internal Database に対して GUI から SQL クエリを実行したい時には、下記のブログ記事をご参照ください。  </p>
-<p><a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/f02afeaa-37e9-4ecd-bf95-39f1019ed385/wsus?forum=jpsccmwsus">WSUS データベースを簡単に操作するには (Windows Server 2012 編)</a></p>
+<p><a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について</a></p>
 <h1 id="BITS-フォアグラウンド-モードの影響について"><a href="#BITS-フォアグラウンド-モードの影響について" class="headerlink" title="BITS フォアグラウンド モードの影響について"></a>BITS フォアグラウンド モードの影響について</h1><p>BITS を用いたファイル転送には帯域制御を設定可能ですが、BITS フォアグラウンド モードは帯域制御を行いません。<br>もし帯域制御をグループ ポリシー等で設定する環境では、注意が必要となります。<br>なお、WSUS が BITS を利用する際の設定のみが変更されるため、その他の場面で BITS が利用されるときの動作には影響ありません。  </p>
-<p>– 参考資料<br>タイトル: Background Intelligent Transfer Service<br>URL: <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb968799.aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/bb968799.aspx</a>  </p>
+<p>– 参考資料<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/win32/bits/background-intelligent-transfer-service-portal?redirectedfrom=MSDN">バックグラウンド インテリジェント転送サービス</a>  </p>
 <p><strong>(補足情報)<br>Windows 10 の機能更新プログラムなど、2 GB を超えるファイルについては、WSUS の設定で BITS フォアグラウンド モードに変更したとしても、Range ヘッダーを使って分割ダウンロードが行われます。こちらは、BITS における想定された動作となりますので、機能更新プログラムのダウンロードを実施する場合は、お手数をおかけいたしますが、ネットワーク中継機器で Range ヘッダーを許可してくださいますようお願いいたします。</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cm5vruqjx00ad0nnz1nv0f1fu" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cm5yqo9ss00ad0np3bg7c8p3z" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
