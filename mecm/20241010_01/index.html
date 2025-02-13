@@ -5,19 +5,19 @@
   
 
   
-  <title>AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない問題 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>AutoPilot を使って キッティングした Windows 11 端末に対して共同管理ポリシーが適用されない問題 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない場合の対処策みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。 現象 共同管理構成ポリシー で">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。 現象 共同管理構成ポリシー で ワークロード を Configuration Manager 側に寄せているにもかかわらず、 全ての ワークロード が I">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない問題">
+<meta property="og:title" content="AutoPilot を使って キッティングした Windows 11 端末に対して共同管理ポリシーが適用されない問題">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20241010_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない場合の対処策みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。 現象 共同管理構成ポリシー で">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。 現象 共同管理構成ポリシー で ワークロード を Configuration Manager 側に寄せているにもかかわらず、 全ての ワークロード が I">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20241010_01/20241010_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20241010_01/20241010_01_02.png">
 <meta property="article:published_time" content="2024-10-09T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-02-13T07:48:34.242Z">
+<meta property="article:modified_time" content="2025-02-13T07:54:29.343Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="共同管理">
@@ -102,7 +102,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない問題
+      AutoPilot を使って キッティングした Windows 11 端末に対して共同管理ポリシーが適用されない問題
     </h1>
   
 
@@ -118,12 +118,11 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <h2 id="AutoPilot-を使って-キッティング-した-Win-11-端末に対して共同管理ポリシーが適用されない場合の対処策"><a href="#AutoPilot-を使って-キッティング-した-Win-11-端末に対して共同管理ポリシーが適用されない場合の対処策" class="headerlink" title="AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない場合の対処策"></a>AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない場合の対処策</h2><p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
-<p>本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。</p>
-<h2 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h2><ul>
-<li>共同管理構成ポリシー で ワークロード を ConfigMgr 側に寄せているにもかかわらず、 全ての ワークロード が Intune 側に寄っている状態の挙動を示します。</li>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。</p>
+<h1 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h1><ul>
+<li>共同管理構成ポリシー で ワークロード を Configuration Manager 側に寄せているにもかかわらず、 全ての ワークロード が Intune 側に寄っている状態の挙動を示します。</li>
 </ul>
-<h2 id="事象発生条件"><a href="#事象発生条件" class="headerlink" title="事象発生条件"></a>事象発生条件</h2><ul>
+<h1 id="事象発生条件"><a href="#事象発生条件" class="headerlink" title="事象発生条件"></a>事象発生条件</h1><ul>
 <li><p>AutoPilot を使って キッティングする</p>
 </li>
 <li><p>Windows 11 端末</p>
@@ -132,14 +131,14 @@
 <p>もしくは、上記画面で設定されているプロファイルにて「共同管理ポリシーをオーバーライドし、すべてのワークロードに対して Intune　を使用します] が「はい」の状態でプロファイルが端末に適用されている。<br><img src="/blog/mecm/20241010_01/20241010_01_02.png" alt="image.png"></p>
 </li>
 </ul>
-<h2 id="事象発生の確認方法"><a href="#事象発生の確認方法" class="headerlink" title="事象発生の確認方法"></a>事象発生の確認方法</h2><ul>
+<h1 id="事象発生の確認方法"><a href="#事象発生の確認方法" class="headerlink" title="事象発生の確認方法"></a>事象発生の確認方法</h1><ul>
 <li>[ファイル名を指定して実行] - [C:\Windows\CCM\SMSCFGRC.cpl] を開き、全般タブを開いた際に「共同管理機能」の値が以下のように 「2147479807」 を示します。</li>
 <li>C:\Windows\CCM\CoManagementHandler.log に以下のように出力されます。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Workloads are explicitly set by Intune Co-Management Profile so not using ConfigMgr set workloads. Current value from set from Intune is 2147479807</span><br></pre></td></tr></table></figure></li>
 <li>管理機関を示すレジストリ値が 以下にて Intune に設定されています。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[HKLM\SOFTWARE\Microsoft\DeviceManageabilityCSP\Provider\MS DM Server]</span><br><span class="line">Key: ConfigInfo</span><br><span class="line">Value: 1</span><br></pre></td></tr></table></figure>
-Value が 1 のとき Intune, Value が 2 のとき ConfigMgr を示します。</li>
+Value が 1 のとき Intune, Value が 2 のとき Configuration Manager を示します。</li>
 </ul>
-<h2 id="事象の解消方法"><a href="#事象の解消方法" class="headerlink" title="事象の解消方法"></a>事象の解消方法</h2><ul>
-<li><p>事象が既に発生してしまっている端末については、以下のレジストリの値を変更し、CCMExec サービスを再起動することで事象が解消され、ワークロードの設定が ConfigMgr で設定したものに設定されます。</p>
+<h1 id="事象の解消方法"><a href="#事象の解消方法" class="headerlink" title="事象の解消方法"></a>事象の解消方法</h1><ul>
+<li><p>事象が既に発生してしまっている端末については、以下のレジストリの値を変更し、CCMExec サービスを再起動することで事象が解消され、ワークロードの設定が Configuration Manager で設定したものに設定されます。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[HKLM\SOFTWARE\Microsoft\DeviceManageabilityCSP\Provider\MS DM Server]</span><br><span class="line">Key: ConfigInfo</span><br><span class="line">Value: 2</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -149,12 +148,12 @@ Value が 1 のとき Intune, Value が 2 のとき ConfigMgr を示します。
 <li><p>これからキッティングする端末にて事象が発生しないようにするためには、プロファイルにて「共同管理ポリシーをオーバーライドし、すべてのワークロードに対して Intune　を使用します] を「いいえ」にして端末に割り当ててください。</p>
 </li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/comanage/autopilot-enrollment#limitations">https://learn.microsoft.com/ja-jp/mem/configmgr/comanage/autopilot-enrollment#limitations</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/comanage/autopilot-enrollment#limitations">Autopilot に登録する方法 - 制限事項</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20241010_01/" data-id="cm731g733006k0noofj4k0s43" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20241010_01/" data-id="cm731nt8o006k0ns2hq4t9rcu" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
@@ -177,7 +176,7 @@ Value が 1 のとき Intune, Value が 2 のとき ConfigMgr を示します。
   
     <a href="../20241004_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Contents Library Explorer を使って配布ポイントに格納されているコンテンツを確認する</div>
+      <div class="article-nav-title">Content Library Explorer を使って配布ポイントに格納されているコンテンツを確認する</div>
     </a>
   
 </nav>
@@ -204,11 +203,11 @@ Value が 1 のとき Intune, Value が 2 のとき ConfigMgr を示します。
           </li>
         
           <li>
-            <a href="">AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが適用されない問題</a>
+            <a href="">AutoPilot を使って キッティングした Windows 11 端末に対して共同管理ポリシーが適用されない問題</a>
           </li>
         
           <li>
-            <a href="../20241004_01/">Contents Library Explorer を使って配布ポイントに格納されているコンテンツを確認する</a>
+            <a href="../20241004_01/">Content Library Explorer を使って配布ポイントに格納されているコンテンツを確認する</a>
           </li>
         
           <li>
