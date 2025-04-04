@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1) | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。Configuration Manager サポート チームです。 本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。 ※本記事では、WSUS、Intune、Windows Update、Windows Update for Business (WUfB) に関する内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20250325_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="こんにちは。Configuration Manager サポート チームです。 本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。 ※本記事では、WSUS、Intune、Windows Update、Windows Update for Business (WUfB) に関する内容">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_01/20250325_01_01.png">
+<meta property="article:published_time" content="2025-03-24T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-04T05:38:46.746Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20250325_01/20250325_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20250325_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2025-03-24T15:00:00.000Z" itemprop="datePublished">2025-03-25</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2025-03-24T15:00:00.000Z" itemprop="dateUpdated">2025-03-25</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>こんにちは。Configuration Manager サポート チームです。</p>
+<p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p>
+<p>※本記事では、WSUS、Intune、Windows Update、Windows Update for Business (WUfB) に関する内容は対象外です。</p>
+<p>各症状ごとに詳細な記事を公開しています。記載内容と一致しない事象を確認された場合、弊社サポートまでお問い合わせください。</p>
+<h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>以下のような問題が発生することがあります。</p>
+<ol>
+<li><strong>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</strong></li>
+<li>ソフトウェア センターでダウンロードが失敗する</li>
+<li>ソフトウェア センターでインストールに失敗する</li>
+<li>必須展開にしているのに、更新プログラムが適用されない</li>
+</ol>
+<p>本記事では、症状 1 の <strong>「利用可能展開にしているのに更新プログラムがソフトウェア センターに表示されない」</strong> 問題について解説します。</p>
+<h2 id="利用可能展開にしているのに、更新プログラムがソフトウェア-センターに表示されない"><a href="#利用可能展開にしているのに、更新プログラムがソフトウェア-センターに表示されない" class="headerlink" title="利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない"></a>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</h2><p>以下のような原因が考えられます。</p>
+<ul>
+<li>管理ポイントと通信できず、展開ポリシーを取得できていない</li>
+<li>展開ポリシーに紐づくコレクションにデバイスが所属していない</li>
+<li>ソフトウェア更新ポイントと通信できず、更新プログラムの検出が失敗している</li>
+</ul>
+<h3 id="管理ポイントと通信できず、展開ポリシーを取得できていない"><a href="#管理ポイントと通信できず、展開ポリシーを取得できていない" class="headerlink" title="管理ポイントと通信できず、展開ポリシーを取得できていない"></a>管理ポイントと通信できず、展開ポリシーを取得できていない</h3><p>管理ポイントと ConfigMgr クライアントの通信ができていない可能性があります。以下の PowerShell コマンドを実行し、管理ポイントと疎通できるか確認してください (拡張 HTTP 通信設定の場合のみ)。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="literal">-Uri</span> <span class="string">&quot;http://&lt;管理ポイントの FQDN&gt;/sms_mp/.sms_aut?mplist&quot;</span> <span class="literal">-UseBasicParsing</span></span><br></pre></td></tr></table></figure>
+
+<p>正常な場合、<code>StatusCode : 200</code> が返ります。それ以外の場合、通信エラーの可能性があります。</p>
+<p>ログから確認する場合は、クライアントの <code>C:\Windows\CCM\Logs\CcmMessaging.log</code> を確認すると良いかと存じます。直近に以下のようなログが出力されていれば、通信が失敗している可能性が高いです。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[CCMHTTP] ERROR: URL=[管理ポイントの URL], Port=[port 番号], Options=1248, Code=0, Text=[エラー シンボル]</span><br><span class="line">[CCMHTTP] ERROR INFO: StatusCode=[HTTP ステータス コード] StatusText=[HTTP エラー ステータス テキスト]</span><br></pre></td></tr></table></figure>
+
+<p>よくあるエラー シンボル の例:</p>
+<ul>
+<li><code>CCM_E_BAD_HTTP_STATUS_CODE</code>: HTTP ステータスコード 4xx または 5xx (サーバー側のエラー)</li>
+<li><code>CCM_E_NO_CLIENT_PKI_CERT</code>: HTTPS 環境でクライアント証明書が見つからない</li>
+<li><code>ERROR_WINHTTP_NAME_NOT_RESOLVED</code>: DNS で管理ポイントを解決できない</li>
+<li><code>ERROR_WINHTTP_TIMEOUT</code>: 管理ポイントとの通信がタイムアウト</li>
+</ul>
+<h2 id="展開ポリシーに紐づくコレクションにデバイスが所属していない"><a href="#展開ポリシーに紐づくコレクションにデバイスが所属していない" class="headerlink" title="展開ポリシーに紐づくコレクションにデバイスが所属していない"></a>展開ポリシーに紐づくコレクションにデバイスが所属していない</h2><p>デバイスがコレクションに所属していないと、展開ポリシーを取得できません。以下の PowerShell コマンドを実行し、展開ポリシーを取得できているか確認してください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\Policy\Machine\ActualConfig&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateCIAssignment | <span class="built_in">Select-Object</span> AssignmentID,  AssignmentName | <span class="built_in">Sort-Object</span> <span class="literal">-Property</span> AssignmentName | <span class="built_in">Format-Table</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している"><a href="#ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している" class="headerlink" title="ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している"></a>ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している</h2><p>デバイスがソフトウェア更新ポイントと通信できていない場合、更新プログラムの検出が失敗します。以下のコマンドを実行し、通信状況を確認してください (HTTP 通信設定の場合のみ)。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="literal">-Uri</span> <span class="string">&quot;http://&lt;ソフトウェア更新ポイントの FQDN&gt;:8530/ClientWebService/client.asmx&quot;</span> <span class="literal">-UseBasicParsing</span></span><br></pre></td></tr></table></figure>
+<p><code>StatusCode : 200</code> 以外が返る場合、通信エラーの可能性があります。</p>
+<p>また、ソフトウェア更新ポイントとアクセスする際には、通常、WinHTTP Proxy が利用されます。ご利用の NW 経路上、該当の Proxy は利用できるのか確認いただき、利用できない場合は、Proxy をバイパスするよう設定ください。</p>
+<p>WinHTTP Proxy の設定は、コマンド プロンプトを開き、以下のコマンドを実行して確認できます。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp show proxy</span><br></pre></td></tr></table></figure>
+
+<p>このほか、ソフトウェア更新ポイントがクライアントの所属する境界グループに紐づいていない、もしくは所属するドメインのグループ ポリシーで上書きされている場合がございます。こちらの確認は、コマンド プロンプトで、以下を実行して出力されるグループ ポリシーの評価結果をご確認ください。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure>
+
+<p>出力された gpresult.html にて [設定] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント/Windows Update/(Windows Server Update Service から提供される更新プログラムの管理)]のポリシー [イントラネットの Microsoft 更新サービスの場所を指定する] の[優勢なGPO]が　[ローカル セキュリティ ポリシー]であり、かつ、以下の項目が以下の設定であるのが正しい設定です。</p>
+<ul>
+<li>更新を検出するためのイントラネットの更新サービスを指定する: ソフトウェア更新ポイントの FQDN</li>
+<li>イントラネット統計サーバーの設定: ソフトウェア更新ポイントの FQDN</li>
+<li>代替ダウンロード サーバーの設定: <a target="_blank" rel="noopener" href="http://localhost:8005/">http://localhost:8005</a></li>
+</ul>
+<p> <img src="/blog/mecm/20250325_01/20250325_01_01.png" alt="gpresult.png"></p>
+<p>上記の修復は [ConfigMgrコンソール] - [管理] - [階層の構成] - [境界グループ] より設定を見直しください。<br>IP サブネット境界設定が誤っている場合などもございます。</p>
+<p>IP サブネット境界設定の考え方<br><a href="https://jpmem.github.io/blog/mecm/20220414_01/">https://jpmem.github.io/blog/mecm/20220414_01/</a></p>
+<p>この他、「ソフトウェア更新ポイントとの通信がタイムアウトする」場合がございます。この事象は、 <code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80072ee2</span><br><span class="line">Scan failed with error = 0x80072ee2.</span><br></pre></td></tr></table></figure>
+
+<p>0x80072ee2:    WININET_E_TIMEOUT</p>
+<p>また、「ソフトウェア更新ポイントとの通信が 503 エラーで返答される」場合もございます。この事象も、<code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80244022.</span><br><span class="line">Scan failed with error = 0x80244022. </span><br></pre></td></tr></table></figure>
+
+<p>0x80244022: WU_E_PT_HTTP_STATUS_SERVICE_UNAVAIL / Same as HTTP status 503 - the service is temporarily overloaded.</p>
+<p>これらの原因は、ソフトウェア更新ポイントとして利用している WSUS のメンテナンスが適切に行われていない場合が極めて多いので、以下でご案内のメンテナンスを実施ください。</p>
+<p>WSUS メンテナンスガイド新版<br><a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a></p>
+<p>この他、実際にクライアントで更新プログラムの検出が成功しているかどうかは、以下の Powershell スクリプトを実行することでも確認できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\SoftwareUpdates\UpdatesStore&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateStatus | <span class="built_in">Select-Object</span> UniqueId,Title,Status | <span class="built_in">Format-Table</span></span><br></pre></td></tr></table></figure>
+
+<p>適用させたい更新プログラムの Status が Missing になっているかを確認ください。該当の更新プログラムが見つからない場合、ソフトウェア更新ポイント上で該当の更新プログラムの承認状態が「未承認」でないか、そもそもソフトウェア更新ポイントと通信できていないか、もしくは、WUfB 関連のポリシー / レジストリが有効になっているためにデュアル スキャン状態になっている可能性がございます。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20250325_01/" data-id="cm92ctvhm006r0npfcg2rbwa6" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20250325_02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_02/">ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_03/">ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_04/">ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (4)</a>
+          </li>
+        
+          <li>
+            <a href="../20250207_01/">Configuration Manager のアップグレードをオフラインで行う場合の注意点について</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
