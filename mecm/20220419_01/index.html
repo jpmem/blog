@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220419_01/20220419_01_16.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220419_01/20220419_01_17.png">
 <meta property="article:published_time" content="2022-04-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-09T05:54:35.639Z">
+<meta property="article:modified_time" content="2025-05-09T04:08:16.165Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -151,8 +151,8 @@
 </ol>
 <p>上記は、Active Directory ユーザーの探索の例ですが、その他、Active Directory システムの探索 (コンピューター オブジェクト) でも、Active Directory 属性の追加が可能ですので、応用してください。</p>
 <h2 id="ステップ-2-SQL-のクエリを作成する"><a href="#ステップ-2-SQL-のクエリを作成する" class="headerlink" title="ステップ 2: SQL のクエリを作成する"></a>ステップ 2: SQL のクエリを作成する</h2><p>Configuration Manager にて格納された情報について SQL クエリを実行し、必要な情報をまとめて表示します。<br>レポートの元となる SQL クエリについては、[SQL Server Management Studio] から試行錯誤し、作成します。<br>SQL クエリの実行方法については、以下の手順をご参照ください。</p>
-<p>Title: SQL Query 結果の出力方法について<br>URL: <a href="https://jpmem.github.io/memlog/configmgr/sql/sqlquery.html">https://jpmem.github.io/memlog/configmgr/sql/sqlquery.html</a></p>
-<p>クエリの作成にあたっては、後述補足の、”SCCM データベースのクエリ作成の基礎知識” をご参考ください。</p>
+<p>Title: SQL Query 結果の出力方法について<br>URL: <a href="https://jpmem.github.io/memlog/configmgr/sql-server/sqlquery.html">https://jpmem.github.io/memlog/configmgr/sql-server/sqlquery.html</a>  </p>
+<p>クエリの作成にあたっては、後述補足の、”Configuration Manager データベースのクエリ作成の基礎知識” をご参考ください。</p>
 <p>以下は、ユーザー名に紐尽くプライマリ デバイスと、その基本的な情報を表示する資産台帳の表示を行うカスタム クエリです。<br>ユーザーが最も長く使用するプライマリ デバイスを使用しています。<br>ユーザー名と、そのプライマリ デバイスの関連性は v_UserMachineRelationship ビューに格納されています。</p>
 <p>クエリ例</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sys.Netbios_Name0 <span class="keyword">as</span> &quot;マシン名&quot;, u.Unique_User_Name0 <span class="keyword">as</span> &quot;AD上のユーザー名&quot;,</span><br><span class="line">u.Full_User_Name0 <span class="keyword">as</span> &quot;ユーザー名&quot;, u.department <span class="keyword">as</span> &quot;部署名&quot;,</span><br><span class="line">cs.Model0 <span class="keyword">as</span> &quot;機種のモデル名&quot;, cs.Manufacturer0 <span class="keyword">as</span> &quot;機種の製造元&quot;,</span><br><span class="line"><span class="keyword">left</span> (os.Name0,charindex (<span class="string">&#x27;|&#x27;</span>, os.Name0)<span class="number">-1</span>) <span class="keyword">as</span> &quot;OS名&quot;, os.TotalVisibleMemorySize0 <span class="keyword">as</span> &quot;物理メモリ(MB)&quot;,</span><br><span class="line">(ld.Size0 <span class="operator">/</span> <span class="number">1024</span>) <span class="keyword">as</span> &quot;C:の容量(GB)&quot;</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">v_UserMachineRelationship umr</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> v_R_User u</span><br><span class="line"><span class="keyword">on</span> umr.UniqueUserName <span class="operator">=</span> u.Unique_User_Name0</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> v_R_System sys</span><br><span class="line"><span class="keyword">on</span> umr.MachineResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_COMPUTER_SYSTEM cs</span><br><span class="line"><span class="keyword">on</span> sys.ResourceID <span class="operator">=</span> cs.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_OPERATING_SYSTEM os</span><br><span class="line"><span class="keyword">on</span> os.ResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_LOGICAL_DISK ld</span><br><span class="line"><span class="keyword">on</span> ld.ResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">where</span> ld.DeviceID0 <span class="keyword">like</span> <span class="string">&#x27;%C%&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -216,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220419_01/" data-id="cm99ilgx100410nuzc68xa3z4" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220419_01/" data-id="cmaga0bce00410nqu1zi97nea" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
