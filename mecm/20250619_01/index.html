@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内します。基本的に ConfigMgr クライアントは BITS（バックグラウンド インテリジェント転送サービス）を用いてコンテンツをダウンロー">
+<meta property="og:type" content="article">
+<meta property="og:title" content="クライアントがコンテンツのダウンロードを行う際の帯域の制限">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20250619_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内します。基本的に ConfigMgr クライアントは BITS（バックグラウンド インテリジェント転送サービス）を用いてコンテンツをダウンロー">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2025-06-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-25T07:48:40.673Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20250619_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2025-06-18T15:00:00.000Z" itemprop="datePublished">2025-06-19</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      クライアントがコンテンツのダウンロードを行う際の帯域の制限
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2025-06-18T15:00:00.000Z" itemprop="dateUpdated">2025-06-19</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
+<p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内します。基本的に ConfigMgr クライアントは BITS（バックグラウンド インテリジェント転送サービス）を用いてコンテンツをダウンロードしますが、このとき使用されるネットワーク帯域はクライアント設定で制限できます。そのため、帯域が限られている環境では BITS の帯域を制限されているお客様も多いと思います。しかし、設定後に予期せぬ結果とならないよう、いくつか押さえておくべきポイントがあります。</p>
+<h2 id="フォアグラウンドのダウンロードは帯域を制限できません"><a href="#フォアグラウンドのダウンロードは帯域を制限できません" class="headerlink" title="フォアグラウンドのダウンロードは帯域を制限できません"></a>フォアグラウンドのダウンロードは帯域を制限できません</h2><p>ConfigMgr クライアントが生成する BITS ジョブには、フォアグラウンドとバックグラウンドの 2 つの転送モードがございます。このうち、帯域を制限できるのは、バックグラウンド 転送モードのみであることに注意が必要です。ConfigMgr がコンテンツを配布するシナリオごとの、転送モードを表 1 に示します。</p>
+<table>
+  <caption>表 1: BITS の転送モード</caption>
+  <thead>
+    <tr>
+      <th>コンテンツの種類</th>
+      <th>ソフトウェア センターからインストールする場合</th>
+      <th>自動でインストールする場合(必須の展開)
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>アプリケーション</td>
+      <td>フォアグラウンド</td>
+      <td>バックグラウンド</td>
+    </tr>
+    <tr>
+      <td>パッケージ</td>
+      <td>バックグラウンド</td>
+      <td>バックグラウンド</td>
+    </tr>
+    <tr>
+      <td>ソフトウェア更新プログラム</td>
+      <td>フォアグラウンド</td>
+      <td>バックグラウンド</td>
+  </tbody>
+</table>
+
+<p>表 1 からわかる通り、ソフトウェア更新プログラムやアプリケーションは、ソフトウェア センターを使用し [インストール] ボタンをクリックした場合、その転送はフォアグラウンド 転送モードになるため、帯域制限の設定は無視されます。一方、パッケージの場合はソフトウェア センターの利用有無を問わず、常にバックグラウンド 転送モードになるため、帯域制限の設定は有効です。</p>
+<p>したがって、コンテンツの種類を問わずダウンロード時の帯域を制限したい場合は、ソフトウェア センターによるインストールを避け、[利用可能] ではなく [必須] で展開する必要があります。ただし、必須展開でも「インストールの期限」に到達した時点でダウンロードやインストールが未完了の場合は、ソフトウェア センターから [インストール] ボタンをクリックすることが可能です。この状態で [インストール] ボタンをクリックしたとき、コンテンツのダウンロードが未完了であればフォアグラウンド 転送モードでダウンロードが発生します。</p>
+<h2 id="コンテンツのダウンロード時は-BITS-を使用します"><a href="#コンテンツのダウンロード時は-BITS-を使用します" class="headerlink" title="コンテンツのダウンロード時は BITS を使用します"></a>コンテンツのダウンロード時は BITS を使用します</h2><p>上記の動作をご理解いただいていたとしても、「帯域が制限される場合のみ BITS を使用し、そうでない場合は BITS 以外が使われる」と誤解されることがありますが、これは正しくありません。 ConfigMgr のコンテンツ配布は一部の例外を除き、通常 BITS を利用します。帯域が制限されるか否かは、あくまで転送モード(フォアグラウンドかバックグラウンドか)の違いということです。</p>
+<p>なお、UUP (Unified Update Platform) 形式の更新プログラムのダウンロード時には、標準設定の場合、OS の配信の最適化 (DO) エージェントも関与しますが、その場合も DO エージェント が ConfigMgr クライアントがローカルに生成したサーバー プロセス (localhost:8005) にコンテンツを要求し、このサーバーが代理で外部から BITS でコンテンツのダウンロードを行います。先にご案内した一部の例外として、DO の機能だけを使うよう設定も構成できるため、厳密にはすべてが BITS というわけではありませんが、ConfigMgr クライアントがコンテンツのダウンロードを行う際は基本的に BITS が使用されます。</p>
+<h2 id="時間帯以外の条件に応じて帯域を制限することは不可です"><a href="#時間帯以外の条件に応じて帯域を制限することは不可です" class="headerlink" title="時間帯以外の条件に応じて帯域を制限することは不可です"></a>時間帯以外の条件に応じて帯域を制限することは不可です</h2><p>BITS は ConfigMgr の専用機能ではなく、OS の汎用的なサービスであり、すべてのアプリケーションが共有しています。そのため、帯域制限の設定を行う場合、その OS 上ですべての BITS ジョブが対象となります。クライアント設定で帯域を制限すると、実際には「BITS バックグラウンド転送の最大ネットワーク帯域幅を制限する」設定がローカル グループ ポリシーとして適用されます。設定可能な条件は「特定の時間帯」と「それ以外の時間帯」のみで、アプリケーションごとの制限やインターネット接続時のみ帯域制限を行う、といった細かい条件での制限はできません。</p>
+<p>ご参考：<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers">https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers</a></p>
+<p>なお、クライアント設定ではなく、Active Directory グループ ポリシーで「BITS バックグラウンド転送の最大ネットワーク帯域幅を制限する」を設定した場合は、クライアント設定と競合が発生します。そのため ConfigMgr クライアントが稼働する環境では、クライアント設定のみで制限することを推奨します。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20250619_01/" data-id="cmcbnksvn00710nryhr7vd1sk" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20250408_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ConfigMgr サポート バージョン FAQ</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">クライアントがコンテンツのダウンロードを行う際の帯域の制限</a>
+          </li>
+        
+          <li>
+            <a href="../20250408_01/">ConfigMgr サポート バージョン FAQ</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_01/">ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_02/">ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_03/">ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
