@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ConfigMgr の バックアップ と リカバリ (1) | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。なおバックアップには様々な方式がございますが、本記事では主に ConfigMgr が提供している「サイト バックアップ」を主眼に解説しております。なお、リカバリについては後日記事として作成予定です。 下記公">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConfigMgr の バックアップ と リカバリ (1)">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20250708_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。なおバックアップには様々な方式がございますが、本記事では主に ConfigMgr が提供している「サイト バックアップ」を主眼に解説しております。なお、リカバリについては後日記事として作成予定です。 下記公">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_09.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_10.png">
+<meta property="article:published_time" content="2025-07-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-08T04:24:54.372Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20250708_01/20250708_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20250708_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2025-07-07T15:00:00.000Z" itemprop="datePublished">2025-07-08</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ConfigMgr の バックアップ と リカバリ (1)
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2025-07-07T15:00:00.000Z" itemprop="dateUpdated">2025-07-08</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に ConfigMgr が提供している「サイト バックアップ」を主眼に解説しております。なお、リカバリについては後日記事として作成予定です。</p>
+<p>下記公開ドキュメントにも、バックアップとリカバリの詳細が記載されていますのでご参照ください。</p>
+<ul>
+<li><p>Configuration Manager サイトをバックアップする<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/backup-and-recovery">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/backup-and-recovery</a></p>
+</li>
+<li><p>Configuration Manager サイトを回復する<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/recover-sites">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/recover-sites</a></p>
+</li>
+</ul>
+<h1 id="用語の定義"><a href="#用語の定義" class="headerlink" title="用語の定義"></a>用語の定義</h1><p>本記事では、各用語を以下のように定義しますので、予めご確認くださいますようお願いいたします。</p>
+<ul>
+<li>バックアップの種類<ul>
+<li>システム バックアップ:<br> あるシステムが持つ全てのデータを含むバックアップのこと。</li>
+<li>仮想マシン バックアップ: システムが仮想マシン上で稼働していた場合、その仮想マシンが動作するための設定ファイル、および所有する仮想ディスクの全てが含まれるバックアップのこと。</li>
+<li>OS バックアップ: サーバーのデータのうち、OS データを含むドライブのバックアップのこと。便宜上、 WMI レポジトリや レジストリのバックアップはここに含まれる。</li>
+<li>DB バックアップ: システムが利用するデータベースのバックアップのこと。データ、および トランザクション ログを含む。</li>
+<li>ファイル バックアップ: サーバーのデータのうち、OS や DB、アプリケーション 以外のデータファイルバックアップのこと。</li>
+<li>サイト バックアップ: ConfigMgr が独自に用意している、ConfigMgr のサイト回復に必要なファイル群をバックアップしたもの。</li>
+</ul>
+</li>
+<li>仮想マシン スナップショット: サーバーが仮想マシン上で稼働していた場合に、その仮想マシンのある時点での動作状態を復元可能なよう一時保存したもの。 バックアップとは異なる。</li>
+<li>RTO: 目標復旧時間 (Recovery Time Objective): サーバーのダウンタイムとして許容できる時間。</li>
+</ul>
+<h1 id="構成別のデータ格納場所"><a href="#構成別のデータ格納場所" class="headerlink" title="構成別のデータ格納場所"></a>構成別のデータ格納場所</h1><p>下記では、よくある以下の二例の構成について、データの格納場所を図に示します。</p>
+<h2 id="例1-スタンドアロン-サイト-サーバー構成"><a href="#例1-スタンドアロン-サイト-サーバー構成" class="headerlink" title="例1: スタンドアロン サイト サーバー構成"></a>例1: スタンドアロン サイト サーバー構成</h2><p>開発 / ラボ 環境など、非常に少ない端末台数を管理されている際の構成です。</p>
+<ul>
+<li>プライマリ サイト サーバー 1台<ul>
+<li>以下 サイト ロールが同居<ul>
+<li>サイト データベース </li>
+<li>管理ポイント (MP)</li>
+<li>配布ポイント (DP)</li>
+<li>ソフトウェア更新ポイント (SUP)</li>
+<li>レポート サービス ポイント (SRP)</li>
+<li>クラウド管理ゲートウェイ接続 ポイント (CMG-CP)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="データの格納場所"><a href="#データの格納場所" class="headerlink" title="データの格納場所"></a>データの格納場所</h3><p>例1の場合のデータの格納場所は以下の図の通りです。</p>
+<p>   <img src="/blog/mecm/20250708_01/20250708_01_01.png" alt="standaloneprimarydata"></p>
+<h2 id="例2-MP-DP-CMG-CP-分離構成"><a href="#例2-MP-DP-CMG-CP-分離構成" class="headerlink" title="例2: MP / DP / CMG-CP 分離構成"></a>例2: MP / DP / CMG-CP 分離構成</h2><p>本番環境にて一定の端末台数を管理されている際の構成例です。</p>
+<ul>
+<li>プライマリ サイト サーバー 1台<ul>
+<li>以下サイト ロールが同居<ul>
+<li>サイト データベース     </li>
+<li>ソフトウェア更新ポイント (SUP)</li>
+<li>レポート サービス ポイント (SRP)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>リモート管理ポイント (MP) 1台</li>
+<li>リモート配布ポイント (DP) 1台</li>
+<li>リモート クラウド管理ゲートウェイ接続ポイント (CMG-CP) 1台    </li>
+</ul>
+<h3 id="データの格納場所-1"><a href="#データの格納場所-1" class="headerlink" title="データの格納場所"></a>データの格納場所</h3><p>例2の場合のデータの格納場所は以下の図の通りです。プライマリ サイト サーバーとそれ以外のサイト システム サーバーで図を分けています。</p>
+<p>   <img src="/blog/mecm/20250708_01/20250708_01_02.png" alt="primarydata"><br>   <img src="/blog/mecm/20250708_01/20250708_01_03.png" alt="remotesitesystemdata">  </p>
+<h1 id="ConfigMgr-が取り扱うデータ"><a href="#ConfigMgr-が取り扱うデータ" class="headerlink" title="ConfigMgr が取り扱うデータ"></a>ConfigMgr が取り扱うデータ</h1><p>ConfigMgr はご利用の階層設計により、取り扱っているデータの配置場所が異なります。<br>代表的なサイト ロールで取り扱っているデータは以下の通りです。上記の図でご案内している要素の説明ともなっておりますので、図を確認しながら、お読みいただければと存じます。</p>
+<h2 id="サイト-サーバー"><a href="#サイト-サーバー" class="headerlink" title="サイト サーバー"></a>サイト サーバー</h2><ul>
+<li>Site Server Apps:<br>ConfigMgr サイト サーバー のアプリケーション 本体です。クライアント プログラムや各種ツール群も含まれます。また、各サイト システムのアプリケーション バイナリや、セットアップ プログラム、リストア プログラムなども含まれています。</li>
+<li>Inbox files<br>クライアントから収集したデータや、各サイト システムからのジョブ ファイルが一時的に格納されています。サイト データベースに反映され次第、各ジョブ ファイルは削除されます。</li>
+<li>Log files<br>サイト サーバーのログです。</li>
+<li>ContentLib<br>ConfigMgrで配布しているパッケージやアプリケーション、更新プログラムの展開パッケージなどが保持されているコンテンツ ライブラリ です。</li>
+</ul>
+<h2 id="サイト-データベース"><a href="#サイト-データベース" class="headerlink" title="サイト データベース"></a>サイト データベース</h2><ul>
+<li>SQL Server:<br>データベース管理ソフトウェアです。</li>
+<li>CMDB:<br>ConfigMgr のデータベースです。クライアント情報、パッケージやアプリケーション、更新プログラムの構成情報、展開ポリシー情報など多くのデータが管理されています。データおよび変更履歴である redo ログの形式でデータが保持されています。</li>
+<li>SQL Srv Log file:<br>SQL Server のログファイルです。</li>
+</ul>
+<h2 id="管理ポイント"><a href="#管理ポイント" class="headerlink" title="管理ポイント"></a>管理ポイント</h2><ul>
+<li>MP App:<br>管理ポイントのアプリケーション コンポーネントです。CCM フレームワーク、クライアント通知サービス、IIS Webアプリケーション等を含みます。</li>
+<li>Outbox files:<br>管理ポイントがクライアントから収集したデータを一時保管しているフォルダです。サイト データベースへ反映されるか、サイト データベースの Inbox files に転送され次第、各ファイルは削除されます。</li>
+<li>Log files:<br>管理ポイントのアプリケーション ログ ファイルです。</li>
+<li>IIS Log Files (MP):<br>IIS Web アプリケーションとして提供される、IIS 上のエンドポイントとしてのログファイルです。アクセス ログ、エラー ログが含まれます。</li>
+</ul>
+<h2 id="配布ポイント"><a href="#配布ポイント" class="headerlink" title="配布ポイント"></a>配布ポイント</h2><p>以下では、配布ポイント機能のみを持っている場合のデータを示しています。Pull 配布ポイントや、PXE サポート、Microsoft Connected Cache for ConfigMgr を有効にした場合は、データが追加されます。</p>
+<ul>
+<li>DP App:<br>配布ポイントのアプリケーション コンポーネントです。IIS Webアプリケーションが主体となります。</li>
+<li>Log files:<br>配布ポイントのアプリケーション ログ ファイルです。</li>
+<li>ContentLib:<br>ConfigMgrで配布しているパッケージやアプリケーション、更新プログラムの展開パッケージなどが保持されているコンテンツ ライブラリ です。サイト サーバーから配布されたものが含まれます。</li>
+</ul>
+<h2 id="レポート-サービス-ポイント"><a href="#レポート-サービス-ポイント" class="headerlink" title="レポート サービス ポイント"></a>レポート サービス ポイント</h2><ul>
+<li>SRP App:<br>レポート サービス ポイントのアプリケーション コンポーネントです。便宜上、ConfigMgr の標準レポート ファイルはこちらに含まれます。</li>
+<li>Log files:<br>レポート サービス ポイントのアプリケーション ログ ファイルです。</li>
+<li>Custom Reports:<br>標準で用意されている, ConfigMgr のレポートの他にお客様が別途作成されたレポート ファイル群です。</li>
+</ul>
+<h2 id="ソフトウェア更新ポイント"><a href="#ソフトウェア更新ポイント" class="headerlink" title="ソフトウェア更新ポイント"></a>ソフトウェア更新ポイント</h2><ul>
+<li>SUP App:<br>ソフトウェア更新ポイントのアプリケーション コンポーネントです。WSUS との連携に使われるモジュールなどが含まれます。</li>
+<li>Log files:<br>ソフトウェア更新ポイントのアプリケーション ログ ファイルです。</li>
+</ul>
+<h2 id="クラウド管理ゲートウェイ接続ポイント"><a href="#クラウド管理ゲートウェイ接続ポイント" class="headerlink" title="クラウド管理ゲートウェイ接続ポイント"></a>クラウド管理ゲートウェイ接続ポイント</h2><ul>
+<li>CMG-CP App:<br>クラウド管理ゲートウェイ接続ポイントのアプリケーション コンポーネントです。</li>
+<li>Log files:<br>クラウド管理ゲートウェイ接続ポイントのログ ファイルです。</li>
+</ul>
+<h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><p>サイト サーバーやサイト システムの役割とは別に生成される/必要とされるデータ群を以下に示します。</p>
+<h3 id="レポート-サービス-ポイントに必要なコンポーネントとデータ"><a href="#レポート-サービス-ポイントに必要なコンポーネントとデータ" class="headerlink" title="レポート サービス ポイントに必要なコンポーネントとデータ"></a>レポート サービス ポイントに必要なコンポーネントとデータ</h3><p>レポート サービス ポイントに必要なコンポーネントとデータを以下に示します。</p>
+<ul>
+<li>SQL Server Reporting Services:<br>レポート サービス ポイントの前提サービスです。略称 SSRS.</li>
+<li>SSRS Log files:<br>SQL Server Reporting Servicesのログ ファイルです。</li>
+<li>Report DB:<br>SQL Server Reporting Servicesのデータベースです。SQL Server 上に生成します。</li>
+</ul>
+<h3 id="ソフトウェア更新ポイントに必要なコンポーネントとデータ"><a href="#ソフトウェア更新ポイントに必要なコンポーネントとデータ" class="headerlink" title="ソフトウェア更新ポイントに必要なコンポーネントとデータ"></a>ソフトウェア更新ポイントに必要なコンポーネントとデータ</h3><p>ソフトウェア更新ポイントの動作に必要なコンポーネントとデータを以下に示します。</p>
+<ul>
+<li>Windows Server Update Services (WSUS):<br>Windows Server Update Services です。イントラ ネット上の端末の更新プログラムの管理に使われます。ソフトウェア更新ポイントの前提コンポーネントです。</li>
+<li>SUSDB:<br>WSUSのデータベースです。</li>
+<li>WID or MSSQL:<br>SUSDBのデータベース管理ソフトウェアとして、Windows Internal Database (WID) もしくは SQL Server Database のアプリケーション コンポーネントが必要となります。</li>
+</ul>
+<h3 id="その他-1"><a href="#その他-1" class="headerlink" title="その他"></a>その他</h3><ul>
+<li>Content Files:<br>アプリケーションやパッケージ、展開パッケージなど、コンテンツ ライブラリに取り込む前のファイル群です。サイト サーバーのローカルフォルダや、別サーバーの共有フォルダに置かれます。</li>
+<li>Internet Information Service (IIS):<br>Web サーバーです。管理ポイント、配布ポイントはクライアントとの通信に使うエンドポイントを IIS アプリケーションとして提供しています。ソフトウェア更新ポイントの前提となる WSUS も同様に IIS でエンドポイントを提供しています。</li>
+<li>IIS Log files:<br>IIS ログ ファイルです。クライアントから管理ポイント、配布ポイント、ソフトウェア更新ポイントへのアクセス ログや、エラー ログが含まれます。</li>
+<li>OS:<br>ConfigMgr サイト サーバーやサイト システムが動作するためのWindows Server OSです。</li>
+</ul>
+<h1 id="ConfigMgr-がサポートするバックアップ"><a href="#ConfigMgr-がサポートするバックアップ" class="headerlink" title="ConfigMgr がサポートするバックアップ"></a>ConfigMgr がサポートするバックアップ</h1><p>ConfigMgr がサポートするバックアップは以下の二つです。</p>
+<ul>
+<li>サイト バックアップ</li>
+<li>DB バックアップ</li>
+</ul>
+<p>以下のバックアップ方式については、サードパーティ製バックアップ ソリューションを含め、お客様による動作検証を推奨します。</p>
+<ul>
+<li>システム バックアップ</li>
+<li>仮想マシン バックアップ</li>
+<li>仮想マシン スナップショット</li>
+<li>ファイル バックアップ</li>
+</ul>
+<p>以降では冒頭にも述べました通り、サイト バックアップを主に解説いたします。</p>
+<h2 id="ConfigMgr-サイト-バックアップ"><a href="#ConfigMgr-サイト-バックアップ" class="headerlink" title="ConfigMgr サイト バックアップ"></a>ConfigMgr サイト バックアップ</h2><p>ConfigMgr が用意しているサイト バックアップは、以下の性質をもつバックアップです。</p>
+<ol>
+<li><p>ConfigMgr にて指定したサイトの ConfigMgr アプリケーション バイナリ、DB のバックアップ、および inboxesファイルやログ ファイルのバックアップを行います。</p>
+</li>
+<li><p>メンテナンス タスクそのものでは、タスクの最終実行時点での断面のフル バックアップを 1 世代だけ持つ形になります。そのため、次回のメンテナンス タスク時には過去のバックアップは上書きされます。<br>複数世代のバックアップを取得したい場合は、AfterBackup.bat でバックアップの退避を行うなどバッチを作成する必要があります。</p>
+<p>AfterBackup.bat ファイルを使用する<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/backup-and-recovery#use-the-afterbackupbat-file">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/backup-and-recovery#use-the-afterbackupbat-file</a>  </p>
+</li>
+<li><p>リカバリのためのプログラムも、バックアップ内に生成される形となります。</p>
+</li>
+<li><p>下記のメンテナンス タスクとして設定でき、定期的なバックアップを容易に実現できます。<br>[ConfigMgr コンソール] - [管理] - [概要] - [サイトの構成] - バックアップするサイトを選択 - [サイトのメンテナンス] - [サイト サーバーのバックアップ]</p>
+<p> <img src="/blog/mecm/20250708_01/20250708_01_04.png" alt="sitebackupdialog">  </p>
+</li>
+</ol>
+<h3 id="サイト-バックアップでバックアップされるデータとバックアップされないデータ"><a href="#サイト-バックアップでバックアップされるデータとバックアップされないデータ" class="headerlink" title="サイト バックアップでバックアップされるデータとバックアップされないデータ"></a>サイト バックアップでバックアップされるデータとバックアップされないデータ</h3><p>サイト バックアップでバックアップされるデータは、上述した通り、アプリケーション バイナリ、DB、inboxes ファイルやログ ファイルとなります。先に示した、構成例別でバックアップされるデータと、されないデータを以降、図に示します。</p>
+<h4 id="例1-スタンドアロン-サイト-サーバー構成でバックアップされるデータ"><a href="#例1-スタンドアロン-サイト-サーバー構成でバックアップされるデータ" class="headerlink" title="例1: スタンドアロン サイト サーバー構成でバックアップされるデータ"></a>例1: スタンドアロン サイト サーバー構成でバックアップされるデータ</h4><p>全てのロールを一台のプライマリ サイト サーバーに格納している場合にバックアップされているデータは以下の通りです。レポート サービス ポイント、クラウド管理ゲートウェイ接続ポイントの 2 つのロールのアプリケーション ログは、サイト サーバー のアプリケーション ログ格納フォルダと同フォルダに保持されるため、バックアップされます。それ以外の、管理ポイント、配布ポイントのログ ファイルは別フォルダに保持されているため、バックアップされません。</p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_05.png" alt="standalonebackupdata">  </p>
+<h4 id="例1-スタンドアロン-サイト-サーバー構成でバックアップされないデータ"><a href="#例1-スタンドアロン-サイト-サーバー構成でバックアップされないデータ" class="headerlink" title="例1: スタンドアロン サイト サーバー構成でバックアップされないデータ"></a>例1: スタンドアロン サイト サーバー構成でバックアップされないデータ</h4><p>全てのロールを一台のプライマリ サイト サーバーに格納している場合、バックアップされないデータは下図の通りです。</p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_06.png" alt="standalonenonbackupdata">  </p>
+<h4 id="例2-MP-DP-CMG-CP-分離構成でバックアップされるデータ"><a href="#例2-MP-DP-CMG-CP-分離構成でバックアップされるデータ" class="headerlink" title="例2: MP / DP / CMG-CP 分離構成でバックアップされるデータ"></a>例2: MP / DP / CMG-CP 分離構成でバックアップされるデータ</h4><p>管理ポイント、配布ポイント、クラウド管理ゲートウェイ接続ポイントをそれぞれ別のサーバーに分離した場合にバックアップされるデータは以下の通りです。</p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_07.png" alt="primarybackupdata">  </p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_08.png" alt="sitesystembackupdata">  </p>
+<h4 id="例2-MP-DP-CMG-CP-分離構成でバックアップされないデータ"><a href="#例2-MP-DP-CMG-CP-分離構成でバックアップされないデータ" class="headerlink" title="例2: MP / DP / CMG-CP 分離構成でバックアップされないデータ"></a>例2: MP / DP / CMG-CP 分離構成でバックアップされないデータ</h4><p>管理ポイント、配布ポイント、クラウド管理ゲートウェイ接続ポイントをそれぞれ別のサーバーに分離した場合にバックアップされないデータは以下の通りです。</p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_09.png" alt="primarynonbackupdata">  </p>
+<p><img src="/blog/mecm/20250708_01/20250708_01_10.png" alt="sitesystembackupdata">  </p>
+<h2 id="サイト-バックアップでバックアップされないデータについて別途バックアップすべきかの検討指針"><a href="#サイト-バックアップでバックアップされないデータについて別途バックアップすべきかの検討指針" class="headerlink" title="サイト バックアップでバックアップされないデータについて別途バックアップすべきかの検討指針"></a>サイト バックアップでバックアップされないデータについて別途バックアップすべきかの検討指針</h2><p>サイト バックアップでバックアップされないデータについて、別途バックアップすべきかの指針をご案内します。中にはバックアップが必須となるデータもありますが、それ以外のデータは、RTO (復旧所用時間) の観点から運用方針を検討いただければと存じます。これらの検討の結果、バックアップを実施するデータについては OS バックアップ、ファイル バックアップの方法を使ってバックアップを取得することになりますが、それらの具体的な方法についてはお客様にてご検討くださいますようお願いいたします。なお、ファイル バックアップについては AfterBackup.bat 等を利用したファイル コピーも考えられます。</p>
+<h3 id="全ロール共通のバックアップされないデータ"><a href="#全ロール共通のバックアップされないデータ" class="headerlink" title="全ロール共通のバックアップされないデータ"></a>全ロール共通のバックアップされないデータ</h3><ul>
+<li><p>OS バックアップ<br>システムが完全に破損した際に、RTO の短期化のためにはバックアップが別途必要になります。目標とする RTO に合わせて取得要否をご検討ください。<br><strong>必要度: 中</strong>  </p>
+</li>
+<li><p>Content Files<br>アプリケーションやパッケージ、更新プログラムといった、コンテンツ ファイルが格納されている、サイト サーバー上のローカル フォルダもしくは、ファイル サーバー 上の共有フォルダが破損してしまうと、再度コンテンツ ファイルを収集するのは非常に難しくなります。管理しているコンテンツが非常に少ないのであれば再度ファイルを収集してくることも可能と考えられますが、通常、大量のコンテンツ ファイルを取り扱っているかと存じますので、別途ファイル バックアップされることを推奨します。<br><strong>必要度: 大</strong></p>
+</li>
+</ul>
+<h3 id="複数ロール共通のバックアップされないデータ"><a href="#複数ロール共通のバックアップされないデータ" class="headerlink" title="複数ロール共通のバックアップされないデータ"></a>複数ロール共通のバックアップされないデータ</h3><ul>
+<li><p>IIS<br>IIS は Windows Server の機能として提供されておりますので、アプリケーション自体は特にバックアップ不要ではございます。ただし、リカバリ時に機能の有効化等の手順が必要となりますので RTO を少しでも短期化されたい場合はバックアップをご検討ください。<br><strong>必要度: 小</strong></p>
+</li>
+<li><p>IIS Log Files<br>過去のログとなりますので、トラブルシューティングの観点では不要となることがほとんどです。セキュリティ監査等のご要件がある場合は、バックアップや定期的なログ採取の仕組みをご検討いただくのが良いかと存じます。<br><strong>必要度: 極小</strong></p>
+</li>
+</ul>
+<h3 id="サイト-サーバー-1"><a href="#サイト-サーバー-1" class="headerlink" title="サイト サーバー"></a>サイト サーバー</h3><ul>
+<li>ContentLib<br>ソース ファイルは Content Files になるので、こちらが別途バックアップされている場合であれば、配布ポイントへのコンテンツ再配布の過程で再度 ContentLib は再生成されます。再生成のために RTO が長期化することにはなります。そのため、(別途バックアップ運用 + バックアップ容量) と RTO がトレード オフになることを意識して要否を決定ください。<br><strong>必要度: 中</strong></li>
+</ul>
+<h3 id="サイト-データベース-1"><a href="#サイト-データベース-1" class="headerlink" title="サイト データベース"></a>サイト データベース</h3><ul>
+<li><p>SQL Server<br>システムが完全に破損した際に、RTO を短期化するためには SQL Server を含めたシステム バックアップが必要になります。一方で、RTO が多少長期化してもよいのであれば、別途イメージから再インストールしてやれば問題ないとも言えます。 (システム バックアップ運用 + バックアップ容量) と RTO がトレード オフになることを意識して要否を決定ください。<br><strong>必要度: 小</strong></p>
+</li>
+<li><p>SQL Srv Log Files<br>　過去のログとなりますので、トラブルシューティングの観点では不要となることがほとんどです。セキュリティ監査等のご要件がある場合は、バックアップや定期的なログ採取の仕組みをご検討いただくのが良いかと存じます。<br><strong>必要度: 極小</strong></p>
+</li>
+</ul>
+<h3 id="管理ポイント-1"><a href="#管理ポイント-1" class="headerlink" title="管理ポイント"></a>管理ポイント</h3><ul>
+<li>Log Files<br>　過去のログとなりますので、トラブルシューティングの観点では不要となることがほとんどです。セキュリティ監査等のご要件がある場合は、バックアップや定期的なログ採取の仕組みをご検討いただくのが良いかと存じます。<br><strong>必要度: 極小</strong></li>
+</ul>
+<h3 id="配布ポイント-1"><a href="#配布ポイント-1" class="headerlink" title="配布ポイント"></a>配布ポイント</h3><ul>
+<li><p>ContentLib<br>ソース ファイルは Content Files になるので、こちらが別途バックアップされている場合であれば、配布ポイントへのコンテンツ再配布の過程で再度 ContentLib は再生成されます。再生成のために RTO が長期化することにはなります。そのため、(別途バックアップ運用 + バックアップ容量) と RTO がトレード オフになることを意識して要否を決定ください。<br><strong>必要度: 中</strong></p>
+</li>
+<li><p>Log Files<br>過去のログとなりますので、トラブルシューティングの観点では不要となることがほとんどです。セキュリティ監査等のご要件がある場合は、バックアップや定期的なログ採取の仕組みをご検討いただくのが良いかと存じます。<br><strong>必要度: 小</strong></p>
+</li>
+</ul>
+<h3 id="レポート-サービス-ポイント-1"><a href="#レポート-サービス-ポイント-1" class="headerlink" title="レポート サービス ポイント"></a>レポート サービス ポイント</h3><ul>
+<li>Custom Report<br>本データは失われると、再度1から作成が必要となりますので、バックアップが必須となります。既に使われておらず不要となっているレポートとなっていない限り、バックアップを推奨します。<br><strong>必要度: 大</strong></li>
+</ul>
+<h3 id="レポート-サービス-ポイントに必要なコンポーネントとデータ-1"><a href="#レポート-サービス-ポイントに必要なコンポーネントとデータ-1" class="headerlink" title="レポート サービス ポイントに必要なコンポーネントとデータ"></a>レポート サービス ポイントに必要なコンポーネントとデータ</h3><ul>
+<li>SQL Server Reporting Services<br>別途 インターネット上からダウンロードしてインストールすればリカバリ可能ですが、インストール手順を実施する分、RTO が長期化しますので、そちらとのトレード オフをご検討いただくことになります。  </li>
+</ul>
+<p>   <strong>必要度: 小</strong></p>
+<ul>
+<li>Report DB<br>SQL Server Reporting Services の再インストールによりリカバリ可能です。RTO とのトレード オフをご検討ください。  </li>
+</ul>
+<p>   <strong>必要度: 小</strong></p>
+<ul>
+<li>SSRS Log files<br>過去のログとなりますので、トラブルシューティングの観点では不要となることがほとんどです。セキュリティ監査等のご要件がある場合は、バックアップや定期的なログ採取の仕組みをご検討いただくのが良いかと存じます。  </li>
+</ul>
+<p>   <strong>必要度: 極小</strong></p>
+<h3 id="ソフトウェア更新ポイントに必要なコンポーネントとデータ-1"><a href="#ソフトウェア更新ポイントに必要なコンポーネントとデータ-1" class="headerlink" title="ソフトウェア更新ポイントに必要なコンポーネントとデータ"></a>ソフトウェア更新ポイントに必要なコンポーネントとデータ</h3><ul>
+<li><p>Windows Server Update Services (WSUS):<br>WSUS は Windows Server の機能として提供されておりますので、アプリケーション自体は特にバックアップ不要ではございます。ただし、リカバリ時に機能の有効化等の手順が必要となりますので RTO を少しでも短期化されたい場合はバックアップをご検討ください。この他、ソフトウェア更新ポイントのためにアプリケーション設定ファイルを編集されている場合も、リカバリ時の再編集作業漏れを防ぎたいなどでバックアップをご検討いただくことになるかと存じます。<br><strong>必要度: 小</strong></p>
+</li>
+<li><p>SUSDB:<br>SUSDB はソフトウェア更新ポイントにおいては更新プログラムのメタ データ保持のために使われるだけですので、更新プログラムの再同期が実施するタイミングで自動的に復帰します。ただし、同期時間がそれなりにかかることが多いので、 RTO を長期化したくない場合は、バックアップをご検討ください。<br><strong>必要度: 小</strong></p>
+</li>
+<li><p>WID or MSSQL:<br>WID は Windows Serverの機能として提供されておりますので、アプリケーション自体は特にバックアップ不要ではございます。ただし、リカバリ時に機能の有効化等の手順が必要となりますので RTO を少しでも短期化されたい場合はバックアップをご検討ください。MS SQL Server をご利用の場合は、リカバリのためにアプリケーション インストールが必要となりますので、RTO を短期化されたい場合は、バックアップをご検討ください。<br><strong>必要度: 小</strong></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20250708_01/" data-id="cmcu10stw00cx0nnqcosvcgxg" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20250707_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">通常では同期されない Windows OS 更新プログラムの同期方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">ConfigMgr の バックアップ と リカバリ (1)</a>
+          </li>
+        
+          <li>
+            <a href="../20250707_01/">通常では同期されない Windows OS 更新プログラムの同期方法</a>
+          </li>
+        
+          <li>
+            <a href="../20250619_01/">クライアントがコンテンツのダウンロードを行う際の帯域の制限</a>
+          </li>
+        
+          <li>
+            <a href="../20250408_01/">ConfigMgr サポート バージョン FAQ</a>
+          </li>
+        
+          <li>
+            <a href="../20250325_01/">ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
