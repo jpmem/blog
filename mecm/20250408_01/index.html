@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250408_01/20250408_01_02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250408_01/20250408_01_03.png">
 <meta property="article:published_time" content="2025-04-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-10-02T05:10:31.495Z">
+<meta property="article:modified_time" content="2025-10-06T07:01:13.923Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,8 @@
 <li>ConfigMgr クライアントのバージョンが、サイト サーバーやサイト システムのバージョンより古い場合、どうなりますか？</li>
 <li>ConfigMgr クライアントやサーバーの動作する OS がサポート期限切れを迎えた場合、どうなりますか？</li>
 <li>新しい機能更新プログラムがリリースされた OS に対して ConfigMgr のサポートはどうなりますか？</li>
-<li>サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr でサポートされますか？</li>
+<li>サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr はサーバーでサポートされますか？</li>
+<li>サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr はクライアントでサポートされますか？</li>
 <li>ConfigMgr はすべてのサポートされるバージョンで不具合は修正されますか?</li>
 </ol>
 <h2 id="1-ConfigMgr-のバージョンを確認するには？"><a href="#1-ConfigMgr-のバージョンを確認するには？" class="headerlink" title="1. ConfigMgr のバージョンを確認するには？"></a>1. ConfigMgr のバージョンを確認するには？</h2><p>サーバー側は、ConfigMgr コンソールより以下の画面でご確認ください。  </p>
@@ -155,22 +156,25 @@
 </ul>
 <p>例えば、下記表からわかる通り、2025年4月現在、Windows 11 24H2 のサポートは ConfigMgr CB 2409 からとなります。</p>
 <p><img src="/blog/mecm/20250408_01/20250408_01_03.png" alt="win11-24H2suppportver.png"></p>
-<h2 id="7-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-でサポートされますか？"><a href="#7-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-でサポートされますか？" class="headerlink" title="7. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr でサポートされますか？"></a>7. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr でサポートされますか？</h2><p>サーバー、クライアント共にサポートされません。通常の期限切れを迎えた OS と同様の扱い、つまりサポートされる OS へのアップグレードのご支援のみ対応させていただきます。アップグレードが完了した後、通常のお問い合わせ対応を再開させていただきます。</p>
+<h2 id="7-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-サーバーでサポートされますか？"><a href="#7-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-サーバーでサポートされますか？" class="headerlink" title="7. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr サーバーでサポートされますか？"></a>7. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr サーバーでサポートされますか？</h2><p>サポートされません。通常の期限切れを迎えた OS と同様の扱い、つまりサポートされる OS へのアップグレードのご支援のみ対応させていただきます。アップグレードが完了した後、通常のお問い合わせ対応を再開させていただきます。</p>
+<h2 id="8-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-クライアントでサポートされますか？"><a href="#8-サポート期限切れを迎えたが、ESU-が適用された-OS-は-ConfigMgr-クライアントでサポートされますか？" class="headerlink" title="8. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr クライアントでサポートされますか？"></a>8. サポート期限切れを迎えたが、ESU が適用された OS は ConfigMgr クライアントでサポートされますか？</h2><p>ConfigMgr 最新ブランチにおいて、セキュリティ更新プログラムの配布機能のみがサポートされます。また、クライアント OS をサポートされる OS へのアップグレードもされます。それ以外の機能 (パッケージ、アプリケーション配布など)はサポート外となります。</p>
+<p>つまり、 ESU 環境のクライアントに対するセキュリティ更新プログラムの配布機能だけでも利用されたい場合は、ConfigMgr を常に最新のブランチにアップグレードする必要がございますので、予めご理解賜りますようお願いいたします。</p>
 <p>ESU については以下の公開情報をご参照ください。</p>
 <ul>
 <li>Configuration Manager でサポートされる、クライアントとデバイスの OS のバージョン  - 拡張セキュリティ更新プログラムと Configuration Manager<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/supported-operating-systems-for-clients-and-devices#bkmk_ESU">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/supported-operating-systems-for-clients-and-devices#bkmk_ESU</a></li>
 </ul>
-<h2 id="8-ConfigMgr-はすべてのサポートされるバージョンで不具合が修正されますか"><a href="#8-ConfigMgr-はすべてのサポートされるバージョンで不具合が修正されますか" class="headerlink" title="8. ConfigMgr はすべてのサポートされるバージョンで不具合が修正されますか?"></a>8. ConfigMgr はすべてのサポートされるバージョンで不具合が修正されますか?</h2><p>ConfigMgr は現在、「セキュリティと重要な Updates サービスフェーズとなっており、重要な更新プログラムは最新の Current Branch のバージョンのみ提供されます。セキュリティ更新プログラムは Current Branch でサポートされているすべてのバージョンに提供されます。<br>ここで、「重要な更新プログラム」とはセキュリティに関連しない重要な不具合を修正するプログラムのこととなります。</p>
+<h2 id="9-ConfigMgr-はすべてのサポートされるバージョンで不具合が修正されますか"><a href="#9-ConfigMgr-はすべてのサポートされるバージョンで不具合が修正されますか" class="headerlink" title="9. ConfigMgr はすべてのサポートされるバージョンで不具合が修正されますか?"></a>9. ConfigMgr はすべてのサポートされるバージョンで不具合が修正されますか?</h2><p>ConfigMgr は現在、「セキュリティと重要な Updates サービスフェーズとなっており、重要な更新プログラムは最新の Current Branch のバージョンのみ提供されます。セキュリティ更新プログラムは Current Branch でサポートされているすべてのバージョンに提供されます。<br>ここで、「重要な更新プログラム」とはセキュリティに関連しない重要な不具合を修正するプログラムのこととなります。</p>
 <p>例えば、 2025/9/8 現在、最新の Current Branch バージョンは ConfigMgr CB 2503 (5.00.9135) 、サポートされているバージョンは CB 2503, CB 2409 (5.00.9132), CB 2403 (5.00.9128)です。<br>セキュリティ更新プログラムはサポートされている CB 2503, 2409, 2403 すべてに提供されますが、<br>それ以外の更新プログラムは CB 2503 のみで提供されます。</p>
 <p>そのため、例えば 2403, 2409、2503 で発見された重要な不具合があったとしても、修正のための更新プログラムが提供されるのは 2503 のみとなります。<br>また、2409 で確認されたが、2503 で再現できない重要な不具合については、修正更新プログラムは提供されませんので、予めご承知おきください。</p>
 <ul>
 <li>現在のブランチ バージョンConfiguration Managerサポート<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/current-branch-versions-supported">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/current-branch-versions-supported</a></li>
 </ul>
+<h1 id="改訂履歴"><a href="#改訂履歴" class="headerlink" title="改訂履歴"></a>改訂履歴</h1><p>2025-10-06: ESUの対応について修正<br>2025-04-08: 初版</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20250408_01/" data-id="cmg8yiq39006z0nrw87gdehhw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20250408_01/" data-id="cmges8ivp006z0nlw0tswbi7z" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
