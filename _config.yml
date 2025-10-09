@@ -5,15 +5,14 @@
 # Title (display)
 title: Japan Microsoft Configuration Manager Support Team Blog 
 # Sub Title (display)
-subtitle: 日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。
+subtitle: 日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。
 # Description
-description: 日本マイクロソフトの Microsoft Configuration Manager / Windows 365 / WSUS に関するサポート チームのブログです。
+description: 日本マイクロソフトの Microsoft Configuration Manager / WSUS サポート チームのブログです。
 
 # Keywords
 keywords:
   - MECM
   - WSUS
-  - Windows 365
 
 author: Japan Microsoft Configuration Manager Support Team
 
@@ -21,7 +20,6 @@ root_tag_generator:
   root_tag_names:
     - MECM
     - WSUS
-    - Windows 365
   sub_tag_limit: 20
   sub_tag_sort: 'name' # 未実装
   
