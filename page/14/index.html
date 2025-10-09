@@ -7,17 +7,16 @@
   
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="日本マイクロソフトの Microsoft Configuration Manager &#x2F; Windows 365 &#x2F; WSUS に関するサポート チームのブログです。">
+  <meta name="description" content="日本マイクロソフトの Microsoft Configuration Manager &#x2F; WSUS サポート チームのブログです。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Japan Microsoft Configuration Manager Support Team Blog">
 <meta property="og:url" content="https://jpmem.github.io/blog/page/14/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="日本マイクロソフトの Microsoft Configuration Manager &#x2F; Windows 365 &#x2F; WSUS に関するサポート チームのブログです。">
+<meta property="og:description" content="日本マイクロソフトの Microsoft Configuration Manager &#x2F; WSUS サポート チームのブログです。">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="WSUS">
-<meta property="article:tag" content="Windows 365">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
@@ -54,7 +53,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / Windows 365 / WSUS サポート チームのブログです。</a>
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
         </h2>
       
     </div>
@@ -86,10 +85,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-mecm/20200729_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wsus/2019-03-28_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../mecm/20200729_01/" class="article-date">
-  <time datetime="2020-07-28T15:00:00.000Z" itemprop="datePublished">2020-07-29</time>
+    <a href="../../wsus/2019-03-28_01/" class="article-date">
+  <time datetime="2019-03-27T15:00:00.000Z" itemprop="datePublished">2019-03-28</time>
 </a>
     <!--  -->
   </div>
@@ -100,35 +99,37 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20200729_01/">Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について</a>
+      <a class="article-title" href="../../wsus/2019-03-28_01/">「WSUS 管理コンソールにつながらない！」を解消するための 7 つのワザ</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../mecm/20200729_01/" class="article-date-single">    
+        <a href="../../wsus/2019-03-28_01/" class="article-date-single">    
     
-    <time datetime="2020-07-28T15:00:00.000Z" itemprop="dateUpdated">2020-07-29</time>
+    <time datetime="2019-03-27T15:00:00.000Z" itemprop="dateUpdated">2019-03-28</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        みなさま、こんにちは。WSUS サポート チームです。  
-今回は WSUS で使用するポートを既定のポート 8530 / 8531 番から 80 番に変更している環境において、2017 年 7 月以降にリリースされたマンスリー品質ロールアップ (KB4025331 / KB4025336 以降 ) を適用した場合に発生する事象についてご案内します。  
-本事象が発生した場合には、後述の手順を実施することで、事象を改善することができますので、ご確認くださいますようお願い申し上げます。なお、WSUS で使用しているポート番号については、WSUS 管理コンソールの以下の画面よりご確認ください。  
-  
-対象製品・Windows Server 2012 の WSUS・Windows Server 2012 R2 の WSUS  
-概要HTTP 80  ポートで構成している WSUS サーバーに...
+        2019/03/28 初版公開2024/03/13 レプリカ構成における注意事項を追記しました。  
+(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
+みなさま、こんにちは。WSUS サポート チームです。
+今回は WSUS に関するエラーの中で最もお問い合わせが多いもの(2019年3月時点)をご紹介させていただきます。
+それは、このエラーです！
+
+「みたことある！」という方も非常に多いのではないでしょうか。特に長期間運用している環境においては、起動するたびに発生するといったことも少なくないかと思います。このエラーは単純に「接続エラー」を示すものですので、以下のように発生パターンによって、異なる対処方法を検討する必要があります。
+パターン1. WSUS 管理コンソールを起動すると、必ずエラーが発生する。パターン2. 毎回ではないが、WSUS 管理...
         <p class="article-more-link">
-          <a href="../../mecm/20200729_01/#more">Read More</a>
+          <a href="../../wsus/2019-03-28_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20200729_01/" data-id="cmgfsi3x0002n0npu1xqe9rja" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-28_01/" data-id="cmgitrpdi00c40npg14gy1fld" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -140,10 +141,10 @@
 
 
   
-    <article id="post-wsus/2019-07-29_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mecm/20190327_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../wsus/2019-07-29_01/" class="article-date">
-  <time datetime="2020-07-27T15:00:00.000Z" itemprop="datePublished">2020-07-28</time>
+    <a href="../../mecm/20190327_01/" class="article-date">
+  <time datetime="2019-03-26T15:00:00.000Z" itemprop="datePublished">2019-03-27</time>
 </a>
     <!--  -->
   </div>
@@ -154,303 +155,33 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-07-29_01/">「3 – 自動ダウンロードとインストールを通知」 を選択していても、機能更新プログラムが自動インストールされてしまう問題</a>
+      <a class="article-title" href="../../mecm/20190327_01/">Configuration Manager Current Branch クライアントに関連する情報を完全に削除する方法</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../wsus/2019-07-29_01/" class="article-date-single">    
+        <a href="../../mecm/20190327_01/" class="article-date-single">    
     
-    <time datetime="2020-07-27T15:00:00.000Z" itemprop="dateUpdated">2020-07-28</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
-
-2019/2/12 更新
-本問題の修正状況について開発部門より進展があり、バージョン 1809 以外の環境に対しては、2019 年 3 月の第 3 週 (3/18 週) に本問題に対する修正を含む更新プログラムをリリースする予定であることが確認出来ております。予定に変更やアップデートがございましたら、随時本ブログを更新してまいります。
-
-2019/7/29 更新
-本問題の修正については、それぞれ各バージョンにおいてリリースが完了し、以下以降の累積更新プログラムを適用することで、問題の修正を適用していただくことが可能でございます。今後の対策としては以下以降にリリースされた累積更新プログラムを適用することを検討くださいますようお願いいたします。
-
-1703 向け : 2019 年 3 月 20 日 ...
-        <p class="article-more-link">
-          <a href="../../wsus/2019-07-29_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-07-29_01/" data-id="cmgfsi3z9009u0npueq5fbbet" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2020-07-28_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2020-07-28_01/" class="article-date">
-  <time datetime="2020-07-27T15:00:00.000Z" itemprop="datePublished">2020-07-28</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2020-07-28_01/">WSUS (Windows Server 2012/Windows Server 2012 R2) の同期処理が失敗する事象について</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2020-07-28_01/" class="article-date-single">    
-    
-    <time datetime="2020-07-27T15:00:00.000Z" itemprop="dateUpdated">2020-07-28</time>
+    <time datetime="2019-03-26T15:00:00.000Z" itemprop="dateUpdated">2019-03-27</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
-皆様、こんにちは。WSUS サポート チームです。
-本記事では、Windows Server 2012 または Windows Server 2012 R2 の WSUS サーバーの同期処理が失敗する事象についてご案内いたします。
-2020 年 07 月以降で同期処理が下記のエラー内容で失敗する、というお問い合わせを多く頂いております。
-1WebException: 基礎になる接続が閉じられました: 送信時に、予期しないエラーが発生しました。 ---&gt; System.IO.IOException: 転送接続からデータを読み取れません: 既存の接続はリモート ホストに強制的に切断されました。。
-
-
-事象Windows Server 2012 / Windows Server 2012 R2 の...
+        皆様、こんにちは。Configuration Manager サポート チームです。
+以前のバージョンの Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である Configuration Manager Current Branch の場合の手順をご案内します。
+https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus
+Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように見える場合に有効な手順です。本手順を実施してから、クライアントの再インストールを実施することで解消できる問題も多...
         <p class="article-more-link">
-          <a href="../../wsus/2020-07-28_01/#more">Read More</a>
+          <a href="../../mecm/20190327_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-28_01/" data-id="cmgfsi3zc00a20npu613jaywb" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2020-07-21_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2020-07-21_01/" class="article-date">
-  <time datetime="2020-07-20T15:00:00.000Z" itemprop="datePublished">2020-07-21</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2020-07-21_01/">WSUS メンテナンス ガイド</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2020-07-21_01/" class="article-date-single">    
-    
-    <time datetime="2020-07-20T15:00:00.000Z" itemprop="dateUpdated">2020-07-21</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        みなさま、こんにちは。WSUS サポート チームです。本日は WSUS サーバーのメンテナンス方法について、纏めてご紹介をいたします。
-WSUS は月々リリースされる更新プログラムを配信出来るよう、更新プログラムの情報をサーバー上に溜め込む必要があります。しかし、この製品の性質上、日々メンテナンスを実施しないと、データベースや情報が肥大化し、様々な障害や弊害が発生しやすくなってしまいます。弊サポート部門へいただく様々なお問い合わせも、最終的にはこのいずれかの対処に行き着くことが、ほとんどですので是非 WSUS をこれから導入・構築される方々、また既に運用されている方々は、ご一読ください！
-WSUS の各種メンテナンス一般的な WSUS のメンテナンスとして、下記の 3 種類のメンテナンスは更新プログラムのリリースと合わせて、月 1 回程度実行していただくことをオススメしております。各メンテ...
-        <p class="article-more-link">
-          <a href="../../wsus/2020-07-21_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="cmgfsi3za00a00npu8ten04uj" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2020-03-27_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2020-03-27_01/" class="article-date">
-  <time datetime="2020-03-26T15:00:00.000Z" itemprop="datePublished">2020-03-27</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2020-03-27_01/">SUSDB.mdf が肥大化したときの対処方法について</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2020-03-27_01/" class="article-date-single">    
-    
-    <time datetime="2020-03-26T15:00:00.000Z" itemprop="dateUpdated">2020-03-27</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        (この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです)
-みなさま、こんにちは。WSUS サポート担当です。本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。
-長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。このときは、まず WSUS クリーンアップ ウィザードを実施して、データベース内の不要なレコードを削除します。
-WSUS のクリーンアップ ウィザードについて
-ただし、クリーンアップ ウィザードでレコードを削除するだけでは、一度肥大化した SUSDB.mdf のファイルサイズ自体は縮小されません。追加で SQL Server Management Studio や sqlcmd を使用して、SUSDB を圧縮する必要があります。
-...
-        <p class="article-more-link">
-          <a href="../../wsus/2020-03-27_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-03-27_01/" data-id="cmgfsi3za009y0npu8jhf1huo" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2019-04-23_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2019-04-23_01/" class="article-date">
-  <time datetime="2019-04-22T15:00:00.000Z" itemprop="datePublished">2019-04-23</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-04-23_01/">WSUS のサーバー クリーンアップ ウィザードで不要な更新プログラムのコンテンツ ファイルを削除する</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2019-04-23_01/" class="article-date-single">    
-    
-    <time datetime="2019-04-22T15:00:00.000Z" itemprop="dateUpdated">2019-04-23</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        みなさま、こんにちは。WSUS サポート チームです。  
-WSUS サーバーを長期間運用している、または自動承認規則で製品などにフィルターをかけずに運用していると、知らない間に更新プログラムのコンテンツ ファイルが多くダウンロードされており、「ディスク サイズの空き容量がない！」といったトラブルが発生することがあります。WSUS は自動でメンテナンスを行う機能を持っておりませんので、ディスク サイズの空き容量が少なくなった場合は、「サーバー クリーンアップ ウィザード」を実行して、不要なファイルを削除する必要があります。でも、「サーバー クリーンアップ ウィザードを実行しても、あまり不要なファイルが削除されない！空き容量が増えない！」という結果になったことはありませんしょうか。  
-そこで今回は、WSUS で不要な更新プログラムのコンテンツ ファイルを確実に削除するためのポイントについて...
-        <p class="article-more-link">
-          <a href="../../wsus/2019-04-23_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cmgfsi3z8009s0npu3fa6du1z" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mecm/20190417_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../mecm/20190417_01/" class="article-date">
-  <time datetime="2019-04-16T15:00:00.000Z" itemprop="datePublished">2019-04-17</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20190417_01/">Microsoft Endpoint Configuration Manager ハードウェア インベントリが収集されない時のトラブルシュート</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../mecm/20190417_01/" class="article-date-single">    
-    
-    <time datetime="2019-04-16T15:00:00.000Z" itemprop="dateUpdated">2019-04-17</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        みなさま、こんにちは。Configuration Manager サポート チームです。  
-本日は、Microsoft Endpoint Configuration Manager Current Branch (以下、MECM) にて、ハードウェア インベントリが収集されないといったお問い合わせを多々いただいております。  
-その際に、一度、お試しいただきたいトラブルシュート方法をご紹介いたしますので、お役立て頂けますと幸いでございます。  
-ハードウェア インベントリが収集できない原因は複数あり対処方法もそれぞれ異なりますが、フルのコンピューター ポリシーを強制的に受信させることで、事象が改善されることがございます。そのため、事象を発覚しましたら、まずは、クライアントにて PowerShell を管理者権限で開き、以下のコマンドの実行をお試しください。  
-12345678gwmi ...
-        <p class="article-more-link">
-          <a href="../../mecm/20190417_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20190417_01/" data-id="cmgfsi3wz002l0npuhrnn71bi" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="cmgitrp9s001m0npge8gw0drv" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -462,10 +193,10 @@ WSUS サーバーを長期間運用している、または自動承認規則で
 
 
   
-    <article id="post-wsus/2019-04-16_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wsus/2019-03-19_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../wsus/2019-04-16_01/" class="article-date">
-  <time datetime="2019-04-15T15:00:00.000Z" itemprop="datePublished">2019-04-16</time>
+    <a href="../../wsus/2019-03-19_01/" class="article-date">
+  <time datetime="2019-03-18T15:00:00.000Z" itemprop="datePublished">2019-03-19</time>
 </a>
     <!--  -->
   </div>
@@ -476,37 +207,36 @@ WSUS サーバーを長期間運用している、または自動承認規則で
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-04-16_01/">WSUS クライアントのグループ ポリシー:その 1 – 基本編</a>
+      <a class="article-title" href="../../wsus/2019-03-19_01/">更新プログラムに用いられるコード証明書の SHA-2 への移行について</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../wsus/2019-04-16_01/" class="article-date-single">    
+        <a href="../../wsus/2019-03-19_01/" class="article-date-single">    
     
-    <time datetime="2019-04-15T15:00:00.000Z" itemprop="dateUpdated">2019-04-16</time>
+    <time datetime="2019-03-18T15:00:00.000Z" itemprop="dateUpdated">2019-03-19</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        こんにちは。WSUS サポートチームです。
-今回は、WSUS をご利用いただく環境において、クライアントに対し必須構成となる下記の 2 つのグループ ポリシーについてご紹介します。WSUS クライアントのグループ ポリシーを構成する際に、参考にしてみてください。
+        みなさま、こんにちは。WSUS サポート チームです。
+以下の公開情報でも紹介している通り、Microsoft ではセキュリティ保護のために SHA-1 から SHA-2 への移行を段階的に進めております。
 
-[イントラネットの Microsoft 更新サービスの場所を指定する]
-[自動更新を構成する]
+Protecting Against Weak Cryptographic Algorithmshttps://docs.microsoft.com/ja-jp/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn375961(v=ws.11)?redirectedfrom=MSDN
 
-※ 今回ご案内する WSUS や Windows Update に関連するポリシーは、グループ ポリシー エディターの [コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [Windows Update] 配下に配置されています。
-なお、Windows 8 / Windows Server 2012 以降の OS にてグループ ポリシーを設定する場合の注意点につきまして、下記の記事にて紹...
+この一環として Windows Update や WSUS 等から配信される更新プログラムに付与されているコード署名証明書についても、SHA-2 へ移行を行うことを予定しております。  
+具体的なタイムラインについては、...
         <p class="article-more-link">
-          <a href="../../wsus/2019-04-16_01/#more">Read More</a>
+          <a href="../../wsus/2019-03-19_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cmgfsi3z7009q0npugrsrgo23" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-19_01/" data-id="cmgitrpc8008g0npg01qzbcwt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -518,10 +248,10 @@ WSUS サーバーを長期間運用している、または自動承認規則で
 
 
   
-    <article id="post-wsus/2019-04-11_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wsus/2019-02-14_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../wsus/2019-04-11_01/" class="article-date">
-  <time datetime="2019-04-10T15:00:00.000Z" itemprop="datePublished">2019-04-11</time>
+    <a href="../../wsus/2019-02-14_01/" class="article-date">
+  <time datetime="2019-02-13T15:00:00.000Z" itemprop="datePublished">2019-02-14</time>
 </a>
     <!--  -->
   </div>
@@ -532,35 +262,37 @@ WSUS サーバーを長期間運用している、または自動承認規則で
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-04-11_01/">Windows Update の “更新履歴の表示” が示す内容について</a>
+      <a class="article-title" href="../../wsus/2019-02-14_01/">WSUS の同期先の URL の追加について</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../wsus/2019-04-11_01/" class="article-date-single">    
+        <a href="../../wsus/2019-02-14_01/" class="article-date-single">    
     
-    <time datetime="2019-04-10T15:00:00.000Z" itemprop="dateUpdated">2019-04-11</time>
+    <time datetime="2019-02-13T15:00:00.000Z" itemprop="dateUpdated">2019-02-14</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        こんにちは。日本マイクロソフトです。
-WSUS クライアント / Windows Update に関するトラブルシュートの際に、「%windir%\SoftwareDistribution」フォルダをリネームするという、Windows Update のキャッシュ削除の対処をご案内する事が多くございます。ところがこれを実施すると、Windows Update の「更新履歴の表示」の情報が消去される、という副作用があり、この点についてご懸念を伺うことがあります。本日は、そのご懸念に対する回答についてご案内いたします。  
--　回答：  
-「更新履歴の表示」は、更新プログラムの適用有無を判断する材料としては使うことができない情報であり、また今後の更新プログラムの適用動作には一切影響しないことから、削除しても差し支えありません。  
--　説明回答解説：  
-「更新履歴の表示」が示す情報は「WSUS...
+        2019/03/04 更新：公開情報を更新いたしました。
+みなさま、こんにちは。WSUS サポート チームです。
+WSUS の同期時に接続する URL については以下の公開情報の「2.1.1. Connection from the WSUS server to the Internet」の箇所にて紹介をしておりますが、今回接続先の URL の追加を行いましたため紹介をいたします。
+
+Step 2: Configure WSUS
+
+https://docs.microsoft.com/en-us/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus#BKM_ConfigurenetworkConnections
+具体的には、WSUS サーバーが弊社サイトから更新プログラムをダ...
         <p class="article-more-link">
-          <a href="../../wsus/2019-04-11_01/#more">Read More</a>
+          <a href="../../wsus/2019-02-14_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="cmgfsi3z7009n0npu3oya0ta0" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-02-14_01/" data-id="cmgitrpc8008e0npgfcro1lxd" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -572,10 +304,10 @@ WSUS クライアント / Windows Update に関するトラブルシュートの
 
 
   
-    <article id="post-wsus/2019-04-09_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wsus/2018-10-22_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../wsus/2019-04-09_01/" class="article-date">
-  <time datetime="2019-04-08T15:00:00.000Z" itemprop="datePublished">2019-04-09</time>
+    <a href="../../wsus/2018-10-22_01/" class="article-date">
+  <time datetime="2018-10-21T15:00:00.000Z" itemprop="datePublished">2018-10-22</time>
 </a>
     <!--  -->
   </div>
@@ -586,35 +318,319 @@ WSUS クライアント / Windows Update に関するトラブルシュートの
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2019-04-09_01/">レプリカ WSUS サーバーの同期がタイムアウトで失敗する</a>
+      <a class="article-title" href="../../wsus/2018-10-22_01/">稀に WsusService.exe が意図せず停止する事象について</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../wsus/2019-04-09_01/" class="article-date-single">    
+        <a href="../../wsus/2018-10-22_01/" class="article-date-single">    
     
-    <time datetime="2019-04-08T15:00:00.000Z" itemprop="dateUpdated">2019-04-09</time>
+    <time datetime="2018-10-21T15:00:00.000Z" itemprop="dateUpdated">2018-10-22</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        皆さま こんにちは。WSUS サポート チームです。
-WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。
-レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒否済み」の更新プログラムがある状態で、レプリカの WSUS サーバーが同期を行うとタイムアウトが発生し、同期が失敗する可能性があることが判っています。目安としましては、親 WSUS サーバーにて一度に約 1,000 件ほどの更新プログラムを手動で「拒否済み」に変更し、レプリカ WSUS サーバーで同期を行いますと、タイムアウト発生に至る場合があることを確認しております。同期の条件 (初回か2回目以...
+        みなさま、こんにちは。WSUS サポート チームです。
+今回は WSUS 環境で稀に発生が報告されている、意図せず WsusService.exe が停止してしまう事象について紹介をします。この事象が発生した場合には、「%programfiles%\Update Services\LogFiles」フォルダ内に保存されている SoftwareDistribution.log もしくは SoftwareDistribution.log.old にサービスが停止したタイミングにて、以下の記録が行われます。
+12345678910YYYY-MM-DD HH:MM:SS   UTC   Error  WsusService.3  ContentSyncAgent.ProcessSqlException  File RowId: de386af7-2fd1-44a6-86a8-ee4db3d571e...
         <p class="article-more-link">
-          <a href="../../wsus/2019-04-09_01/#more">Read More</a>
+          <a href="../../wsus/2018-10-22_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cmgfsi3z6009j0npuewhca1ta" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-10-22_01/" data-id="cmgitrpc7008c0npgdh2n9jzg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20181010_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../mecm/20181010_01/" class="article-date">
+  <time datetime="2018-10-09T15:00:00.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../mecm/20181010_01/">System Center Configuration Manager AD OU に基づくデバイス コレクションの作成について</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../mecm/20181010_01/" class="article-date-single">    
+    
+    <time datetime="2018-10-09T15:00:00.000Z" itemprop="dateUpdated">2018-10-10</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートの金です。
+本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) にて、Active Directory の組織単位 (以下、OU) に基づいて、デバイス コレクションを作成する方法をご紹介させていただきます。
+前提条件
+AD の OU に基づくコレクションの作成の際には、事前に、Active Directory システムの探索が実施されている必要があります。
+SCCM の探索方法から、”Active Directory システムの探索” が正しく設定され、有効になっていることを確認してください。
+手順
+本手順では、以下の OU をサンプルとしておりますので、お客様の環境に応じて、設定内...
+        <p class="article-more-link">
+          <a href="../../mecm/20181010_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20181010_01/" data-id="cmgitrp9r001k0npgg3n2gck9" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" class="article-date">
+  <time datetime="2018-09-27T15:00:00.000Z" itemprop="datePublished">2018-09-28</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" class="article-date-single">    
+    
+    <time datetime="2018-09-27T15:00:00.000Z" itemprop="dateUpdated">2018-09-28</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        こんにちは。Microsoft Intune サポートチームの中村です。
+ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません。 これを解決する別の方法は、以下に記載したトラブルシューティングの手順に従うことです。
+
+ユーザーを選択したら、Intune ライセンスとアカウント状態が緑色のチェックで表示されていることを確認します。
+
+同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS/MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイス...
+        <p class="article-more-link">
+          <a href="../../intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" data-id="cmgitrp9700080npgccq24d17" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/MicrosoftIntune_constraintedapp_and_displayfunction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../intune/MicrosoftIntune_constraintedapp_and_displayfunction/" class="article-date">
+  <time datetime="2018-09-25T15:00:00.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../intune/MicrosoftIntune_constraintedapp_and_displayfunction/">Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../intune/MicrosoftIntune_constraintedapp_and_displayfunction/" class="article-date-single">    
+    
+    <time datetime="2018-09-25T15:00:00.000Z" itemprop="dateUpdated">2018-09-26</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        ※ 2018/9/26 追記
+「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)
+これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。
+
+こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。今回はそのための機能について説明します。
+iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。それが「制限付きアプリ」と「アプリの表示/非表示」機能です。このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。
+■ アプリの表示/非表示機能「アプリの表示/非表示」機...
+        <p class="article-more-link">
+          <a href="../../intune/MicrosoftIntune_constraintedapp_and_displayfunction/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="cmgitrp9500050npg2l5ndpzp" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180911_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../mecm/20180911_01/" class="article-date">
+  <time datetime="2018-09-10T15:00:00.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../mecm/20180911_01/">System Center Configuration Manager における BranchCache、ピアキャッシュ機能について - その 1 (概要編)</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../mecm/20180911_01/" class="article-date-single">    
+    
+    <time datetime="2018-09-10T15:00:00.000Z" itemprop="dateUpdated">2018-09-11</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。
+日本マイクロソフト System Center Configuration Manager サポートの金です。
+SCCM を運用されている中で、ネットワーク回線が細い拠点を管理対象としている場合、コンテンツの配布によるネットワークの負荷を分散させる工夫が必要な場面がございます。
+本日は、コンテンツの配布の際にネットワークの負荷を軽減できる BranchCache の機能や、ピアキャッシュの機能の概要についてご紹介させていただきますので、お役立ていただけますと幸いでございます。
+ これから案内させていただく内容は、以下の流れになります。
+
+
+BranchCache / ピアキャッシュ機能のご説明
+
+BranchCache / ピアキャッシュ機能の設定箇所
+
+ピアキャッシュ ログの確認方法
+
+
+
+以下は、詳細内容となります。
+1. BranchCache / ピアキャッ...
+        <p class="article-more-link">
+          <a href="../../mecm/20180911_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20180911_01/" data-id="cmgitrp9o001i0npg1jgtfojn" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20180823_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../mecm/20180823_01/" class="article-date">
+  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../mecm/20180823_01/">Configuration Manager 自動クライアント アップグレード手順</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../mecm/20180823_01/" class="article-date-single">    
+    
+    <time datetime="2018-08-22T15:00:00.000Z" itemprop="dateUpdated">2018-08-23</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        2018/08/23 初版公開2023/08/16 更新- 最新バージョンの動作に合わせ記載を修正しました。  
+みなさま、こんにちは。  
+日本マイクロソフト Configuration Manager サポートチームです。  
+本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。クライアントのアップグレード方法は、以下のように、複数がございます。  
+・自動クライアント アップグレード・クライアント プッシュ インストール・グループ ポリシーによるインストール・ログオン スクリプトによるインストール・手動インストール・アップグレード インストール  
+お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライ...
+        <p class="article-more-link">
+          <a href="../../mecm/20180823_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cmgitrp9n001e0npg5p30hykn" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
 
     </footer>
   </div>
@@ -627,7 +643,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="../13/">戻る</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../12/">12</a><a class="page-number" href="../13/">13</a><span class="page-number current">14</span><a class="page-number" href="../15/">15</a><a class="page-number" href="../16/">16</a><span class="space">&hellip;</span><a class="page-number" href="../22/">22</a><a class="extend next" rel="next" href="../15/">次へ</a>
+    <a class="extend prev" rel="prev" href="../13/">戻る</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../12/">12</a><a class="page-number" href="../13/">13</a><span class="page-number current">14</span><a class="page-number" href="../15/">15</a><a class="page-number" href="../16/">16</a><span class="space">&hellip;</span><a class="page-number" href="../20/">20</a><a class="extend next" rel="next" href="../15/">次へ</a>
   </nav>
 
 </section>
@@ -672,7 +688,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
   <div class="widget-wrap">
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-365/" rel="tag">Windows 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
     </div>
   </div>
 
@@ -682,7 +698,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
   <div class="widget-wrap">
     <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
     </div>
   </div>
 
