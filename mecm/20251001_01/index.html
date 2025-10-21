@@ -14,11 +14,13 @@
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 Windows 10 のサポートは 2025 年 10 月 14 日で終了いたします。 Configuration Manager 環境においては、Windows 10 自体の管理に関するサポート全般についても、サポート終了となりますが、一部例外として、Configuration Manager バージョンが">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20251001_01/20251001_01_01.png">
 <meta property="article:published_time" content="2025-09-30T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-10-09T02:55:14.227Z">
+<meta property="article:modified_time" content="2025-10-21T01:38:35.165Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20251001_01/20251001_01_01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -119,7 +121,7 @@
 <p>Configuration Manager 環境においては、Windows 10 自体の管理に関するサポート全般についても、サポート終了となりますが、一部例外として、Configuration Manager バージョンが最新であり、かつ Windows 10 ESU を適用している環境に対しては、セキュリティ更新プログラムの展開が可能となっております。</p>
 <p>Configuration Manager でサポートされる、クライアントとデバイスの OS のバージョン - 拡張セキュリティ更新プログラムと Configuration Manager<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/supported-operating-systems-for-clients-and-devices#bkmk_ESU">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/supported-operating-systems-for-clients-and-devices#bkmk_ESU</a></p>
 <p>これは Windows 11 へのアップグレードを控えているデバイスや、更新プログラムのみ適用をし続けたいといったニーズに沿うものとなります。<br>また、Windows 10 ESU を適用していないデバイスにおいては、サポート終了以降にリリースされるセキュリティ更新プログラムの適用に失敗しますので、更新プログラムの展開を受け続けるためには、事前に Windows 10 ESU を適用することが必要となります。</p>
-<p>そのため、今回は Configuration Manager を用いて Windows 10 ESU を適用する手順についてご紹介いたします。</p>
+<p>そのため、今回は Configuration Manager を使用して Windows 10 ESU を適用する手順に加え、<br>ESU の適用状況を確認するためのハードウェア インベントリの拡張手順と、リソース エクスプローラーを使用した確認方法についても併せてご紹介いたします。</p>
 <h1 id="ESU-MAK-キーの入手方法について"><a href="#ESU-MAK-キーの入手方法について" class="headerlink" title="ESU MAK キーの入手方法について"></a>ESU MAK キーの入手方法について</h1><p>今回ご紹介する手順は、ライセンス認証をインターネット経由で行う前提の環境下を想定しておりますので、通信要件については以下の記事をご参考くださいますと幸いです。</p>
 <p>Windows 10 ESU に関するよくあるお問い合わせ<br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2025/09/29/Activation/Windows10-ESU-QA/">https://jpwinsup.github.io/blog/2025/09/29/Activation/Windows10-ESU-QA/</a><br>[MAK キーによる Windows 10 ESU を適用したいですが、どうすればよいですか？] の項</p>
 <p>次に、ESU MAK キーの入手と、ESU プログラムの Activation ID の確認が必要となりますので、上記の記事を参考に、事前に MAK キーの入手と、指定する Activation ID を確定ください。</p>
@@ -194,13 +196,36 @@
 <li>クライアントにて、コントロール パネル を開き、[Configuration Manager] を実行します。</li>
 <li>[Configuration Manager のプロパティ画面] が開きます。</li>
 <li>[操作] タブにて [コンピューター ポリシーの取得および評価サイクル] を選択し、[直ちに実行] をクリックします。</li>
-<li>ソフトウェア センターを開き、該当のパッケージが表示されましたら、[インストール] を実行します。</li>
+<li>ソフトウェア センターを開き、該当のパッケージが表示されましたら、[インストール] を実行します。<br><br><br></li>
 </ol>
+<h1 id="Configuration-Manager-コンソールで-ESU-適用状況を確認する"><a href="#Configuration-Manager-コンソールで-ESU-適用状況を確認する" class="headerlink" title="Configuration Manager コンソールで ESU 適用状況を確認する"></a>Configuration Manager コンソールで ESU 適用状況を確認する</h1><p>Configuration Manager コンソール上より、ESU ライセンスの適用状況を確認する手順を紹介いたします。</p>
+<h2 id="目次-1"><a href="#目次-1" class="headerlink" title="目次"></a>目次</h2><p>A. ハードウェア インベントリのクラスを追加する<br>B. リソース エクスプローラーより確認する</p>
+<h2 id="A-ハードウェア-インベントリのクラスを追加する"><a href="#A-ハードウェア-インベントリのクラスを追加する" class="headerlink" title="A. ハードウェア インベントリのクラスを追加する"></a>A. ハードウェア インベントリのクラスを追加する</h2><ol>
+<li>Configuration Manager コンソールより、[管理\概要\クライアント設定] を選択します。</li>
+<li>クライアント設定より、[既定のクライアント設定] もしくは カスタムで作成されているクライアント設定を右クリックし、[プロパティ] を開きます。</li>
+<li>[ハードウェア インベントリ] 項目の、”ハードウェア インベントリ クラス” の [クラスの設定] ボタンをクリックします。</li>
+<li>検索バーに、”SoftwareLicensingProduct” と入力して検索し、検索結果より、「ソフトウェア ライセンス製品 – 資産インテリジェンス (SoftwareLicensingProduct)」 にチェックを付けます。</li>
+<li>[OK] をクリックし、クライアント設定を閉じます。</li>
+<li>クライアント側で即時で反映を促す場合には、コントロール パネルを開き、表示方法を “小さいアイコン” に変更し、[Configuration Manager] を開き、[操作] タブより、以下のサイクルを選択し、[直ちに実行] をそれぞれクリックします。<br>・コンピューター ポリシーの取得および評価サイクル<br>・ハードウェア インベントリ サイクル  </li>
+</ol>
+<h2 id="B-リソース-エクスプローラーより確認する"><a href="#B-リソース-エクスプローラーより確認する" class="headerlink" title="B. リソース エクスプローラーより確認する"></a>B. リソース エクスプローラーより確認する</h2><ol>
+<li><p>Configuration Manager コンソールにて、[資産とコンプライアンス\概要\デバイス] より、デバイスを右クリックし、[開始]-[リソースエクスプローラー] をクリックします。</p>
+</li>
+<li><p>[ハードウェア]-[ソフトウェア ライセンス製品] を選択し、右側のフィルター内に、ESU の Activation ID を入力し、Enter をクリックします。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">・ESU Program Activation ID</span><br><span class="line">Win10 ESU Year1 f520e45e-7413-4a34-a497-d2765967d094</span><br><span class="line">Win10 ESU Year2 1043add5-23b1-4afb-9a0f-64343c8f3f8d</span><br><span class="line">Win10 ESU Year3 83d49986-add3-41d7-ba33-87c7bfb5c0fb</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>結果として、表示された項目の、[ライセンスのステータス] 列が 1 となっていれば、ライセンス済みと判断いただけます。</li>
+</ol>
+<p>※ Win10 ESU Year1 の Activation ID を基に検索した例</p>
+<p>   <img src="/blog/mecm/20251001_01/20251001_01_01.png" alt="ResourceExplorer"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20251001_01/" data-id="cmgitrpbh00680npghldc1iv2" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20251001_01/" data-id="cmgzwbdcb00680nm894c2873j" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
