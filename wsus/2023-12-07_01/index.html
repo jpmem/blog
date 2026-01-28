@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-12-07_01/2023-12-07_01-3.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-12-07_01/2023-12-07_01-4.png">
 <meta property="article:published_time" content="2023-12-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-27T07:34:52.753Z">
+<meta property="article:modified_time" content="2026-01-28T03:53:07.212Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta property="article:tag" content="構築マニュアル">
@@ -127,8 +127,16 @@
 <li>手順<br>a. サーバー証明書の準備<br>b. サーバー証明書のインポート<br>c. サーバー証明書のバインド<br>d. HTTPS の構成<br>e. クライアントの参照する WSUS サーバーの設定<br>f. クライアントのアクセス確認</li>
 </ul>
 <h3 id="a-サーバー証明書準備"><a href="#a-サーバー証明書準備" class="headerlink" title="a. サーバー証明書準備"></a>a. サーバー証明書準備</h3><p>参考として、Active Directory 証明書サービスを利用して証明書を発行することができますのでご紹介します。<br>Active Directory 証明書サービスを利用して、エンタープライズ CA を構築し、テンプレートの複製を利用することで、Active Directory 配下のクライアントが証明書の発行要求を行うことができます。  </p>
-<p>１．Active Directoryサーバーにて、役割と機能の追加から「Active Directory 証明書サービス」を追加します。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority#to-install-active-directory-certificate-services">Active Directory Certificate Services をインストールするには</a>  </p>
-<p>２．Active Directoryサーバーにて、証明機関を開き、[証明書テンプレート]-[管理]より、[Webサーバー]を選択しテンプレートの複製を行います。<br>３．Active Directoryサーバーにて、証明機関を開き、[証明書テンプレート]より、[新規作成]を選択し[発行する証明書テンプレート]から、２．で複製した [Webサーバー] のテンプレートを選択します。<br>４．WSUS サーバーにて、証明書ストアを開き、[個人用]-[証明書] から、[すべてのタスク]―[新しい証明書の要求] を行い、３で作成した [Webサーバー] の証明書を要求します。</p>
+<ol>
+<li><p>Active Directory ドメインに参加しているメンバー サーバーにて、役割と機能の追加から「Active Directory 証明書サービス」を追加します。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/networking/core-network-guide/cncg/server-certs/install-the-certification-authority#to-install-active-directory-certificate-services">Active Directory Certificate Services をインストールするには</a>  </p>
+</li>
+<li><p>続けて、証明機関を開き [証明書テンプレート] - [管理] より、[Web サーバー] を選択しテンプレートの複製を行います。  </p>
+</li>
+<li><p>メンバー サーバーにて、証明機関を開き [証明書テンプレート] より、[新規作成] を選択し [発行する証明書テンプレート] から、2. で複製した [Web サーバー] のテンプレートを選択します。  </p>
+</li>
+<li><p>WSUS サーバーにて、証明書ストアを開き、[個人用] - [証明書] から、[すべてのタスク] - [新しい証明書の要求] を行い、3. で作成した [Webサ ーバー] の証明書を要求します。</p>
+</li>
+</ol>
 <h3 id="b-サーバー証明書のインポート"><a href="#b-サーバー証明書のインポート" class="headerlink" title="b. サーバー証明書のインポート"></a>b. サーバー証明書のインポート</h3><p>使用するサーバー証明書を個人用 証明書ストア にインポートします。  </p>
 <ol>
 <li>WSUS サーバーで、インターネット インフォメーション サービス (IIS) マネージャを起動します。  </li>
@@ -141,7 +149,7 @@
 <ol>
 <li>インターネットインフォメーション サービス (IIS) マネージャより、[サイト] を展開し、 WSUS にて利用している Web サイト (既定 「 WSUS の管理」) を右クリックして、[バインドの編集] をクリックします。  </li>
 <li>サイトバインドにて、8531 を選択し [編集] をクリックします。(カスタムポートをご利用の場合、ご利用の Web サイトより同様に サイトバインドにて 443 を選択します。)<br><img src="/blog/wsus/2023-12-07_01/2023-12-07_01-1.png">  </li>
-<li> [ SSL 証明書] にて、登録したサーバー証明書を選択し、[OK] をクリックします。  </li>
+<li> [SSL 証明書] にて、登録したサーバー証明書を選択し、[OK] をクリックします。  </li>
 <li>[閉じる] をクリックして [サイト バインド] ダイアログ ボックスを終了します。<br><img src="/blog/wsus/2023-12-07_01/2023-12-07_01-2.png">  </li>
 </ol>
 <h3 id="d-HTTPS-の構成"><a href="#d-HTTPS-の構成" class="headerlink" title="d. HTTPS の構成"></a>d. HTTPS の構成</h3><p>インターネットインフォメーション サービス ( IIS ) にて、 HTTPS を有効化します。  </p>
@@ -168,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-12-07_01/" data-id="cmkwa719d00ar0npg1mo1ehwd" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-12-07_01/" data-id="cmkxhpov8004r0no0fb98ap2l" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
