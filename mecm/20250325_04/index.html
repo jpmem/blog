@@ -16,11 +16,12 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_03.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_04/20250325_04_05.png">
 <meta property="article:published_time" content="2025-03-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-03T07:50:21.502Z">
+<meta property="article:modified_time" content="2026-02-03T23:24:51.447Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -140,6 +141,7 @@
 <li>クライアントの所属する境界グループに配布ポイントが紐づいていない</li>
 <li>配布ポイントにコンテンツが配布されていない。</li>
 <li>クライアントの ccmcache フォルダー領域の空き容量が不足している。</li>
+<li>Windows Update / Microsoft Update (WUMU) 接続時に接続経路が存在しない。</li>
 <li>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</li>
 <li>更新プログラムの最長実行時間が、メンテナンス期間の間に収まっていない。</li>
 </ul>
@@ -211,6 +213,12 @@
 <p><img src="/blog/mecm/20250325_04/20250325_04_02.png" alt="CCMCacche.png"></p>
 <p>この他、クライアントのキャッシュをクリアしたい場合は以下の記事をご参照ください。  </p>
 <p>ccmcache フォルダー配下のキャッシュ クリア方法<br><a href="https://jpmem.github.io/blog/mecm/20220511_01/">https://jpmem.github.io/blog/mecm/20220511_01/</a></p>
+<h3 id="Windows-Update-Microsoft-Update-WUMU-接続時に接続経路が存在しない。"><a href="#Windows-Update-Microsoft-Update-WUMU-接続時に接続経路が存在しない。" class="headerlink" title="Windows Update / Microsoft Update (WUMU) 接続時に接続経路が存在しない。"></a>Windows Update / Microsoft Update (WUMU) 接続時に接続経路が存在しない。</h3><p>展開設定で、以下の設定を行うと、弊社が提供する Windows Update / Microsoft Update (WUMU) が更新プログラム コンテンツのダウンロード元の候補リストに追加されます。</p>
+<ul>
+<li>現在、近隣、またはサイトの境界グループ内の配布ポイントでソフトウェア更新プログラムを利用できない場合は、 Microsoft 更新プログラムからコンテンツをダウンロードします。</li>
+</ul>
+<p><img src="/blog/mecm/20250325_04/20250325_04_06.png" alt="WUMUSetting.png"></p>
+<p>この設定を実施している際に、クライアントから WUMU へのアクセスがお客様のネットワーク環境上制限されていると、ダウンロードが失敗します。これには、WUMU アクセス時に Proxy を介す必要がある、もしくは Proxy 接続で認証失敗するような場合も含まれます。</p>
 <h3 id="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"><a href="#更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた" class="headerlink" title="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"></a>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</h3><p>ConfigMgr の更新プログラムの展開は、適用中の意図しないトラブルを防ぐため、最長実行時間が設定されており、これを超えた場合、更新プログラムの適用処理が途中でキャンセルされる動きとなっております。</p>
 <p>上記は、<code>C:\Windows\SoftwareDistribution\ReportingEvents.log</code> に出力される以下のようなログ文字列があることでも判断可能です。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1) [AGENT_INSTALLING_STARTED]	xxx	&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;	xxx	x	CcmExec	Success	Content Install	Installation Started: Windows has started installing the following update: [更新プログラム タイトル]	........</span><br><span class="line">(2) [AGENT_INSTALLING_FAILED]	xxx	&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;	100	800704c7	CcmExec	Failure	Content Install	Installation Failure: Windows failed to install the following update with error 0x800704c7: [更新プログラム タイトル]	.......</span><br></pre></td></tr></table></figure>
@@ -239,11 +247,15 @@
 <p>メンテナンス期間は、以下で設定されています。</p>
 <p>[ConfigMgr コンソール] - [資産とコンプライアンス] - [概要] - [デバイス コレクション] - デバイスの所属するコレクションを選択 - [プロパティ] - [メンテナンス期間] タブ</p>
 <p><img src="/blog/mecm/20250325_04/20250325_04_05.png" alt="MaintenanceWindows.png"></p>
+<h1 id="更新履歴"><a href="#更新履歴" class="headerlink" title="更新履歴"></a>更新履歴</h1><ul>
+<li>2026/2/2  WUMU ダウンロード指定時の挙動追加</li>
+<li>2025/3/25 初版</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20250325_04/" data-id="cml6atwnl00600no7b8tm0rzp" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20250325_04/" data-id="cml787o4300cb0nqq3xmj53f0" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
