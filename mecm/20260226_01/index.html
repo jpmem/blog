@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆さま、こんにちは。 Configuration Manager サポート チームです。 Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在するため、挙動が複雑になりがちです。本稿では、その挙動を解説します。皆様のご理解の助けになれば幸いです。 MDAV 定義ファイルの更新を行う主体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConfigMgr 環境における MDAV 定義ファイルの更新形式">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260226_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆さま、こんにちは。 Configuration Manager サポート チームです。 Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在するため、挙動が複雑になりがちです。本稿では、その挙動を解説します。皆様のご理解の助けになれば幸いです。 MDAV 定義ファイルの更新を行う主体">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_06.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_07.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_08.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_09.png">
+<meta property="article:published_time" content="2026-02-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-26T08:34:49.766Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260226_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-02-25T15:00:00.000Z" itemprop="datePublished">2026-02-26</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ConfigMgr 環境における MDAV 定義ファイルの更新形式
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-02-25T15:00:00.000Z" itemprop="dateUpdated">2026-02-26</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>皆さま、こんにちは。 Configuration Manager サポート チームです。</p>
+<p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在するため、挙動が複雑になりがちです。本稿では、その挙動を解説します。皆様のご理解の助けになれば幸いです。</p>
+<h2 id="MDAV-定義ファイルの更新を行う主体"><a href="#MDAV-定義ファイルの更新を行う主体" class="headerlink" title="MDAV 定義ファイルの更新を行う主体"></a>MDAV 定義ファイルの更新を行う主体</h2><p>まず、前提として、更新プログラムの更新を行う直接の主体は、Windows Update Agent (WUA) となります。WUA の API は外部に公開されており、様々なプログラムから呼び出すことが可能です。Windows Update による更新を必要とするプログラムは、WUA API を呼び出すことで更新を実現しています。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/win32/wua_sdk/portal-client">Windows Update エージェント API</a></li>
+</ul>
+<p>MDAV 定義ファイルを更新する主体は、一般的には、以下の 3 つとなります。(例外として、WUA APIを使ったスクリプトやサードベンダー製のプログラムもあります)</p>
+<ul>
+<li>Update Orchestrator </li>
+<li>Microsoft Defender</li>
+<li>ConfigMgr (CCMExec)</li>
+</ul>
+<p>全体的な概要図は以下となります。  </p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_01.png" alt="Outline"></p>
+<h3 id="Update-Orchestrator"><a href="#Update-Orchestrator" class="headerlink" title="Update Orchestrator"></a>Update Orchestrator</h3><p>Windows 標準の更新プログラムを適用管理するプログラムです。<br>以下の画面で更新した場合、Update Orchestrator 経由で更新が行われます。</p>
+<ul>
+<li><p>[Windowsの設定] - [Windows Update]</p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_02.png" alt="USO"></p>
+</li>
+</ul>
+<p>また、本プログラムが定義ファイルのダウンロード元として利用するのは、弊社 Microsoft Update サービスもしくは、下記で設定されている WSUS サーバーとなります。</p>
+<ul>
+<li>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [イントラネットの Microsoft 更新サービスの場所を指定する]</li>
+</ul>
+<p>定義ファイルの更新スケジュールなどは、以下の配下のグループ ポリシーで制御されます。</p>
+<ul>
+<li>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update]</li>
+</ul>
+<h3 id="Microsoft-Defender"><a href="#Microsoft-Defender" class="headerlink" title="Microsoft Defender"></a>Microsoft Defender</h3><p>Microsoft Defender 自体が定義ファイルを運用管理しています。<br>以下の画面で更新した場合、Microsoft Defender 経由で更新しているとご認識ください。</p>
+<ul>
+<li><p>[Windowsの設定] - [プライバシーとセキュリティ] - [Windows セキュリティ] - [ウィルスと脅威の防止] - [ウィルスと脅威の防止の更新] - [保護の更新]</p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_03.png" alt="MDAV"></p>
+</li>
+</ul>
+<p>また、本プログラムは、以下で設定している順序で定義ファイルのダウンロードを試みます。</p>
+<ul>
+<li>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Microsoft Defender ウィルス対策] - [セキュリティ インテリジェンスの更新] - [セキュリティ インテリジェンスの更新をダウンロードするための更新元の順序を定義する]</li>
+</ul>
+<p>一方、ConfigMgr 管理下の場合は、上記内容と類似の設定を以下の「マルウェア対策ポリシー」で配ります。</p>
+<ul>
+<li><p>[ConfigMgr コンソール] - [資産とコンプライアンス] - [概要] - [Endpoint Protection] - [マルウェア対策ポリシー] - [セキュリティ インテリジェンスの更新] - [Endpoint Protection のセキュリティ インテリジェンスの更新ファイルのソースと順序を設定する]</p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_04.png" alt="マルウェア対策ポリシー"></p>
+</li>
+</ul>
+<p>定義ファイルの更新スケジュールなど種々の設定は、以下のどちらかで制御することになります。</p>
+<ul>
+<li>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Microsoft Defender ウィルス対策] </li>
+<li>[ConfigMgr コンソール] - [資産とコンプライアンス] - [概要] - [Endpoint Protection] - [マルウェア対策ポリシー] </li>
+</ul>
+<h3 id="ConfigMgr-CCMExec"><a href="#ConfigMgr-CCMExec" class="headerlink" title="ConfigMgr (CCMExec)"></a>ConfigMgr (CCMExec)</h3><p>ConfigMgr クライアント (CCMExec) は 利用可能展開で MDAV 定義ファイルを配布した場合、ソフトウェア センターの画面で MDAV 定義ファイルを受け取ります。</p>
+<p>  <img src="/blog/mecm/20260226_01/20260226_01_05.png" alt="ソフトウェア センター"></p>
+<p>ここで、MDAV ファイルの検出やダウンロードなどは、他の OS 更新プログラムの展開と同様になります。すなわち、以下の通りです。</p>
+<ul>
+<li>定義ファイルの検出先: クライアントが所属する境界グループに紐づくソフトウェア更新ポイント</li>
+<li>定義ファイルのダウンロード元: クライアントが所属する境界グループに紐づく配布ポイント</li>
+<li>定義ファイル適用のスケジュール: 更新プログラムの展開ポリシー</li>
+</ul>
+<h2 id="ConfigMgr-環境における-MDAV-定義ファイルの更新"><a href="#ConfigMgr-環境における-MDAV-定義ファイルの更新" class="headerlink" title="ConfigMgr 環境における MDAV 定義ファイルの更新"></a>ConfigMgr 環境における MDAV 定義ファイルの更新</h2><p>上記でご案内した内容が前提知識となります。さて、ConfigMgr 環境において、 MDAV 定義ファイルはどのように更新されるのでしょうか。重要なポイントは、Update Orchestrator, Microsoft Defender, ConfigMgr クライアントそれぞれが、それぞれ独立して MDAV 定義ファイルを更新しようとする点です。それぞれに定義ファイルの更新スケジュールを設定してやると、それぞれに定義ファイルの取得を行おうとします。<br>ただ、ConfigMgr のデフォルトの設定では、それが起こらないようにしています。</p>
+<h3 id="ConfigMgr-による定義ファイル取得の優先"><a href="#ConfigMgr-による定義ファイル取得の優先" class="headerlink" title="ConfigMgr による定義ファイル取得の優先"></a>ConfigMgr による定義ファイル取得の優先</h3><p>ConfigMgr のマルウェア対策ポリシーでは、通常のグループポリシーには該当するものが無い、独自設定として、[Configuration Manager がセキュリティ インテリジェンスの更新ファイルのソースとして使用されている場合、クライアントはセキュリティ インテリジェンスが次の期間(時間)を経過している場合のみ代替ソースから更新する] という設定があります。</p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_06.png" alt="AuGrecePeriod"></p>
+<p>この期間は、Microsoft Defender が定義ファイルの最終更新時刻を参照して動作します。<br>上記で設定した猶予期間が経過していない場合、Microsoft Defender 自身による定義ファイルの更新は行われません。<br>この時間が経過したときのみ、Microsoft Defender は独自で、[Endpoint Protection のセキュリティ インテリジェンス更新ファイルのソースと順序を設定する]で設定されている順序で定義ファイルのダウンロードを試みるようになります。既定の設定では、ConfigMgr -&gt; WSUS -&gt; WUMU -&gt; MMPC となります。</p>
+<p>(なお、下記画面で「Configuration Manager から配布される更新プログラム)にチェックが入っていない場合は上記猶予期間の設定も不活性化します)</p>
+<p><img src="/blog/mecm/20260226_01/20260226_01_07.png" alt="FallbackOrder"></p>
+<h3 id="ConfigMgr-環境下での定義ファイル更新の流れ"><a href="#ConfigMgr-環境下での定義ファイル更新の流れ" class="headerlink" title="ConfigMgr 環境下での定義ファイル更新の流れ"></a>ConfigMgr 環境下での定義ファイル更新の流れ</h3><p>自動展開規則を含めて、ConfigMgr 環境下での定義ファイル更新の一般的な流れを図に示すと、以下のようになります。ConfigMgr として WUMU やピアキャッシュ、Branch Cache からダウンロードする場合もありますが、単純化のため除外しています。</p>
+<h4 id="自動展開規則により-配布ポイントに配置されるまで"><a href="#自動展開規則により-配布ポイントに配置されるまで" class="headerlink" title="自動展開規則により 配布ポイントに配置されるまで"></a>自動展開規則により 配布ポイントに配置されるまで</h4><p><img src="/blog/mecm/20260226_01/20260226_01_08.png" alt="ADR"></p>
+<h4 id="クライアント側での-インストール"><a href="#クライアント側での-インストール" class="headerlink" title="クライアント側での インストール"></a>クライアント側での インストール</h4><p><img src="/blog/mecm/20260226_01/20260226_01_09.png" alt="DL"></p>
+<h3 id="MDAV-のフォールバックについての注意点"><a href="#MDAV-のフォールバックについての注意点" class="headerlink" title="MDAV のフォールバックについての注意点"></a>MDAV のフォールバックについての注意点</h3><ul>
+<li>WUMU / MMPC は インターネットからのダウンロードになります。</li>
+<li>ConfigMgr / WUMU からのダウンロードの際、差分ファイル ダウンロード が行われますが、 MMPC からのダウンロードはフル ダウンロードになるのでダウンロード容量が増加します。</li>
+<li>WSUS からのダウンロードは、実際はソフトウェア更新ポイントの部品として動作している WSUS からのダウンロードになりますので、別途承認処理が必要です。（※ ConfigMgr 管理下では、WSUS は単体での承認運用ではなく、ConfigMgr により制御されます）ConfigMgr のソフトウェア更新ポイントとして利用している WSUS において、MDAV の定義ファイルは承認がサポートされています。<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus">https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="更新した主体が誰かを確認する"><a href="#更新した主体が誰かを確認する" class="headerlink" title="更新した主体が誰かを確認する"></a>更新した主体が誰かを確認する</h2><p>定義ファイルを更新した主体が誰かについては、以下のログから確認可能です。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%Windir%\SoftwareDistribution\ReportingEvents.log</span><br></pre></td></tr></table></figure>
+
+<p>ログの例は以下です。第 5 項目の [AGENT_INSTALLING_SUCCEEDED] でインストールが成功したことがわかり、第 10 項目の CCMExec で ConfigMgr クライアントにより定義ファイルのインストールが完了したことがわかります。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;580AAE62-AFD5-4441-838B-8DCA9B6484DF&#125;	2026-02-26 14:29:02:119+0900	1	181 [AGENT_INSTALLING_STARTED]	101	&#123;FF397EE8-82EA-4BC2-96EE-DF228450112B&#125;	200	0	CcmExec	Success	Content Install	Installation Started: Windows has started installing the following update: Microsoft Defender Antivirus のセキュリティ インテリジェンス更新プログラム - KB2267602 (バージョン 1.445.243.0) - 現在のチャネル (広範)	LA7GZfSNlUGMsN9L.6.0.0.1.0</span><br><span class="line">&#123;0B69425F-D39F-4472-BDBB-6FCD094ADCC0&#125;	2026-02-26 14:29:22:344+0900	1	183 [AGENT_INSTALLING_SUCCEEDED]	101	&#123;FF397EE8-82EA-4BC2-96EE-DF228450112B&#125;	200	0	CcmExec	Success	Content Install	Installation Successful: Windows successfully installed the following update: Microsoft Defender Antivirus のセキュリティ インテリジェンス更新プログラム - KB2267602 (バージョン 1.445.243.0) - 現在のチャネル (広範)	LA7GZfSNlUGMsN9L.6.0.0.3.0</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260226_01/" data-id="cmm37joxq006i0nqr1mh6bja9" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260203_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">ConfigMgr 環境における MDAV 定義ファイルの更新形式</a>
+          </li>
+        
+          <li>
+            <a href="../20260203_01/">肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</a>
+          </li>
+        
+          <li>
+            <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
+          </li>
+        
+          <li>
+            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
+          </li>
+        
+          <li>
+            <a href="../20251030_01/">Configuration Manager オフライン アップデートの流れと注意点</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
