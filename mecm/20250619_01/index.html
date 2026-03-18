@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内します。基本的に ConfigMgr クライアントは BITS（バックグラウンド インテリジェント転送サービス）を用いてコンテンツをダウンロー">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2025-06-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.861Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.147Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -149,13 +149,13 @@
 <h2 id="コンテンツのダウンロード時は-BITS-を使用します"><a href="#コンテンツのダウンロード時は-BITS-を使用します" class="headerlink" title="コンテンツのダウンロード時は BITS を使用します"></a>コンテンツのダウンロード時は BITS を使用します</h2><p>上記の動作をご理解いただいていたとしても、「帯域が制限される場合のみ BITS を使用し、そうでない場合は BITS 以外が使われる」と誤解されることがありますが、これは正しくありません。 ConfigMgr のコンテンツ配布は一部の例外を除き、通常 BITS を利用します。帯域が制限されるか否かは、あくまで転送モード(フォアグラウンドかバックグラウンドか)の違いということです。</p>
 <p>なお、UUP (Unified Update Platform) 形式の更新プログラムのダウンロード時には、標準設定の場合、OS の配信の最適化 (DO) エージェントも関与しますが、その場合も DO エージェント が ConfigMgr クライアントがローカルに生成したサーバー プロセス (localhost:8005) にコンテンツを要求し、このサーバーが代理で外部から BITS でコンテンツのダウンロードを行います。先にご案内した一部の例外として、DO の機能だけを使うよう設定も構成できるため、厳密にはすべてが BITS というわけではありませんが、ConfigMgr クライアントがコンテンツのダウンロードを行う際は基本的に BITS が使用されます。</p>
 <h2 id="時間帯以外の条件に応じて帯域を制限することは不可です"><a href="#時間帯以外の条件に応じて帯域を制限することは不可です" class="headerlink" title="時間帯以外の条件に応じて帯域を制限することは不可です"></a>時間帯以外の条件に応じて帯域を制限することは不可です</h2><p>BITS は ConfigMgr の専用機能ではなく、OS の汎用的なサービスであり、すべてのアプリケーションが共有しています。そのため、帯域制限の設定を行う場合、その OS 上ですべての BITS ジョブが対象となります。クライアント設定で帯域を制限すると、実際には「BITS バックグラウンド転送の最大ネットワーク帯域幅を制限する」設定がローカル グループ ポリシーとして適用されます。設定可能な条件は「特定の時間帯」と「それ以外の時間帯」のみで、アプリケーションごとの制限やインターネット接続時のみ帯域制限を行う、といった細かい条件での制限はできません。</p>
-<p>ご参考：<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers">https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers</a></p>
+<p>ご参考：<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers">https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#limit-the-maximum-network-bandwidth-for-bits-background-transfers</a></p>
 <p>なお、クライアント設定ではなく、Active Directory グループ ポリシーで「BITS バックグラウンド転送の最大ネットワーク帯域幅を制限する」を設定した場合は、クライアント設定と競合が発生します。そのため ConfigMgr クライアントが稼働する環境では、クライアント設定のみで制限することを推奨します。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20250619_01/" data-id="cmm9wwo8600ap0nrq1nn3379r" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20250619_01/" data-id="cuidaUEh7-49g0wVwQO0MM6Ct" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -197,6 +197,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -210,10 +214,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -262,9 +262,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230217_01/04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230217_01/05.png">
 <meta property="article:published_time" content="2023-02-16T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.816Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.103Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -132,18 +132,18 @@
 <p><img src="/blog/mecm/20230217_01/03.png" alt="image.png">  </p>
 <p>展開に複数の更新プログラムが含まれている場合、その展開の特定のクライアントの状態を知りたい場合は、「状態 3 - 展開とコンピューターの状態」レポートを開きます。<br>このレポートでは、検索条件に指定したコンピューターにおいて、対象の展開に含まれる更新プログラムの状態が一覧となって表示されるので、その展開に含まれる更新プログラムの適用状況を把握するために使用できます。</p>
 <p><img src="/blog/mecm/20230217_01/04.png" alt="image.png">  </p>
-<h2 id="3-Windows-Servicing-ダッシュボード-旧-Windows-10-ダッシュボード-を確認"><a href="#3-Windows-Servicing-ダッシュボード-旧-Windows-10-ダッシュボード-を確認" class="headerlink" title="3. Windows Servicing ダッシュボード (旧 Windows 10 ダッシュボード) を確認"></a>3. Windows Servicing ダッシュボード (旧 Windows 10 ダッシュボード) を確認</h2><p>Windows Servicing ダッシュボードでは、機能更新プログラムや品質更新プログラムのバージョンの内訳が円グラフとなって表示されます。Windows 10/11 の場合、品質更新プログラムを適用すると、特定のバージョンになりますので、品質更新プログラムの適用状況はダッシュボードで、そのバージョンになっているかどうかを確認することによっても把握できます。<br>円グラフ内で、確認したいバージョンの部分をクリックすると、そのバージョンになっているデバイスの一覧が表示されますので、適用状況を確認したいクライアントがその一覧に表示されるかどうかを確認するために使用できます。</p>
+<h2 id="3-Windows-Servicing-ダッシュボード-旧-Windows-10-ダッシュボード-を確認"><a href="#3-Windows-Servicing-ダッシュボード-旧-Windows-10-ダッシュボード-を確認" class="headerlink" title="3. Windows Servicing ダッシュボード (旧 Windows 10 ダッシュボード) を確認"></a>3. Windows Servicing ダッシュボード (旧 Windows 10 ダッシュボード) を確認</h2><p>Windows Servicing ダッシュボードでは、機能更新プログラムや品質更新プログラムのバージョンの内訳が円グラフとなって表示されます。Windows 10&#x2F;11 の場合、品質更新プログラムを適用すると、特定のバージョンになりますので、品質更新プログラムの適用状況はダッシュボードで、そのバージョンになっているかどうかを確認することによっても把握できます。<br>円グラフ内で、確認したいバージョンの部分をクリックすると、そのバージョンになっているデバイスの一覧が表示されますので、適用状況を確認したいクライアントがその一覧に表示されるかどうかを確認するために使用できます。</p>
 <p><img src="/blog/mecm/20230217_01/05.png" alt="image.png">  </p>
 <h1 id="クライアントのログから確認する方法"><a href="#クライアントのログから確認する方法" class="headerlink" title="クライアントのログから確認する方法"></a>クライアントのログから確認する方法</h1><p>特定のクライアントで更新プログラムが配信されているかどうかを確認する場合の、確認方法です。<br>こちらは更新プログラムを配信したクライアント端末内に存在するログから確認する方法となります。</p>
 <h2 id="1-ReportingEvents-log-による確認"><a href="#1-ReportingEvents-log-による確認" class="headerlink" title="1. ReportingEvents.log による確認"></a>1. ReportingEvents.log による確認</h2><p>最も簡易的な確認方法です。%windir%\SoftwareDistribution\ReportingEvents.log より、[AGENT_INSTALLING_SUCCEEDED] イベントが CcmExec により Success となっているか確認します。<br>このログが記録されている場合 Configuration Manager クライアントによって更新プログラムがインストールされたことになります。</p>
 <p>例）<br>%windir%\SoftwareDistribution\ReportingEvents.log</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;08785487-DDB3-4BA7-A32D-97DA31E119DD&#125;    2023-02-10 19:52:59:896+0900          1            183 [AGENT_INSTALLING_SUCCEEDED]       101        &#123;9CB4EAAF-1485-435A-9198-2B452F1DC644&#125;             200        0              CcmExec             Success              Content Install              Installation Successful: Windows successfully installed the following update: 2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)      KszDqsCb7UmIDeso.14.0.0.3.0.0</span><br></pre></td></tr></table></figure>
-<p>★ 2023/2/10 に CcmExec による「2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)」のインストールが成功したことを示すログです。</p>
+<p>★ 2023&#x2F;2&#x2F;10 に CcmExec による「2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)」のインストールが成功したことを示すログです。</p>
 <h2 id="2-UpdateDeployment-log-による確認"><a href="#2-UpdateDeployment-log-による確認" class="headerlink" title="2. UpdateDeployment.log による確認"></a>2. UpdateDeployment.log による確認</h2><p>Configuration Manager クライアントによって更新プログラムのダウンロードからインストールが行われた経緯を追跡するために有用な確認方法です。<br>まず、%windir%\CCM\Logs\UpdatesDeployment.log の以下のログより、更新プログラムの Update ID を確認します。</p>
 <p>例)<br>%windir%\CCM\Logs\UpdatesDeployment.log</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2-03-2023 18:17:12.599    UpdatesDeploymentAgent    4012 (0xfac)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Name (2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)) ArticleID (5021088) added to the targeted list of deployment (&#123;B92846E4-0C5A-43CD-AF30-25C2074BB30E&#125;)</span><br></pre></td></tr></table></figure>
 <p>「2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)」の UpdateID は、9cb4eaaf-1485-435a-9198-2b452f1dc644 であることがわかります。</p>
-<p>後は確認した Update ID でログをフィルターして、「Progress: Status =」となっているログの記録を追跡します。</p>
+<p>後は確認した Update ID でログをフィルターして、「Progress: Status &#x3D;」となっているログの記録を追跡します。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">02-03-2023 18:17:12.599    UpdatesDeploymentAgent    4012 (0xfac)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Name (2022-12 Cumulative Update for .NET Framework 3.5, 4.8 and 4.8.1 for Windows 10 Version 21H2 for x64 (KB5021088)) ArticleID (5021088) added to the targeted list of deployment (&#123;B92846E4-0C5A-43CD-AF30-25C2074BB30E&#125;)</span><br><span class="line">02-03-2023 18:17:12.802    UpdatesDeploymentAgent    8044 (0x1f6c)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateDownloading, PercentComplete = 0, Result = 0x0</span><br><span class="line">...</span><br><span class="line">02-03-2023 18:17:35.748    UpdatesDeploymentAgent    4012 (0xfac)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateDownloading, PercentComplete = 100, Result = 0x0</span><br></pre></td></tr></table></figure>
 <p>★このタイミングでダウンロードが完了しました。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">02-10-2023 18:21:09.965    UpdatesDeploymentAgent    4048 (0xfd0)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateDownloading, PercentComplete = 0, Result = 0x0</span><br><span class="line">02-10-2023 18:21:10.630    UpdatesDeploymentAgent    7648 (0x1de0)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateDetecting, PercentComplete = 0, DownloadSize = 0, Result = 0x0</span><br><span class="line">02-10-2023 18:21:10.661    UpdatesDeploymentAgent    5888 (0x1700)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateDownloading, PercentComplete = 0, DownloadSize = 0, Result = 0x0</span><br><span class="line">02-10-2023 18:21:10.911    UpdatesDeploymentAgent    7996 (0x1f3c)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateWaitInstall, PercentComplete = 0, DownloadSize = 0, Result = 0x0</span><br><span class="line">...</span><br><span class="line">02-10-2023 18:22:23.108    UpdatesDeploymentAgent    3540 (0xdd4)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStateInstalling, PercentComplete = 100, DownloadSize = 0, Result = 0x0</span><br><span class="line">02-10-2023 18:22:23.186    UpdatesDeploymentAgent    7996 (0x1f3c)    Update (Site_04BBD5B3-EC61-46B0-82C1-83C6B832829D/SUM_9cb4eaaf-1485-435a-9198-2b452f1dc644) Progress: Status = ciStatePendingSoftReboot, PercentComplete = 0, DownloadSize = 0, Result = 0x0</span><br></pre></td></tr></table></figure>
@@ -157,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230217_01/" data-id="cmm9wwo7f008s0nrq8bqp8a0v" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230217_01/" data-id="cuidQce4kGrklrGZLqq_rgkjC" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -199,6 +199,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -212,10 +216,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -264,9 +264,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

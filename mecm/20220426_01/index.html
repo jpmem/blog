@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220426_01/5.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220426_01/7.png">
 <meta property="article:published_time" content="2022-04-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.769Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.061Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -73,9 +73,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -130,22 +130,22 @@
 <p><img src="/blog/mecm/20220426_01/3.png" alt="image.png"></p>
 <p>自動展開規則のプロパティ フィルターでは、いくつかの種類のフィルターが用意されており、設定したフィルターの条件を満たすソフトウェア更新プログラムが自動展開規則で展開されます。<br>なお、プロパティ フィルターはアンド条件でございますので、フィルターを設定いただいた数だけ条件が絞られていく動作となります。<br>例えば、下の画像に記載されているプロパティ フィルターの条件は、Windows 10 の毎月の定例セキュリティ更新プログラムを配信する設定でございます。</p>
 <p><img src="/blog/mecm/20220426_01/4.png" alt="image.png"></p>
-<p>公開情報でも自動展開規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : Configuration Manager を使用して定義の更新プログラムを配信する<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr">https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr</a></p>
+<p>公開情報でも自動展開規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : Configuration Manager を使用して定義の更新プログラムを配信する<br>URL : <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr">https://docs.microsoft.com/ja-jp/mem/configmgr/protect/deploy-use/endpoint-definitions-configmgr</a></p>
 <p>また、Microsoft Defender の定義ファイルにつきましては、1 日に 複数回リリースされるため、Configuration Manager で配信する場合は、自動展開規則を作成することをお勧めいたします。<br>また、Configuration Manager から定義ファイルを配信する上でできる限りクライアントがダウンロードされる容量を少なくする方法について、自動展開規則のプロパティ フィルターを使用して Configuration Manager に同期された更新プログラムから Microsoft Defender の定義ファイルだけを自動展開するように構成する必要がありますが、この設定においてクライアントにダウンロードされる容量を少なくするためのポイントがあります。それは 「置き換えられる」 を「いいえ」に設定すること です。</p>
 <p><img src="/blog/mecm/20220426_01/8.png" alt="image.png"></p>
 <p>詳細は以下のブログで紹介しております。  </p>
-<p>Title : Microsoft Defender / System Center Endpoint Protection の定義ファイルのダウンロードの最適化について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180308_01/">https://jpmem.github.io/blog/mecm/20180308_01/</a></p>
+<p>Title : Microsoft Defender &#x2F; System Center Endpoint Protection の定義ファイルのダウンロードの最適化について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180308_01/">https://jpmem.github.io/blog/mecm/20180308_01/</a></p>
 <h2 id="WSUS-の自動承認規則について"><a href="#WSUS-の自動承認規則について" class="headerlink" title="WSUS の自動承認規則について"></a>WSUS の自動承認規則について</h2><p>Configuration Manager の自動展開規則と似た機能として WSUS では自動承認規則が用意されております。<br>ただし、自動承認規則が自動展開規則と異なる部分としては、規則作成の際の条件として指定可能な項目が少ないという違いがあります。</p>
 <p>WSUS の自動承認規則を利用しますと、Windows OS 向けにリリースされた更新プログラムや Defender のセキュリティ インテリジェンス更新プログラムをクライアント コンピューターが属するコンピューター グループに対し自動的に承認することができます。</p>
 <p><img src="/blog/mecm/20220426_01/5.png" alt="image.png"></p>
 <p>自動承認規則の規則の追加では、ステップ 1 で 3 種類のプロパティが用意されており、ステップ 2 でプロパティの条件を詳細に指定します。自動承認規則はこちらのプロパティの条件に従いソフトウェア更新プログラムを自動的に承認します。<br>なお、規則の追加については Configuration Manager の自動展開規則と同様にアンド条件でございますので、プロパティを設定いただいた数だけ条件が絞られていく動作となります。</p>
 <p><img src="/blog/mecm/20220426_01/7.png" alt="image.png"></p>
-<p>公開情報でも自動承認規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : 3.2. 自動承認規則を構成する<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a</a>.</p>
+<p>公開情報でも自動承認規則の作成方法を紹介しておりますのでご参考にしてくださいませ。<br>Title : 3.2. 自動承認規則を構成する<br>URL : <a href="https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a">https://docs.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/deploy/3-approve-and-deploy-updates-in-wsus#BKM_3.2.a</a>.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220426_01/" data-id="cmm9wwo76007w0nrqfiuo3cly" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220426_01/" data-id="cuidb09fFXVI4wZa1mrXfcylQ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -187,6 +187,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -200,10 +204,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -252,9 +252,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

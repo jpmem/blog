@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_18.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211025_01/20211025_01_19.png">
 <meta property="article:published_time" content="2021-10-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.731Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.026Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -59,7 +59,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -86,9 +86,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -136,7 +136,7 @@
       
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
 <p>本日は Configuration Manager (CM) の便利な機能である<strong>スクリプト機能</strong>のご紹介をさせていただきます。本機能により CM 管理下の端末にリアルタイムに遠隔からスクリプトを実行させることが出来ます。</p>
-<p>Configuration Manager コンソールから PowerShell スクリプトを作成して実行する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts">https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts</a></p>
+<p>Configuration Manager コンソールから PowerShell スクリプトを作成して実行する<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts">https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-deploy-scripts</a></p>
 <h1 id="機能の説明"><a href="#機能の説明" class="headerlink" title="機能の説明"></a>機能の説明</h1><p>CM サーバーから CM コンソールを使って、デバイス単位、コレクション単位に指定したPowershell を、<strong>リアルタイム</strong>に実行する機能です。同じことは Enter-PSSession コマンドレットを使えば出来ますが、本機能は複数のデバイスに対して Powershell を実行できることに強みがあります。また、Intune によるスクリプト配布機能と比較した場合、こちらの方がオンデマンドな処理を行う際には便利です。</p>
 <h1 id="ユースケース"><a href="#ユースケース" class="headerlink" title="ユースケース"></a>ユースケース</h1><p>Powershell で実現できることは何でも出来ますが、CM 管理者であれば例えば以下のような点で利用出来るでしょう。</p>
 <ol>
@@ -186,23 +186,23 @@
 <li>[スクリプトの作成]をクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_02.png"></li>
 <li>「スクリプト名」に適宜名前を付けます。  </li>
 <li>「スクリプト」にスクリプトを書きます。「インポート」でps1ファイルから読み込む事も出来ます。<br><img src="/blog/mecm/20211025_01/20211025_01_09.png">  </li>
-<li>以降はウィザードに従って、最後まで「次へ」をクリックし、完了後「閉じる」をクリックします。  </li>
+<li>以降はウィザードに従って、最後まで「次へ」をクリックし、完了後「閉じる」をクリックします。</li>
 </ol>
 <h1 id="スクリプトの承認手順"><a href="#スクリプトの承認手順" class="headerlink" title="スクリプトの承認手順"></a>スクリプトの承認手順</h1><ol>
 <li><strong>スクリプト承認者</strong>の ID で  CM コンソールが動く端末にログインします。  </li>
 <li>[CM コンソール] - [ソフトウェア ライブラリ] - [概要] - [スクリプト]に遷移します。  </li>
 <li>スクリプト作成者から報告のあったスクリプトの名前を選択します。「承認状態」が「承認を待っています」となっていることからも判断出来ます。<br><img src="/blog/mecm/20211025_01/20211025_01_10.png">  </li>
-<li>画面上部「承認/拒否」ボタンをクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_11.png">  </li>
+<li>画面上部「承認&#x2F;拒否」ボタンをクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_11.png">  </li>
 <li>起動したウィザードにて、スクリプト内容を確認、レビューします。<br><img src="/blog/mecm/20211025_01/20211025_01_12.png">  </li>
 <li>レビュー結果を記載します。適宜レビューコメントを入力できます。<br><img src="/blog/mecm/20211025_01/20211025_01_13.png">  </li>
 <li>以降はウィザードに従って、最後まで「次へ」をクリックし、完了後「閉じる」をクリックします。  </li>
-<li>登録完了後、該当のスクリプトが「承認済み」となっていることを確認します。<br><img src="/blog/mecm/20211025_01/20211025_01_14.png">  </li>
+<li>登録完了後、該当のスクリプトが「承認済み」となっていることを確認します。<br><img src="/blog/mecm/20211025_01/20211025_01_14.png"></li>
 </ol>
 <h1 id="スクリプトの実行手順"><a href="#スクリプトの実行手順" class="headerlink" title="スクリプトの実行手順"></a>スクリプトの実行手順</h1><ol>
 <li>スクリプトの実行権限を持つ ID で、CM コンソールが動く端末にログインします。  </li>
 <li>スクリプトの実行対象によって以下を選択します。  <ul>
 <li>[CM コンソール] - [資産とコンプライアンス] - [概要] - [デバイス]  </li>
-<li>[CM コンソール」- [資産とコンプライアンス] - [概要] - [デバイス コレクション]  </li>
+<li>[CM コンソール」- [資産とコンプライアンス] - [概要] - [デバイス コレクション]</li>
 </ul>
 </li>
 <li>実行対象を右クリックすると、「スクリプトの実行」メニューがあるので、そちらをクリックします。<br><img src="/blog/mecm/20211025_01/20211025_01_15.png">  </li>
@@ -210,13 +210,13 @@
 <li>実行が完了するのを待機します。オンデマンドで指定したクライアントに対してスクリプトを配布し、実行し、その結果を表示しますので時間がかかります。  </li>
 <li>実行結果を確認します。適宜、結果をスクリーンショット等に取りましょう。<br><img src="/blog/mecm/20211025_01/20211025_01_18.png">  </li>
 <li>出力セルを選択した後、「Ctrl+A」を押下して、メモ帳等に貼り付けると結果をテキスト形式で取得できます。<br><img src="/blog/mecm/20211025_01/20211025_01_19.png">  </li>
-<li>ウィザードを適宜閉じます。  </li>
+<li>ウィザードを適宜閉じます。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="cmm9wwo6q006r0nrq6qmnd3u6" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="cuidPRhdAN-fglNRTlMFodEZe" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -258,6 +258,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -271,10 +275,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -323,9 +323,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

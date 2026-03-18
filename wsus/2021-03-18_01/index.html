@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は WSUS が使用するコンテンツ フォルダーである WsusContent フォルダー直下に web.config が作成された環境で生じる問題についてご紹介します。Windows Server 2016 以降の WSUS に接続するクライアントにおいて、更新プログラムのダウンロードが 0% で進まないという問題が発生した場合、 Wsu">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2021-03-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.934Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.212Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,13 +116,13 @@
       
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>今回は WSUS が使用するコンテンツ フォルダーである WsusContent フォルダー直下に web.config が作成された環境で生じる問題についてご紹介します。<br>Windows Server 2016 以降の WSUS に接続するクライアントにおいて、更新プログラムのダウンロードが 0% で進まないという問題が発生した場合、 WsusContent フォルダー直下に web.config が作成されていないかチェックしてください。</p>
-<p>例えば、以下の手順を実施した Windows Server 2012 / 2012 R2 の WSUS の場合、WsusContent フォルダー直下に web.config が作成されます。  </p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-windows-10#%E6%9D%A1%E4%BB%B6%EF%BC%94wsus-%E3%81%8C%E5%8B%95%E4%BD%9C%E3%81%99%E3%82%8B-iis-%E3%81%AE-web-%E3%82%B5%E3%82%A4%E3%83%88%E9%85%8D%E4%B8%8B%E3%81%AEcontent%E3%81%AB%E3%81%A6-windows-10-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%AB%E7%94%A8%E3%81%84%E3%82%89%E3%82%8C%E3%82%8Besd%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%85%8D%E4%BF%A1%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%99%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8">WSUS サーバーからの Windows 10 のアップグレードの配信</a>  </p>
+<p>例えば、以下の手順を実施した Windows Server 2012 &#x2F; 2012 R2 の WSUS の場合、WsusContent フォルダー直下に web.config が作成されます。  </p>
+<p><a href="https://docs.microsoft.com/ja-jp/archive/blogs/jpwsus/wsus-windows-10#%E6%9D%A1%E4%BB%B6%EF%BC%94wsus-%E3%81%8C%E5%8B%95%E4%BD%9C%E3%81%99%E3%82%8B-iis-%E3%81%AE-web-%E3%82%B5%E3%82%A4%E3%83%88%E9%85%8D%E4%B8%8B%E3%81%AEcontent%E3%81%AB%E3%81%A6-windows-10-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%AB%E7%94%A8%E3%81%84%E3%82%89%E3%82%8C%E3%82%8Besd%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%85%8D%E4%BF%A1%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%99%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8">WSUS サーバーからの Windows 10 のアップグレードの配信</a>  </p>
 <ul>
 <li>条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること</li>
 </ul>
-<p>この設定を行った Windows Server 2012 / 2012 R2 の WsusContent フォルダーを、そのまま Windows Server 2016 以降の WSUS に流用すると Windows Server 2016 以降の WSUS では、applicationHost.config にも同様の「.esd」形式のファイルの配信を許可する設定が既定で存在することで、競合状態となり問題が生じます。</p>
-<p>Windows Server 2016 以降においては、「.esd」形式のファイルの配信は許可される設定になっているので、機能更新プログラムを配信するために上記手順を実施した web.config が配置されている必要はありません。<br>また、WSUS が動作する IIS の Web サイト配下の「Content」仮想ディレクトリに対して変更を加えることはサポート外の操作となりますので、上記のように web.config が作成されている場合は削除してください。<br>(Windows Server 2012 / 2012 R2 の WSUS において、上記公開情報の手順によって「Content」仮想ディレクトリに対して変更を加えることはサポートされる操作です。)</p>
+<p>この設定を行った Windows Server 2012 &#x2F; 2012 R2 の WsusContent フォルダーを、そのまま Windows Server 2016 以降の WSUS に流用すると Windows Server 2016 以降の WSUS では、applicationHost.config にも同様の「.esd」形式のファイルの配信を許可する設定が既定で存在することで、競合状態となり問題が生じます。</p>
+<p>Windows Server 2016 以降においては、「.esd」形式のファイルの配信は許可される設定になっているので、機能更新プログラムを配信するために上記手順を実施した web.config が配置されている必要はありません。<br>また、WSUS が動作する IIS の Web サイト配下の「Content」仮想ディレクトリに対して変更を加えることはサポート外の操作となりますので、上記のように web.config が作成されている場合は削除してください。<br>(Windows Server 2012 &#x2F; 2012 R2 の WSUS において、上記公開情報の手順によって「Content」仮想ディレクトリに対して変更を加えることはサポートされる操作です。)</p>
 <p>なお、本事象が原因かどうかにつきましては、以下の手順で確認できますので、ご参考ください。</p>
 <ul>
 <li>手順</li>
@@ -133,7 +133,7 @@
 <li><p>WSUS サーバー上でブラウザを開き、以下の形式で URL にアクセスし、500.19 エラーが表示されるかご確認ください。</p>
 </li>
 </ol>
-<p><span>http</span>://localhost:8530/Content/&lt;フォルダー名/&lt;ファイル名&gt;</p>
+<p><span>http</span>:&#x2F;&#x2F;localhost:8530&#x2F;Content&#x2F;&lt;フォルダー名&#x2F;&lt;ファイル名&gt;</p>
 <p>WSUSContent\web.config ファイルによるエラーであることがわかるエラー画面の場合、本事象が発生していると判断できます。</p>
 <p>(補足)</p>
 <p>ブラウザでアクセスしても上記のように詳細なエラー内容が確認できない場合、以下の手順を実施ください。<br>・以下の手順で Internet Explorer の簡易表示をオフにします。</p>
@@ -147,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2021-03-18_01/" data-id="cmm9wwo5k003j0nrqbpu386q4" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2021-03-18_01/" data-id="cuidwUygZFciNCUwpqn1s0kXD" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -189,6 +189,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -202,10 +206,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -254,9 +254,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

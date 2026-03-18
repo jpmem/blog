@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-17-19.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230309_01/2023-03-09-14-21-17.png">
 <meta property="article:published_time" content="2023-03-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.826Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.113Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="使い方">
@@ -46,7 +46,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -73,9 +73,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -130,16 +130,16 @@
 <li>[全般] ページにて、任意の名前を指定し、デバイスの指定において [Windows デスクトップおよびサーバー] を選択し [次へ] をクリックします。  </li>
 <li>[サポートされているプラットフォーム] ページにて、任意で対象の Windows バージョンを選択し「次へ」をクリックします。  </li>
 <li>[設定] ページにて、[新規] をクリックします。  </li>
-<li>[全般] タブにて、任意の名前を指定し以下の設定を行います。<br>・設定の種類 ： レジストリ値<br>・データ型 : 整数<br>・ハイブ名：HKEY_LOCAL_MACHINE<br>・キー名：SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate<br>・値の名前：DisableWindowsUpdateAccess  </li>
+<li>[全般] タブにて、任意の名前を指定し以下の設定を行います。<br>・設定の種類 ： レジストリ値<br>・データ型 : 整数<br>・ハイブ名：HKEY_LOCAL_MACHINE<br>・キー名：SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate<br>・値の名前：DisableWindowsUpdateAccess<br>[準拠していないルール用に修復された場合には REG_DWORD データ型としてレジストリ値を作成する]: オフ</li>
 </ol>
 <p><img src="/blog/mecm/20230309_01/2023-03-09-14-08-41.png"></p>
 <ol start="6">
-<li>[コンプライアンス規則] タブにて、[新規] をクリックし以下の設定を行い [OK] を選択します。<br>・名前：任意の名前<br>・規則の種類：値<br>・演算子：次の値と等しい<br>・次の値の場合：1<br>・サポートされている場合は準拠していない規則を修正する : オフ<br>・この設定インスタンスが見つからない場合はコンプライアンス違反としてレポートする : オン  </li>
+<li>[コンプライアンス規則] タブにて、[新規] をクリックし以下の設定を行い [OK] を選択します。<br>・名前：任意の名前<br>・規則の種類：値<br>・演算子：次の値と等しい<br>・次の値の場合：1<br>・サポートされている場合は準拠していない規則を修正する : オフ<br>・この設定インスタンスが見つからない場合はコンプライアンス違反としてレポートする : オン</li>
 </ol>
 <p><img src="/blog/mecm/20230309_01/2023-03-09-14-08-01.png"></p>
 <p>※注意：[この設定インスタンスが見つからない場合はコンプライアンス違反としてレポートする] チェックは必ず “オン” に設定してください。オフの場合、該当のレジストリ値が存在しない場合、”準拠している” と判定されます。</p>
 <ol start="7">
-<li>[次へ] を選択していき、構成項目の作成を完了します。  </li>
+<li>[次へ] を選択していき、構成項目の作成を完了します。</li>
 </ol>
 <h1 id="手順-2-構成基準の作成と展開"><a href="#手順-2-構成基準の作成と展開" class="headerlink" title="手順 2: 構成基準の作成と展開"></a>手順 2: 構成基準の作成と展開</h1><p>作成した構成項目を含む構成基準を作成・展開します。クライアントはこの構成基準を受信して評価することで、準拠状態をサーバーに報告します。  </p>
 <ol>
@@ -148,7 +148,7 @@
 <li>手順 1 で作成した構成項目を指定して、画面中央部にある [追加] をクリックし、[OK] を選択します。  </li>
 <li>[OK] を選択します。  </li>
 <li>作成した構成基準を右クリックし [展開] を選択します。  </li>
-<li>以下の設定を実施し [OK] を選択します。<br>・「利用可能な構成基準」から作成した構成基準を選択して [追加] をクリックし「選択した構成基準」に表示されていることを確認します。<br>・[サポートされている場合は準拠していない規則を修復する]: オフ<br>・「コレクション」にて展開対象のコレクションを選択します。<br>・「スケジュール」にて、構成基準の評価スケジュールを指定します。（既定では 7 日に 1 回）  </li>
+<li>以下の設定を実施し [OK] を選択します。<br>・「利用可能な構成基準」から作成した構成基準を選択して [追加] をクリックし「選択した構成基準」に表示されていることを確認します。<br>・[サポートされている場合は準拠していない規則を修復する]: オフ<br>・「コレクション」にて展開対象のコレクションを選択します。<br>・「スケジュール」にて、構成基準の評価スケジュールを指定します。（既定では 7 日に 1 回）</li>
 </ol>
 <p><img src="/blog/mecm/20230309_01/2023-03-09-14-12-52.png"></p>
 <p>※注意：[サポートされている場合は準拠していない規則を修復する] チェックは必ず “オフ” に設定してください。オンにすると、レジストリ値が修復されてしまいます。  </p>
@@ -156,7 +156,7 @@
 <p><img src="/blog/mecm/20230309_01/2023-03-09-14-17-19.png"></p>
 <p>上図のように “準拠している” と判定されている場合、DisableWindowsUpdateAccess が “1” であると判断できます。  </p>
 <h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><h2 id="構成基準の実行タイミングについて"><a href="#構成基準の実行タイミングについて" class="headerlink" title="構成基準の実行タイミングについて"></a>構成基準の実行タイミングについて</h2><p>構成基準を展開した後は、クライアント側で [コンピューター ポリシーの取得および評価サイクル] が実行されることで、最大 2 時間以内で構成基準がスケジューリングされ実行されます。<br>コンピューター ポリシーの受信サイクルについては、既定で 60 分間隔で実行されています。<br>なお、できる限り早く実行させたい場合は、「クライアント通知」という機能を使用すれば、「コンピューターポリシーの取得および評価サイクル」を直ちに実行するように、サーバー側からクライアントに通知させることができますので、こちらもご利用ください。(デバイス単位でもコレクション単位でも実行可能です。)  </p>
-<p>Title: Configuration Manager でのクライアント通知<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification</a></p>
+<p>Title: Configuration Manager でのクライアント通知<br>URL: <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/client-notification</a></p>
 <h2 id="“準拠している”-コレクションの作成"><a href="#“準拠している”-コレクションの作成" class="headerlink" title="“準拠している” コレクションの作成"></a>“準拠している” コレクションの作成</h2><p>レジストリ値が存在する端末、すなわち “準拠している” クライアントのみを含むコレクションを作成することも可能です。  </p>
 <p>作成した構成基準の [展開] を右クリックして [新しいコレクションの作成] - [準拠している] を選択します。<br>ウィザードを進めてコレクションを作成することで、今回の構成基準に対して “準拠している” 端末のみを含むコレクションを作成できます。<br>“準拠していない” コレクションも作成可能ですので、用途に応じてお使い分けください。<br><img src="/blog/mecm/20230309_01/2023-03-09-14-21-17.png"></p>
 <h3 id="関連ブログ"><a href="#関連ブログ" class="headerlink" title="関連ブログ"></a>関連ブログ</h3><p>ハードウェア インベントリで特定のレジストリ値を収集したい場合は、こちらのブログをご参照ください。<br><a href="https://jpmem.github.io/blog/mecm/20220722_01/">ハードウェア インベントリで HKLM 配下の特定のレジストリを収集する ～使い方シリーズ～</a>  </p>
@@ -165,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230309_01/" data-id="cmm9wwo7k00970nrqgbdnbd3k" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230309_01/" data-id="cuidcOypol1AjjHhzncRlHH26" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
@@ -207,6 +207,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -220,10 +224,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -272,9 +272,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-03-29_01/2019-03-29_01_1.png">
 <meta property="article:published_time" content="2019-03-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.924Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.203Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -121,11 +121,11 @@
 <p>本日は、Windows Internal Database (WID) に接続する Tips をご紹介します。</p>
 <p>Windows Server Update Services (WSUS) では、カタログ情報を保存するデータベースとして、Windows Internal Database (WID) または Microsoft SQL Server のいずれかを使用することができます。<br>WID は、Windows に組み込まれているミニマムなデータベースです。</p>
 <p>通常の WSUS 運用においては、データベースを外部ツールから操作する必要はありませんが、データベースのメンテナンスやバックアップの実行などでデータベースに接続して操作する局面が生じることがあります。<br>Microsoft SQL Server を使用している場合には、グラフィカルなツールを使用してデータベースに接続することが可能であるため、あまり頭を悩ませることはありません。しかし、WID には、管理ツールが付属しないため、こういったメンテナンスを実行する際には管理用のツールをインストールする必要があります。</p>
-<p>今回は、Windows Server 2012 / Windows Server 2012 R2 の WSUS が使用する WID に接続する方法をご紹介します。</p>
-<h2 id="事前準備-–-SQL-Server-Management-Studio-をインストールしよう！"><a href="#事前準備-–-SQL-Server-Management-Studio-をインストールしよう！" class="headerlink" title="事前準備 – SQL Server Management Studio をインストールしよう！"></a>事前準備 – SQL Server Management Studio をインストールしよう！</h2><p>まず最初に事前準備として、データベースに接続する管理ツールである SQL Server Management Studio をインストールします。<br>Windows Server 2012 / Windows Server 2012 R2 に同梱される WID は Microsoft SQL Server 2012 相当であるため、管理ツールも対応したバージョンを使用します。なお、インストール後のサーバー再起動は不要です。</p>
-<p>以下の Web サイトから、Microsoft SQL Server 2012 Service Pack 2 用の SQL Server Management Studio のインストーラーをダウンロードしてください。<br>ファイル名は、<strong>SQLManagementStudio_x64_JPN.exe</strong> です。Windows Server 2012 / Windows Server 2012 R2 は、64 ビット版 (x64) のリリースとなりますので間違えないようにご注意ください。</p>
-<p>MicrosoftR SQL ServerR 2012 Service Pack 2 (SP2) Express<br><a target="_blank" rel="noopener" href="http://www.microsoft.com/ja-jp/download/details.aspx?id=43351">http://www.microsoft.com/ja-jp/download/details.aspx?id=43351</a></p>
-<p>ダウンロードができたら、SQL Server Management Studio をインストールします。<br>そのままインストールを開始したいところですが、<strong>実は、SQL Server Management Studio は .NET Framework 3.5 の機能を必要とします。Windows Server 2012 / Windows Server 2012 R2 では、既定で .NET Framework 3.5 の機能が有効となっていないため、あらかじめ機能を有効化しておきます。(インストーラーによって自動的に有効化されますが、有効化に失敗した場合 SSMS のインストールにも失敗するため、できるだけ先に有効化しておくことをお勧めします)</strong></p>
+<p>今回は、Windows Server 2012 &#x2F; Windows Server 2012 R2 の WSUS が使用する WID に接続する方法をご紹介します。</p>
+<h2 id="事前準備-–-SQL-Server-Management-Studio-をインストールしよう！"><a href="#事前準備-–-SQL-Server-Management-Studio-をインストールしよう！" class="headerlink" title="事前準備 – SQL Server Management Studio をインストールしよう！"></a>事前準備 – SQL Server Management Studio をインストールしよう！</h2><p>まず最初に事前準備として、データベースに接続する管理ツールである SQL Server Management Studio をインストールします。<br>Windows Server 2012 &#x2F; Windows Server 2012 R2 に同梱される WID は Microsoft SQL Server 2012 相当であるため、管理ツールも対応したバージョンを使用します。なお、インストール後のサーバー再起動は不要です。</p>
+<p>以下の Web サイトから、Microsoft SQL Server 2012 Service Pack 2 用の SQL Server Management Studio のインストーラーをダウンロードしてください。<br>ファイル名は、<strong>SQLManagementStudio_x64_JPN.exe</strong> です。Windows Server 2012 &#x2F; Windows Server 2012 R2 は、64 ビット版 (x64) のリリースとなりますので間違えないようにご注意ください。</p>
+<p>MicrosoftR SQL ServerR 2012 Service Pack 2 (SP2) Express<br><a href="http://www.microsoft.com/ja-jp/download/details.aspx?id=43351">http://www.microsoft.com/ja-jp/download/details.aspx?id=43351</a></p>
+<p>ダウンロードができたら、SQL Server Management Studio をインストールします。<br>そのままインストールを開始したいところですが、<strong>実は、SQL Server Management Studio は .NET Framework 3.5 の機能を必要とします。Windows Server 2012 &#x2F; Windows Server 2012 R2 では、既定で .NET Framework 3.5 の機能が有効となっていないため、あらかじめ機能を有効化しておきます。(インストーラーによって自動的に有効化されますが、有効化に失敗した場合 SSMS のインストールにも失敗するため、できるだけ先に有効化しておくことをお勧めします)</strong></p>
 <p>.NET Framework 3.5 を有効化する方法はいくつかありますが、ここではいちばん標準的なサーバー マネージャーを使用した機能の有効化方法をご説明します。<br>なお、以下の操作では Microsoft Update を使用してモジュールのインストールが実行されますので、WSUS サーバーはインターネット接続が有効な状態で作業を実施してください。</p>
 <ol>
 <li>サーバー マネージャーを開き、[管理] – [役割と機能の追加] の順に選択します。</li>
@@ -144,7 +144,7 @@
 <ol>
 <li>ローカルの Administrators グループに属するアカウントでコンピューターにサインインします。</li>
 <li>SQL Server Management Studio を管理者として実行します。</li>
-<li>サーバー名に以下の文字列を入力して [OK] をクリックします。<br><code>\\.\pipe\MICROSOFT##WID\tsql\query</code></li>
+<li>サーバー名に以下の文字列を入力して [OK] をクリックします。<br> <code>\\.\pipe\MICROSOFT##WID\tsql\query</code></li>
 </ol>
 <p>接続に成功すると、以下のようにデータベースの一覧が参照できます。<br>WSUS のデータベースである SUSDB が表示されていることが確認できますね。</p>
 <p><img src="/blog/wsus/2019-03-29_01/2019-03-29_01_1.png" alt="SSMS画面"></p>
@@ -153,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-29_01/" data-id="cmm9wwo57002m0nrq6p5y9mi5" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-03-29_01/" data-id="cuidA9f3h_gntJfMk3d8rwwC_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -195,6 +195,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -208,10 +212,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -260,9 +260,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

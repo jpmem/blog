@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20181010_01/20181010_01_16.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20181010_01/20181010_01_17.png">
 <meta property="article:published_time" content="2018-10-09T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.705Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.001Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -57,7 +57,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -84,9 +84,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -140,7 +140,7 @@
 <p>SCCM の探索方法から、”Active Directory システムの探索” が正しく設定され、有効になっていることを確認してください。<br><img src="/blog/mecm/20181010_01/20181010_01_01.png"></p>
 <h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><hr>
 <p>本手順では、以下の OU をサンプルとしておりますので、お客様の環境に応じて、設定内容を変更していただきますようお願いいたします。</p>
-<p>contoso.local/TestClient/TestOU<br><img src="/blog/mecm/20181010_01/20181010_01_02.png"></p>
+<p>contoso.local&#x2F;TestClient&#x2F;TestOU<br><img src="/blog/mecm/20181010_01/20181010_01_02.png"></p>
 <ol>
 <li><p>SCCM プライマリ サイト サーバーにサインインし、[Configuration Manager コンソール] を開きます。</p>
 </li>
@@ -148,8 +148,6 @@
 </li>
 <li><p>[デバイス コレクションの作成ウィザード] が表示されますので、[全般] 画面で、”名前” に任意の名前を入力し、”限定コレクション” に、[すべてのシステム] を指定後、[次へ] をクリックします。<br><img src="/blog/mecm/20181010_01/20181010_01_04.png"></p>
 </li>
-</ol>
-<ol start="4">
 <li><p>[メンバーシップの規則] で、[規則の追加] - [クエリ規則] を選択します。<br><img src="/blog/mecm/20181010_01/20181010_01_05.png"></p>
 </li>
 <li><p>[クエリ規則のプロパティ] 画面が表示されますので、[クエリ ステートメントの編集] をクリックします。<br><img src="/blog/mecm/20181010_01/20181010_01_06.png"></p>
@@ -170,7 +168,7 @@
 </ol>
 <ul>
 <li>演算子 : が次と類似</li>
-<li>値 (例) : contoso.local/TestClient/TestOU<br>値につきましては、お客様の環境に合わせて変更してください。<br>“ドメイン名/OU名 (親)/OU名 (子)” の形式となります。<br><img src="/blog/mecm/20181010_01/20181010_01_10.png"></li>
+<li>値 (例) : contoso.local&#x2F;TestClient&#x2F;TestOU<br>値につきましては、お客様の環境に合わせて変更してください。<br>“ドメイン名&#x2F;OU名 (親)&#x2F;OU名 (子)” の形式となります。<br><img src="/blog/mecm/20181010_01/20181010_01_10.png"></li>
 </ul>
 <ol start="10">
 <li><p>[クエリ ステートメントのプロパティ] 画面に戻りますので、[OK] をクリックします。<br><img src="/blog/mecm/20181010_01/20181010_01_11.png"></p>
@@ -193,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20181010_01/" data-id="cmm9wwo6j00690nrq6oze30wx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20181010_01/" data-id="cuid85-mFfHOeZ7gjdhnxUEip" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -235,6 +233,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -248,10 +250,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -300,9 +298,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

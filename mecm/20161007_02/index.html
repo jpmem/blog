@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。System Center Support Teamです。 本ポストでは、System Center Configuration Manager（以降Configuration Manager）で更新プログラムを配信する運用をしている中で、管理者が予期しない更新プログラムが配信されてしまったときの対応方法をご紹介いたします。 Configuration Manager で更新プログラム">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2016-10-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.657Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.955Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -128,17 +128,17 @@
 <p><code>wusa.exe /uninstall /kb:&lt;KB 番号&gt; /quiet /norestart</code></p>
 <p>例) 削除したい KB 番号を指定してください。</p>
 <p><code>wusa.exe /uninstall /kb:1234567 /quiet /norestart</code>  </p>
-<p>サイレントでアンインストールした後、再起動を抑制するために、/quiet と /norestart を付与しています。そのため、Configuration Manager でアンインストール コマンドを配信する場合は、アンインストール用のパッケージを作成いただき、プログラムに上記コマンドを登録して配信する手順となります。なお、再起動を抑制するオプション /norestart を付与した場合は、コマンドの実行が行われた後、再起動されることで正常に削除が完了します。  </p>
-<p>Windows の Windows Update スタンドアロン インストーラーについて<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/kb/934307/ja">https://support.microsoft.com/kb/934307/ja</a></p>
+<p>サイレントでアンインストールした後、再起動を抑制するために、&#x2F;quiet と &#x2F;norestart を付与しています。そのため、Configuration Manager でアンインストール コマンドを配信する場合は、アンインストール用のパッケージを作成いただき、プログラムに上記コマンドを登録して配信する手順となります。なお、再起動を抑制するオプション &#x2F;norestart を付与した場合は、コマンドの実行が行われた後、再起動されることで正常に削除が完了します。  </p>
+<p>Windows の Windows Update スタンドアロン インストーラーについて<br><a href="https://support.microsoft.com/kb/934307/ja">https://support.microsoft.com/kb/934307/ja</a></p>
 <p>※ 64 bit OS に対して、パッケージ機能でアンインストール コマンドを配布する場合は、以下の通り、コマンドラインに Sysnative を付与してください。  </p>
 <p><code>%windir%\Sysnative\wusa.exe /uninstall /kb:1234567 /quiet /norestart</code></p>
 <p>(補足情報)</p>
 <p>削除コマンドについては、以下のように KB 情報の中でご案内している場合もございます。</p>
 <p>セキュリティ更新プログラム 2823324 のインストール後に Windows 7 でイベント ID 55 または 0xc000021a Stop エラーが表示される</p>
-<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/kb/2839011">https://support.microsoft.com/kb/2839011</a></p>
+<p><a href="https://support.microsoft.com/kb/2839011">https://support.microsoft.com/kb/2839011</a></p>
 <p>また、wusa.exe でアンインストールできない更新プログラムは、セキュリティ情報の「削除に関する情報」にてご案内している場合もございますので、コマンドを検証した結果アンインストールできない結果となった際は、KB 情報と合わせてご確認いただけると幸いです。</p>
 <p>Internet Explorer 用の累積的なセキュリティ更新プログラム (2530548)</p>
-<p><a target="_blank" rel="noopener" href="https://technet.microsoft.com/library/security/ms11-050">https://technet.microsoft.com/library/security/ms11-050</a></p>
+<p><a href="https://technet.microsoft.com/library/security/ms11-050">https://technet.microsoft.com/library/security/ms11-050</a></p>
 <p>～該当箇所抜粋～</p>
 <blockquote>
 <p>Windows Vista:<br>WUSA.exe を使用してコマンドラインで更新プログラムをアンインストールすることはできません。WUSA.exe によりインストールされた更新プログラムをアンインストールする 1 つの方法として、[コントロール パネル] をクリックし、次に [セキュリティ センター] をクリックします。[Windows Update] の下の [更新履歴の表示] をクリックし、[インストールされた更新プログラム] をクリックして、更新プログラムの一覧から選択します。</p>
@@ -149,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20161007_02/" data-id="cmm9wwo6a005b0nrqftj88vfe" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20161007_02/" data-id="cuidH5tFW31NP2DP3gEoYh3v_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -191,6 +191,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -204,10 +208,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -256,9 +256,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

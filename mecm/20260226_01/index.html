@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_08.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260226_01/20260226_01_09.png">
 <meta property="article:published_time" content="2026-02-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.880Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.163Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -76,9 +76,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -128,7 +128,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在するため、挙動が複雑になりがちです。本稿では、その挙動を解説します。皆様のご理解の助けになれば幸いです。</p>
 <h2 id="MDAV-定義ファイルの更新を行う主体"><a href="#MDAV-定義ファイルの更新を行う主体" class="headerlink" title="MDAV 定義ファイルの更新を行う主体"></a>MDAV 定義ファイルの更新を行う主体</h2><p>まず、前提として、更新プログラムの更新を行う直接の主体は、Windows Update Agent (WUA) となります。WUA の API は外部に公開されており、様々なプログラムから呼び出すことが可能です。Windows Update による更新を必要とするプログラムは、WUA API を呼び出すことで更新を実現しています。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/win32/wua_sdk/portal-client">Windows Update エージェント API</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/windows/win32/wua_sdk/portal-client">Windows Update エージェント API</a></li>
 </ul>
 <p>MDAV 定義ファイルを更新する主体は、一般的には、以下の 3 つとなります。(例外として、WUA APIを使ったスクリプトやサードベンダー製のプログラムもあります)</p>
 <ul>
@@ -171,7 +171,7 @@
 <p>定義ファイルの更新スケジュールなど種々の設定は、以下のどちらかで制御することになります。</p>
 <ul>
 <li>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Microsoft Defender ウィルス対策] </li>
-<li>[ConfigMgr コンソール] - [資産とコンプライアンス] - [概要] - [Endpoint Protection] - [マルウェア対策ポリシー] </li>
+<li>[ConfigMgr コンソール] - [資産とコンプライアンス] - [概要] - [Endpoint Protection] - [マルウェア対策ポリシー]</li>
 </ul>
 <h3 id="ConfigMgr-CCMExec"><a href="#ConfigMgr-CCMExec" class="headerlink" title="ConfigMgr (CCMExec)"></a>ConfigMgr (CCMExec)</h3><p>ConfigMgr クライアント (CCMExec) は 利用可能展開で MDAV 定義ファイルを配布した場合、ソフトウェア センターの画面で MDAV 定義ファイルを受け取ります。</p>
 <p>  <img src="/blog/mecm/20260226_01/20260226_01_05.png" alt="ソフトウェア センター"></p>
@@ -191,10 +191,10 @@
 <h4 id="自動展開規則により-配布ポイントに配置されるまで"><a href="#自動展開規則により-配布ポイントに配置されるまで" class="headerlink" title="自動展開規則により 配布ポイントに配置されるまで"></a>自動展開規則により 配布ポイントに配置されるまで</h4><p><img src="/blog/mecm/20260226_01/20260226_01_08.png" alt="ADR"></p>
 <h4 id="クライアント側での-インストール"><a href="#クライアント側での-インストール" class="headerlink" title="クライアント側での インストール"></a>クライアント側での インストール</h4><p><img src="/blog/mecm/20260226_01/20260226_01_09.png" alt="DL"></p>
 <h3 id="MDAV-のフォールバックについての注意点"><a href="#MDAV-のフォールバックについての注意点" class="headerlink" title="MDAV のフォールバックについての注意点"></a>MDAV のフォールバックについての注意点</h3><ul>
-<li>WUMU / MMPC は インターネットからのダウンロードになります。</li>
-<li>ConfigMgr / WUMU からのダウンロードの際、差分ファイル ダウンロード が行われますが、 MMPC からのダウンロードはフル ダウンロードになるのでダウンロード容量が増加します。</li>
+<li>WUMU &#x2F; MMPC は インターネットからのダウンロードになります。</li>
+<li>ConfigMgr &#x2F; WUMU からのダウンロードの際、差分ファイル ダウンロード が行われますが、 MMPC からのダウンロードはフル ダウンロードになるのでダウンロード容量が増加します。</li>
 <li>WSUS からのダウンロードは、実際はソフトウェア更新ポイントの部品として動作している WSUS からのダウンロードになりますので、別途承認処理が必要です。（※ ConfigMgr 管理下では、WSUS は単体での承認運用ではなく、ConfigMgr により制御されます）ConfigMgr のソフトウェア更新ポイントとして利用している WSUS において、MDAV の定義ファイルは承認がサポートされています。<ul>
-<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus">https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus">https://learn.microsoft.com/ja-jp/intune/configmgr/protect/deploy-use/endpoint-definitions-wsus</a></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260226_01/" data-id="cmm9wwo8a00b50nrqdq983crh" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260226_01/" data-id="cuidGzTZrr3GJkE5AGVw6ymMt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -248,6 +248,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -261,10 +265,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -313,9 +313,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

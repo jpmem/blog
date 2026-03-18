@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。   本ブログの連載企画として Microsoft Configuration Manager の基本的なナレッジを、これから管理者となる方や導入を検討されている方向けに分かり易くご紹介いたします。今回は、Configuration Manager から展開できる、ソフトウェア更新プログラム、パッケージ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-07-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.841Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.127Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="ベーシック ナレッジ">
@@ -40,7 +40,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -67,9 +67,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,10 +122,10 @@
 <li>ソフトウェア更新プログラム  </li>
 <li>パッケージ  </li>
 <li>アプリケーション  </li>
-<li>タスクシーケンス  </li>
+<li>タスクシーケンス</li>
 </ul>
 <h3 id="ソフトウェア更新プログラム"><a href="#ソフトウェア更新プログラム" class="headerlink" title="ソフトウェア更新プログラム"></a>ソフトウェア更新プログラム</h3><p>OS をアップグレードする機能更新プログラムや品質更新プログラム、Microsoft Defender ウイルス対策のセキュリティ インテリジェンス更新プログラム、Microsoft 365 Apps の更新プログラムなどを展開できる機能です。  </p>
-<p>Title : Configuration Managerのソフトウェア更新プログラムの概要<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/sum/understand/software-updates-introduction">https://learn.microsoft.com/ja-jp/mem/configmgr/sum/understand/software-updates-introduction</a>  </p>
+<p>Title : Configuration Managerのソフトウェア更新プログラムの概要<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/sum/understand/software-updates-introduction">https://learn.microsoft.com/ja-jp/mem/configmgr/sum/understand/software-updates-introduction</a>  </p>
 <p>手動で展開することできますが、あらかじめ規則を設定しておき、自動で展開することも可能です。  </p>
 <p>参考ブログ<br><a href="https://jpmem.github.io/blog/mecm/20220706_01/">MECM 自動展開規則</a>  </p>
 <p>どの更新プログラムも基本的には以下のフローで動作します。  </p>
@@ -135,17 +135,17 @@
 <li>プライマリ サイト サーバーが Microsoft Update カタログから更新プログラムをダウンロード  </li>
 <li>プライマリ サイト サーバーから配布ポイントへ更新プログラムを配布  </li>
 <li>Configuration Manager クライアントが配布ポイントから更新プログラムをダウンロード  </li>
-<li>Configuration Manager クライアントが更新プログラムをインストール  </li>
+<li>Configuration Manager クライアントが更新プログラムをインストール</li>
 </ol>
 <h3 id="パッケージ"><a href="#パッケージ" class="headerlink" title="パッケージ"></a>パッケージ</h3><p>exe や ps1、bat ファイルなどをクライアントに展開できる機能です。  </p>
-<p>Title : Configuration Managerのパッケージとプログラム<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs</a>  </p>
+<p>Title : Configuration Managerのパッケージとプログラム<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/packages-and-programs</a>  </p>
 <p>そのため、お客様にて作成したスクリプトを複数のクライアントや全台に対して展開したいなどの場合、Configuration Manager の本機能をご使用いただくことで実現できます。<br>実現可能なサンプル例を以下に記載いたします。  </p>
 <h5 id="例-1"><a href="#例-1" class="headerlink" title="例 1"></a>例 1</h5><p>クライアントはインターネット接続ができない環境のため、Microsoft ストア アプリや言語パックを展開したい。  </p>
 <h5 id="例-2"><a href="#例-2" class="headerlink" title="例 2"></a>例 2</h5><p>緊急で Defender の定義ファイル（exe ファイル）をパッケージで展開したい。  </p>
 <h5 id="例-3"><a href="#例-3" class="headerlink" title="例 3"></a>例 3</h5><p>特定のレジストリを変更するコマンドを展開したい。  </p>
 <p>もしパッケージ展開がうまくいかない場合、以下のブログもご参照ください。<br><a href="https://jpmem.github.io/blog/mecm/20220125_01/">パッケージの展開が失敗した時に確認したいポイント ~ sysnative 編 ~</a>  </p>
 <h3 id="アプリケーション"><a href="#アプリケーション" class="headerlink" title="アプリケーション"></a>アプリケーション</h3><p>主に msi や appx、appxbundle ファイルなどを展開する際に使用する機能です。  </p>
-<p>Title : Configuration Managerを使用してアプリケーションを作成してデプロイする<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/get-started/create-and-deploy-an-application">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/get-started/create-and-deploy-an-application</a>  </p>
+<p>Title : Configuration Managerを使用してアプリケーションを作成してデプロイする<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/apps/get-started/create-and-deploy-an-application">https://learn.microsoft.com/ja-jp/mem/configmgr/apps/get-started/create-and-deploy-an-application</a>  </p>
 <p>アプリケーションを作成時、システム用にインストールするか、ユーザー用にインストールするかを設定できます。  </p>
 <p>システム用にインストール　→　SYSTEM アカウント権限でインストールが実行<br>ユーザー用にインストール　→　ログオンしているユーザー アカウントの権限でインストールが実行  </p>
 <p>また、パッケージと違い、アプリケーションは “検出規則” や “置き換え” といった設定も可能です。  </p>
@@ -155,15 +155,15 @@
 <p>パッケージを使用するかアプリケーションを使用するか迷った際は、以下のブログも併せてご参照ください。<br><a href="https://jpmem.github.io/blog/mecm/20220608_02/">MECM パッケージとアプリケーションどっちを使うべき？違いを解説！</a>  </p>
 <h3 id="タスクシーケンス"><a href="#タスクシーケンス" class="headerlink" title="タスクシーケンス"></a>タスクシーケンス</h3><p>OS のインストールからドメインへの参加、OS のアップグレードからパッケージ、アプリケーションのインストールなど一連のフローを 1 つにまとめて展開できる機能です。<br>主に以下のようなシナリオで活用可能です。  </p>
 <h5 id="例-1-2"><a href="#例-1-2" class="headerlink" title="例 1"></a>例 1</h5><p>新しいクライアントに OS をインストールしてドメインへ参加後、Configuration Manager クライアントをインストールしたい。  </p>
-<p>Title : Configuration Managerを使用して新しいコンピューター (ベア メタル) に新しいバージョンの Windows をインストールする<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/install-new-windows-version-new-computer-bare-metal">https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/install-new-windows-version-new-computer-bare-metal</a>  </p>
+<p>Title : Configuration Managerを使用して新しいコンピューター (ベア メタル) に新しいバージョンの Windows をインストールする<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/install-new-windows-version-new-computer-bare-metal">https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/install-new-windows-version-new-computer-bare-metal</a>  </p>
 <h5 id="例-2-2"><a href="#例-2-2" class="headerlink" title="例 2"></a>例 2</h5><p>既存のクライアントの OS をアップグレードしたい。  </p>
-<p>Title : 構成マネージャーを使用して Windows を最新バージョンにアップグレードする<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/upgrade-windows-to-the-latest-version">https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/upgrade-windows-to-the-latest-version</a>  </p>
+<p>Title : 構成マネージャーを使用して Windows を最新バージョンにアップグレードする<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/upgrade-windows-to-the-latest-version">https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/upgrade-windows-to-the-latest-version</a>  </p>
 <p>どのようなシナリオの場合でも、実行するタスクの順番や、どのようなタスクを組み込むかは自由であり、一度組み込んだタスクを無効とすること、実行する際の条件の設定を行うことも可能ですので、ぜひ一度お試しください。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230720_01/" data-id="cmm9wwo7r009p0nrq1q1e01jm" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230720_01/" data-id="cuidRqiKJscbWHedybbC8Fx6K" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li></ul>
@@ -205,6 +205,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -218,10 +222,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -270,9 +270,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

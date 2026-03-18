@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 今回は第 1 回の「考え方篇」に引き続き、Windows Update 実行時のプロキシ設定の具体的な手法について、オススメの設定と注意点を紹介していきます。「Windows Update を実行するときにプロキシ設定って必要なの？ 」という方は、まずは「考え方篇」をご参照ください。 プロキシを利用する環境でのオススメの設定プロキシを利用する">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.920Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.200Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -121,11 +121,11 @@
 <p>Windows Update による通信でも WPAD は参照されるため、WPAD を利用することで各クライアントにて個別にプロキシの設定を行うことなく、プロキシ経由で通信を行うようすることが可能です。</p>
 <p>WPAD の設定方法の詳細については、以下ブログで紹介しているため、ご参考としてください。</p>
 <p><strong>“WPAD” について</strong></p>
-<p><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/</a></p>
+<p><a href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/wpad/</a></p>
 <p>また、特にクライアント端末を外に持ち出すような環境では、静的にプロキシ設定をクライアントにしてしまうと、外部のネットワークに接続したタイミングで、意図せずプロキシ設定が読み込まれてしまう可能性があるため、WPAD の利用を是非ご検討ください。</p>
 <h3 id="B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法"><a href="#B-IE-および-WinHTTP-の両方に静的にプロキシ設定を行う方法" class="headerlink" title="B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法"></a>B. IE および WinHTTP の両方に静的にプロキシ設定を行う方法</h3><p>Windows Update の通信で確実にプロキシ設定を読み込ませるためには、IE (Internet Explorer) および WinHTTP のプロキシ設定の両方を実施していただく必要があります。このため静的にプロキシ設定を行う場合には IE のプロキシ設定と WinHTTP のプロキシ設定を両方共に実施していただくことをオススメしております。</p>
 <p>IE のプロキシ設定については、以下ブログにて紹介しているため、ご参考としてください。静的にプロキシ サーバーのアドレス等を指定する場合には「2. プロキシサーバーの利用を構成するための設定」の箇所の設定を行います。</p>
-<p>Title: ローカル エリア ネットワーク (LAN) の設定について<br>URL: <a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/</a></p>
+<p>Title: ローカル エリア ネットワーク (LAN) の設定について<br>URL: <a href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/">https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/LAN-Settings/</a></p>
 <p>また、WinHTTP のプロキシ設定については、以下のコマンドを管理者権限で実行することで設定が可能です。</p>
 <p><strong>&lt;&lt; WinHTTP のプロキシ設定をする場合 &gt;&gt;</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp set proxy proxy-server =&lt;プロキシ サーバー&gt; bypass-list=&lt;バイパス リスト&gt;</span><br></pre></td></tr></table></figure>
@@ -149,20 +149,20 @@
 <p>Title: Windows Update が利用するプロキシ設定について<br>URL: <a href="https://jpmem.github.io/blog/wsus/2017-03-02/">https://jpmem.github.io/blog/wsus/2017-03-02/</a>  </p>
 <p>IE のプロキシ設定はユーザー単位で設定が保持され、WinHTTP のプロキシ設定は端末全体での設定となるため、基本的な考え方としてはユーザーが介する動作では、ユーザーの IE のプロキシ設定が参照され、システムがバックグラウンドで実行される通信については、WinHTTP のプロキシ設定が参照されます。</p>
 <p>しかしながら、Windows Update による通信は、自動更新等のユーザーが意図しないところでバックグラウンドでの通信が発生することが多くあるため、確実に Windows Update の通信を成功させるためには、両方共に設定していただくことをオススメしております。</p>
-<h3 id="認証が必要なプロキシをご利用の場合"><a href="#認証が必要なプロキシをご利用の場合" class="headerlink" title="認証が必要なプロキシをご利用の場合"></a>認証が必要なプロキシをご利用の場合</h3><p>以下の公開情報でも紹介している通り、認証が必要なプロキシを介して Windows Update を実行すると、Windows Update の動作が不安定になることがあります。認証が必要なプロキシを利用している場合には、接続先の WSUS サーバーもしくは Windows Update / Microsoft Update サイトへの接続ついては、認証が不要なよう除外してください。</p>
-<p>Title: Windows Update カタログからドライバーや修正プログラムを含む更新プログラムをダウンロードする方法<br>URL: <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win">https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win</a><br>— 該当箇所抜粋 —<br>Windows Update または Microsoft Update の使用中に、以下のいずれかまたは複数の問題が発生する場合があります。</p>
+<h3 id="認証が必要なプロキシをご利用の場合"><a href="#認証が必要なプロキシをご利用の場合" class="headerlink" title="認証が必要なプロキシをご利用の場合"></a>認証が必要なプロキシをご利用の場合</h3><p>以下の公開情報でも紹介している通り、認証が必要なプロキシを介して Windows Update を実行すると、Windows Update の動作が不安定になることがあります。認証が必要なプロキシを利用している場合には、接続先の WSUS サーバーもしくは Windows Update &#x2F; Microsoft Update サイトへの接続ついては、認証が不要なよう除外してください。</p>
+<p>Title: Windows Update カタログからドライバーや修正プログラムを含む更新プログラムをダウンロードする方法<br>URL: <a href="https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win">https://support.microsoft.com/ja-jp/help/323166/how-to-download-updates-that-include-drivers-and-hotfixes-from-the-win</a><br>— 該当箇所抜粋 —<br>Windows Update または Microsoft Update の使用中に、以下のいずれかまたは複数の問題が発生する場合があります。</p>
 <p>(中略)</p>
 <p>統合プロキシ認証 (NTLM 認証) を使用して認証を行う Web プロキシ サーバーを経由して Windows Update サイトまたは Microsoft Update サイトに接続すると、これらの Web サイトが表示されないことがあります。<br>— 該当箇所抜粋 —</p>
-<h3 id="インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合"><a href="#インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合" class="headerlink" title="インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合"></a>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合</h3><p>インターネット上の Windows Update / Microsoft Update サイトに対して Windows Update をする場合には、以下の公開情報の「Windows Update 欄」にて紹介している URL への通信が必要となります。</p>
-<p>Title: Windows 10 Enterprise バージョン 21H2 の接続エンドポイントを管理する<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints">https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints</a><br>※ 上記は Windows 10 21H2 の公開情報です。対応するバージョンの公開情報をご確認ください。</p>
+<h3 id="インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合"><a href="#インターネット上の-Windows-Update-Microsoft-Update-サイトに対して-Windows-Update-をする場合" class="headerlink" title="インターネット上の Windows Update &#x2F; Microsoft Update サイトに対して Windows Update をする場合"></a>インターネット上の Windows Update &#x2F; Microsoft Update サイトに対して Windows Update をする場合</h3><p>インターネット上の Windows Update &#x2F; Microsoft Update サイトに対して Windows Update をする場合には、以下の公開情報の「Windows Update 欄」にて紹介している URL への通信が必要となります。</p>
+<p>Title: Windows 10 Enterprise バージョン 21H2 の接続エンドポイントを管理する<br>URL: <a href="https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints">https://docs.microsoft.com/ja-jp/windows/privacy/manage-windows-21h2-endpoints</a><br>※ 上記は Windows 10 21H2 の公開情報です。対応するバージョンの公開情報をご確認ください。</p>
 <p>プロキシ サーバー等で接続先の URL によってブロック等を実行している場合には、上記のブログにて紹介している URL に対する通信を許可する必要があるので、ご注意ください。また、上述の通り、認証が必要なプロキシを利用している場合には、ブログ内で紹介している URL について認証が不要なようにしてください。</p>
-<p>全 2 回に渡る投稿いかがでしたでしょうか。プロキシ設定が環境に合わせて正しく構成されていないと、ネットワーク系のエラー (0x80240030 / 0x80072efe / 0x80244022 / 0x80072efd / 0x80072ee2 / 0x80072ee7 / 0x8024402c 等) が発生したり、異常に Windows Update に時間を要したり、様々な事象が発生します。</p>
+<p>全 2 回に渡る投稿いかがでしたでしょうか。プロキシ設定が環境に合わせて正しく構成されていないと、ネットワーク系のエラー (0x80240030 &#x2F; 0x80072efe &#x2F; 0x80244022 &#x2F; 0x80072efd &#x2F; 0x80072ee2 &#x2F; 0x80072ee7 &#x2F; 0x8024402c 等) が発生したり、異常に Windows Update に時間を要したり、様々な事象が発生します。</p>
 <p>プロキシ設定を正しく見直すことで、こういった問題の発生を未然に防ぐことが可能なので、是非ご参考としていただければ幸いです。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cmm9wwo52002c0nrq1a9h30r1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cuidFe8ZCldm0JgE6EH7qWGFf" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -204,6 +204,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -217,10 +221,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -269,9 +269,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

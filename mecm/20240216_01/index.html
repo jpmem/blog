@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20240216_01/2024-02-09_1.png">
 <meta property="article:published_time" content="2024-02-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.847Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.134Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="ベーシック ナレッジ">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,24 +119,24 @@
       
         <p>Configuration Manager では、サイト システムの役割をインストールすることで、様々な機能を拡張することができます。サイト システムの役割をインストールしたサーバーを、サイト システム サーバーと言います。<br>この投稿では代表的なサイト システム サーバーがどのような機能を使えるようにするものなのかを説明していきます。</p>
 <p>( ) 内は英語名称および略称です。</p>
-<h2 id="管理ポイント-Management-point-MP"><a href="#管理ポイント-Management-point-MP" class="headerlink" title="管理ポイント (Management point / MP)"></a>管理ポイント (Management point / MP)</h2><p>プライマリ サイト サーバーやセカンダリ サイト サーバーに既定でインストールされています。<br>クライアントが最も多く通信をおこなう役割となります。</p>
+<h2 id="管理ポイント-Management-point-MP"><a href="#管理ポイント-Management-point-MP" class="headerlink" title="管理ポイント (Management point &#x2F; MP)"></a>管理ポイント (Management point &#x2F; MP)</h2><p>プライマリ サイト サーバーやセカンダリ サイト サーバーに既定でインストールされています。<br>クライアントが最も多く通信をおこなう役割となります。</p>
 <p>クライアントは管理ポイントから “クライアント設定” の変更や “境界グループ” の構成など、あらゆる情報をポリシーとしてダウンロードすることで受け取っています。<br>また、クライアントは定期的に管理ポイントへ状態メッセージを送信  (既定で 15 分間隔) することで、クライアントに配信したソフトウェア更新プログラムやアプリケーション展開の進捗状態を管理することが出来ています。</p>
-<h2 id="配布ポイント-Distribution-point-DP"><a href="#配布ポイント-Distribution-point-DP" class="headerlink" title="配布ポイント (Distribution point / DP)"></a>配布ポイント (Distribution point / DP)</h2><p>プライマリ サイト サーバーやセカンダリ サイト サーバーに既定で配布ポイントがインストールされています。<br>以下のようなコンテンツを配布ポイントに配置することで、クライアントは配布ポイントからコンテンツをダウンロードすることが可能になります。</p>
+<h2 id="配布ポイント-Distribution-point-DP"><a href="#配布ポイント-Distribution-point-DP" class="headerlink" title="配布ポイント (Distribution point &#x2F; DP)"></a>配布ポイント (Distribution point &#x2F; DP)</h2><p>プライマリ サイト サーバーやセカンダリ サイト サーバーに既定で配布ポイントがインストールされています。<br>以下のようなコンテンツを配布ポイントに配置することで、クライアントは配布ポイントからコンテンツをダウンロードすることが可能になります。</p>
 <p>・アプリケーション コンテンツ<br>・ソフトウェア パッケージ<br>・ソフトウェア更新プログラム<br>・OS イメージ<br>・ブート イメージ  </p>
-<p>コンテンツの大きさにより、ダウンロードに使用する通信量を懸念される場合、配布ポイント サーバーを要所に配置することでネットワーク回線の負荷軽減が期待できます。<br>例えば、サーバーとは地理的に離れた場所にクライアントが存在し、ネットワークの通信を可能な限り抑えたい場合には、拠点となるポイントに配布ポイントを配置することを検討します。<br>クライアントが通信をおこなう配布ポイントをコントロールするには、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-group-procedures">“境界” と “境界グループ”</a> の設定も忘れずに行いましょう。</p>
-<h2 id="ソフトウェアの更新ポイント-Software-update-point-SUP"><a href="#ソフトウェアの更新ポイント-Software-update-point-SUP" class="headerlink" title="ソフトウェアの更新ポイント (Software update point / SUP)"></a>ソフトウェアの更新ポイント (Software update point / SUP)</h2><p>Windows Server Update Services (WSUS) と連携し、Microsoft Update や上位 WSUS からメタデータ (更新プログラムのカタログ情報) を同期します。<br>クライアントはソフトウェアの更新ポイントに更新プログラムの確認 (コンプライアンス スキャン) を定期実行し、自分自身に各更新プログラムのインストールが必要か、不要かを判定しています。<br>また Configuration Manager ではクライアントがインストールを必要としている状態を “必須” と表現し、”必須” と判定した更新プログラムのみ、コンテンツのダウンロード・インストールを行います。</p>
+<p>コンテンツの大きさにより、ダウンロードに使用する通信量を懸念される場合、配布ポイント サーバーを要所に配置することでネットワーク回線の負荷軽減が期待できます。<br>例えば、サーバーとは地理的に離れた場所にクライアントが存在し、ネットワークの通信を可能な限り抑えたい場合には、拠点となるポイントに配布ポイントを配置することを検討します。<br>クライアントが通信をおこなう配布ポイントをコントロールするには、<a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-group-procedures">“境界” と “境界グループ”</a> の設定も忘れずに行いましょう。</p>
+<h2 id="ソフトウェアの更新ポイント-Software-update-point-SUP"><a href="#ソフトウェアの更新ポイント-Software-update-point-SUP" class="headerlink" title="ソフトウェアの更新ポイント (Software update point &#x2F; SUP)"></a>ソフトウェアの更新ポイント (Software update point &#x2F; SUP)</h2><p>Windows Server Update Services (WSUS) と連携し、Microsoft Update や上位 WSUS からメタデータ (更新プログラムのカタログ情報) を同期します。<br>クライアントはソフトウェアの更新ポイントに更新プログラムの確認 (コンプライアンス スキャン) を定期実行し、自分自身に各更新プログラムのインストールが必要か、不要かを判定しています。<br>また Configuration Manager ではクライアントがインストールを必要としている状態を “必須” と表現し、”必須” と判定した更新プログラムのみ、コンテンツのダウンロード・インストールを行います。</p>
 <p>こちらの図は、Configuration Manager クライアントが更新プログラムの配信を受け取り、インストールされるまでの処理のイメージとなります。<br><img src="/blog/mecm/20240216_01/2024-02-09_1.png" alt="image.PNG"></p>
 <p>① 管理者が、更新プログラムの配信の設定をします。ポリシー情報が MP のデータベースに格納されます。<br>② クライアントは、定期的にポリシーの確認を行っています。MP に更新されたポリシー情報があれば、ポリシーをダウンロードをします。<br>③ クライアントは、定期的にコンプライアンス スキャンを行っています。<br>④ クライアントは、② のポリシーを評価し、③ で “必須” と判定した更新プログラムが含まれる場合は、展開スケジュールに従って配布ポイントからコンテンツ ダウンロードをおこないます。<br>⑤ クライアントは、展開スケジュールに従って、ダウンロード済みの更新プログラムをインストールします。</p>
-<h2 id="サービス接続ポイント-Service-connection-point-SCP"><a href="#サービス接続ポイント-Service-connection-point-SCP" class="headerlink" title="サービス接続ポイント (Service connection point / SCP)"></a>サービス接続ポイント (Service connection point / SCP)</h2><p>Configuration Manager のバージョンアップをおこなうために欠かせない役割がサービス接続ポイントです。サービス接続ポイントには [オンライン モード] 、[オフライン モード] があり、モードに応じた処理で新しい更新プログラムの同期をおこないます。<br>Configuration Manager では <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/current-branch-versions-supported">サポート ライフ サイクル</a> が 18 か月ごとに定義されていますので、余裕をもったバージョン アップの計画をお願いいたします。</p>
-<p>※ オンライン モードは <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints">こちら</a> のインターネット要件を満たす必要があります。</p>
-<h2 id="クラウド管理ゲートウェイ接続ポイント-Cloud-management-gateway-connection-point-CMG-CP"><a href="#クラウド管理ゲートウェイ接続ポイント-Cloud-management-gateway-connection-point-CMG-CP" class="headerlink" title="クラウド管理ゲートウェイ接続ポイント (Cloud management gateway connection point / CMG CP)"></a>クラウド管理ゲートウェイ接続ポイント (Cloud management gateway connection point / CMG CP)</h2><p>Configuration Manager はオンプレミス環境に構築しますが、オンプレミス環境に接続しないクライアントも管理したいといった要望はありませんか？<br>その方法のひとつに Azure と連携したクラウド管理ゲートウェイ (CMG) の構築があります。クラウド管理ゲートウェイ接続ポイントとは、CMG とオンプレミスのサイト システムを接続する役割です。</p>
+<h2 id="サービス接続ポイント-Service-connection-point-SCP"><a href="#サービス接続ポイント-Service-connection-point-SCP" class="headerlink" title="サービス接続ポイント (Service connection point &#x2F; SCP)"></a>サービス接続ポイント (Service connection point &#x2F; SCP)</h2><p>Configuration Manager のバージョンアップをおこなうために欠かせない役割がサービス接続ポイントです。サービス接続ポイントには [オンライン モード] 、[オフライン モード] があり、モードに応じた処理で新しい更新プログラムの同期をおこないます。<br>Configuration Manager では <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/current-branch-versions-supported">サポート ライフ サイクル</a> が 18 か月ごとに定義されていますので、余裕をもったバージョン アップの計画をお願いいたします。</p>
+<p>※ オンライン モードは <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints">こちら</a> のインターネット要件を満たす必要があります。</p>
+<h2 id="クラウド管理ゲートウェイ接続ポイント-Cloud-management-gateway-connection-point-CMG-CP"><a href="#クラウド管理ゲートウェイ接続ポイント-Cloud-management-gateway-connection-point-CMG-CP" class="headerlink" title="クラウド管理ゲートウェイ接続ポイント (Cloud management gateway connection point &#x2F; CMG CP)"></a>クラウド管理ゲートウェイ接続ポイント (Cloud management gateway connection point &#x2F; CMG CP)</h2><p>Configuration Manager はオンプレミス環境に構築しますが、オンプレミス環境に接続しないクライアントも管理したいといった要望はありませんか？<br>その方法のひとつに Azure と連携したクラウド管理ゲートウェイ (CMG) の構築があります。クラウド管理ゲートウェイ接続ポイントとは、CMG とオンプレミスのサイト システムを接続する役割です。</p>
 <p>CMG の概要および具体的な構築手順については下記に投稿をまとめていますので、あわせて参照ください。<br><a href="https://jpmem.github.io/blog/tags/CMG/">https://jpmem.github.io/blog/tags/CMG/</a></p>
-<p>代表的なサイト システム サーバーができることについて解説しましたが、いかがでしたでしょうか。今回紹介できなかったサイト システムについては、次の公開情報から確認してください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/plan-for-site-system-servers-and-site-system-roles">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/plan-for-site-system-servers-and-site-system-roles</a></p>
+<p>代表的なサイト システム サーバーができることについて解説しましたが、いかがでしたでしょうか。今回紹介できなかったサイト システムについては、次の公開情報から確認してください。<br><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/plan-for-site-system-servers-and-site-system-roles">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/plan-for-site-system-servers-and-site-system-roles</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20240216_01/" data-id="cmm9wwo7x00a20nrqewvf1oqv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20240216_01/" data-id="cuidDY9RLYcFH2v1LqYw2M1yG" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li></ul>
@@ -178,6 +178,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -191,10 +195,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -243,9 +243,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

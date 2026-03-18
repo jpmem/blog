@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆様、Microsoft Configuration Manager サポート チームの箱木です。 今回は Microsoft Configuration Manager FAQ についてライセンス部分の詳細をご案内します。 なお技術サポートではお客様の契約内容を確認することができませんので、ライセンスについての消費概念や購入方法などの詳細なご質問については弊社担当営業もしくは契約担当者へお問い合">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-09-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.847Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.134Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="自習書シリーズ">
@@ -40,7 +40,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -67,9 +67,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,26 +116,26 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>皆様、Microsoft Configuration Manager サポート チームの箱木です。</p>
-<p>今回は <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/configuration-manager-faq">Microsoft Configuration Manager FAQ</a> についてライセンス部分の詳細をご案内します。</p>
+<p>今回は <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/configuration-manager-faq">Microsoft Configuration Manager FAQ</a> についてライセンス部分の詳細をご案内します。</p>
 <p>なお技術サポートではお客様の契約内容を確認することができませんので、ライセンスについての消費概念や購入方法などの詳細なご質問については弊社担当営業もしくは契約担当者へお問い合わせいただくようお願いいたします。</p>
 <p>ライセンス観点で特にお問合せをいただく内容についてご説明いたします。</p>
 <h1 id="管理するためのサーバー（管理ポイントやソフトウェア更新ポイントなど）側にライセンスは必要ですか？"><a href="#管理するためのサーバー（管理ポイントやソフトウェア更新ポイントなど）側にライセンスは必要ですか？" class="headerlink" title="管理するためのサーバー（管理ポイントやソフトウェア更新ポイントなど）側にライセンスは必要ですか？"></a>管理するためのサーバー（管理ポイントやソフトウェア更新ポイントなど）側にライセンスは必要ですか？</h1><p>不要です。ConfigMgr は管理対象のクライアントもしくはユーザー数、OSE 数でライセンスを購入いただく必要がありますが、管理インフラストラクチャ側にはライセンスは不要です。<br>サイト データベースを構成するための SQL Server ライセンスについてもクライアント管理ライセンスに含まれます。<br>ただしこの SQL Server のライセンスは、ConfigMgr のサイト データベースとしてのみ利用いただけますため、外部連携用のアプリケーションとして SQL Server を使う場合にはその SQL インスタンスごとに別途ライセンスが必要となります。</p>
-<h1 id="プライマリ-サイトや中央管理サイトのインストール時に求められるライセンス-キーはどこから入手できますか？"><a href="#プライマリ-サイトや中央管理サイトのインストール時に求められるライセンス-キーはどこから入手できますか？" class="headerlink" title="プライマリ サイトや中央管理サイトのインストール時に求められるライセンス キーはどこから入手できますか？"></a>プライマリ サイトや中央管理サイトのインストール時に求められるライセンス キーはどこから入手できますか？</h1><p>従来のボリューム ライセンスで契約されている場合は ConfgMgr および SQL Server ライセンスを VLSC <a target="_blank" rel="noopener" href="https://www.microsoft.com/licensing/servicecenter/default.aspx">ボリューム ライセンス サービス センター</a> より入手いただけます。<br>しかしながら、最近は Intune との共同管理目的で導入されるため EMS や M365 ライセンスを保持されている状態からの ConfigMgr のインストールを始められる方が多い傾向です。</p>
+<h1 id="プライマリ-サイトや中央管理サイトのインストール時に求められるライセンス-キーはどこから入手できますか？"><a href="#プライマリ-サイトや中央管理サイトのインストール時に求められるライセンス-キーはどこから入手できますか？" class="headerlink" title="プライマリ サイトや中央管理サイトのインストール時に求められるライセンス キーはどこから入手できますか？"></a>プライマリ サイトや中央管理サイトのインストール時に求められるライセンス キーはどこから入手できますか？</h1><p>従来のボリューム ライセンスで契約されている場合は ConfgMgr および SQL Server ライセンスを VLSC <a href="https://www.microsoft.com/licensing/servicecenter/default.aspx">ボリューム ライセンス サービス センター</a> より入手いただけます。<br>しかしながら、最近は Intune との共同管理目的で導入されるため EMS や M365 ライセンスを保持されている状態からの ConfigMgr のインストールを始められる方が多い傾向です。</p>
 <p>この場合、ライセンス キーは VLSC ではなくライセンスを購入されたクラウド ソリューション プロバイダー (CSP) パートナーから入手いただく必要があります。</p>
-<p>またクラウド ソリューション プロバイダー (CSP)自身がお客様に提供するためのライセンス キーを入手する場合は技術サポートではなく、<a target="_blank" rel="noopener" href="https://partner.microsoft.com/ja-JP/support/?stage=1">Microsoft パートナー センター</a> にて ID 4033838 のライセンス発行を依頼してください。</p>
-<p>詳細については <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/product-and-licensing-faq">Configuration Manager ブランチとライセンスについてよく寄せられる質問</a> もご参照ください。</p>
+<p>またクラウド ソリューション プロバイダー (CSP)自身がお客様に提供するためのライセンス キーを入手する場合は技術サポートではなく、<a href="https://partner.microsoft.com/ja-JP/support/?stage=1">Microsoft パートナー センター</a> にて ID 4033838 のライセンス発行を依頼してください。</p>
+<p>詳細については <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/product-and-licensing-faq">Configuration Manager ブランチとライセンスについてよく寄せられる質問</a> もご参照ください。</p>
 <p>上記リンクのポイントについて抜粋します。</p>
 <h1 id="Microsoft-Intune-製品ファミリの共同管理のライセンスに関する変更点"><a href="#Microsoft-Intune-製品ファミリの共同管理のライセンスに関する変更点" class="headerlink" title="Microsoft Intune 製品ファミリの共同管理のライセンスに関する変更点"></a>Microsoft Intune 製品ファミリの共同管理のライセンスに関する変更点</h1><blockquote>
 <p>以前に System Center Configuration Manager に対して持っていたライセンスは、引き続き Microsoft Configuration Managerに適用されます。 新しいサイトをインストールする場合は、既存のプロダクト キーを使用してください。</p>
 </blockquote>
 <p>上記の通りすでに保有しているクライアント管理用のライセンスは新規環境でも再利用することができます。<br>サイト自体を新規インストールする場合には VLSC などから旧環境構築時に利用したプロダクト キーを入手いただいて利用ください。</p>
 <p>次回は Configuration Manager のシステム設計についてご紹介する予定です。</p>
-<h1 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h1><p>下記内容は 2023/9/1 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、最新情報は以下の公開情報をご確認ください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/product-and-licensing-faq">Configuration Manager ブランチとライセンスについてよく寄せられる質問</a></p>
+<h1 id="免責事項"><a href="#免責事項" class="headerlink" title="免責事項"></a>免責事項</h1><p>下記内容は 2023&#x2F;9&#x2F;1 時点での内容についての記載となっております。<br>今後内容が更新されることもございますので、最新情報は以下の公開情報をご確認ください。<br><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/understand/product-and-licensing-faq">Configuration Manager ブランチとライセンスについてよく寄せられる質問</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230928_01/" data-id="cmm9wwo7s009v0nrq0jp56v06" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230928_01/" data-id="cuid2EMGzF_9zlxMWIDpdpH09" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
@@ -177,6 +177,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -190,10 +194,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -242,9 +242,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

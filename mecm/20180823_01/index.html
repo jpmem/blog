@@ -7,12 +7,12 @@
   
   <title>Configuration Manager 自動クライアント アップグレード手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順">
+  <meta name="description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョン">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Configuration Manager 自動クライアント アップグレード手順">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20180823_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順">
+<meta property="og:description" content="2018&#x2F;08&#x2F;23 初版公開2023&#x2F;08&#x2F;16 更新- 最新バージョンの動作に合わせ記載を修正しました。   みなさま、こんにちは。   日本マイクロソフト Configuration Manager サポートチームです。   本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョン">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_02.png">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_01/20180823_01_07.png">
 <meta property="article:published_time" content="2018-08-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.680Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.977Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -74,9 +74,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,21 +122,29 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p><strong>2018/08/23 初版公開</strong><br><strong>2023/08/16 更新</strong><br><strong>- 最新バージョンの動作に合わせ記載を修正しました。</strong>  </p>
+        <p><strong>2018&#x2F;08&#x2F;23 初版公開</strong><br><strong>2023&#x2F;08&#x2F;16 更新</strong><br><strong>- 最新バージョンの動作に合わせ記載を修正しました。</strong>  </p>
 <p>みなさま、こんにちは。  </p>
 <p>日本マイクロソフト Configuration Manager サポートチームです。  </p>
 <p>本日は、Microsoft Configuration Manager (ConfigMgr) クライアントをサイトのバージョンアップ後、自動的にアップグレードする手順についてご案内させていただきます。<br>クライアントのアップグレード方法は、以下のように、複数がございます。  </p>
 <p>・自動クライアント アップグレード<br>・クライアント プッシュ インストール<br>・グループ ポリシーによるインストール<br>・ログオン スクリプトによるインストール<br>・手動インストール<br>・アップグレード インストール  </p>
 <p>お客様環境の運用方式に従い、お選びいただけますが、その中で、これからご案内する自動クライアント アップグレードは、一番作業の手間が少ない方法となりますので、クライアントのアップグレードの際に、本機能のご利用をご検討いただけますと幸いです。  </p>
 <h2 id="自動クライアント-アップグレードの手順"><a href="#自動クライアント-アップグレードの手順" class="headerlink" title="自動クライアント アップグレードの手順"></a>自動クライアント アップグレードの手順</h2><ol>
-<li>[Configuration Manager コンソール] を開き、[管理] - [概要] - [サイトの構成] - [サイト] に移動します。<br><img src="/blog/mecm/20180823_01/20180823_01_01.png">  </li>
-<li>対象のサイトを選択し、リボンメニューから [階層設定] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png">  </li>
-<li>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png">  </li>
-<li>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、<br>“実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png">  </li>
-<li>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png">  </li>
-<li>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png">  </li>
-<li>[OK] ボタンを選択し、画面を閉じます。  </li>
-<li>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、<br>リボンメニューから [実稼働前クライアントの昇格] を選択します。<br>ここで、確認メッセージが表示されますので、[昇格] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png">  </li>
+<li><p>[Configuration Manager コンソール] を開き、[管理] - [概要] - [サイトの構成] - [サイト] に移動します。<br><img src="/blog/mecm/20180823_01/20180823_01_01.png">  </p>
+</li>
+<li><p>対象のサイトを選択し、リボンメニューから [階層設定] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_02.png">  </p>
+</li>
+<li><p>[階層設定のプロパティ] の画面で、[クライアント アップグレード] タブを開きます。<br><img src="/blog/mecm/20180823_01/20180823_01_03.png">  </p>
+</li>
+<li><p>[実稼働クライアント バージョン] が、アップグレードしたいクライアントのバージョンと一致していることを確認し、<br>“実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックを入れます。<br><img src="/blog/mecm/20180823_01/20180823_01_04.png">  </p>
+</li>
+<li><p>“階層内のすべてのクライアントの自動アップグレードを有効にするオプションを選択しました。…” とのメッセージが表示されますので、[OK] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_05.png">  </p>
+</li>
+<li><p>[実稼働クライアント バージョン] の、”実稼働クライアントを使用して階層内のすべてのクライアントをアップグレードする” にチェックが入ったことを確認し、”次の日数以内にクライアントを自動アップグレードする” の設定を行います。<br>選択可能な範囲は、1 から 31 となります。<br>ここで指定した期間内のランダムなタイミングで、クライアントがアップグレードされます。<br><img src="/blog/mecm/20180823_01/20180823_01_06.png">  </p>
+</li>
+<li><p>[OK] ボタンを選択し、画面を閉じます。  </p>
+</li>
+<li><p>[管理] - [概要] - [更新とサービス] に移動し、最新バージョンの更新項目を選択の上、<br>リボンメニューから [実稼働前クライアントの昇格] を選択します。<br>ここで、確認メッセージが表示されますので、[昇格] を選択します。<br><img src="/blog/mecm/20180823_01/20180823_01_07.png"></p>
+</li>
 </ol>
 <p>手順は、以上となります。  </p>
 <p>管理対象が多い大規模の環境では、自動クライアント アップグレードの機能を有効にすることで、一気にクライアントのアップグレードがされ、ネットワークを逼迫することが懸念点として考えられますが、上記の設定画面にて、自動アップグレードの期間を長く指定してきただくことで、ネットワークの負荷を分散することができます。  </p>
@@ -144,20 +152,20 @@
 <h2 id="クライアント-アップグレードの動作の流れ"><a href="#クライアント-アップグレードの動作の流れ" class="headerlink" title="クライアント アップグレードの動作の流れ"></a>クライアント アップグレードの動作の流れ</h2><ol>
 <li>ConfigMgr サーバーにおいて自動クライアント アップグレードを有効にする際に、アップグレード期間を指定します。  </li>
 <li>クライアントが自動クライアント アップグレードのポリシーを受信します。  </li>
-<li>クライアント ポリシーを受信後、WMI の CCM_ClientUpgrade クラス の IsEnabled プロパティが “True” に変更されます。<br>CCM_ClientUpgrade クラスは、以下の PowerShell コマンドレットで確認可能です。  </li>
+<li>クライアント ポリシーを受信後、WMI の CCM_ClientUpgrade クラス の IsEnabled プロパティが “True” に変更されます。<br>CCM_ClientUpgrade クラスは、以下の PowerShell コマンドレットで確認可能です。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gwmi -namespace root\ccm\policy\machine\actualconfig -class CCM_ClientUpgrade</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gwmi -namespace root\ccm\policy\machine\actualconfig -class CCM_ClientUpgrade</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>ConfigMgr クライアントが上記の WMI の変更を検知し、ccmsetup のコンテンツ ダウンロードを行います。  </li>
 <li>ダウンロード完了後、ClientServicing が ccmsetup を実行します。実行時、[次の日数以内にクライアントを自動アップグレードする] で設定した期間を考慮してランダマイズされた日時でスケジュールされます。  </li>
-<li>上記でスケジュールされた日時になるとアップグレードが実行されます。  </li>
+<li>上記でスケジュールされた日時になるとアップグレードが実行されます。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cmm9wwo6i00630nrq7ya30swx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180823_01/" data-id="cuidvSEBxYiF20NLw8XN3kWiY" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -199,6 +207,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -212,10 +224,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -264,9 +272,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

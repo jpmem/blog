@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220529_01/20220529_01_03.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220529_01/20220529_01_04.png">
 <meta property="article:published_time" content="2022-05-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.791Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.080Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="共同管理">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -126,7 +126,7 @@
 <p>Configuration Manager (CM) における共存状態について<br><a href="https://jpmem.github.io/blog/mecm/20211214_01/">https://jpmem.github.io/blog/mecm/20211214_01/</a></p>
 <h4 id="Azure-AD-Registered-状態のデバイスは共同管理できないのか"><a href="#Azure-AD-Registered-状態のデバイスは共同管理できないのか" class="headerlink" title="Azure AD Registered 状態のデバイスは共同管理できないのか"></a>Azure AD Registered 状態のデバイスは共同管理できないのか</h4><p>共同管理状態にできません。Azure AD Joined 状態もしくは Hybrid Azure AD Joined 状態にできるようにしてください。</p>
 <h4 id="共同管理における-MECM-サーバーと-Intune-の接続条件は"><a href="#共同管理における-MECM-サーバーと-Intune-の接続条件は" class="headerlink" title="共同管理における MECM サーバーと Intune の接続条件は"></a>共同管理における MECM サーバーと Intune の接続条件は</h4><p>共同管理において、MECM サーバーは Intune と接続できる必要はございません。管理対象のクライアントがそれぞれ MECM サーバー、 Intune に接続できるようにしてください。その他のインターネット アクセス要件は以下をご確認ください。</p>
-<p>インターネット アクセス要件<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints</a></p>
+<p>インターネット アクセス要件<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/internet-endpoints</a></p>
 <h4 id="共同管理において、クラウド管理ゲートウェイ-CMG-の利用は必須か"><a href="#共同管理において、クラウド管理ゲートウェイ-CMG-の利用は必須か" class="headerlink" title="共同管理において、クラウド管理ゲートウェイ (CMG) の利用は必須か"></a>共同管理において、クラウド管理ゲートウェイ (CMG) の利用は必須か</h4><p>お客様のご利用要件によっては必須ではございません。以下のようなケースでは CMG が必要となってまいりますのでご検討ください。</p>
 <ol>
 <li>イントラネットでのキッティングを行わないため、インターネット経由で MECM サーバーに登録する必要がある。(AutoPilot の利用ケースなど)</li>
@@ -147,20 +147,20 @@
 </ul>
 <p><img src="/blog/mecm/20220529_01/20220529_01_03.png" alt="image.png">  </p>
 <p>本アップロードは「テナント アタッチ」機能のために行われ、テナント アタッチ機能は MECM コンソールで実施していた幾つかの作業を、代わりに Intune (MEM 管理センター)の画面を通して行うための機能です。共同管理とは直接は関係のない機能となりますのでご承知おきください。テナント アタッチについては以下を参照ください。</p>
-<p>テナントのアタッチ ドキュメント<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/">https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/</a></p>
+<p>テナントのアタッチ ドキュメント<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/">https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/</a></p>
 <h3 id="共同管理にしたくない"><a href="#共同管理にしたくない" class="headerlink" title="共同管理にしたくない"></a>共同管理にしたくない</h3><h4 id="都合上、共同管理構成に出来ないのだが、デバイスにIntune-クライアントと-MECM-クライアントがインストールされている。この状態で継続利用可能か"><a href="#都合上、共同管理構成に出来ないのだが、デバイスにIntune-クライアントと-MECM-クライアントがインストールされている。この状態で継続利用可能か" class="headerlink" title="都合上、共同管理構成に出来ないのだが、デバイスにIntune クライアントと MECM クライアントがインストールされている。この状態で継続利用可能か"></a>都合上、共同管理構成に出来ないのだが、デバイスにIntune クライアントと MECM クライアントがインストールされている。この状態で継続利用可能か</h4><p>恐れ入りますが、 共同管理構成されていない、Intune クライアントと MECM クライアントの同居状態は 2022 年5 月時点では非サポートとなります。必ず共同管理構成にするか、出来ない場合はどちらかのクライアントをアンインストールくださいますようお願いいたします。</p>
 <h4 id="MECM-で管理しているデバイス全てを共同管理構成にはしたくない"><a href="#MECM-で管理しているデバイス全てを共同管理構成にはしたくない" class="headerlink" title="MECM で管理しているデバイス全てを共同管理構成にはしたくない"></a>MECM で管理しているデバイス全てを共同管理構成にはしたくない</h4><p>パイロット コレクションをご利用ください。パイロット コレクションを利用することにより、MECM で管理している一部の端末のみ、ワークロードを Intune に寄せることが可能です。なお、ワークロードごとに設定するコレクションを変更することも可能です。なお、恐れながらパイロット コレクションに指定できるコレクションは各ワークロードごとに 1 つだけとなることにご留意ください。</p>
 <h2 id="トラブルシューティング"><a href="#トラブルシューティング" class="headerlink" title="トラブルシューティング"></a>トラブルシューティング</h2><h3 id="共同管理状態にならない"><a href="#共同管理状態にならない" class="headerlink" title="共同管理状態にならない"></a>共同管理状態にならない</h3><p>共同管理状態にならない理由は大凡以下となります。</p>
 <ol>
 <li>クライアントが共同管理構成ポリシーを入手できない</li>
-<li>クライアントが Hybrid Azure AD Join / Azure AD Join できない</li>
+<li>クライアントが Hybrid Azure AD Join &#x2F; Azure AD Join できない</li>
 <li>クライアントが Intune に登録できない</li>
-<li>クライアントに他社 MDM 製品がインストールされている </li>
+<li>クライアントに他社 MDM 製品がインストールされている</li>
 </ol>
 <h4 id="クライアントが-共同管理構成ポリシーを入手できない"><a href="#クライアントが-共同管理構成ポリシーを入手できない" class="headerlink" title="クライアントが 共同管理構成ポリシーを入手できない"></a>クライアントが 共同管理構成ポリシーを入手できない</h4><p>MECM のコントロールパネルアプレットを開いたとき、「構成」タブで「CoMgmtSettings～」の項目が無い場合、クライアントが MECM サーバー (管理ポイント) と接続できていない場合が多くございます。この場合、管理ポイントとの接続状況をご確認ください。ClientLocation.log, CcmMessaging.log , DataTransferService.log 等が参考になるかと存じます。</p>
 <p><img src="/blog/mecm/20220529_01/20220529_01_04.png" alt="image.png">  </p>
 <p>また、パイロット　コレクションに設定したのに、上記画面で「CoMgmtSettingsPilot～」の項目が無い場合、クライアントが該当のコレクションに所属していないことが考えられます。コレクションの参加条件をご確認ください。</p>
-<h4 id="クライアントが-Hybrid-Azure-AD-Join-Azure-AD-Join-できない"><a href="#クライアントが-Hybrid-Azure-AD-Join-Azure-AD-Join-できない" class="headerlink" title="クライアントが Hybrid Azure AD Join / Azure AD Join できない"></a>クライアントが Hybrid Azure AD Join / Azure AD Join できない</h4><p>Hybrid Azure AD Join の状態は下記でご案内しております dsregcmd /status コマンドで確認できます。</p>
+<h4 id="クライアントが-Hybrid-Azure-AD-Join-Azure-AD-Join-できない"><a href="#クライアントが-Hybrid-Azure-AD-Join-Azure-AD-Join-できない" class="headerlink" title="クライアントが Hybrid Azure AD Join &#x2F; Azure AD Join できない"></a>クライアントが Hybrid Azure AD Join &#x2F; Azure AD Join できない</h4><p>Hybrid Azure AD Join の状態は下記でご案内しております dsregcmd &#x2F;status コマンドで確認できます。</p>
 <p>Azure AD Join 状態の調査<br><a href="https://jpmem.github.io/memlog/general/azuread/dsregcmd-status.html">https://jpmem.github.io/memlog/general/azuread/dsregcmd-status.html</a></p>
 <p>よくある事例は、以下の通りでございます。</p>
 <ul>
@@ -169,13 +169,13 @@
 <li>Azure AD Registered の状態になっている。この場合は 一度 Registered 状態を解除する必要がございます。</li>
 </ul>
 <h4 id="クライアントが-Intune-に登録できない"><a href="#クライアントが-Intune-に登録できない" class="headerlink" title="クライアントが Intune に登録できない"></a>クライアントが Intune に登録できない</h4><p>Intune への接続が出来ない等の理由で登録が失敗している場合がございます。以下でご案内している Intune のインターネットアクセス要件をご確認ください。<br>また、この他 Intune 側の登録ポリシー等で制限されている場合もございますので、ご確認ください。</p>
-<p>Microsoft Intune のネットワーク エンドポイント<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints">https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints</a></p>
+<p>Microsoft Intune のネットワーク エンドポイント<br><a href="https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints">https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints</a></p>
 <h4 id="クライアントに他社-MDM-製品がインストールされている"><a href="#クライアントに他社-MDM-製品がインストールされている" class="headerlink" title="クライアントに他社 MDM 製品がインストールされている"></a>クライアントに他社 MDM 製品がインストールされている</h4><p>クライアントに他社 MDM 製品がインストールされている場合、共同構成ではなく、共存状態となります。この場合、他社 MDM 製品をアンインストールする必要がございますので、ご理解賜りますようお願いいたします。MECM の CoManagementHandler.log に以下の出力があると、共存状態と判定されていると確認できます。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This device is enrolled to an unexpected vendor, it will be set in co-existence mode</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220529_01/" data-id="cmm9wwo7900860nrq63fv9152" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220529_01/" data-id="cuidbb-IxaY9Exti5IkD6sC4T" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
@@ -217,6 +217,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -230,10 +234,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -282,9 +282,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

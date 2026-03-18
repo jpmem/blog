@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。   今回は WSUS で配信出来る更新プログラムの各分類について紹介します。   WSUS では以下の分類の内、どれを配信するか選択することが出来ます。分類については、セキュリティの修正及び重要な修正を含めるために、「セキュリティ問題の修正プログラム」と「重要な更新」を選択することが一般的ですが、パッと見てどの分類にどんな更新プログラムが含ま">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-06-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.919Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.199Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -118,7 +118,7 @@
 <p>今回は WSUS で配信出来る更新プログラムの各分類について紹介します。  </p>
 <p>WSUS では以下の分類の内、どれを配信するか選択することが出来ます。分類については、セキュリティの修正及び重要な修正を含めるために、「セキュリティ問題の修正プログラム」と「重要な更新」を選択することが一般的ですが、パッと見てどの分類にどんな更新プログラムが含まれているか、なかなかイメージが沸かない方も多いかと思います。このブログでは詳細を紹介するので、是非参考としてください！</p>
 <p>また、WSUS では好きな分類を好きなように選択して配信することが出来ますが、安定した運用するために、ポイントがあります。まずはそのポイントについて紹介いたします。</p>
-<h2 id="ポイント-特別な利用がない限り-ドライバ-の分類は絶対に選択しない"><a href="#ポイント-特別な利用がない限り-ドライバ-の分類は絶対に選択しない" class="headerlink" title="ポイント : 特別な利用がない限り [ドライバ] の分類は絶対に選択しない"></a>ポイント : 特別な利用がない限り [ドライバ] の分類は絶対に選択しない</h2><p>[ドライバ] の分類は、リリースされている更新プログラムの数が群を抜いて多く、選択すると数万件の更新プログラムが同期され、WSUS のパフォーマンスに大きな影響を与えてしまいます。このため、特別な利用がない限り、**[ドライバ] の分類は絶対に選択しないことをお勧めします。**</p>
+<h2 id="ポイント-特別な利用がない限り-ドライバ-の分類は絶対に選択しない"><a href="#ポイント-特別な利用がない限り-ドライバ-の分類は絶対に選択しない" class="headerlink" title="ポイント : 特別な利用がない限り [ドライバ] の分類は絶対に選択しない"></a>ポイント : 特別な利用がない限り [ドライバ] の分類は絶対に選択しない</h2><p>[ドライバ] の分類は、リリースされている更新プログラムの数が群を抜いて多く、選択すると数万件の更新プログラムが同期され、WSUS のパフォーマンスに大きな影響を与えてしまいます。このため、特別な利用がない限り、<strong>[ドライバ] の分類は絶対に選択しないことをお勧めします。</strong></p>
 <p> そもそも [ドライバ] の更新は、各ハードウェア ベンダーの申請に基づいて公開されるため、WSUS で分類を選択していても、各ベンダーのドライバが常に最新のバージョンに更新されるとは限りません。</p>
 <p> WSUS から配信が必要なドライバーがある場合には、下記ブログにて紹介している「A. 特定の更新プログラムのみ WSUS へインポートしたい」にて個別にインポートし、配信を行ないましょう。</p>
 <p><a href="https://jpmem.github.io/blog/wsus/2012-03-19_01/">Microsoft Update カタログの活用法について</a> </p>
@@ -144,14 +144,14 @@
 <h3 id="セキュリティ問題の修正プログラム"><a href="#セキュリティ問題の修正プログラム" class="headerlink" title="セキュリティ問題の修正プログラム"></a>セキュリティ問題の修正プログラム</h3><p>セキュリティ上の脆弱性を修正するために、特定の製品に対して公開される修正プログラムです。「セキュリティのみの品質更新プログラム」や「セキュリティ マンスリー品質ロールアップ」も、この分類でリリースされております。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
 <ul>
-<li>Windows 8.1 用セキュリティ更新プログラム (KB3121212) / 特権の昇格に対処する Windows カーネル用のセキュリティ更新プログラム</li>
-<li>Windows 7 用セキュリティ更新プログラム (KB3121918) / リモートでのコード実行に対処する Microsoft Windows 用のセキュリティ更新プログラム</li>
-<li>Microsoft Silverlight のセキュリティ更新プログラム (KB3126036) / リモートでのコード実行に対処する Silverlight 用のセキュリティ更新プログラム</li>
+<li>Windows 8.1 用セキュリティ更新プログラム (KB3121212) &#x2F; 特権の昇格に対処する Windows カーネル用のセキュリティ更新プログラム</li>
+<li>Windows 7 用セキュリティ更新プログラム (KB3121918) &#x2F; リモートでのコード実行に対処する Microsoft Windows 用のセキュリティ更新プログラム</li>
+<li>Microsoft Silverlight のセキュリティ更新プログラム (KB3126036) &#x2F; リモートでのコード実行に対処する Silverlight 用のセキュリティ更新プログラム</li>
 </ul>
 <h3 id="ツール"><a href="#ツール" class="headerlink" title="ツール"></a>ツール</h3><p>あるタスク、または一連のタスクの実現を支援する、ユーティリティまたは機能です。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
 <ul>
-<li>ネットワークの診断ツール (KB914440) </li>
+<li>ネットワークの診断ツール (KB914440)</li>
 </ul>
 <h3 id="ドライバ"><a href="#ドライバ" class="headerlink" title="ドライバ"></a>ドライバ</h3><hr>
 <p>ドライバーの更新となります。各ハードウェアベンダーにてWSUS に公開した更新が公開されております。</p>
@@ -163,24 +163,26 @@
 <h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>重要性が低く、セキュリティに関連しない不具合を修正するために、特定のプログラムに対して公開される修正プログラムです。「マンスリー品質ロールアップのプレビュー」もこの分類にてリリースされております。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
 <ul>
-<li>Windows 7 用更新プログラム (KB2977759) / Windows 7 の RTM 版の互換性に関する更新プログラム</li>
-<li>Windows 8.1 用更新プログラム (KB2976978) / Windows 8.1 および Windows 8 の互換性更新プログラム</li>
-<li>Windows Server 2012 R2 用更新プログラム (KB3112148)  / 2015 年 12 月付、Windows オペレーティング システム用の累積的なタイム ゾーン更新プログラム<br/>
-<br/></li>
+<li>Windows 7 用更新プログラム (KB2977759) &#x2F; Windows 7 の RTM 版の互換性に関する更新プログラム</li>
+<li>Windows 8.1 用更新プログラム (KB2976978) &#x2F; Windows 8.1 および Windows 8 の互換性更新プログラム</li>
+<li>Windows Server 2012 R2 用更新プログラム (KB3112148)  &#x2F; 2015 年 12 月付、Windows オペレーティング システム用の累積的なタイム ゾーン更新プログラム</li>
 </ul>
+<br/>
+<br/>
+ 
 <h3 id="修正プログラム集"><a href="#修正プログラム集" class="headerlink" title="修正プログラム集"></a>修正プログラム集</h3><p>ホットフィックス、セキュリティ問題の修正プログラム、重要な更新、および更新を 1 つのパッケージにまとめ、展開したものです。修正プログラム集は通常、“セキュリティ”などの特定の分野、または “インターネット インフォメーション サービス (IIS)” などの製品のコンポーネントに対して用意されます。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
 <ul>
 <li>悪意のあるソフトウェアの削除ツール - 2016 年 1 月 (KB890830)</li>
-<li>Windows 8.1 用更新プログラム (KB3025417) / Windows 8.1 で Windows 8 の Windows Defender のマルウェア対策用プラットフォームの更新</li>
+<li>Windows 8.1 用更新プログラム (KB3025417) &#x2F; Windows 8.1 で Windows 8 の Windows Defender のマルウェア対策用プラットフォームの更新</li>
 <li>Microsoft System Center 2012 R2 - Operations Manager Agent の更新プログラムのロールアップ 8 (KB3096382)</li>
 </ul>
 <h3 id="重要な更新"><a href="#重要な更新" class="headerlink" title="重要な更新"></a>重要な更新</h3><p>重要性が高く、セキュリティに関連しない不具合を修正するために、特定の問題に対して公開される修正プログラムです。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
 <ul>
-<li>Windows 8.1 用更新プログラム (KB3112336) / Windows 8.1 と Windows Server 2012 R2 の更新</li>
-<li>Windows 7 用更新プログラム (KB3112343) / Windows 7 および Windows Server 2008 R2 の Windows Update Agent</li>
-<li>Microsoft Office 2013 (KB3114498) の更新プログラム / 2016 年 1 月 12 日 Office 2013 の更新</li>
+<li>Windows 8.1 用更新プログラム (KB3112336) &#x2F; Windows 8.1 と Windows Server 2012 R2 の更新</li>
+<li>Windows 7 用更新プログラム (KB3112343) &#x2F; Windows 7 および Windows Server 2008 R2 の Windows Update Agent</li>
+<li>Microsoft Office 2013 (KB3114498) の更新プログラム &#x2F; 2016 年 1 月 12 日 Office 2013 の更新</li>
 </ul>
 <h3 id="定義更新プログラム"><a href="#定義更新プログラム" class="headerlink" title="定義更新プログラム"></a>定義更新プログラム</h3><p>製品の定義データベースへの追加を含む、広範かつ頻繁にリリースされるソフトウェア更新プログラムです。<br>定義データベースは、悪意のあるコード、フィッシングWebサイト、ジャンク電子メールなど、特定の属性を含むオブジェクトを検出するために、頻繁に使用されます。<br>Windows Defender や Office をお使いの場合に設定することが多いものとなります。</p>
 <p>&lt;対象の更新プログラムの例&gt;</p>
@@ -190,17 +192,17 @@
 <li>Microsoft Office 2010 (KB3114563) の定義の更新</li>
 </ul>
 <h2 id="参考情報-WSUS-上の各分類と-Windows-Update-上の分類について"><a href="#参考情報-WSUS-上の各分類と-Windows-Update-上の分類について" class="headerlink" title="参考情報 : WSUS 上の各分類と Windows Update 上の分類について"></a>参考情報 : WSUS 上の各分類と Windows Update 上の分類について</h2><p>分類関連の設定でよくご要望いただく内容として「Windows Update で配信されている内容と、全く同一の更新プログラムを WSUS から配りたい！」というお問い合わせをいただきます。結論から言ってしまうと、<strong>WSUS 向けに公開されている更新プログラムと、Windows Update 向けに公開されている更新プログラムは完全に一致するわけではないので、全く同一の状態とすることは出来ません。</strong></p>
-<p>これは WSUS はエンタープライズ / 企業向けの用途、Windows Update はコンシューマー / 一般ユーザー向けの用途を想定しているためです。(例えば Windows 10 への無償アップグレードの通知用の更新プログラムは WSUS 環境に着信しないように考慮が行われておりました。)  </p>
-<p>ただし、可能な限り、配信される更新プログラムを近づけることは可能です。Windows Update では、上述の WSUS の分類のように細かく分類されておらず、下記のように「重要な更新プログラム」と「オプション / 推奨される更新プログラム」に分類されています。</p>
+<p>これは WSUS はエンタープライズ &#x2F; 企業向けの用途、Windows Update はコンシューマー &#x2F; 一般ユーザー向けの用途を想定しているためです。(例えば Windows 10 への無償アップグレードの通知用の更新プログラムは WSUS 環境に着信しないように考慮が行われておりました。)  </p>
+<p>ただし、可能な限り、配信される更新プログラムを近づけることは可能です。Windows Update では、上述の WSUS の分類のように細かく分類されておらず、下記のように「重要な更新プログラム」と「オプション &#x2F; 推奨される更新プログラム」に分類されています。</p>
 <ul>
 <li>重要な更新プログラム : 「重要な更新」、「セキュリティ問題の修正プログラム」、「定義更新プログラム」、「修正プログラム集」、「 Service Packs 」</li>
-<li>オプション / 推奨される更新プログラム : 「ツール」、「 Feature Packs 」、「更新」</li>
+<li>オプション &#x2F; 推奨される更新プログラム : 「ツール」、「 Feature Packs 」、「更新」</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-19_01/" data-id="cmm9wwo5000280nrq3hko0r7y" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-19_01/" data-id="cuid6E614V5nko_1HW8t5PIIb" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -242,6 +244,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -255,10 +261,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -307,9 +309,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

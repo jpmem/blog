@@ -7,18 +7,18 @@
   
   <title>Microsoft Update カタログから更新プログラムをインポートする手順が変更されました | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2023&#x2F;07&#x2F;27 初版公開2024&#x2F;05&#x2F;09 更新- スクリプト エラーとなった際の対処策を追記しました。   みなさん、こんにちは。WSUS サポート チームです。   これまで WSUS コンソールから更新プログラムをインポートする方法がありましたが、使用機能の ActiveX が非推奨になったことから、ActiveX を介さず PowerShell を使用してインポートする方法をご紹介">
+  <meta name="description" content="2023&#x2F;07&#x2F;27 初版公開2024&#x2F;05&#x2F;09 更新- スクリプト エラーとなった際の対処策を追記しました。   みなさん、こんにちは。WSUS サポート チームです。   これまで WSUS コンソールから更新プログラムをインポートする方法がありましたが、使用機能の ActiveX が非推奨になったことから、ActiveX を介さず PowerShel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Microsoft Update カタログから更新プログラムをインポートする手順が変更されました">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2023-07-27_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="2023&#x2F;07&#x2F;27 初版公開2024&#x2F;05&#x2F;09 更新- スクリプト エラーとなった際の対処策を追記しました。   みなさん、こんにちは。WSUS サポート チームです。   これまで WSUS コンソールから更新プログラムをインポートする方法がありましたが、使用機能の ActiveX が非推奨になったことから、ActiveX を介さず PowerShell を使用してインポートする方法をご紹介">
+<meta property="og:description" content="2023&#x2F;07&#x2F;27 初版公開2024&#x2F;05&#x2F;09 更新- スクリプト エラーとなった際の対処策を追記しました。   みなさん、こんにちは。WSUS サポート チームです。   これまで WSUS コンソールから更新プログラムをインポートする方法がありましたが、使用機能の ActiveX が非推奨になったことから、ActiveX を介さず PowerShel">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-07-27_01/2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-07-27_01/3.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2023-07-27_01/1.png">
 <meta property="article:published_time" content="2023-07-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.986Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.263Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -118,15 +118,15 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p><strong>2023/07/27 初版公開</strong><br><strong>2024/05/09 更新</strong><br><strong>- スクリプト エラーとなった際の対処策を追記しました。</strong>  </p>
+        <p><strong>2023&#x2F;07&#x2F;27 初版公開</strong><br><strong>2024&#x2F;05&#x2F;09 更新</strong><br><strong>- スクリプト エラーとなった際の対処策を追記しました。</strong>  </p>
 <p>みなさん、こんにちは。WSUS サポート チームです。  </p>
 <p>これまで WSUS コンソールから更新プログラムをインポートする方法がありましたが、使用機能の ActiveX が非推奨になったことから、ActiveX を介さず PowerShell を使用してインポートする方法をご紹介します。</p>
 <h1 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h1><ol>
 <li>以下の公開情報に記載されているスクリプトをコピーし拡張子.ps1として、 WSUS サーバーへ保存します。</li>
 </ol>
-<p>Title : Import updates into WSUS using PowerShell<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus">https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus</a></p>
+<p>Title : Import updates into WSUS using PowerShell<br>URL : <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus">https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus</a></p>
 <ol start="2">
-<li><p>Microsoft Update カタログ サイトをブラウザーで開きます。<br><a target="_blank" rel="noopener" href="https://catalog.update.microsoft.com/">https://catalog.update.microsoft.com</a></p>
+<li><p>Microsoft Update カタログ サイトをブラウザーで開きます。<br><a href="https://catalog.update.microsoft.com/">https://catalog.update.microsoft.com</a></p>
 </li>
 <li><p>WSUS にインポートする更新プログラムを検索します。   </p>
 </li>
@@ -134,12 +134,12 @@
 </li>
 <li><p>開いた詳細ページで UpdateID をコピーします。<br><img src="/blog/wsus/2023-07-27_01/2.png" alt="image.png"></p>
 </li>
-<li><p>管理者として PowerShell コンソールを開きスクリプトの配置パスまで移動させ、ドキュメントに記載されている構文を使用してスクリプトを実行します。<br>例　.\ImportUpdateToWSUS.ps1 -UpdateId &lt;コピーした UpdateID&gt;<br><img src="/blog/wsus/2023-07-27_01/3.png" alt="image.png">  </p>
+<li><p>管理者として PowerShell コンソールを開きスクリプトの配置パスまで移動させ、ドキュメントに記載されている構文を使用してスクリプトを実行します。<br>例　.\ImportUpdateToWSUS.ps1 -UpdateId &lt;コピーした UpdateID&gt;<br><img src="/blog/wsus/2023-07-27_01/3.png" alt="image.png"></p>
 </li>
 </ol>
 <p>手順は以上です。  </p>
 <p>上記の手順は、米国エンジニアが公開した以下ブログを参考にしています。日本語に訳してご紹介します。</p>
-<p>Title : Importing updates into WSUS is changing<br>URL : <a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/importing-updates-into-wsus-is-changing/ba-p/3882937">https://techcommunity.microsoft.com/t5/windows-it-pro-blog/importing-updates-into-wsus-is-changing/ba-p/3882937</a>  </p>
+<p>Title : Importing updates into WSUS is changing<br>URL : <a href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/importing-updates-into-wsus-is-changing/ba-p/3882937">https://techcommunity.microsoft.com/t5/windows-it-pro-blog/importing-updates-into-wsus-is-changing/ba-p/3882937</a>  </p>
 <p>なお、スクリプト実行時にエラーとなった場合は、手順 1. にてご案内いたしましたスクリプトの “.NOTES” に記載の手順をご実施ください。<br>こちらを実施後も事象に変化が見られない場合は、弊社サポートへのお問い合わせをご検討いただけますと幸いです。  </p>
 <hr>
 <p>Windows Server Update Services（WSUS）を使用してデバイスを更新する場合、更新プログラムのインポート手順が変更されました。更新プログラムのインポートには、新しいPowerShellスクリプトを使用します。デバイスを定期的に更新し、可能な限り安全な方法で更新を行うことで、組織のデバイスの保護がさらに強化されます。その方法を見てみましょう！</p>
@@ -161,12 +161,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注意:</span><br><span class="line">インポートされた更新プログラムのファイルは、インポート時にはダウンロードされません。更新プログラムのファイルの設定を確認し、ダウンロードされるタイミングを確認または変更してください。</span><br></pre></td></tr></table></figure>
 
 <p>更新プログラムのインポートに関する完全で最新のガイダンスについては、WSUS および Microsoft Update カタログのページを引き続き確認してください。このページには、スクリプト、構文、および役立つ例が掲載されています。</p>
-<p>もし情報が足りないと感じたら、以下のリソースをご覧ください：<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site">WSUS とカタログ サイト</a><br><a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update Catalog</a><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/cpp/mfc/activex-controls?view=msvc-170">ActiveX コントロール</a>  </p>
+<p>もし情報が足りないと感じたら、以下のリソースをご覧ください：<br><a href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site">WSUS とカタログ サイト</a><br><a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update Catalog</a><br><a href="https://learn.microsoft.com/ja-jp/cpp/mfc/activex-controls?view=msvc-170">ActiveX コントロール</a>  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-07-27_01/" data-id="cmm9wwo61004o0nrq29sh3b6h" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-07-27_01/" data-id="cuidjPyadaczLMxmxYlsQ_0MZ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -208,6 +208,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -221,10 +225,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -273,9 +273,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

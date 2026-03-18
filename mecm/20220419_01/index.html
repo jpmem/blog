@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220419_01/20220419_01_16.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220419_01/20220419_01_17.png">
 <meta property="article:published_time" content="2022-04-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.759Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.051Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -57,7 +57,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -84,9 +84,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -158,7 +158,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sys.Netbios_Name0 <span class="keyword">as</span> &quot;マシン名&quot;, u.Unique_User_Name0 <span class="keyword">as</span> &quot;AD上のユーザー名&quot;,</span><br><span class="line">u.Full_User_Name0 <span class="keyword">as</span> &quot;ユーザー名&quot;, u.department <span class="keyword">as</span> &quot;部署名&quot;,</span><br><span class="line">cs.Model0 <span class="keyword">as</span> &quot;機種のモデル名&quot;, cs.Manufacturer0 <span class="keyword">as</span> &quot;機種の製造元&quot;,</span><br><span class="line"><span class="keyword">left</span> (os.Name0,charindex (<span class="string">&#x27;|&#x27;</span>, os.Name0)<span class="number">-1</span>) <span class="keyword">as</span> &quot;OS名&quot;, os.TotalVisibleMemorySize0 <span class="keyword">as</span> &quot;物理メモリ(MB)&quot;,</span><br><span class="line">(ld.Size0 <span class="operator">/</span> <span class="number">1024</span>) <span class="keyword">as</span> &quot;C:の容量(GB)&quot;</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">v_UserMachineRelationship umr</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> v_R_User u</span><br><span class="line"><span class="keyword">on</span> umr.UniqueUserName <span class="operator">=</span> u.Unique_User_Name0</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> v_R_System sys</span><br><span class="line"><span class="keyword">on</span> umr.MachineResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_COMPUTER_SYSTEM cs</span><br><span class="line"><span class="keyword">on</span> sys.ResourceID <span class="operator">=</span> cs.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_OPERATING_SYSTEM os</span><br><span class="line"><span class="keyword">on</span> os.ResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> v_GS_LOGICAL_DISK ld</span><br><span class="line"><span class="keyword">on</span> ld.ResourceID <span class="operator">=</span> sys.ResourceID</span><br><span class="line"><span class="keyword">where</span> ld.DeviceID0 <span class="keyword">like</span> <span class="string">&#x27;%C%&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="ステップ-3-レポートを作成する"><a href="#ステップ-3-レポートを作成する" class="headerlink" title="ステップ 3: レポートを作成する"></a>ステップ 3: レポートを作成する</h2><p>B で作成した SQL クエリを表示する、簡単なカスタム レポートの作成手順です。<br>事前準備として、レポートの編集に必要な Report Builder をインストールしてください。</p>
-<p>Title: Microsoft® Report Builder<br>URL: <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=53613">https://www.microsoft.com/en-us/download/details.aspx?id=53613</a></p>
+<p>Title: Microsoft® Report Builder<br>URL: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=53613">https://www.microsoft.com/en-us/download/details.aspx?id=53613</a></p>
 <p>インストール ウィザードの途中の “既定の対象のサーバー” の入力項目はブランクのままインストールを進めてかまいません。<br><img src="/blog/mecm/20220419_01/20220419_01_04.png"></p>
 <ol>
 <li><p>Configuration Manager コンソールより、[監視] ワークスペースを開きます。</p>
@@ -170,25 +170,25 @@
 <ol start="3">
 <li>[レポートの作成ウィザード] では、レポートの名前と説明を入力します。パスは、レポートがどのフォルダーに格納されるかが設定されますが、任意で結構です。</li>
 </ol>
-<p>※ 独自に作成したフォルダーをパスに指定したい場合は、予めブラウザでレポート マネージャー (http://&lt;ホスト名&gt;/Reports) を開き、[ConfigMgr_&lt;サイト コード&gt;] フォルダー直下に、任意の名前でフォルダーを作成してください。<br><img src="/blog/mecm/20220419_01/20220419_01_06.png"></p>
+<p>※ 独自に作成したフォルダーをパスに指定したい場合は、予めブラウザでレポート マネージャー (http:&#x2F;&#x2F;&lt;ホスト名&gt;&#x2F;Reports) を開き、[ConfigMgr_&lt;サイト コード&gt;] フォルダー直下に、任意の名前でフォルダーを作成してください。<br><img src="/blog/mecm/20220419_01/20220419_01_06.png"></p>
 <ol start="4">
 <li><p>ウィザードを完了させると、SQL Server レポート ビルダーが起動します。初回起動時に以下のダイアログが出力されるので [はい] をクリックします。　　<br><img src="/blog/mecm/20220419_01/20220419_01_07.png"></p>
 </li>
 <li><p>画面中央の [テーブルまたはマトリックス] を選択します。<br><img src="/blog/mecm/20220419_01/20220419_01_08.png"></p>
 </li>
-<li><p>[新しいテーブル/マトリックス] ウィザードが表示されます。[データセットを作成する] のチェックのまま、次へ進みます。<br><img src="/blog/mecm/20220419_01/20220419_01_09.png"></p>
+<li><p>[新しいテーブル&#x2F;マトリックス] ウィザードが表示されます。[データセットを作成する] のチェックのまま、次へ進みます。<br><img src="/blog/mecm/20220419_01/20220419_01_09.png"></p>
 </li>
 <li><p>[データソース接続] については、既定のまま、次へ進みます。”データ ソースの資格情報の入力” ダイアログが表示された場合、[現在の Windows ユーザーを使用する] を選択して [OK] をクリックします。<br><img src="/blog/mecm/20220419_01/20220419_01_10.png"></p>
 </li>
 <li><p>[クエリのデザイン] 画面では、画面左上の [テキストとして編集] をクリックし、白紙個所に B で作成したクエリを張り付けます。実行ボタン [!] を押すことで、プレビューも可能です。<br><img src="/blog/mecm/20220419_01/20220419_01_11.png"></p>
 </li>
-<li><p> [フィールドの配置] 画面では、[使用できるフィールド] のすべてを、[値] にドラッグ ドロップします。<br><img src="/blog/mecm/20220419_01/20220419_01_12.png"></p>
+<li><p>[フィールドの配置] 画面では、[使用できるフィールド] のすべてを、[値] にドラッグ ドロップします。<br><img src="/blog/mecm/20220419_01/20220419_01_12.png"></p>
 </li>
 <li><p>[レイアウトの選択] 画面で、[次へ] をクリックします。<br><img src="/blog/mecm/20220419_01/20220419_01_13.png"></p>
 </li>
 <li><p>プレビューを確認して [完了] をクリックし、ウィザードを完了します。<br><img src="/blog/mecm/20220419_01/20220419_01_14.png"></p>
 </li>
-<li><p> Report Builder の最初の画面に戻ります。列幅やフォントなどレイアウトを任意で整えた後、[ファイル] - [保存] をクリックして閉じます。<br><img src="/blog/mecm/20220419_01/20220419_01_15.png"></p>
+<li><p>Report Builder の最初の画面に戻ります。列幅やフォントなどレイアウトを任意で整えた後、[ファイル] - [保存] をクリックして閉じます。<br><img src="/blog/mecm/20220419_01/20220419_01_15.png"></p>
 </li>
 </ol>
 <p>※ Report Builder 内の [実行] をクリックすることで、Report Builder 上で結果のプレビューを確認することもできます。<br><img src="/blog/mecm/20220419_01/20220419_01_16.png"></p>
@@ -198,7 +198,7 @@
 <p>このように、SQL Server に直接クエリするのではなく Configuration Managerのレポートから閲覧可能となります。<br>レポートごとにアクセス権を設定できる点や、様々な形式でエクスポート可能であることがメリットです。</p>
 <h2 id="補足-Configuration-Manager-データベースのクエリ作成の基礎知識"><a href="#補足-Configuration-Manager-データベースのクエリ作成の基礎知識" class="headerlink" title="補足: Configuration Manager データベースのクエリ作成の基礎知識"></a>補足: Configuration Manager データベースのクエリ作成の基礎知識</h2><p>カスタム クエリを作成いただくにあたって、知っておきたい Configuration Manager データベースの基礎知識は以下となります。</p>
 <ul>
-<li><p>はじめに、既存のレポートを色々と触ってみることをお奨めします。既存のレポートは様々な「よくある要望」を達成するため、用意されています。レポートの一覧は<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/list-of-reports">こちらの公開情報</a>にも掲載されておりますので、ご確認ください。</p>
+<li><p>はじめに、既存のレポートを色々と触ってみることをお奨めします。既存のレポートは様々な「よくある要望」を達成するため、用意されています。レポートの一覧は<a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/list-of-reports">こちらの公開情報</a>にも掲載されておりますので、ご確認ください。</p>
 </li>
 <li><p>カスタム レポートを作成すると決断した場合、手始めに、Configuration Manager の既存のレポートから、目的に類似したものをまずは見つけることをお奨めします。既存のレポートを [右クリック] - [編集] し Report Builder から見ることで、どのようなクエリを発行しているのか確認できます。<br>以下の画面ショットのように、[データセット] - [DataSet] のプロパティを表示し、クエリを確認します。<br>特に、”from” 句で、どのビューを参照・結合しているのかが分かれば、SQL データベースとにらめっこをしなくても、即座に見るべきビューのあたりをつけることができます。</p>
 </li>
@@ -211,12 +211,12 @@
 </ul>
 <p>インベントリにて、どのような情報が収集されているかについては、[リソース エクスプローラー] からご確認ください。<br>Configuration Manager コンソールの [資産とコンプライアンス] ワークスペースより、コレクションからマシン名を選択し、[開始] - [リソース エクスプローラー] を開始します。<br>画面左のツリーから一覧可能なカテゴリーは、すべて v_GS_&lt;カテゴリー名&gt; のビューに格納されています。</p>
 <p>上記のようなビューに関する情報は、以下の公開情報でもご案内しておりますので、こちらもどのビューを使用するか決定する際にお役立ていただければと思います。</p>
-<p>Title: SQL Serverマネージャーのビューを表示する<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/develop/core/understand/sqlviews/sql-server-views-configuration-manager">https://docs.microsoft.com/ja-jp/mem/configmgr/develop/core/understand/sqlviews/sql-server-views-configuration-manager</a></p>
+<p>Title: SQL Serverマネージャーのビューを表示する<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/develop/core/understand/sqlviews/sql-server-views-configuration-manager">https://docs.microsoft.com/ja-jp/mem/configmgr/develop/core/understand/sqlviews/sql-server-views-configuration-manager</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220419_01/" data-id="cmm9wwo75007s0nrq09qkfehs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220419_01/" data-id="cuid3TXZd70Qb1-gVMWr7msOP" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -258,6 +258,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -271,10 +275,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -323,9 +323,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

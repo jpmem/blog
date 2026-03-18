@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-07-28_01/2020-07-28_01_1.png">
 <meta property="article:published_time" content="2020-07-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.931Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.210Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,12 +123,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WebException: 基礎になる接続が閉じられました: 送信時に、予期しないエラーが発生しました。 ---&gt; System.IO.IOException: 転送接続からデータを読み取れません: 既存の接続はリモート ホストに強制的に切断されました。。</span><br></pre></td></tr></table></figure>
 
 <p><img src="/blog/wsus/2020-07-28_01/2020-07-28_01_1.png" alt="HTTPエラーが発生しました"></p>
-<h2 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h2><p>Windows Server 2012 / Windows Server 2012 R2 の WSUS サーバーで同期処理が上記エラー内容で失敗する。</p>
-<p>稀に成功することがあるが、ほとんどの場合で手動/自動にかかわらず失敗する。</p>
+<h2 id="事象"><a href="#事象" class="headerlink" title="事象"></a>事象</h2><p>Windows Server 2012 &#x2F; Windows Server 2012 R2 の WSUS サーバーで同期処理が上記エラー内容で失敗する。</p>
+<p>稀に成功することがあるが、ほとんどの場合で手動&#x2F;自動にかかわらず失敗する。</p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>調査の結果、本事象が報告されている WSUS サーバーはすべて TLS 1.0 で弊社サイトと通信しており、<br>弊社サイトにて TLS 1.0 の通信が許可されていないことにより、<br>TLS ネゴシエーションが正常に行われず同期処理も失敗する動作となります。</p>
 <h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><p>TLS 1.2 を用いて通信するように構成いただくことにより改善します。</p>
-<p>下記の公開情報に記載されているように、Windows Server 2012 / Windows Server 2012 R2 の WSUS サーバー<br>にそれぞれ下記のロールアップを適用することにより、TLS 1.2 通信させることが可能ですので、対象のロールアップ<br>をご適用ください。</p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/security/enable-tls-1-2-server#bkmk_wsus">Windows Server Update Services (WSUS) を更新する</a></p>
+<p>下記の公開情報に記載されているように、Windows Server 2012 &#x2F; Windows Server 2012 R2 の WSUS サーバー<br>にそれぞれ下記のロールアップを適用することにより、TLS 1.2 通信させることが可能ですので、対象のロールアップ<br>をご適用ください。</p>
+<p><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/security/enable-tls-1-2-server#bkmk_wsus">Windows Server Update Services (WSUS) を更新する</a></p>
 <p>(該当箇所抜粋)</p>
 <hr>
 <p>以前のバージョンの WSUS で TLS 1.2 をサポートするには、WSUS サーバーに次の更新プログラムをインストールします。</p>
@@ -138,13 +138,13 @@
 </ul>
 <p>Windows Server 2016以降、WSUS では TLS 1.2 が既定でサポートされています。 TLS 1.2 更新プログラムは、Windows Server 2012および R2 WSUS サーバー Windows Server 2012でのみ必要です。</p>
 <hr>
-<h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><p>WSUS サーバーのポート番号を既定の 8530/8531 番から 80 番に変更いただいている環境ではロールアップ更新プログラムの適用の注意事項として下記ブログにてご紹介している事象がございますのでご注意ください。</p>
-<p><a href="https://jpmem.github.io/blog/mecm/20200729_01/">Windows Server 2012 / 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について</a></p>
+<h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><p>WSUS サーバーのポート番号を既定の 8530&#x2F;8531 番から 80 番に変更いただいている環境ではロールアップ更新プログラムの適用の注意事項として下記ブログにてご紹介している事象がございますのでご注意ください。</p>
+<p><a href="https://jpmem.github.io/blog/mecm/20200729_01/">Windows Server 2012 &#x2F; 2012 R2 の WSUS へロールアップ を適用するとクライアントからの接続が失敗する事象について</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-28_01/" data-id="cmm9wwo5g00390nrqbrh1dhm1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-28_01/" data-id="cuideeIuAzNNQa_fO6CBZYBZ6" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -186,6 +186,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -199,10 +203,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -251,9 +251,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

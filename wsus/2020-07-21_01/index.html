@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-07-21_01/image-20210731021324032.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2020-07-21_01/image-20210731021339489.png">
 <meta property="article:published_time" content="2020-07-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.928Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.206Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -139,7 +139,7 @@
 </ul>
 <h2 id="メンテナンスの自動化"><a href="#メンテナンスの自動化" class="headerlink" title="メンテナンスの自動化"></a>メンテナンスの自動化</h2><p>それでは各メンテナンスを自動化する方法について、それぞれ紹介していきます。</p>
 <h3 id="SUSDB-のインデックス再構築をタスク-スケジューラから自動実行させる"><a href="#SUSDB-のインデックス再構築をタスク-スケジューラから自動実行させる" class="headerlink" title="SUSDB のインデックス再構築をタスク スケジューラから自動実行させる"></a>SUSDB のインデックス再構築をタスク スケジューラから自動実行させる</h3><ol>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/WsusDBMaintenance.sql">こちら</a>より、インデックスの SUSDB のインデックス再構築を行うスクリプトを入手し、WSUS サーバー上に保存します。(WsusDBMaintenance.sql 等)</p>
+<li><p><a href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/WsusDBMaintenance.sql">こちら</a>より、インデックスの SUSDB のインデックス再構築を行うスクリプトを入手し、WSUS サーバー上に保存します。(WsusDBMaintenance.sql 等)</p>
 </li>
 <li><p>スタート メニューより、タスク スケジューラを立ち上げます。</p>
 </li>
@@ -170,9 +170,11 @@
 <p>Windows Server 2012 以降の WSUS で WID を利用しており、全ての項目を実行する場合の指定例<br><code>Powershell -Command &quot;Invoke-WsusServerCleanup -CompressUpdates -CleanupObsoleteUpdates -CleanupObsoleteComputers -CleanupUnneededContentFiles -DeclineExpiredUpdates -DeclineSupersededUpdates&quot; &gt; C:\WSUS\wsusClean.txt</code><br>※ オプションとクリーンアップの各項目の対応については、<a href="https://jpmem.github.io/blog/wsus/2017-12-05_01/#%E5%8F%82%E8%80%83%E6%83%85%E5%A0%B1-%E5%AE%9A%E6%9C%9F%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E6%96%B9%E6%B3%95">こちらのブログの参考情報</a>を参照してください、</p>
 <ol>
 <li>インデックスの再構築の自動化の手順と同様にタスクの作成を完了 (上述の手順 6 ～ 7) させます。</li>
-<li>試しに作成したタスクを右クリックして [実行する] を選択して実行してみましょう。出力ファイルに以下のようにエラー等が出力されていなければ、正常に登録されています。<br>出来ています。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">削除された古い更新プログラム:0</span><br><span class="line">拒否された期限切れの更新プログラム: 0</span><br><span class="line">削除された古い更新プログラム:87</span><br><span class="line">圧縮された更新プログラム:0</span><br><span class="line">削除された古いコンピューター:0</span><br><span class="line">解放されたディスク領域:0</span><br></pre></td></tr></table></figure>
-<h3 id="不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる"><a href="#不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる" class="headerlink" title="不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる"></a>不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる</h3></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/Decline-SupersededUpdates.ps1">こちら</a> より、置き換えられた更新プログラムを「拒否済み」に設定するスクリプトを入手し、WSUS サーバー上に保存します。(Decline-SupersededUpdates.ps1 等)</li>
+<li>試しに作成したタスクを右クリックして [実行する] を選択して実行してみましょう。出力ファイルに以下のようにエラー等が出力されていなければ、正常に登録されています。<br>出来ています。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">削除された古い更新プログラム:0</span><br><span class="line">拒否された期限切れの更新プログラム: 0</span><br><span class="line">削除された古い更新プログラム:87</span><br><span class="line">圧縮された更新プログラム:0</span><br><span class="line">削除された古いコンピューター:0</span><br><span class="line">解放されたディスク領域:0</span><br></pre></td></tr></table></figure>
+<h3 id="不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる"><a href="#不要な更新プログラムの「拒否済み」設定をタスク-スケジューラから自動実行させる" class="headerlink" title="不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる"></a>不要な更新プログラムの「拒否済み」設定をタスク スケジューラから自動実行させる</h3><ol>
+<li><a href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/Decline-SupersededUpdates.ps1">こちら</a> より、置き換えられた更新プログラムを「拒否済み」に設定するスクリプトを入手し、WSUS サーバー上に保存します。(Decline-SupersededUpdates.ps1 等)</li>
 <li>インデックスの再構築の時と同様にタスク スケジューラを起動し、基本タスクの作成を行ない、不要な更新プログラムの「拒否済み」設定を実行するスケジュールを指定 (上述の手順 2 ~ 4) します。<br>※ こちらもインデックスの再構築やクリーンアップ ウィザードとはスケジュールが被らないよう、他のメンテナンスの実行開始の数時間後や別の日等を指定します。</li>
 <li>[プログラムの開始] を選択して、以下のようにスクリプトを指定します。本指定については、利用しているポート番号によって -Port 以降の指定を変更する必要があるので、ご注意ください。Windows Server 2012 以降の WSUS 環境は既定で 8530 となります。<br><code>powershell -ExecutionPolicy Unrestricted -Command &quot;C:\WSUS\Decline-SupersededUpdates.ps1 -UpdateServer localhost -Port 8530&quot;</code>  </li>
 <li>インデックスの再構築の自動化の手順と同様にタスクの作成を完了 (上述の手順 6 ～ 7) させます。</li>
@@ -182,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="cmm9wwo5g00370nrqcp0v1qn5" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-07-21_01/" data-id="cuidoaLN9T6dOQHuVmOENHv-Z" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -224,6 +226,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -237,10 +243,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -289,9 +291,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

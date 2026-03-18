@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/image1.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-16_01/image2.png">
 <meta property="article:published_time" content="2019-04-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.925Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.204Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -124,15 +124,15 @@
 <li>[自動更新を構成する]</li>
 </ol>
 <p>※ 今回ご案内する WSUS や Windows Update に関連するポリシーは、グループ ポリシー エディターの [コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [Windows Update] 配下に配置されています。</p>
-<p>なお、Windows 8 / Windows Server 2012 以降の OS にてグループ ポリシーを設定する場合の注意点につきまして、下記の記事にて紹介しております。Windows 8 / Windows Server 2012 以降の OS にてグループ ポリシーを設定される場合には、併せて下記の記事も参照してください。</p>
-<p>Title : WSUS クライアントのグループ ポリシー : その 2 – Windows 8 / Windows Server 2012 以降編<br>URL : <a href="https://jpmem.github.io/blog/wsus/2015-03-24_01/">https://jpmem.github.io/blog/wsus/2015-03-24_01/</a>  </p>
+<p>なお、Windows 8 &#x2F; Windows Server 2012 以降の OS にてグループ ポリシーを設定する場合の注意点につきまして、下記の記事にて紹介しております。Windows 8 &#x2F; Windows Server 2012 以降の OS にてグループ ポリシーを設定される場合には、併せて下記の記事も参照してください。</p>
+<p>Title : WSUS クライアントのグループ ポリシー : その 2 – Windows 8 &#x2F; Windows Server 2012 以降編<br>URL : <a href="https://jpmem.github.io/blog/wsus/2015-03-24_01/">https://jpmem.github.io/blog/wsus/2015-03-24_01/</a>  </p>
 <h2 id="1-イントラネットの-Microsoft-更新サービスの場所を指定する"><a href="#1-イントラネットの-Microsoft-更新サービスの場所を指定する" class="headerlink" title="1. [イントラネットの Microsoft 更新サービスの場所を指定する]"></a>1. [イントラネットの Microsoft 更新サービスの場所を指定する]</h2><p><img src="/blog/wsus/2019-04-16_01/image1.png"></p>
 <p>設定例 : WSUS サーバーから更新プログラムの配信を行う場合<br>——————————————————————————————<br>◆ 設定値 : [有効]<br>◆ オプション :<br> – 更新を検出するためのイントラネットの更新サービスを設定する : [&lt;WSUS サーバーの URL&gt;] ※<br> – イントラネット統計サーバーの設定 : [&lt;WSUS サーバーの URL&gt;] ※<br>——————————————————————————————<br>※ 本グループ ポリシーで指定する 2 つの URL は、必ず同一に設定する必要があります。</p>
 <p>※ Windows Server 2012 以降の WSUS では、既定で利用されるポート番号が 80、443 から 8530、8531 に変更されています。URL を指定する際はポート番号も併せて指定してください。</p>
-<p>[ポリシーの説明]<br>このグループ ポリシーを有効にすることで、クライアントが接続を行うサーバーを Windows Update / Microsoft Update のサーバーから、WSUS サーバーへ変更出来ます。</p>
+<p>[ポリシーの説明]<br>このグループ ポリシーを有効にすることで、クライアントが接続を行うサーバーを Windows Update &#x2F; Microsoft Update のサーバーから、WSUS サーバーへ変更出来ます。</p>
 <p>このため、WSUS サーバーをご利用いただく際には、必ずこのグループ ポリシーを “有効” に設定し、オプションの 2 箇所共に同じ WSUS サーバーの URL を指定してください。</p>
 <h2 id="2-自動更新を構成する"><a href="#2-自動更新を構成する" class="headerlink" title="2. [自動更新を構成する]"></a>2. [自動更新を構成する]</h2><p><img src="/blog/wsus/2019-04-16_01/image2.png"></p>
-<p>設定例 : 新たな更新プログラムの配信された場合は、自動ダウンロードしインストールを 3:00 に自動実行する場合<br>——————————————————————————————<br>◆ 設定値 : [有効]<br>◆ オプション :<br> – 自動更新の構成 : [4 – 自動ダウンロードしインストール日時を指定]<br> – 自動メンテナンス時にインストールする : [無効] ※<br> – インストールを実行する日 : [0 – 毎日]<br> – インストールを実行する時間 : [03:00]<br>——————————————————————————————<br>※ Windows 7 / Windows Server 2008 R2 以前の環境ではこの設定はありません。詳細は「WSUS をご利用いただく上で、よくご設定いただくグループ ポリシー : その 2 – Windows 8 / Windows Server 2012 以降編」を参照ください。</p>
+<p>設定例 : 新たな更新プログラムの配信された場合は、自動ダウンロードしインストールを 3:00 に自動実行する場合<br>——————————————————————————————<br>◆ 設定値 : [有効]<br>◆ オプション :<br> – 自動更新の構成 : [4 – 自動ダウンロードしインストール日時を指定]<br> – 自動メンテナンス時にインストールする : [無効] ※<br> – インストールを実行する日 : [0 – 毎日]<br> – インストールを実行する時間 : [03:00]<br>——————————————————————————————<br>※ Windows 7 &#x2F; Windows Server 2008 R2 以前の環境ではこの設定はありません。詳細は「WSUS をご利用いただく上で、よくご設定いただくグループ ポリシー : その 2 – Windows 8 &#x2F; Windows Server 2012 以降編」を参照ください。</p>
 <p>[ポリシーの説明]<br>このグループ ポリシーは、WSUS を利用する上で必須の設定ではありませんが、有効にすることで、更新プログラムのインストール処理を、自動実行することが出来る非常に便利なグループ ポリシーです。是非併せて設定いただくことをご検討ください。</p>
 <p>また、このグループ ポリシーのオプションにて、具体的に更新プログラムのインストール処理を「どの処理まで」自動的に実行させるかも、細かく制御することが出来ます。</p>
 <p>上述のオプションによって、Windows Update の動作がどのように制御出来るのか、正しく理解するために、まずは手動で Windows Update が実行された際にクライアント内でどのような処理が行われるのか、以下に説明します。</p>
@@ -140,7 +140,7 @@
 <p>A. 更新プログラムの検出<br>⇒ クライアントに新たに適用が必要な更新プログラムがあるかどうかの確認処理</p>
 <p>B. 更新プログラムのダウンロード<br>⇒ 「A」にて検出された更新プログラムのダウンロード処理</p>
 <p>C. 更新プログラムのインストール<br>⇒ 「B」にてダウンロードされた更新プログラムのインストール処理</p>
-<p>なお、上記の順番は、WSUS の設定に関係なく、Windows Update / Microsoft Update サイトに対して更新プログラムの確認を行うよう設定していても、同様の順番に処理されます。</p>
+<p>なお、上記の順番は、WSUS の設定に関係なく、Windows Update &#x2F; Microsoft Update サイトに対して更新プログラムの確認を行うよう設定していても、同様の順番に処理されます。</p>
 <h3 id="“自動更新の構成”-オプションの設定"><a href="#“自動更新の構成”-オプションの設定" class="headerlink" title="“自動更新の構成” オプションの設定"></a>“自動更新の構成” オプションの設定</h3><p>上記の動作を踏まえ、実際に “自動更新の構成” にて、どのように Windows Update の動作を制御出来るのかご説明します。“自動更新の構成” では、上述の A ～ C の「どの処理まで」自動的に実行するのか設定することが出来ます。具体的には、各設定を行うと下記のように Windows Update の動作が自動実行されます。</p>
 <p>[2 – ダウンロードとインストールを通知] :<br>⇒ A の処理は自動実行、B 以降の処理は手動実行</p>
 <p>・ [3 – 自動ダウンロードとインストールを通知]<br>⇒ B までの処理は自動実行、C 以降の処理は手動実行</p>
@@ -150,13 +150,13 @@
 <p>このように環境に併せて、細かく Windows Update の制御が出来るグループ ポリシーですので、ぜひ積極的にご活用ください。</p>
 <p>&lt;補足 : クライアントがドメインに参加していない場合&gt;<br>もちろん、ドメインに参加していないクライアントでも、ローカル グループ ポリシーやグループ ポリシーに対応するレジストリ値を変更することで、同様に WSUS をご利用いただけますので、是非ご参考にしてください。</p>
 <p>なお、グループポリシーの各項目とレジストリの値の対応関係につきましては、英語情報のみにて恐縮ですが、以下の公開情報がございますのでご紹介します。</p>
-<p>WSUS 3.0 SP2 の展開ガイド<br>” Configure Clients in a Non-Active Directory Environment”<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx</a><br>なお、下記の日本語版はすでにサポートを終了した前製品：WSUS 2.0 の情報ですが、多くの部分は WSUS 3.0 SP2 にも該当しますので、ご参考までに付記します。</p>
-<p>WSUS 2.0 の展開ガイド<br>“Active Directory 以外の環境で自動更新を構成する”<br><a target="_blank" rel="noopener" href="http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx</a></p>
+<p>WSUS 3.0 SP2 の展開ガイド<br>” Configure Clients in a Non-Active Directory Environment”<br><a href="http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/dd939844(v=ws.10).aspx</a><br>なお、下記の日本語版はすでにサポートを終了した前製品：WSUS 2.0 の情報ですが、多くの部分は WSUS 3.0 SP2 にも該当しますので、ご参考までに付記します。</p>
+<p>WSUS 2.0 の展開ガイド<br>“Active Directory 以外の環境で自動更新を構成する”<br><a href="http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx">http://technet.microsoft.com/ja-jp/library/cc708449(v=ws.10).aspx</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cmm9wwo5b002x0nrq7xty7vsz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cuidTHAkhxIY-vKBYcNJE74gg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -198,6 +198,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -211,10 +215,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -263,9 +263,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

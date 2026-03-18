@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230220_01/2023-02-20-11-08-38.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230220_01/2023-02-20-11-10-23.png">
 <meta property="article:published_time" content="2023-02-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.820Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.108Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -131,7 +131,7 @@
 <ol>
 <li>[コンピューターの構成] - [管理用テンプレート] - [Windows Update] - [Windows Update のすべての機能へのアクセスを削除する]<br>※ [更新プログラムのチェック] ボタンもクリックできなくなります。</li>
 <li>[コンピューターの構成] - [管理用テンプレート] - [Windows Update] - [インターネット上の Windows Update に接続しない]  </li>
-<li>[コンピューターの構成] - [管理用テンプレート] - [システム] - [インターネット通信の管理] - [インターネット通信の設定]- [Windows Update のすべての機能へのアクセスをオフにする]  </li>
+<li>[コンピューターの構成] - [管理用テンプレート] - [システム] - [インターネット通信の管理] - [インターネット通信の設定]- [Windows Update のすべての機能へのアクセスをオフにする]</li>
 </ol>
 <p>上記のうち [インターネット上の Windows Update に接続しない] ポリシーはインターネットから更新プログラムを取得することを禁止しますが、Microsoft ストア アプリの更新もブロックされます。<br>そのため、インターネットから更新プログラムを取得することは禁止したいが、ストア アプリの更新は行いたい場合、[Windows Update のすべての機能へのアクセスをオフにする] ポリシーを有効にしてください。  </p>
 <h3 id="2-イントラネットの-Microsoft-更新サービスの場所を指定する-ポリシーが-“未構成”-となっている。"><a href="#2-イントラネットの-Microsoft-更新サービスの場所を指定する-ポリシーが-“未構成”-となっている。" class="headerlink" title="2. [イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーが “未構成” となっている。"></a>2. [イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーが “未構成” となっている。</h3><h4 id="要因-1"><a href="#要因-1" class="headerlink" title="要因"></a>要因</h4><p>通常、Configuration Manager（ソフトウェア更新ポイントの機能を使用している場合）クライアントであれば、以下のポリシーが “有効” になっており、WSUS サーバーが入力されています。  </p>
@@ -140,7 +140,7 @@
 <p>しかし、何らかの要因により上記ポリシーがリセットされ、”未構成” となってしまっている場合は WSUS サーバーに更新プログラムをチェックしに行かず、Microsoft Update に対して更新プログラムをチェックしに行くため、意図していない OS のアップグレードが行われる可能性がございます。<br>今までは Configuration Manager で更新プログラムの管理ができており、特段何もしていないにも関わらず上記ポリシーが “未構成” になってしまった場合には個別の調査が必要でございますので、弊社サポートへのお問い合わせをご検討いただけますと幸いです。  </p>
 <h4 id="対処策-1"><a href="#対処策-1" class="headerlink" title="対処策"></a>対処策</h4><p>一時的な対処としては以下のポリシーを “無効” とすることで、クライアント端末が自動で Windows Update が実行されることを無効にすることができます。  </p>
 <p>[コンピューターの構成] - [管理用テンプレート] - [Windows Update] - [自動更新を構成する]  </p>
-<p>[自動更新を構成する] ポリシーを “無効” にしても、手動で [更新プログラムのチェック] を行うことは可能なため、上述の [Windows Update のすべての機能へのアクセスを削除する] ポリシーと合わせて適用することで、自動 / 手動ともに Windows Update が実行されなくなりますので、ご検討ください。  </p>
+<p>[自動更新を構成する] ポリシーを “無効” にしても、手動で [更新プログラムのチェック] を行うことは可能なため、上述の [Windows Update のすべての機能へのアクセスを削除する] ポリシーと合わせて適用することで、自動 &#x2F; 手動ともに Windows Update が実行されなくなりますので、ご検討ください。  </p>
 <p>ただし、ソフトウェア更新プログラムを Configuration Manager で管理しているクライアントにおいて、 [イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーが “未構成” であることは本来あるべき状態ではございません。<br>根本解決のためにはトラブルシューティングが必要のため、弊社サポートへのお問い合わせをご検討ください。  </p>
 <h4 id="補足事項"><a href="#補足事項" class="headerlink" title="補足事項"></a>補足事項</h4><p>今回は Configuration Manager 環境のクライアントについて記載いたしましたが、WSUS 環境のクライアントでも以下 3 つのポリシーを “有効” とすることで、意図せずにインターネットから機能更新プログラムを取得し、OS のアップグレードが行われることを阻止できますので、貴社環境の運用に合わせて適用ください。  </p>
 <ul>
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230220_01/" data-id="cmm9wwo7g008u0nrq75pigjcj" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230220_01/" data-id="cuidw8ZgBjN94o0DT8WxKJ25x" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -194,6 +194,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -207,10 +211,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -259,9 +259,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

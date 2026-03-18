@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-02-11_01/2016-02-11-01/2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-02-11_01/2016-02-11-01/4.png">
 <meta property="article:published_time" content="2016-02-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.895Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.178Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,7 +123,7 @@
 <p><strong>ただし、WSUS 管理者が WSUS 管理コンソールで配信準備をしない限り、Windows 10 のアップグレードが自動的に配信されることはありません</strong>ので、ご安心ください。WSUS サーバーから Windows 10 のアップグレードを配信するためには、今回ご紹介する条件を満たすよう事前に WSUS サーバーの準備をしていただく必要があります。Windows 7 や Windows 8.1 の環境を、そのまま利用したい場合や Windows 10 の環境に機能アップグレードを配信したくない場合には、特に WSUS サーバーに追加の設定は必要ありません。</p>
 <p>なお、Windows 7、Windows 8.1 の環境に対して WSUS サーバーから Windows 10 へのアップグレードが自動的に配信されないことについては、下記の公開情報でもご紹介しております。</p>
 <ul>
-<li>How to manage Windows 10 notification and upgrade options<br>&lt; <a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/kb/3080351">https://support.microsoft.com/en-us/kb/3080351</a> &gt;</li>
+<li>How to manage Windows 10 notification and upgrade options<br>&lt; <a href="https://support.microsoft.com/en-us/kb/3080351">https://support.microsoft.com/en-us/kb/3080351</a> &gt;</li>
 </ul>
 <p>———- 一部抜粋 ———-</p>
 <p>The Windows 10 upgrade is automatically blocked (that is, no further action is required) on computers or other devices in the following scenarios:</p>
@@ -131,31 +131,35 @@
 <p>———- 一部抜粋 ———-</p>
 <p>また、Windows 7、Windows 8.1 の Windows Update を利用している環境にて、Windows 10 へのアップグレードの配信を抑止する方法については下記のブログをご参照ください。WSUS を利用している環境でも下記の方法を実施いただくと、ユーザーが誤って Windows Update に接続してしまった場合に Windows 10 へアップグレードされることを抑止可能であるため、より確実にアップグレードを阻止することが出来ます。</p>
 <ul>
-<li>[企業ユーザー向け] Windows Update からの Windows 10 への無償アップグレードを管理する方法<br>&lt; <a target="_blank" rel="noopener" href="https://blogs.technet.com/b/askcorejp/archive/2015/07/23/windows-update-windows-10-1.aspx">https://blogs.technet.com/b/askcorejp/archive/2015/07/23/windows-update-windows-10-1.aspx</a> &gt;<br></li>
+<li>[企業ユーザー向け] Windows Update からの Windows 10 への無償アップグレードを管理する方法<br>&lt; <a href="https://blogs.technet.com/b/askcorejp/archive/2015/07/23/windows-update-windows-10-1.aspx">https://blogs.technet.com/b/askcorejp/archive/2015/07/23/windows-update-windows-10-1.aspx</a> &gt;</li>
 </ul>
+<br>
+
 <h2 id="WSUS-サーバーから-Windows-10-のアップグレードを配信するために必要な条件"><a href="#WSUS-サーバーから-Windows-10-のアップグレードを配信するために必要な条件" class="headerlink" title="WSUS サーバーから Windows 10 のアップグレードを配信するために必要な条件"></a>WSUS サーバーから Windows 10 のアップグレードを配信するために必要な条件</h2><p>WSUS サーバーから Windows 10 のアップグレードを配信するためには、下記の 5 つの条件をすべてを満たしている必要があります。</p>
 <br>
 
 <h3 id="条件1-Windows-Server-2012-以降の-WSUS-サーバーを利用していること"><a href="#条件1-Windows-Server-2012-以降の-WSUS-サーバーを利用していること" class="headerlink" title="条件1. Windows Server 2012 以降の WSUS サーバーを利用していること"></a>条件1. Windows Server 2012 以降の WSUS サーバーを利用していること</h3><br>
 
-<h3 id="条件2-最新のマンスリー品質ロールアップが-WSUS-サーバーに適用済みであること"><a href="#条件2-最新のマンスリー品質ロールアップが-WSUS-サーバーに適用済みであること" class="headerlink" title="条件2. 最新のマンスリー品質ロールアップが WSUS サーバーに適用済みであること"></a>条件2. 最新のマンスリー品質ロールアップが WSUS サーバーに適用済みであること</h3><p><strong>（※ Windows Server 2012 / 2012 R2のみ。Windows Server 2016 WSUS は適用不要）</strong><br>※  最新のロールアップ適用後に <strong>更新内容を反映させるためには、適用後に手動手順が必要となります。</strong> 詳しくはこちらの記事 &lt; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/kb3159706">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/kb3159706</a> &gt; をご参照ください。</p>
-<p>機能アップグレードを配信する場合には、WSUS の修正を含む最新のロールアップを適用していただくことをおすすめしております。WSUS サーバーのバージョンについては、こちらの記事 &lt; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-18">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-18</a> &gt; をご覧ください。<br><br></p>
-<h3 id="条件3-WSUSのオプション「製品と分類」にて、製品として「Windows-10」、分類として「Upgrades」が同期対象として選択されていること"><a href="#条件3-WSUSのオプション「製品と分類」にて、製品として「Windows-10」、分類として「Upgrades」が同期対象として選択されていること" class="headerlink" title="条件3.WSUSのオプション「製品と分類」にて、製品として「Windows 10」、分類として「Upgrades」が同期対象として選択されていること"></a>条件3.WSUSのオプション「製品と分類」にて、製品として「Windows 10」、分類として「Upgrades」が同期対象として選択されていること</h3><p><strong>※ 「Upgrades」の分類を選択する前に、必ず条件 2.を満たしてください。 （Windows Server 2012 / 2012 R2 のみ）<br>パッチ適用前にUpgradesの更新プログラムをWSUSに同期してしまいますと、補足３（ページ下部記載）の事象が発生いたします。</strong></p>
+<h3 id="条件2-最新のマンスリー品質ロールアップが-WSUS-サーバーに適用済みであること"><a href="#条件2-最新のマンスリー品質ロールアップが-WSUS-サーバーに適用済みであること" class="headerlink" title="条件2. 最新のマンスリー品質ロールアップが WSUS サーバーに適用済みであること"></a>条件2. 最新のマンスリー品質ロールアップが WSUS サーバーに適用済みであること</h3><p><strong>（※ Windows Server 2012 &#x2F; 2012 R2のみ。Windows Server 2016 WSUS は適用不要）</strong><br>※  最新のロールアップ適用後に <strong>更新内容を反映させるためには、適用後に手動手順が必要となります。</strong> 詳しくはこちらの記事 &lt; <a href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/kb3159706">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/kb3159706</a> &gt; をご参照ください。</p>
+<p>機能アップグレードを配信する場合には、WSUS の修正を含む最新のロールアップを適用していただくことをおすすめしております。WSUS サーバーのバージョンについては、こちらの記事 &lt; <a href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-18">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-18</a> &gt; をご覧ください。<br><br></p>
+<h3 id="条件3-WSUSのオプション「製品と分類」にて、製品として「Windows-10」、分類として「Upgrades」が同期対象として選択されていること"><a href="#条件3-WSUSのオプション「製品と分類」にて、製品として「Windows-10」、分類として「Upgrades」が同期対象として選択されていること" class="headerlink" title="条件3.WSUSのオプション「製品と分類」にて、製品として「Windows 10」、分類として「Upgrades」が同期対象として選択されていること"></a>条件3.WSUSのオプション「製品と分類」にて、製品として「Windows 10」、分類として「Upgrades」が同期対象として選択されていること</h3><p><strong>※ 「Upgrades」の分類を選択する前に、必ず条件 2.を満たしてください。 （Windows Server 2012 &#x2F; 2012 R2 のみ）<br>パッチ適用前にUpgradesの更新プログラムをWSUSに同期してしまいますと、補足３（ページ下部記載）の事象が発生いたします。</strong></p>
 <p><img src="./2016-02-11-01/1.png" alt="image.png"><br><br></p>
-<h3 id="条件４．WSUS-が動作する-IIS-の-Web-サイト配下の「Content」にて、-Windows-10-へのアップグレードに用いられる「-esd」形式のファイルの配信を許可する設定を追加していること"><a href="#条件４．WSUS-が動作する-IIS-の-Web-サイト配下の「Content」にて、-Windows-10-へのアップグレードに用いられる「-esd」形式のファイルの配信を許可する設定を追加していること" class="headerlink" title="条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること"></a>条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること</h3><p><strong>（※ Windows Server 2012 / 2012 R2のみ。Windows Server 2016 WSUS は既定で追加済み。）</strong></p>
+<h3 id="条件４．WSUS-が動作する-IIS-の-Web-サイト配下の「Content」にて、-Windows-10-へのアップグレードに用いられる「-esd」形式のファイルの配信を許可する設定を追加していること"><a href="#条件４．WSUS-が動作する-IIS-の-Web-サイト配下の「Content」にて、-Windows-10-へのアップグレードに用いられる「-esd」形式のファイルの配信を許可する設定を追加していること" class="headerlink" title="条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること"></a>条件４．WSUS が動作する IIS の Web サイト配下の「Content」にて、 Windows 10 へのアップグレードに用いられる「.esd」形式のファイルの配信を許可する設定を追加していること</h3><p><strong>（※ Windows Server 2012 &#x2F; 2012 R2のみ。Windows Server 2016 WSUS は既定で追加済み。）</strong></p>
 <p><img src="./2016-02-11-01/2.png" alt="image.png"><br><br></p>
 <h3 id="条件5-「Upgrades」に分類されている-Windows-10-のアップグレード用の更新プログラムが-WSUS-でインストール承認されていること"><a href="#条件5-「Upgrades」に分類されている-Windows-10-のアップグレード用の更新プログラムが-WSUS-でインストール承認されていること" class="headerlink" title="条件5. 「Upgrades」に分類されている Windows 10 のアップグレード用の更新プログラムが WSUS でインストール承認されていること"></a>条件5. 「Upgrades」に分類されている Windows 10 のアップグレード用の更新プログラムが WSUS でインストール承認されていること</h3><br>
 
 <p><img src="./2016-02-11-01/4.png" alt="image.png"><br><br></p>
 <p><strong>( 補足 1  : 2016 年 5 月以降に WSUS へ公開された機能アップグレードを配信する場合 )</strong><br>2016 年 5 月以降に WSUS へ公開された機能アップグレードを配信する場合には、WSUS の様々な修正を含む最新のロールアップを適用することをおすすめしております。また、適用を完了させるためには、<strong>更新プログラムの適用後に、手動で手順を実施する必要がある</strong>ので、適用される前に下記ブログにて紹介している内容や手順をご確認ください。<br><br></p>
 <ul>
-<li>Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 について</li>
+<li>Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 について</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpwsus/2016/05/26/kb3159706/">https://blogs.technet.microsoft.com/jpwsus/2016/05/26/kb3159706/</a><br><br></p>
-<p><strong>( 補足 2  : アップグレードの配信を受けるために WSUS クライアント Windows 7 / Windows 8.1 にて必要な条件 )</strong><br>WSUS サーバーから配信される Windows 10 へのアップグレードを受けるためには、Windows 7 / Windows 8.1 の WSUS クライアントでは下記の 2 つの条件を満たしている必要があります。<br><br></p>
+<p><a href="https://blogs.technet.microsoft.com/jpwsus/2016/05/26/kb3159706/">https://blogs.technet.microsoft.com/jpwsus/2016/05/26/kb3159706/</a><br><br></p>
+<p><strong>( 補足 2  : アップグレードの配信を受けるために WSUS クライアント Windows 7 &#x2F; Windows 8.1 にて必要な条件 )</strong><br>WSUS サーバーから配信される Windows 10 へのアップグレードを受けるためには、Windows 7 &#x2F; Windows 8.1 の WSUS クライアントでは下記の 2 つの条件を満たしている必要があります。<br><br></p>
 <ol>
-<li>下記レジストリ値が追加されていること<br></li>
+<li>下記レジストリ値が追加されていること</li>
 </ol>
+<br>
+
 <p>レジストリキー： HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\OSUpgrade</p>
 <p>値 : AllowOSUpgrade（DWORD）1<br><br></p>
 <ol start="2">
@@ -165,20 +169,20 @@
 <ul>
 <li>「Windows Update がなかなか終わらないな…」と思ったら</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/jpwsus/2016/04/26/never-end-wu/">https://blogs.technet.microsoft.com/jpwsus/2016/04/26/never-end-wu/</a><br><br></p>
+<p><a href="https://blogs.technet.microsoft.com/jpwsus/2016/04/26/never-end-wu/">https://blogs.technet.microsoft.com/jpwsus/2016/04/26/never-end-wu/</a><br><br></p>
 <p><strong>( 補足 3  : アップグレード時に 0xc1800118 もしくは 0x8000FFFF が発生する)</strong><br>WSUS へ更新プログラムを適用する前に、機能アップグレードを同期してしまうと、クライアントへの配信時に 0xc1800118 もしくは 0x8000FFFF が発生する事象が報告されています。</p>
 <p>本事象が発生した場合には、下記の公開情報に記載の手順を実施することで対処出来ます。<br><br></p>
 <ul>
 <li>WSUS を使用して Windows 10 バージョン 1607 をプッシュするときに”0xc1800118”エラー</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/3194588/-0xc1800118-error-when-you-push-windows-10-version-1607-by-using-wsus">https://support.microsoft.com/ja-jp/help/3194588/-0xc1800118-error-when-you-push-windows-10-version-1607-by-using-wsus</a><br><br></p>
-<p>また、上記の対処を実施すためには SQL Server Management Studio のインストールが必要です。インストールされていない場合には、このブログ &lt; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-windows-server-2012">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-windows-server-2012</a> &gt; を参照してください。<br><br></p>
+<p><a href="https://support.microsoft.com/ja-jp/help/3194588/-0xc1800118-error-when-you-push-windows-10-version-1607-by-using-wsus">https://support.microsoft.com/ja-jp/help/3194588/-0xc1800118-error-when-you-push-windows-10-version-1607-by-using-wsus</a><br><br></p>
+<p>また、上記の対処を実施すためには SQL Server Management Studio のインストールが必要です。インストールされていない場合には、このブログ &lt; <a href="https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-windows-server-2012">https://learn.microsoft.com/en-us/archive/blogs/jpwsus/wsus-windows-server-2012</a> &gt; を参照してください。<br><br></p>
 <p><strong>( 補足 4  : 機能更新プログラムのバージョン飛ばしでの適用について )</strong><br>機能更新プログラムについては、1 つずつバージョンを適用していただく必要はありませんので、バージョン飛ばしで適用 (バージョン 1607 の環境にバージョン 1803 の機能更新プログラムを適用しアップグレード等) をしていただいても問題ございません。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-02-11_01/" data-id="cmm9wwo4j00160nrq5n5y0u4u" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2016-02-11_01/" data-id="cuid4_R0UmFLYRbsD9GqxYZua" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -220,6 +224,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -233,10 +241,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -285,9 +289,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

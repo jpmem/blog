@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。WSUS サポート チームです。   今回は、インデックスの再構成の手順をご紹介いたします。 WSUS サーバー自身には、データベースのインデックスをメンテナンスする機能が含まれていません。運用継続に伴ってデータベースのパフォーマンスが劣化する可能性があります。例えば WSUS サーバーを運用するにあたり、定期的にクリーンアップ ウィザードを実施していただくことを推奨しておりますが、今">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2014-03-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.887Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.170Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,7 +119,7 @@
 <p>WSUS サーバー自身には、データベースのインデックスをメンテナンスする機能が含まれていません。運用継続に伴ってデータベースのパフォーマンスが劣化する可能性があります。例えば WSUS サーバーを運用するにあたり、定期的にクリーンアップ ウィザードを実施していただくことを推奨しておりますが、今まで、定期的にクリーンアップ ウィザードを実施していない場合は、クリーンアップ処理に数時間を要することもあります。処理完了までの時間を少しでも削減するために、まずはインデックスの再構成を行ってください。</p>
 <p>このメンテナンス用スクリプトが公開されていますので、これを利用し定期的にインデックスの再構成を実施いただくことをお勧めします。<br>インデックスの再構成を行う手順は下記のとおりとなります。</p>
 <h2 id="作業概要"><a href="#作業概要" class="headerlink" title="作業概要"></a>作業概要</h2><p>WSUS のデータベースである SUSDB に対して、下記からダウンロードした WSUS データベース メンテナンス用の SQL クエリを実行します。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/WsusDBMaintenance.sql">WsusDBMaintenance.sql</a></p>
+<p><a href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/WsusDBMaintenance.sql">WsusDBMaintenance.sql</a></p>
 <p><strong>注意</strong><br>スクリプトは WSUS サーバー上で実行してください。<br>WSUS サーバーを親子構成している場合は、親子両方の WSUS サーバー上で実行してください。<br>sqlcmd を用いてスクリプトを実行する場合には、「-I」オプションを設定し、”QUOTED_IDENTIFIER” を ON としてください。  </p>
 <h2 id="作業手順"><a href="#作業手順" class="headerlink" title="作業手順"></a>作業手順</h2><p>WSUS に使用するデータベースには、SQL Server もしくは Windows Internal Database (WID) を選択できます。<br>ご利用いただいているデータベースにあわせて、以下の作業を実施してください。</p>
 <p>どちらのデータベースを現在利用しているかにつきましては、WSUS サーバーの以下のレジストリから判断できます。</p>
@@ -132,7 +132,7 @@
 <li>クエリ画面内に、上述の WSUS データベース メンテナンス用スクリプトをコピーペーストして実行します。データベースの最適化が終了すると “Statistics for all tables have been updated” または “全テーブルの統計が更新されました” というメッセージが表示されます。</li>
 </ol>
 <h3 id="WID-を使用している場合"><a href="#WID-を使用している場合" class="headerlink" title="WID を使用している場合"></a>WID を使用している場合</h3><p>SQL Server Management Studio を下記よりダウンロード、インストールしてから、上述の SQL Server の場合と同じ要領で実行します。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#available-languages">SQL Server Management Studio (SSMS) のダウンロード</a></p>
+<p><a href="https://docs.microsoft.com/ja-jp/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#available-languages">SQL Server Management Studio (SSMS) のダウンロード</a></p>
 <p>日本語版の SSMS をインストールしたい場合、上記 Web サイト内の [日本語] のリンクをクリックすると、日本語版のダウンロードが始まります。ファイル名は、”SSMS-Setup-JPN.exe” です。<br>ダウンロードができたら、SQL Server Management Studio をインストールします。インストール後、再起動が求められることがありますので、その際は OS 再起動を実施してください。</p>
 <ol>
 <li>SQL Server Management Studio を右クリックして [管理者として実行] にて起動し、WSUS データベースが動作しているインスタンスに接続します。</li>
@@ -148,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2014-03-05_01/" data-id="cmm9wwo4e000s0nrq9hmnherq" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2014-03-05_01/" data-id="cuiddGRH9JFhWatuR-ljGfEov" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -190,6 +190,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -203,10 +207,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -255,9 +255,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

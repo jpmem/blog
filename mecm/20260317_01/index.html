@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Configuration Manager におけるクライアントからの情報収集の仕組み | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、パフォーマンスへの影響も大きい部分となりますので、設定および運用設計の参考にしていただければと存じます。 概要ConfigMg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager におけるクライアントからの情報収集の仕組み">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260317_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、パフォーマンスへの影響も大きい部分となりますので、設定および運用設計の参考にしていただければと存じます。 概要ConfigMg">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260317_01/20260317_01_01.png">
+<meta property="article:published_time" content="2026-03-16T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.166Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20260317_01/20260317_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260317_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-03-16T15:00:00.000Z" itemprop="datePublished">2026-03-17</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager におけるクライアントからの情報収集の仕組み
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-03-16T15:00:00.000Z" itemprop="dateUpdated">2026-03-17</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、パフォーマンスへの影響も大きい部分となりますので、設定および運用設計の参考にしていただければと存じます。</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>ConfigMgr の情報収集の全体的な流れは以下の通りです。ConfigMgr は定期的もしくは必要に応じて、管理ポイントに対して HTTP&#x2F;HTTPS 通信で情報をアップロードします。管理ポイントはその内容を自身の Outbox フォルダーに格納し、ファイル共有の仕組みを介して、定期的にサイト サーバーの Inbox フォルダーに移動します。サイト サーバーは Inbox フォルダーのファイルの存在を検知すると、その内容を解釈し、SQL 命令に変換してサイト データベース内の SQL Server に書き込みます。</p>
+<p>管理ポイント、サイト サーバーには、1 クライアントにつき、情報の種類ごと、情報収集のタイミングごとに 1 つのファイルが生成されます。</p>
+<p><img src="/blog/mecm/20260317_01/20260317_01_01.png" alt="Outline"></p>
+<p>なお、Inbox と Outbox はサーバー間の通知処理でも使われます。</p>
+<h2 id="フォルダーの場所"><a href="#フォルダーの場所" class="headerlink" title="フォルダーの場所"></a>フォルダーの場所</h2><p>サイト サーバーの Inbox フォルダーは ConfigMgr のインストール フォルダー配下です。</p>
+<ul>
+<li>[ConfigMgr インストール フォルダー]\inboxes</li>
+</ul>
+<p>管理ポイントの Outbox フォルダーは、以下の通りです。</p>
+<ul>
+<li>サイト サーバーと同居している場合:<ul>
+<li>[ConfigMgr インストール フォルダー]\MP\outboxes</li>
+</ul>
+</li>
+<li>サイト サーバーと別居している（リモート管理ポイント）場合:<ul>
+<li>[ドライブルート]\SMS\MP\OUTBOXES</li>
+</ul>
+</li>
+</ul>
+<h2 id="情報収集の代表例"><a href="#情報収集の代表例" class="headerlink" title="情報収集の代表例"></a>情報収集の代表例</h2><p>上記仕組みを用いる代表例は以下の通りです。この他にもございます。</p>
+<ul>
+<li>クライアント登録</li>
+<li>クライアント通知</li>
+<li>探索情報</li>
+<li>インベントリ <ul>
+<li>ハードウェア</li>
+<li>ソフトウェア</li>
+</ul>
+</li>
+<li>ステータス メッセージ</li>
+<li>状態メッセージ</li>
+</ul>
+<h2 id="モニタリングの方法"><a href="#モニタリングの方法" class="headerlink" title="モニタリングの方法"></a>モニタリングの方法</h2><p>ある時点での Inbox と Outbox に格納されているファイル個数を見ることで、処理に滞留が発生していないかを判断できます。</p>
+<h3 id="ログからの確認"><a href="#ログからの確認" class="headerlink" title="ログからの確認"></a>ログからの確認</h3><ul>
+<li>Inbox<ul>
+<li>[ConfigMgr インストール フォルダー]\Logs\inboxmon.log <ul>
+<li>15 分に 1 回、Inbox 内に存在するファイル個数が出力される</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Outbox<ul>
+<li>サイト サーバーと同居している場合:<ul>
+<li>[ConfigMgr インストール フォルダー]\Logs\outboxmon.log</li>
+</ul>
+</li>
+<li>サイト サーバーと別居している（リモート管理ポイント）場合:<ul>
+<li>[ドライブルート]\SMS\logs\outboxmon.log</li>
+</ul>
+</li>
+<li>15 分に 1 回、Outbox 内に存在するファイル個数が出力される</li>
+</ul>
+</li>
+</ul>
+<h2 id="パフォーマンスに与える影響"><a href="#パフォーマンスに与える影響" class="headerlink" title="パフォーマンスに与える影響"></a>パフォーマンスに与える影響</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">弊社サポートではサイジング、チューニングに関するお問い合わせに関しましては公開情報のご案内までとなります。お客様固有のワークロード、ユースケース、環境固有の条件等、種々の状況に合わせたお問い合わせに関してはご対応いたしませんので予めご容赦くださいますようお願いいたします。</span><br></pre></td></tr></table></figure>
+
+<p>クライアントから収集する情報のサイズはそれほど大きくはありませんが、ConfigMgr は非常に多くのクライアントから情報収集を行うので、その処理負荷は非常に大きなものとなります。</p>
+<h3 id="負荷を増大する要素"><a href="#負荷を増大する要素" class="headerlink" title="負荷を増大する要素"></a>負荷を増大する要素</h3><p>負荷を増大する要素は以下となります。</p>
+<ul>
+<li>データ収集サイズ</li>
+<li>データ収集するクライアント台数</li>
+<li>データ収集間隔</li>
+</ul>
+<h4 id="データ収集サイズ"><a href="#データ収集サイズ" class="headerlink" title="データ収集サイズ"></a>データ収集サイズ</h4><p>インベントリ系の情報収集の場合、設定によって収集する情報量が異なります。多くのシナリオで、アプリケーション情報やストアアプリ情報は大幅に情報量を増加させる傾向があります。</p>
+<p>また、インベントリや状態メッセージは通常時は前回との差分転送が行われますが、ネットワーク遅延などで転送に失敗すると、次回の転送はフル転送となります。</p>
+<h4 id="データ収集するクライアント台数"><a href="#データ収集するクライアント台数" class="headerlink" title="データ収集するクライアント台数"></a>データ収集するクライアント台数</h4><p>管理台数が多ければ多いほど、当然、収集されるデータ量も多くなります。</p>
+<h4 id="データ収集間隔"><a href="#データ収集間隔" class="headerlink" title="データ収集間隔"></a>データ収集間隔</h4><p>データ収集間隔が短くなれば短くなるほど、負荷が増加します。<br>データ収集間隔の設定方法及び、デフォルト間隔は以下の通りです。</p>
+<table>
+<thead>
+<tr>
+<th align="right">#</th>
+<th align="left">項目</th>
+<th align="left">デフォルト間隔</th>
+<th align="left">設定箇所</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td align="left">探索情報</td>
+<td align="left">7 日に 1 回</td>
+<td align="left">[管理] - [階層の構成] - [探索方法] - [定期探索] - [プロパティ]</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">ハードウェア インベントリ</td>
+<td align="left">7 日に 1 回</td>
+<td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [ハードウェア インベントリ] - [ハードウェア インベントリのスケジュール]</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">ソフトウェア インベントリ</td>
+<td align="left">7 日に 1 回</td>
+<td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [ソフトウェア インベントリ] - [[ソフトウェア インベントリおよびファイル収集をスケジュールする]</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">状態メッセージ</td>
+<td align="left">15 分に 1 回</td>
+<td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [状態メッセージ] - [状態メッセージのレポート サイクル (分) ]</td>
+</tr>
+</tbody></table>
+<h3 id="データ処理速度に影響を与える要素"><a href="#データ処理速度に影響を与える要素" class="headerlink" title="データ処理速度に影響を与える要素"></a>データ処理速度に影響を与える要素</h3><p>データ処理速度に影響を与える主な要素は以下となります。</p>
+<ul>
+<li>サイト サーバーのストレージ性能</li>
+<li>サイト サーバー &#x2F; 管理ポイント間の通信遅延</li>
+</ul>
+<h4 id="サイト-サーバーのストレージ性能"><a href="#サイト-サーバーのストレージ性能" class="headerlink" title="サイト サーバーのストレージ性能"></a>サイト サーバーのストレージ性能</h4><p>以下のガイダンスに、クライアントの管理台数ごとに Inbox や SQL サーバーにおおよそ必要とされる IOPS 値が記載されています。<br>2026&#x2F;3&#x2F;17 時点で確認できる値を用いると、例えば、1 台のサーバーにプライマリ サイト サーバーとサイト データベースを同居させる環境の場合で、25,000 台以下の端末を管理させる場合、Inbox を配置する論理ドライブでは 600、データベース ファイルを配置する論理ドライブでは 1,700 の IOPS が必要とされます。</p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#general-sizing-guidelines">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#general-sizing-guidelines</a></p>
+<p>この時、例えばハードウェア インベントリの収集間隔をデフォルトの 7 日に 1 回から、2 日に 1 回とした場合、<br>下記でもご案内の通り、約 3 倍強の管理台数、すなわち 75,000 台以上の端末を管理できる IOPS を目安に用意する必要があります。ガイダンスでは近い値として 100,000 台の端末を管理するときの IOPS がありますので、Inbox を配置する論理ドライブでは 1,200、データベース ファイルを配置する論理ドライブでは 5,000 の IOPS を目安とします。</p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#feature-intervals-settings">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#feature-intervals-settings</a></p>
+<h4 id="サイト-サーバー-管理ポイント間の通信遅延"><a href="#サイト-サーバー-管理ポイント間の通信遅延" class="headerlink" title="サイト サーバー &#x2F; 管理ポイント間の通信遅延"></a>サイト サーバー &#x2F; 管理ポイント間の通信遅延</h4><p>管理ポイントの Outbox からサイト サーバーの Inbox へのファイル転送は SMB が使われますが、通信遅延が大きい環境の場合、ファイル一つ一つが小さい分、ファイルを転送する通信よりもプロトコルのための通信の方が、通信時間の大部分を示すようになります。サイト サーバーと管理ポイントをネットワーク的に離れた場所に置くと、Outbox にファイルが滞留する、といった事象が発生しやすくなります。ネットワーク距離が遠い場所にはリモート管理ポイントではなく、サイト サーバーを置くことを検討ください。サイト サーバー間通信では、ファイル レプリケーションではなく、データベース レプリケーションでデータのやり取りが行われるため、通信遅延による影響を軽減できます。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260317_01/" data-id="cuidtLJYK27QO1ZewNGLkxaPe" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260302_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
+            <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
+          </li>
+        
+          <li>
+            <a href="../20260226_01/">ConfigMgr 環境における MDAV 定義ファイルの更新形式</a>
+          </li>
+        
+          <li>
+            <a href="../20260203_01/">肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</a>
+          </li>
+        
+          <li>
+            <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Etc/" rel="tag">Etc</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

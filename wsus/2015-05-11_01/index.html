@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆さま、こんにちは。WSUS サポートチームです。 本記事では、ドメイン コントローラ上での WSUS サーバーの稼動についてご紹介いたします。本記事は、以下の記事と関連する内容です。   ドメイン コントローラ上での WSUS サーバーの稼動についてhttps:&#x2F;&#x2F;blogs.technet.com&#x2F;b&#x2F;jpwsus&#x2F;archive&#x2F;2010&#x2F;05&#x2F;07&#x2F;wsus.aspx   （概要）Wind">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2015-05-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.893Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.176Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,7 +116,7 @@
       
         <p>皆さま、こんにちは。<br>WSUS サポートチームです。</p>
 <p>本記事では、ドメイン コントローラ上での WSUS サーバーの稼動についてご紹介いたします。<br>本記事は、以下の記事と関連する内容です。  </p>
-<p>ドメイン コントローラ上での WSUS サーバーの稼動について<br><a target="_blank" rel="noopener" href="https://blogs.technet.com/b/jpwsus/archive/2010/05/07/wsus.aspx">https://blogs.technet.com/b/jpwsus/archive/2010/05/07/wsus.aspx</a>  </p>
+<p>ドメイン コントローラ上での WSUS サーバーの稼動について<br><a href="https://blogs.technet.com/b/jpwsus/archive/2010/05/07/wsus.aspx">https://blogs.technet.com/b/jpwsus/archive/2010/05/07/wsus.aspx</a>  </p>
 <h1 id="（概要）"><a href="#（概要）" class="headerlink" title="（概要）"></a>（概要）</h1><p>Windows Server 2012 以降の環境においても、ドメイン コントローラーと WSUS サーバーを同一筐体に構築することはサポートされています。しかし、上記構成では意図しないトラブルが発生する可能性があるため、推奨はしておりません。上記ブログ記事にて説明されている WSUS 3.0 までのバージョンと同様のサポート方針となります。  </p>
 <p>本記事では、Windows Server 2012 以降の WSUS 環境での代表的な問題とその対処をご紹介します。  </p>
 <h2 id="WSUS-の役割追加に失敗する"><a href="#WSUS-の役割追加に失敗する" class="headerlink" title="WSUS の役割追加に失敗する"></a>WSUS の役割追加に失敗する</h2><h1 id="（事象の概要）"><a href="#（事象の概要）" class="headerlink" title="（事象の概要）"></a>（事象の概要）</h1><p>WSUS のデータベースに Windows Internal Database (WID) を選択した場合、ドメイン コントローラー構築後に WSUS の役割追加に失敗し、システムの再起動が求められることがあります。  </p>
@@ -124,13 +124,13 @@
 <p>[コンピューターの構成] - [ポリシー]  -  [Windows の設定] - [セキュリティの設定] - [ローカル ポリシー] - [ユーザー権利の割り当て] - [サービスとしてログオン] のポリシー  </p>
 <p>本要因により、WID のサービス起動に失敗すると、WSUS の役割追加自体が失敗となり、システムの再起動が求められる動作となります。  </p>
 <h1 id="～-参考情報-～"><a href="#～-参考情報-～" class="headerlink" title="～ 参考情報 ～"></a>～ 参考情報 ～</h1><p>下記公開情報は、ADFS の役割追加時の事象の紹介となりますが、類似した事象となります。  </p>
-<p>“MSSQL$MICROSOFT##WID service was unable to log on as NT SERVICE\MSSQL$MICROSOFT##WID” error when you install WID in Windows Server 2012<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/kb/2832204/en-us">https://support.microsoft.com/kb/2832204/en-us</a>  </p>
+<p>“MSSQL$MICROSOFT##WID service was unable to log on as NT SERVICE\MSSQL$MICROSOFT##WID” error when you install WID in Windows Server 2012<br><a href="https://support.microsoft.com/kb/2832204/en-us">https://support.microsoft.com/kb/2832204/en-us</a>  </p>
 <h1 id="（対処）"><a href="#（対処）" class="headerlink" title="（対処）"></a>（対処）</h1><p>本事象が発生した場合は、インストールが失敗し、システムの再起動を実行する前に、上記のグループ ポリシー [サービスとしてログオン] のポリシーに、WID のサービス アカウント「NT SERVICE\MSSQL$MICROSOFT##WID」を追加して再起動を行い、WSUS の役割を再度追加すると成功します。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2015-05-11_01/" data-id="cmm9wwo4i00120nrq6iyrd8i8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2015-05-11_01/" data-id="cuidnaKUeeSkqxX0wUEPPPcrH" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -172,6 +172,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -185,10 +189,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -237,9 +237,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   今回は Microsoft Endpoint Configuration Manager (以下 MECM) クライアント エージェントがインストールされた PC で、マスター イメージを新規取得するシナリオと、再取得するシナリオの手順をまとめてご紹介します。 ※本記事は、以下の 2 つの過去記事を最新の">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2022-04-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.758Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.051Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,7 +123,7 @@
 <h2 id="関連情報"><a href="#関連情報" class="headerlink" title="-関連情報"></a>-関連情報</h2><p>本手順が未実施であることで、固有の ID (GUID) 重複の問題が発生している場合には、別途以下の記事で対処方法をご紹介しております。<br><a href="https://jpmem.github.io/blog/mecm/20210922_01/">重複 GUID の対処について</a></p>
 <h2 id="対象製品"><a href="#対象製品" class="headerlink" title="-対象製品"></a>-対象製品</h2><ul>
 <li>System Center Configuration Manager LTSB  </li>
-<li>Microsoft Endpoint Configuration Manager (Current Branch)  </li>
+<li>Microsoft Endpoint Configuration Manager (Current Branch)</li>
 </ul>
 <h1 id="A-MECM-クライアントがインストールされていない状態から、マスターイメージの-“新規”-取得を行う手順"><a href="#A-MECM-クライアントがインストールされていない状態から、マスターイメージの-“新規”-取得を行う手順" class="headerlink" title="A. MECM クライアントがインストールされていない状態から、マスターイメージの “新規” 取得を行う手順"></a>A. MECM クライアントがインストールされていない状態から、マスターイメージの “新規” 取得を行う手順</h1><h3 id="事前説明"><a href="#事前説明" class="headerlink" title="-事前説明"></a>-事前説明</h3><p>意図しないサイトコードの割り当てを防ぐため、MECM サーバーと通信できない状態で手順を実施します。<br>ネットワークを未接続にすることは必須ではなく、あくまで MECM サーバーと疎通できない状態として頂ければ問題ございません。<br>※文中では “ネットワーク ケーブルを抜く” と表現しております。</p>
 <p>&lt;目次&gt;</p>
@@ -138,7 +138,8 @@
 <h3 id="1-サイト-コード未割り当ての状態で-MECM-クライアントをインストールする"><a href="#1-サイト-コード未割り当ての状態で-MECM-クライアントをインストールする" class="headerlink" title="1. サイト コード未割り当ての状態で  MECM クライアントをインストールする"></a>1. サイト コード未割り当ての状態で  MECM クライアントをインストールする</h3><p>以下の手順にて、サイト コードが “未割り当て” の状態でエージェントのセットアップを行います。</p>
 <ol>
 <li><p>プライマリ サイト サーバーより、MECM インストール フォルダー配下に存在する [Client] フォルダーをコピーし保存します。<br>※インストール フォルダーの初期設定は以下になりますが、お客様環境によっては変更されている場合がございます。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>対象の PC にローカル管理者権限を保有するユーザーでログインします。</p>
 </li>
 <li><p>項番 1) でコピーした [Client] フォルダーを、クライアント上の任意のフォルダーに格納します。</p>
@@ -146,7 +147,8 @@
 <li><p>MECM サーバーと通信できないようにするため、ネットワーク ケーブルを抜きます。</p>
 </li>
 <li><p>[管理者として実行] にてコマンド プロンプトを開き、cd コマンドで Client フォルダーに移動し、以下のコマンドを実行します。<br> ※SMSSITECODE オプションなしで ccmsetup.exe を実行することにより、”未割り当て” の状態でエージェントがセットアップされます。<br> ※ワーク グループ環境の場合は、SMSMP もしくは DNSSUFFIX オプションなどを任意で指定してください。ただし、その場合も SMSSITECODE オプションは使用しないようにしてください。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>Windows キー + R キーを押下し、<strong>taskmgr</strong> を実行し、[タスク マネージャー] 画面を開き、[プロセス] 欄で ccmsetup.exe が表示されなくなるまで待ちます。</p>
 </li>
 <li><p>Windows キー + R キーを押下し、<strong>control</strong> を実行し、[コントロール パネル] 画面を開き、[システムとセキュリティ] から [Configuration Manager] を開き、以下のようにサイト コードが “未割り当て” の状態であることを確認します。  </p>
@@ -191,8 +193,8 @@
 <li>インスタンスが存在しないことを確認します。</li>
 </ol>
 <h3 id="5-SMS-Agent-Host-サービスのスタート-アップの種類の変更"><a href="#5-SMS-Agent-Host-サービスのスタート-アップの種類の変更" class="headerlink" title="5. [SMS Agent Host] サービスのスタート アップの種類の変更"></a>5. [SMS Agent Host] サービスのスタート アップの種類の変更</h3><p>Windows キー + R キーを押下し、<strong>Sevices.msc</strong> を実行し、[サービス] 画面を表示し、[SMS Agent Host] サービスを右クリックし、スタートアップの種類を [自動  (遅延開始) ] に変更します。<br>ここでは、サービスは停止したままで、[SMS Agent Host] サービスを開始しないように注意してください。<br>また、手順実施中に [Configuration Manager Health Evaluation] タスクを無効にした場合は、有効に戻してください。</p>
-<h3 id="6-マスターイメージの採取"><a href="#6-マスターイメージの採取" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。<br>なお、MECM のキャプチャ メディア機能を使用すれば、 sysprep /generalize  は内部的に自動実行されます。<br>また、上記情報の削除も内部的に実行されますのでキャプチャしたイメージを MECM から展開する際には、こちらを実施することもご検討ください。</p>
-<p>参考)<br>キャプチャ メディアの作成<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media">https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media</a></p>
+<h3 id="6-マスターイメージの採取"><a href="#6-マスターイメージの採取" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep &#x2F;generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。<br>なお、MECM のキャプチャ メディア機能を使用すれば、 sysprep &#x2F;generalize  は内部的に自動実行されます。<br>また、上記情報の削除も内部的に実行されますのでキャプチャしたイメージを MECM から展開する際には、こちらを実施することもご検討ください。</p>
+<p>参考)<br>キャプチャ メディアの作成<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media">https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media</a></p>
 <h1 id="B-既に-MECM-クライアントがインストールされている状態から、マスター-イメージの-“再”-取得を行う手順"><a href="#B-既に-MECM-クライアントがインストールされている状態から、マスター-イメージの-“再”-取得を行う手順" class="headerlink" title="B. 既に MECM クライアントがインストールされている状態から、マスター イメージの “再” 取得を行う手順"></a>B. 既に MECM クライアントがインストールされている状態から、マスター イメージの “再” 取得を行う手順</h1><p>&lt;目次&gt;</p>
 <ol>
 <li>[SMS Agent Host] サービスの停止とスタート アップの種類の変更</li>
@@ -240,14 +242,14 @@
 <h3 id="4-SMSCFG-ini-の削除"><a href="#4-SMSCFG-ini-の削除" class="headerlink" title="4. SMSCFG.ini の削除"></a>4. SMSCFG.ini の削除</h3><p>Configuration Manager 一意の識別子の情報が格納されている “SMSCFG.ini” を削除します。<br>ファイルは、 以下の場所に存在します。</p>
 <p><code>%windir%\SMSCFG.ini</code></p>
 <h3 id="5-SMS-Agent-Host-サービスのスタート-アップの種類の変更-1"><a href="#5-SMS-Agent-Host-サービスのスタート-アップの種類の変更-1" class="headerlink" title="5. [SMS Agent Host] サービスのスタート アップの種類の変更"></a>5. [SMS Agent Host] サービスのスタート アップの種類の変更</h3><p>Windows キー + R キーを押下し、<strong>Sevices.msc</strong> を実行し、[サービス] 画面を表示し、[SMS Agent Host] サービスを右クリックし、スタートアップの種類を [自動  (遅延開始) ] に変更します。<br>ここでは、サービスは停止したままで、[SMS Agent Host] サービスを開始しないように注意してください。<br>また、手順実施中に [Configuration Manager Health Evaluation] タスクを無効にした場合は、有効に戻してください。</p>
-<h3 id="6-マスターイメージの採取-1"><a href="#6-マスターイメージの採取-1" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。</p>
-<p>なお、MECM のキャプチャ メディア機能を使用すれば、 sysprep /generalize  は内部的に自動実行されます。<br>また、上記情報の削除も内部的に実行されますのでキャプチャしたイメージを MECM から展開する際には、こちらを実施することもご検討ください。</p>
-<p>参考)<br>キャプチャ メディアの作成<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media">https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media</a></p>
+<h3 id="6-マスターイメージの採取-1"><a href="#6-マスターイメージの採取-1" class="headerlink" title="6. マスターイメージの採取"></a>6. マスターイメージの採取</h3><p>sysprep &#x2F;generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。</p>
+<p>なお、MECM のキャプチャ メディア機能を使用すれば、 sysprep &#x2F;generalize  は内部的に自動実行されます。<br>また、上記情報の削除も内部的に実行されますのでキャプチャしたイメージを MECM から展開する際には、こちらを実施することもご検討ください。</p>
+<p>参考)<br>キャプチャ メディアの作成<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media">https://docs.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/create-capture-media</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220418_01/" data-id="cmm9wwo8v00ci0nrq5q17hal8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220418_01/" data-id="cuidKrm-gFySPVd14NX3Jdheo" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -289,6 +291,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -302,10 +308,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -354,9 +356,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

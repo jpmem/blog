@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/3.png">
 <meta property="article:published_time" content="2019-04-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.926Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.205Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,7 +123,7 @@
 <p>そこで今回は、WSUS で不要な更新プログラムのコンテンツ ファイルを確実に削除するためのポイントについてご紹介いたします。  </p>
 <ul>
 <li>「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する</li>
-<li>「サーバー クリーンアップ ウィザード」実行後も更新プログラムのコンテンツ ファイルが削除できない場合  </li>
+<li>「サーバー クリーンアップ ウィザード」実行後も更新プログラムのコンテンツ ファイルが削除できない場合</li>
 </ul>
 <h1 id="「サーバー-クリーンアップ-ウィザード」で-WSUS-で不要な更新プログラムのコンテンツ-ファイルを削除する"><a href="#「サーバー-クリーンアップ-ウィザード」で-WSUS-で不要な更新プログラムのコンテンツ-ファイルを削除する" class="headerlink" title="「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する"></a>「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する</h1><p>サーバー クリーンアップ ウィザード項目で <strong>「不要な更新ファイル」</strong> を実行することで、不要な更新ファイルを削除することができますが、削除対象となる更新プログラムは <strong>「拒否済み」のステータスとなっている必要があります。</strong><br>そのため、以下の流れで不要な更新プログラムのコンテンツ ファイルを削除します。  </p>
 <p>(作業の流れ)<br>STEP1 : 更新プログラムを「拒否済み」とする<br><img src="/blog/wsus/2019-04-23_01/01.png" alt="image.png"><br>STEP2 : サーバー クリーンアップ ウィザードで「不要な更新ファイル」を実行する<br><img src="/blog/wsus/2019-04-23_01/02.png" alt="image.png"></p>
@@ -143,38 +143,40 @@
 <li>SQL Server Management Studio を起動し、WSUS のデータベースを実行しているデータベース エンジンに接続します。  </li>
 <li>Microsoft SQL Server Management Studio 画面が起動したら、画面左ペインの[データベース] ツリーを展開します。  </li>
 <li>[SUSDB] を右クリックし [新しいクエリ] をクリックします。  </li>
-<li>右ペインに表示された新しいクエリ画面に、以下のとおり入力し、ツールバーの [実行] をクリックするかもしくは F5 キーを押して、実行を開始します。  </li>
+<li>右ペインに表示された新しいクエリ画面に、以下のとおり入力し、ツールバーの [実行] をクリックするかもしくは F5 キーを押して、実行を開始します。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DSSRequestedDownload) FROM dbo.tbFileOnServer WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
 
 <p>この結果、2 行目に表示される数値が 0 以外であれば、フラグの設定を持つ更新プログラムのが存在しています。<br>その場合は引き続き下記の手順をご実施します。  </p>
 <ol start="5">
-<li>引き続き下記 2 件のコマンドを順に実行します。  </li>
+<li>引き続き下記 2 件のコマンドを順に実行します。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update tbfileOnServer set actualstate=1 where (actualstate=8 or actualstate=9 or actualstate=10) and 　　DSSRequestedDownload = 1</span><br><span class="line">update tbFileOnServer set DSSRequestedDownload = 0 WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
 
 <ol start="6">
-<li>正しく変更されたかの確認のために、下記コマンドを実行します。  </li>
+<li>正しく変更されたかの確認のために、下記コマンドを実行します。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DSSRequestedDownload) FROM dbo.tbFileOnServer WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
 
 <p>結果が 0 なら正しく変更されています。  </p>
-<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><p>通常の用途で WSUS を利用している場合には WSUSContent フォルダにのみファイルがダウンロードされますが、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb902470(v=vs.85)">Local Publishing</a> とよばれる特殊な機能を利用し、任意のアプリケーションやアプリケーションの更新の配信を行っている場合には、UpdateServicesPackages フォルダにもファイルが保存され、これらのファイルはクリーンアップ ウィザードでは削除することが出来ません。  </p>
+<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><p>通常の用途で WSUS を利用している場合には WSUSContent フォルダにのみファイルがダウンロードされますが、<a href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb902470(v=vs.85)">Local Publishing</a> とよばれる特殊な機能を利用し、任意のアプリケーションやアプリケーションの更新の配信を行っている場合には、UpdateServicesPackages フォルダにもファイルが保存され、これらのファイルはクリーンアップ ウィザードでは削除することが出来ません。  </p>
 <p>UpdateServicesPackages フォルダ配下のファイルの削除が必要な場合には、以下の手順を実施し、出力されたフォルダについて手動で削除する必要があります。  </p>
 <ol>
-<li>WSUS サーバー上で以下のコマンドを実行します。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;C:\Program Files\Update Services\Tools\WsusUtil&quot; listunreferencedpackagefolders</span><br></pre></td></tr></table></figure></li>
+<li>WSUS サーバー上で以下のコマンドを実行します。</li>
 </ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;C:\Program Files\Update Services\Tools\WsusUtil&quot; listunreferencedpackagefolders</span><br></pre></td></tr></table></figure>
+
 <p>結果出力例)  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">次のフォルダーは、WSUS サーバーの更新プログラムのいずれからも参照されていません。  </span><br><span class="line">C:\WSUS\UpdateServicesPackages\test  </span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>上記のコマンドの実行結果にて出力された参照されていないフォルダーについて削除を行います。  </li>
+<li>上記のコマンドの実行結果にて出力された参照されていないフォルダーについて削除を行います。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cmm9wwo5c002z0nrq5f7ihu6v" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cuidSJ_4HGElYqk-Gmpew3HCy" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -216,6 +218,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -229,10 +235,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -281,9 +283,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

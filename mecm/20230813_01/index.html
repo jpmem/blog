@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230813_01/20230813_01_15.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230813_01/20230813_01_16.png">
 <meta property="article:published_time" content="2023-08-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.841Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.127Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -59,7 +59,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -86,9 +86,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -173,14 +173,14 @@
 </ul>
 <h2 id="時刻同期"><a href="#時刻同期" class="headerlink" title="時刻同期"></a>時刻同期</h2><p>プライマリサイトサーバー と リモート配布ポイント で時刻ズレがあると RPC 通信に失敗します。時刻ズレが発生していないか確認してください。また、両 サーバー にて NTP サービス が正しく動作していることを確認してください。</p>
 <h2 id="プライマリサイトサーバー、リモート配布ポイントの更新プログラム適用状況"><a href="#プライマリサイトサーバー、リモート配布ポイントの更新プログラム適用状況" class="headerlink" title="プライマリサイトサーバー、リモート配布ポイントの更新プログラム適用状況"></a>プライマリサイトサーバー、リモート配布ポイントの更新プログラム適用状況</h2><p>DCOM 脆弱性 (CVE-2021-26414) に対応するため、DCOM　認証レベルが強化されるようになっています。</p>
-<p>[IT管理者向け] DCOM の脆弱性 (CVE-2021-26414) に対応するためのガイダンス<br><a target="_blank" rel="noopener" href="https://msrc.microsoft.com/blog/2021/06/20210609_dcomenrocement/">https://msrc.microsoft.com/blog/2021/06/20210609_dcomenrocement/</a></p>
+<p>[IT管理者向け] DCOM の脆弱性 (CVE-2021-26414) に対応するためのガイダンス<br><a href="https://msrc.microsoft.com/blog/2021/06/20210609_dcomenrocement/">https://msrc.microsoft.com/blog/2021/06/20210609_dcomenrocement/</a></p>
 <p>プライマリサイトサイトサーバー および リモート配布ポイント に 2023 年 3 月以降の OS 累積品質更新プログラムが適用されていることを確認してください。</p>
 <h2 id="セキュリティ-ソフトの設定"><a href="#セキュリティ-ソフトの設定" class="headerlink" title="セキュリティ ソフトの設定"></a>セキュリティ ソフトの設定</h2><p>セキュリティ　ソフトをご利用の場合、以下をご確認頂き、サイト サーバー、リモート配布ポイントの各種フォルダの除外設定が正しく実施されているかご確認ください。</p>
-<p>Configuration Manager サイト サーバー、サイト システム、クライアントに推奨されるウイルス対策の除外<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/endpoint-protection/recommended-antivirus-exclusions">https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/endpoint-protection/recommended-antivirus-exclusions</a></p>
+<p>Configuration Manager サイト サーバー、サイト システム、クライアントに推奨されるウイルス対策の除外<br><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/endpoint-protection/recommended-antivirus-exclusions">https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/endpoint-protection/recommended-antivirus-exclusions</a></p>
 <h2 id="名前解決可否"><a href="#名前解決可否" class="headerlink" title="名前解決可否"></a>名前解決可否</h2><p>サイト サーバーにて nslookup コマンド を使って リモート配布ポイント を名前解決できるか確認ください。</p>
 <h2 id="通信-ポート-の開放状況"><a href="#通信-ポート-の開放状況" class="headerlink" title="通信 ポート の開放状況"></a>通信 ポート の開放状況</h2><p>サイトサーバー と リモート配布ポイント の通信ポート は以下の図の通りです。経路上正しく開放設定がなされているかご確認ください。確認には弊社 PortQry 等をご利用いただくのが良いかと存じます。</p>
 <p><img src="/blog/mecm/20230813_01/20230813_01_01.png"></p>
-<p>PortQryUI - User Interface for the PortQry Command Line Port Scanner<br><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=24009">https://www.microsoft.com/en-us/download/details.aspx?id=24009</a> </p>
+<p>PortQryUI - User Interface for the PortQry Command Line Port Scanner<br><a href="https://www.microsoft.com/en-us/download/details.aspx?id=24009">https://www.microsoft.com/en-us/download/details.aspx?id=24009</a> </p>
 <h2 id="格納-フォルダの容量"><a href="#格納-フォルダの容量" class="headerlink" title="格納 フォルダの容量"></a>格納 フォルダの容量</h2><p>格納 フォルダ が含まれる フォルダ 容量に十分な空き容量があるか確認ください。</p>
 <p>確認すべき ドライブ は以下の通りです。</p>
 <ul>
@@ -242,7 +242,7 @@
 <h2 id="WMI-の動作確認"><a href="#WMI-の動作確認" class="headerlink" title="WMI の動作確認"></a>WMI の動作確認</h2><p>WMI が正しく動作しているか確認するため、以下を確認ください。</p>
 <h3 id="リモート配布ポイント-での動作確認"><a href="#リモート配布ポイント-での動作確認" class="headerlink" title="リモート配布ポイント での動作確認"></a>リモート配布ポイント での動作確認</h3><ol>
 <li>リモート 配布ポイントに管理者権限でログインします。</li>
-<li> PSExec ツールを以下 サイト より ダウンロード します。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec</a></li>
+<li>PSExec ツールを以下 サイト より ダウンロード します。<br><a href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec</a></li>
 <li>ダウンロード 後、解凍し適当な フォルダ に配置します。</li>
 <li>コマンド プロンプト を管理者権限で開き、カレント フォルダ を PSExec ツール を置いた フォルダ に移動します。</li>
 <li>以下のコマンドを実行します。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PSExec64.exe -i -s -d cmd</span><br></pre></td></tr></table></figure></li>
@@ -251,16 +251,13 @@
 <p>  ※ EULA のダイアログが開いた場合は OK をクリックし、再度上記 コマンド を実行してください。  </p>
 <ol start="6">
 <li>コマンドプロンプト のウィンドウが新たに開きます。</li>
-<li>以下のコマンドを実行し、コマンドプロンプト の実行権限が nt authority\system となっていることを確認ください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br></pre></td></tr></table></figure>
-<img src="/blog/mecm/20230813_01/20230813_01_11.png">  </li>
-<li>新たに開いた コマンドプロンプト で 以下を実行します。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wbemtest</span><br></pre></td></tr></table></figure></li>
-<li>[Windows Management Instrumentation テスト]が開きます。 [接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_12.png"> </li>
-<li>[名前空間] に [root\SCCMDP] と入力し、[接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_13.png">  </li>
-<li>以下のように名前空間の箇所に [root\SCCMDP] とエラー無く表示されれば OK です。<br><img src="/blog/mecm/20230813_01/20230813_01_14.png">  </li>
+<li>以下のコマンドを実行し、コマンドプロンプト の実行権限が nt authority\system となっていることを確認ください。</li>
 </ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<p>  <img src="/blog/mecm/20230813_01/20230813_01_11.png"><br>8. 新たに開いた コマンドプロンプト で 以下を実行します。<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wbemtest</span><br></pre></td></tr></table></figure><br>9. [Windows Management Instrumentation テスト]が開きます。 [接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_12.png"><br>10. [名前空間] に [root\SCCMDP] と入力し、[接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_13.png"><br>11. 以下のように名前空間の箇所に [root\SCCMDP] とエラー無く表示されれば OK です。<br><img src="/blog/mecm/20230813_01/20230813_01_14.png">  </p>
 <h3 id="プライマリ-サイト-サーバー-での動作確認"><a href="#プライマリ-サイト-サーバー-での動作確認" class="headerlink" title="プライマリ サイト サーバー での動作確認"></a>プライマリ サイト サーバー での動作確認</h3><ol>
 <li>プライマリ サイト サーバー に管理者権限でログインします。</li>
-<li> PSExec ツールを以下 サイト より ダウンロード します。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec</a></li>
+<li>PSExec ツールを以下 サイト より ダウンロード します。<br><a href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec</a></li>
 <li>ダウンロード 後、解凍し適当な フォルダ に配置します。</li>
 <li>コマンド プロンプト を管理者権限で開き、カレント フォルダ を PSExec ツール を置いた フォルダ に移動します。</li>
 <li>以下のコマンドを実行します。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PSExec64.exe -i -s -d cmd</span><br></pre></td></tr></table></figure></li>
@@ -269,18 +266,15 @@
 <p>  ※ EULA のダイアログが開いた場合は OK をクリックし、再度上記 コマンド を実行してください。  </p>
 <ol start="6">
 <li>コマンドプロンプト のウィンドウが新たに開きます。</li>
-<li>以下のコマンドを実行し、コマンドプロンプト の実行権限が nt authority\system となっていることを確認ください。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br></pre></td></tr></table></figure>
-<img src="/blog/mecm/20230813_01/20230813_01_11.png">  </li>
-<li>新たに開いた コマンドプロンプト で 以下を実行します。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wbemtest</span><br></pre></td></tr></table></figure></li>
-<li>[Windows Management Instrumentation テスト]が開きます。 [接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_12.png">  </li>
-<li>[名前空間] に [\[配布ポイントのFQDN]\root\SCCMDP] と入力し、[接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_15.png">  </li>
-<li>以下のように名前空間の箇所に [\[配布ポイントのFQDN]\root\SCCMDP] とエラー無く表示されれば OK です。<br><img src="/blog/mecm/20230813_01/20230813_01_16.png">  </li>
+<li>以下のコマンドを実行し、コマンドプロンプト の実行権限が nt authority\system となっていることを確認ください。</li>
 </ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<p>  <img src="/blog/mecm/20230813_01/20230813_01_11.png"><br>8. 新たに開いた コマンドプロンプト で 以下を実行します。<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wbemtest</span><br></pre></td></tr></table></figure><br>9. [Windows Management Instrumentation テスト]が開きます。 [接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_12.png"><br>10. [名前空間] に [\[配布ポイントのFQDN]\root\SCCMDP] と入力し、[接続]をクリックします。<br><img src="/blog/mecm/20230813_01/20230813_01_15.png"><br>11. 以下のように名前空間の箇所に [\[配布ポイントのFQDN]\root\SCCMDP] とエラー無く表示されれば OK です。<br><img src="/blog/mecm/20230813_01/20230813_01_16.png">  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230813_01/" data-id="cmm9wwo7r009r0nrqcynia0gh" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230813_01/" data-id="cuidz_xKL6FA9fgNi8LYDrA7k" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -322,6 +316,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -335,10 +333,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -387,9 +381,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

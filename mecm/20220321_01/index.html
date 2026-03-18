@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_17.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220321_01/20220321_01_18.png">
 <meta property="article:published_time" content="2022-03-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.749Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.042Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="共同管理">
@@ -59,7 +59,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -86,9 +86,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -146,11 +146,11 @@
 <li>企業ネットワークに接続した際のインターネット回線帯域が限られているので、更新プログラムやアプリケーションの配布は CM の企業ネットワーク配布ポイントを活用したい。</li>
 </ol>
 <h2 id="共同管理機能の前提条件"><a href="#共同管理機能の前提条件" class="headerlink" title="共同管理機能の前提条件"></a>共同管理機能の前提条件</h2><p>共同管理機能の利用前提は以下でご案内しております。<br>よくあるご質問として、Azure AD Registered の端末が利用できるかのご質問がありますが、共同管理において Azure AD Registered の端末はサポートされておりませんのでご承知おきください。</p>
-<p>共同管理とは<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites">https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites</a></p>
+<p>共同管理とは<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites">https://docs.microsoft.com/ja-jp/mem/configmgr/comanage/overview#prerequisites</a></p>
 <h2 id="ワークロード"><a href="#ワークロード" class="headerlink" title="ワークロード"></a>ワークロード</h2><p>ワークロード とは、CM と Intune で重複する機能群のことです。共同管理構成ポリシーでは、重複する以下の機能を CM と Intune のどちらで担当するかを設定する必要がございます。なお、一部のワークロードでは 設定次第で CM と Intune どちらでも利用が出来る場合がございますので、ご留意くださいますようお願い致します。</p>
 <ul>
 <li>コンプライアンス ポリシー<ul>
-<li> 本ワークロードを Intune 側に設定した場合でも、Intune 上で以下を設定することで、CM のコンプライアンス ポリシーを　Intune のコンプライアンス ポリシーの一部として利用できます。<br>[コンプライアンス ポリシー] - [コンプライアンス設定] - [Configuration Manager のコンプライアンス] - [Configuration Manager からのデバイス コンプライアンスが必要]<br><img src="/blog/mecm/20220321_01/20220321_01_02.png"></li>
+<li>本ワークロードを Intune 側に設定した場合でも、Intune 上で以下を設定することで、CM のコンプライアンス ポリシーを　Intune のコンプライアンス ポリシーの一部として利用できます。<br>[コンプライアンス ポリシー] - [コンプライアンス設定] - [Configuration Manager のコンプライアンス] - [Configuration Manager からのデバイス コンプライアンスが必要]<br><img src="/blog/mecm/20220321_01/20220321_01_02.png"></li>
 </ul>
 </li>
 <li>デバイス構成<ul>
@@ -186,11 +186,11 @@
 <li>Azure AD グローバル管理者権限を持ち、Intune ライセンスが割当たっているAzure AD ユーザーアカウントをご用意ください。</li>
 <li>共同管理構成を有効にする対象をご検討ください。すべてのデバイスを共同管理にする場合は特に検討は必要ございませんが、 一部のデバイスのみを対象にしたい場合は、そのデバイスが所属するデバイス コレクションを事前に設定する必要がございます。なお、本デバイス コレクションは1つだけしか割り当てられないのでご理解くださいますようお願い致します。</li>
 <li>Intune 画面から CM の管理デバイスを操作する「テナントアタッチ」機能を全ての CM 管理デバイスを対象にするか、一部のコレクションのみを対象にするかどうか事前にご検討ください。  <ul>
-<li>Microsoft エンドポイント マネージャーのテナントのアタッチ: デバイスの同期とデバイスの操作<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions">https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions</a></li>
+<li>Microsoft エンドポイント マネージャーのテナントのアタッチ: デバイスの同期とデバイスの操作<br> <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions">https://docs.microsoft.com/ja-jp/mem/configmgr/tenant-attach/device-sync-actions</a></li>
 </ul>
 </li>
 <li>デスクトップの利用情報等を分析できる「Endpoint Analytics」機能をご利用されるかどうか事前にご検討ください。後から設定変更も可能です。  <ul>
-<li>エンドポイント分析とは?<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/analytics/overview">https://docs.microsoft.com/ja-jp/mem/analytics/overview</a></li>
+<li>エンドポイント分析とは?<br> <a href="https://docs.microsoft.com/ja-jp/mem/analytics/overview">https://docs.microsoft.com/ja-jp/mem/analytics/overview</a></li>
 </ul>
 </li>
 <li>共同管理構成を有効にしたタイミングで端末を Intune に自動登録させるか事前にご検討ください。一部デバイスのみを自動登録させる場合は該当のデバイスが所属するコレクションを作成ください。</li>
@@ -198,7 +198,7 @@
 </ol>
 <h2 id="クライアントのネットワーク要件"><a href="#クライアントのネットワーク要件" class="headerlink" title="クライアントのネットワーク要件"></a>クライアントのネットワーク要件</h2><ul>
 <li>CM のポリシーとして共同管理構成は配布されるため、クライアントが CM の管理ポイントと接続出来る必要があります。</li>
-<li>Intune の自動登録を有効にする場合、Intune を提供する各サイトに接続できる必要がございます。下記 URL をご参考ください。<br>Microsoft Intune のネットワーク エンドポイント<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints">https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints</a></li>
+<li>Intune の自動登録を有効にする場合、Intune を提供する各サイトに接続できる必要がございます。下記 URL をご参考ください。<br>Microsoft Intune のネットワーク エンドポイント<br><a href="https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints">https://docs.microsoft.com/ja-jp/mem/intune/fundamentals/intune-endpoints</a></li>
 </ul>
 <h2 id="実際の設定手順"><a href="#実際の設定手順" class="headerlink" title="実際の設定手順"></a>実際の設定手順</h2><ol>
 <li>CM サーバーに接続し、CM コンソールを起動します。</li>
@@ -210,12 +210,12 @@
 <li>事前検討で全てのデバイスを Intune に自動登録できるようにする、Endpoint Analyticsを利用できるようにする、全てのデバイスをテナントアタッチを利用出来るようにする、ことを決定されている場合は「既定の設定を使用する(推奨)」を選択ください。以下では「設定をカスタマイズする」の選択を前提にウィザードを進めていきます。選択後、「次へ」をクリックください。<br><img src="/blog/mecm/20220321_01/20220321_01_08.png">  </li>
 <li>事前に検討された内容に従って、「テナントアタッチ」の対象を「Microsoft エンドポイント マネージャーにアップロードするデバイスを選択する」の項目を設定ください。</li>
 <li>事前に検討された内容に従って、「エンドポイント分析」の項目を設定ください。選択後、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_09.png">  </li>
-<li> 対象のデバイスを Intune に自動登録させる場合は、「Intune で自動登録」にて「すべて」か「パイロット」を選択して「次へ」を選択します。一部のコレクションのみを自動登録する場合は「パイロット」を選択し、事前に作成しておいたコレクションを指定します。自動登録させない場合は「なし」を選択します。選択後、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_10.png">  </li>
+<li>対象のデバイスを Intune に自動登録させる場合は、「Intune で自動登録」にて「すべて」か「パイロット」を選択して「次へ」を選択します。一部のコレクションのみを自動登録する場合は「パイロット」を選択し、事前に作成しておいたコレクションを指定します。自動登録させない場合は「なし」を選択します。選択後、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_10.png">  </li>
 <li>設定内容を確認し、「次へ」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_11.png">  </li>
 <li>設定完了したら、「閉じる」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_12.png">  </li>
 <li>[クラウドの接続] 画面に戻り、作成された “CoMgmtSettingsProd” を選択して [プロパティ] をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_13.png">  </li>
 <li>[ワークロード] タブに遷移し、事前に検討したワークロードを設定します。<br><img src="/blog/mecm/20220321_01/20220321_01_14.png">  </li>
-<li>ワークロードにて「パイロット Intune」を選択した場合、「ステージング」タブに遷移して、該当のワークロードを配布するパイロット コレクションを指定して「OK」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_15.png">  </li>
+<li>ワークロードにて「パイロット Intune」を選択した場合、「ステージング」タブに遷移して、該当のワークロードを配布するパイロット コレクションを指定して「OK」をクリックします。<br><img src="/blog/mecm/20220321_01/20220321_01_15.png"></li>
 </ol>
 <h2 id="設定がクライアントに適用されたかの確認"><a href="#設定がクライアントに適用されたかの確認" class="headerlink" title="設定がクライアントに適用されたかの確認"></a>設定がクライアントに適用されたかの確認</h2><h3 id="クライアントからの確認方法"><a href="#クライアントからの確認方法" class="headerlink" title="クライアントからの確認方法"></a>クライアントからの確認方法</h3><p>共同管理構成ポリシーがクライアントに適用されると、Configuration Manager のコントロール パネル アプレットの「構成タブ」に以下のように “CoMgmtSettings” で始まる項目が表示されます。各項目の意味は以下の通りです。  </p>
 <p><img src="/blog/mecm/20220321_01/20220321_01_16.png">  </p>
@@ -266,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220321_01/" data-id="cmm9wwo71007i0nrqexrthrzs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220321_01/" data-id="cuidEvDhqzEef_0R3mVG9orz6" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li></ul>
@@ -308,6 +308,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -321,10 +325,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -373,9 +373,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

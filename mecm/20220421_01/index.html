@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220421_01/20220421_01_07.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220421_01/20220421_01_08.png">
 <meta property="article:published_time" content="2022-04-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.767Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.059Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -77,9 +77,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -143,7 +143,7 @@
 <p><img src="/blog/mecm/20220421_01/20220421_01_04.png">  </p>
 <p>2.[全般] にて展開したいコレクションを指定し、[次へ] をクリックします。  </p>
 <p>3.[コンテンツ] にて展開するパッケージがコンテンツを含む場合には、配布ポイントを指定してコンテンツ配布を設定し、[次へ] をクリックします。<br>既にコンテンツ配布済みの場合には、何も設定せずに [次へ] をクリックします。  </p>
-<p>4.[展開設定] にて、目的 = [必須] を選択し、[次へ] をクリックします。  </p>
+<p>4.[展開設定] にて、目的 &#x3D; [必須] を選択し、[次へ] をクリックします。  </p>
 <p><img src="/blog/mecm/20220421_01/20220421_01_01.png">  </p>
 <p>5.[スケジュール] にて、下記の設定を行います。  </p>
 <p>パケージは「割り当てスケジュール」により、実行タイミングを決定します。<strong>注意が必要なのはここで繰り返し設定、または、複数のスケジュールを指定しない限り、再実行はされないということです。</strong>  </p>
@@ -157,19 +157,19 @@
 <p><img src="/blog/mecm/20220421_01/20220421_01_07.png">  </p>
 <p>上記設定が完了したら [OK] をクリックしていきます。  </p>
 <h4 id="再実行の動作の設定"><a href="#再実行の動作の設定" class="headerlink" title="再実行の動作の設定"></a>再実行の動作の設定</h4><p>ここが混乱するポイントです。この設定は、このパッケージの実行が 2 回目以降の場合に適用される設定となります。よくある勘違いが「ここで [前回失敗した場合に再実行する] を選択しておけば、実行が失敗した時に再実行される」と思ってしまいがちなのですがこれは間違いです。  </p>
-<p>上記の<strong>「割り当てスケジュール」が繰り返し実行するように設定されていない限り、たとえこの「再実行の動作」を設定していても再実行はされない</strong>のでご注意ください。  </p>
+<p>上記の**「割り当てスケジュール」が繰り返し実行するように設定されていない限り、たとえこの「再実行の動作」を設定していても再実行はされない**のでご注意ください。  </p>
 <p>あくまで、2 回以上実行がトリガーされた場合にのみ、「再実行の動作」の設定が評価されるという点がポイントです。  </p>
 <p><img src="/blog/mecm/20220421_01/20220421_01_08.png">  </p>
 <p>例として、上記の様に、1 時間ごとに実行する「割り当てスケジュール」を設定し、「再実行の動作」にて [前回失敗した場合に再実行する] を選択し、展開を行った場合には、下記のような動作となります。  </p>
-<p><strong>・前回実行 = 成功の場合</strong><br>実行 = 成功　→　1 時間経過　→　前回実行結果を評価　→　前回成功しているので再実行しない  </p>
-<p><strong>・前回実行 = 失敗の場合</strong><br>実行 = 失敗　→　1 時間経過　→　前回実行結果を評価　→　前回失敗しているので再実行される　→　成功　→　1 時間経過　→　前回実行結果を評価　→　前回成功しているので再実行しない  </p>
+<p><strong>・前回実行 &#x3D; 成功の場合</strong><br>実行 &#x3D; 成功　→　1 時間経過　→　前回実行結果を評価　→　前回成功しているので再実行しない  </p>
+<p><strong>・前回実行 &#x3D; 失敗の場合</strong><br>実行 &#x3D; 失敗　→　1 時間経過　→　前回実行結果を評価　→　前回失敗しているので再実行される　→　成功　→　1 時間経過　→　前回実行結果を評価　→　前回成功しているので再実行しない  </p>
 <p>上記では [前回失敗した場合に再実行する] を例にあげましたが、実行結果に関わらず常に再実行させたい場合など、ご要件に応じで選択する項目を設定くださいませ。  </p>
 <p>後は、残りの展開設定を進めて頂き、展開を完了させてください。  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220421_01/" data-id="cmm9wwo75007u0nrqh1a2fj8u" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220421_01/" data-id="cuidpiuE4yN-JQ3Wk3vmD4ksC" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -211,6 +211,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -224,10 +228,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -276,9 +276,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

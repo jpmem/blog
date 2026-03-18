@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211122_01/20211122_01_01.png">
 <meta property="article:published_time" content="2021-11-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.736Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.031Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,7 +122,7 @@
 <ol>
 <li>SCCM サイト サーバーから以下の “client” フォルダを丸ごとコピーし、クライアント端末のローカルの任意の場所に貼り付けます。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft Configuration Manager\Client</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><p>クライアント端末にてコマンド プロンプトを管理者権限で開きます。</p>
@@ -130,10 +130,10 @@
 <li><p>以下のようなコマンドを実行し、クライアントをインストールします。</p>
 </li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Client フォルダをコピーしたパス&gt;\client\ccmsetup.exe /<span class="built_in">source</span>:&lt;Client フォルダをコピーしたパス&gt;\client  SMSSITECODE=&lt;サイトコード&gt; SMSMP=&lt;プライマリサイトの管理ポイントサーバーの FQDN&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Client フォルダをコピーしたパス&gt;\client\ccmsetup.exe /source:&lt;Client フォルダをコピーしたパス&gt;\client  SMSSITECODE=&lt;サイトコード&gt; SMSMP=&lt;プライマリサイトの管理ポイントサーバーの FQDN&gt;</span><br></pre></td></tr></table></figure>
 
 <p>例えば、client フォルダのコピー先が、”c:\temp”で、サイトコードが “P01”、プライマリサイトの管理ポイントサーバーの FQDN が “sccm.contoso.com” の場合、以下のコマンドを実行します。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\temp\client\ccmsetup.exe /<span class="built_in">source</span>:c:\temp\client SMSSITECODE=P01 SMSMP=sccm.contoso.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\temp\client\ccmsetup.exe /source:c:\temp\client SMSSITECODE=P01 SMSMP=sccm.contoso.com</span><br></pre></td></tr></table></figure>
 
 <p>※ サイトコードやプライマリサイトの管理ポイントサーバーの FQDN は、SCCM コンソールの以下の画面にてご確認いただけます。<br>[管理] &gt; [概要] &gt; [サイトの構成] &gt; [サーバーとサイト システムの役割]</p>
 <p><img src="/blog/mecm/20211122_01/20211122_01_01.png"></p>
@@ -147,12 +147,12 @@
 <li>ファイル場所<br>C:\Windows\ccmsetup\logs\ccmsetup.log<br></li>
 <li>ログ出力<br>最後に、以下のログが出力されたことで、インストール完了と判断できます。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="cmm9wwo6s006z0nrqh6j40jji" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="cuidbx9I-J6LViu2U4mX7-Y_R" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -194,6 +194,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -207,10 +211,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -259,9 +259,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

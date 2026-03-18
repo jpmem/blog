@@ -7,19 +7,19 @@
   
   <title>ご起票時に事前採取可能な基本情報の採取手順 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な基本情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様">
+  <meta name="description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な基本情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&#x2F;9&amp;#x2F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ご起票時に事前採取可能な基本情報の採取手順">
 <meta property="og:url" content="https://jpmem.github.io/blog/intune/20220913_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な基本情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様">
+<meta property="og:description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な基本情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&#x2F;9&amp;#x2F">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_01/basic_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_01/basic_04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_01/basic_02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/20220913_01/basic_03.png">
 <meta property="article:published_time" content="2022-09-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.601Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.901Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -71,9 +71,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -121,7 +121,7 @@
       
         <p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
 <p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な<strong>基本情報</strong>についてお纏めいたします。</p>
-<p>下記内容及び、画面ショットは 2022/9/28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p>
+<p>下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p>
 <h1 id="基本情報"><a href="#基本情報" class="headerlink" title="基本情報"></a>基本情報</h1><p>今回ご案内をする情報採取手順は Intune チームからお客様にご案内をすることがある情報採取の中で最も基本的なものになります。<br><strong>この情報は、どのような事象発生時にも事前採取をお願いしたい内容になります。</strong></p>
 <p><strong>ご案内する情報採取手順</strong></p>
 <ul>
@@ -132,12 +132,12 @@
 </ul>
 <p>以下、情報採取手順をご説明いたします。</p>
 <h2 id="1-事象発生デバイスの特定"><a href="#1-事象発生デバイスの特定" class="headerlink" title="1. 事象発生デバイスの特定"></a>1. 事象発生デバイスの特定</h2><p>弊社への問い合わせの際に、同一デバイス名で登録されている別デバイスの情報提供をいただくケースが少なくなく、その場合、いただいた情報からは調査が進められず、適切な調査対象デバイスにて改めて情報採取いただく必要がございます。これを避ける為、以下の手順でまずは事象発生デバイスの特定をお願いいたします。</p>
-<p><strong>1. Microsoft Endpoint Manager admin center &lt; <a target="_blank" rel="noopener" href="https://endpoint.microsoft.com/">https://endpoint.microsoft.com/</a> &gt; へログインする</strong></p>
+<p><strong>1. Microsoft Endpoint Manager admin center &lt; <a href="https://endpoint.microsoft.com/">https://endpoint.microsoft.com/</a> &gt; へログインする</strong></p>
 <p><strong>2. 左側タブ内の [デバイス] &gt; [すべてのデバイス] の画面にて [デバイス名]、[OS]、[OSのバージョン]、[プライマリ ユーザーのUPN] を確認の上、事象発生デバイスの特定をする</strong></p>
 <p><img src="/blog/intune/20220913_01/basic_01.png"></p>
 <p>※ 同一デバイス名 (例 : iPhone) で複数デバイスが登録されている場合がございますので、事象発生デバイスのご確認をお願いします。</p>
-<p>&lt;参考&gt;<br>UPN とはユーザーオブジェクトにユニークに付与されているメールアドレス形式の文字列です。<br>例) <a href="mailto:&#x73;&#x61;&#109;&#x70;&#x6c;&#x65;&#x40;&#105;&#x6e;&#116;&#117;&#110;&#101;&#46;&#x6f;&#110;&#x6d;&#105;&#x63;&#x72;&#x6f;&#115;&#111;&#x66;&#x74;&#x2e;&#x63;&#111;&#x6d;">&#x73;&#x61;&#109;&#x70;&#x6c;&#x65;&#x40;&#105;&#x6e;&#116;&#117;&#110;&#101;&#46;&#x6f;&#110;&#x6d;&#105;&#x63;&#x72;&#x6f;&#115;&#111;&#x66;&#x74;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>User Principal Nameとは &lt; <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname">https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname</a> &gt;</p>
+<p>&lt;参考&gt;<br>UPN とはユーザーオブジェクトにユニークに付与されているメールアドレス形式の文字列です。<br>例) <a href="mailto:&#115;&#97;&#109;&#x70;&#x6c;&#101;&#x40;&#x69;&#x6e;&#x74;&#117;&#110;&#101;&#46;&#x6f;&#110;&#109;&#x69;&#x63;&#114;&#x6f;&#x73;&#x6f;&#102;&#116;&#46;&#99;&#111;&#109;">sample@intune.onmicrosoft.com</a></p>
+<p>User Principal Nameとは &lt; <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname">https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname</a> &gt;</p>
 <h2 id="2-事象発生デバイスの情報採取"><a href="#2-事象発生デバイスの情報採取" class="headerlink" title="2. 事象発生デバイスの情報採取"></a>2. 事象発生デバイスの情報採取</h2><!-- 前項の **1.事象発生デバイスの特定** をご確認いただきましたお客様につきましては、項目 3 以降の手順に従って事象発生デバイスの Intune デバイス ID、AAD (Azure AD) デバイス ID、シリアル番号をご確認いただけます。
 
 
@@ -150,14 +150,14 @@
 <p><strong>3. 表示される [Intune デバイス ID]、[Azure AD デバイス ID]、[シリアル番号] を確認する</strong></p>
 <p><img src="/blog/intune/20220913_01/basic_03.png"></p>
 <p><strong>4. 採取した UPN、Intune デバイス ID、Azure AD デバイス ID、シリアル番号を Microsoft 社への起票時に添付する</strong></p>
-<p>※ 2022 年 9 月現在、Android 12 以降を実行している Android の個人所有の作業プロファイル デバイスのシリアル番号は表示されません。&lt; <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details">https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details</a> &gt;</p>
+<p>※ 2022 年 9 月現在、Android 12 以降を実行している Android の個人所有の作業プロファイル デバイスのシリアル番号は表示されません。&lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details">https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details</a> &gt;</p>
 <h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p>
 <p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/intune/20220913_01/" data-id="cmm9wwo3y00010nrqf2uq9x3a" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/intune/20220913_01/" data-id="cuidiV-b4WR2XUzlCKJvRLp5Y" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -199,6 +199,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -212,10 +216,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -264,9 +264,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

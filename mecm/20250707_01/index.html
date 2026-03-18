@@ -15,12 +15,11 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介いたします。   ソフトウェア更新プログラムのリリースの種類ソフトウェア更新プログラムについては、主に以下のリリースの種類があります。">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250707_01/20250707_01_01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250707_01/20250707_01_02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250707_01/20250707_01_03.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250707_01/20250707_01_04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250707_01/20250707_01_05.png">
 <meta property="article:published_time" content="2025-07-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.861Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.147Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -45,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +71,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -130,27 +129,33 @@
 <p>ConfigMgr においては、原則上記の 「毎月のセキュリティ更新プログラム リリース」 のソフトウェア更新プログラムが同期対象となっているため、既定の状態だと 「オプションのセキュリティ以外のプレビュー リリース」 や「帯域外 (OOB) リリース」 を ConfigMgr から配信することは」できません。<br>本ブログ記事では同期対象となっていない Windows OS 更新プログラムの同期方法をご紹介いたします。</p>
 <h2 id="ConfigMgr-が同期対象かどうかの確認方法"><a href="#ConfigMgr-が同期対象かどうかの確認方法" class="headerlink" title="ConfigMgr が同期対象かどうかの確認方法"></a>ConfigMgr が同期対象かどうかの確認方法</h2><p>対象の更新プログラムのページを確認いただくことで、ConfigMgrで使用可能かどうか (同期対象か) 確認することができます。<br>後述に手順をご案内いたしますので、こちらを参考にご確認いただけますと幸いでございます。  </p>
 <h3 id="確認手順"><a href="#確認手順" class="headerlink" title="確認手順"></a>確認手順</h3><p>今回の例では KB5060829 を対象にご案内いたします。  </p>
-<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2025-%E5%B9%B4-6-%E6%9C%88-26-%E6%97%A5-kb5060829-os-%E3%83%93%E3%83%AB%E3%83%89-26100-4484-%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC-e31ba7c2-ff65-4863-a462-a66e30840b1a">2025 年 6 月 26 日 — KB5060829 (OS ビルド 26100.4484) プレビュー</a>  </p>
+<p><a href="https://support.microsoft.com/ja-jp/topic/2025-%E5%B9%B4-6-%E6%9C%88-26-%E6%97%A5-kb5060829-os-%E3%83%93%E3%83%AB%E3%83%89-26100-4484-%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC-e31ba7c2-ff65-4863-a462-a66e30840b1a">2025 年 6 月 26 日 — KB5060829 (OS ビルド 26100.4484) プレビュー</a>  </p>
 <ol>
-<li><p>配信したい更新プログラムのサポート技術情報の記事を Microsoft Edge 等のブラウザでアクセスします。<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/2025-%E5%B9%B4-6-%E6%9C%88-26-%E6%97%A5-kb5060829-os-%E3%83%93%E3%83%AB%E3%83%89-26100-4484-%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC-e31ba7c2-ff65-4863-a462-a66e30840b1a">2025 年 6 月 26 日 — KB5060829 (OS ビルド 26100.4484) プレビュー</a>  </p>
-<br></li>
-<li><p>サポート技術情報の記事の [この更新プログラムの入手方法] の “サーバー更新サービス” を確認し、使用可能かどうか確認します。  </p>
-</li>
+<li>配信したい更新プログラムのサポート技術情報の記事を Microsoft Edge 等のブラウザでアクセスします。<br><a href="https://support.microsoft.com/ja-jp/topic/2025-%E5%B9%B4-6-%E6%9C%88-26-%E6%97%A5-kb5060829-os-%E3%83%93%E3%83%AB%E3%83%89-26100-4484-%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC-e31ba7c2-ff65-4863-a462-a66e30840b1a">2025 年 6 月 26 日 — KB5060829 (OS ビルド 26100.4484) プレビュー</a></li>
 </ol>
-<p><strong>※ 使用不可のソフトウェア更新プログラムを ConfigMgr で配信したい場合は後述の手順をお試しください。</strong>  <br><br>// 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_01.png" alt="update.png"></p>
+<br>
+
+<ol>
+<li>サポート技術情報の記事の [この更新プログラムの入手方法] の “サーバー更新サービス” を確認し、使用可能かどうか確認します。<br><strong>※ 使用不可のソフトウェア更新プログラムを ConfigMgr で配信したい場合は後述の手順をお試しください。</strong>  <br><br>&#x2F;&#x2F; 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_01.png" alt="update.png"></li>
+</ol>
 <h2 id="同期されない-Windows-OS-更新プログラムの同期方法"><a href="#同期されない-Windows-OS-更新プログラムの同期方法" class="headerlink" title="同期されない Windows OS 更新プログラムの同期方法"></a>同期されない Windows OS 更新プログラムの同期方法</h2><p><a href="#configmgr-%E3%81%8C%E5%90%8C%E6%9C%9F%E5%AF%BE%E8%B1%A1%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95">ConfigMgr が同期対象かどうかの確認方法</a> にて “サーバー更新サービス” が使用不可となっている更新プログラムを ConfigMgr に同期する手順をご紹介いたします。  </p>
 <p>大まかな流れといたしましては、以下弊社ブログ記事の手順にて、Microsoft Update カタログから該当の更新プログラムをインポートいただくことで、ConfigMgr に同期することができ、ソフトウェア更新プログラムの展開機能を利用して配信することができます。</p>
 <p><a href="https://jpmem.github.io/blog/wsus/2023-07-27_01/">Microsoft Update カタログから更新プログラムをインポートする手順が変更されました</a></p>
 <p><strong>本手順では KB5060829 を例にしてご説明いたしますので、適宜読み替えてご対応くださいますようお願いいたします。</strong></p>
 <h3 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h3><h4 id="1-ImportUpdateToWSUS-ps1-の作成"><a href="#1-ImportUpdateToWSUS-ps1-の作成" class="headerlink" title="1. ImportUpdateToWSUS.ps1 の作成"></a>1. ImportUpdateToWSUS.ps1 の作成</h4><p>以下の公開情報に記載されているスクリプトの中身をコピーし、ファイル名を “ImportUpdateToWSUS.ps1” として、<br>最上位サイトのソフトウェアの更新ポイント サーバーの任意のパス (C:\work など) へ保存します。</p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus">Import updates into WSUS using PowerShell</a></p>
+<p><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#powershell-script-to-import-updates-into-wsus">Import updates into WSUS using PowerShell</a></p>
 <h4 id="2-ソフトウェア更新プログラムの-製品、分類-および-Update-Id-の確認"><a href="#2-ソフトウェア更新プログラムの-製品、分類-および-Update-Id-の確認" class="headerlink" title="2. ソフトウェア更新プログラムの 製品、分類 および Update Id の確認"></a>2. ソフトウェア更新プログラムの 製品、分類 および Update Id の確認</h4><p>更新プログラムをインポートするためには該当の更新プログラムの Update Id が必要でございます。<br>以下に Update Id を確認する手順をご案内いたしますので、ご確認くださいませ。</p>
 <ol>
-<li>Microsoft Edge 等のブラウザで Microsoft Update カタログ サイトへアクセスします。<br><a target="_blank" rel="noopener" href="https://catalog.update.microsoft.com/Home.aspx">Microsoft®Update カタログ</a>  <br></li>
-<li>WSUS にインポートするソフトウェア更新プログラムを検索します。</li>
-<li>対象の更新プログラムをクリックします。</li>
-<li>開いたソフトウェア更新プログラムの詳細ページで 製品、分類 および Update Id を控えます。 <br><br>// 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_02.png" alt="updateid.png"></li>
+<li>Microsoft Edge 等のブラウザで Microsoft Update カタログ サイトへアクセスします。<br><a href="https://catalog.update.microsoft.com/Home.aspx">Microsoft®Update カタログ</a></li>
 </ol>
+<br>
+1. WSUS にインポートするソフトウェア更新プログラムを検索します。
+1. 対象の更新プログラムをクリックします。
+1. 開いたソフトウェア更新プログラムの詳細ページで 製品、分類 および Update Id を控えます。 <br>
+// 画面サンプル
+![updateid.png](/blog/mecm/20250707_01/20250707_01_02.png)
+
+
 <h3 id="同期手順"><a href="#同期手順" class="headerlink" title="同期手順"></a>同期手順</h3><ol>
 <li>最上位サイトのソフトウェアの更新ポイント サーバーに管理者権限を保有しているユーザー アカウントでログインします。</li>
 <li>PowerShell を管理者権限で起動します。</li>
@@ -158,37 +163,35 @@
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;事前準備 <span class="number">1</span> で作成した ImportUpdateToWSUS.ps1 を格納したパス&gt;</span><br><span class="line">.\ImportUpdateToWSUS.ps1 <span class="literal">-UpdateId</span> &lt;事前準備 <span class="number">2</span> で控えた Update Id&gt;</span><br></pre></td></tr></table></figure>
 
-<p>// 実行画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_03.png" alt="powershell.png"></p>
+<p>&#x2F;&#x2F; 実行画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_03.png" alt="powershell.png"></p>
 <ol start="4">
 <li>WSUS コンソールを起動し、インポートした該当の更新プログラムが表示されていることを確認します。</li>
 </ol>
-<p>// 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_04.png" alt="wsus.png"></p>
+<p>&#x2F;&#x2F; 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_04.png" alt="wsus.png"></p>
 <ol start="5">
-<li><p>続いて、最上位サイトの Configuration Manager コンソールを起動します。</p>
-</li>
-<li><p>[管理] - [概要] - [サイトの構成] - [サイト] の順に展開します。</p>
-</li>
-<li><p>上メニューにある [サイト コンポーネントの構成] を選択し、 [ソフトウェアの更新ポイント] をクリックします。</p>
-</li>
-<li><p>ソフトウェアの更新ポイントのプロパティ ウィザードの [製品] タブと [分類] タブを確認し、事前準備 2 で控えた製品と分類にチェックが入っていることを確認します。</p>
-<br></li>
-<li><p>続いて、[ソフトウェア ライブラリ] – [概要] – [ソフトウェア更新プログラム] – [すべてのソフトウェア更新プログラム] の順に展開します。</p>
-</li>
-<li><p>上メニューにある [ソフトウェア更新プログラムの同期] をクリックします。</p>
-</li>
+<li>続いて、最上位サイトの Configuration Manager コンソールを起動します。</li>
+<li>[管理] - [概要] - [サイトの構成] - [サイト] の順に展開します。</li>
+<li>上メニューにある [サイト コンポーネントの構成] を選択し、 [ソフトウェアの更新ポイント] をクリックします。</li>
+<li>ソフトウェアの更新ポイントのプロパティ ウィザードの [製品] タブと [分類] タブを確認し、事前準備 2 で控えた製品と分類にチェックが入っていることを確認します。</li>
+</ol>
+<br>
+9. 続いて、[ソフトウェア ライブラリ] – [概要] – [ソフトウェア更新プログラム] – [すべてのソフトウェア更新プログラム] の順に展開します。
+10. 上メニューにある [ソフトウェア更新プログラムの同期] をクリックします。
+
+<ol start="11">
 <li><p>ソフトウェア更新プログラムの同期が完了するまで待機します。<br>※ [監視] – [概要] – [ソフトウェアの更新ポイントの同期ステータス] より同期のステータスが確認できます。</p>
 </li>
 <li><p>[ソフトウェア ライブラリ] – [概要] – [ソフトウェア更新プログラム] – [すべてのソフトウェア更新プログラム] の順に展開し、該当の更新プログラムが表示されていることを確認します。</p>
 </li>
 </ol>
-<p>// 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_05.png" alt="cm.png"></p>
+<p>&#x2F;&#x2F; 画面サンプル<br><img src="/blog/mecm/20250707_01/20250707_01_05.png" alt="cm.png"></p>
 <h3 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h3><p>該当のソフトウェア更新プログラムのインポート時にエラーとなる場合は、以下の公開情報に該当していることが考えられます。<br>このため、インポート実施時にエラーとなる場合は、こちらの公開情報にございます対処をご実施のうえ、再度更新プログラム カタログのインポートをお試しください。</p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#troubleshooting">WSUS and the Microsoft Update Catalog - Troubleshooting</a></p>
+<p><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/wsus-and-the-catalog-site?branch=pr-4097#troubleshooting">WSUS and the Microsoft Update Catalog - Troubleshooting</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20250707_01/" data-id="cmm9wwo8600ar0nrq2y87c841" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20250707_01/" data-id="cuidWb8y49GYZrjuaaJYuSbwg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -230,6 +233,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -243,10 +250,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -295,9 +298,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

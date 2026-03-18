@@ -15,7 +15,7 @@
 <meta property="og:description" content="本記事につきましては下記の公開情報にて今後更新を予定しております。   Configuration Manager サイト サーバー、サイト システム、およびクライアントに推奨されるウイルス対策の除外   https:&#x2F;&#x2F;learn.microsoft.com&#x2F;ja-jp&#x2F;troubleshoot&#x2F;mem&#x2F;configmgr&#x2F;recommended-antivirus-exclusions   以">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-03-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.662Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.959Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,7 +116,7 @@
       
         <p>本記事につきましては下記の公開情報にて今後更新を予定しております。  </p>
 <p>Configuration Manager サイト サーバー、サイト システム、およびクライアントに推奨されるウイルス対策の除外  </p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/recommended-antivirus-exclusions">https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/recommended-antivirus-exclusions</a>  </p>
+<p><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/recommended-antivirus-exclusions">https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/recommended-antivirus-exclusions</a>  </p>
 <p>以下の内容につきましては過去バージョンでの調査結果に基づく記載となりますので、最新の情報は上述のリンクをご参照ください。  </p>
 <hr>
 <p>こんにちは。Configuration Manager サポートチームです。<br>Microsoft Endpoint Configuration Manager (MECM) をご利用いただく中でウイルス対策ソフトによるリアルタイムスキャン機能の影響により、コンテンツのダウンロードが阻害されて失敗する等、意図しない動作が発生する事があります。この場合、MECM が使用するフォルダーをスキャンの除外対象にすることが問題の解決につながる場合が多くございます。<br>また、ウイルス対策ソフトでの除外リストの情報については複数の公開情報に分散されている事もございますので、ここでは MECM をご利用いただく上で関連する製品についてのウイルス対策ソフトご利用時における除外設定の一覧をおまとめいたしました。<br>MECM 環境をウイルス対策ソフトと共にご利用いただく際には本情報を参考に除外設定を実施いただけますと幸いです。<br>なお、以下で記載させていただいております各種パスにつきましては主に既定のパス情報を基に記載しておりますので、インストール パスを変更いただいている環境等では適宜読み替えてご確認ください。<br>([フォルダパス] についてはサブフォルダおよびファイルを含む除外指定となります。)<br>(ご利用の環境ならびに構成によっては一部存在しないものもございます。)  </p>
@@ -162,13 +162,13 @@
 <p>[ファイル拡張子]  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\*.cab</span><br></pre></td></tr></table></figure>
 
-<h2 id="参考資料"><a href="#参考資料" class="headerlink" title="- 参考資料"></a>- 参考資料</h2><p>Microsoft Anti-Virus Exclusion List<br><a target="_blank" rel="noopener" href="http://social.technet.microsoft.com/wiki/contents/articles/953.microsoft-anti-virus-exclusion-list.aspx">http://social.technet.microsoft.com/wiki/contents/articles/953.microsoft-anti-virus-exclusion-list.aspx</a></p>
-<p>Virus scanning recommendations for Enterprise computers that are running currently supported versions of Windows<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/topic/virus-scanning-recommendations-for-enterprise-computers-that-are-running-currently-supported-versions-of-windows-kb822158-c067a732-f24a-9079-d240-3733e39b40bc">https://support.microsoft.com/en-us/topic/virus-scanning-recommendations-for-enterprise-computers-that-are-running-currently-supported-versions-of-windows-kb822158-c067a732-f24a-9079-d240-3733e39b40bc</a></p>
+<h2 id="参考資料"><a href="#参考資料" class="headerlink" title="- 参考資料"></a>- 参考資料</h2><p>Microsoft Anti-Virus Exclusion List<br><a href="http://social.technet.microsoft.com/wiki/contents/articles/953.microsoft-anti-virus-exclusion-list.aspx">http://social.technet.microsoft.com/wiki/contents/articles/953.microsoft-anti-virus-exclusion-list.aspx</a></p>
+<p>Virus scanning recommendations for Enterprise computers that are running currently supported versions of Windows<br><a href="https://support.microsoft.com/en-us/topic/virus-scanning-recommendations-for-enterprise-computers-that-are-running-currently-supported-versions-of-windows-kb822158-c067a732-f24a-9079-d240-3733e39b40bc">https://support.microsoft.com/en-us/topic/virus-scanning-recommendations-for-enterprise-computers-that-are-running-currently-supported-versions-of-windows-kb822158-c067a732-f24a-9079-d240-3733e39b40bc</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180302_01/" data-id="cmm9wwo6c005l0nrqcivv8tnb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180302_01/" data-id="cuidj_FH8H6XVe1DZpqgJJy0s" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -210,6 +210,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -223,10 +227,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -275,9 +275,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_05.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220608_02/20220608_02_06.png">
 <meta property="article:published_time" content="2022-06-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.792Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.082Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -130,7 +130,7 @@
 <p><img src="/blog/mecm/20220608_02/20220608_02_02.png" alt="image.png"></p>
 <h3 id="アプリケーションの実行タイミング"><a href="#アプリケーションの実行タイミング" class="headerlink" title="アプリケーションの実行タイミング"></a>アプリケーションの実行タイミング</h3><p>アプリケーションではパッケージのような特定のタイミングで実行、繰り返し実行を設定することはできません。  </p>
 <p>アプリケーションではインストール可能となる日時と、インストールの期限を設定します。<br>クライアントがアプリケーションが展開されたことを検知すると設定されたインストール可能日時とインストール期限の間でランダムにインストール日時をスケジュールします。  </p>
-<p>なお、展開後すぐに実行させたい場合には、[アプリケーションが使用可能になる日時を指定する] のチェックを外し、「インストール期限」= [使用可能な時間後直ちに] を指定ください。</p>
+<p>なお、展開後すぐに実行させたい場合には、[アプリケーションが使用可能になる日時を指定する] のチェックを外し、「インストール期限」&#x3D; [使用可能な時間後直ちに] を指定ください。</p>
 <p><img src="/blog/mecm/20220608_02/20220608_02_04.png" alt="image.png"></p>
 <h2 id="再実行の動作の違い"><a href="#再実行の動作の違い" class="headerlink" title="再実行の動作の違い"></a>再実行の動作の違い</h2><p>パッケージとアプリケーションとでは、実行が失敗した際の再実行の動作が異なります。  </p>
 <p><strong>・パッケージ → 特定の設定が必要</strong><br><strong>・アプリケーション → 設定は不要で既定で用意された機能に沿って再実行される。</strong>  </p>
@@ -143,10 +143,10 @@
 <h3 id="アプリケーションのインストール条件を設定する（検出規則）"><a href="#アプリケーションのインストール条件を設定する（検出規則）" class="headerlink" title="アプリケーションのインストール条件を設定する（検出規則）"></a>アプリケーションのインストール条件を設定する（検出規則）</h3><p>アプリケーションには検出規則というインストールを実行するかどうかの判定を行う機能がございます。例えば、特定のレジストリの値を評価し、特定の値よりも小さい場合にはインストールを行う（大きい場合にはインストールをしない）などを設定することができます。なお、検出規則はアプリケーション作成時には必ず設定が必要となります。  </p>
 <p>設定できる検出規則の種類は以下の通りです。  </p>
 <ul>
-<li><strong>ファイル システム</strong><br>ファイル/フォルダの有無、または更新日などを判定条件とすることができます。  </li>
+<li><strong>ファイル システム</strong><br>ファイル&#x2F;フォルダの有無、または更新日などを判定条件とすることができます。  </li>
 <li><strong>レジストリ</strong><br>特定のレジストリキーの有無や値の評価を条件とすることができます。  </li>
 <li><strong>Windows インストーラー</strong><br>msi ファイルを読み込ませることで該当のアプリケーションのインストールの有無を条件とすることができます。  </li>
-<li><strong>カスタム スクリプト</strong><br>PowerShell などのスクリプトの実行結果により、判定させることができます。スクリプトの実行結果や、STDOUT の有無などにより、判定結果を決定します。<br>詳細については、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-applications#about-custom-script-detection-methods">カスタム スクリプト検出方法について</a> を参照くださいませ。  </li>
+<li><strong>カスタム スクリプト</strong><br>PowerShell などのスクリプトの実行結果により、判定させることができます。スクリプトの実行結果や、STDOUT の有無などにより、判定結果を決定します。<br>詳細については、<a href="https://docs.microsoft.com/ja-jp/mem/configmgr/apps/deploy-use/create-applications#about-custom-script-detection-methods">カスタム スクリプト検出方法について</a> を参照くださいませ。</li>
 </ul>
 <p>レジストリを検出規則とした例です。<br>※ アプリケーションの [展開の種類] にて設定を行います。<br><img src="/blog/mecm/20220608_02/20220608_02_06.png" alt="image.png">  </p>
 <h3 id="置き換え関係の構成"><a href="#置き換え関係の構成" class="headerlink" title="置き換え関係の構成"></a>置き換え関係の構成</h3><p>置き換え関係を構成することにより、アプリケーションのインストール時に指定した置き換え関係にあるアプリケーションをアンインストールしてからインストールさせることができます。なお、置き換え規則は必要に応じて設定いただくことが可能でございますので、必須の設定ではございません。  </p>
@@ -162,7 +162,7 @@
 </li>
 <li><p>インストールの条件を設定したい（条件を満たさない場合には自動的にインストールを促したい）</p>
 </li>
-<li><p>置き換えたいアプリケーションがある<br>　→　<strong>アプリケーション</strong>  </p>
+<li><p>置き換えたいアプリケーションがある<br>　→　<strong>アプリケーション</strong></p>
 </li>
 </ul>
 <p>のように使い分けてみましょう！</p>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220608_02/" data-id="cmm9wwo7900880nrqbyfl2ov4" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220608_02/" data-id="cuidWmbEkSV0HzpPam_To3oh5" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -212,6 +212,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -225,10 +229,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -277,9 +277,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

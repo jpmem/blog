@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20251022_01/20251022_pic.png">
 <meta property="article:published_time" content="2025-10-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.868Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.152Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -118,15 +118,15 @@
       
         <p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続きご利用いただけます。<br>本記事を参考に、ぜひ早めの準備をご検討ください。</p>
 <h2 id="サポート-バージョンについて"><a href="#サポート-バージョンについて" class="headerlink" title="サポート バージョンについて"></a>サポート バージョンについて</h2><p>ConfigMgr は現在、年 2 回、3 月 (XX03) と 9 月 (XX09) を目安に新しいバージョンがリリースされます。 ただし、これは目安であり、スケジュールの都合で前後する場合があります。サポートサイクルは、各バージョンのリリース日から 18 か月間 です。 新しいバージョンが公開されると、Microsoft Learn の公式ドキュメントに記載されますので、こちらをチェックしてください。  </p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/updates#supported-versions">ConfigMgr サポート バージョン</a></p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/updates#supported-versions">ConfigMgr サポート バージョン</a></p>
 <p>なお、現在のバージョンは下記手順で確認することができます。</p>
 <p>[ConfigMgr コンソール] - 左上 ▼ ボタン - [Configuration Manager のバージョン情報]</p>
 <p><img src="/blog/mecm/20251022_01/20251022_pic.png" alt="SupportVersion"></p>
 <h2 id="アップデートの前提条件"><a href="#アップデートの前提条件" class="headerlink" title="アップデートの前提条件"></a>アップデートの前提条件</h2><p>アップデートする際は、サーバーが前提条件を満たす必要があります。  前提条件は各バージョンによって異なり、バージョンによっては ConfigMgr が使用するアプリケーションやコンポーネントのバージョンアップが必要です。  ConfigMgr では各バージョンごとにアップデートするためのチェックリストを用意していますので、チェックリストをもとにアップデートするための準備を行ってください。  </p>
 <p>2503 の場合、チェックリストは以下となります。</p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-update-2503">更新プログラム 2503 for Configuration Managerをインストールするためのチェックリスト</a>  </p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-update-2503">更新プログラム 2503 for Configuration Managerをインストールするためのチェックリスト</a>  </p>
 <p>また、バージョンの新機能にもアップデートに関する情報が記載されている場合があります。  </p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/changes/whats-new-in-version-2503">バージョン 2503 の新機能</a>  </p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/changes/whats-new-in-version-2503">バージョン 2503 の新機能</a>  </p>
 <p>例えば 2503 では ODBC Driver 18.4.1.1 にする必要がありますが、チェックリストにはバージョンまで記載されておらず、新機能のサイトでご案内しています。<br>なお、ODBC Driver のバージョンは下記レジストリの ”InstalledVersion” から確認可能です。  </p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSODBCSQL18</span><br></pre></td></tr></table></figure>
 
@@ -137,7 +137,7 @@
 <li>更新プログラムのダウンロード：対象バージョンの更新プログラムをダウンロードします。  </li>
 <li>前提条件チェック: 自動で実行される前提条件チェックで問題がないことを確認します。  </li>
 <li>アップデートの実行: 中央管理サイト (CAS) とプライマリサイトがある場合は、CAS でアップデートを実施します。  </li>
-<li>コンソールの更新：アップデートが完了すると、コンソールの更新を促すメッセージが表示されますので、メッセージに従い更新を行います。  </li>
+<li>コンソールの更新：アップデートが完了すると、コンソールの更新を促すメッセージが表示されますので、メッセージに従い更新を行います。</li>
 </ol>
 <p>注意点として、サードパーティ製のセキュリティ ソフトウェアがインストールされている場合、アップデートが失敗することがありますので、事前にアンインストールすることをお勧めします。  また、1、2 を事前に済ませておくこともスムーズにアップデートを実行するためのポイントです。</p>
 <p>実際のアップデート方法につきましては下記でご案内しておりますので、こちらを参考にしてください。  </p>
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20251022_01/" data-id="cmm9wwo8700av0nrq7krpglru" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20251022_01/" data-id="cuidrS8jm3i-kPB94yNM_8S5T" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -194,6 +194,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -207,10 +211,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -259,9 +259,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

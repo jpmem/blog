@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220125_01/20220125_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220125_01/20220125_01_03.png">
 <meta property="article:published_time" content="2022-01-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.743Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.036Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -71,9 +71,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -127,13 +127,13 @@
 <p>その際を埋めるのが WOW64 です。<br>WOW64 は上記のディレクトリ パスの差異をファイル リダイレクトによりあたかも同じ場所にあるように扱うことを可能にしています。</p>
 <p>32 bit アプリケーションから %windir%\System32 が指定された場合には、WOW64 は %windir%\SysWOW64（32 bit プログラム用のファイルがおいてあるフォルダー） にリダイレクトします。</p>
 <h2 id="ファイルリダイレクトによる弊害"><a href="#ファイルリダイレクトによる弊害" class="headerlink" title="ファイルリダイレクトによる弊害"></a>ファイルリダイレクトによる弊害</h2><p>しかし、パッケージ展開の際には注意が必要となります。<br>パッケージ展開処理は 32 bit で動作します。そのため、64 bit の OS の端末上でパッケージ展開を実行する際には WOW64 を介して 32 bit 用の dll が存在するパスにリダイレクトされます。</p>
-<p>例えば、64 bit の exe を実行する場合に、パッケージのコマンド ラインに「cmd /c test.exe」と指定した場合には、C:\Windows\SysWOW64 配下の cmd が呼び出され、32 bit の cmd から 64 bit のアプリケーション（exe）を実行する事となり、正常に動作しないことがあります。</p>
+<p>例えば、64 bit の exe を実行する場合に、パッケージのコマンド ラインに「cmd &#x2F;c test.exe」と指定した場合には、C:\Windows\SysWOW64 配下の cmd が呼び出され、32 bit の cmd から 64 bit のアプリケーション（exe）を実行する事となり、正常に動作しないことがあります。</p>
 <h3 id="パッケージのコマンドラインの確認方法"><a href="#パッケージのコマンドラインの確認方法" class="headerlink" title="パッケージのコマンドラインの確認方法"></a>パッケージのコマンドラインの確認方法</h3><p>1.MECM 管理コンソール &gt; [ソフトウェア ライブラリ] &gt; [概要] &gt; [アプリケーション管理] &gt; [パッケージ] にて、[プログラム] タブを開き、該当のプログラムを右クリック &gt; [プロパティ] を開きます。</p>
 <p><img src="/blog/mecm/20220125_01/20220125_01_01.png"></p>
 <p>2.[全般] タブにて「コマンド ライン」を確認することができます。</p>
 <p><img src="/blog/mecm/20220125_01/20220125_01_02.png"></p>
 <h2 id="回避策"><a href="#回避策" class="headerlink" title="回避策"></a>回避策</h2><p>以下のように sysnative をコマンドラインに指定することにより、回避することが可能となります。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%windir%\sysnative\cmd /c test.exe</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%windir%\sysnative\cmd /c test.exe</span><br></pre></td></tr></table></figure>
 
 <p>※ 適宜ファイル名を変更してお試し下さい。</p>
 <h3 id="ps1-の場合"><a href="#ps1-の場合" class="headerlink" title="ps1 の場合"></a>ps1 の場合</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;%Windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe&quot;</span> <span class="literal">-ExecutionPolicy</span> Bypass <span class="literal">-Command</span> .\xxx.ps1</span><br></pre></td></tr></table></figure>
@@ -154,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220125_01/" data-id="cmm9wwo6z007a0nrqfxy4aq2e" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220125_01/" data-id="cuidpSbV1mCdmjt3roo5WF1wJ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -196,6 +196,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -209,10 +213,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -261,9 +261,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -28,10 +28,10 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_13.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_14.png">
 <meta property="article:published_time" content="2021-12-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.738Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.032Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
-<meta property="article:tag" content="MECM">
 <meta property="article:tag" content="CMG">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20211212_01/20211212_01_01.png">
   
@@ -54,7 +54,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -81,9 +81,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -132,7 +132,7 @@
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Configuration Manager Current Branch (CM CB) 2107 より正式リリースとなりました仮想マシン スケールセットについてとその変換手順についてご案内させて頂きます。</p>
 <p>仮想マシン スケールセットのクラウド管理ゲートウェイは、CM CB 2103 以前まで主に提供しております、クラウド管理ゲートウェイ (CMG) がベースとしている、Azure のクラウドサービス (クラシック) が 2024年 8月 31日に非推奨となるのに伴い、代替として登場した 仮想マシン スケールセット (VMSS) ベースの CMG です。CB CB 2107 より正式リリースされており、主な特徴として、CSP サブスクリプションをご利用のお客様につきましても、CMG を利用できるようになっております。</p>
 <h1 id="クラウドサービス-クラシック-版の-CMG-について"><a href="#クラウドサービス-クラシック-版の-CMG-について" class="headerlink" title="クラウドサービス (クラシック) 版の CMG について"></a>クラウドサービス (クラシック) 版の CMG について</h1><p>以下ページでもご案内している通り、クラウドサービス (クラシック) 版の CMG のデプロイは、2022年3月1日 以降の CM CB がリリースされ次第、サポートされなくなります。可能な限り、VMSS 版 CMG をご利用頂くようお願い致します。</p>
-<p>Title: 推奨されない機能 - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features</a></p>
+<p>Title: 推奨されない機能 - Configuration Manager | Microsoft Docs<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features">https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures#deprecated-features</a></p>
 <h2 id="VMSS-版-CMG-の変更点"><a href="#VMSS-版-CMG-の変更点" class="headerlink" title="VMSS 版 CMG の変更点"></a>VMSS 版 CMG の変更点</h2><p>以下、サービス外部仕様の変更点となります。  </p>
 <ol>
 <li>展開名サフィックスの変更</li>
@@ -177,9 +177,9 @@
 <td align="right">10,000</td>
 </tr>
 </tbody></table>
-<p>Title: CMG のパフォーマンスとスケール - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg</a></p>
+<p>Title: CMG のパフォーマンスとスケール - Configuration Manager | Microsoft Docs<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/perf-scale#size-and-scale-for-cmg</a></p>
 <h3 id="TCP-TLS-ポート利用の廃止"><a href="#TCP-TLS-ポート利用の廃止" class="headerlink" title="TCP-TLS ポート利用の廃止"></a>TCP-TLS ポート利用の廃止</h3><p>クラウドサービス (クラシック) で利用していた、クラウド管理ゲートウェイ接続ポイント (CMG-CP) から CMG への TCP-TLS ポート (10140 - 10155) が利用されなくなり、HTTPSポート (443, 10124 - 10139) のみが利用できるようになりました。この変更により、サイト システム設定で Proxy サーバーを設定している場合において、CMG の通信が Proxy サーバーを回避できなくなりました。そのため、VMSS 版 CMG ご利用に当たっては、ご利用されている Proxy サーバーの挙動について良くご確認くださいますようお願い致します。</p>
-<p>Title: CMG のデータ フロー - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports</a></p>
+<p>Title: CMG のデータ フロー - Configuration Manager | Microsoft Docs<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/data-flow#required-ports</a></p>
 <h1 id="VMSS-版-CMG-への変換について"><a href="#VMSS-版-CMG-への変換について" class="headerlink" title="VMSS 版 CMG への変換について"></a>VMSS 版 CMG への変換について</h1><p>以降、VMSS 版 CMG への変換についてご案内させていただきます。</p>
 <ol>
 <li>変換機能をサポートできない場合について</li>
@@ -188,7 +188,7 @@
 <li>DNS CNAMEの変更または更新</li>
 </ol>
 <h2 id="変換機能をサポートできない場合について"><a href="#変換機能をサポートできない場合について" class="headerlink" title="変換機能をサポートできない場合について"></a>変換機能をサポートできない場合について</h2><p>サービス名として展開名と同じ、[ホスト名].cloudapp.netをそのままご利用されている場合は、本変換機能をサポートできません。恐れ入りますが、新規に VMSS 版 CMG を構築いただきますようお願い致します。</p>
-<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
+<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
 <h2 id="事前作業"><a href="#事前作業" class="headerlink" title="事前作業"></a>事前作業</h2><p>問題無く変換を完了させるために、以下を確認しておきます。</p>
 <ul>
 <li>機能の有効化</li>
@@ -208,7 +208,7 @@
 <li>Microsoft.Network<br><img src="/blog/mecm/20211212_01/20211212_01_06.png"></li>
 </ul>
 <h2 id="実際の変換作業"><a href="#実際の変換作業" class="headerlink" title="実際の変換作業"></a>実際の変換作業</h2><p>実際の変換作業については下記でもご案内しております。  </p>
-<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
+<p>Title: CMG を変更する - Configuration Manager | Microsoft Docs<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/modify-cloud-management-gateway#convert</a></p>
 <p>以下、スクリーンショット付きでのご案内となります。<br>なお、変換自体はバックグラウンドで動作し、環境にも依りますが、通常 30 分から 60 分で完了します。</p>
 <ol>
 <li><p>MECM CB 2107 以降で下記の画面まで遷移します。<br>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ]</p>
@@ -251,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211212_01/" data-id="cmm9wwo6t00730nrq6iow5zxb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211212_01/" data-id="cuidW2xHc--4f_AUhCvuEjByJ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -293,6 +293,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -306,10 +310,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -358,9 +358,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

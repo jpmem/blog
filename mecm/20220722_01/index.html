@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   使い方シリーズ、今回はハードウェア インベントリで HKLM 配下の特定のレジストリを収集する方法についてご案内いたします。特定のレジストリ値を収集して、管理コンソールやレポートで確認したいという場合に本手順をお役立ていただけますと幸いです。 想定シナリオ以下のレジストリ値を収集して、値が 2 のデバイス">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2022-07-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.806Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.095Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="使い方">
@@ -40,7 +40,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -67,9 +67,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -133,11 +133,15 @@
 <li>取得したいレジストリ値の MOF ファイルを作成します。<br>configuration.mof 追記用とインポート用の 2 つの MOF ファイルが必要となります。<br>例えば、今回収集対象とするレジストリ値の場合は以下の通りです。</li>
 </ol>
 <ul>
-<li><p>configuration.mof</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[DYNPROPS]</span><br><span class="line">Class TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">[key] string KeyName;</span><br><span class="line">Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[DYNPROPS]</span><br><span class="line">Instance of TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">KeyName=&quot;Value&quot;;</span><br><span class="line">[PropertyContext(&quot;Local|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters|DisableIPSourceRouting&quot;),Dynamic,Provider(&quot;RegPropProv&quot;)] DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>importclass.mof</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[SMS_Report(TRUE),SMS_Group_Name(&quot;TcpipParametersInfo&quot;),SMS_Class_ID(&quot;TcpipParametersInfo&quot;)]</span><br><span class="line">Class TcpipParametersInfo: SMS_Class_Template</span><br><span class="line">&#123;</span><br><span class="line">[SMS_Report(TRUE),key] string KeyName;</span><br><span class="line">[SMS_Report(TRUE)] Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>configuration.mof</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[DYNPROPS]</span><br><span class="line">Class TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">[key] string KeyName;</span><br><span class="line">Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[DYNPROPS]</span><br><span class="line">Instance of TcpipParametersInfo</span><br><span class="line">&#123;</span><br><span class="line">KeyName=&quot;Value&quot;;</span><br><span class="line">[PropertyContext(&quot;Local|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters|DisableIPSourceRouting&quot;),Dynamic,Provider(&quot;RegPropProv&quot;)] DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>importclass.mof</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace (&quot;\\\\.\\root\\cimv2&quot;)</span><br><span class="line">#pragma deleteclass(&quot;TcpipParametersInfo&quot;, NOFAIL)</span><br><span class="line">[SMS_Report(TRUE),SMS_Group_Name(&quot;TcpipParametersInfo&quot;),SMS_Class_ID(&quot;TcpipParametersInfo&quot;)]</span><br><span class="line">Class TcpipParametersInfo: SMS_Class_Template</span><br><span class="line">&#123;</span><br><span class="line">[SMS_Report(TRUE),key] string KeyName;</span><br><span class="line">[SMS_Report(TRUE)] Uint32 DisableIPSourceRouting;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>上記 MOF ファイル内の「TcpipParametersInfo」の部分は任意の名前で構いません。<br><code>HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters</code> の部分は収集対象にしたいレジストリ キーになります。<br><code>DisableIPSourceRouting</code> の部分は収集対象にしたいレジストリ値になります。</p>
 <p>準備ができた後、検証用のコンピューターでコマンド プロンプトから MOF ファイルのあるパスに移動し、以下のコマンドを実行します。</p>
 <p><code>mofcomp -check xxxx.mof</code>　<br>（xxxx にはmof につけたファイル名を入れてください）</p>
@@ -147,7 +151,7 @@
 </ol>
 <p><code>\Program Files\Microsoft Configuration Manager\inboxes\clifiles.src\hinv\configuration.mof</code><br>※ \Program Files\Microsoft Configuration Manager は Configuration Manager サイトのインストール先に応じて変更されます。</p>
 <ol start="2">
-<li><p>configuration.mof をメモ帳で開き、手順 1. で作成した configuration.mof 追記用 MOF ファイルの内容を一番下に追記して保存します。具体的には、ファイル末尾の “Added extensions start/ end” の 2 行の間に挿入します。</p>
+<li><p>configuration.mof をメモ帳で開き、手順 1. で作成した configuration.mof 追記用 MOF ファイルの内容を一番下に追記して保存します。具体的には、ファイル末尾の “Added extensions start&#x2F; end” の 2 行の間に挿入します。</p>
 </li>
 <li><p>上記作業により、SMS_EXECUTIVE サービスがまもなくファイルの変更を検知し、追加内容をクライアントへのポリシーに変換します。</p>
 </li>
@@ -191,7 +195,7 @@
 </li>
 <li><p>[デバイス コレクションの作成] ウィザードが起動します。</p>
 </li>
-<li><p>[全般] にて、次の設定を行います。  </p>
+<li><p>[全般] にて、次の設定を行います。</p>
 </li>
 </ol>
 <ul>
@@ -228,13 +232,13 @@
 <p>コレクション作成後、DisableIPSourceRouting のインベントリを送信した端末の中で、その値が 2 のデバイスが作成したコレクションに表示されていきますので、経過をご確認ください。<br>最終的に、意図する端末がコレクション上に表示されているかどうかをご確認ください。</p>
 <p>※ コレクション作成の注意点<br>本手順にて利用しているクエリは、ハードウェア インベントリによって収集するように構成したレジストリ値を参照しています。</p>
 <p>期待通りのクエリ結果とならない場合は、リソース エクスプローラを利用してハードウェア インベントリの収集状況およびレジストリの値をご確認ください。</p>
-<p>Title: Configuration Manager でリソース エクスプローラーを使用してハードウェア インベントリを表示する方法<br>URL: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory</a></p>
+<p>Title: Configuration Manager でリソース エクスプローラーを使用してハードウェア インベントリを表示する方法<br>URL: <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/inventory/use-resource-explorer-to-view-hardware-inventory</a></p>
 <p>[ハードウェア] - [ワークステーションのステータス] で、最後にクライアントのハードウェア インベントリがレポートされた時間を確認します。<br>次に [ハードウェア] - [TcpipParametersInfo] で “DisableIPSourceRouting” の値を確認します。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220722_01/" data-id="cmm9wwo7d008m0nrqe6hkgqd1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220722_01/" data-id="cuiddIl3q9tf_HUodijHBRGfU" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li></ul>
@@ -276,6 +280,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -289,10 +297,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -341,9 +345,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

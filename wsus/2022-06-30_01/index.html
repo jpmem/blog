@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。WSUS サポート チームです。   今回は WSUS サーバーが Microsoft Update サイトや上位の WSUS サーバーから更新プログラムのインストーラーをダウンロードする際に、よくあるトラブル事例と対処方法をご紹介します。もし下記のような症状が出ている場合には、本ブログ記事が役立つと思います。    いくつかの更新プログラムについてのみ、ダウンロードが失敗する   ダ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.967Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.244Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,14 +119,14 @@
 <ul>
 <li>いくつかの更新プログラムについてのみ、ダウンロードが失敗する  </li>
 <li>ダウンロードが異常に遅い (例えば、月例のセキュリティ更新プログラムをダウンロードするのに数日かかる、など)  </li>
-<li>アプリケーション イベントログに下記のようなエラーが記録されている  </li>
+<li>アプリケーション イベントログに下記のようなエラーが記録されている</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">イベントの種類: エラー</span><br><span class="line">イベント ソース: Windows Server Update Services</span><br><span class="line">イベント カテゴリ: (2)</span><br><span class="line">イベント ID: 364</span><br><span class="line">日付: date</span><br><span class="line">時刻: time</span><br><span class="line">ユーザー: 該当なし</span><br><span class="line">コンピューター: ServerName</span><br><span class="line">説明:コンテンツ ファイルのダウンロードに失敗しました。原因:サーバーは必要な HTTP プロトコルをサポートしていません。バックグラウンド インテリジェント転送サービス (BITS) では、サーバーが Range プロトコル ヘッダーをサポートしている必要があります。</span><br></pre></td></tr></table></figure>
 <p>こういった場合、下記の技術情報でご紹介する対処方法をお試しください。  </p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/windows-server/networking/cannot-download-file-background-intelligent-transfer-service">バックグラウンド インテリジェント転送サービスを使用してファイルをダウンロードしようとすると、次のエラー メッセージが表示される: コンテンツ ファイル ダウンロードに失敗しました</a></p>
+<p><a href="https://learn.microsoft.com/ja-jp/troubleshoot/windows-server/networking/cannot-download-file-background-intelligent-transfer-service">バックグラウンド インテリジェント転送サービスを使用してファイルをダウンロードしようとすると、次のエラー メッセージが表示される: コンテンツ ファイル ダウンロードに失敗しました</a></p>
 <p>本ブログ記事ではトラブルの詳細、対処方法とその影響についてもう少し補足してご説明します。  </p>
 <h1 id="トラブルの詳細について"><a href="#トラブルの詳細について" class="headerlink" title="トラブルの詳細について"></a>トラブルの詳細について</h1><p>WSUS サーバーが更新プログラムのインストーラーをダウンロードする際には、”Background Intelligent Transfer Service” (BITS) サービスが利用されます。<br>BITS は帯域制御の機能を持ったファイル転送の仕組みで、バックグラウンド、フォアグラウンド、と 2 種類の転送モードを持ちます。  </p>
-<p>WSUS サーバーは既定の設定で、バックグラウンド モードを利用してダウンロードを行います。<br>この時、ダウンロード要求は HTTP/1.1 の Range ヘッダーを使って、インストーラーをいくつものブロックに分けて分割ダウンロードを行います。  </p>
+<p>WSUS サーバーは既定の設定で、バックグラウンド モードを利用してダウンロードを行います。<br>この時、ダウンロード要求は HTTP&#x2F;1.1 の Range ヘッダーを使って、インストーラーをいくつものブロックに分けて分割ダウンロードを行います。  </p>
 <p>しかし、プロキシやネットワーク機器の設定状況によっては、Range ヘッダーを利用した通信を拒否する、通信が遅くなる、といった事象が発生することがあります。<br>これが先に挙げた症状の、よくある発生要因です。  </p>
 <h1 id="対処方法について"><a href="#対処方法について" class="headerlink" title="対処方法について"></a>対処方法について</h1><p>技術情報 KB922330 でご紹介する対処方法は、下記の 2 通りです。  </p>
 <h2 id="A-プロキシやネットワーク機器の設定を変更し、Range-ヘッダーを利用した通信をサポートするように対処する"><a href="#A-プロキシやネットワーク機器の設定を変更し、Range-ヘッダーを利用した通信をサポートするように対処する" class="headerlink" title="A. プロキシやネットワーク機器の設定を変更し、Range ヘッダーを利用した通信をサポートするように対処する"></a>A. プロキシやネットワーク機器の設定を変更し、Range ヘッダーを利用した通信をサポートするように対処する</h2><p>技術情報では具体的な製品名として SonicWALL を挙げておりますが、それ以外のネットワーク機器が影響することもありえます。<br>ただ、この対処方法はいくつものネットワーク機器を調べる必要があり、また設定を変更するとネットワーク全体に影響が及ぶため、ほとんど実施されることはありません。  </p>
@@ -139,13 +139,13 @@
 <p>WSUS が利用する既定のデータベース Windows Internal Database に対して GUI から SQL クエリを実行したい時には、下記のブログ記事をご参照ください。  </p>
 <p><a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について</a></p>
 <h1 id="BITS-フォアグラウンド-モードの影響について"><a href="#BITS-フォアグラウンド-モードの影響について" class="headerlink" title="BITS フォアグラウンド モードの影響について"></a>BITS フォアグラウンド モードの影響について</h1><p>BITS を用いたファイル転送には帯域制御を設定可能ですが、BITS フォアグラウンド モードは帯域制御を行いません。<br>もし帯域制御をグループ ポリシー等で設定する環境では、注意が必要となります。<br>なお、WSUS が BITS を利用する際の設定のみが変更されるため、その他の場面で BITS が利用されるときの動作には影響ありません。  </p>
-<p>– 参考資料<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/win32/bits/background-intelligent-transfer-service-portal?redirectedfrom=MSDN">バックグラウンド インテリジェント転送サービス</a>  </p>
+<p>– 参考資料<br><a href="https://learn.microsoft.com/ja-jp/windows/win32/bits/background-intelligent-transfer-service-portal?redirectedfrom=MSDN">バックグラウンド インテリジェント転送サービス</a>  </p>
 <p><strong>(補足情報)<br>Windows 10 の機能更新プログラムなど、2 GB を超えるファイルについては、WSUS の設定で BITS フォアグラウンド モードに変更したとしても、Range ヘッダーを使って分割ダウンロードが行われます。こちらは、BITS における想定された動作となりますので、機能更新プログラムのダウンロードを実施する場合は、お手数をおかけいたしますが、ネットワーク中継機器で Range ヘッダーを許可してくださいますようお願いいたします。</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cmm9wwo5t00460nrqa7fydj4t" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cuidOj9ZGz2pmnKrrl92aex6b" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -187,6 +187,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -200,10 +204,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -252,9 +252,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

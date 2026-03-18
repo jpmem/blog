@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_3.png">
 <meta property="article:published_time" content="2022-05-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.954Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.232Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,7 +123,7 @@
 <p>その為、 Windows Internal Database や SQL Server などデータベース サービスが動作しているにも関わらず、 WSUS コンソールが全く開かず上記のような接続エラーとなってしまう場合には、WsusPool が停止しデータベースへアクセスできない状態となっている可能性が考えられるのです。  </p>
 <h1 id="WsusPool-の停止とは"><a href="#WsusPool-の停止とは" class="headerlink" title="WsusPool の停止とは"></a>WsusPool の停止とは</h1><p>なぜ WsusPool が停止していると考えられるでしょうか。<br>これは、IIS の保護機能により WsusPool が停止した可能性があるからです。  </p>
 <p>WsusPool のメモリ上限値であるプライベート メモリ制限値に達した場合、リサイクルを実行しメモリを解放する動作が起こります。このリサイクルの処理が短期間に頻繁に発生すると、 IIS のラピッド フェール保護と呼ばれる機能が働き、WsusPool を停止させるのです。  </p>
-<p>ラピッド フェール保護の機能解説としては以下の公開情報をご参照ください。<br><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/web-apps/Rapid-Fail-Protection/">ラピッド フェール保護機能について</a>  </p>
+<p>ラピッド フェール保護の機能解説としては以下の公開情報をご参照ください。<br><a href="https://jpdsi.github.io/blog/web-apps/Rapid-Fail-Protection/">ラピッド フェール保護機能について</a>  </p>
 <p>その為、 WsusPool のメモリ上限値であるプライベート メモリ制限値に達してリサイクルが頻発する状態を改善することで、ラピッド フェール保護による WsusPool が停止する事象を防ぐことができます。</p>
 <h1 id="WsusPool-の開始"><a href="#WsusPool-の開始" class="headerlink" title="WsusPool の開始"></a>WsusPool の開始</h1><p>WSUS のインターネット インフォメーション サービス (IIS) マネージャーにて、アプリケーション プールの WsusPool を右クリック頂き、[開始] を押下する事で、WsusPool を開始出来ます。<br><img src="/blog/wsus/2022-05-23_01/2022-05-23_01_3.png">   </p>
 <p>しかしながら、WsusPool を開始しても、下記「発生要因」を解消しない限り直ぐに停止してしまう可能性が高いものになります。その為、 WsusPool を開始する前に「対処方法」の実施を優先してください。  </p>
@@ -136,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="cmm9wwo5q00400nrqbren74n0" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="cuid94j-9LoNT11Ki6MYa8Xi_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -178,6 +178,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -191,10 +195,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -243,9 +243,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

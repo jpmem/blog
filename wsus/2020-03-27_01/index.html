@@ -15,7 +15,7 @@
 <meta property="og:description" content="(この記事は、弊社サポートメンバーがフォーラムへ投稿した内容をブログ向けに編集したものです) みなさま、こんにちは。WSUS サポート担当です。本日は WSUS のデータベース SUSDB が肥大化したときの対処方法についてお伝えします。 長期間 WSUS を運用すると、更新プログラムや承認の情報が蓄積され、SUSDB.mdf ファイルが肥大化することがあります。このときは、まず WSUS クリー">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2020-03-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.928Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.206Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -127,16 +127,22 @@
 <ol>
 <li>WSUS の処理の中で、移動中のデータページが参照される状況になった場合は、ブロッキングが発生し、処理のパフォーマンスが低下する可能性がある</li>
 <li>圧縮対象のデータベースに対して WSUS から絶えず処理が行われる状況の場合、圧縮処理のデータページの移動処理 でブロッキングが発生し、圧縮処理の完了までに時間を要する可能性がある</li>
-<li>圧縮対象のデータベース内で、移動対象となるデータページが多数存在する場合、多数のデータページの移動処理が行われることに伴い、Disk I/O、CPU、メモリ などのマシンリソース負荷が通常時よりも高くなる可能性があり、マシン全体的なパフォーマンスが低下する可能性がある</li>
+<li>圧縮対象のデータベース内で、移動対象となるデータページが多数存在する場合、多数のデータページの移動処理が行われることに伴い、Disk I&#x2F;O、CPU、メモリ などのマシンリソース負荷が通常時よりも高くなる可能性があり、マシン全体的なパフォーマンスが低下する可能性がある</li>
 </ol>
 <h3 id="実施手順"><a href="#実施手順" class="headerlink" title="実施手順"></a>実施手順</h3><p>下記の手順にて、WSUS のデータベース ファイルの圧縮を実施します。</p>
 <ol>
-<li>SQL Server Management Studio を起動し、下記のパラメータを入力してデータベースへ [接続] を行います。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">サーバーの種類 : データベース エンジン</span><br><span class="line">サーバー名 : &lt;サーバー名&gt;\インスタンス名</span><br><span class="line">認証 : Windows 認証</span><br><span class="line">※ WID の場合、サーバー名には \\.\pipe\Microsoft##WID\tsql\query を指定します。</span><br></pre></td></tr></table></figure></li>
+<li>SQL Server Management Studio を起動し、下記のパラメータを入力してデータベースへ [接続] を行います。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">サーバーの種類 : データベース エンジン</span><br><span class="line">サーバー名 : &lt;サーバー名&gt;\インスタンス名</span><br><span class="line">認証 : Windows 認証</span><br><span class="line">※ WID の場合、サーバー名には \\.\pipe\Microsoft##WID\tsql\query を指定します。</span><br></pre></td></tr></table></figure>
+<ol start="2">
 <li>左ペインの [データベース] を展開し、 [SUSDB] を右クリックし、[タスク]、[圧縮] の順にポイントし、[ファイル] をクリックします。</li>
 <li>「ファイルの種類」に [データ] が選択されていることを確認します。[データ] が選択されている場合、mdf ファイルが圧縮対象となります。</li>
-<li> [未使用領域の解放前にページを再構成する] を選択して、「圧縮先のファイル」に圧縮後のファイル サイズを指定します。指定可能な値は (最小 XXXX MB) が参考になりますが、急激にサイズを縮小した場合、圧縮処理の過程で巨大な一時ファイルが作成される場合があります。</li>
+<li>[未使用領域の解放前にページを再構成する] を選択して、「圧縮先のファイル」に圧縮後のファイル サイズを指定します。指定可能な値は (最小 XXXX MB) が参考になりますが、急激にサイズを縮小した場合、圧縮処理の過程で巨大な一時ファイルが作成される場合があります。</li>
 <li>値を指定した後、ウインドウ上部の [スクリプト] をクリックして、ウィザードは [キャンセル] をクリックします。</li>
-<li>右上ペインのクエリ画面に以下のような SQL が自動生成されておりますので、そのクエリ画面を選択して [実行] をクリックします。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例) 圧縮後のサイズが、200 MB の場合</span><br><span class="line">USE [SUSDB]</span><br><span class="line">GO</span><br><span class="line">DBCC SHRINKFILE (N&#x27;SUSDB&#x27; , 200)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure></li>
+<li>右上ペインのクエリ画面に以下のような SQL が自動生成されておりますので、そのクエリ画面を選択して [実行] をクリックします。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例) 圧縮後のサイズが、200 MB の場合</span><br><span class="line">USE [SUSDB]</span><br><span class="line">GO</span><br><span class="line">DBCC SHRINKFILE (N&#x27;SUSDB&#x27; , 200)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<ol start="7">
 <li>クエリ実行完了後、再び [データベース] - [SUSDB] を右クリックし、[プロパティ] を選択します。</li>
 <li>[データベースのプロパティ] ウインドウにて [ファイル] ページを開きます。</li>
 <li>「初期サイズ」の列を確認し、ファイル サイズが圧縮されていることを確認します。</li>
@@ -145,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2020-03-27_01/" data-id="cmm9wwo5f00350nrqeofe1s8w" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2020-03-27_01/" data-id="cuidnXJp_AamwKBgTk5TsEUW7" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -187,6 +193,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -200,10 +210,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -252,9 +258,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

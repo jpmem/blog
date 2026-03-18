@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-07-07_01/2022-07-07_01_1.png">
 <meta property="article:published_time" content="2022-07-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.967Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.244Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,7 +122,7 @@
 <ol>
 <li>クライアントが次の処理を実施（更新プログラムの検出、ダウンロード、インストール）  </li>
 <li>その結果をもとに状態レポートが WSUS へ送信される  </li>
-<li>WSUSが状態レポートを受け取る  </li>
+<li>WSUSが状態レポートを受け取る</li>
 </ol>
 <p>解説  </p>
 <ol>
@@ -130,10 +130,12 @@
 </ol>
 <p>ⅰ. 更新プログラムの検出処理開始<br>ⅱ. 更新プログラムの検出処理完了 ＞ 2 を実施<br>ⅲ．ダウンロード処理開始<br>ⅳ．ダウンロード処理完了 ＞ 2 を実施<br>ⅴ．インストール処理開始<br>ⅵ．インストール処理完了 ＞ 2 を実施  </p>
 <ol start="2">
-<li><p>1.の結果をもとに状態レポートがクライアントからWSUSへ送信<br>以下のフォルダにイベントを含むファイルが生成されます。<br>作成されたファイルは、IISの ReportingWebService を介してWSUSデータベースへ送信されます。  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%windir%\SoftwareDistribution\EventCache.v2</span><br></pre></td></tr></table></figure></li>
-<li><p>WSUS が状態レポートを受け取る<br>送信されたイベントファイルが WSUS データベースへ格納され、状態レポートとして WSUS で表示されます。  </p>
-</li>
+<li>1.の結果をもとに状態レポートがクライアントからWSUSへ送信<br>以下のフォルダにイベントを含むファイルが生成されます。<br>作成されたファイルは、IISの ReportingWebService を介してWSUSデータベースへ送信されます。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%windir%\SoftwareDistribution\EventCache.v2</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>WSUS が状態レポートを受け取る<br>送信されたイベントファイルが WSUS データベースへ格納され、状態レポートとして WSUS で表示されます。</li>
 </ol>
 <p>状態レポートの見方については以下の記事をご参照ください。<br><a href="https://jpmem.github.io/blog/wsus/2017-09-04_02/">WSUS のレポートに表示される「状態」の項目の説明</a></p>
 <h1 id="トラブルシュート方法"><a href="#トラブルシュート方法" class="headerlink" title="トラブルシュート方法"></a>トラブルシュート方法</h1><p>状態レポートが WSUS にあがらないときに、まずご実施いただきたいトラブルシュート方法についてご紹介します。<br>以下の手順に沿って、検出処理実行からイベントファイル作成及び送信の動作をご確認ください。</p>
@@ -143,13 +145,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wuauclt /reportnow</span><br></pre></td></tr></table></figure>
 <p>1-4. 1-2 で作成されたファイルがフォルダから消えていることを確認します。  </p>
 <h3 id="1-1-から-1-4-まで全てが確認できた場合"><a href="#1-1-から-1-4-まで全てが確認できた場合" class="headerlink" title="1-1 から 1-4 まで全てが確認できた場合"></a>1-1 から 1-4 まで全てが確認できた場合</h3><p>ここまでの処理が実行されているにもかかわらず、WSUS 側で状態レポートが更新されないなどの事象が発生している場合には、<br>WSUS データベースへの書き込み処理の失敗なども疑われます為 の WSUS 及びクライアントのファイル送信時のログなども併せて確認する必要があります。  </p>
-<h3 id="1-4-にてイベントファイルが送信されず滞留してしまう場合"><a href="#1-4-にてイベントファイルが送信されず滞留してしまう場合" class="headerlink" title="1-4 にてイベントファイルが送信されず滞留してしまう場合"></a>1-4 にてイベントファイルが送信されず滞留してしまう場合</h3><p>Windows Update のクライアント情報のキャッシュをクリアすることで解消されることがありますので、以下の記事に記載の手順をご実施ください。<br><a target="_blank" rel="noopener" href="https://jpwinsup.github.io/blog/2022/02/28/Setup/WU/WindowsUpdateAgent/WUClientInfo/">Windows Update クライアントの情報をクリアにする手順</a>  </p>
+<h3 id="1-4-にてイベントファイルが送信されず滞留してしまう場合"><a href="#1-4-にてイベントファイルが送信されず滞留してしまう場合" class="headerlink" title="1-4 にてイベントファイルが送信されず滞留してしまう場合"></a>1-4 にてイベントファイルが送信されず滞留してしまう場合</h3><p>Windows Update のクライアント情報のキャッシュをクリアすることで解消されることがありますので、以下の記事に記載の手順をご実施ください。<br><a href="https://jpwinsup.github.io/blog/2022/02/28/Setup/WU/WindowsUpdateAgent/WUClientInfo/">Windows Update クライアントの情報をクリアにする手順</a>  </p>
 <h3 id="補足：状態レポート報告完了の確認方法"><a href="#補足：状態レポート報告完了の確認方法" class="headerlink" title="補足：状態レポート報告完了の確認方法"></a>補足：状態レポート報告完了の確認方法</h3><p>WSUS コンソールより対象端末の最後の状態レポートの日時列の情報を参照してください。<br>WSUS コンソールを開き、 [コンピュータ] &gt; 確認対象のコンピュータを選択<br><img src="/blog/wsus/2022-07-07_01/2022-07-07_01_1.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-07-07_01/" data-id="cmm9wwo5t00480nrqeigo764k" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-07-07_01/" data-id="cuidGmvBOlJikpUcabnnI9fsi" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -191,6 +193,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -204,10 +210,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -256,9 +258,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

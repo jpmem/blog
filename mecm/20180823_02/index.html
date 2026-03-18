@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_02/20180823_02_20.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180823_02/20180823_02_21.png">
 <meta property="article:published_time" content="2018-08-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.684Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.980Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -61,7 +61,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -88,9 +88,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -141,13 +141,9 @@
 <p>本日は、System Center Configuration Manager Current Branch (以下、SCCM CB) をアップグレードする手順をご案内させていただきます。<br>SCCM CB のバージョンアップは、最上位のサイト サーバーで実施します。<br>中央管理サイト サーバーがある階層型の環境の場合、中央管理サイト サーバーで、プライマリ サイト サーバーの環境の場合は、プライマリ サイト サーバーで実施してください。<br>最上位のサイト サーバーがアップグレードされる過程で、その配下のサイト サーバーや、管理ポイント、配布ポイント等のサイトシステムは、自動的に更新されます。</p>
 <p>これから、SCCM CB 1710 から、最新バージョンの SCCM CB 1802 へのアップグレード手順をご案内いたします。<br>また、SCCM CB でのアップグレードは累積となり、新しいバージョンが古いバージョンの内容を含んでおりますため、中間バージョンを踏まずに、最新バージョンにアップグレードすることができます。<br>なお、SCCM CB の場合、他のバージョンからでも、本手順と同様な手順でアップグレードすることができます。</p>
 <h3 id="本手順は、以下の流れとなっております。"><a href="#本手順は、以下の流れとなっております。" class="headerlink" title="本手順は、以下の流れとなっております。"></a>本手順は、以下の流れとなっております。</h3><hr>
-<p>A. SCCM CB バージョンアップの手順<br>B. アップグレードの状況を確認する手順<br>C. SCCM CB バージョンを確認する手順<br>D. サイト システムのアップグレード完了を確認する手順</p>
-<hr>
-<h2 id="A-SCCM-CB-バージョンアップの手順"><a href="#A-SCCM-CB-バージョンアップの手順" class="headerlink" title="A. SCCM CB バージョンアップの手順"></a>A. SCCM CB バージョンアップの手順</h2><ol>
-<li>[Configuration Manager コンソール] から、以下の画面に移動します。</li>
-</ol>
-<p>-[管理] - [概要] - [更新とサービス]<br><img src="/blog/mecm/20180823_02/20180823_02_01.png"></p>
-<ol start="2">
+<h2 id="A-SCCM-CB-バージョンアップの手順B-アップグレードの状況を確認する手順C-SCCM-CB-バージョンを確認する手順D-サイト-システムのアップグレード完了を確認する手順"><a href="#A-SCCM-CB-バージョンアップの手順B-アップグレードの状況を確認する手順C-SCCM-CB-バージョンを確認する手順D-サイト-システムのアップグレード完了を確認する手順" class="headerlink" title="A. SCCM CB バージョンアップの手順B. アップグレードの状況を確認する手順C. SCCM CB バージョンを確認する手順D. サイト システムのアップグレード完了を確認する手順"></a>A. SCCM CB バージョンアップの手順<br>B. アップグレードの状況を確認する手順<br>C. SCCM CB バージョンを確認する手順<br>D. サイト システムのアップグレード完了を確認する手順</h2><h2 id="A-SCCM-CB-バージョンアップの手順"><a href="#A-SCCM-CB-バージョンアップの手順" class="headerlink" title="A. SCCM CB バージョンアップの手順"></a>A. SCCM CB バージョンアップの手順</h2><ol>
+<li><p>[Configuration Manager コンソール] から、以下の画面に移動します。<br>-[管理] - [概要] - [更新とサービス]<br><img src="/blog/mecm/20180823_02/20180823_02_01.png"></p>
+</li>
 <li><p>[更新とサービス] の一覧から、”Configuration Manager 1802” の [状態] を確認します。<br><img src="/blog/mecm/20180823_02/20180823_02_02.png"></p>
 </li>
 <li><p>[状態] が、”ダウンロード可能” の場合は、”Configuration Manager 1802” と右クリックし、[ダウンロード] をクリックします。<br>[状態] が、”インストール” の場合は、”インストールの準備完了” の場合は、既にダウンロード済みとなりますので、手順 7 からご実施ください。<br><img src="/blog/mecm/20180823_02/20180823_02_03.png"></p>
@@ -215,14 +211,14 @@
 </li>
 </ol>
 <p>記録されていれば、コンポーネントが正常にアップグレードされたと判断頂けます。</p>
-<p>・管理ポイント (SMS_MP_CONTROL_MANAGER)<br>重要度 種類 サイト コード 日付/時刻 システム コンポーネント メッセージ ID 説明<br>情報 マイルストーン T01 2018/03/26 23:13:09 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018/03/26 23:13:07 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018/03/26 23:11:12 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018/03/26 23:08:02 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
-<p>・配布ポイント (SMS_DISTRIBUTION_MANAGER)<br>情報 マイルストーン T01 2018/03/26 23:12:38 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018/03/26 23:12:37 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018/03/26 23:12:37 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018/03/26 23:08:01 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
-<p>・ソフトウェアの更新ポイント (SMS_WSUS_CONFIGURATION_MANAGER)<br>情報 マイルストーン T01 2018/03/26 23:24:36 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018/03/26 23:24:35 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018/03/26 23:24:28 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018/03/26 23:09:16 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
+<p>・管理ポイント (SMS_MP_CONTROL_MANAGER)<br>重要度 種類 サイト コード 日付&#x2F;時刻 システム コンポーネント メッセージ ID 説明<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:13:09 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:13:07 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:11:12 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:08:02 MP01.MS.LOCAL SMS_MP_CONTROL_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
+<p>・配布ポイント (SMS_DISTRIBUTION_MANAGER)<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:12:38 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:12:37 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:12:37 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:08:01 DP01.MS.LOCAL SMS_DISTRIBUTION_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
+<p>・ソフトウェアの更新ポイント (SMS_WSUS_CONFIGURATION_MANAGER)<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:24:36 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 500 このコンポーネントが開始しました。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:24:35 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER <strong>1019</strong> <strong>サイト</strong> <strong>コンポーネント</strong> <strong>マネージャーは、このサイト</strong> <strong>システムにこのコンポーネントを正常に再インストールしました。</strong><br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:24:28 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 1018 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールしています。<br>情報 マイルストーン T01 2018&#x2F;03&#x2F;26 23:09:16 SUP01.MS.LOCAL SMS_WSUS_CONFIGURATION_MANAGER 1017 サイト コンポーネント マネージャーは、このサイト システムにこのコンポーネントを再インストールする必要があることを検出しました。サイト コンポーネント マネージャーは、コンポーネントが正常にインストールされるまで、60 分ごとにインストールを試行します。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180823_02/" data-id="cmm9wwo6i00650nrqejm259nn" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180823_02/" data-id="cuid7RAawmmaZ9QYtlSu1arJt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -264,6 +260,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -277,10 +277,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -329,9 +325,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

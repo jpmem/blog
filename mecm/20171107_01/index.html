@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171107_01/20171107_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20171107_01/20171107_01_02.png">
 <meta property="article:published_time" content="2017-11-16T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.659Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.956Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,11 +119,11 @@
       
         <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
 <p>今回は System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを取得する手順をご紹介します。同様の手順については、こちらの技術情報でもご紹介しておりますが、本記事では展開後にドメインに参加せず、ワークグループ端末として利用する場合も考慮した手順であり、当サポート部門でもご案内した実績が多い手順でもありますので、お役立ていただけますと幸いです。なお、再イメージングする手順につきましては、次のブログ記事がお役立ていただけますので、こちらも合わせてご確認ください。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/archive/blogs/systemcenterjp/reimaging-master-sccm">System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順</a></p>
-<p>(留意事項)<br>System Center 2012 Configuration Manager SP2 / System Center 2012 R2 Configuration Manager SP1 エージェントの場合、ワークグループ環境にて自動割り当てができないという不具合が報告されています。この不具合に合致する場合、本手順を実施しても正常に自動割り当てができませんが、この不具合は CU2 以降で修正されておりますので、当該バージョンをご利用の場合は、CU2 以降のエージェントをご利用ください。(2018/1/23 時点で最新版は CU4 です。)</p>
+<p><a href="https://docs.microsoft.com/ja-jp/archive/blogs/systemcenterjp/reimaging-master-sccm">System Center Configuration Manager クライアントがインストールされた PC でマスター イメージを再取得する手順</a></p>
+<p>(留意事項)<br>System Center 2012 Configuration Manager SP2 &#x2F; System Center 2012 R2 Configuration Manager SP1 エージェントの場合、ワークグループ環境にて自動割り当てができないという不具合が報告されています。この不具合に合致する場合、本手順を実施しても正常に自動割り当てができませんが、この不具合は CU2 以降で修正されておりますので、当該バージョンをご利用の場合は、CU2 以降のエージェントをご利用ください。(2018&#x2F;1&#x2F;23 時点で最新版は CU4 です。)</p>
 <h2 id="対象製品"><a href="#対象製品" class="headerlink" title="対象製品"></a>対象製品</h2><p>System Center 2012 Configuration Manager</p>
 <p>System Center 2012 R2 Configuration Manager</p>
-<p>System Center Configuration Manager Current Branch / LTSB</p>
+<p>System Center Configuration Manager Current Branch &#x2F; LTSB</p>
 <h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><p>・前提条件<br>参照コンピューターは、SCCM サーバーとの通信ができない環境にした上で、下記手順を実施します。これは、準備中にサイト コードが割り当てられてしまうことを念のために防ぐためです。また、ネットワーク未接続の状態にすることは必須要件ではないので、サイト コードに割り当てられないようになっていることが担保できれば接続していても問題はございません。</p>
 <p>・手順</p>
 <p>次の手順を実施して、サイト コードをクリアし、一意の情報を削除してから、マスター イメージを採取します。</p>
@@ -172,7 +172,7 @@
 <p>以下の内容をサンプルとしてスクリプトを作成し、vbs ファイルとして保存します。本スクリプトを実行することで、信頼キーや管理ポイントの証明書も削除されます。</p>
 <p>—– サンプルここから —–</p>
 <p>dim oSMSClient<br>dim objLocator<br>dim objService</p>
-<p>set objLocator = CreateObject(“WbemScripting.SWbemLocator”)<br>set objService = objLocator.ConnectServer(“.”, “root\ccm\locationservices”)<br>set keys = objService.ExecQuery(“select * from TrustedRootKey”)</p>
+<p>set objLocator &#x3D; CreateObject(“WbemScripting.SWbemLocator”)<br>set objService &#x3D; objLocator.ConnectServer(“.”, “root\ccm\locationservices”)<br>set keys &#x3D; objService.ExecQuery(“select * from TrustedRootKey”)</p>
 <p>for each k in keys<br>k.delete_()<br>next</p>
 <p>—– サンプルここまで —–</p>
 <p>スクリプトを作成した後、参照コンピューターでコマンド プロンプトを “管理者として実行” にて起動し、以下のコマンドを実行します。</p>
@@ -192,18 +192,18 @@
 <p><strong>6.</strong> <strong>SMS</strong> <strong>Agent</strong> <strong>Host</strong> <strong>サービスのスタート</strong> <strong>アップの種類の変更</strong></p>
 <p>[管理ツール] - [サービス] を起動し、SMS Agent Host サービスを右クリックしてプロパティを開き、スタートアップの種類を [自動（遅延開始）] に変更します。SMS Agent Host サービスを開始しないように注意してください。</p>
 <p><strong>7.</strong> <strong>マスターイメージの採取</strong></p>
-<p>sysprep /generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。(System Center Configuration Manager のキャプチャー メディアを使用すれば、sysprep /generalize は内部的に自動実行されます。かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。)</p>
+<p>sysprep &#x2F;generalize が実行された参照コンピューターをキャプチャして、マスター イメージを採取します。(System Center Configuration Manager のキャプチャー メディアを使用すれば、sysprep &#x2F;generalize は内部的に自動実行されます。かつ上記情報の削除も内部的に実行されますのでキャプチャしたイメージを System Center Configuration Manager から展開する際には今回の記事でご案内した手順ではなくぜひ System Center Configuration Manager のキャプチャー メディアをご利用ください。)</p>
 <p>(補足情報)</p>
-<p>Windows 7 / Windows 8.1 環境において、同時に System Center Endpoint Protection (SCEP) クライアントをインストールする場合は、「7. マスターイメージの採取」の前に、次の手順を実施してください。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/previous-versions/system-center/system-center-2012-r2/dn236350(v=technet.10)">Configuration Manager で Endpoint Protection クライアントをディスク イメージにプロビジョニングする方法</a></p>
+<p>Windows 7 &#x2F; Windows 8.1 環境において、同時に System Center Endpoint Protection (SCEP) クライアントをインストールする場合は、「7. マスターイメージの採取」の前に、次の手順を実施してください。</p>
+<p><a href="https://docs.microsoft.com/ja-jp/previous-versions/system-center/system-center-2012-r2/dn236350(v=technet.10)">Configuration Manager で Endpoint Protection クライアントをディスク イメージにプロビジョニングする方法</a></p>
 <p>なお、手動適用するための SCEP 用の定義ファイルは、Microsoft Malware Protection Center より入手可能です。適用する定義ファイルは既定の設定にてご利用の場合にはネットワーク検査システムが有効であるため、以下の 2 種類です。</p>
-<p>・ウイルス対策 / スパイウェア対策の定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_01.png"></p>
+<p>・ウイルス対策 &#x2F; スパイウェア対策の定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_01.png"></p>
 <p>・ネットワーク検査システム定義ファイル<br><img src="/blog/mecm/20171107_01/20171107_01_02.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20171107_01/" data-id="cmm9wwo6c005j0nrq6czs8tj8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20171107_01/" data-id="cuidCs4ws9P5WIGubSAXvByff" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -245,6 +245,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -258,10 +262,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -310,9 +310,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20170818_01/20170818_01_02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20170818_01/20170818_01_03.png">
 <meta property="article:published_time" content="2017-08-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.657Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.955Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -120,17 +120,17 @@
       
         <p>皆様、こんにちは。System Center Configuration Manager サポート チームです。</p>
 <p>2017 年 7 月 28 日に、System Center Configuration Manager Current Branch の最新バージョン 1706 がリリースされました！</p>
-<p><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/configuration-manager-archive/now-available-update-1706-for-system-center-configuration/ba-p/274258">Now Available: Update 1706 for System Center Configuration Manager</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/whats-new-in-version-1706">System Center Configuration Manager のバージョン 1706 の新機能</a></p>
+<p><a href="https://techcommunity.microsoft.com/t5/configuration-manager-archive/now-available-update-1706-for-system-center-configuration/ba-p/274258">Now Available: Update 1706 for System Center Configuration Manager</a></p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/whats-new-in-version-1706">System Center Configuration Manager のバージョン 1706 の新機能</a></p>
 <p>System Center Configuration Manager Current Branch では、Windows 10 のリリース サイクルに対応するために、年に数回新しいバージョンがリリースされるようになっております。各バージョンのサポート期間はリリースされてから 12 ヶ月間となっておりますので、サポート期限切れまでにバージョン アップを計画しておくことが重要です。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/current-branch-versions-supported">System Center Configuration Manager の Current Branch バージョンのサポート</a><br><img src="/blog/mecm/20170818_01/20170818_01_01.png"></p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/about-the-service-connection-point">「サービス接続ポイント」</a>をオンラインに接続している場合は、新しい更新プログラムを受信すると、管理コンソール起動時にポップアップによる通知が行われますので、そのタイミングで System Center Configuration Manager  をバージョンアップするための更新プログラムをインストールすることができます。</p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/current-branch-versions-supported">System Center Configuration Manager の Current Branch バージョンのサポート</a><br><img src="/blog/mecm/20170818_01/20170818_01_01.png"></p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/about-the-service-connection-point">「サービス接続ポイント」</a>をオンラインに接続している場合は、新しい更新プログラムを受信すると、管理コンソール起動時にポップアップによる通知が行われますので、そのタイミングで System Center Configuration Manager  をバージョンアップするための更新プログラムをインストールすることができます。</p>
 <p>但し、先日リリースされた 1706 について、早速検証環境でアップグレードして動作を確認しようと思ったものの、管理コンソールに表示されていないという方もいらっしゃるのではないでしょうか。</p>
 <p>これは、私達が System Center Configuration Manager の更新プログラムを全世界に展開する上で、Windows 10 のように「展開リング」という概念を用いて、段階的に配信するようにしていることによります。内部的には FastRing1, FastRing2, SlowRing1, SlowRing2 のように、FastRing と SlowRing に分けて、新しいバージョンを配信しております。そのため、基本的にはリリースされてから数週間にわたって、全世界の System Center Configuration Manager サイト サーバーに配信されるようになります。</p>
-<p>既定では FastRing を受信する設定になっておりませんので、リリースされてから数週間後に管理コンソールに新しいバージョンにアップグレードするための更新プログラムが表示されます。但し、新しい機能を試すのが待ちきれないお客様のために、上記のような新しいバージョンのリリースをお知らせするブログ記事内において、利用中の System Center Configuration Manager サーバーの展開リングを <a target="_blank" rel="noopener" href="https://gallery.technet.microsoft.com/ConfigMgr-1706-Enable-9dd40f68">FastRing に変更するスクリプト</a>をご紹介しております。この FastRing に変更するスクリプトを実行して頂くことで、管理コンソール上に新しいバージョンを表示させることができます。(2017/08/31 に 1706 は SlowRing にて全世界に展開されましたので、1706 の FastRing に変更するスクリプトは公開停止しました。)</p>
-<p>また、更新プログラムにはそれぞれ固有のパッケージ GUID が割り当てられており、同じバージョンでも展開リング毎に GUID や修正内容が異なっております。例えば、1706 では 2017/7/28 の FastRing1 のリリース後に報告された問題があり、その後 2017/8/10 に FastRing2 として報告された問題の修正を含む 1706 をリリースしています。このような FastRing 時の変更については、以下のように「Update for System Center Configuration Manager XXXX, first wave」というタイトルのサポート技術情報にて紹介しており、記事内に GUID も表記しています。</p>
-<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039380/update-for-system-center-configuration-manager-version-1706-first-wave">Update for System Center Configuration Manager version 1706, first wave</a></p>
-<p>なお、管理コンソールにおいても、「パッケージ GUID」列を表示することで、表示されている更新プログラムの GUID を確認できます。下記画面ショットでは、表示されている 1706 の更新プログラムは、「C88976EC-69E5-4B14-90CE-FF84B656CE86」であり、リリース日が 2017/8/10 ですので、FastRing2 の更新プログラムということがわかります。</p>
+<p>既定では FastRing を受信する設定になっておりませんので、リリースされてから数週間後に管理コンソールに新しいバージョンにアップグレードするための更新プログラムが表示されます。但し、新しい機能を試すのが待ちきれないお客様のために、上記のような新しいバージョンのリリースをお知らせするブログ記事内において、利用中の System Center Configuration Manager サーバーの展開リングを <a href="https://gallery.technet.microsoft.com/ConfigMgr-1706-Enable-9dd40f68">FastRing に変更するスクリプト</a>をご紹介しております。この FastRing に変更するスクリプトを実行して頂くことで、管理コンソール上に新しいバージョンを表示させることができます。(2017&#x2F;08&#x2F;31 に 1706 は SlowRing にて全世界に展開されましたので、1706 の FastRing に変更するスクリプトは公開停止しました。)</p>
+<p>また、更新プログラムにはそれぞれ固有のパッケージ GUID が割り当てられており、同じバージョンでも展開リング毎に GUID や修正内容が異なっております。例えば、1706 では 2017&#x2F;7&#x2F;28 の FastRing1 のリリース後に報告された問題があり、その後 2017&#x2F;8&#x2F;10 に FastRing2 として報告された問題の修正を含む 1706 をリリースしています。このような FastRing 時の変更については、以下のように「Update for System Center Configuration Manager XXXX, first wave」というタイトルのサポート技術情報にて紹介しており、記事内に GUID も表記しています。</p>
+<p><a href="https://support.microsoft.com/ja-jp/help/4039380/update-for-system-center-configuration-manager-version-1706-first-wave">Update for System Center Configuration Manager version 1706, first wave</a></p>
+<p>なお、管理コンソールにおいても、「パッケージ GUID」列を表示することで、表示されている更新プログラムの GUID を確認できます。下記画面ショットでは、表示されている 1706 の更新プログラムは、「C88976EC-69E5-4B14-90CE-FF84B656CE86」であり、リリース日が 2017&#x2F;8&#x2F;10 ですので、FastRing2 の更新プログラムということがわかります。</p>
 <p><img src="/blog/mecm/20170818_01/20170818_01_02.png"></p>
 <p>そのため、リリース当初に FastRing に変更することでいち早く最新バージョンを入手していただけますが、後の展開リングでリリースされる更新プログラムには、それまでのリングで報告された問題の修正を含むというメリットもありますので、展開リングも意識してバージョンアップをご検討くださいませ。</p>
 <p>(補足情報 1)</p>
@@ -138,14 +138,14 @@
 <p>C:\Program Files\Microsoft Configuration Manager\CMUStaging\ApplicabilityChecks\Applicability_1706FastRing2.sql</p>
 <p>(※) C:\Program Files\Microsoft Configuration Manager は、既定のインストール フォルダーです。</p>
 <p>(補足情報 2)</p>
-<p>バージョン 1706 以降、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/update-reset-tool">更新のリセット ツール</a>が用意されました。このツールは、更新プログラムのダウンロードやインストールを行った際に問題が発生した場合に、問題を修正するツールとなります。このツールは失敗状態、すなわち、更新プログラムのダウンロードが進行中であるものの、スタックしている、または極端に長い時間がかかっている場合などに使用することができますので、更新プログラムのインストールが進まない場合にご利用ください。</p>
+<p>バージョン 1706 以降、<a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/update-reset-tool">更新のリセット ツール</a>が用意されました。このツールは、更新プログラムのダウンロードやインストールを行った際に問題が発生した場合に、問題を修正するツールとなります。このツールは失敗状態、すなわち、更新プログラムのダウンロードが進行中であるものの、スタックしている、または極端に長い時間がかかっている場合などに使用することができますので、更新プログラムのインストールが進まない場合にご利用ください。</p>
 <p>(補足情報 3)</p>
 <p>SlowRing にて全世界に展開された後は、新しいバージョンのリリースを知らせるブログ記事にて紹介した FastRing に変更するスクリプトは公開停止します。<br><img src="/blog/mecm/20170818_01/20170818_01_03.png"><br>但し、FastRing に変更するスクリプトはバージョン毎に用意されるため、一度特定のバージョンで FastRing に変更したとしても、永続的に FastRing になるわけではありませんので、その点はご安心ください。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cmm9wwo6b005f0nrqamnb5pxw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cuidyMav7ht0iF9msi-IcIgLS" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -156,11 +156,11 @@
     
 <nav id="article-nav">
   
-    <a href="../../wsus/2017-09-04_02/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../wsus/2017-09-04_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          WSUS のレポートに表示される「状態」の項目の説明
+          「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について
         
       </div>
     </a>
@@ -187,6 +187,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -200,10 +204,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -252,9 +252,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

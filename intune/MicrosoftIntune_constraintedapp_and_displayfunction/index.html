@@ -7,17 +7,17 @@
   
   <title>Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+  <meta name="description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Microsoft Intune の「制限付きアプリ」と「アプリの表示&#x2F;非表示」機能について">
 <meta property="og:url" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末で使用を許可／禁止す">
+<meta property="og:description" content="※ 2018&#x2F;9&#x2F;26 追記 「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise) これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。  こんにちは。Microsoft Intune サポート チームです。iOS を利用するユーザーから「端末">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png">
 <meta property="article:published_time" content="2018-09-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.649Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.947Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -117,35 +117,35 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>※ 2018/9/26 追記</p>
+        <p>※ 2018&#x2F;9&#x2F;26 追記</p>
 <p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
 <p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
 <p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
 <p>こんにちは。Microsoft Intune サポート チームです。<br>iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。<br>今回はそのための機能について説明します。</p>
-<p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示/非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示/非表示」機能を利用する必要があります。</p>
-<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示/非表示機能"></a>■ アプリの表示/非表示機能</h2><p>「アプリの表示/非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a target="_blank" rel="noopener" href="https://support.apple.com/ja-jp/HT202837">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
-<p>「アプリの表示/非表示」の設定画面はこのようになっています。</p>
+<p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示&#x2F;非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示&#x2F;非表示」機能を利用する必要があります。</p>
+<h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示&#x2F;非表示機能"></a>■ アプリの表示&#x2F;非表示機能</h2><p>「アプリの表示&#x2F;非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a href="https://support.apple.com/ja-jp/HT202837">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p>
+<p>「アプリの表示&#x2F;非表示」の設定画面はこのようになっています。</p>
 <p><img src="/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p>
 <p>[アプリ URL] または [アプリ バンドル ID] でアプリを特定していますので、この 2 つのいずれかを正確に入力します。</p>
 <ul>
 <li>App Store に公開されているアプリであれば、[アプリ URL] で指定できます。</li>
-<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
+<li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li>
 </ul>
-<p>注意点としては、複数の「アプリの表示/非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示/非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p>
-<h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018/9/26 追記</p>
+<p>注意点としては、複数の「アプリの表示&#x2F;非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示&#x2F;非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p>
+<h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018&#x2F;9&#x2F;26 追記</p>
 <p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
 <p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p>
-<p>「制限付きアプリ」機能は元々 Intune のクラシック コンソール時代に利用されていた機能です。<br>Silverlight で動作する、以前のコンソールを覚えている方もいらっしゃるでしょう。<br>この機能では、「アプリの表示/非表示」のようにアプリの利用を禁止する直接的な効力はありませんでした。<br>管理者が指定したアプリが端末にインストールされているか、いないかという情報を端末側で監査し、クラシック コンソールのレポートで確認する機能でした。<br>Intune が Azure 管理ポータルに移行するにあたり、クラシック コンソールでの MDM 管理機能やレポート機能が廃止されております。</p>
+<p>「制限付きアプリ」機能は元々 Intune のクラシック コンソール時代に利用されていた機能です。<br>Silverlight で動作する、以前のコンソールを覚えている方もいらっしゃるでしょう。<br>この機能では、「アプリの表示&#x2F;非表示」のようにアプリの利用を禁止する直接的な効力はありませんでした。<br>管理者が指定したアプリが端末にインストールされているか、いないかという情報を端末側で監査し、クラシック コンソールのレポートで確認する機能でした。<br>Intune が Azure 管理ポータルに移行するにあたり、クラシック コンソールでの MDM 管理機能やレポート機能が廃止されております。</p>
 <p>※移行はテナントごとに行われ、2017 年 10 月 ～ 2018 年 6 月頃には、実質的に「制限付きアプリ」機能は利用できない状態になっています。</p>
 <p>一方で、デバイスからはインベントリとしてアプリの情報が収集されていますので、この情報を基に監査を行うことができます。<br>Azure ポータルの [Intune] - [モバイル アプリ] - [検出されたアプリ] には、インベントリされた全アプリの一覧が表示されます。<br>この情報をエクスポートして、監査に利用することができます。<br>企業所有端末からはインストールされた全アプリ情報が、個人所有端末からは Intune で管理されたアプリの情報のみが収集されます。</p>
 <p>「制限付きアプリ」機能では、実質的に BYOD 端末について、ユーザーのアプリの情報を監査できるというプライバシー上の課題がありましたが、インベントリ機能ではこの課題は解消されています。</p>
-<p>このように、「アプリの表示/非表示」機能を上手く活用することで、組織のアプリ使用を制限可能です。</p>
+<p>このように、「アプリの表示&#x2F;非表示」機能を上手く活用することで、組織のアプリ使用を制限可能です。</p>
 <p>また、インベントリ情報を活用することで、社給端末で利用されているアプリ情報を取得可能です。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="cmm9wwo4400050nrq70z84qy7" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/intune/MicrosoftIntune_constraintedapp_and_displayfunction/" data-id="cuid9AJW3m_-3xooZ71TRtPFw" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -187,6 +187,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -200,10 +204,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -252,9 +252,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

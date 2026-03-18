@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_03.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220414_01/20220414_01_04.png">
 <meta property="article:published_time" content="2022-04-13T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.758Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.050Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -71,9 +71,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -144,7 +144,7 @@
 <li>クライアント IP アドレス:    192.168.10.10</li>
 <li>サブネット マスク アドレス: 255.255.255.248</li>
 </ul>
-<p>上記、違和感を感じますよね。/24 の サブネットを境界で指定したのだから、192.168.10.0 - 192.168.10.255 のIP アドレスは指定したサブネット境界として判定される筈だ、と考えるはずです。</p>
+<p>上記、違和感を感じますよね。&#x2F;24 の サブネットを境界で指定したのだから、192.168.10.0 - 192.168.10.255 のIP アドレスは指定したサブネット境界として判定される筈だ、と考えるはずです。</p>
 <p>ここで、注意書きの「ネットワークとサブネット マスクの値からサブネット ID が割り出されます。」を思い出してください。</p>
 <p>クライアント 端末 A の IP アドレスとサブネット マスク の値から、サブネット境界と同様の方法でサブネット ID を割り出してみましょう。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 A のサブネット ID: 192.168.10.0</span><br></pre></td></tr></table></figure>
@@ -160,7 +160,7 @@
 <li>ネットワーク IP アドレス  : 10.0.0.0</li>
 <li>サブネット マスク アドレス: 255.255.0.0</li>
 </ul>
-<p>/16 のサブネット空間です。多くの /24 のサブネット空間をひとまとめにした境界を作成されたい場合、このような境界を作りたいことは多いかと存じます。</p>
+<p>&#x2F;16 のサブネット空間です。多くの &#x2F;24 のサブネット空間をひとまとめにした境界を作成されたい場合、このような境界を作りたいことは多いかと存じます。</p>
 <p>では同様にサブネット ID を計算してみましょう。以下の通り、 <strong>10.0.0.0</strong> がサブネット ID となります。</p>
 <p><img src="/blog/mecm/20220414_01/20220414_01_03.png"></p>
 <p>では、この境界に割当たるクライアント端末の IP アドレスを見ていきましょう。</p>
@@ -177,7 +177,7 @@
 <p>なぜなら、サブネット ID を計算したとき、以下のようになるからです。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 C のサブネット ID: 10.0.1.0</span><br><span class="line">クライアント端末 D のサブネット ID: 10.0.2.0</span><br></pre></td></tr></table></figure>
 
-<p>そう、両方のサブネット ID がサブネット境界 のサブネット ID 10.0.0.0 と<strong>一致しません。</strong> そのため、/16 のサブネット境界を作った時、それに含まれると考えられる /24 のサブネットの IP アドレスを持つクライアントは、このサブネット境界に含まれません。</p>
+<p>そう、両方のサブネット ID がサブネット境界 のサブネット ID 10.0.0.0 と<strong>一致しません。</strong> そのため、&#x2F;16 のサブネット境界を作った時、それに含まれると考えられる &#x2F;24 のサブネットの IP アドレスを持つクライアントは、このサブネット境界に含まれません。</p>
 <p>なら、どのようなクライアントならサブネット境界に割り当たるかと言うと、以下のような IP アドレスを持つクライアント E の端末となります。</p>
 <ul>
 <li>クライアント IP アドレス:   10.0.1.10</li>
@@ -186,13 +186,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">クライアント端末 E のサブネット ID: 10.0.0.0</span><br></pre></td></tr></table></figure>
 
 <h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>ここまで見てきたらお分かりかと存じます。クライアントが IP サブネット の境界に含まれると判定されるには、境界サブネット ID と、クライアントが所属するサブネットのネットワーク アドレスが一致する必要がある、つまりサイズも全く同一の、同じサブネットに所属する必要がある、ということです。そのため、複数の小さなサブネットを含む大きなサブネット境界を設定することは出来ません。</p>
-<p>上記のようなことを実施されたい場合は、「IP アドレスの範囲」の境界を使いましょう。例えば、以下のような開始 IP アドレスと終了 IP アドレスを持つ境界を作れば 10.0.1.0/24 と 10.0.2.0/24 のサブネットの 端末を同一の境界として判定させることができます。</p>
+<p>上記のようなことを実施されたい場合は、「IP アドレスの範囲」の境界を使いましょう。例えば、以下のような開始 IP アドレスと終了 IP アドレスを持つ境界を作れば 10.0.1.0&#x2F;24 と 10.0.2.0&#x2F;24 のサブネットの 端末を同一の境界として判定させることができます。</p>
 <p><img src="/blog/mecm/20220414_01/20220414_01_04.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220414_01/" data-id="cmm9wwo74007q0nrqg7nx0sdr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220414_01/" data-id="cuidWPUTJ7b2cQqOnmpoiKx2Y" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -234,6 +234,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -247,10 +251,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -299,9 +299,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

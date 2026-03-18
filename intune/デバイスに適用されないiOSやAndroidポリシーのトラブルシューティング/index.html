@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。Microsoft Intune サポートチームの中村です。 ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2018-09-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.650Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.948Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,7 +119,7 @@
 <ol>
 <li><p>ユーザーを選択したら、Intune ライセンスとアカウント状態が緑色のチェックで表示されていることを確認します。</p>
 </li>
-<li><p>同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS/MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイスは登録されていません。 登録されるまでコンプラインアンスポリシーまたはデバイス構成プロファイルを受信しないでしょう。 アプリ保護ポリシー ( MAM ポリシーとしても知られています ) では、登録は必要ありません。</p>
+<li><p>同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS&#x2F;MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイスは登録されていません。 登録されるまでコンプラインアンスポリシーまたはデバイス構成プロファイルを受信しないでしょう。 アプリ保護ポリシー ( MAM ポリシーとしても知られています ) では、登録は必要ありません。</p>
 </li>
 <li><p>Azure AD の結合の種類がワークプレースを表示していることを確認します。もし未登録と表示されているようでしたら、登録中に問題を発生している可能性があります。デバイスの登録を解除して再登録すると、この問題が解決されます。</p>
 </li>
@@ -131,14 +131,18 @@
 <li>デバイスが Intune サービスに接続されていない。</li>
 </ul>
 <ol start="5">
-<li>最後のチェックインに、最近の日時が表示されていることを確認します。デバイスは少なくとも 8 時間ごとに Intune で確認します。もし最後のチェックインから 24 時間以上経過していたら、デバイスに問題が生じている可能性があります。チェックインできないデバイスは、 Intune からポリシーを受信することが出来ません。デバイスを強制的にチェックインさせるためには、デバイスの OS に一致する以下の一連の手順に従ってください。これらのステップはどのデバイスからも実行可能です。</li>
+<li><p>最後のチェックインに、最近の日時が表示されていることを確認します。デバイスは少なくとも 8 時間ごとに Intune で確認します。もし最後のチェックインから 24 時間以上経過していたら、デバイスに問題が生じている可能性があります。チェックインできないデバイスは、 Intune からポリシーを受信することが出来ません。デバイスを強制的にチェックインさせるためには、デバイスの OS に一致する以下の一連の手順に従ってください。これらのステップはどのデバイスからも実行可能です。</p>
+</li>
+<li></li>
 </ol>
-<p>6.<br>a. Android に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; デバイス設定の確認<br>b. iOS に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; 設定の確認<br>c. Windows に対してはデバイスの設定を開き、アカウントを選択する &gt; 職場または学校にアクセス &gt; 該当する接続 &gt; 情報 &gt; 同期</p>
+<p>a. Android に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; デバイス設定の確認<br>b. iOS に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; 設定の確認<br>c. Windows に対してはデバイスの設定を開き、アカウントを選択する &gt; 職場または学校にアクセス &gt; 該当する接続 &gt; 情報 &gt; 同期</p>
 <p>7  デバイスのポリシーの詳細を見るためにデバイスを選択します。</p>
 <ol start="8">
-<li>デバイス &gt; 管理で、デバイスの準拠とデバイス構成の両方に移動し、割り当てようとしているデバイスポリシーが一覧表示されていることを確認します。</li>
+<li><p>デバイス &gt; 管理で、デバイスの準拠とデバイス構成の両方に移動し、割り当てようとしているデバイスポリシーが一覧表示されていることを確認します。</p>
+</li>
+<li></li>
 </ol>
-<p>9)<br>a. もしポリシーが一覧表示されている場合はその状態を確認します。</p>
+<p>a. もしポリシーが一覧表示されている場合はその状態を確認します。</p>
 <ul>
 <li>該当なし - このポリシーはこのプラットフォームでサポートされていません。例えば、iOS のポリシーは Android 端末では機能しません。 Samsung の KNOX ポリシーは、 Samsung 以外の KNOX 端末では機能しません。</li>
 <li>競合 - Intune がオーバーライドできないデバイス上の既存の設定があります。</li>
@@ -151,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" data-id="cmm9wwo4500080nrqasyqbu0x" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/intune/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84iOS%E3%82%84Android%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" data-id="cuidpo6_26UZ72YPps66nKjRF" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -193,6 +197,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -206,10 +214,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -258,9 +262,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

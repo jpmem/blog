@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-22_01/2022-04-22_01_4.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-04-22_01/2022-04-22_01_5.png">
 <meta property="article:published_time" content="2022-04-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.947Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.225Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,9 +122,9 @@
       
         <p>みなさま、こんにちは。 WSUS サポート チームです。</p>
 <p>長年皆様にご愛用いただいた Internet Explore のサポートの終了が 2022 年 6 月 15 日に予定されていることが発表されました。<br>それに伴い、 Chromium Edge 更新プログラムを WSUS から配信したいとのお問い合わせも増えてきております。<br>そこで、今回は WSUS から Chromium Edge へ更新プログラムを配信する方法をご紹介します。  </p>
-<p>( ※ Internet Explore のサポートの終了については、こちらから最新情報、 Q&amp;A などをご確認ください。)<br><a target="_blank" rel="noopener" href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/internet-explorer-app-end-of-support/">Internet Explorer 11 デスクトップ アプリのサポート終了へ! IE モードへの移行を進めましょう!</a><br><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/internet-explorer-11-desktop-app-retirement-faq/ba-p/2366549">Internet Explorer 11 desktop app retirement FAQ</a>  </p>
+<p>( ※ Internet Explore のサポートの終了については、こちらから最新情報、 Q&amp;A などをご確認ください。)<br><a href="https://jpdsi.github.io/blog/internet-explorer-microsoft-edge/internet-explorer-app-end-of-support/">Internet Explorer 11 デスクトップ アプリのサポート終了へ! IE モードへの移行を進めましょう!</a><br><a href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/internet-explorer-11-desktop-app-retirement-faq/ba-p/2366549">Internet Explorer 11 desktop app retirement FAQ</a>  </p>
 <h3 id="WSUS-から-Chromium-Edge-更新プログラム配信する方法"><a href="#WSUS-から-Chromium-Edge-更新プログラム配信する方法" class="headerlink" title="WSUS から Chromium Edge 更新プログラム配信する方法"></a><strong>WSUS から Chromium Edge 更新プログラム配信する方法</strong></h3><h3 id="1-Chromium-Edge-の自動更新を制御する"><a href="#1-Chromium-Edge-の自動更新を制御する" class="headerlink" title="1. Chromium Edge の自動更新を制御する"></a>1. Chromium Edge の自動更新を制御する</h3><p>Chromium Edge には、不具合、パフォーマンス、セキュリティ更新が 既定で 10 時間ごとにブラウザで行われる自動更新という機能があります。<br>WSUS から Chromium Edge の更新プログラムを配布する場合は事前に Chromium Edge の自動更新によって勝手にバージョンが上がっていかないよう GPO にて以下の設定が必要です。</p>
-<p>ポリシー ： [ 管理用テンプレート ]&gt;[ Microsoft Edge の更新 ]&gt;[ アプリケーション ]&gt;[ Microsoft Edge ]<br>[ 更新ポリシーのオーバーライドの規定値 ]：有効：[ 更新を無効にする ] を選択します。<br>※このポリシーはドメイン参加環境でのみ効果があります。<br>（ Chromium Edge 管理用テンプレ―トは<a target="_blank" rel="noopener" href="https://www.microsoft.com/ja-jp/edge/business/download">こちら</a>から入手可能です。 )<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_1.png"></p>
+<p>ポリシー ： [ 管理用テンプレート ]&gt;[ Microsoft Edge の更新 ]&gt;[ アプリケーション ]&gt;[ Microsoft Edge ]<br>[ 更新ポリシーのオーバーライドの規定値 ]：有効：[ 更新を無効にする ] を選択します。<br>※このポリシーはドメイン参加環境でのみ効果があります。<br>（ Chromium Edge 管理用テンプレ―トは<a href="https://www.microsoft.com/ja-jp/edge/business/download">こちら</a>から入手可能です。 )<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_1.png"></p>
 <h3 id="2-WSUS-から-Chromium-Edge-の更新を配信する"><a href="#2-WSUS-から-Chromium-Edge-の更新を配信する" class="headerlink" title="2. WSUS から Chromium Edge の更新を配信する"></a>2. WSUS から Chromium Edge の更新を配信する</h3><p>WSUS コンソールで [ オプション ] &gt; [ 製品と分類 ]<br>製品： Microsoft Edge 、分類： 更新 にチェックを追加し、更新プログラムを同期します。<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_2.png"></p>
 <p>WSUS にて承認作業を行います。<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_3.png"></p>
 <p>クライアント側で更新プログラムが適用されます。<br><img src="/blog/wsus/2022-04-22_01/2022-04-22_01_4.png"></p>
@@ -133,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-04-22_01/" data-id="cmm9wwo5o003u0nrq52f6h3rl" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-04-22_01/" data-id="cuidkO0hNDYvPt31eoGNaNJTB" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -175,6 +175,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -188,10 +192,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -240,9 +240,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

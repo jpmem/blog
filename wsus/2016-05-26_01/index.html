@@ -7,16 +7,16 @@
   
   <title>Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要となる更新プログラムです。必要">
+  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 について">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2016-05-26_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要となる更新プログラムです。必要">
+<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。   今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、適用後に手動の手順が必要">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2016-05-26_01/2016-05-26_01%5C2016-05-26_01.png">
 <meta property="article:published_time" content="2016-05-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.896Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.179Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -117,25 +117,26 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>皆さま、こんにちは。WSUS サポート チームです。  </p>
-<p>今回は 2016/5/4 にリリースされた Windows Server 2012 / 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。<br>KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、<strong>適用後に手動の手順が必要となる更新プログラム</strong>です。<br>必要となる手動の手順は <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介しておりますが、<strong>適用後手動の手順を行わなかった場合に、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します</strong>ので、本ブログ記事においても詳細にご説明いたします。<br>なお、KB3159706 は、WSUS 3.0 SP2 には提供されておりませんので、WSUS 3.0 SP2 環境に適用されることはありません。  </p>
-<h2 id="KB3159706-について"><a href="#KB3159706-について" class="headerlink" title="KB3159706 について"></a>KB3159706 について</h2><p>Windows 10 の機能アップグレード (WSUS では “Upgrades” に分類される更新プログラム) は、暗号化されたパッケージの形式で実際のリリースより前に Windows Update に公開されます。<br>これは、すべての地域に対して同時にリリースできるようにすることを目的としています。  Windows 10 のクライアントは、最初にリリースされたバージョンから暗号化されたパッケージを復号することができましたが、WSUS では復号する機能を有しておりませんでした。<br>そのため、今まで機能アップグレードを WSUS に公開するに当たり、暗号化されたパッケージを手動で復号して WSUS 用に公開しておりましたが、このプロセスは時間を要する作業であり、エラーが発生する要因となっておりました。<br>KB3159706 は、Windows Server 2012 / 2012 R2 の WSUS に暗号化されたパッケージを復号する機能を追加した更新プログラムです。<br>この KB3159706 を適用しない場合、2016 年夏にリリース予定の Windows 10 Anniversary Update など、2016 年 5 月以降に WSUS に公開される機能アップグレードについて、WSUS で配信することができません。(注 : Windows Server 2016 では、リリース時から本機能を組み込む予定です。)  </p>
+<p>今回は 2016&#x2F;5&#x2F;4 にリリースされた Windows Server 2012 &#x2F; 2012 R2 WSUS 用の更新プログラム KB3159706 についてご紹介いたします。<br>KB3159706 は Windows Update に公開されている WSUS 用の更新プログラムですが、<strong>適用後に手動の手順が必要となる更新プログラム</strong>です。<br>必要となる手動の手順は <a href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介しておりますが、<strong>適用後手動の手順を行わなかった場合に、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します</strong>ので、本ブログ記事においても詳細にご説明いたします。<br>なお、KB3159706 は、WSUS 3.0 SP2 には提供されておりませんので、WSUS 3.0 SP2 環境に適用されることはありません。  </p>
+<h2 id="KB3159706-について"><a href="#KB3159706-について" class="headerlink" title="KB3159706 について"></a>KB3159706 について</h2><p>Windows 10 の機能アップグレード (WSUS では “Upgrades” に分類される更新プログラム) は、暗号化されたパッケージの形式で実際のリリースより前に Windows Update に公開されます。<br>これは、すべての地域に対して同時にリリースできるようにすることを目的としています。  Windows 10 のクライアントは、最初にリリースされたバージョンから暗号化されたパッケージを復号することができましたが、WSUS では復号する機能を有しておりませんでした。<br>そのため、今まで機能アップグレードを WSUS に公開するに当たり、暗号化されたパッケージを手動で復号して WSUS 用に公開しておりましたが、このプロセスは時間を要する作業であり、エラーが発生する要因となっておりました。<br>KB3159706 は、Windows Server 2012 &#x2F; 2012 R2 の WSUS に暗号化されたパッケージを復号する機能を追加した更新プログラムです。<br>この KB3159706 を適用しない場合、2016 年夏にリリース予定の Windows 10 Anniversary Update など、2016 年 5 月以降に WSUS に公開される機能アップグレードについて、WSUS で配信することができません。(注 : Windows Server 2016 では、リリース時から本機能を組み込む予定です。)  </p>
 <h2 id="KB3159706-の展開方法について"><a href="#KB3159706-の展開方法について" class="headerlink" title="KB3159706 の展開方法について"></a>KB3159706 の展開方法について</h2><p>KB3159706 は、WSUS や Microsoft Update カタログに公開されておりますので、KB3159706 が同期済みか、手動で KB3159706 をインポートしていれば、WSUS を利用して展開することができます。<br>また、WSUS を利用して展開できない方々に向けて、Windows Update に対しても KB3159706 を公開しております。<br>もし Windows Update から KB3159706 を適用する場合は、オプションに KB3159706 が表示されますので、チェックをオンにしてインストールしてください。<br><img src="2016-05-26_01%5C2016-05-26_01.png">  </p>
-<h2 id="KB3159706-を適用した後に必要な手動手順について"><a href="#KB3159706-を適用した後に必要な手動手順について" class="headerlink" title="KB3159706 を適用した後に必要な手動手順について"></a>KB3159706 を適用した後に必要な手動手順について</h2><p>KB3159706 は適用した後に、手動の手順を実施することでインストールが完了します。<br>手動の手順を実施していない場合、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します。<br>そのため、意図せず KB3159706 が適用された場合は、お手数をおかけしますが、以下の適用後に必要な手動手順の実施をお願いします。(<a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介している手順です。)  </p>
+<h2 id="KB3159706-を適用した後に必要な手動手順について"><a href="#KB3159706-を適用した後に必要な手動手順について" class="headerlink" title="KB3159706 を適用した後に必要な手動手順について"></a>KB3159706 を適用した後に必要な手動手順について</h2><p>KB3159706 は適用した後に、手動の手順を実施することでインストールが完了します。<br>手動の手順を実施していない場合、WSUS 管理コンソールに接続できない、WSUS Service が起動しないという事象が発生します。<br>そのため、意図せず KB3159706 が適用された場合は、お手数をおかけしますが、以下の適用後に必要な手動手順の実施をお願いします。(<a href="https://support.microsoft.com/ja-jp/topic/%E6%9B%B4%E6%96%B0%E3%81%AB%E3%82%88%E3%82%8A-windows-server-2012-%E3%81%A8-windows-server-2012-r2-%E3%81%A7%E3%81%AE-wsus-%E3%81%AE-esd-%E5%BE%A9%E5%8F%B7%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99-8bb8d048-1bf3-785f-609f-d34088c14a3d">KB3159706</a> 内でもご紹介している手順です。)  </p>
 <p><strong>この更新プログラムのインストールを完了するために必要な手動の手順</strong><br>WSUS サーバーで以下の手順を実施してください。<br>なお、本手順はシステム ボリュームが C ドライブであることを前提としています。<br>(本記事内のコマンドをコピー ペーストすると、ダブル クォーテーションが全角に変換されますので、半角に修正してください。)  </p>
 <ol>
-<li>以下のコマンドを実行します。<br>(データベースに Windows Internal Database (WID) を利用している場合)</li>
-</ol>
-<p><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall /servicing</strong><br>(データベースに SQL Server を利用している場合)<br><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall SQL_INSTANCE_NAME=&lt;インスタンス名&gt; /servicing</strong><br>※ 以下のレジストリ値が MICROSOFT##WID となっていれば、WID であると判断できます。<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Update Services\Server\Setup!SqlServerName</p>
-<ol>
-<li>コマンドの実行が完了した後、サーバー マネージャーを起動します。</li>
-<li>ダッシュボードより [役割と機能の追加] をクリックします。</li>
-<li>ウィザードを進め [機能] ページで以下の機能を追加して [次へ] をクリックしていきます。  </li>
-</ol>
-<p><strong>[.NET Framework 4.5 Features] - [WCF サービス] - [HTTP アクティブ化]</strong>  </p>
-<ol>
-<li>ウィザードを完了後、サーバー マネージャーを閉じます。</li>
-<li>[管理ツール] - [サービス] より WSUS Service を再起動します。</li>
-<li>WSUS 管理コンソールに接続可能か確認します。  </li>
+<li><p>以下のコマンドを実行します。<br>(データベースに Windows Internal Database (WID) を利用している場合)<br><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall &#x2F;servicing</strong><br>(データベースに SQL Server を利用している場合)<br><strong>“C:\Program Files\Update Services\Tools\wsusutil.exe” postinstall SQL_INSTANCE_NAME&#x3D;&lt;インスタンス名&gt; &#x2F;servicing</strong><br>※ 以下のレジストリ値が MICROSOFT##WID となっていれば、WID であると判断できます。<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Update Services\Server\Setup!SqlServerName</p>
+</li>
+<li><p>コマンドの実行が完了した後、サーバー マネージャーを起動します。</p>
+</li>
+<li><p>ダッシュボードより [役割と機能の追加] をクリックします。</p>
+</li>
+<li><p>ウィザードを進め [機能] ページで以下の機能を追加して [次へ] をクリックしていきます。<br><strong>[.NET Framework 4.5 Features] - [WCF サービス] - [HTTP アクティブ化]</strong>  </p>
+</li>
+<li><p>ウィザードを完了後、サーバー マネージャーを閉じます。</p>
+</li>
+<li><p>[管理ツール] - [サービス] より WSUS Service を再起動します。</p>
+</li>
+<li><p>WSUS 管理コンソールに接続可能か確認します。</p>
+</li>
 </ol>
 <p>SSL 構成の WSUS の場合は、以下の手順を実施してください。 </p>
 <ol>
@@ -175,15 +176,16 @@
 <li><p>続けてファイルの末尾にある以下の<strong>太字</strong>部分を変更して、web.config ファイルを上書き保存します。  </p>
  <p>&lt;/bindings&gt;<br>
  &lt;serviceHostingEnvironment aspNetCompatibilityEnabled="true" <strong>multipleSiteBindingsEnabled="true"</strong> /&gt;<br>
- &lt;/system.serviceModel&gt;</p>　　</li>
+ &lt;/system.serviceModel&gt;</p></li>
 </ol>
-<p>～ 参考情報 ～<br>(英語) Update enables ESD decryption provision in WSUS in Windows Server 2012 and Windows Server 2012 R2<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/kb/3159706">https://support.microsoft.com/en-us/kb/3159706</a><br>(日本語) 更新により、Windows Server 2012 と Windows Server 2012 R2 での WSUS の ESD 復号化の準備<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/kb/3159706">https://support.microsoft.com/ja-jp/kb/3159706</a></p>
-<p>(英語) The long-term fix for KB3148812 issues<br><a target="_blank" rel="noopener" href="https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/">https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/</a></p>
+<p>　　</p>
+<p>～ 参考情報 ～<br>(英語) Update enables ESD decryption provision in WSUS in Windows Server 2012 and Windows Server 2012 R2<br><a href="https://support.microsoft.com/en-us/kb/3159706">https://support.microsoft.com/en-us/kb/3159706</a><br>(日本語) 更新により、Windows Server 2012 と Windows Server 2012 R2 での WSUS の ESD 復号化の準備<br><a href="https://support.microsoft.com/ja-jp/kb/3159706">https://support.microsoft.com/ja-jp/kb/3159706</a></p>
+<p>(英語) The long-term fix for KB3148812 issues<br><a href="https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/">https://blogs.technet.microsoft.com/wsus/2016/05/05/the-long-term-fix-for-kb3148812-issues/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-05-26_01/" data-id="cmm9wwo4l001a0nrq4zg09f9r" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2016-05-26_01/" data-id="cuidrtvgkicAd3JPtfufYStP2" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -225,6 +227,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -238,10 +244,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -290,9 +292,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

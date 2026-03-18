@@ -7,18 +7,18 @@
   
   <title>WSUS クライアントのグループ ポリシー:その 2 - Windows 8 / Windows Server 2012 以降編 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは。 WSUS サポートチームです。 前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 &#x2F; Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。   【Windows 8 &#x2F; Windows Server">
+  <meta name="description" content="こんにちは。 WSUS サポートチームです。 前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 &#x2F; Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。   【Windows 8 &#x2F; Wind">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS クライアントのグループ ポリシー:その 2 - Windows 8 &#x2F; Windows Server 2012 以降編">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2015-03-24_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="こんにちは。 WSUS サポートチームです。 前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 &#x2F; Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。   【Windows 8 &#x2F; Windows Server">
+<meta property="og:description" content="こんにちは。 WSUS サポートチームです。 前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 &#x2F; Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。   【Windows 8 &#x2F; Wind">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2015-03-24_01/group-policy3.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2015-03-24_01/group-policy4.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2015-03-24_01/group-policy5.png">
 <meta property="article:published_time" content="2015-03-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.891Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.174Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -70,9 +70,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -119,43 +119,43 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>こんにちは。 WSUS サポートチームです。</p>
-<p>前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 / Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。  </p>
-<p><strong>【Windows 8 / Windows Server 2012 以降の環境での注意点】</strong><br>Windows 8 / Windows Server 2012 以降の環境では、Windows 7 / Windows Server 2008 R2 以前の環境と、自動更新の動作が一部異なりますので、両方共に環境を管理している場合には、特に注意が必要です。<br>Windows 8 / Windows Server 2012 以降の環境では、Windows 7 / Windows Server 2008 R2 以前と同様の動作を実現するためには、新たに追加された、下記の 3 つのグループ ポリシーを併せて設定することをご検討ください。  </p>
+<p>前回の投稿では、WSUS をご利用いただく環境において、クライアントに対し必須構成となるポリシーのご紹介をしました。本ブログでは、Windows 8 &#x2F; Windows Server 2012 以降の OS にて、Windows Update に関する構成可能なポリシーや注意点をご紹介します。  </p>
+<p><strong>【Windows 8 &#x2F; Windows Server 2012 以降の環境での注意点】</strong><br>Windows 8 &#x2F; Windows Server 2012 以降の環境では、Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と、自動更新の動作が一部異なりますので、両方共に環境を管理している場合には、特に注意が必要です。<br>Windows 8 &#x2F; Windows Server 2012 以降の環境では、Windows 7 &#x2F; Windows Server 2008 R2 以前と同様の動作を実現するためには、新たに追加された、下記の 3 つのグループ ポリシーを併せて設定することをご検討ください。  </p>
 <p><strong>Windows Update に関する ポリシー</strong> </p>
 <ol>
 <li>[自動更新を構成する] – [自動メンテナンス時にインストールする] ※1</li>
 <li>[スケジュールされた時刻に常に自動的に再起動する] ※1</li>
 <li>[インターネット上の Windows Update に接続しない] ※2</li>
 </ol>
-<p>※1 Windows 8 / Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 / Windows Server 2012 R2 以降の環境では、本更新プログラムの適用は必要ありません。<br>※2 Windows 8 / Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 / Windows Server 2012 R2 以降の環境では、更新プログラムの適用は必要ありません。  </p>
+<p>※1 Windows 8 &#x2F; Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 &#x2F; Windows Server 2012 R2 以降の環境では、本更新プログラムの適用は必要ありません。<br>※2 Windows 8 &#x2F; Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 &#x2F; Windows Server 2012 R2 以降の環境では、更新プログラムの適用は必要ありません。  </p>
 <p>各グループ ポリシーの詳細について、以下にご案内いたします。  </p>
-<h2 id="lt-1-自動更新を構成する-–-自動メンテナンス時にインストールする-gt"><a href="#lt-1-自動更新を構成する-–-自動メンテナンス時にインストールする-gt" class="headerlink" title="&lt;1. [自動更新を構成する] – [自動メンテナンス時にインストールする]&gt;"></a>&lt;1. [自動更新を構成する] – [自動メンテナンス時にインストールする]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy3.png">  </p>
-<p>設定例 : Windows 7 / Windows Server 2008 R2 以前の環境と同様の動作をさせる場合  </p>
+<h2 id=""><a href="#" class="headerlink" title="&lt;1. [自動更新を構成する] – [自動メンテナンス時にインストールする]&gt;"></a>&lt;1. [自動更新を構成する] – [自動メンテナンス時にインストールする]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy3.png">  </p>
+<p>設定例 : Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様の動作をさせる場合  </p>
 <ul>
 <li>設定値 : [有効]  </li>
-<li>オプション :<br>　- 自動メンテナンス時にインストールする : [無効]  </li>
+<li>オプション :<br>　- 自動メンテナンス時にインストールする : [無効]</li>
 </ul>
-<p>[ポリシーの説明]<br>※ Windows 8 / Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。<br>以下の記事でもご紹介している通り、Windows 8 / Windows Server 2012 以降の環境からは、自動更新のオプション [4] 番の動作が大きく異なっており、自動インストールの開始タイミングが OS の自動メンテナンス タスクとして制御されるよう、設計が変わっています。  </p>
-<p>Title : Windows 8 / Windows Server 2012 では 「自動インストール」 の動作が変更されております<br>URL : <a target="_blank" rel="noopener" href="https://blogs.iis.net/wincat/windows-8-windows-server-2012#:~:text=Windows%208%20%E3%81%A8%20Windows%20Server%202012%20%E3%81%A7%E3%81%AE%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AE%E6%A7%8B%E6%88%90%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%20http%3A%2F%2Fsupport.microsoft.com%2Fkb%2F2885694%2Fja,%E6%97%A2%E3%81%AB%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%AE%E6%96%B9%E3%82%82%E5%A4%9A%E3%81%84%E3%81%8B%E3%81%A8%E6%80%9D%E3%81%84%E3%81%BE%E3%81%99%E3%81%8C%E3%80%81Windows%208%20%2F%20Windows%20Server%202012%20%E3%81%8B%E3%82%89%E3%81%AF%E3%80%81%E3%80%8C%E8%87%AA%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%80%8D%20%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%8C%E5%A4%A7%E3%81%8D%E3%81%8F%E5%A4%89%E6%9B%B4%E3%81%95%E3%82%8C%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82">https://blogs.iis.net/wincat/windows-8-windows-server-2012#:~:text=Windows%208%20%E3%81%A8%20Windows%20Server%202012%20%E3%81%A7%E3%81%AE%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AE%E6%A7%8B%E6%88%90%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%20http%3A%2F%2Fsupport.microsoft.com%2Fkb%2F2885694%2Fja,%E6%97%A2%E3%81%AB%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%AE%E6%96%B9%E3%82%82%E5%A4%9A%E3%81%84%E3%81%8B%E3%81%A8%E6%80%9D%E3%81%84%E3%81%BE%E3%81%99%E3%81%8C%E3%80%81Windows%208%20%2F%20Windows%20Server%202012%20%E3%81%8B%E3%82%89%E3%81%AF%E3%80%81%E3%80%8C%E8%87%AA%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%80%8D%20%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%8C%E5%A4%A7%E3%81%8D%E3%81%8F%E5%A4%89%E6%9B%B4%E3%81%95%E3%82%8C%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82</a>  </p>
-<p>このため、自動更新のオプションにて日時を指定している場合でも、自動更新のオプション [4] 番だと、時刻が固定されていない「Idle Maintenance」タスクの一環としてインストール動作が開始されてしまうおそれがあります。<br>これを、Windows 7 / Windows Server 2008 R2 以前の環境と同様に、指定した日時に必ず更新プログラムのインストールを行うようにするには、<strong>上述のオプション “自動メンテナンス時にインストールする” を [無効] に設定してください。</strong>  </p>
-<h2 id="lt-2-スケジュールされた時刻に常に自動的に再起動する-gt"><a href="#lt-2-スケジュールされた時刻に常に自動的に再起動する-gt" class="headerlink" title="&lt;2. [スケジュールされた時刻に常に自動的に再起動する]&gt;"></a>&lt;2. [スケジュールされた時刻に常に自動的に再起動する]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy4.png">  </p>
-<p>設定例 : Windows 7 / Windows Server 2008 R2 以前の環境と同様の動作をさせる場合</p>
+<p>[ポリシーの説明]<br>※ Windows 8 &#x2F; Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。<br>以下の記事でもご紹介している通り、Windows 8 &#x2F; Windows Server 2012 以降の環境からは、自動更新のオプション [4] 番の動作が大きく異なっており、自動インストールの開始タイミングが OS の自動メンテナンス タスクとして制御されるよう、設計が変わっています。  </p>
+<p>Title : Windows 8 &#x2F; Windows Server 2012 では 「自動インストール」 の動作が変更されております<br>URL : <a href="https://blogs.iis.net/wincat/windows-8-windows-server-2012#:~:text=Windows%208%20%E3%81%A8%20Windows%20Server%202012%20%E3%81%A7%E3%81%AE%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AE%E6%A7%8B%E6%88%90%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%20http%3A%2F%2Fsupport.microsoft.com%2Fkb%2F2885694%2Fja,%E6%97%A2%E3%81%AB%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%AE%E6%96%B9%E3%82%82%E5%A4%9A%E3%81%84%E3%81%8B%E3%81%A8%E6%80%9D%E3%81%84%E3%81%BE%E3%81%99%E3%81%8C%E3%80%81Windows%208%20%2F%20Windows%20Server%202012%20%E3%81%8B%E3%82%89%E3%81%AF%E3%80%81%E3%80%8C%E8%87%AA%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%80%8D%20%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%8C%E5%A4%A7%E3%81%8D%E3%81%8F%E5%A4%89%E6%9B%B4%E3%81%95%E3%82%8C%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82">https://blogs.iis.net/wincat/windows-8-windows-server-2012#:~:text=Windows%208%20%E3%81%A8%20Windows%20Server%202012%20%E3%81%A7%E3%81%AE%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0%E3%81%AE%E6%A7%8B%E6%88%90%E3%82%92%E8%A8%B1%E5%8F%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%20http%3A%2F%2Fsupport.microsoft.com%2Fkb%2F2885694%2Fja,%E6%97%A2%E3%81%AB%E3%81%94%E5%AD%98%E7%9F%A5%E3%81%AE%E6%96%B9%E3%82%82%E5%A4%9A%E3%81%84%E3%81%8B%E3%81%A8%E6%80%9D%E3%81%84%E3%81%BE%E3%81%99%E3%81%8C%E3%80%81Windows%208%20%2F%20Windows%20Server%202012%20%E3%81%8B%E3%82%89%E3%81%AF%E3%80%81%E3%80%8C%E8%87%AA%E5%8B%95%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%80%8D%20%E3%81%AE%E5%8B%95%E4%BD%9C%E3%81%8C%E5%A4%A7%E3%81%8D%E3%81%8F%E5%A4%89%E6%9B%B4%E3%81%95%E3%82%8C%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82</a>  </p>
+<p>このため、自動更新のオプションにて日時を指定している場合でも、自動更新のオプション [4] 番だと、時刻が固定されていない「Idle Maintenance」タスクの一環としてインストール動作が開始されてしまうおそれがあります。<br>これを、Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様に、指定した日時に必ず更新プログラムのインストールを行うようにするには、<strong>上述のオプション “自動メンテナンス時にインストールする” を [無効] に設定してください。</strong>  </p>
+<h2 id="-1"><a href="#-1" class="headerlink" title="&lt;2. [スケジュールされた時刻に常に自動的に再起動する]&gt;"></a>&lt;2. [スケジュールされた時刻に常に自動的に再起動する]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy4.png">  </p>
+<p>設定例 : Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様の動作をさせる場合</p>
 <ul>
 <li>設定値 : [有効]</li>
 <li>オプション :<br>　- 作業内容の保存にかかる時間（分） : [15]</li>
 </ul>
-<p>[ポリシーの説明]<br>※ Windows 8 / Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。<br>Windows 8 / Windows Server 2012 以降の環境からは、自動更新のオプション [4] 番にて、自動インストールが実行された後の、再起動が実行されるタイミングにも変更が加えられています。<br>Windows 8 / Windows Server 2012 以降の環境では、ユーザーがログオンしている際に更新プログラムの自動インストールが行われると、すぐに再起動は実施されず 3 日間の猶予期間が設けられるよう変更されています。<br>このため、Windows 7 / Windows Server 2008 R2 以前の環境と同様に、自動インストールが実行された後に、即時に再起動を実行するには、<strong>このグループ ポリシー [有効] に設定してください。</strong><br>このグループ ポリシーを [有効] に設定すると、自動インストールが完了した後、オプションにて指定した時間が経過すると、必ず再起動が実施されます。  </p>
-<h2 id="lt-3-インターネット上の-Windows-Update-に接続しない-gt"><a href="#lt-3-インターネット上の-Windows-Update-に接続しない-gt" class="headerlink" title="&lt;3. [インターネット上の Windows Update に接続しない]&gt;"></a>&lt;3. [インターネット上の Windows Update に接続しない]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy5.png">  </p>
-<p>設定例 : Windows 7 / Windows Server 2008 R2 以前の環境と同様の動作をさせる場合  </p>
+<p>[ポリシーの説明]<br>※ Windows 8 &#x2F; Windows Server 2012 の環境で、このグループ ポリシーを設定するには <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-%E3%81%A8-windows-8-%E3%81%AE-windows-server-2012-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-2013-%E5%B9%B4-10-%E6%9C%88-33ab7811-c101-562c-7a32-4a7a75dcd0ed">KB2883201</a> もしくは <a href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。<br>Windows 8 &#x2F; Windows Server 2012 以降の環境からは、自動更新のオプション [4] 番にて、自動インストールが実行された後の、再起動が実行されるタイミングにも変更が加えられています。<br>Windows 8 &#x2F; Windows Server 2012 以降の環境では、ユーザーがログオンしている際に更新プログラムの自動インストールが行われると、すぐに再起動は実施されず 3 日間の猶予期間が設けられるよう変更されています。<br>このため、Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様に、自動インストールが実行された後に、即時に再起動を実行するには、<strong>このグループ ポリシー [有効] に設定してください。</strong><br>このグループ ポリシーを [有効] に設定すると、自動インストールが完了した後、オプションにて指定した時間が経過すると、必ず再起動が実施されます。  </p>
+<h2 id="-2"><a href="#-2" class="headerlink" title="&lt;3. [インターネット上の Windows Update に接続しない]&gt;"></a>&lt;3. [インターネット上の Windows Update に接続しない]&gt;</h2><p><img src="/blog/wsus/2015-03-24_01/group-policy5.png">  </p>
+<p>設定例 : Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様の動作をさせる場合  </p>
 <ul>
-<li>設定値 : [有効]  </li>
+<li>設定値 : [有効]</li>
 </ul>
-<p>[ポリシーの説明]<br>※ Windows 8 / Windows Server 2012 の環境で、このグループ ポリシーを設定するには、<a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 / Windows Server 2012 R2 以降の環境では、更新プログラムの適用は必要ありません。Windows 8 / Windows Server 2012 以降の環境からは、、WSUS サーバーに対して更新プログラムをチェックするように構成していても、WUA（Windows Update Agent） 自身の更新のために、弊社サイトにアクセスするよう動作が変更されています。これは Windows 8 / Windows Server 2012 以降の環境では Windows ストア アプリのサポートが追加されているためです。WSUS サーバーに対して更新プログラムをチェックするように構成していても、ストア アプリの更新は WUA の機能を使用するため、弊社サイトに自己更新のためにアクセスする動作が発生するよう変更が加えられています。<br>上記の動作を無効にし、Windows 7 / Windows Server 2008 R2 以前の環境と同様の動作をさせる場合には、<strong>このグループ ポリシーを [有効] に設定してください。</strong>  </p>
+<p>[ポリシーの説明]<br>※ Windows 8 &#x2F; Windows Server 2012 の環境で、このグループ ポリシーを設定するには、<a href="https://support.microsoft.com/ja-jp/topic/windows-rt-windows-8-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2012-%E3%81%AE-2014-%E5%B9%B4-12-%E6%9C%88%E4%BB%98%E3%81%91%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%83%E3%83%97-f379ce82-ae16-83e9-601f-867c9aa95264">KB3013767</a> を適用する必要があります。Windows 8.1 &#x2F; Windows Server 2012 R2 以降の環境では、更新プログラムの適用は必要ありません。Windows 8 &#x2F; Windows Server 2012 以降の環境からは、、WSUS サーバーに対して更新プログラムをチェックするように構成していても、WUA（Windows Update Agent） 自身の更新のために、弊社サイトにアクセスするよう動作が変更されています。これは Windows 8 &#x2F; Windows Server 2012 以降の環境では Windows ストア アプリのサポートが追加されているためです。WSUS サーバーに対して更新プログラムをチェックするように構成していても、ストア アプリの更新は WUA の機能を使用するため、弊社サイトに自己更新のためにアクセスする動作が発生するよう変更が加えられています。<br>上記の動作を無効にし、Windows 7 &#x2F; Windows Server 2008 R2 以前の環境と同様の動作をさせる場合には、<strong>このグループ ポリシーを [有効] に設定してください。</strong>  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2015-03-24_01/" data-id="cmm9wwo4h00100nrq6y740l8u" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2015-03-24_01/" data-id="cuid1BR8juIOtbhu9qtyg3XJI" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -197,6 +197,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -210,10 +214,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -262,9 +262,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

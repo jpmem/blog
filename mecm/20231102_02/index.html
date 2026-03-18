@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 特定の条件下にある Windows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プログラムが配布されない事象についてご案内いたします。 事象についてWindows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プ">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-11-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.847Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.134Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,7 +116,7 @@
       
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
 <p>特定の条件下にある Windows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プログラムが配布されない事象についてご案内いたします。</p>
-<h1 id="事象について"><a href="#事象について" class="headerlink" title="事象について"></a>事象について</h1><p>Windows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プログラムが配布されないことがございます。<br>また、本事象については <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/hotfix/2303/25073607">Microsoft Configuration Manager バージョン 2303 のクライアント更新プログラム</a> の公開情報でもご案内しております。</p>
+<h1 id="事象について"><a href="#事象について" class="headerlink" title="事象について"></a>事象について</h1><p>Windows 11 以降のデバイスにおいて、Windows Defender の定義ファイルや OS の更新プログラムが配布されないことがございます。<br>また、本事象については <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/hotfix/2303/25073607">Microsoft Configuration Manager バージョン 2303 のクライアント更新プログラム</a> の公開情報でもご案内しております。</p>
 <h1 id="発生条件について"><a href="#発生条件について" class="headerlink" title="発生条件について"></a>発生条件について</h1><ol>
 <li><p>Windows 11 以降のデバイスである。  </p>
 </li>
@@ -132,7 +132,7 @@
 
 <h1 id="対処について"><a href="#対処について" class="headerlink" title="対処について"></a>対処について</h1><p>以下の 1 ～ 3 のいずれかの対処を行うことで、本事象は解消します。  </p>
 <h2 id="1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする"><a href="#1．Configuration-Manager-Version-2303-に-“Configuration-Manager-2303-修正プログラム-KB25506239-”-をインストールする、または-2309-にアップグレードする" class="headerlink" title="1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする"></a>1．Configuration Manager Version 2303 に “Configuration Manager 2303 修正プログラム (KB25506239)” をインストールする、または 2309 にアップグレードする</h2><p>Configuration Manager 2303 修正プログラム (KB25506239) および、Configuration Manager 2309 にはデュアルスキャンの動作を抑制するためのレジストリである UseUpdateClassPolicySource を自動で構成するための修正がされております。<br>そのため、サーバーを本バージョンにアップグレードした後、問題のクライアント端末にインストールされている Configuration Manager クライアントをアップグレードしてください。</p>
-<p>修正プログラムのインポート方法については<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/hotfix/2303/25073607#update-information-for-microsoft--configuration-manager">こちら</a>をご確認ください。</p>
+<p>修正プログラムのインポート方法については<a href="https://learn.microsoft.com/ja-jp/mem/configmgr/hotfix/2303/25073607#update-information-for-microsoft--configuration-manager">こちら</a>をご確認ください。</p>
 <p>また、Configuration Manager 2309 にも本修正は含まれております。</p>
 <h2 id="2．Windows-Update-for-Business-のグループポリシー-ローカルグループポリシー-が不要な場合、未構成にする"><a href="#2．Windows-Update-for-Business-のグループポリシー-ローカルグループポリシー-が不要な場合、未構成にする" class="headerlink" title="2．Windows Update for Business のグループポリシー (ローカルグループポリシー) が不要な場合、未構成にする"></a>2．Windows Update for Business のグループポリシー (ローカルグループポリシー) が不要な場合、未構成にする</h2><p>項番 1. の対処ができない場合は、以下のグループポリシーを未構成にすることで、デュアルスキャンの動作を抑止することができます。</p>
 <p>. [コンピューターの構成] -&gt; [管理用テンプレート] -&gt; [Windows コンポーネント] -&gt; [Windows Update] -&gt; [Windows Update から提供される更新プログラムの管理] -&gt; [品質更新プログラムをいつ受信するかを選択してください]   </p>
@@ -146,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20231102_02/" data-id="cmm9wwo7u009x0nrqbqkybud8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20231102_02/" data-id="cuid174qll67ZXar5iPzM2VJu" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -188,6 +188,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -201,10 +205,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -253,9 +253,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2017-12-11_01/5_2017-12-11.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2017-12-11_01/6_2017-12-11.png">
 <meta property="article:published_time" content="2017-12-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.906Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.188Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -80,9 +80,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -166,12 +166,6 @@
 <td align="center"><strong>収集されない</strong></td>
 <td align="center"><strong>WSUS サーバー全体</strong></td>
 </tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
 <p>「拒否済み」に設定すると、「未承認」状態と同じくクライアントへの配信は行われませんが、レポート情報の収集も行わなくなります。この点が他の承認状態との大きな違いです。逆に言うと更新プログラムを WSUS 上で「拒否済み」に設定しない限り、実はクライアントや WSUS サーバーでは、レポート情報を収集するための処理を実行し続けることになります。</p>
 <p>ちなみに一度「拒否済み」に設定した更新プログラムでも、他の承認状態に任意のタイミングで変更し、再度配信等を実施することは可能ですので、その点はご安心ください。</p>
@@ -214,7 +208,7 @@
 <p><img src="/blog/wsus/2017-12-11_01/8_2017-12-11.png">: 置き換え関係を持つ更新プログラムの中で、最も古い更新プログラムです。「拒否済み」に設定します。</p>
 <p><img src="/blog/wsus/2017-12-11_01/7_2017-12-11.png"><br>もしくは<br><img src="/blog/wsus/2017-12-11_01/8_2017-12-11.png"><br>のアイコンを持つ更新プログラムを選択し、[右クリック] - [拒否] をクリックすることで、「拒否済み」に設定します。<br>※ Ctrl や　Shift を押しながら、選択することで一括して「拒否済み」に設定することも可能です。</p>
 <h3 id="【補足-スクリプトで「拒否済み」に変更する方法】"><a href="#【補足-スクリプトで「拒否済み」に変更する方法】" class="headerlink" title="【補足 : スクリプトで「拒否済み」に変更する方法】"></a>【補足 : スクリプトで「拒否済み」に変更する方法】</h3><p>以下のリンクで、置き換えられた更新プログラムの承認ステータスを「拒否済み」に変更するスクリプトをご提供しております。ダウンロードいただいたファイル Decline-SupersededUpdates.ps1 を WSUS 上でご利用ください。タスク スケジューラーから定期的に実行させることも可能です。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/Decline-SupersededUpdates.ps1">Download</a></p>
+<p><a href="https://github.com/jpmem/script/raw/main/WSUS/Maintenance/Decline-SupersededUpdates.ps1">Download</a></p>
 <p>(実行方法の例)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -Command C:\Temp\Decline-SupersededUpdates.ps1</span><br></pre></td></tr></table></figure>
 
@@ -250,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2017-12-11_01/" data-id="cmm9wwo4u001w0nrqbpdn2rtc" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-12-11_01/" data-id="cuidUbIRURXL54jGbp1YYfwtd" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -292,6 +286,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -305,10 +303,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -357,9 +351,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

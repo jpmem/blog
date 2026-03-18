@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2015-06-03_01/2015-06-03_01_1.png">
 <meta property="article:published_time" content="2015-06-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.893Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.176Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -131,16 +131,16 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ログの名前: アプリケーション</span><br><span class="line">ソース: Application Error</span><br><span class="line">イベント ID: 1000</span><br><span class="line">レベル: エラー</span><br><span class="line">説明: 障害が発生しているアプリケーション名: w3wp.exe</span><br><span class="line">障害が発生しているモジュール名: KERNELBASE.dl</span><br><span class="line">例外コード: 0xe0434352</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>本現象は Windows Server 2012 / 2012 R2 の不具合により発生することが確認されております。</p>
-<p>具体的には、Windows Server 2012 / 2012 R2 上で実行されている WSUS サーバーにて、[不要な更新プログラムと更新プログラムのリビジョン] のクリーンアップを実行した際に本現象が発生することがあります。</p>
+<p>本現象は Windows Server 2012 &#x2F; 2012 R2 の不具合により発生することが確認されております。</p>
+<p>具体的には、Windows Server 2012 &#x2F; 2012 R2 上で実行されている WSUS サーバーにて、[不要な更新プログラムと更新プログラムのリビジョン] のクリーンアップを実行した際に本現象が発生することがあります。</p>
 <p><img src="/blog/wsus/2015-06-03_01/2015-06-03_01_1.png" alt="WSUS サーバー クリーンアップ ウィザード"></p>
 <p>この状況に合致する場合には、以下の対処をご検討ください。</p>
-<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="Windows-Server-2012-R2-の場合"><a href="#Windows-Server-2012-R2-の場合" class="headerlink" title="Windows Server 2012 R2 の場合"></a>Windows Server 2012 R2 の場合</h3><p>Windows Server 2012 R2 においては、更新プログラム <a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/kb/3000850">KB3000850</a> に本問題に対する修正が含まれております。本更新プログラムの適用をご検討ください。詳細は以下の技術情報で公開しております。</p>
-<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/kb/3000481">WSUS database is not cleared correctly after you run Server Cleanup Wizard on a Windows Server 2012 R2-based WSUS server</a></p>
+<h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="Windows-Server-2012-R2-の場合"><a href="#Windows-Server-2012-R2-の場合" class="headerlink" title="Windows Server 2012 R2 の場合"></a>Windows Server 2012 R2 の場合</h3><p>Windows Server 2012 R2 においては、更新プログラム <a href="https://support.microsoft.com/en-us/kb/3000850">KB3000850</a> に本問題に対する修正が含まれております。本更新プログラムの適用をご検討ください。詳細は以下の技術情報で公開しております。</p>
+<p><a href="https://support.microsoft.com/en-us/kb/3000481">WSUS database is not cleared correctly after you run Server Cleanup Wizard on a Windows Server 2012 R2-based WSUS server</a></p>
 <h3 id="Windows-Server-2012-の場合"><a href="#Windows-Server-2012-の場合" class="headerlink" title="Windows Server 2012 の場合"></a>Windows Server 2012 の場合</h3><p>Windows Server 2012 において、残念ながら現時点では問題に対する修正が行われておりません。この場合、[不要な更新プログラムと更新プログラムのリビジョン] のクリーンアップを分割して実行することで現象を回避できる場合があります。</p>
 <p>WSUS コンソールのクリーンアップ ウィザードで実行する場合、[不要な更新プログラムと更新プログラムのリビジョン] はすべてまとめて処理が行われますが、これを PowerShell のスクリプトで実行することにより、不要な [更新プログラム] と [更新プログラムのリビジョン] に分割して実行することが可能です。</p>
 <p>ベースとなる PowerShell スクリプトは以下のスクリプト センターにて公開しております。</p>
-<p><a target="_blank" rel="noopener" href="https://gallery.technet.microsoft.com/ScriptCenter/fd39c7d4-05bb-4c2d-8a99-f92ca8d08218/">WSUS Cleanup</a></p>
+<p><a href="https://gallery.technet.microsoft.com/ScriptCenter/fd39c7d4-05bb-4c2d-8a99-f92ca8d08218/">WSUS Cleanup</a></p>
 <p>このスクリプトにおいて、CompressUpdates が期限切れの [更新プログラムのリビジョン] を削除する処理、CleanupObsoleteUpdates が期限切れの [更新プログラム] を削除する処理にあたります。</p>
 <p>該当する処理以外をコメント アウトすることで、各処理を個別に分割して実行可能です。</p>
 <p>以下は、CompressUpdates のみを実行する例です。</p>
@@ -159,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2015-06-03_01/" data-id="cmm9wwo4j00140nrqav3b0e55" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2015-06-03_01/" data-id="cuidwbrr8obkw4s6LrgyZ3nOB" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -201,6 +201,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -214,10 +218,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -266,9 +266,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

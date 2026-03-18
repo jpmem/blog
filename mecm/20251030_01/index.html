@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20251030_01/20251030_pic_11.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20251030_01/20251030_pic_12.png">
 <meta property="article:published_time" content="2025-10-29T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.868Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.152Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -79,9 +79,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -131,9 +131,9 @@
 <p>なお、オンライン アップデート手順やアップデートの前提条件などの一般的な情報につきましては下記ブログにてご紹介しておりますので併せてご参考いただけますと幸いでございます。  </p>
 <p><a href="https://jpmem.github.io/blog/mecm/20251022_01/">Configuration Manager オンライン アップデートの流れと注意点</a></p>
 <p>また、オフライン アップデートを行う際の注意点につきましても下記ブログにてご紹介しておりますので、ご一読くださいませ。<br><a href="https://jpmem.github.io/blog/mecm/20250207_01/">Configuration Manager のアップグレードをオフラインで行う場合の注意点について</a></p>
-<h2 id="オフライン-アップデートの流れ"><a href="#オフライン-アップデートの流れ" class="headerlink" title="オフライン アップデートの流れ"></a>オフライン アップデートの流れ</h2><p>本手順にて使用するサービス接続ツールは、下記の公開情報をもとに作成しております。<br>サービス接続ツールの概要やツールを使用するための前提条件は下記公開情報をご参照ください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/use-the-service-connection-tool">サービス接続ツールを使用してConfiguration Manager</a></p>
+<h2 id="オフライン-アップデートの流れ"><a href="#オフライン-アップデートの流れ" class="headerlink" title="オフライン アップデートの流れ"></a>オフライン アップデートの流れ</h2><p>本手順にて使用するサービス接続ツールは、下記の公開情報をもとに作成しております。<br>サービス接続ツールの概要やツールを使用するための前提条件は下記公開情報をご参照ください。<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/use-the-service-connection-tool">サービス接続ツールを使用してConfiguration Manager</a></p>
 <h3 id="■プライマリ-サイト-サーバー上の操作"><a href="#■プライマリ-サイト-サーバー上の操作" class="headerlink" title="■プライマリ サイト サーバー上の操作"></a>■プライマリ サイト サーバー上の操作</h3><ol>
-<li>[管理]-[サイトの構成]-[サーバーとサイト システムの役割]より、サービス接続ポイントをインストールしたサーバーを選択します。 </li>
+<li>[管理]-[サイトの構成]-[サーバーとサイト システムの役割]より、サービス接続ポイントをインストールしたサーバーを選択します。</li>
 </ol>
 <img src="./20251030_pic_01.png" style="width:60%; height:auto;">  
 
@@ -141,30 +141,33 @@
 <br>
 
 <ol start="2">
-<li>[サービス接続ポイント]を選択の上、[プロパティ] を選択します。 </li>
+<li>[サービス接続ポイント]を選択の上、[プロパティ] を選択します。</li>
 </ol>
 <img src="./20251030_pic_02.png" style="width:50%; height:auto;">  
 
 <p><br><br></p>
 <ol start="3">
-<li>[サービス接続ポイントのプロパティ] 画面で、[オフラインのオンデマンド接続] が選択されていることを確認します。<br>もし、[オンラインの永続的接続] になっている場合は、[オフラインのオンデマンド接続] を選択し、[OK] で適用します。この際に OS 再起動を実施します。 </li>
+<li>[サービス接続ポイントのプロパティ] 画面で、[オフラインのオンデマンド接続] が選択されていることを確認します。<br>もし、[オンラインの永続的接続] になっている場合は、[オフラインのオンデマンド接続] を選択し、[OK] で適用します。この際に OS 再起動を実施します。</li>
 </ol>
 <img src="./20251030_pic_03.png" style="width:35%; height:auto;">  
 
 <p><br><br></p>
 <ol start="4">
-<li>サイトサーバー上で、以下のファイルをフォルダーごと、[C:\ServiceConnectionTool] にコピーします。<br>&lt;CM インストールディレクトリ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool<br>（例）C:\Program Files\Microsoft Configuration Manager\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool</li>
+<li>サイトサーバー上で、以下のファイルをフォルダーごと、[C:\ServiceConnectionTool] にコピーします。</li>
 </ol>
+<p>&lt;CM インストールディレクトリ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool<br>（例）C:\Program Files\Microsoft Configuration Manager\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool</p>
 <br>
 
 <ol start="5">
-<li><p>[C:\cab] フォルダーを作成します。  </p>
-<br></li>
-<li><p>コマンドプロンプトを管理者権限で起動のうえ、以下のコマンドを実行し、cabファイルを生成します。</p>
+<li>[C:\cab] フォルダーを作成します。</li>
+</ol>
+<br>
+
+<ol start="6">
+<li>コマンドプロンプトを管理者権限で起動のうえ、以下のコマンドを実行し、cabファイルを生成します。</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\ServiceConnectionTool </span><br><span class="line">ServiceConnectionTool.exe -prepare -usagedatadest C:\cab\UsageData.cab </span><br></pre></td></tr></table></figure>
 <p><img src="/blog/mecm/20251030_01/20251030_pic_04.png"></p>
-</li>
-</ol>
 <h3 id="■インターネットに接続可能な端末上の操作"><a href="#■インターネットに接続可能な端末上の操作" class="headerlink" title="■インターネットに接続可能な端末上の操作"></a>■インターネットに接続可能な端末上の操作</h3><ol start="7">
 <li>インターネットに接続可能な端末で、以下のレジストリを設定し、OS の再起動を実施します。<br>本レジストリは、.NET Framework の通信時に TLS 1.2 を優先して使用するためのレジストリとなります。<br>　※TLS 1.0 等の古いプロトコルを使用する必要のあるアプリケーションをお使いの場合は影響が出る可能性がございますので、影響のない端末にてご実施ください。</li>
 </ol>
@@ -180,30 +183,33 @@
 
 <p><br><br></p>
 <ol start="8">
-<li>プライマリサイトサーバーの C:\ServiceConnectionTool、C:\cab をフォルダーごとコピーし、インターネットに接続可能な端末にコピーします。<br>その上で、C:\UpdatePacks フォルダーを新規作成します。 </li>
+<li>プライマリサイトサーバーの C:\ServiceConnectionTool、C:\cab をフォルダーごとコピーし、インターネットに接続可能な端末にコピーします。<br>その上で、C:\UpdatePacks フォルダーを新規作成します。</li>
 </ol>
 <img src="./20251030_pic_06.png" style="width:40%; height:auto;">  
 
 
 <p><br><br></p>
 <ol start="9">
-<li>インターネットに接続可能な端末にてコマンドプロンプトを管理者権限で起動し、以下のコマンドを実施します。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\ServiceConnectionTool </span><br><span class="line">ServiceConnectionTool.exe –connect -downloadsiteversion -usagedatasrc C:\cab -updatepackdest C:\UpdatePacks </span><br></pre></td></tr></table></figure></li>
+<li>インターネットに接続可能な端末にてコマンドプロンプトを管理者権限で起動し、以下のコマンドを実施します。</li>
 </ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\ServiceConnectionTool </span><br><span class="line">ServiceConnectionTool.exe –connect -downloadsiteversion -usagedatasrc C:\cab -updatepackdest C:\UpdatePacks </span><br></pre></td></tr></table></figure>
+
 <p><img src="/blog/mecm/20251030_01/20251030_pic_07.png"></p>
 <p><br><br></p>
 <ol start="10">
-<li>ダウンロードが完了した後、インターネットに接続可能な端末上の C:\UpdatePacks を<br>プライマリ サイト サーバーの、C:\UpdatePacks にフォルダーごとコピーします。 </li>
+<li>ダウンロードが完了した後、インターネットに接続可能な端末上の C:\UpdatePacks を<br>プライマリ サイト サーバーの、C:\UpdatePacks にフォルダーごとコピーします。</li>
 </ol>
 <br>
 
 <h3 id="■プライマリ-サイト-サーバー上の操作-1"><a href="#■プライマリ-サイト-サーバー上の操作-1" class="headerlink" title="■プライマリ サイト サーバー上の操作"></a>■プライマリ サイト サーバー上の操作</h3><ol start="11">
-<li>以下のコマンドにて、インポートを実行します。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\ServiceConnectionTool </span><br><span class="line">ServiceConnectionTool.exe -import -updatepacksrc c:\UpdatePacks</span><br></pre></td></tr></table></figure>
-<img src="/blog/mecm/20251030_01/20251030_pic_08.png"></li>
+<li>以下のコマンドにて、インポートを実行します。</li>
 </ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\ServiceConnectionTool </span><br><span class="line">ServiceConnectionTool.exe -import -updatepacksrc c:\UpdatePacks</span><br></pre></td></tr></table></figure>
+<p><img src="/blog/mecm/20251030_01/20251030_pic_08.png"></p>
 <br>
 
 <ol start="12">
-<li>[更新とサービス] に更新プログラムが表示され、ダウンロード ボタンを押下後にインストールの準備完了となることを確認します。 </li>
+<li>[更新とサービス] に更新プログラムが表示され、ダウンロード ボタンを押下後にインストールの準備完了となることを確認します。</li>
 </ol>
 <img src="./20251030_pic_09.png" style="width:60%; height:auto;">  
 
@@ -224,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20251030_01/" data-id="cmm9wwo8800ax0nrqbtec3oom" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20251030_01/" data-id="cuidjyvdtElPvuWHF8LiTxpb9" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -266,6 +272,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -279,10 +289,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -331,9 +337,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

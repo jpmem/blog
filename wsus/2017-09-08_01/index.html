@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。 いきなり結論ですが Windows Server 2016 および Windows 10 でも Pro 以上のエディションであれば、下記のグループ ポリシーを利用することで Windows Update による自動更新は止めることが出来ます。このブログでも紹介している通り、「設定」画面から自動更新の設定が変更出来ないため、不安に思うかもしれま">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2017-09-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.900Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.182Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -117,33 +117,33 @@
         <p>みなさま、こんにちは。WSUS サポート チームです。</p>
 <p>いきなり結論ですが Windows Server 2016 および Windows 10 でも Pro 以上のエディションであれば、下記のグループ ポリシーを利用することで Windows Update による自動更新は止めることが出来ます。このブログでも紹介している通り、「設定」画面から自動更新の設定が変更出来ないため、不安に思うかもしれませんが安心してください！</p>
 <p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update]<br>[自動更新を構成する] を ”無効”</strong></p>
-<p>私も 3 年以上 WSUS / Windows Update のサポートをしており、何度も「無効にしていたはずなのに動作してしまった」「実際に Windows Update は無効に出来ないのではないか？」「勝手に Windows Update が実行された」とのお問い合わせをいただきましたが、それは上記のグループ ポリシーが正常に動作していないわけではなく、すべてのケースにおいて別の要因でした。</p>
+<p>私も 3 年以上 WSUS &#x2F; Windows Update のサポートをしており、何度も「無効にしていたはずなのに動作してしまった」「実際に Windows Update は無効に出来ないのではないか？」「勝手に Windows Update が実行された」とのお問い合わせをいただきましたが、それは上記のグループ ポリシーが正常に動作していないわけではなく、すべてのケースにおいて別の要因でした。</p>
 <p>今回は自動更新が意図せず動作してしまったように見えるパターンも合わせてご紹介しますので、同じような状況の場合は是非チェックしてみてください。</p>
 <p><strong>・手動で Windows Update を実行した<br>・Windows Update による自動更新ではなく、その他の更新処理等が動作した<br>・自動更新の設定が意図せず変わった</strong></p>
 <h2 id="手動で-Windows-Update-を実行した"><a href="#手動で-Windows-Update-を実行した" class="headerlink" title="手動で Windows Update を実行した"></a>手動で Windows Update を実行した</h2><p><strong>[自動更新を構成する]</strong> のグループ ポリシーでは、あくまでも Windows Update の自動実行を抑止するものです。このため、手動で「設定」画面から Windows Update を実施すると、自動更新を無効にしていても Windows Update を行えてしまいます。</p>
-<p>「さすがにそんなこと知っているって」と思われる方も多いかと思いますが、Windows Server 2016 / Windows 10 では、以前の Windows OS と違い、適用可能な更新プログラムがあれば「設定」画面から「更新プログラムのチェック」をクリックすると、インストールまで行われてしまうため、このパターンのお問い合わせもよくいただきます。</p>
-<p>ちなみに、Windows Server 2016 / Windows 10 バージョン 1607 以降の環境では、下記のグループ ポリシーを設定することで、「設定」画面から「更新プログラムのチェック」を押せなくなるため、そもそも手動でも実行させたくないんだけど…という方は、合わせて設定をご検討ください。</p>
+<p>「さすがにそんなこと知っているって」と思われる方も多いかと思いますが、Windows Server 2016 &#x2F; Windows 10 では、以前の Windows OS と違い、適用可能な更新プログラムがあれば「設定」画面から「更新プログラムのチェック」をクリックすると、インストールまで行われてしまうため、このパターンのお問い合わせもよくいただきます。</p>
+<p>ちなみに、Windows Server 2016 &#x2F; Windows 10 バージョン 1607 以降の環境では、下記のグループ ポリシーを設定することで、「設定」画面から「更新プログラムのチェック」を押せなくなるため、そもそも手動でも実行させたくないんだけど…という方は、合わせて設定をご検討ください。</p>
 <p><strong>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update]<br>[Windows Update のすべての機能へのアクセスを削除する] を ”有効”</strong></p>
 <p>上記のグループ ポリシーを設定すると、下記のように「更新プログラムのチェック」も押せなくなります。</p>
 <h2 id="Windows-Update-による自動更新ではなく、その他の更新処理等が動作した"><a href="#Windows-Update-による自動更新ではなく、その他の更新処理等が動作した" class="headerlink" title="Windows Update による自動更新ではなく、その他の更新処理等が動作した"></a>Windows Update による自動更新ではなく、その他の更新処理等が動作した</h2><p>手動でも実行もしてないけど Windows Updateサービスが動作したり、通信等を見ていると Windows Update サイトへの接続が発生している…という場合には、このパターンに当てはまる可能性があります。Windows Update サービスや Windows Update サイトは、Windows Update による OS 等の更新プログラムの適用以外にも利用されているため、実際に自動更新が行われていなくても、サービスが動作したり、サイトへの接続が発生することはございます。</p>
 <p>ストア アプリの更新、ドライバーの更新等がありますが、これらもグループ　ポリシーで無効にすることが出来るので、更新が不要であれば、止めてしまいましょう。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- ストア アプリの自動更新を無効化</span><br><span class="line">[ コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [ストア] –</span><br><span class="line">[ 更新プログラムの自動ダウンロードおよび自動インストールをオフにする] を &quot;有効&quot;</span><br><span class="line"></span><br><span class="line">- Microsoft コンシューマー エクスペリエンスの無効化</span><br><span class="line">[ コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [クラウド コンテンツ] –</span><br><span class="line">[Microsoft コンシューマー エクスペリエンスを無効にする] を “有効”</span><br><span class="line"></span><br><span class="line">- ドライバーの検索を無効化</span><br><span class="line">[ コンピューターの構成] - [管理用テンプレート] - [システム] - [デバイスのインストール] -[</span><br><span class="line">デバイス ドライバーを検索する場所の順序を指定する] を &quot;有効&quot; かつ</span><br><span class="line">オプション [検索順序を選択する] にて、&quot;Windows Update を検索しない&quot; を指定</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- ストア アプリの自動更新を無効化</span><br><span class="line">[ コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [ストア] –</span><br><span class="line">[ 更新プログラムの自動ダウンロードおよび自動インストールをオフにする] を &quot;有効&quot;</span><br><span class="line"></span><br><span class="line">- Microsoft コンシューマー エクスペリエンスの無効化</span><br><span class="line">[ コンピューターの構成] – [管理用テンプレート] – [Windows コンポーネント] – [クラウド コンテンツ] –</span><br><span class="line">[Microsoft コンシューマー エクスペリエンスを無効にする] を “有効”</span><br><span class="line"></span><br><span class="line">- ドライバーの検索を無効化</span><br><span class="line">[ コンピューターの構成] - [管理用テンプレート] - [システム] - [デバイスのインストール] -[</span><br><span class="line">デバイス ドライバーを検索する場所の順序を指定する] を &quot;有効&quot; かつ</span><br><span class="line">オプション [検索順序を選択する] にて、&quot;Windows Update を検索しない&quot; を指定</span><br></pre></td></tr></table></figure>
 
 <p>また、Windows Update に限らず、OS としてインターネット経由で弊社サイトへアクセスする動作はあります。インターネット接続が発生する動作の制御方法については、下記の公開情報にて紹介しておりますので、ご参考としてください。</p>
 <ul>
-<li>ご参考 :<br>Windows 10 および Windows 11 オペレーティング システム コンポーネントから Microsoft サービスへの接続を管理する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services">https://docs.microsoft.com/ja-jp/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services</a></li>
+<li>ご参考 :<br>Windows 10 および Windows 11 オペレーティング システム コンポーネントから Microsoft サービスへの接続を管理する<br><a href="https://docs.microsoft.com/ja-jp/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services">https://docs.microsoft.com/ja-jp/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services</a></li>
 </ul>
-<p>あと、加えて注意が必要なのは Office の更新です。このブログでも紹介している通り、クイック実行版の Office は Windows Update / Microsoft Update と異なる仕組みで更新を管理しているので、更新させたくない場合には別途考慮が必要です。</p>
+<p>あと、加えて注意が必要なのは Office の更新です。このブログでも紹介している通り、クイック実行版の Office は Windows Update &#x2F; Microsoft Update と異なる仕組みで更新を管理しているので、更新させたくない場合には別途考慮が必要です。</p>
 <h2 id="自動更新の設定が意図せず変わった"><a href="#自動更新の設定が意図せず変わった" class="headerlink" title="自動更新の設定が意図せず変わった"></a>自動更新の設定が意図せず変わった</h2><p>さてこのパターンに当てはまる時が一番やっかいなパターンとなります。<strong>まず OS 標準の動作で自動更新の設定を変更して、勝手に有効化することは絶対にありません。</strong> このため、意図していないのに、自動更新の設定が変わってしまうということであれば、下記のようなパターンが考えられます。</p>
 <ul>
 <li><strong>グループ ポリシーの適用が正しく行われていない</strong></li>
 <li><strong>サードパーティ製のアプリケーション等が、勝手に設定を変えている</strong></li>
 </ul>
-<p>“gpupdate /force” を実行しても下記のレジストリ値に設定が反映されない、またタイミングによって反映されないことがある場合には、グループ ポリシーの適用が正しく行われていない可能性があるので、グループ ポリシーの観点でトラブル シューティングを行う必要があります。</p>
+<p>“gpupdate &#x2F;force” を実行しても下記のレジストリ値に設定が反映されない、またタイミングによって反映されないことがある場合には、グループ ポリシーの適用が正しく行われていない可能性があるので、グループ ポリシーの観点でトラブル シューティングを行う必要があります。</p>
 <ul>
 <li><strong>[自動更新を構成する] を ”無効” に設定されていることを示すレジストリ値<br>キー : HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WindowsUpdate\AU<br>値 : NoAutoUpdate : 1 ( Reg_DWORD )</strong></li>
 </ul>
-<p>ローカル グループ ポリシーで設定を行っている場合や、”gpupdate /force” を実施しても、しばらくすると設定が変わっている！？という場合には、何かのアプリケーションが勝手に設定を変えている可能性があります。よくあるのはセキュリティ系のアプリケーションですが、アンインストールして動作に変化が見られないか、切り分けを実施するのは、セキュリティ上ちょっと。。。と言う場合には、監査ログを利用した調査が有効です。</p>
+<p>ローカル グループ ポリシーで設定を行っている場合や、”gpupdate &#x2F;force” を実施しても、しばらくすると設定が変わっている！？という場合には、何かのアプリケーションが勝手に設定を変えている可能性があります。よくあるのはセキュリティ系のアプリケーションですが、アンインストールして動作に変化が見られないか、切り分けを実施するのは、セキュリティ上ちょっと。。。と言う場合には、監査ログを利用した調査が有効です。</p>
 <p>下記の手順で監査ログを仕掛けると、どのアプリケーションが対象のレジストリ値に変更を行ったか記録しておくことが出来るため、勝手に自動更新の設定変更をしているアプリケーションを特定出来る可能性があります。</p>
 <ul>
 <li><strong>監査ログの設定手順</strong></li>
@@ -158,17 +158,17 @@
 <li>[監査エントリ] で、[すべて]  [このキーとサブキー]、[フルコントロール] にチェックを入れま す。</li>
 <li>[OK] で順に開いているウインドウを閉じます。</li>
 <li>コマンド プロンプトを管理者として起動します。</li>
-<li>以下コマンドを実行します。（監査ポリシーについて設定を確認します。）auditpol /get /category:”オブジェクト アクセス”例: 監査ポリシーより設定していない場合以下のように表示されます。</li>
+<li>以下コマンドを実行します。（監査ポリシーについて設定を確認します。）auditpol &#x2F;get &#x2F;category:”オブジェクト アクセス”例: 監査ポリシーより設定していない場合以下のように表示されます。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;auditpol /get /category:&quot;オブジェクト アクセス&quot;</span><br><span class="line"></span><br><span class="line">システム監査ポリシー</span><br><span class="line">カテゴリ/サブカテゴリ                               設定</span><br><span class="line">オブジェクト アクセス</span><br><span class="line">ファイル システム                               監査なし</span><br><span class="line">レジストリ                                   監査なし</span><br><span class="line">カーネル オブジェクト                             監査なし</span><br><span class="line">SAM                                     監査なし</span><br><span class="line">証明書サービス                                 監査なし</span><br><span class="line">生成されたアプリケーション                           監査なし</span><br><span class="line">ハンドル操作                                  監査なし</span><br><span class="line">ファイルの共有                                 監査なし</span><br><span class="line">フィルタリング プラットフォーム パケットのドロップ              監査なし</span><br><span class="line">フィルタリング プラットフォームの接続                     監査なし</span><br><span class="line">その他のオブジェクト アクセス イベント                    監査なし</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;auditpol /get /category:&quot;オブジェクト アクセス&quot;</span><br><span class="line"></span><br><span class="line">システム監査ポリシー</span><br><span class="line">カテゴリ/サブカテゴリ                               設定</span><br><span class="line">オブジェクト アクセス</span><br><span class="line">ファイル システム                               監査なし</span><br><span class="line">レジストリ                                   監査なし</span><br><span class="line">カーネル オブジェクト                             監査なし</span><br><span class="line">SAM                                     監査なし</span><br><span class="line">証明書サービス                                 監査なし</span><br><span class="line">生成されたアプリケーション                           監査なし</span><br><span class="line">ハンドル操作                                  監査なし</span><br><span class="line">ファイルの共有                                 監査なし</span><br><span class="line">フィルタリング プラットフォーム パケットのドロップ              監査なし</span><br><span class="line">フィルタリング プラットフォームの接続                     監査なし</span><br><span class="line">その他のオブジェクト アクセス イベント                    監査なし</span><br></pre></td></tr></table></figure>
 
 <ol start="11">
 <li>“レジストリ” を “成功および失敗” と設定を行います。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auditpol /set /subcategory:&quot;レジストリ&quot; /success:enable</span><br><span class="line">auditpol /set /subcategory:&quot;レジストリ&quot; /failure:enable</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auditpol /set /subcategory:&quot;レジストリ&quot; /success:enable</span><br><span class="line">auditpol /set /subcategory:&quot;レジストリ&quot; /failure:enable</span><br></pre></td></tr></table></figure>
 
 <ol start="12">
-<li><p>再度以下コマンドを実行し、”レジストリ” が “成功および失敗” となっているか確認します。auditpol /get /category:”オブジェクト アクセス”</p>
+<li><p>再度以下コマンドを実行し、”レジストリ” が “成功および失敗” となっているか確認します。auditpol &#x2F;get &#x2F;category:”オブジェクト アクセス”</p>
 </li>
 <li><p>レジストリ エディタ等で、「HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU」キー配下を開いた後、セキュリティのイベント ログに下記のよう出力されることを確認します。</p>
 </li>
@@ -176,7 +176,7 @@
 <ul>
 <li>出力例</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">下記のイベントでは、レジストリ エディタで、「HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU」キー配下へアクセスが行われたことが判ります。</span><br><span class="line">--------------------------------</span><br><span class="line">ログの名前:         Security</span><br><span class="line">ソース:           Microsoft-Windows-Security-Auditing</span><br><span class="line">日付:            2017/06/07 11:19:17</span><br><span class="line">イベント ID:       4663</span><br><span class="line">タスクのカテゴリ:      レジストリ</span><br><span class="line">レベル:           情報</span><br><span class="line">キーワード:         成功の監査</span><br><span class="line">ユーザー:          N/A</span><br><span class="line">コンピューター:       XXX</span><br><span class="line">説明:</span><br><span class="line">オブジェクトへのアクセスが試行されました。(中略)</span><br><span class="line"></span><br><span class="line">オブジェクト名:        \REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</span><br><span class="line">ハンドル ID:        0x1b4</span><br><span class="line"></span><br><span class="line">プロセス情報:</span><br><span class="line">プロセス ID:        0x880</span><br><span class="line">プロセス名:        C:\Windows\regedit.exe</span><br><span class="line">--------------------------------</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">下記のイベントでは、レジストリ エディタで、「HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU」キー配下へアクセスが行われたことが判ります。</span><br><span class="line">--------------------------------</span><br><span class="line">ログの名前:         Security</span><br><span class="line">ソース:           Microsoft-Windows-Security-Auditing</span><br><span class="line">日付:            2017/06/07 11:19:17</span><br><span class="line">イベント ID:       4663</span><br><span class="line">タスクのカテゴリ:      レジストリ</span><br><span class="line">レベル:           情報</span><br><span class="line">キーワード:         成功の監査</span><br><span class="line">ユーザー:          N/A</span><br><span class="line">コンピューター:       XXX</span><br><span class="line">説明:</span><br><span class="line">オブジェクトへのアクセスが試行されました。(中略)</span><br><span class="line"></span><br><span class="line">オブジェクト名:        \REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</span><br><span class="line">ハンドル ID:        0x1b4</span><br><span class="line"></span><br><span class="line">プロセス情報:</span><br><span class="line">プロセス ID:        0x880</span><br><span class="line">プロセス名:        C:\Windows\regedit.exe</span><br><span class="line">--------------------------------</span><br></pre></td></tr></table></figure>
 
 <ol start="14">
 <li>事象を再現した後に、再度セキュリティのイベント ログを確認します。</li>
@@ -184,12 +184,12 @@
 <ul>
 <li>出力例</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">例えば、下記のイベントでは、XXX.exe がレジストリ値の設定変更を行っていることを特定出来ます。</span><br><span class="line">--------------------------------</span><br><span class="line">ログの名前:         Security</span><br><span class="line">ソース:           Microsoft-Windows-Security-Auditing</span><br><span class="line">日付:            2017/06/07 11:19:17</span><br><span class="line">イベント ID:       4657</span><br><span class="line">タスクのカテゴリ:      レジストリ</span><br><span class="line">レベル:           情報</span><br><span class="line">キーワード:         成功の監査</span><br><span class="line">ユーザー:          N/A</span><br><span class="line">コンピューター:       XXX</span><br><span class="line">説明:</span><br><span class="line">レジストリ値が変更されました。(中略)オブジェクト: オブジェクト名:        \REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU オブジェクト値名:     NoAutoUpdate ハンドル ID:          0x108 操作の種類:           既存のレジストリの値が変更されました</span><br><span class="line">プロセス情報: プロセス ID:          0xa2c プロセス名:           C:\Program Files\XXXXX\XXXXX.exe </span><br><span class="line">--------------------------------</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">例えば、下記のイベントでは、XXX.exe がレジストリ値の設定変更を行っていることを特定出来ます。</span><br><span class="line">--------------------------------</span><br><span class="line">ログの名前:         Security</span><br><span class="line">ソース:           Microsoft-Windows-Security-Auditing</span><br><span class="line">日付:            2017/06/07 11:19:17</span><br><span class="line">イベント ID:       4657</span><br><span class="line">タスクのカテゴリ:      レジストリ</span><br><span class="line">レベル:           情報</span><br><span class="line">キーワード:         成功の監査</span><br><span class="line">ユーザー:          N/A</span><br><span class="line">コンピューター:       XXX</span><br><span class="line">説明:</span><br><span class="line">レジストリ値が変更されました。(中略)オブジェクト: オブジェクト名:        \REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU オブジェクト値名:     NoAutoUpdate ハンドル ID:          0x108 操作の種類:           既存のレジストリの値が変更されました</span><br><span class="line">プロセス情報: プロセス ID:          0xa2c プロセス名:           C:\Program Files\XXXXX\XXXXX.exe </span><br><span class="line">--------------------------------</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2017-09-08_01/" data-id="cmm9wwo4s001s0nrq03uphvez" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-09-08_01/" data-id="cuidRYHFQ_ogggxsR2zSB2uo_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -210,9 +210,9 @@
     </a>
   
   
-    <a href="../2017-09-04_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../2017-09-04_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について</div>
+      <div class="article-nav-title">WSUS のレポートに表示される「状態」の項目の説明</div>
     </a>
   
 </nav>
@@ -231,6 +231,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -244,10 +248,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -296,9 +296,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

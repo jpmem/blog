@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230227_01/2023-02-27-09-28-02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230227_01/2023-02-27-09-28-31.png">
 <meta property="article:published_time" content="2023-02-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.822Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.110Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="ベーシック ナレッジ">
@@ -47,7 +47,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -74,9 +74,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -125,7 +125,7 @@
         <p>みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。  </p>
 <p>本ブログの連載企画として Microsoft Configuration Manager の基本的なナレッジを、これから管理者となる方や導入を検討されている方向けに分かり易く紹介する予定です。<br>今回は [クライアント設定] の機能について紹介いたします。  </p>
 <h3 id="クライアント設定-とは・・・"><a href="#クライアント設定-とは・・・" class="headerlink" title="[クライアント設定] とは・・・"></a>[クライアント設定] とは・・・</h3><p>Configuration Manager で設定した内容を、Configuration Manager クライアントに反映させる（ローカル グループ ポリシーやレジストリに書き込みます）機能です。  </p>
-<p>参考公開情報<br>Title : Configuration Managerのクライアント設定について<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings</a>  </p>
+<p>参考公開情報<br>Title : Configuration Managerのクライアント設定について<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-settings</a>  </p>
 <h3 id="何ができるのか"><a href="#何ができるのか" class="headerlink" title="何ができるのか"></a>何ができるのか</h3><p>[クライアント設定] で実現できるサンプル例を記載します。  </p>
 <h4 id="例-1"><a href="#例-1" class="headerlink" title="例 1"></a>例 1</h4><p>クライアントの BITS の帯域制御を以下のように設定したい。  </p>
 <p>制御の開始時間：9:00<br>制御の終了時間：18:00<br>転送速度（Kbps）：5000  </p>
@@ -136,30 +136,30 @@
 <ol>
 <li>Configuration Manager 管理ツールを起動し、[管理] - [クライアント設定] と辿ります。  </li>
 <li>画面上部の [カスタム クライアント デバイス設定] を選択します。  </li>
-<li>[名前] を任意で設定し、[バックグラウンド インテリジェント転送] にチェックを入れます。  </li>
+<li>[名前] を任意で設定し、[バックグラウンド インテリジェント転送] にチェックを入れます。</li>
 </ol>
 <p> <img src="/blog/mecm/20230227_01/2023-02-27-09-26-34.png">  </p>
 <ol start="4">
-<li>画面左側の [バックグラウンド インテリジェント転送] を選択し、画面右側で BITS の制御を設定します。  </li>
+<li>画面左側の [バックグラウンド インテリジェント転送] を選択し、画面右側で BITS の制御を設定します。</li>
 </ol>
 <p>  ここでは以下のように設定しました。  </p>
 <p><img src="/blog/mecm/20230227_01/2023-02-27-09-26-59.png">  </p>
 <p>  画面下部の [OK] ボタンで閉じます。  </p>
 <ol start="5">
-<li>作成した名前のクライアント設定を右クリックし、[展開] を選択します。  </li>
+<li>作成した名前のクライアント設定を右クリックし、[展開] を選択します。</li>
 </ol>
 <p><img src="/blog/mecm/20230227_01/2023-02-27-09-27-44.png"></p>
 <ol start="6">
-<li>適用したいデバイス コレクションを選択し、 [OK] ボタンで閉じます。  </li>
+<li>適用したいデバイス コレクションを選択し、 [OK] ボタンで閉じます。</li>
 </ol>
 <p><img src="/blog/mecm/20230227_01/2023-02-27-09-27-53.png"></p>
 <ol start="7">
-<li>クライアント側でポリシーのダウンロードに成功したら適用完了です。  </li>
+<li>クライアント側でポリシーのダウンロードに成功したら適用完了です。</li>
 </ol>
 <p>検証などで手動でポリシーのダウンロードを促したい場合は、Configuration Manager のプロパティより [コンピューター ポリシーの取得および評価サイクル] を実行します。  </p>
 <p><img src="/blog/mecm/20230227_01/2023-02-27-09-28-02.png"></p>
 <ol start="8">
-<li>クライアント端末上で以下の PowerShell コマンドを管理者として実施し、実際に適用されていることを確認します。  </li>
+<li>クライアント端末上で以下の PowerShell コマンドを管理者として実施し、実際に適用されていることを確認します。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gwmi -namespace root\ccm\policy\machine\actualconfig -class CCM_Service_BITS2Configuration</span><br></pre></td></tr></table></figure>
 <p>以下のように、クライアント設定で設定した値が反映されていれば、適用完了です。  </p>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230227_01/" data-id="cmm9wwo7g008w0nrq07ush8bm" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230227_01/" data-id="cuid69-acnuzwtrlURN_kGcwt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li></ul>
@@ -212,6 +212,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -225,10 +229,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -277,9 +277,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

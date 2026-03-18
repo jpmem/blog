@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230330_01/2023-03-30-15-51-02.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230330_01/2023-03-30-15-51-32.png">
 <meta property="article:published_time" content="2023-03-29T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.831Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.119Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="ベーシック ナレッジ">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,7 +122,7 @@
       
         <p>みなさま、こんにちは。Configuration Manager サポート チーム 山田 です。  </p>
 <p>本ブログの連載企画として Microsoft Configuration Manager の基本的なナレッジを、これから管理者となる方や導入を検討されている方向けに分かり易くご紹介いたします。<br>今回は、Configuration Manager の “境界” と “境界グループ” についてご紹介いたします。  </p>
-<p>Title : 境界と境界グループの概要<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/define-site-boundaries-and-boundary-groups">https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/define-site-boundaries-and-boundary-groups</a>  </p>
+<p>Title : 境界と境界グループの概要<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/define-site-boundaries-and-boundary-groups">https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/define-site-boundaries-and-boundary-groups</a>  </p>
 <p>Configuration Manager のクライアントは同じ境界グループに所属する管理ポイントや配布ポイント、ソフトウェア更新ポイントに対して通信を行います。<br>そのため、どのクライアントがどのサイト システム サーバーに通信することを意図しているか決定し、境界と境界グループを正しく構成することは必要不可欠です。  </p>
 <h4 id="境界とは"><a href="#境界とは" class="headerlink" title="境界とは"></a>境界とは</h4><p>まず境界とは、クライアントが存在しているネットワーク上の場所です。<br>例えば以下のような設定が可能です。  </p>
 <h5 id="IP-アドレスの範囲"><a href="#IP-アドレスの範囲" class="headerlink" title="IP アドレスの範囲"></a>IP アドレスの範囲</h5><p><img src="/blog/mecm/20230330_01/2023-03-30-15-49-38.png">  </p>
@@ -132,12 +132,12 @@
 <p>また、境界グループにはサイト システム サーバーを関連付けることが可能で、境界グループに所属するクライアントはここで関連付けられている管理ポイントや配布ポイント、ソフトウェア更新ポイントに対して通信を試みます。<br>以下の例の場合、BG1 に所属するクライアントは CM.contos.com か DPMP.contos.com に対して通信します。  </p>
 <p><img src="/blog/mecm/20230330_01/2023-03-30-15-51-32.png"></p>
 <p>もし所属する境界グループの管理ポイントなどに通信が行えない場合は、別の境界グループにフォールバックし、別の境界グループに関連付けられている管理ポイントなどに通信を試みるように構成することも可能ですので、運用の検討材料にしていただけますと幸いです。  </p>
-<p>Title : Configuration Managerの境界グループについて<br>URL : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-groups#fallback">https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-groups#fallback</a>  </p>
+<p>Title : Configuration Managerの境界グループについて<br>URL : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-groups#fallback">https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/boundary-groups#fallback</a>  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230330_01/" data-id="cmm9wwo7n009d0nrq60hkb5yq" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230330_01/" data-id="cuidwuPTQFQz6X32A7jz8KVFr" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li></ul>
@@ -179,6 +179,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -192,10 +196,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -244,9 +244,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

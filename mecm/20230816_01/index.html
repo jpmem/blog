@@ -18,10 +18,10 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_02.png">
 <meta property="article:published_time" content="2023-08-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.847Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.132Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
-<meta property="article:tag" content="MECM">
 <meta property="article:tag" content="CMG">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_03.png">
   
@@ -44,7 +44,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -71,9 +71,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -125,7 +125,7 @@
 <p>そのため、サービス名を [ホスト名].cloudapp.net として設定した CMG をお使いのお客様は、VMSS 版 CMG への移行に当たって、変換ではなく、CMG の再構築を実施頂く必要がございます。</p>
 <p>なお、上記記事でもご案内の通り、 MECM CB 2203 以降、クラウドサービス (クラシック) 版の CMG のデプロイは利用できなくなっております。 MECM CB 2203 へアップグレードする際の前提条件チェックでも警告されますが、アップグレード後も構築済みのクラウドサービス (クラシック)のご利用は可能なものの、一度でも削除すると、再デプロイできなくなるため、出来る限り早く VMSS 版の CMG への移行を推奨しております。</p>
 <h2 id="VMSS-版-CMG-への移行にあたっての課題"><a href="#VMSS-版-CMG-への移行にあたっての課題" class="headerlink" title="VMSS 版 CMG への移行にあたっての課題"></a>VMSS 版 CMG への移行にあたっての課題</h2><p>上記でも触れたとおり、VMSS 版 CMG の利用により クライアントが CMG に繋がる際に利用する FQDN が変わるため、その変更をクライアントに伝える手段が必要となります。インターネットとイントラネット ( VPN 接続を含む)を行き来するようなご利用をされている端末であれば、イントラネットに接続した際に 新しい URL をクライアントに伝えることが出来ますが、インターネット経由でしか繋げないクライアントの場合、新しい URL が分からないため、二度と ConfgMgr へ接続出来なくなるといった課題が生じます。</p>
-<p>また、新規構築した VMSS 版の CMG では、もちろん、移行前の CMG で配布していたコンテンツが引き継がれていないため、移行前の CMG で配布していた コンテンツ を アップロード する必要が出てきます。ConfigMgr CB 2211 以降では、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/deploy-and-manage-content#start-cmdistributionpointmigration">Start-CMDistributionPointMigration コマンドレット</a> が利用可能になりました。本記事ではこちらの コマンドレット を利用しますが、ConfigMgr CB 2207 以前の環境では利用出来ないので、旧 CMG の プロパティ から配布コンテンツ の リスト をスクリーンショット等で採取しておき、 手動で1つ1つ プライマリ サイト サーバー から配布する必要がございます。</p>
+<p>また、新規構築した VMSS 版の CMG では、もちろん、移行前の CMG で配布していたコンテンツが引き継がれていないため、移行前の CMG で配布していた コンテンツ を アップロード する必要が出てきます。ConfigMgr CB 2211 以降では、<a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/deploy/configure/deploy-and-manage-content#start-cmdistributionpointmigration">Start-CMDistributionPointMigration コマンドレット</a> が利用可能になりました。本記事ではこちらの コマンドレット を利用しますが、ConfigMgr CB 2207 以前の環境では利用出来ないので、旧 CMG の プロパティ から配布コンテンツ の リスト をスクリーンショット等で採取しておき、 手動で1つ1つ プライマリ サイト サーバー から配布する必要がございます。</p>
 <h2 id="上記課題に対する対策"><a href="#上記課題に対する対策" class="headerlink" title="上記課題に対する対策"></a>上記課題に対する対策</h2><p>上記、二つの課題に対応するため、以下の対策を実施します。</p>
 <ol>
 <li>クラウド サービス(クラシック)版と VMSS 版 CMG を、VMSS 版 CMG の URL がクライアントに伝わるまで、並行稼働する。クライアントに伝わったかどうかはスクリプト機能を使って収集する。電源断等でスクリプトが伝わったかどうか不明なクライアントに対しては手動で設定変更させる。</li>
@@ -140,22 +140,26 @@
 <li><p>Start-CMDistributionMigration コマンドレットで以下を実行します。</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start-CMDistributionPointMigration -SourceDistributionPointName [旧クラウド管理ゲートウェイのFQDN] -DestinationDistributionPointName [新クラウド管理ゲートウェイのFQDN]</span><br></pre></td></tr></table></figure>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Start-CMDistributionPointMigration</span> <span class="literal">-SourceDistributionPointName</span> [旧クラウド管理ゲートウェイの<span class="type">FQDN</span>] <span class="literal">-DestinationDistributionPointName</span> [新クラウド管理ゲートウェイの<span class="type">FQDN</span>]</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>実行後、以下を実行し複製状況を確認します。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-CMDistributionPointMigrationContentStatus -SourceDistributionPointName [旧クラウド管理ゲートウェイのFQDN] -DestinationDistributionPointName [新クラウド管理ゲートウェイのFQDN]</span><br></pre></td></tr></table></figure></li>
+<li>実行後、以下を実行し複製状況を確認します。</li>
 </ol>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-CMDistributionPointMigrationContentStatus</span> <span class="literal">-SourceDistributionPointName</span> [旧クラウド管理ゲートウェイの<span class="type">FQDN</span>] <span class="literal">-DestinationDistributionPointName</span> [新クラウド管理ゲートウェイの<span class="type">FQDN</span>]</span><br></pre></td></tr></table></figure>
+
 <p>実行中は以下のように進行状態が表示されます。<br><img src="/blog/mecm/20230816_01/20230816_01_01.png"></p>
 <p>実行が完了すると何も表示されなくなります。<br><img src="/blog/mecm/20230816_01/20230816_01_02.png"></p>
 <ol start="5">
 <li>スクリプト機能を使って、以下のスクリプトにより新規に作成した VMSS 版 CMG の情報がクライアント側に伝わっているかを定期的に確認します。以下のスクリプトを実行すると、クライアントに伝わっている CMG の FQDN が ;(セミコロン) を区切り文字として取得可能です。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$RegPath = &quot;HKLM:\SOFTWARE\Microsoft\CCM\&quot;</span><br><span class="line">$RegKey  = &quot;CMGFQDNs&quot;</span><br><span class="line"></span><br><span class="line">$cmgfqdns = Get-ItemPropertyValue $RegPath -Name $RegKey</span><br><span class="line"></span><br><span class="line">if($null -ne $cmgfqdns)&#123;</span><br><span class="line">    Write-Host $cmgfqdns</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    Write-Host &quot;No CMG&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$RegPath</span> = <span class="string">&quot;HKLM:\SOFTWARE\Microsoft\CCM\&quot;</span></span><br><span class="line"><span class="variable">$RegKey</span>  = <span class="string">&quot;CMGFQDNs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$cmgfqdns</span> = <span class="built_in">Get-ItemPropertyValue</span> <span class="variable">$RegPath</span> <span class="literal">-Name</span> <span class="variable">$RegKey</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$null</span> <span class="operator">-ne</span> <span class="variable">$cmgfqdns</span>)&#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="variable">$cmgfqdns</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;No CMG&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>スクリプト機能のご紹介<br><a href="https://jpmem.github.io/blog/mecm/20211025_01/">https://jpmem.github.io/blog/mecm/20211025_01/</a>  </p>
 <ol start="6">
-<li>クライアント側に十分に VMSS 版 CMG の情報が伝わったら、クラウド サービス(クラシック)側の CMG を削除します。</li>
-<li>電源断等で FQDN 情報が伝わらなかったクライアントに対しては別途、イントラ内管理ポイントに接続させるか、ccmsetup による ConfigMgr クライアント再インストールで対応します。ccmsetup で VMSS 版 CMG の FQDN を設定するには、 CCMHOSTNAME オプションを使用します。以下、コマンドの例です。</li>
+<li><p>クライアント側に十分に VMSS 版 CMG の情報が伝わったら、クラウド サービス(クラシック)側の CMG を削除します。</p>
+</li>
+<li><p>電源断等で FQDN 情報が伝わらなかったクライアントに対しては別途、イントラ内管理ポイントに接続させるか、ccmsetup による ConfigMgr クライアント再インストールで対応します。ccmsetup で VMSS 版 CMG の FQDN を設定するには、 CCMHOSTNAME オプションを使用します。以下、コマンドの例です。</p>
+</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /NoCRLCheck /mp:[CMGのFQDN ]SMSMP=[イントラの管理ポイント] CCMHOSTNAME=[CMGのFQDN] SMSSITECODE=[サイトコード]</span><br></pre></td></tr></table></figure>
 
@@ -163,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230816_01/" data-id="cmm9wwo7s009t0nrq4iyx2ukw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230816_01/" data-id="cuidDE-Ek2cjvFph7HJnFzUbM" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -205,6 +209,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -218,10 +226,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -270,9 +274,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

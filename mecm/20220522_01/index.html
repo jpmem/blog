@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_13.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_14.png">
 <meta property="article:published_time" content="2022-05-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.788Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.078Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
-<meta property="article:tag" content="MECM">
 <meta property="article:tag" content="CMG">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220522_01/20220522_01_01.png">
   
@@ -55,7 +55,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -82,9 +82,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -133,14 +133,14 @@
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
 <p>本日は、クラウド管理ゲートウェイ (CMG) の監視と運用についてご案内させていただきます。CMG は クラウド上の PaaS 形式で提供されるサービスのため、必要な監視・運用作業は非常に少ないものとなっております。</p>
 <h2 id="CMG-の監視"><a href="#CMG-の監視" class="headerlink" title="CMG の監視"></a>CMG の監視</h2><p>下記 Docs でご案内しております。CMG では CPU やメモリ使用量の監視は必要なく、主にトラフィック、コンテンツ、ログ状態を監視することになります。</p>
-<p>CMG を監視する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway</a></p>
+<p>CMG を監視する<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway</a></p>
 <h3 id="トラフィック監視"><a href="#トラフィック監視" class="headerlink" title="トラフィック監視"></a>トラフィック監視</h3><p>Docs でご案内している通り、以下にて CMG のトラフィック状態を監視できます。</p>
 <p>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - 該当の CMG を選択 - 画面下部「接続ポイント」タブ</p>
 <p><img src="/blog/mecm/20220522_01/20220522_01_01.png" alt="image.png"></p>
 <h3 id="ストレージ監視"><a href="#ストレージ監視" class="headerlink" title="ストレージ監視"></a>ストレージ監視</h3><p>CMG の項目表示列を右クリックから追加することで CMG のストレージ利用量や、CMG からクライアントにコンテンツがダウンロードされた量 を確認できます。</p>
 <p><img src="/blog/mecm/20220522_01/20220522_01_02.png" alt="image.png"></p>
 <h3 id="ログ監視"><a href="#ログ監視" class="headerlink" title="ログ監視"></a>ログ監視</h3><p>こちらも Docs にある通りですが、CMG 自体の動作ログは 5 分周期で Azure ストレージから最上位サイトサーバーの Logs フォルダーに同期される仕組みとなっております。</p>
-<p>ログを監視する<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs</a></p>
+<p>ログを監視する<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/monitor-clients-cloud-management-gateway#monitor-logs</a></p>
 <h3 id="クラウド管理ダッシュボード"><a href="#クラウド管理ダッシュボード" class="headerlink" title="クラウド管理ダッシュボード"></a>クラウド管理ダッシュボード</h3><p>Docsにもありますが以下に形で Azure AD 統計の後に CMG 関連の統計ダッシュボードを開けますのでご活用ください。CMG からの接続状況の確認にご活用できるかと存じます。</p>
 <p>[監視] - [概要] - [クラウド管理]<br><img src="/blog/mecm/20220522_01/20220522_01_03.png" alt="image.png"></p>
 <h2 id="CMG-の運用"><a href="#CMG-の運用" class="headerlink" title="CMG の運用"></a>CMG の運用</h2><p>CMG に必要な運用作業は以下となります。なお、下記の作業はすべて Azure ポータルからではなく、CM コンソールから実行ください。</p>
@@ -168,7 +168,7 @@
 <h3 id="CMG-サーバー証明書の更新"><a href="#CMG-サーバー証明書の更新" class="headerlink" title="CMG サーバー証明書の更新"></a>CMG サーバー証明書の更新</h3><p>CMG のサーバー証明書の有効期限が切れる前に、サーバー証明書を更新ください。サーバー証明書のサブジェクト名、サブジェクト代替名の内容は変更せずに更新ください。</p>
 <ol>
 <li>[CM コンソール] - [管理] - [概要] - [クラウド サービス] - [クラウド管理ゲートウェイ] - [プロパティ] - [設定]タブ へ遷移します。</li>
-<li>[参照]ボタンをクリックします。  </li>
+<li>[参照]ボタンをクリックします。</li>
 </ol>
 <p><img src="/blog/mecm/20220522_01/20220522_01_10.png" alt="image.png"></p>
 <ol start="3">
@@ -183,17 +183,18 @@
 <h3 id="Entra-IDアプリケーション秘密鍵の更新"><a href="#Entra-IDアプリケーション秘密鍵の更新" class="headerlink" title="Entra IDアプリケーション秘密鍵の更新"></a>Entra IDアプリケーション秘密鍵の更新</h3><p>Entra ID アプリケーション秘密鍵の期限が切れる前に更新します。本秘密鍵は、ConfigMgr サーバーが Azure リソースとの通信の際に使われる秘密鍵になります。<strong>期限切れしてしまうと、 ConfigMgr サーバーが Azure リソースと通信できなくなるためご注意ください。 期限が切れてしまうと Entra ID アプリケーションの再作成、及び CMG の再構築が必要になってしまいます。</strong></p>
 <p>なお、作業に該当の Entra ID にて少なくとも クラウドアプリケーション管理者 権限が必要となりますので、事前に準備ください。</p>
 <ol>
-<li>[CMコンソール] - [管理] - [概要] - [クラウド サービス] - [Azure Active Directory テナント] - 利用しているテナントを選択 - 画面下部「アプリケーション」から 利用している Web アプリケーションを選択  </li>
+<li>[CMコンソール] - [管理] - [概要] - [クラウド サービス] - [Azure Active Directory テナント] - 利用しているテナントを選択 - 画面下部「アプリケーション」から 利用している Web アプリケーションを選択</li>
 </ol>
 <p><img src="/blog/mecm/20220522_01/20220522_01_12.png" alt="image.png">  </p>
 <ol start="2">
-<li>「秘密鍵を更新する」をクリックする。  </li>
+<li>「秘密鍵を更新する」をクリックする。</li>
 </ol>
 <p><img src="/blog/mecm/20220522_01/20220522_01_13.png" alt="image.png">  </p>
 <ol start="3">
 <li>Entra ID 認証が求められたら、利用しているテナントのグローバル管理者権限でログインする。</li>
-<li>ログイン後、以下のダイアログが表示されたら 「OK」をクリックする。　　</li>
+<li>ログイン後、以下のダイアログが表示されたら 「OK」をクリックする。</li>
 </ol>
+<p>　　</p>
 <p><img src="/blog/mecm/20220522_01/20220522_01_14.png" alt="image.png">  </p>
 <ol start="5">
 <li>CM コンソールの画面を更新し、秘密キーの有効期限 (UTC) が更新されていることを確認する。</li>
@@ -206,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220522_01/" data-id="cmm9wwo7800840nrqhpcl07pv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220522_01/" data-id="cuidnH-9_-8vTxLvj1eepPZ2_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -248,6 +249,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -261,10 +266,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -313,9 +314,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

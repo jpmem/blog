@@ -15,7 +15,7 @@
 <meta property="og:description" content="こんにちは。Configuration Manager Support Team です。 今回は、Configuration Manager (以下、ConfigMgr) クライアントをワークグループ環境にてご利用いただく場合に、ご注意いただきたいポイントについてご案内します。 ConfigMgr では、ワークグループ環境の ConfigMgr クライアントを管理することをサポートしています。しか">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2013-12-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.651Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.949Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -122,18 +122,18 @@
 <h2 id="A-ConfigMgr-クライアントのインストール"><a href="#A-ConfigMgr-クライアントのインストール" class="headerlink" title="A. ConfigMgr クライアントのインストール"></a>A. ConfigMgr クライアントのインストール</h2><p>ワークグループ 環境にある端末へ、ConfigMgr クライアントをインストールいただく際に、クライアントが最初に通信する管理ポイントを指定していただく必要があります。<br>そのため、ConfigMgr クライアント エージェントをインストールする際には、以下の SMSMP オプションを用いて管理ポイントを指定してください。</p>
 <p>クライアントに ccmsetup.exe のみを予め配布しておいて、インストール ソース ファイルを配布ポイントから取得する場合は、以下のコマンドを実行します。</p>
 <p>例 : 接続先管理ポイントを mp01.contoso.com, サイトコードを P01 とする場合、コマンド プロンプトを管理者権限で起動し、以下のコマンドを実行します。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CCMSetup.exe /mp:mp01.contoso.com SMSMP=mp01.contoso.com SMSSITECODE=P01</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CCMSetup.exe /mp:mp01.contoso.com SMSMP=mp01.contoso.com SMSSITECODE=P01</span><br></pre></td></tr></table></figure>
 
-<p>参考情報<br>Title: Configuration Managerのクライアント インストール パラメーターとプロパティについて<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties</a>  </p>
+<p>参考情報<br>Title: Configuration Managerのクライアント インストール パラメーターとプロパティについて<br>URL: <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/about-client-installation-properties</a>  </p>
 <p><strong>補足情報</strong><br>ccmsetup.exe を実行する際に、 <code>\\SERVER\SMS_PRI\Client\ccmsetup.exe</code> のように、共有フォルダーに配置してある ccmsetup.exe を実行する場合は、<code>/noservice</code> オプションを付与する必要があります。<br>既定では、<code>/service</code> で実行されるため、ccmsetup.exe はローカル システム アカウント (SYSTEM) で実行されます。<br>しかしながら、ワークグループ コンピューターにおいて、ccmsetup.exe が SYSTEM で実行されると、共有フォルダーからインストール モジュールをダウンロードする際に、認証が通らず失敗します。<br><code>/noservice</code> で実行することで、ユーザー アカウントで実行されますので、共有フォルダーにアクセスできるアカウントであれば、共有フォルダーからのインストール モジュールのダウンロードが成功し、インストールが進みます。<br>なお、プライマリ サイトから Client フォルダーの内容をすべてワークグループ コンピューターにコピーして、コピーした Client フォルダー配下の ccmsetup.exe を実行する場合は、ローカルのファイルを使用するため、<code>/noservice</code> を付与しなくても問題ありません。</p>
-<h2 id="B-ConfigMgr-クライアントの手動承認"><a href="#B-ConfigMgr-クライアントの手動承認" class="headerlink" title="B. ConfigMgr クライアントの手動承認"></a>B. ConfigMgr クライアントの手動承認</h2><p>ConfigMgr クライアントが、ConfigMgr サイト サーバーのリソース（配布ポイント、ソフトウェア更新ポイントなど）にアクセスする場合、TCP/IP レベルでの認証処理が行われます。</p>
+<h2 id="B-ConfigMgr-クライアントの手動承認"><a href="#B-ConfigMgr-クライアントの手動承認" class="headerlink" title="B. ConfigMgr クライアントの手動承認"></a>B. ConfigMgr クライアントの手動承認</h2><p>ConfigMgr クライアントが、ConfigMgr サイト サーバーのリソース（配布ポイント、ソフトウェア更新ポイントなど）にアクセスする場合、TCP&#x2F;IP レベルでの認証処理が行われます。</p>
 <p>ドメイン環境のクライアントについては、既定では自動的に承認されますが、ワークグループ環境のクライアントについては、手動で承認する必要があります。<br>※ 既定では、[信頼されたドメインのコンピュータを自動的に承認する] が有効になっています。この設定は、[管理] - [概要] - [サイトの構成] - [サイト] を右クリックし、[階層設定] をクリックすることでご確認いただけます。</p>
 <p>手動承認手順は以下の通りです。</p>
 <h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><ol>
 <li>Configuration Manager コンソールを起動し、[資産とコンプライアンス] - [デバイス] を開きます。</li>
 <li>右ペインに表示された対象のワークグループ コンピューターを右クリックして、[承認] を実施してください。</li>
 </ol>
-<p>参考情報<br>Title: 承認する<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve</a>  </p>
+<p>参考情報<br>Title: 承認する<br>URL: <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve">https://learn.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/manage-clients#approve</a>  </p>
 <h2 id="C-ネットワーク-アクセス-アカウントの構成"><a href="#C-ネットワーク-アクセス-アカウントの構成" class="headerlink" title="C. ネットワーク アクセス アカウントの構成"></a>C. ネットワーク アクセス アカウントの構成</h2><p>ご利用のプライマリ サイトが拡張 HTTP または HTTPS 構成の場合、ネットワーク アクセス アカウントの構成は不要です。</p>
 <p>拡張 HTTP または HTTPS 構成でない場合には、ネットワーク アクセス アカウントを構成する必要があります。<br>ワークグループ 環境にあるクライアントは、ネットワーク アクセス アカウントを使用して、ドメイン環境にある配布ポイント上のリソースにアクセスします。<br>そのため、ネットワーク アクセス アカウントが構成されていない場合、クライアントは配布ポイント上のコンテンツにアクセスすることができず、認証エラーが発生します。</p>
 <p>構成手順は以下の通りです。</p>
@@ -142,13 +142,13 @@
 <li>[サイト コンポーネントの構成] -[ソフトウェアの配布] を選択します。</li>
 <li>[ネットワーク アクセス アカウント]タブを開き、[ネットワークの場所にアクセスするアカウントを指定する] にて任意のドメイン アカウントを指定します。</li>
 </ol>
-<p>参考情報<br>Title: ネットワーク アクセス アカウントの構成<br>URL: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account</a>  </p>
+<p>参考情報<br>Title: ネットワーク アクセス アカウントの構成<br>URL: <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account">https://learn.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/accounts#network-access-account</a>  </p>
 <p>コミュニティにおけるマイクロソフト社員による発言やコメントは、マイクロソフトの正式な見解またはコメントではありません。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20131204_01/" data-id="cmm9wwo6800570nrq1k6waks8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20131204_01/" data-id="cuid5wpmFjP82CAbJPfHl1SHS" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -190,6 +190,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -203,10 +207,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -255,9 +255,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

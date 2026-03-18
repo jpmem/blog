@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220714_01/9.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220714_01/10.png">
 <meta property="article:published_time" content="2022-07-13T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.802Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.091Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -77,9 +77,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -127,7 +127,7 @@
       
         <p>みなさま、こんにちは。Configuration Manager サポート チーム青木です。<br>本記事では、Configuration Manager から更新プログラム配信時の再起動動作についてご紹介いたします。また、本記事は以下の記事の新版となります。  </p>
 <p>Title : Configuration Manager から更新プログラムを配信する際の再起動動作について<br>URL : <a href="https://jpmem.github.io/blog/mecm/20180719_01/">https://jpmem.github.io/blog/mecm/20180719_01/</a>  </p>
-<p>Configuration Manager から更新プログラムを展開する際に、Configuration Manager で再起動を抑制させる/再起動させる設定のお役立て情報おまとめいたしました。また、新版では再起動通知の動作についてもご紹介しております。   </p>
+<p>Configuration Manager から更新プログラムを展開する際に、Configuration Manager で再起動を抑制させる&#x2F;再起動させる設定のお役立て情報おまとめいたしました。また、新版では再起動通知の動作についてもご紹介しております。   </p>
 <h2 id="再起動を抑制する場合"><a href="#再起動を抑制する場合" class="headerlink" title="再起動を抑制する場合"></a>再起動を抑制する場合</h2><p>展開設定時に [デバイスの再起動] - [サーバー(サーバーOSの場合) or ワークステーション(クライアントOSの場合)]　にチェックを入れることで、再起動の抑制をすることが可能です。</p>
 <p><img src="/blog/mecm/20220714_01/1.png" alt="image.png"></p>
 <p>上記設定値を入れることで以下のポップアップとなります。</p>
@@ -135,21 +135,21 @@
 <h2 id="再起動をさせる場合"><a href="#再起動をさせる場合" class="headerlink" title="再起動をさせる場合"></a>再起動をさせる場合</h2><p>展開設定時に [デバイスの再起動] - [サーバー(サーバーOSの場合) or ワークステーション(クライアントOSの場合)]　のチェックを無効にすることで、強制的に再起動させることが可能です。  </p>
 <p><img src="/blog/mecm/20220714_01/3.png" alt="image.png"></p>
 <h2 id="再起動通知を制御するクライアント設定について"><a href="#再起動通知を制御するクライアント設定について" class="headerlink" title="再起動通知を制御するクライアント設定について"></a>再起動通知を制御するクライアント設定について</h2><p>Configuration Manager コンソールから、クライアント設定を設定することで再起動時の通知の動作を制御出来ます。<br>以下に具体的な設定とその動作をご紹介いたします。再起動が必要な旨をユーザーに通知させたい管理者の方々のご参考になりましたら幸いです。  </p>
-<h3 id="lt-再起動通知の動作-gt"><a href="#lt-再起動通知の動作-gt" class="headerlink" title="&lt;再起動通知の動作&gt;"></a>&lt;再起動通知の動作&gt;</h3><p>Configuration Manager コンソールにて、クライアント設定の “コンピューターの再起動” タブで下記項目を “はい” に設定いただきますと、再起動を促すダイアログ通知をクライアントに表示させることができます。<br>下記項目を “いいえ” に設定するとトースト通知をクライアントに表示させることができます。これらの 2 種類の通知を、お好みによってお使い分けていただければと思います。</p>
+<h3 id=""><a href="#" class="headerlink" title="&lt;再起動通知の動作&gt;"></a>&lt;再起動通知の動作&gt;</h3><p>Configuration Manager コンソールにて、クライアント設定の “コンピューターの再起動” タブで下記項目を “はい” に設定いただきますと、再起動を促すダイアログ通知をクライアントに表示させることができます。<br>下記項目を “いいえ” に設定するとトースト通知をクライアントに表示させることができます。これらの 2 種類の通知を、お好みによってお使い分けていただければと思います。</p>
 <ul>
-<li>該当のクライアント設定 (既定値は “いいえ” の為、”はい” に設定する必要が有ります。)  <pre><code>展開で再起動が必要な場合、トースト通知ではなくダイアログ ウインドウをユーザーに表示する  
-</code></pre>
-</li>
+<li>該当のクライアント設定 (既定値は “いいえ” の為、”はい” に設定する必要が有ります。)</li>
 </ul>
+<pre><code>展開で再起動が必要な場合、トースト通知ではなくダイアログ ウインドウをユーザーに表示する  
+</code></pre>
 <p>▼ クライアント設定 サンプル画像 (既定値)<br><img src="/blog/mecm/20220714_01/4.png" alt="image.png">  </p>
 <p>▼ ダイアログ通知 サンプル画像<br><img src="/blog/mecm/20220714_01/5.png" alt="image.png">  </p>
 <p>なお、ダイアログ通知のタイミングにつきましては、下記 2 つのタイミングで行われます。  </p>
 <ol>
 <li>クライアントに再起動が必要な更新プログラムがインストールされた直後のタイミング  </li>
-<li>クライアント設定の “期限後にユーザーへの再起動リマインダー通知の頻度を指定する” で設定した、リマインダー通知のタイミング<br>(リマインダー通知のタイミングとは、ダイアログ通知で “再通知” をクリックした後、次のダイアログ通知が表示される際のタイミング)  </li>
+<li>クライアント設定の “期限後にユーザーへの再起動リマインダー通知の頻度を指定する” で設定した、リマインダー通知のタイミング<br>(リマインダー通知のタイミングとは、ダイアログ通知で “再通知” をクリックした後、次のダイアログ通知が表示される際のタイミング)</li>
 </ol>
 <p>通知機能の詳細につきましては、以下の公開情報に記載されております為、こちらもご参考になりましたら幸いでございます。  </p>
-<p>Title : Configuration Managerのデバイス再起動通知<br>URL : <a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/device-restart-notifications">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/device-restart-notifications</a></p>
+<p>Title : Configuration Managerのデバイス再起動通知<br>URL : <a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/device-restart-notifications">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/device-restart-notifications</a></p>
 <h2 id="実際の再起動通知の動作画面をご紹介します"><a href="#実際の再起動通知の動作画面をご紹介します" class="headerlink" title="実際の再起動通知の動作画面をご紹介します"></a>実際の再起動通知の動作画面をご紹介します</h2><p>下記の内容のクライアント設定を適用し、ダイアログ通知が行われるタイミングを検証いたしました為以下に併せてご案内いたします。ぜひ貴社ご運用のご参考になりましたら幸いでございます。  </p>
 <p>▼ 検証の為に設定したクライアント設定<br><img src="/blog/mecm/20220714_01/6.png" alt="image.png">  </p>
 <p>&lt;検証&gt;</p>
@@ -160,7 +160,7 @@
 </li>
 <li><p>「2.」のダイアログ通知で “再通知” をクリックした場合、ダイアログ通知が一旦消え、2 分後に再度ダイアログ通知が行われた。<br>クライアント設定の “期限後にユーザーへの再起動リマインダー通知の頻度を指定する” で設定した 2 分が反映している。<br><img src="/blog/mecm/20220714_01/9.png" alt="image.png">  </p>
 </li>
-<li><p>リマインダー通知が行われたタイミングで、再起動までの時間が、クライアント設定の “デバイスが再起動されるまでの最終カウントダウン通知をユーザーに表示する時間を指定します” で設定した 5 分以内になった為、”再通知” がグレーアウトして押せなくなった。また、×をクリックしてもダイアログ通知が消えなくなった。<br><img src="/blog/mecm/20220714_01/10.png" alt="image.png"> </p>
+<li><p>リマインダー通知が行われたタイミングで、再起動までの時間が、クライアント設定の “デバイスが再起動されるまでの最終カウントダウン通知をユーザーに表示する時間を指定します” で設定した 5 分以内になった為、”再通知” がグレーアウトして押せなくなった。また、×をクリックしてもダイアログ通知が消えなくなった。<br><img src="/blog/mecm/20220714_01/10.png" alt="image.png"></p>
 </li>
 </ol>
 <p>上記のように、リマインダー通知のタイミングを制御する事で、どのくらいの頻度でユーザーへ通知を出すのか等の運用を決めることが出来る為、本記事をご参考にしていただきつつ会社の運用に併せて設定値を決めていただければと思います。  </p>
@@ -168,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220714_01/" data-id="cmm9wwo7c008i0nrq7wbha2c1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220714_01/" data-id="cuidPBNVZImf5HY1eHoOeJJdy" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -210,6 +210,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -223,10 +227,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -275,9 +275,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

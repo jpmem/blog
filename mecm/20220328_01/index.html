@@ -7,22 +7,22 @@
   
   <title>クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1) | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。     (本記事) CMG の概要とユースケース、及びリバース プロキシと">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。    (本記事) CMG の概要とユースケース、及びリバース プロキシとし">
 <meta property="og:type" content="article">
 <meta property="og:title" content="クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20220328_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。     (本記事) CMG の概要とユースケース、及びリバース プロキシと">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。   本記事は以下の二部構成としております。    (本記事) CMG の概要とユースケース、及びリバース プロキシとし">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_07.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_08.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_02.png">
 <meta property="article:published_time" content="2022-03-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.752Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.045Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
-<meta property="article:tag" content="MECM">
 <meta property="article:tag" content="CMG">
+<meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20220328_01/20220328_01_01.png">
   
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -123,7 +123,7 @@
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、Microsoft Endpoint Configuration Manager (MECM) にて提供されるクラウド管理ゲートウェイ (CMG) の設計ポイントについてご案内します。  </p>
 <p>本記事は以下の二部構成としております。  </p>
 <ol>
-<li> (本記事) CMG の概要とユースケース、及びリバース プロキシとして CMG を利用する際の設計ポイントについてご案内いたします。</li>
+<li>(本記事) CMG の概要とユースケース、及びリバース プロキシとして CMG を利用する際の設計ポイントについてご案内いたします。</li>
 <li>配布ポイントとしての CMG についてとインターネット アクセス要件、セキュリティ、サイジング設計、コスト見積についてご案内致します。</li>
 </ol>
 <p>なお、下記は MECM CB 2111 および仮想マシン スケール セット (VMSS) の CMG のご利用を前提としておりますのでご留意くださいませ。</p>
@@ -139,7 +139,7 @@
 </li>
 </ul>
 <p>下記 URL でもドキュメントをご提供しておりますのでご参照くださいませ。</p>
-<p>クラウド管理ゲートウェイの概要<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview</a></p>
+<p>クラウド管理ゲートウェイの概要<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/cmg/overview</a></p>
 <h2 id="CMG-のユースケース"><a href="#CMG-のユースケース" class="headerlink" title="CMG のユースケース"></a>CMG のユースケース</h2><p>CMG を使われるユースケースとしては以下のようなものがございます。</p>
 <ol>
 <li>リモート ワーク向けに貸し出した企業端末をMECMを使ってインターネット経由で管理したい。これを VPN を使わずに実現したい。</li>
@@ -170,7 +170,7 @@
 <li>サイト トークン認証</li>
 </ol>
 <p>CMG の認証は 1 -&gt; 2 -&gt; 3 の流れでフォールバックしていきます。　　</p>
-<h4 id="Azure-AD-認証"><a href="#Azure-AD-認証" class="headerlink" title="Azure AD 認証"></a>Azure AD 認証</h4><p>Windows 10 / 11 端末のみが利用できる Azure AD を使った認証です。Azure AD connect を使ってオンプレミスの AD の情報を Azure AD に同期したり、直接端末を Azure AD に参加させて、その際の シングル サインオン情報を使って認証を行います。 インターネット上の Windows 8.1 や Windows Server 端末は本認証は利用できませんので、他の認証方式と併用する形となります。</p>
+<h4 id="Azure-AD-認証"><a href="#Azure-AD-認証" class="headerlink" title="Azure AD 認証"></a>Azure AD 認証</h4><p>Windows 10 &#x2F; 11 端末のみが利用できる Azure AD を使った認証です。Azure AD connect を使ってオンプレミスの AD の情報を Azure AD に同期したり、直接端末を Azure AD に参加させて、その際の シングル サインオン情報を使って認証を行います。 インターネット上の Windows 8.1 や Windows Server 端末は本認証は利用できませんので、他の認証方式と併用する形となります。</p>
 <p>なお、CMG では 他のクライアント認証方式を使う場合、Azure AD connectを使った AD - Azure AD 間同期は不要です。ただし、多くの場合、CMG 利用と共同管理の利用は同時に検討されることが多いので、その場合は Hybrid Azure AD 構成が必要になります。</p>
 <h4 id="PKI-証明書認証"><a href="#PKI-証明書認証" class="headerlink" title="PKI 証明書認証"></a>PKI 証明書認証</h4><p>企業内のクライアント証明書配布基盤により配布されたクライアント証明書により認証を行う方式です。例えば、Active Directory 証明書サービスとグループ ポリシーを使って配布する、といった方法があるでしょう。よくありがちなトラブルとして、証明書失効リスト (CRL) の公開元がインターネット公開されていないために CRL チェックが出来ずに認証失敗と言ったものがあります。CRL をインターネット公開していない場合は、以下のように CMG のクライアント認証設定で CRL チェックを外すと解決します。  </p>
 <p><img src="/blog/mecm/20220328_01/20220328_01_07.png">  </p>
@@ -182,7 +182,7 @@
 <li><p>インターネット端末の MECM サーバーへの登録: 一括登録トークン</p>
 <ul>
 <li><p>インターネット端末が MECM サーバーと初めて通信を行う際、サーバー登録用の認証が必要となります。Azure AD や証明書の代替として、登録の際に利用されるトークンが一括登録トークンです。一括登録トークンは階層内の最上位サイト サーバー (中央管理サイト サーバーもしくはプライマリサイト サーバー) にある  BulkRegistrationTokenTool.exe ツールを使用して発行します。このトークンは既定では 3 日間、最大 7 日間有効であり、期間内にインターネット端末にて ccmsetup のオプションでこのトークンを指定すると、インターネット越しでの端末登録が成功します。  </p>
-<p>一括登録トークン<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token</a></p>
+<p>一括登録トークン<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token">https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-cmg-token#bulk-registration-token</a></p>
 </li>
 </ul>
 </li>
@@ -194,11 +194,11 @@
 </ul>
 <h3 id="クライアント認証方式の選択方針"><a href="#クライアント認証方式の選択方針" class="headerlink" title="クライアント認証方式の選択方針"></a>クライアント認証方式の選択方針</h3><p>環境に依りますが、大凡以下の方針で選択されるのが良いかと存じます。各認証方式を組み合わせることも可能です。</p>
 <ol>
-<li>Windows 10 / 11 端末しか管理しない -&gt; Azure AD 認証</li>
+<li>Windows 10 &#x2F; 11 端末しか管理しない -&gt; Azure AD 認証</li>
 <li>Windows 8.1 端末や Windows Server もインターネット越しに管理したい -&gt; PKI 証明書認証</li>
 <li>認証基盤の都合上、Azure AD 認証が利用出来ない -&gt; PKI 証明書認証</li>
 <li>Azure AD 認証や PKI 証明書認証が利用出来ない -&gt; サイト トークン認証</li>
-<li>端末のキッティング/再キッティングは必ず企業ネットワークで行われ、かつリモート ワークを行う期間は数日なので3ヶ月以内に企業ネットワークに接続する機会がある -&gt; サイト トークン認証</li>
+<li>端末のキッティング&#x2F;再キッティングは必ず企業ネットワークで行われ、かつリモート ワークを行う期間は数日なので3ヶ月以内に企業ネットワークに接続する機会がある -&gt; サイト トークン認証</li>
 </ol>
 <h3 id="サイト-サーバー間の通信暗号化"><a href="#サイト-サーバー間の通信暗号化" class="headerlink" title="サイト サーバー間の通信暗号化"></a>サイト サーバー間の通信暗号化</h3><p>最新の MECM ではサイト サーバー間通信で平文通信 (http) が非推奨となっているため、問題無いかと存じますが、CMG を利用する際、各サイト サーバー間の通信は SSL を使った暗号化通信が必須となっております。選択方式としては、以下の 2 方式がございます。</p>
 <ul>
@@ -222,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220328_01/" data-id="cmm9wwo72007k0nrq36si8ts6" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220328_01/" data-id="cuid1aoQbt8Fg7lGu3Sg81uQH" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -264,6 +264,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -277,10 +281,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -329,9 +329,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

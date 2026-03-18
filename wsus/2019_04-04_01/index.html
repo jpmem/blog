@@ -7,15 +7,15 @@
   
   <title>Windows 10 / Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されるという事象が報告されて">
+  <meta name="description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されると">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows 10 &#x2F; Windows Server 2016 を管理している環境で WSUS サーバーの負荷が高騰する">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019_04-04_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されるという事象が報告されて">
+<meta property="og:description" content="皆さま、こんにちは。WSUS サポート チームです。 Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて 負荷が高くなる、WsusPool が停止する、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に 0x8024401c が出力されると">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.927Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.206Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -115,22 +115,22 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>皆さま、こんにちは。WSUS サポート チームです。</p>
-<p>Windows 10 / Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて <strong>負荷が高くなる、WsusPool が停止する</strong>、または Windows 10 / Windows Server 2016 クライアントにおいて WSUS への接続時に <strong>0x8024401c</strong> が出力されるという事象が報告されています。<br>本事象は Windows 10 / Windows Server 2016 の累積的な更新プログラムに含まれる情報が大きくなったことに起因しておりますが、既に WSUS サーバーの動作を改善した更新プログラムをリリースしておりますため、事象の詳細と合わせて紹介します。</p>
-<h2 id="詳細"><a href="#詳細" class="headerlink" title="詳細"></a>詳細</h2><p>Windows 10 / Windows Server 2016 向けの累積的な更新プログラムの情報量は、他の過去の OS 向けの更新プログラムの情報量よりも大きくなっております。このため、多数のクライアントより情報が参照された場合に、メモリ領域の確保とメモリへのコピーに使用される関数が呼び出される回数が多くなり、WSUS サーバーの負荷が高騰しやすくなります。</p>
-<p>その結果、クライアントからの接続が <strong>0x8024401c / Same as HTTP status 408 – the server timed out waiting for the request</strong> にて失敗する事象も発生することがございます。</p>
+<p>Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期しているWSUS サーバーにおいて <strong>負荷が高くなる、WsusPool が停止する</strong>、または Windows 10 &#x2F; Windows Server 2016 クライアントにおいて WSUS への接続時に <strong>0x8024401c</strong> が出力されるという事象が報告されています。<br>本事象は Windows 10 &#x2F; Windows Server 2016 の累積的な更新プログラムに含まれる情報が大きくなったことに起因しておりますが、既に WSUS サーバーの動作を改善した更新プログラムをリリースしておりますため、事象の詳細と合わせて紹介します。</p>
+<h2 id="詳細"><a href="#詳細" class="headerlink" title="詳細"></a>詳細</h2><p>Windows 10 &#x2F; Windows Server 2016 向けの累積的な更新プログラムの情報量は、他の過去の OS 向けの更新プログラムの情報量よりも大きくなっております。このため、多数のクライアントより情報が参照された場合に、メモリ領域の確保とメモリへのコピーに使用される関数が呼び出される回数が多くなり、WSUS サーバーの負荷が高騰しやすくなります。</p>
+<p>その結果、クライアントからの接続が <strong>0x8024401c &#x2F; Same as HTTP status 408 – the server timed out waiting for the request</strong> にて失敗する事象も発生することがございます。</p>
 <p>また、本事象は特に現在更新プログラムの情報量が大きくなっている Windows 10 バージョン 1607 や Windows Server 2016 で起きやすい傾向がございます。</p>
 <h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><p>下記の公開情報にて紹介している更新プログラムを適用することで、事象の改善が期待できます。本更新プログラムでは、事象を改善するために、要求される毎にメモリへのコピーに使用される関数の呼び出しを効率化させる修正が含まれており、パフォーマンスの改善が期待出来ます。</p>
-<p>Title: <strong>更新プログラムのメタデータを Windows Server Update Services の処理のパフォーマンスを向上させる更新プログラム</strong><br>URL: <a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on">https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on</a>  </p>
-<p>Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロールアップに含まれる形でリリースされています。修正プログラムは、Microsoft Update Catalog よりダウンロード頂けます。なお、2017 年 9 月 13 日以降にリリースされた Windows Server 2016 の累積更新プログラム、2017 年 10 月 11 日以降にリリースされた Windows Server 2012 / 2012 R2 のマンスリー品質ロールアップにも本修正は含まれておりますので、最新の累積更新プログラム、およびマンスリー品質ロールアップが適用されていれば、本問題は修正済みとご判断いただけます。</p>
-<h3 id="Windows-Server-2012-向け"><a href="#Windows-Server-2012-向け" class="headerlink" title="Windows Server 2012 向け"></a>Windows Server 2012 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039873/">https://support.microsoft.com/ja-jp/help/4039873/</a></p>
+<p>Title: <strong>更新プログラムのメタデータを Windows Server Update Services の処理のパフォーマンスを向上させる更新プログラム</strong><br>URL: <a href="https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on">https://support.microsoft.com/ja-jp/help/4039929/an-update-to-improve-the-performance-of-update-metadata-processing-on</a>  </p>
+<p>Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロールアップに含まれる形でリリースされています。修正プログラムは、Microsoft Update Catalog よりダウンロード頂けます。なお、2017 年 9 月 13 日以降にリリースされた Windows Server 2016 の累積更新プログラム、2017 年 10 月 11 日以降にリリースされた Windows Server 2012 &#x2F; 2012 R2 のマンスリー品質ロールアップにも本修正は含まれておりますので、最新の累積更新プログラム、およびマンスリー品質ロールアップが適用されていれば、本問題は修正済みとご判断いただけます。</p>
+<h3 id="Windows-Server-2012-向け"><a href="#Windows-Server-2012-向け" class="headerlink" title="Windows Server 2012 向け"></a>Windows Server 2012 向け</h3><p><a href="https://support.microsoft.com/ja-jp/help/4039873/">https://support.microsoft.com/ja-jp/help/4039873/</a></p>
 <p>ダウンロード先 URL：</p>
-<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873</a></p>
-<h3 id="Windows-Server-2012-R2-向け"><a href="#Windows-Server-2012-R2-向け" class="headerlink" title="Windows Server 2012 R2 向け"></a>Windows Server 2012 R2 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039871/">https://support.microsoft.com/ja-jp/help/4039871/</a></p>
+<p><a href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039873</a></p>
+<h3 id="Windows-Server-2012-R2-向け"><a href="#Windows-Server-2012-R2-向け" class="headerlink" title="Windows Server 2012 R2 向け"></a>Windows Server 2012 R2 向け</h3><p><a href="https://support.microsoft.com/ja-jp/help/4039871/">https://support.microsoft.com/ja-jp/help/4039871/</a></p>
 <p>ダウンロード先 URL：</p>
-<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871</a></p>
-<h3 id="Windows-Server-2016-向け"><a href="#Windows-Server-2016-向け" class="headerlink" title="Windows Server 2016 向け"></a>Windows Server 2016 向け</h3><p><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/help/4039396/">https://support.microsoft.com/ja-jp/help/4039396/</a></p>
+<p><a href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039871</a></p>
+<h3 id="Windows-Server-2016-向け"><a href="#Windows-Server-2016-向け" class="headerlink" title="Windows Server 2016 向け"></a>Windows Server 2016 向け</h3><p><a href="https://support.microsoft.com/ja-jp/help/4039396/">https://support.microsoft.com/ja-jp/help/4039396/</a></p>
 <p>ダウンロード先 URL：</p>
-<p><a target="_blank" rel="noopener" href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396</a></p>
+<p><a href="http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396">http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4039396</a></p>
 <p><strong>※ 更新プログラム適用後は OS の再起動が必要な場合がございますので、ご注意ください。</strong></p>
 <h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>WSUSでは更新プログラムのデータを蓄積し続けるという特性上、新しい更新プログラムで置き換えられている旧更新プログラムを「拒否済み」として設定することで、パフォーマンス改善が見込めます。</p>
 <p>上述の更新プログラムを適用しても、事象が充分に改善されない場合には、置き換えられた更新プログラム等、不要な更新プログラムを「拒否済み」に設定することをご検討ください。詳細は以下ブログにてご案内しております。</p>
@@ -140,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cmm9wwo5e00330nrqf34t4s3i" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cuidwOgr_HVAFoL78qUY5zQao" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -182,6 +182,10 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -195,10 +199,6 @@
         
           <li>
             <a href="../../mecm/20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -247,9 +247,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220610_01/20220609-01_01.png">
 <meta property="article:published_time" content="2022-06-09T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.793Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.083Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -120,9 +120,9 @@
 <p>Configuration Manager では、Configuration Manager クライアント エージェントのバージョン アップ方法が複数ございます。<br>自動クライアント アップグレードという機能が用意されておりますが、事前にテスト可能なコレクションは 1 つしか指定することはできず、その後にサイト全体へアップグレードを行うため、もう少し小刻みにバージョン アップをしたいというニーズがあることを、サポート インシデントを通してご要望頂くことがございます。<br>そこで今回は、パッケージ展開機能を利用する方法についてご紹介いたします。  </p>
 <h2 id="目次"><a href="#目次" class="headerlink" title="目次"></a>目次</h2><p><strong>A. パッケージとプログラムの作成</strong><br><strong>B. パッケージの展開</strong><br><strong>C. 展開結果の確認</strong>  </p>
 <h2 id="A-パッケージとプログラムの作成"><a href="#A-パッケージとプログラムの作成" class="headerlink" title="A. パッケージとプログラムの作成"></a>A. パッケージとプログラムの作成</h2><ol>
-<li><p>プライマリ サイト サーバー上で、事前に共有フォルダーを作成します。共有ファルダ―は新規で作成し、このパッケージ専用として扱います。<br>例：**”\\PriSite\CMClient&quot;**  </p>
+<li><p>プライマリ サイト サーバー上で、事前に共有フォルダーを作成します。共有ファルダ―は新規で作成し、このパッケージ専用として扱います。<br>例：<strong>“\\PriSite\CMClient&quot;</strong>  </p>
 </li>
-<li><p>プライマリ サイト サーバーの以下のフォルダーにアクセスします。<br>パス：**”&lt;サイトサーバーのインストール ドライブ&gt;:\Program Files\Microsoft Configuration Manager\Client”**</p>
+<li><p>プライマリ サイト サーバーの以下のフォルダーにアクセスします。<br>パス：<strong>“&lt;サイトサーバーのインストール ドライブ&gt;:\Program Files\Microsoft Configuration Manager\Client”</strong></p>
 </li>
 <li><p>ccmsetup.exe ファイルのみを、共有フォルダーにコピーします。(手順 5. で使います)</p>
 </li>
@@ -139,13 +139,13 @@
 <li><p>[標準プログラム] より、以下の項目を設定し、[参照] をクリックします。</p>
 <ul>
 <li>名前：任意の名前   </li>
-<li>コマンド ライン：  </li>
+<li>コマンド ライン：</li>
 </ul>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /noservice /mp:&lt;管理ポイントの FQDN&gt; SMSMP=&lt;管理ポイントの FQDN&gt; SMSSITECODE=&lt;サイト コード&gt;</span><br><span class="line">例)：ccmsetup.exe /noservice /mp:PriSite.contoso.com SMSMP=PriSite.contoso.com SMSSITECODE=PS1</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>プログラムの実行条件：ユーザーのログオン状態に関係なし  </li>
-<li>実行モード：管理者権限で実行する（自動で選択されます）  </li>
+<li>実行モード：管理者権限で実行する（自動で選択されます）</li>
 </ul>
 </li>
 <li><p>[要件] より、必要に応じて設定を行い、[次へ] をクリックします。</p>
@@ -178,7 +178,7 @@
 </li>
 <li><p>ウィザードが完了したことを確認し、[閉じる] をクリックします。</p>
 </li>
-<li><p>展開後、[パッケージ] の [ナビゲーション ペイン] より、展開したパッケージのコンテンツ ステータスが緑色の円グラフになることを確認します。<br>※画面をリフレッシュして、円グラフの更新状況を確認ください。  </p>
+<li><p>展開後、[パッケージ] の [ナビゲーション ペイン] より、展開したパッケージのコンテンツ ステータスが緑色の円グラフになることを確認します。<br>※画面をリフレッシュして、円グラフの更新状況を確認ください。</p>
 </li>
 </ol>
 <h2 id="C-展開結果の確認"><a href="#C-展開結果の確認" class="headerlink" title="C. 展開結果の確認"></a>C. 展開結果の確認</h2><p>パッケージ展開機能により ccmsetup.exe の配布を行うと、Configuration Manager エージェントのサービスが再起動されるため、パッケージの展開ステータスで、「プログラムで問題が発生しました (予期しなかった再起動)」 と記録されることがございます。<br>これはステータスを送付するタイミングに依存して記録されるものであり、想定動作となりますのでご留意ください。  </p>
@@ -203,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220610_01/" data-id="cmm9wwo7a008a0nrqavr6gm5h" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220610_01/" data-id="cuidFkNEi5YuPEydWUtWzNu1I" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -245,6 +245,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -258,10 +262,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -310,9 +310,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180509_01/20180509_01_06.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180509_01/20180509_01_07.png">
 <meta property="article:published_time" content="2018-05-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.663Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.960Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -74,9 +74,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -131,8 +131,8 @@
 <li>ソフトウェア更新ポイントの言語の設定</li>
 </ul>
 <h1 id="要件の確認"><a href="#要件の確認" class="headerlink" title="要件の確認"></a>要件の確認</h1><p>Office 365 更新プログラムを管理する場合、階層の最上位の WSUS サーバーだけでなく、<strong>最上位のサイト サーバーにおいても、インターネットへのアクセスが必要です。</strong> 通常の更新プログラム管理においては、サイト サーバーのインターネット接続は必須要件ではありませんが、Office 365 更新プログラムの管理では必須となりますので、ご注意ください。そのため、完全なオフライン環境では SCCM による Office 365 更新プログラムの管理はできません。その他要件につきましては、次の公開情報に記載しておりますので、ご確認ください。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/DeployOffice/manage-updates-to-office-365-proplus-with-system-center-configuration-manager#BKMK_Reqs">Configuration Manager を使用して Office 365 クライアントの更新を管理するための要件</a></p>
-<h1 id="サイト-システムのプロキシ-サーバー設定"><a href="#サイト-システムのプロキシ-サーバー設定" class="headerlink" title="サイト システムのプロキシ サーバー設定"></a>サイト システムのプロキシ サーバー設定</h1><p>SCCM 評価ガイドの <a target="_blank" rel="noopener" href="https://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_EvalGuide_O365ProPlus_jp.docx">‘Office 365 ProPlus 展開・アップデート編’</a> のソフトウェア更新ポイントの追加手順はプロキシ サーバーを利用せずに Microsoft Update サイトから更新プログラムを同期することが前提となった手順になっております。</p>
+<p><a href="https://docs.microsoft.com/ja-jp/DeployOffice/manage-updates-to-office-365-proplus-with-system-center-configuration-manager#BKMK_Reqs">Configuration Manager を使用して Office 365 クライアントの更新を管理するための要件</a></p>
+<h1 id="サイト-システムのプロキシ-サーバー設定"><a href="#サイト-システムのプロキシ-サーバー設定" class="headerlink" title="サイト システムのプロキシ サーバー設定"></a>サイト システムのプロキシ サーバー設定</h1><p>SCCM 評価ガイドの <a href="https://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_EvalGuide_O365ProPlus_jp.docx">‘Office 365 ProPlus 展開・アップデート編’</a> のソフトウェア更新ポイントの追加手順はプロキシ サーバーを利用せずに Microsoft Update サイトから更新プログラムを同期することが前提となった手順になっております。</p>
 <p>そのため、Microsoft Update サイトから更新プログラムを同期する際にプロキシ サーバーを利用する環境においては以下の追加設定を実施いただきますよう宜しくお願い致します。</p>
 <p>[ソフトウェアの更新ポイント] の役割をもつサーバーの [サイト システム] の設定にて、以下を追加下さい。</p>
 <ol>
@@ -185,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180509_01/" data-id="cmm9wwo6d005p0nrqdvm40xcw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180509_01/" data-id="cuidrMG-RAmK6-Yj4g1qYW4BE" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -227,6 +227,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -240,10 +244,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -292,9 +292,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

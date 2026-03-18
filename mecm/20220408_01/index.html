@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220408_01/20220408_01_04.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220408_01/20220408_01_05.png">
 <meta property="article:published_time" content="2022-04-07T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.754Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.047Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -72,9 +72,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -137,10 +137,10 @@
 <p><img src="/blog/mecm/20220408_01/20220408_01_05.png">  </p>
 <h2 id="3-クライアント側で管理ポイントとの疎通状況を確認しよう"><a href="#3-クライアント側で管理ポイントとの疎通状況を確認しよう" class="headerlink" title="3.クライアント側で管理ポイントとの疎通状況を確認しよう"></a>3.クライアント側で管理ポイントとの疎通状況を確認しよう</h2><p>それでも反映されない場合には、クライアントと管理ポイントとの疎通の状態を確認しましょう。  </p>
 <p>1.C:\Windows\CCM\Logs フォルダー配下の CcmMessaging.log を開き、直近の日付で下記のような出力があるかを確認します。  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OutgoingMessage(Queue=&#x27;XXXXXXXXXXXXX&#x27;, ID=&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXX&#125;): Delivered successfully to host &#x27;&lt;管理ポイント FQDN&gt;&#x27;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OutgoingMessage(Queue=&#x27;XXXXXXXXXXXXX&#x27;, ID=&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXX&#125;): Delivered successfully to host &#x27;&lt;管理ポイント FQDN&gt;&#x27;.</span><br></pre></td></tr></table></figure>
 
 <p>2.C:\Windows\CCM\Logs フォルダー配下の PolicyAgent.log を開き、「2.カスタム クライアント設定を再展開してみよう」を展開後に下記のような出力があるかを確認します。  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Raising event:instance of CCM_PolicyAgent_PolicyDownloadSucceeded</span><br><span class="line">Raising event:instance of CCM_PolicyAgent_PolicyEvaluationComplete</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Raising event:instance of CCM_PolicyAgent_PolicyDownloadSucceeded</span><br><span class="line">Raising event:instance of CCM_PolicyAgent_PolicyEvaluationComplete</span><br></pre></td></tr></table></figure>
 
 <p>もし、上記のどちらかが確認できなかった場合には、管理ポイントからポリシーのダウンロードが完了していないことになります。管理ポイントとの通信状況を確認しましょう。  </p>
 <p>クライアント端末にて、PowerShell を開き、下記コマンドを実行します。  </p>
@@ -253,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220408_01/" data-id="cmm9wwo73007o0nrqamwx0ph1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220408_01/" data-id="cuidtSytyZbjU-vVtyQgq463s" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -295,6 +295,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -308,10 +312,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -360,9 +360,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

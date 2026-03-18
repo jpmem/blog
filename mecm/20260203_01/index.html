@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260203_01/20260203_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260203_01/20260203_01_02.png">
 <meta property="article:published_time" content="2026-02-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.879Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.163Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -69,9 +69,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -117,7 +117,7 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/the-content-library">コンテンツ ライブラリ (SCCMContentLib)</a> フォルダーが肥大化します。<br>このフォルダーが肥大化することで、空きディスク容量が少なくなり、不要なコンテンツの削除を検討されているお客様も多いかと思います。  </p>
+        <p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/the-content-library">コンテンツ ライブラリ (SCCMContentLib)</a> フォルダーが肥大化します。<br>このフォルダーが肥大化することで、空きディスク容量が少なくなり、不要なコンテンツの削除を検討されているお客様も多いかと思います。  </p>
 <p>この記事では、そのような場合に、SCCMContentLib フォルダー内の不要なコンテンツを削除する方法をご案内します。<br>なお、エクスプローラーで SCCMContentLib フォルダーを開いて、ファイルを手動で削除する方法はサポートされておりません。そのような手動削除をすると、予期しない問題が発生する可能性がありますので、ご注意ください。  </p>
 <p>削除の基本的な流れとしては　<strong>「展開されているコンテンツの確認」</strong> <strong>「不要なコンテンツの削除」</strong> の順となりますので、こちらの順でご案内します。  </p>
 <h1 id="1-展開されているコンテンツの確認"><a href="#1-展開されているコンテンツの確認" class="headerlink" title="1. 展開されているコンテンツの確認"></a>1. 展開されているコンテンツの確認</h1><p>展開されているコンテンツの確認手順には、以下の方法があります。</p>
@@ -150,7 +150,7 @@
 <p>なお、孤立コンテンツにつきましては、Content Library Explorer 上で対象コンテンツには ID の右側に「*」が付与されます。</p>
 <p>表示例）PS100005*</p>
 <h2 id="B-ツール（Content-library-cleanup-tool）による削除"><a href="#B-ツール（Content-library-cleanup-tool）による削除" class="headerlink" title="B. ツール（Content library cleanup tool）による削除"></a>B. ツール（Content library cleanup tool）による削除</h2><p>コンソールからの削除が行えない孤立コンテンツがある場合は、こちらの Content library cleanup tool を活用して、コンテンツの削除を行います。<br>ツールの使い方につきましては以下の公開情報でも紹介しておりますので、ご参照ください。</p>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/content-library-cleanup-tool">コンテンツ ライブラリのクリーンアップ ツール</a></p>
+<p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/content-library-cleanup-tool">コンテンツ ライブラリのクリーンアップ ツール</a></p>
 <p>プライマリ サイト サーバーでのツールの実行手順の例は以下の通りです。</p>
 <ol>
 <li><code>&lt;プライマリ サイト インストール フォルダー&gt;\CD.Latest\SMSSETUP\TOOLS\ContentLibraryCleanup</code> に、<code>ContentLibraryCleanup.exe</code> が存在することを確認します。</li>
@@ -163,14 +163,16 @@
 <h1 id="参考情報-NO-SMS-ON-DRIVE-SMS-について"><a href="#参考情報-NO-SMS-ON-DRIVE-SMS-について" class="headerlink" title="参考情報: NO_SMS_ON_DRIVE.SMS について"></a>参考情報: NO_SMS_ON_DRIVE.SMS について</h1><p>配布ポイントの構成は、利用できるドライブを確認すると自動で配布ポイントのコンテンツ ライブラリを作成する動作となります。<br>そのため、配布ポイントのコンテンツ ライブラリを作成したくないドライブがある場合は（特に、システム領域となる Cドライブなど）、配布ポイントの役割と追加・構成いただく前に、ドライブのルートに NO_SMS_ON_DRIVE.SMS の空のファイルを配置します。<br>こちらのファイルを検知すると、コンテンツ ライブラリを作成するドライブとして除外する動作となりますので、意図せずに別のディスク ドライブにコンテンツが配布されてディスクの使用量が増加することを防ぐことが可能となります。  </p>
 <p>こちらのファイルにつきましては、以下にご案内するコマンドを管理者として実行した [コマンドプロンプト] にて実行いただくことで、簡単に作成できます。今後ディスクの増設等をご検討される際のご参考としていただけますと幸いです。  </p>
 <ul>
-<li>実行コマンド<br><code>Type nul &gt; &lt;ドライブ レター&gt;:\NO_SMS_ON_DRIVE.SMS</code>  </li>
-<li>実行コマンド例(C ドライブに配置する場合)<br><code>Type nul &gt; C:\NO_SMS_ON_DRIVE.SMS</code>  </li>
+<li><p>実行コマンド<br><code>Type nul &gt; &lt;ドライブ レター&gt;:\NO_SMS_ON_DRIVE.SMS</code>  </p>
+</li>
+<li><p>実行コマンド例(C ドライブに配置する場合)<br><code>Type nul &gt; C:\NO_SMS_ON_DRIVE.SMS</code></p>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260203_01/" data-id="cmm9wwo8a00b30nrqcczt6fxu" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260203_01/" data-id="cuidWAm2QVvA0D_yIfJNZUpu6" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -212,6 +214,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -225,10 +231,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -277,9 +279,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

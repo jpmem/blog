@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20250325_01/20250325_01_01.png">
 <meta property="article:published_time" content="2025-03-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.856Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.141Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -161,11 +161,11 @@
 <p>このほか、ソフトウェア更新ポイントがクライアントの所属する境界グループに紐づいていない、もしくは所属するドメインのグループ ポリシーで上書きされている場合がございます。こちらの確認は、コマンド プロンプトで、以下を実行して出力されるグループ ポリシーの評価結果をご確認ください。</p>
 <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure>
 
-<p>出力された gpresult.html にて [設定] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント/Windows Update/(Windows Server Update Service から提供される更新プログラムの管理)]のポリシー [イントラネットの Microsoft 更新サービスの場所を指定する] の[優勢なGPO]が　[ローカル セキュリティ ポリシー]であり、かつ、以下の項目が以下の設定であるのが正しい設定です。</p>
+<p>出力された gpresult.html にて [設定] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント&#x2F;Windows Update&#x2F;(Windows Server Update Service から提供される更新プログラムの管理)]のポリシー [イントラネットの Microsoft 更新サービスの場所を指定する] の[優勢なGPO]が　[ローカル セキュリティ ポリシー]であり、かつ、以下の項目が以下の設定であるのが正しい設定です。</p>
 <ul>
 <li>更新を検出するためのイントラネットの更新サービスを指定する: ソフトウェア更新ポイントの FQDN</li>
 <li>イントラネット統計サーバーの設定: ソフトウェア更新ポイントの FQDN</li>
-<li>代替ダウンロード サーバーの設定: <a target="_blank" rel="noopener" href="http://localhost:8005/">http://localhost:8005</a></li>
+<li>代替ダウンロード サーバーの設定: <a href="http://localhost:8005/">http://localhost:8005</a></li>
 </ul>
 <p> <img src="/blog/mecm/20250325_01/20250325_01_01.png" alt="gpresult.png"></p>
 <p>上記の修復は [ConfigMgrコンソール] - [管理] - [階層の構成] - [境界グループ] より設定を見直しください。<br>IP サブネット境界設定が誤っている場合などもございます。</p>
@@ -173,22 +173,22 @@
 <p>この他、「ソフトウェア更新ポイントとの通信がタイムアウトする」場合がございます。この事象は、 <code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80072ee2</span><br><span class="line">Scan failed with error = 0x80072ee2.</span><br></pre></td></tr></table></figure>
 
-<p>0x80072ee2:    WININET_E_TIMEOUT</p>
+<p>0x80072ee2:	WININET_E_TIMEOUT</p>
 <p>また、「ソフトウェア更新ポイントとの通信が 503 エラーで返答される」場合もございます。この事象も、<code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80244022.</span><br><span class="line">Scan failed with error = 0x80244022. </span><br></pre></td></tr></table></figure>
 
-<p>0x80244022: WU_E_PT_HTTP_STATUS_SERVICE_UNAVAIL / Same as HTTP status 503 - the service is temporarily overloaded.</p>
+<p>0x80244022: WU_E_PT_HTTP_STATUS_SERVICE_UNAVAIL &#x2F; Same as HTTP status 503 - the service is temporarily overloaded.</p>
 <p>これらの原因は、ソフトウェア更新ポイントとして利用している WSUS のメンテナンスが適切に行われていない場合が極めて多いので、以下でご案内のメンテナンスを実施ください。</p>
 <p>WSUS メンテナンスガイド新版<br><a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a></p>
 <p>この他、実際にクライアントで更新プログラムの検出が成功しているかどうかは、以下の Powershell スクリプトを実行することでも確認できます。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\SoftwareUpdates\UpdatesStore&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateStatus | <span class="built_in">Select-Object</span> UniqueId,Title,Status | <span class="built_in">Format-Table</span></span><br></pre></td></tr></table></figure>
 
-<p>適用させたい更新プログラムの Status が Missing になっているかを確認ください。該当の更新プログラムが見つからない場合、ソフトウェア更新ポイント上で該当の更新プログラムの承認状態が「未承認」でないか、そもそもソフトウェア更新ポイントと通信できていないか、もしくは、WUfB 関連のポリシー / レジストリが有効になっているためにデュアル スキャン状態になっている可能性がございます。</p>
+<p>適用させたい更新プログラムの Status が Missing になっているかを確認ください。該当の更新プログラムが見つからない場合、ソフトウェア更新ポイント上で該当の更新プログラムの承認状態が「未承認」でないか、そもそもソフトウェア更新ポイントと通信できていないか、もしくは、WUfB 関連のポリシー &#x2F; レジストリが有効になっているためにデュアル スキャン状態になっている可能性がございます。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20250325_01/" data-id="cmm9wwo8300ah0nrqdvuihfln" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20250325_01/" data-id="cuidCnxODnJlLYp331tX8N-tE" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -230,6 +230,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -243,10 +247,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -295,9 +295,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20180706_01/1.png">
 <meta property="article:published_time" content="2018-07-05T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.675Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:44.972Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -68,9 +68,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -121,11 +121,11 @@
 <h2 id="目次："><a href="#目次：" class="headerlink" title="目次："></a>目次：</h2><h3 id="1-IBCM-の概要・仕組み"><a href="#1-IBCM-の概要・仕組み" class="headerlink" title="(1) IBCM の概要・仕組み"></a>(1) IBCM の概要・仕組み</h3><h3 id="2-サーバー証明書のサブジェクト名について"><a href="#2-サーバー証明書のサブジェクト名について" class="headerlink" title="(2) サーバー証明書のサブジェクト名について"></a>(2) サーバー証明書のサブジェクト名について</h3><h3 id="3-ccmsetup-exe-で付与するオプション"><a href="#3-ccmsetup-exe-で付与するオプション" class="headerlink" title="(3) ccmsetup.exe で付与するオプション"></a>(3) ccmsetup.exe で付与するオプション</h3><h3 id="4-サイトサーバーのプロパティ設定の変更"><a href="#4-サイトサーバーのプロパティ設定の変更" class="headerlink" title="(4) サイトサーバーのプロパティ設定の変更"></a>(4) サイトサーバーのプロパティ設定の変更</h3><hr>
 <h2 id="1-IBCM-の概要・仕組み-1"><a href="#1-IBCM-の概要・仕組み-1" class="headerlink" title="(1) IBCM の概要・仕組み"></a>(1) IBCM の概要・仕組み</h2><p>IBCM では、企業ネットワークに接続されておらず、標準的なインターネットに接続されている MECM クライアントを管理できます。<br>公衆ネットワーク上のクライアント コンピューターの管理には、高いセキュリティが求められるので、インターネット ベースのクライアント管理では、クライアントとその接続先サイト システム サーバーで PKI 証明書を使用する必要があります。  </p>
 <p>当環境では、VPN 接続は不要であるため、インターネット接続のみでインベントリ収集や更新プログラムの配信などを行いたいシナリオでご利用いただけます。<br>詳細は以下 URL に記載がございますのでご参照ください。  </p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/plan-internet-based-client-management">System Center Configuration Manager でインターネット ベースのクライアント管理を計画する</a>  </p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/manage/plan-internet-based-client-management">System Center Configuration Manager でインターネット ベースのクライアント管理を計画する</a>  </p>
 <hr>
 <h2 id="2-サーバー証明書のサブジェクト名について-1"><a href="#2-サーバー証明書のサブジェクト名について-1" class="headerlink" title="(2) サーバー証明書のサブジェクト名について"></a>(2) サーバー証明書のサブジェクト名について</h2><p>サーバ―証明書のサブジェクト名については、IBCM サーバーの場合、インターネット経由の接続のほか、イントラネット経由の接続も受け付ける場合には、2 つのサブジェクト名が必要となります。<br>シナリオとしては、イントラネット接続でセットアップを行い、インターネット接続に切り替えた場合に利用するシナリオが考えられますので、IBCM サーバーのサーバー証明書では、2 つのサブジェクト名を含めるよう考慮をすることが一般的です。<br>証明書の発行方法については、以下 URL に記載がございますのでご参照ください。  </p>
 <p>なお、証明書の発行を外部公的証明機関に委託する場合には、サブジェクト名が 2 つ入れることが可能であるか必ずご確認下さい。<br>サービス プランによっては、複数のサブジェクト名の登録ができず、MECM の証明書に必要な要件を実現できない場合がございます。  </p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/example-deployment-of-pki-certificates">System Center Configuration Manager PKI 証明書の展開手順の例: Windows Server 2008 証明機関</a>  </p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/example-deployment-of-pki-certificates">System Center Configuration Manager PKI 証明書の展開手順の例: Windows Server 2008 証明機関</a>  </p>
 <blockquote>
 <p>サイト システムがイントラネット経由のクライアント接続のみを許可する場合は、サイト システム サーバーのイントラネット FQDN は server1.internal.contoso.com になります。「server1.internal.contoso.com」と入力し、[追加] を選択します。<br>サイト システムがイントラネットからとインターネットからのクライアント接続を許可する場合は、 サイト システム サーバーのイントラネット FQDN は server1.internal.contoso.com で、サイト システム サーバーのインターネット FQDN は server.contoso.comとなります。</p>
 <p>「server1.internal.contoso.com」と入力し、[追加] を選択します。<br>「server.contoso.com」と入力し、[追加] を選択します。</p>
@@ -133,14 +133,14 @@
 <hr>
 <h2 id="3-ccmsetup-exe-で付与するオプション-1"><a href="#3-ccmsetup-exe-で付与するオプション-1" class="headerlink" title="(3) ccmsetup.exe で付与するオプション"></a>(3) ccmsetup.exe で付与するオプション</h2><p>IBCM 環境では、インターネット上で名前解決をするための、インターネット FQDN を取得する必要がございます。<br>こちらはドメイン取得サービスから取得したインターネットに公開する FQDN を、インターネットに公開する MECM のサイトシステムのインターネット FQDN として登録します。<br>また、MECM エージェントのセットアップ時に、CCMHOSTNAME オプションにインターネット FQDN を指定します。  </p>
 <p>お問い合わせが多いシナリオとしては、ccmsetup.exe 実行時にオプションが不足していることによって、MECM エージェントの登録に失敗するといったことがございます。<br>そのため、MECM クライアントをセットアップする際の注意事項についてコマンド オプションの例と共にご紹介いたします。  </p>
-<p>// 前提<br>ドメイン名：contoso.local<br>IBCM サーバーのイントラネット FQDN ：IBCM-Intra.contoso.local<br>IBCM サーバーのインターネット FQDN：IBCM-Internet.public.com<br>サイトコード：P01  </p>
-<p>// コマンド例</p>
+<p>&#x2F;&#x2F; 前提<br>ドメイン名：contoso.local<br>IBCM サーバーのイントラネット FQDN ：IBCM-Intra.contoso.local<br>IBCM サーバーのインターネット FQDN：IBCM-Internet.public.com<br>サイトコード：P01  </p>
+<p>&#x2F;&#x2F; コマンド例</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /UsePKICert /NoCRLCheck SMSSITECODE=P01 SMSMP=https://IBCM-Intra.contoso.local CCMHOSTNAME=IBCM-Internet.public.com</span><br></pre></td></tr></table></figure>
 
-<p>-詳細<br>オプションを列挙しますと、以下の通りです。<br>ccmsetup.exe<br>/UsePKICert<br>/NoCRLCheck<br>SMSSITECODE=P01<br>SMSMP=<a target="_blank" rel="noopener" href="https://ibcm-intra.contoso.local/">https://IBCM-Intra.contoso.local</a> &gt;&gt;&gt; イントラネット FQDN を指定します。<br>CCMHOSTNAME=IBCM-Internet.public.com &gt;&gt;&gt; インターネット FQDN を指定します。  </p>
-<p>このシナリオにおいては、イントラネット環境でも https を利用する想定であるため、SMSMP に https:// を付与することがポイントです。<br>なお、http 構成である場合には、http:// は不要です。  </p>
+<p>-詳細<br>オプションを列挙しますと、以下の通りです。<br>ccmsetup.exe<br>&#x2F;UsePKICert<br>&#x2F;NoCRLCheck<br>SMSSITECODE&#x3D;P01<br>SMSMP&#x3D;<a href="https://ibcm-intra.contoso.local/">https://IBCM-Intra.contoso.local</a> &gt;&gt;&gt; イントラネット FQDN を指定します。<br>CCMHOSTNAME&#x3D;IBCM-Internet.public.com &gt;&gt;&gt; インターネット FQDN を指定します。  </p>
+<p>このシナリオにおいては、イントラネット環境でも https を利用する想定であるため、SMSMP に https:&#x2F;&#x2F; を付与することがポイントです。<br>なお、http 構成である場合には、http:&#x2F;&#x2F; は不要です。  </p>
 <h3 id="※-補足-1"><a href="#※-補足-1" class="headerlink" title="※ 補足 1."></a>※ 補足 1.</h3><p>IBCM クライアントの新規セットアップおよび、アップグレード シナリオにおいては、社内イントラネット環境へ接続されている必要がございます。<br>非イントラネット接続状態で、インターネット上でセットアップを行うためには、VPN  接続などを介して社内イントラネット環境へ接続を行いセットアップを行います。  </p>
-<p>参考)<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-to-windows-computers#BKMK_ClientInternet">インターネット ベースのクライアント管理</a></p>
+<p>参考)<br><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/clients/deploy/deploy-clients-to-windows-computers#BKMK_ClientInternet">インターネット ベースのクライアント管理</a></p>
 <blockquote>
 <p>インターネット上のクライアントをインストールするには、以下のサポートされる方法の 1 つから選択します。<br>・これらのクライアントが VPN でイントラネットに一時的に接続するためのメカニズムを提供します。 その後、適切なクライアント インストール方法を使ってクライアントをインストールします。<br>-注意<br>Configuration Manager では、インターネット ベースの管理ポイントまたはインターネット ベースのソフトウェア更新ポイントからクライアントを直接インストールすることはサポートしていません。</p>
 </blockquote>
@@ -154,8 +154,8 @@
 <p>この設定を行う理由は、インターネット環境にいるクライアントが、IBCM 用管理ポイントと通信し、ドメイン環境のエンタープライズ CA から発行されたサーバー証明書を受け取った際、インターネット環境であることによって、証明書の証明書失効リスト (CRL) のチェックが行えず、SSL 接続に失敗するためです。(エンタープライズ CA では、既定で Ldap パスの CRL が証明書に記載されているため、ドメイン利用前提の Ldap パスへの疎通に失敗する結果となります。)  </p>
 <p>また、イントラネット環境であっても、ワークグループ クライアントのセットアップの場合には、MECM クライアントエージェントのインストール時に、Ldap パスの CRL にアクセスできないためセットアップに失敗します。<br>そのため、上記チェックをオフにして、CRL のチェックをしないようにすることで、管理ができるようになります。  </p>
 <h3 id="補足"><a href="#補足" class="headerlink" title="補足)"></a>補足)</h3><p>当該項目にチェックを入れてよい場合のシナリオについては、CRL を HTTP パスで外部公開しているか、エンタープライズ CA にて外部公開可能な HTTP パスの CRL を公開し、証明書内に HTTP の CRL パスを記載している場合のみ利用できます。<br>この場合には、クライアントが IBCM サーバーから受け取ったサーバー証明書の HTTP パスの CRL チェックが成功します。<br>当設定は、このような追加要件がある場合にのみチェックを付ける項目となりますので、ご留意ください。  </p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考)"></a>参考)</h3><p><a target="_blank" rel="noopener" href="http://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_CB_EvalGuide_jp.docx">SCCM(CB)_評価ガイド_環境構築編</a><br>-10.3.4        証明書失効リストによるチェックの無効化  </p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/get-started/capabilities-in-technical-preview-1606">System Center Configuration Manager の Technical Preview 1606 の機能</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考)"></a>参考)</h3><p><a href="http://download.microsoft.com/download/F/0/D/F0D20D4C-B594-4341-924C-55DFF50FED88/SCCM_CB_EvalGuide_jp.docx">SCCM(CB)_評価ガイド_環境構築編</a><br>-10.3.4        証明書失効リストによるチェックの無効化  </p>
+<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/get-started/capabilities-in-technical-preview-1606">System Center Configuration Manager の Technical Preview 1606 の機能</a></p>
 <blockquote>
 <p>-クライアント証明書の認証用にプライマリ サイトを構成する<br>[サイト システムの証明書失効リスト (CRL) をチェックする] の横のチェック ボックスがオフになっていることを確認します。<br>このオプションは、CRL をパブリックに公開した場合にのみ必要になります。</p>
 </blockquote>
@@ -163,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180706_01/" data-id="cmm9wwo6g005x0nrq07wi4fez" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180706_01/" data-id="cuidiWfBkvQc-8OmJZyoLOMgW" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -205,6 +205,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -218,10 +222,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -270,9 +270,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

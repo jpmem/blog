@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。   本日は、お客様をサポートする中、我々が頻繁に遭遇する「重複 GUID 問題」についてご案内させて頂きます。是非、運用されている Configuration Manager (CM) について定期的にご確認いただき、System Health を良い状態に保つ一助にして頂きたく存じます。 重複 GUID 問">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2021-09-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.728Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.023Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -138,12 +138,21 @@
 <h3 id="複製先端末"><a href="#複製先端末" class="headerlink" title="複製先端末"></a>複製先端末</h3><p>以下の手順で対処を実行ください。</p>
 <ol>
 <li>CCMExec サービスを停止します。</li>
-<li>以下の Powershell スクリプトを実行します。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WMIObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> “Name&lt;&gt;’RDV’” | <span class="built_in">Remove-WMIObject</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> HKLM:\Software\Microsoft\SystemCertificates\SMS\Certificates <span class="literal">-Recurse</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> C:\Windows\SMSCFG.ini <span class="literal">-Force</span> <span class="literal">-ErrorAction</span> SilentlyContinue</span><br></pre></td></tr></table></figure></li>
+<li>以下の Powershell スクリプトを実行します。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WMIObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> “Name&lt;&gt;’RDV’” | <span class="built_in">Remove-WMIObject</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> HKLM:\Software\Microsoft\SystemCertificates\SMS\Certificates <span class="literal">-Recurse</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> C:\Windows\SMSCFG.ini <span class="literal">-Force</span> <span class="literal">-ErrorAction</span> SilentlyContinue</span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li>CCMExec サービスを起動します。</li>
 </ol>
 <h4 id="複製先端末が複数の場合の対処"><a href="#複製先端末が複数の場合の対処" class="headerlink" title="複製先端末が複数の場合の対処"></a>複製先端末が複数の場合の対処</h4><ol>
-<li>重複している GUID を持つ端末を集めたデバイスコレクションを作成します。下記の WQL クエリをご利用ください。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>  <span class="keyword">from</span>  SMS_R_System <span class="keyword">where</span> SMS_R_System.SMSUniqueIdentifier <span class="operator">=</span> <span class="string">&#x27;[重複 GUID を起こしている GUID]&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>上記コレクションに対して単体対処の時に利用したPowershellをパッケージで配布します。パッケージ配布の際のコマンドは以下を指定ください。<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File XXXX.ps1</span><br></pre></td></tr></table></figure></li>
+<li>重複している GUID を持つ端末を集めたデバイスコレクションを作成します。下記の WQL クエリをご利用ください。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>  <span class="keyword">from</span>  SMS_R_System <span class="keyword">where</span> SMS_R_System.SMSUniqueIdentifier <span class="operator">=</span> <span class="string">&#x27;[重複 GUID を起こしている GUID]&#x27;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>上記コレクションに対して単体対処の時に利用したPowershellをパッケージで配布します。パッケージ配布の際のコマンドは以下を指定ください。</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File XXXX.ps1</span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li>パッケージを配布されたクライアントは再起動され次第、新しい GUID を順次取得します。配布対象のコレクションに所属するクライアント数が少なくなっていけば事象解消し始めていることになります。</li>
 </ol>
 <h3 id="複製元端末-マスターイメージ"><a href="#複製元端末-マスターイメージ" class="headerlink" title="複製元端末 (マスターイメージ)"></a>複製元端末 (マスターイメージ)</h3><ol>
@@ -153,7 +162,10 @@
 <li><a href="https://jpmem.github.io/blog/mecm/20190327_01/">https://jpmem.github.io/blog/mecm/20190327_01/</a></li>
 </ul>
 <ol start="2">
-<li>(Citrix VDI 端末のマスターイメージの場合) Powershellを管理者権限で開き、以下を実行ください。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> <span class="string">&quot;Name=&#x27;Citrix&#x27;&quot;</span> | <span class="built_in">Remove-WmiObject</span></span><br></pre></td></tr></table></figure></li>
+<li>(Citrix VDI 端末のマスターイメージの場合) Powershellを管理者権限で開き、以下を実行ください。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> root\CCMVDI <span class="literal">-Class</span> CCM_VDI_Identity_Store_Configuration <span class="literal">-Filter</span> <span class="string">&quot;Name=&#x27;Citrix&#x27;&quot;</span> | <span class="built_in">Remove-WmiObject</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li>CM コンソールから、重複していた GUID を持つデバイスのレコードを削除します。</li>
 <li>以下のマスターイメージ用の CM クライアント インストール手順を実施します。</li>
 <li>マスターイメージを取得します。</li>
@@ -165,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cmm9wwo6p006n0nrq9crrf38m" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cuidIMN3C6dpV9i7WWrsFFmB_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -207,6 +219,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -220,10 +236,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -272,9 +284,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     

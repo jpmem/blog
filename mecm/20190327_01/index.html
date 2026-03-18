@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆様、こんにちは。Configuration Manager サポート チームです。 以前のバージョンの Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である Configuration Manager Current Branch の場合の手順をご案内します。 https:&#x2F;&#x2F;social.msdn.micros">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-03-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:11:22.724Z">
+<meta property="article:modified_time" content="2026-03-18T06:19:45.020Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
   
 <link rel="stylesheet" href="../../css/style.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -66,9 +66,9 @@
         
           <a class="main-nav-link" href="../../archives">Archives</a>
         
-          <a class="main-nav-link" href="../../https:/cssjpn.github.io/">サポート情報</a>
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
-          <a class="main-nav-link" href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
         
       </nav>
       <nav id="sub-nav">
@@ -116,7 +116,7 @@
       
         <p>皆様、こんにちは。Configuration Manager サポート チームです。</p>
 <p>以前のバージョンの Configuration Manager クライアントを完全に削除する手順については、次の通りご紹介しておりますが、今回は最新版である Configuration Manager Current Branch の場合の手順をご案内します。</p>
-<p><a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus">https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus</a></p>
+<p><a href="https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus">https://social.msdn.microsoft.com/Forums/ja-JP/bb8fc444-ec6e-43ac-a077-9ebea7abb4a2/sccm2012-sccm?forum=jpsccmwsus</a></p>
 <p>Configuration Manager クライアントの完全削除は、クライアントが正常に動作していないように見える場合に有効な手順です。本手順を実施してから、クライアントの再インストールを実施することで解消できる問題も多くありますので、回避優先の対処が求められる場合に、是非お役立てください。</p>
 <blockquote>
 <p><strong>注意事項 : 本手順は、Configuration Manager クライアントがインストールされた、サイト サーバー、サイト システム サーバー (Configuration Manager のサーバー側の管理ポイント・配布ポイントなどの役割を持つサーバー) では行わないでください。手順中で削除が必要なレジストリ キーは、Configuration Manager のサーバー側各機能でも使用していることが多く、サイト サーバー、サイト システムとしての役割に支障をきたします。本手順は、あくまでも、クライアント OS の Configuration Manager クライアントへのトラブルシュートや、マスター イメージ準備のためにご利用ください。</strong></p>
@@ -163,8 +163,12 @@
 <li>“ローカル コンピューター” にチェックし、[完了] をクリックします。</li>
 <li>右ペインに “証明書（ローカル コンピューター）” が追加されていることを確認し [OK] をクリックします。</li>
 <li>左ペインにて、[証明書] - [個人] - [証明書] を選択します。カスタム ストアを利用している場合は、該当箇所を選択してください。</li>
-<li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。</li>
+<li>中央ペインに表示された SCCM の HTTPS 接続用クライアント証明書を右クリックして [削除] を選択します。<br>「選択された証明書を永久的に削除しますか?」というメッセージが表示されますので、[はい] を選択します。<blockquote>
+<ol start="9">
 <li>[ファイル] - [終了] をクリックします。「コンソールの設定を コンソール1 に保存しますか?」というメッセージが表示されますので、[いいえ] を選択して、mmc を終了します。</li>
+</ol>
+</blockquote>
+</li>
 </ol>
 </blockquote>
 <ol start="5">
@@ -185,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="cmm9wwo6k006b0nrq4af84cnd" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20190327_01/" data-id="cuidWSz1nzLZ8B2QtOXYBF9MH" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -227,6 +231,10 @@
       <ul>
         
           <li>
+            <a href="../20260317_01/">Configuration Manager におけるクライアントからの情報収集の仕組み</a>
+          </li>
+        
+          <li>
             <a href="../20260302_01/">Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</a>
           </li>
         
@@ -240,10 +248,6 @@
         
           <li>
             <a href="../20260129_01/">同期したい更新プログラムの製品と分類の探し方</a>
-          </li>
-        
-          <li>
-            <a href="../20251215_01/">Configuration Manager のリリース サイクルが年 1 回に変わります</a>
           </li>
         
       </ul>
@@ -292,9 +296,9 @@
   
     <a href="../../archives" class="mobile-nav-link">Archives</a>
   
-    <a href="../../https:/cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
-    <a href="../../https:/techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
   
 </nav>
     
