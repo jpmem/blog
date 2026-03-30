@@ -5,23 +5,20 @@
   
 
   
-  <title>Configuration Manager 環境の HTTP のみの通信が非推奨となります | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>Configuration Manager における運用監視メッセージ | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 Configuration Manager (以下 ConfigMgr) 環境において、今後クライアントと Configuration Manager 間の HTTP のみの通信が非推奨となります。そのため、通信を HTTPS または拡張 HTTP を有効にすることで、より安全な通信方法をサイトで有効にして頂">
+  <meta name="description" content="皆さま、こんにちは。Configuration Manager サポート チームです。Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴史を持つソフトウェア製品であり、その開発の過程で運用監視用メッセージについても 2 種類が派生しています。多数のクライアントを管理する">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Configuration Manager 環境の HTTP のみの通信が非推奨となります">
-<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20210414_01/index.html">
+<meta property="og:title" content="Configuration Manager における運用監視メッセージ">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260330_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。Configuration Manager サポート チームです。 Configuration Manager (以下 ConfigMgr) 環境において、今後クライアントと Configuration Manager 間の HTTP のみの通信が非推奨となります。そのため、通信を HTTPS または拡張 HTTP を有効にすることで、より安全な通信方法をサイトで有効にして頂">
+<meta property="og:description" content="皆さま、こんにちは。Configuration Manager サポート チームです。Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴史を持つソフトウェア製品であり、その開発の過程で運用監視用メッセージについても 2 種類が派生しています。多数のクライアントを管理する">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20210414_01/1.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20210414_01/2.png">
-<meta property="article:published_time" content="2021-04-13T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-30T07:36:52.325Z">
+<meta property="article:published_time" content="2026-03-29T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-30T07:36:52.473Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20210414_01/1.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -87,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mecm/20210414_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mecm/20260330_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2021-04-13T15:00:00.000Z" itemprop="datePublished">2021-04-14</time>
+  <time datetime="2026-03-29T15:00:00.000Z" itemprop="datePublished">2026-03-30</time>
 </a>
     <!--  -->
   </div>
@@ -101,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Configuration Manager 環境の HTTP のみの通信が非推奨となります
+      Configuration Manager における運用監視メッセージ
     </h1>
   
 
@@ -110,46 +107,93 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2021-04-13T15:00:00.000Z" itemprop="dateUpdated">2021-04-14</time>
+    <time datetime="2026-03-29T15:00:00.000Z" itemprop="dateUpdated">2026-03-30</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
-<p>Configuration Manager (以下 ConfigMgr) 環境において、今後クライアントと Configuration Manager 間の HTTP のみの通信が非推奨となります。<br>そのため、通信を HTTPS または拡張 HTTP を有効にすることで、より安全な通信方法をサイトで有効にして頂く必要がございます。</p>
-<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures">Configuration Manager から削除された機能と非推奨の機能</a></p>
-<p>ConfigMgr の バージョン 2103 以降については ConfigMgr のアップグレードを行って頂く際の前提条件のチェック時においても、”警告” として、HTTP が非推奨になる旨のメッセージが表示されるようになりましたため、対処の手段である HTTPS とする方法や拡張 HTTP を有効にするための情報をご案内します。</p>
-<p><img src="/blog/mecm/20210414_01/1.png"></p>
-<h2 id="サイトで-HTTPS-を有効にする方法について"><a href="#サイトで-HTTPS-を有効にする方法について" class="headerlink" title="サイトで HTTPS を有効にする方法について"></a>サイトで HTTPS を有効にする方法について</h2><p>通信を PKI の証明書を利用して、 HTTPS とする場合には以下の 3 つの設定変更が必要です。</p>
+        <p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴史を持つソフトウェア製品であり、その開発の過程で運用監視用メッセージについても 2 種類が派生しています。多数のクライアントを管理する製品の性質上、これらのメッセージの処理は負荷に大きな影響を与える重要な要素です。</p>
+<h2 id="ConfigMgr-が管理するもの"><a href="#ConfigMgr-が管理するもの" class="headerlink" title="ConfigMgr が管理するもの"></a>ConfigMgr が管理するもの</h2><p>まず、前提として、ConfigMgr が監視しなければならないものとしては大きく分けて以下の 2 種類があります。</p>
 <ul>
-<li><p>クライアントと通信を行うための役割である管理ポイント、配布ポイント、ソフトウェア更新ポイントをサイトシステムのプロパティ上で HTTPS を受け入れる設定に変更を行う。</p>
+<li>ConfigMgr サーバー コンポーネント<ul>
+<li>サイト サーバー上のコンポーネント (例: SMS_HIERARCHY_MANAGER、SMS_INBOX_MANAGER など)</li>
+<li>リモート サイト システム上のコンポーネント (例: SMS_MP_CONTROL_MANAGER、SMS_WSUS_CONTROL_MANAGER など)</li>
+</ul>
 </li>
-<li><p>IIS で HTTPS 通信を受け入れるように Web サーバー証明書を準備し、対象の IIS のサイトにバインドする。</p>
+<li>ConfigMgr クライアント コンポーネント</li>
+</ul>
+<h2 id="運用監視メッセージの種類"><a href="#運用監視メッセージの種類" class="headerlink" title="運用監視メッセージの種類"></a>運用監視メッセージの種類</h2><p>運用監視メッセージは、以下の 2 種類があります。英名では非常に名前が似ていますが、それぞれ異なる目的で使用されます。 ConfigMgr を運用される場合、この 2 つの違いを抑えることは重要です。</p>
+<ul>
+<li>ステータス メッセージ (英名: Status Message)</li>
+<li>状態メッセージ (英名: State Message)</li>
+</ul>
+<h3 id="「イベント」と「状態」の違いの理解"><a href="#「イベント」と「状態」の違いの理解" class="headerlink" title="「イベント」と「状態」の違いの理解"></a>「イベント」と「状態」の違いの理解</h3><p>この 2 つのメッセージの違いを理解するために、身近な例で説明します。</p>
+<ul>
+<li><p>イベント（ステータス メッセージ）の例：</p>
+<ul>
+<li>「午前 9:00 にパソコンの電源が入りました」</li>
+<li>「午後 1:00 にアプリケーションのインストールが完了しました」  </li>
+<li>「午後 3:00 にエラーが発生しました」</li>
+</ul>
+</li>
+<li><p>状態（状態メッセージ）の例：</p>
+<ul>
+<li>「現在パソコンの電源は ON です」</li>
+<li>「現在アプリケーション X はバージョン 1.2 がインストール済みです」</li>
+<li>「現在ウイルス対策の定義ファイルは最新です」</li>
+</ul>
 </li>
 </ul>
-<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/example-deployment-of-pki-certificates#deploy-the-web-server-certificate-for-site-systems-that-run-iis">IIS を実行するサイト システム用の Web サーバー証明書の展開</a></p>
+<p>つまり、<strong>イベント</strong>は「いつ何が起こったか」を記録するのに対し、<strong>状態</strong>は「現在どうなっているか」を報告します。</p>
+<h3 id="ステータス-メッセージ-英名-Status-Message"><a href="#ステータス-メッセージ-英名-Status-Message" class="headerlink" title="ステータス メッセージ (英名: Status Message)"></a>ステータス メッセージ (英名: Status Message)</h3><p>ConfigMgr がイベント報告用のメッセージとして使っているものがステータス メッセージです。ConfigMgr の歴史の中で古くからある機能はステータス メッセージが使われています。<br>ConfigMgr コンソールでレコードを右クリックした際に、[ステータス メッセージの表示]で一覧出力されるものはこれになります。</p>
+<p>凡その利用範囲は以下となりますが、状態メッセージにないものはステータス メッセージだと考えていただくのが良いかと存じます。</p>
 <ul>
-<li>ConfigMgr クライアント にクライアント認証用途のコンピューター証明書を配布する。</li>
+<li>サイト サーバー上のコンポーネントのイベント報告</li>
+<li>リモート サイト システム上のコンポーネントのイベント報告</li>
+<li>クライアント パッケージの展開および実行イベント結果</li>
+<li>クライアント タスク シーケンスの展開および実行イベント結果</li>
 </ul>
-<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/network/example-deployment-of-pki-certificates#deploy-the-client-certificate-for-windows-computers">Windows コンピューター用のクライアント証明書の展開</a></p>
-<h2 id="サイトで-拡張-HTTP-を有効にする方法について"><a href="#サイトで-拡張-HTTP-を有効にする方法について" class="headerlink" title="サイトで 拡張 HTTP を有効にする方法について"></a>サイトで 拡張 HTTP を有効にする方法について</h2><p>PKI 証明書を発行できる環境がない、または 管理が大変などの事情があるお客様向けに ConfigMgr の機能で通信を保護する機能が拡張 HTTP となります。</p>
-<p>拡張 HTTP の主な目的は以下の通りです。</p>
+<p>ステータス メッセージはあくまで一過性のイベント発生を伝達するものであるため、ログにメッセージが発行された記録は残るものの、WMI オブジェクトなどには残りません。</p>
+<h3 id="状態メッセージ-英名-State-Message"><a href="#状態メッセージ-英名-State-Message" class="headerlink" title="状態メッセージ (英名: State Message)"></a>状態メッセージ (英名: State Message)</h3><p>ConfigMgr が「状態」を報告するために追加されたものが状態メッセージです。「状態」が重要であるクライアントの機能や、一部のリモート サイト システムの状態通達に使われます。主に以下のような利用範囲となります。</p>
 <ul>
-<li>PKI サーバー認証証明書を必要とせずに機密性のクライアント通信を保護できる。</li>
-<li>クライアントは、ネットワーク アクセス アカウント、クライアント PKI 証明書、Windows 認証を必要とせずに、配布ポイントからコンテンツに安全にアクセスできる。</li>
+<li>クライアントでのソフトウェア更新プログラムの検出状態</li>
+<li>クライアントでのソフトウェア更新プログラムの展開の状態</li>
+<li>クライアントでのアプリケーションの展開状態</li>
+<li>クライアントでの構成項目の展開状態</li>
+<li>クライアントでの Endpoint Protection (MDAV) の適用状態 </li>
+<li>クライアントでの Endpoint Protection によるマルウェア検出状態</li>
+<li>クライアントのピア キャッシュの保持状態</li>
+<li>ConfigMgr クライアント バイナリのインストール状態</li>
+<li>クラウド管理ゲートウェイ接続ポイント (CMG-CP) の CMG との接続状態</li>
 </ul>
-<p><a href="https://docs.microsoft.com/ja-jp/mem/configmgr/core/plan-design/hierarchy/enhanced-http">拡張 HTTP</a></p>
-<p>また、拡張 HTTP 環境の構成手順についてはサイトのプロパティより、 [HTTP サイト システムには Configuration Manager によって生成された証明書を使用する] オプションを有効にするだけになります。</p>
-<p><img src="/blog/mecm/20210414_01/2.png"></p>
-<p>拡張HTTPを有効化すると、コンテンツのダウンロードソースに拡張 HTTP の URL が追加されます。コンテンツのソースの優先順位は HTTP＞拡張 HTTP となるため、拡張 HTTP の URL は通常 HTTP 通信が失敗する場合のみ使用されます。</p>
-<p>お客様の環境によって、上記手段のご検討を頂けますようお願い申し上げます。</p>
+<p>利用可能な状態メッセージの詳細については、以下のドキュメントを参照してください。</p>
+<p>Configuration Managerの状態メッセージ<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/state-messages">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/state-messages</a></p>
+<p>また、クライアントが発行した状態メッセージは、以下の　PowerShell で確認できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> root\ccm\StateMsg <span class="literal">-ClassName</span> CCM_StateMsg</span><br></pre></td></tr></table></figure>
+
+<h2 id="運用監視メッセージの収集方法"><a href="#運用監視メッセージの収集方法" class="headerlink" title="運用監視メッセージの収集方法"></a>運用監視メッセージの収集方法</h2><p>運用監視メッセージの情報収集も、下記の記事でご案内している通りの仕組みで収集されます。</p>
+<p>Configuration Manager におけるクライアントからの情報収集の仕組み<br><a href="https://jpmem.github.io/blog/mecm/20260317_01/">https://jpmem.github.io/blog/mecm/20260317_01/</a></p>
+<h3 id="ステータス-メッセージ-英名-Status-Message-の収集タイミング"><a href="#ステータス-メッセージ-英名-Status-Message-の収集タイミング" class="headerlink" title="ステータス メッセージ (英名: Status Message) の収集タイミング"></a>ステータス メッセージ (英名: Status Message) の収集タイミング</h3><p>イベント発生時に管理ポイントにステータス メッセージが報告されます。その後、管理ポイントの Outbox、サイト サーバーの Inbox で順次処理され、データベースに格納されます。</p>
+<h3 id="状態メッセージ-英名-State-Message-の収集タイミング"><a href="#状態メッセージ-英名-State-Message-の収集タイミング" class="headerlink" title="状態メッセージ (英名: State Message) の収集タイミング"></a>状態メッセージ (英名: State Message) の収集タイミング</h3><p>クライアント設定で設定された周期 (既定では 15 分に 1 回) で管理ポイントに報告されます。ただし、マルウェア検出など、一部の優先度の高い状態メッセージについては即時報告され、高い優先度で処理されます。また、すでに報告済みの状態メッセージは基本的に再送されません。</p>
+<p>なお、クライアントが持っている状態メッセージを過去の情報を含めて再送させたい場合、以下の PowerShell コマンドレットが有用です。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$targets</span> = <span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\StateMsg <span class="literal">-classname</span> CCM_StateMsg</span><br><span class="line"><span class="variable">$targets</span> | <span class="built_in">Set-WmiInstance</span> <span class="literal">-argument</span> <span class="selector-tag">@</span>&#123;MessageSent=<span class="string">&#x27;false&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Invoke-CimMethod</span> <span class="literal">-Namespace</span> <span class="string">&#x27;root\CCM&#x27;</span> <span class="literal">-ClassName</span> SMS_Client <span class="literal">-MethodName</span> TriggerSchedule <span class="literal">-Arguments</span> <span class="selector-tag">@</span>&#123;sScheduleID=<span class="string">&#x27;&#123;00000000-0000-0000-0000-000000000111&#125;&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="運用監視メッセージの滞留事例"><a href="#運用監視メッセージの滞留事例" class="headerlink" title="運用監視メッセージの滞留事例"></a>運用監視メッセージの滞留事例</h2><p>多数のクライアントから情報収集を行うため、時折処理滞留が起きることがあります。各メッセージの傾向は以下のとおりです。</p>
+<h3 id="ステータス-メッセージ-英名-Status-Message-の滞留"><a href="#ステータス-メッセージ-英名-Status-Message-の滞留" class="headerlink" title="ステータス メッセージ (英名: Status Message) の滞留"></a>ステータス メッセージ (英名: Status Message) の滞留</h3><p>イベント発生後、すぐにメッセージが転送される性格のため、多くのクライアントで同じような理由でイベントが発生する場合、多数のステータス メッセージがサーバー側に集中することになります。よく頂く、ステータス メッセージの処理滞留事例の原因として以下が挙げられます。</p>
+<ul>
+<li>パッケージのプログラム実行スケジュールを短期間の繰り返し実行としている<ul>
+<li>以前の実行の成否にかかわらず、短期間で繰り返し実行を行うとそのたびにステータス メッセージが発行されます。大量の端末から短期間にステータス メッセージが届くと処理滞留が発生します。</li>
+</ul>
+</li>
+</ul>
+<h3 id="状態メッセージ-英名-State-Message-の滞留"><a href="#状態メッセージ-英名-State-Message-の滞留" class="headerlink" title="状態メッセージ (英名: State Message) の滞留"></a>状態メッセージ (英名: State Message) の滞留</h3><p>状態メッセージがサーバー側で滞留する事例は、収集間隔を短期間に設定しない限り少ないですが、複数の状態メッセージを送信する必要がある状況で、メッセージ サイズの上限を超えて送信できない場合があります。アプリケーションや更新プログラムを短期間に多数展開したり、複数の更新プログラム カタログが一度に検出されたりすることが原因として考えられます。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210414_01/" data-id="cuidxC74tzA8h7PwbbgrRIDIs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260330_01/" data-id="cuidomivR39NcsBZtwDNr-08V" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -160,19 +204,10 @@
     
 <nav id="article-nav">
   
-    <a href="../20210802_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          System Center 2012 / R2 Configuration Manager のサポートが残り 1 年を切りました
-        
-      </div>
-    </a>
   
-  
-    <a href="../../wsus/2021-03-18_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20260317_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Windows Server 2016 以降の WSUS で更新プログラムのダウンロードが 0% で進まない場合のチェックポイント</div>
+      <div class="article-nav-title">Configuration Manager におけるクライアントからの情報収集の仕組み</div>
     </a>
   
 </nav>
@@ -191,7 +226,7 @@
       <ul>
         
           <li>
-            <a href="../20260330_01/">Configuration Manager における運用監視メッセージ</a>
+            <a href="">Configuration Manager における運用監視メッセージ</a>
           </li>
         
           <li>

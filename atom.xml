@@ -10,7 +10,24 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-03-18T06:19:45.166Z</updated>
+  <updated>2026-03-30T07:36:52.473Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴史を持つソフトウェア製品であり、その開発の過程で運用監視用メッセージについても 2 種類が派生しています。多数のクライアントを管理する製品の性質上、これらのメッセージの処理は負荷に大きな影響を与える重要な要素です。</p><h2 id="ConfigMgr-が管理するもの"><a href="#ConfigMgr-が管理するもの" class="headerlink" title="ConfigMgr が管理するもの"></a>ConfigMgr が管理するもの</h2><p>まず、前提として、ConfigMgr が監視しなければならないものとしては大きく分けて以下の 2 種類があります。</p><ul><li>ConfigMgr サーバー コンポーネント<ul><li>サイト サーバー上のコンポーネント (例: SMS_HIERARCHY_MANAGER、SMS_INBOX_MANAGER など)</li><li>リモート サイト システム上のコンポーネント (例: SMS_MP_CONTROL_MANAGER、SMS_WSUS_CONTROL_MANAGER など)</li></ul></li><li>ConfigMgr クライアント コンポーネント</li></ul><h2 id="運用監視メッセージの種類"><a href="#運用監視メッセージの種類" class="headerlink" title="運用監視メッセージの種類"></a>運用監視メッセージの種類</h2><p>運用監視メッセージは、以下の 2 種類があります。英名では非常に名前が似ていますが、それぞれ異なる目的で使用されます。 ConfigMgr を運用される場合、この 2 つの違いを抑えることは重要です。</p><ul><li>ステータス メッセージ (英名: Status Message)</li><li>状態メッセージ (英名: State Message)</li></ul><h3 id="「イベント」と「状態」の違いの理解"><a href="#「イベント」と「状態」の違いの理解" class="headerlink" title="「イベント」と「状態」の違いの理解"></a>「イベント」と「状態」の違いの理解</h3><p>この 2 つのメッセージの違いを理解するために、身近な例で説明します。</p><ul><li><p>イベント（ステータス メッセージ）の例：</p><ul><li>「午前 9:00 にパソコンの電源が入りました」</li><li>「午後 1:00 にアプリケーションのインストールが完了しました」  </li><li>「午後 3:00 にエラーが発生しました」</li></ul></li><li><p>状態（状態メッセージ）の例：</p><ul><li>「現在パソコンの電源は ON です」</li><li>「現在アプリケーション X はバージョン 1.2 がインストール済みです」</li><li>「現在ウイルス対策の定義ファイルは最新です」</li></ul></li></ul><p>つまり、<strong>イベント</strong>は「いつ何が起こったか」を記録するのに対し、<strong>状態</strong>は「現在どうなっているか」を報告します。</p><h3 id="ステータス-メッセージ-英名-Status-Message"><a href="#ステータス-メッセージ-英名-Status-Message" class="headerlink" title="ステータス メッセージ (英名: Status Message)"></a>ステータス メッセージ (英名: Status Message)</h3><p>ConfigMgr がイベント報告用のメッセージとして使っているものがステータス メッセージです。ConfigMgr の歴史の中で古くからある機能はステータス メッセージが使われています。<br>ConfigMgr コンソールでレコードを右クリックした際に、[ステータス メッセージの表示]で一覧出力されるものはこれになります。</p><p>凡その利用範囲は以下となりますが、状態メッセージにないものはステータス メッセージだと考えていただくのが良いかと存じます。</p><ul><li>サイト サーバー上のコンポーネントのイベント報告</li><li>リモート サイト システム上のコンポーネントのイベント報告</li><li>クライアント パッケージの展開および実行イベント結果</li><li>クライアント タスク シーケンスの展開および実行イベント結果</li></ul><p>ステータス メッセージはあくまで一過性のイベント発生を伝達するものであるため、ログにメッセージが発行された記録は残るものの、WMI オブジェクトなどには残りません。</p><h3 id="状態メッセージ-英名-State-Message"><a href="#状態メッセージ-英名-State-Message" class="headerlink" title="状態メッセージ (英名: State Message)"></a>状態メッセージ (英名: State Message)</h3><p>ConfigMgr が「状態」を報告するために追加されたものが状態メッセージです。「状態」が重要であるクライアントの機能や、一部のリモート サイト システムの状態通達に使われます。主に以下のような利用範囲となります。</p><ul><li>クライアントでのソフトウェア更新プログラムの検出状態</li><li>クライアントでのソフトウェア更新プログラムの展開の状態</li><li>クライアントでのアプリケーションの展開状態</li><li>クライアントでの構成項目の展開状態</li><li>クライアントでの Endpoint Protection (MDAV) の適用状態 </li><li>クライアントでの Endpoint Protection によるマルウェア検出状態</li><li>クライアントのピア キャッシュの保持状態</li><li>ConfigMgr クライアント バイナリのインストール状態</li><li>クラウド管理ゲートウェイ接続ポイント (CMG-CP) の CMG との接続状態</li></ul><p>利用可能な状態メッセージの詳細については、以下のドキュメントを参照してください。</p><p>Configuration Managerの状態メッセージ<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/state-messages">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/state-messages</a></p><p>また、クライアントが発行した状態メッセージは、以下の　PowerShell で確認できます。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> root\ccm\StateMsg <span class="literal">-ClassName</span> CCM_StateMsg</span><br></pre></td></tr></table></figure><h2 id="運用監視メッセージの収集方法"><a href="#運用監視メッセージの収集方法" class="headerlink" title="運用監視メッセージの収集方法"></a>運用監視メッセージの収集方法</h2><p>運用監視メッセージの情報収集も、下記の記事でご案内している通りの仕組みで収集されます。</p><p>Configuration Manager におけるクライアントからの情報収集の仕組み<br><a href="https://jpmem.github.io/blog/mecm/20260317_01/">https://jpmem.github.io/blog/mecm/20260317_01/</a></p><h3 id="ステータス-メッセージ-英名-Status-Message-の収集タイミング"><a href="#ステータス-メッセージ-英名-Status-Message-の収集タイミング" class="headerlink" title="ステータス メッセージ (英名: Status Message) の収集タイミング"></a>ステータス メッセージ (英名: Status Message) の収集タイミング</h3><p>イベント発生時に管理ポイントにステータス メッセージが報告されます。その後、管理ポイントの Outbox、サイト サーバーの Inbox で順次処理され、データベースに格納されます。</p><h3 id="状態メッセージ-英名-State-Message-の収集タイミング"><a href="#状態メッセージ-英名-State-Message-の収集タイミング" class="headerlink" title="状態メッセージ (英名: State Message) の収集タイミング"></a>状態メッセージ (英名: State Message) の収集タイミング</h3><p>クライアント設定で設定された周期 (既定では 15 分に 1 回) で管理ポイントに報告されます。ただし、マルウェア検出など、一部の優先度の高い状態メッセージについては即時報告され、高い優先度で処理されます。また、すでに報告済みの状態メッセージは基本的に再送されません。</p><p>なお、クライアントが持っている状態メッセージを過去の情報を含めて再送させたい場合、以下の PowerShell コマンドレットが有用です。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$targets</span> = <span class="built_in">gwmi</span> <span class="literal">-namespace</span> root\ccm\StateMsg <span class="literal">-classname</span> CCM_StateMsg</span><br><span class="line"><span class="variable">$targets</span> | <span class="built_in">Set-WmiInstance</span> <span class="literal">-argument</span> <span class="selector-tag">@</span>&#123;MessageSent=<span class="string">&#x27;false&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Invoke-CimMethod</span> <span class="literal">-Namespace</span> <span class="string">&#x27;root\CCM&#x27;</span> <span class="literal">-ClassName</span> SMS_Client <span class="literal">-MethodName</span> TriggerSchedule <span class="literal">-Arguments</span> <span class="selector-tag">@</span>&#123;sScheduleID=<span class="string">&#x27;&#123;00000000-0000-0000-0000-000000000111&#125;&#x27;</span>&#125;</span><br></pre></td></tr></table></figure><h2 id="運用監視メッセージの滞留事例"><a href="#運用監視メッセージの滞留事例" class="headerlink" title="運用監視メッセージの滞留事例"></a>運用監視メッセージの滞留事例</h2><p>多数のクライアントから情報収集を行うため、時折処理滞留が起きることがあります。各メッセージの傾向は以下のとおりです。</p><h3 id="ステータス-メッセージ-英名-Status-Message-の滞留"><a href="#ステータス-メッセージ-英名-Status-Message-の滞留" class="headerlink" title="ステータス メッセージ (英名: Status Message) の滞留"></a>ステータス メッセージ (英名: Status Message) の滞留</h3><p>イベント発生後、すぐにメッセージが転送される性格のため、多くのクライアントで同じような理由でイベントが発生する場合、多数のステータス メッセージがサーバー側に集中することになります。よく頂く、ステータス メッセージの処理滞留事例の原因として以下が挙げられます。</p><ul><li>パッケージのプログラム実行スケジュールを短期間の繰り返し実行としている<ul><li>以前の実行の成否にかかわらず、短期間で繰り返し実行を行うとそのたびにステータス メッセージが発行されます。大量の端末から短期間にステータス メッセージが届くと処理滞留が発生します。</li></ul></li></ul><h3 id="状態メッセージ-英名-State-Message-の滞留"><a href="#状態メッセージ-英名-State-Message-の滞留" class="headerlink" title="状態メッセージ (英名: State Message) の滞留"></a>状態メッセージ (英名: State Message) の滞留</h3><p>状態メッセージがサーバー側で滞留する事例は、収集間隔を短期間に設定しない限り少ないですが、複数の状態メッセージを送信する必要がある状況で、メッセージ サイズの上限を超えて送信できない場合があります。アプリケーションや更新プログラムを短期間に多数展開したり、複数の更新プログラム カタログが一度に検出されたりすることが原因として考えられます。</p>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260330_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260330_01/"/>
+    <published>2026-03-29T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
+    </summary>
+    <title>Configuration Manager における運用監視メッセージ</title>
+    <updated>2026-03-30T07:36:52.473Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -26,7 +43,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-03-18T06:19:45.166Z</updated>
+    <updated>2026-03-30T07:36:52.473Z</updated>
   </entry>
   <entry>
     <author>
@@ -45,7 +62,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-03-18T06:19:45.166Z</updated>
+    <updated>2026-03-30T07:36:52.473Z</updated>
   </entry>
   <entry>
     <author>
@@ -63,7 +80,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-03-18T06:19:45.163Z</updated>
+    <updated>2026-03-30T07:36:52.470Z</updated>
   </entry>
   <entry>
     <author>
@@ -80,14 +97,14 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-03-18T06:19:45.163Z</updated>
+    <updated>2026-03-30T07:36:52.469Z</updated>
   </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
-    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
     <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
     <content>
       <![CDATA[<p>みなさま、こんにちは。 Configuration Manager &#x2F; WSUS サポート チーム です。  </p><p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今まで同期していなかった製品の<br>累積更新プログラムについて、同期を開始したいときの製品ラベルの探し方についてご案内いたします。</p><h2 id="「製品」と「分類」-ラベルの探し方-その1"><a href="#「製品」と「分類」-ラベルの探し方-その1" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その1"></a>「製品」と「分類」 ラベルの探し方 その1</h2><ol><li><p>弊社は各累積更新プログラムの情報を公開しております。必要とする製品の履歴ページにアクセスします。(一覧にない製品の更新プログラムが欲しい場合はインターネット検索でお探しください)</p><ul><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-25h2-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-99c7f493-df2a-4832-bd2d-6706baa0dec0">Windows 11バージョン 25H2 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-24h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-0929c747-1815-4543-8461-0160d16f15e5">Windows 11、バージョン 24H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-23h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-59875222-b990-4bd9-932f-91a5954de434">Windows 11、バージョン 23H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2025-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%A5%E6%AD%B4-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7">Windows Server 2025の更新プログラムの履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2022-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee">Windows Server 2022 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2019-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-725fc2e1-4443-6831-a5ca-51ff5cbcb059">Windows 10 および Windows Server 2019 の更新履歴</a></li></ul></li><li><p>各ページの左ペインに過去の更新プログラムの履歴情報がが記載されておりますので、適当なものをクリックします。例えば、2026 年 1 月 13 日リリースの Windows Server 2025 向け累積品質更新プログラムをクリックします。</p></li><li><p>各更新プログラムの案内ページに「この更新プログラムの入手方法」の節があります。そちらのメニューより、「サーバー更新サービス」の項目をクリックすると、下記の通り、対象の更新プログラムの製品と分類が記載されています。  </p><p><img src="/blog/mecm/20260129_01/20260129_01_01.png" alt="ClassAndCategory"></p></li><li><p>WSUS や ConfigMgrで該当の[製品]と[分類]ラベルにチェックを入れれば、更新プログラムの同期が実施されます。</p><ul><li><p>WSUS の場合: [WSUSコンソール] - 左ペイン [オプション] - [製品と分類]<br> <img src="/blog/mecm/20260129_01/20260129_01_02.png" alt="WSUS-ClassAndCategory"></p></li><li><p>ConfigMgr の場合: [ConfigMgrコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント] - [製品] タブ<br> <img src="/blog/mecm/20260129_01/20260129_01_03.png" alt="ConfigMgr-ClassAndCategory"></p></li></ul></li></ol><h2 id="「製品」と「分類」-ラベルの探し方-その2"><a href="#「製品」と「分類」-ラベルの探し方-その2" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その2"></a>「製品」と「分類」 ラベルの探し方 その2</h2><p>具体的に適用したい更新プログラムの名前や KB 番号がわかっている場合、Microsoft Update カタログの検索で、「製品」ラベルを探すこともできます。</p><ul><li><a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a></li></ul><ol><li>Microsoft Update カタログにアクセスします。</li><li>更新プログラム名や KB 番号で検索します。例えば、以下は KB5073379 で検索した結果です。<br><img src="/blog/mecm/20260129_01/20260129_01_04.png" alt="MUClassAndCategory"></li><li>確認した「製品」と「分類」で 先にご案内した 通り WSUS コンソールやConfigMgr コンソールで同期を実施ください。</li></ol><h2 id="同期されない更新プログラム"><a href="#同期されない更新プログラム" class="headerlink" title="同期されない更新プログラム"></a>同期されない更新プログラム</h2><p>上記手順で製品や分類を設定しても同期できない更新プログラムは、インポートする必要がございます。下記ブログ記事をご参照いただければと存じます。</p><ul><li><a href="https://jpmem.github.io/blog/mecm/20250707_01/">通常では同期されない Windows OS 更新プログラムの同期方法</a></li></ul>]]>
     </content>
@@ -99,7 +116,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-03-18T06:19:45.161Z</updated>
+    <updated>2026-03-30T07:36:52.468Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,7 +133,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-03-18T06:19:45.161Z</updated>
+    <updated>2026-03-30T07:36:52.468Z</updated>
   </entry>
   <entry>
     <author>
@@ -133,7 +150,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-03-18T06:19:45.152Z</updated>
+    <updated>2026-03-30T07:36:52.459Z</updated>
   </entry>
   <entry>
     <author>
@@ -150,7 +167,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-03-18T06:19:45.152Z</updated>
+    <updated>2026-03-30T07:36:52.459Z</updated>
   </entry>
   <entry>
     <author>
@@ -169,7 +186,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-03-18T06:19:45.152Z</updated>
+    <updated>2026-03-30T07:36:52.459Z</updated>
   </entry>
   <entry>
     <author>
@@ -186,7 +203,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-03-18T06:19:45.147Z</updated>
+    <updated>2026-03-30T07:36:52.454Z</updated>
   </entry>
   <entry>
     <author>
@@ -203,7 +220,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介い]]>
     </summary>
     <title>通常では同期されない Windows OS 更新プログラムの同期方法</title>
-    <updated>2026-03-18T06:19:45.147Z</updated>
+    <updated>2026-03-30T07:36:52.453Z</updated>
   </entry>
   <entry>
     <author>
@@ -221,7 +238,7 @@
 <p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内し]]>
     </summary>
     <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限</title>
-    <updated>2026-03-18T06:19:45.147Z</updated>
+    <updated>2026-03-30T07:36:52.453Z</updated>
   </entry>
   <entry>
     <author>
@@ -239,7 +256,7 @@
 <p>本記事では、Configuration Manager (ConfigMgr) のサポート バージョンについてよくあるご質問と回答をご案内いたします。こちらに記載のないご質問に関し]]>
     </summary>
     <title>ConfigMgr サポート バージョン FAQ</title>
-    <updated>2026-03-18T06:19:45.145Z</updated>
+    <updated>2026-03-30T07:36:52.452Z</updated>
   </entry>
   <entry>
     <author>
@@ -258,7 +275,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</title>
-    <updated>2026-03-18T06:19:45.141Z</updated>
+    <updated>2026-03-30T07:36:52.448Z</updated>
   </entry>
   <entry>
     <author>
@@ -277,7 +294,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</title>
-    <updated>2026-03-18T06:19:45.142Z</updated>
+    <updated>2026-03-30T07:36:52.449Z</updated>
   </entry>
   <entry>
     <author>
@@ -296,7 +313,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</title>
-    <updated>2026-03-18T06:19:45.143Z</updated>
+    <updated>2026-03-30T07:36:52.450Z</updated>
   </entry>
   <entry>
     <author>
@@ -315,7 +332,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (4)</title>
-    <updated>2026-03-18T06:19:45.144Z</updated>
+    <updated>2026-03-30T07:36:52.451Z</updated>
   </entry>
   <entry>
     <author>
@@ -332,7 +349,7 @@
       <![CDATA[<p>みなさま、こんにちは。 Configuration Manager サポート チームです。<br>本日は、Configuration Manger (ConfigMgr) のアップグレードをオフラインで行う場合の注意点についてご案内させていただきます。<br>ConfigM]]>
     </summary>
     <title>Configuration Manager のアップグレードをオフラインで行う場合の注意点について</title>
-    <updated>2026-03-18T06:19:45.139Z</updated>
+    <updated>2026-03-30T07:36:52.446Z</updated>
   </entry>
   <entry>
     <author>
@@ -350,25 +367,6 @@
       <![CDATA[<p>みなさん、こんにちは。Configuration Manager チームです。<br>この投稿では、Configuration Manager を利用してオペレーティング システムを展開する時にお役立ていただける、タスクシーケンスのコンテンツを事前にダウンロードするオプショ]]>
     </summary>
     <title>タスクシーケンスのコンテンツを事前にダウンロードする</title>
-    <updated>2026-03-18T06:19:45.136Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="共同管理" scheme="https://jpmem.github.io/blog/tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/"/>
-    <content>
-      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。</p><h1 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h1><ul><li>共同管理構成ポリシー で ワークロード を Configuration Manager 側に寄せているにもかかわらず、 全ての ワークロード が Intune 側に寄っている状態の挙動を示します。</li></ul><h1 id="事象発生条件"><a href="#事象発生条件" class="headerlink" title="事象発生条件"></a>事象発生条件</h1><ul><li><p>AutoPilot を使って キッティングする</p></li><li><p>Windows 11 端末</p></li><li><p>[Intune 管理センター] - [デバイス] - [デバイスのオンボーディング] - [登録] - [Windows] - [登録オプション] - [共同管理の設定] にてプロファイルが作成されていない<br> <img src="/blog/mecm/20241010_01/20241010_01_01.png" alt="image.png"></p><p>もしくは、上記画面で設定されているプロファイルにて「共同管理ポリシーをオーバーライドし、すべてのワークロードに対して Intune　を使用します] が「はい」の状態でプロファイルが端末に適用されている。<br><img src="/blog/mecm/20241010_01/20241010_01_02.png" alt="image.png"></p></li></ul><h1 id="事象発生の確認方法"><a href="#事象発生の確認方法" class="headerlink" title="事象発生の確認方法"></a>事象発生の確認方法</h1><ul><li>[ファイル名を指定して実行] - [C:\Windows\CCM\SMSCFGRC.cpl] を開き、全般タブを開いた際に「共同管理機能」の値が以下のように 「2147479807」 を示します。</li><li>C:\Windows\CCM\CoManagementHandler.log に以下のように出力されます。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Workloads are explicitly set by Intune Co-Management Profile so not using ConfigMgr set workloads. Current value from set from Intune is 2147479807</span><br></pre></td></tr></table></figure></li><li>管理機関を示すレジストリ値が 以下にて Intune に設定されています。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[HKLM\SOFTWARE\Microsoft\DeviceManageabilityCSP\Provider\MS DM Server]</span><br><span class="line">Key: ConfigInfo</span><br><span class="line">Value: 1</span><br></pre></td></tr></table></figure>Value が 1 のとき Intune, Value が 2 のとき Configuration Manager を示します。</li></ul><h1 id="事象の解消方法"><a href="#事象の解消方法" class="headerlink" title="事象の解消方法"></a>事象の解消方法</h1><ul><li><p>事象が既に発生してしまっている端末については、以下のレジストリの値を変更し、CCMExec サービスを再起動することで事象が解消され、ワークロードの設定が Configuration Manager で設定したものに設定されます。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[HKLM\SOFTWARE\Microsoft\DeviceManageabilityCSP\Provider\MS DM Server]</span><br><span class="line">Key: ConfigInfo</span><br><span class="line">Value: 2</span><br></pre></td></tr></table></figure><ul><li>[ファイル名を指定して実行] - [C:\Windows\CCM\SMSCFGRC.cpl] を開き、全般タブを開いた際に「共同管理機能」の値が 「2147479807」 以外の値を示すようになります。</li></ul></li><li><p>これからキッティングする端末にて事象が発生しないようにするためには、プロファイルにて「共同管理ポリシーをオーバーライドし、すべてのワークロードに対して Intune　を使用します] を「いいえ」にして端末に割り当ててください。</p></li></ul><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/comanage/autopilot-enrollment#limitations">Autopilot に登録する方法 - 制限事項</a></p>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20241010_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20241010_01/"/>
-    <published>2024-10-09T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>本日は、AutoPilot を使って キッティング した Win 11 端末に対して共同管理ポリシーが正しく適用できない場合の対処策についてご案内致します。</p>
-<h1 id]]>
-    </summary>
-    <title>AutoPilot を使って キッティングした Windows 11 端末に対して共同管理ポリシーが適用されない問題</title>
-    <updated>2026-03-18T06:19:45.135Z</updated>
+    <updated>2026-03-30T07:36:52.443Z</updated>
   </entry>
 </feed>
