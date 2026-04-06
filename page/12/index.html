@@ -85,9 +85,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-mecm/20211122_01" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mecm/20211122_02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../mecm/20211122_01/" class="article-date">
+    <a href="../../mecm/20211122_02/" class="article-date">
   <time datetime="2021-11-21T15:00:00.000Z" itemprop="datePublished">2021-11-22</time>
 </a>
     <!--  -->
@@ -99,14 +99,14 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20211122_01/">MECM クライアント 手動インストール手順</a>
+      <a class="article-title" href="../../mecm/20211122_02/">Configuration Manager クライアント インストールがうまく行かない時の確認箇所</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Last Update:
-        <a href="../../mecm/20211122_01/" class="article-date-single">    
+        <a href="../../mecm/20211122_02/" class="article-date-single">    
     
     <time datetime="2021-11-21T15:00:00.000Z" itemprop="dateUpdated">2021-11-22</time>
     
@@ -116,30 +116,27 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         みなさま、こんにちは。Configuration Manager サポート チームです。
-本日は、Configuration Manager を手動でインストールする基本的な手順について解説致します。
-ご利用頂いているインストール手法が失敗する際などに、本手順によるインストールも失敗するのかを切り分ける方法として、ご活用下さい。
-
-SCCM サイト サーバーから以下の “client” フォルダを丸ごとコピーし、クライアント端末のローカルの任意の場所に貼り付けます。
-
-1C:\Program Files\Microsoft Configuration Manager\Client
+今回は Configuration Manager のクライアント インストール・登録がうまく行かない際にご確認頂きたいポイントについて、解説させて頂きます。
 
 
-クライアント端末にてコマンド プロンプトを管理者権限で開きます。
 
-以下のようなコマンドを実行し、クライアントをインストールします。
+ccmsetup（クライアント インストール）を実行します。
+インストールが成功すると、管理ポイントと通信し、クライアント登録を試行します。
+登録が完了すると、各種ポリシーをダウンロードします。これが成功すると、コントロール パネル &gt; Configuration Manager の [操作] タブの各項目が表示されます。
 
+クライアント登録がうまく行かない場合には、上記フロー中のどこかで失敗していることになりますので、以下の確認ポイントに沿って切り分けを行うことが有効です。
 
-1&lt;Client フォルダをコピーしたパス&gt;\client...
+クライアント登録がうまく行かない時の確認ポイント1. ...
         <p class="article-more-link">
-          <a href="../../mecm/20211122_01/#more">Read More</a>
+          <a href="../../mecm/20211122_02/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211122_01/" data-id="cuidLWMzObX31k8_m1woKaCma" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211122_02/" data-id="cuidmscsnksrNnaN77a1J8GIM" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li></ul>
 
     </footer>
   </div>
@@ -193,7 +190,7 @@ SCCM サイト サーバーから以下の “client” フォルダを丸ごと
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211118_01/" data-id="cuidlzynChaoo4m7veT4pKvte" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211118_01/" data-id="cuids0rT5BCBKFYyQi9zfT8-o" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -246,7 +243,7 @@ https://docs.microsoft.com/en-US/azure/active-directory/develop/reference-breaki
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="cuidb9ZQrTUBC-Fwg70ywlLpI" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211108_01/" data-id="cuidXKI4MNaDHRF3XV3gpie_5" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -297,7 +294,7 @@ Microsoft は、サポートされているWindows プラットフォームご�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211028_01/" data-id="cuid7_QnkshJxPLZ2gVdhVZuB" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211028_01/" data-id="cuidaAIIkFYcu_rakx0nR6-y8" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -349,7 +346,7 @@ Configuration Manager コンソールから PowerShell スクリプトを作成�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="cuidqLPQkTvKdQ4wTmfLh7ImN" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211025_01/" data-id="cuidxI3tti1KdcULKiW7YMjSE" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -405,7 +402,7 @@ Configuration Manager コンソールから PowerShell スクリプトを作成�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="cuidb5fWwm3VC1qs79tkvXIwr" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2021-10-19_01/" data-id="cuidJYrQjKV-esaI0-5L6PBj7" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -458,7 +455,7 @@ Windows 11 クライアント の サポート は MECM CB 2107 からの対...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="cuidG-7S69ZXQbDLHV2Pih-Ao" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20211005_01/" data-id="cuidFGBOh5Cfqc0hgJIzW_X4D" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -512,7 +509,7 @@ Windows 11 クライアント の サポート は MECM CB 2107 からの対...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cuidZv-sqEWzrZC2CfEQEHX_8" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20210922_01/" data-id="cuid9tra2GUS4KJafBJzVOpQ_" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -573,7 +570,7 @@ E...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210802_01/" data-id="cuidKar7NZcWAEYNLeW4KlNxE" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20210802_01/" data-id="cuid8DdqROSvaRtLV3-0t4rom" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -625,7 +622,7 @@ ConfigMgr の バージョン 2103 以降については ConfigMgr のアップ�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20210414_01/" data-id="cuidvWtF9qPFeK7n9cw5AfaUx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20210414_01/" data-id="cuidn4g829xHxokjbfFFaNBpI" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
