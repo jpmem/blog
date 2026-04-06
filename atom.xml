@@ -10,7 +10,25 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-03-30T07:36:52.473Z</updated>
+  <updated>2026-04-06T03:22:23.313Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <content>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager (ConfigMgr) においての姿勢についてご案内いたします。更新プログラムの適用失敗において調査した場合、非常に多くのケースで原因となっておりますので、本内容についてご理解を深めていただければと存じます。</p><h2 id="そもそも-スキャンとは"><a href="#そもそも-スキャンとは" class="headerlink" title="そもそも スキャンとは"></a>そもそも スキャンとは</h2><p>Windows Update &#x2F; Microsoft Update (WUMU) や WSUS、ソフトウェア更新ポイントから、それぞれが公開している更新プログラムのメタデータをクライアントがダウンロードし、その更新プログラムのインストールが必要かどうかを検出する処理のことです。更新プログラムは、Windows Update Agent (WUA) を介して、スキャン、ダウンロード、インストール、および機能更新プログラム等ではコミットまでを実施することで適用が完了する流れとなります。必ず、ダウンロードの前にスキャン処理が発生します。</p><h2 id="デュアル-スキャンが発生するようになった経緯とその影響"><a href="#デュアル-スキャンが発生するようになった経緯とその影響" class="headerlink" title="デュアル スキャンが発生するようになった経緯とその影響"></a>デュアル スキャンが発生するようになった経緯とその影響</h2><p>旧 Windows Update for Business(WUfB) 関連のポリシーが導入された際に発生するようになったものです。  WUfB は更新の取得元は クラウド上の WUMU のまま、適用タイミングのみをグループ ポリシーやレジストリの設定で遅延制御する仕組みです。現在では、WUfB は Windows Update クライアント ポリシーと改称されています (以降は WU クライアント ポリシー と記載します。)</p><p>さて、WUMU ではマイクロソフト製品の更新プログラムを配布していますが、WSUS でしか配布できない更新プログラムが残っています。このような背景から、マイクロソフトでは、Windows Update を主たる更新ソースとしつつ、WSUS でしか提供できない更新プログラムが存在する環境との互換性を保つために、デュアル スキャンの挙動を導入しました。</p><p>すなわち、WUA は、WU クライアント ポリシーと WSUS (SUP) の双方が設定されている時、以下の動きをします。</p><ul><li>スキャン自体は、WUMU および WSUS (SUP) の両方の更新プログラム メタデータをダウンロードして行います。</li><li>スキャン結果の取り扱いは、以下のようにします。<ul><li>Windows 製品については、WUMU のスキャン結果を採用します。WSUS のスキャン結果は捨てられます。</li><li>それ以外の製品については、基本的には WSUS (SUP) のスキャン結果を採用します。</li></ul></li></ul><p>しかしながらこの変更により、ConfigMgr や WSUS で一般的に管理されている、 WUMU にアクセスできない端末は、Windows 製品の更新プログラムが検出されなくなってしまいます。更新プログラムのダウンロード、インストール失敗に関するお問い合わせを受けた際、多くの原因は、このデュアル スキャンによるものがほとんどです。</p><p>これらの経緯については、過去の WSUS 製品チームのブログでも案内されています。</p><p>Demystifying “Dual Scan”<br><a href="https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan">https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan</a></p><h2 id="デュアル-スキャンを引き起こす設定-回避方法"><a href="#デュアル-スキャンを引き起こす設定-回避方法" class="headerlink" title="デュアル スキャンを引き起こす設定 &#x2F; 回避方法"></a>デュアル スキャンを引き起こす設定 &#x2F; 回避方法</h2><p>デュアル スキャンを回避する設定、および回避方法については弊社 Windows サポート チームの下記ブログをご参照ください。</p><p>WSUS から更新プログラムが配信されないときのチェックポイント (クライアント側)<br><a href="https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/">https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/</a></p><h2 id="ConfigMgr-における-デュアル-スキャンの取り扱いについて"><a href="#ConfigMgr-における-デュアル-スキャンの取り扱いについて" class="headerlink" title="ConfigMgr における デュアル スキャンの取り扱いについて"></a>ConfigMgr における デュアル スキャンの取り扱いについて</h2><h3 id="現在の方針"><a href="#現在の方針" class="headerlink" title="現在の方針"></a>現在の方針</h3><p><strong>2026 年 4 月現在サポートしている ConfigMgr Current Branch では、デュアル スキャンを回避するためのローカル グループ ポリシーやレジストリの変更を実施しておりません。</strong><br>もし、WU クライアント ポリシーを設定されたい場合は、それを防ぐための設定を、お客様側で追加していただくようお願いいたします。</p><h3 id="過去からの変遷"><a href="#過去からの変遷" class="headerlink" title="過去からの変遷"></a>過去からの変遷</h3><p>ConfigMgr CB 2403 までの一部バージョンでは、ソフトウェア更新管理の動作を安定させる目的で、ConfigMgr が以下のポリシーを構成する場合がありました：</p><ul><li>更新遅延の不許可ポリシー (DisableDualScan)</li><li>スキャン ソース ポリシー</li></ul><p>しかしながら、以下でご案内している通り、スキャン ソース ポリシーが設定されていると、オンデマンド機能(.NET 3.5 Framework), リモートサーバー管理ツール(RSAT), 言語パックなどをインターネットからダウンロードできなくなる、といった副作用がスキャン ソース ポリシーにあったことを契機に、ConfigMgr CB 2403 + KB28458746, ConfigMgr CB 2409 以降において、更新遅延の不許可ポリシー (DisableDualScan) やスキャン ソース ポリシーの設定については、お客様の方で対処していただく方針に変更されております。もし、お客様にて WU クライアント ポリシーを利用する必要がある場合は、別途スキャン ソース ポリシーや DisableDualScan 設定を実施くださいますようお願いいたします。</p><p>Microsoft Configuration Manager バージョン 2403 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746</a></p><p>また、共同管理デバイスで Windows Update のワークロードを Intune 側に寄せているにも関わらず、サード パーティ更新プログラムを有効にしている環境下で意図せず、スキャン ソース ポリシーが設定され、 逆に WU クライアント ポリシーが有効にならず、WSUS &#x2F; ConfigMgr からの更新プログラムのスキャンを優先する場合がありました。こちらも、以下の KB36495448 によりスキャン ソース ポリシーを設定しないように修正されています。</p><p>Microsoft Configuration Manager バージョン 2503 および 2509 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448</a></p>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260403_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260403_01/"/>
+    <published>2026-04-02T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
+    </summary>
+    <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
+    <updated>2026-04-06T03:22:23.313Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -26,7 +44,25 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-03-30T07:36:52.473Z</updated>
+    <updated>2026-04-06T03:22:23.313Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <content>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 3 月現在の対処方法、および、現在の Configuration Manager (ConfigMgr) においての姿勢についてご案内いたします。更新プログラムの適用失敗において調査した場合、非常に多くのケースで原因となっておりますので、本内容についてご理解を深めていただければと存じます。</p><h2 id="そもそも-スキャンとは"><a href="#そもそも-スキャンとは" class="headerlink" title="そもそも スキャンとは"></a>そもそも スキャンとは</h2><p>Windows Update &#x2F; Microsoft Update (WUMU) や WSUS、ソフトウェア更新ポイントから、それぞれが公開している更新プログラムのメタデータをクライアントがダウンロードし、その更新プログラムのインストールが必要かどうかを検出する処理のことです。更新プログラムは、Windows Update Agent (WUA) を介して、スキャン、ダウンロード、インストール、および機能更新プログラム等ではコミットまでを実施することで適用が完了する流れとなります。必ず、ダウンロードの前にスキャン処理が発生します。</p><h2 id="デュアル-スキャンが発生するようになった経緯とその影響"><a href="#デュアル-スキャンが発生するようになった経緯とその影響" class="headerlink" title="デュアル スキャンが発生するようになった経緯とその影響"></a>デュアル スキャンが発生するようになった経緯とその影響</h2><p>旧 Windows Update for Business(WUfB) 関連のポリシーが導入された際に発生するようになったものです。  WUfB は更新の取得元は クラウド上の WUMU のまま、適用タイミングのみをグループ ポリシーやレジストリの設定で遅延制御する仕組みです。現在では、WUfB は Windows Update クライアント ポリシーと改称されています (以降は WU クライアント ポリシー と記載します。)</p><p>さて、WUMU ではマイクロソフト製品の更新プログラムを配布していますが、WSUS でしか配布できない更新プログラムが残っています。このような背景から、マイクロソフトでは、Windows Update を主たる更新ソースとしつつ、WSUS でしか提供できない更新プログラムが存在する環境との互換性を保つために、デュアル スキャンの挙動を導入しました。</p><p>すなわち、WUA は、WU クライアント ポリシーと WSUS (SUP) の双方が設定されている時、以下の動きをします。</p><ul><li>スキャン自体は、WUMU および WSUS (SUP) の両方の更新プログラム メタデータをダウンロードして行います。</li><li>スキャン結果の取り扱いは、以下のようにします。<ul><li>Windows 製品については、WUMU のスキャン結果を採用します。WSUS のスキャン結果は捨てられます。</li><li>それ以外の製品については、基本的には WSUS (SUP) のスキャン結果を採用します。</li></ul></li></ul><p>しかしながらこの変更により、ConfigMgr や WSUS で一般的に管理されている、 WUMU にアクセスできない端末は、Windows 製品の更新プログラムが検出されなくなってしまいます。更新プログラムのダウンロード、インストール失敗に関するお問い合わせを受けた際、多くの原因は、このデュアル スキャンによるものがほとんどです。</p><p>これらの経緯については、過去の WSUS 製品チームのブログでも案内されています。</p><p>Demystifying “Dual Scan”<br><a href="https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan">https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan</a></p><h2 id="デュアル-スキャンを引き起こす設定"><a href="#デュアル-スキャンを引き起こす設定" class="headerlink" title="デュアル スキャンを引き起こす設定"></a>デュアル スキャンを引き起こす設定</h2><p>そもそも、デュアル スキャンを引き起こす WU クライアント ポリシー関連のグループ ポリシー &#x2F; ローカル グループ ポリシー &#x2F; レジストリは以下の通りです。</p><h3 id="グループ-ポリシー-ローカル-グループ-ポリシー"><a href="#グループ-ポリシー-ローカル-グループ-ポリシー" class="headerlink" title="グループ ポリシー &#x2F; ローカル グループ ポリシー"></a>グループ ポリシー &#x2F; ローカル グループ ポリシー</h3><ul><li>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Update から提供される更新プログラムの管理]      <ul><li>[ターゲット機能更新プログラムのバージョンを選択する]</li><li>[プレビュー ビルドや機能更新プログラムをいつ受信するかを選択してください]</li><li>[品質更新プログラムをいつ受信するかを選択してください]</li></ul></li></ul><p>の中の 1 つ以上が有効化されているとき。</p><p>※ たとえ日数が 0 日設定でも、有効にしている時点でデュアル スキャンが有効になります。</p><h3 id="レジストリ"><a href="#レジストリ" class="headerlink" title="レジストリ"></a>レジストリ</h3><ul><li>[HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]<ul><li>TargetReleaseVersionInfo</li><li>DeferFeatureUpdates</li><li>DeferFeatureUpdatesPeriodInDays</li><li>PauseFeatureUpdates</li><li>PauseFeatureUpdatesStartTime</li><li>BranchReadinessLevel</li><li>DeferQualityUpdates</li><li>DeferQualityUpdatesPeriodInDays</li><li>PauseQualityUpdates</li><li>PauseQualityUpdatesStartTime</li></ul></li></ul><h2 id="デュアル-スキャンを回避する設定"><a href="#デュアル-スキャンを回避する設定" class="headerlink" title="デュアル スキャンを回避する設定"></a>デュアル スキャンを回避する設定</h2><h3 id="Windows-10-Windows-Server-2016-2019"><a href="#Windows-10-Windows-Server-2016-2019" class="headerlink" title="Windows 10 &#x2F; Windows Server 2016 &#x2F; 2019"></a>Windows 10 &#x2F; Windows Server 2016 &#x2F; 2019</h3><p>上記デュアル スキャンによる影響を回避するため、以下のグループ ポリシー &#x2F; ローカル グループ ポリシー &#x2F; レジストリが Windows 10 1607 以降で導入されました。これらの設定により、通常の「更新プログラムのチェック」をクリック時には、 WSUS のスキャン結果が利用されるようになっていました。<br>一方、Windows の設定にて、「Microsoft Update からオンラインで更新プログラムを確認する」場合には、 WU クライアント ポリシーで設定した通り、更新プログラムの検出などが遅延するようになっていました。</p><p>なお、本設定は、主に、Windows 10 時代のものです。2026 年 3 月現在でサポートされている OS の観点では、Windows 10 とカーネルが共通である、Windows Server 2016 &#x2F; 2019 のみが利用できます。</p><h4 id="グループ-ポリシー-ローカル-グループ-ポリシー-1"><a href="#グループ-ポリシー-ローカル-グループ-ポリシー-1" class="headerlink" title="グループ ポリシー &#x2F; ローカル グループ ポリシー"></a>グループ ポリシー &#x2F; ローカル グループ ポリシー</h4><ul><li>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [従来のポリシー]<ul><li>Windows Update に対するスキャンを発生させる更新遅延ポリシーを許可しない</li></ul></li></ul><h4 id="レジストリ-1"><a href="#レジストリ-1" class="headerlink" title="レジストリ"></a>レジストリ</h4><ul><li>[HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]<ul><li>DisableDualScan</li></ul></li></ul><h3 id="Windows-11-Windows-Server-2022-以降"><a href="#Windows-11-Windows-Server-2022-以降" class="headerlink" title="Windows 11 &#x2F; Windows Server 2022 以降"></a>Windows 11 &#x2F; Windows Server 2022 以降</h3><p>2026 年 3 月現在、デュアル スキャンに関する考え方は変更され、対象の更新プログラムの種類ごとに、更新プログラムのソースを WUMU にするのか　WSUS にするのか指定する、スキャン ソース ポリシーが導入されています。そのため、以下のグループ ポリシー &#x2F; ローカル グループ ポリシー &#x2F; レジストリ が追加になりました。</p><h4 id="グループ-ポリシー-ローカル-グループ-ポリシー-2"><a href="#グループ-ポリシー-ローカル-グループ-ポリシー-2" class="headerlink" title="グループ ポリシー &#x2F; ローカル グループ ポリシー"></a>グループ ポリシー &#x2F; ローカル グループ ポリシー</h4><ul><li>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理]<ul><li>Windows Update の特定のクラスにソース サービスを指定する</li></ul></li></ul><h4 id="レジストリ-2"><a href="#レジストリ-2" class="headerlink" title="レジストリ"></a>レジストリ</h4><ul><li><p>[HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]</p><ul><li>SetPolicyDrivenUpdateSourceForFeatureUpdates</li><li>SetPolicyDrivenUpdateSourceForQualityUpdates</li><li>SetPolicyDrivenUpdateSourceForDriverUpdates</li><li>SetPolicyDrivenUpdateSourceForOtherUpdates</li></ul></li><li><p>[HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]</p><ul><li>UseUpdateClassPolicySource</li></ul></li></ul><h2 id="ConfigMgr-における-デュアル-スキャンの取り扱いについて"><a href="#ConfigMgr-における-デュアル-スキャンの取り扱いについて" class="headerlink" title="ConfigMgr における デュアル スキャンの取り扱いについて"></a>ConfigMgr における デュアル スキャンの取り扱いについて</h2><p><strong>2026年3月現在サポートしている ConfigMgr Current Branch では、デュアル スキャンを回避するためのローカル グループ ポリシーやレジストリの変更を実施しておりません。</strong><br>もし、WU クライアント ポリシーを設定されたい場合は、それを防ぐための設定を、お客様側で追加設定くださいますようお願いいたします。</p><h3 id="過去経緯"><a href="#過去経緯" class="headerlink" title="過去経緯"></a>過去経緯</h3><p>ConfigMgr CB 2403 までの一部バージョンでは ソフトウェア更新管理の動作を安定させる目的で、DisableDualScan やスキャン ソース ポリシーが ConfigMgr により構成される場合がありました。しかしながら、以下でご案内している通り、スキャン ソース ポリシーが設定されていると、オンデマンド機能(.NET 3.5 Framework), リモートサーバー管理ツール(RSAT), 言語パックなどをインターネットからダウンロードできなくなる、といった副作用がスキャン ソース ポリシーにあったことを契機に、ConfigMgr CB 2403 + KB28458746, ConfigMgr CB 2409 以降において、DisableDualScan やスキャン ソース ポリシーの設定については、お客様の方で対処していただく方針に変更されております。もし、お客様にて WU クライアント ポリシーを利用する必要がある場合は、別途スキャン ソース ポリシーや DisableDualScan 設定を実施くださいますようお願いいたします。</p><p>Microsoft Configuration Manager バージョン 2403 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746</a></p>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260323_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260323_01/"/>
+    <published>2026-03-22T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 3 月現在の対処方法、および、現在の Configuration Manager]]>
+    </summary>
+    <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
+    <updated>2026-04-06T03:22:23.313Z</updated>
   </entry>
   <entry>
     <author>
@@ -43,7 +79,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-03-30T07:36:52.473Z</updated>
+    <updated>2026-04-06T03:22:23.313Z</updated>
   </entry>
   <entry>
     <author>
@@ -62,7 +98,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-03-30T07:36:52.473Z</updated>
+    <updated>2026-04-06T03:22:23.313Z</updated>
   </entry>
   <entry>
     <author>
@@ -80,7 +116,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-03-30T07:36:52.470Z</updated>
+    <updated>2026-04-06T03:22:23.310Z</updated>
   </entry>
   <entry>
     <author>
@@ -97,7 +133,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-03-30T07:36:52.469Z</updated>
+    <updated>2026-04-06T03:22:23.310Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,7 +152,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-03-30T07:36:52.468Z</updated>
+    <updated>2026-04-06T03:22:23.308Z</updated>
   </entry>
   <entry>
     <author>
@@ -133,7 +169,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-03-30T07:36:52.468Z</updated>
+    <updated>2026-04-06T03:22:23.308Z</updated>
   </entry>
   <entry>
     <author>
@@ -150,7 +186,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-03-30T07:36:52.459Z</updated>
+    <updated>2026-04-06T03:22:23.300Z</updated>
   </entry>
   <entry>
     <author>
@@ -167,7 +203,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-03-30T07:36:52.459Z</updated>
+    <updated>2026-04-06T03:22:23.299Z</updated>
   </entry>
   <entry>
     <author>
@@ -186,7 +222,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-03-30T07:36:52.459Z</updated>
+    <updated>2026-04-06T03:22:23.299Z</updated>
   </entry>
   <entry>
     <author>
@@ -203,7 +239,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-03-30T07:36:52.454Z</updated>
+    <updated>2026-04-06T03:22:23.295Z</updated>
   </entry>
   <entry>
     <author>
@@ -220,7 +256,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介い]]>
     </summary>
     <title>通常では同期されない Windows OS 更新プログラムの同期方法</title>
-    <updated>2026-03-30T07:36:52.453Z</updated>
+    <updated>2026-04-06T03:22:23.294Z</updated>
   </entry>
   <entry>
     <author>
@@ -238,7 +274,7 @@
 <p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内し]]>
     </summary>
     <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限</title>
-    <updated>2026-03-30T07:36:52.453Z</updated>
+    <updated>2026-04-06T03:22:23.294Z</updated>
   </entry>
   <entry>
     <author>
@@ -256,7 +292,7 @@
 <p>本記事では、Configuration Manager (ConfigMgr) のサポート バージョンについてよくあるご質問と回答をご案内いたします。こちらに記載のないご質問に関し]]>
     </summary>
     <title>ConfigMgr サポート バージョン FAQ</title>
-    <updated>2026-03-30T07:36:52.452Z</updated>
+    <updated>2026-04-06T03:22:23.293Z</updated>
   </entry>
   <entry>
     <author>
@@ -275,7 +311,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</title>
-    <updated>2026-03-30T07:36:52.448Z</updated>
+    <updated>2026-04-06T03:22:23.289Z</updated>
   </entry>
   <entry>
     <author>
@@ -294,7 +330,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</title>
-    <updated>2026-03-30T07:36:52.449Z</updated>
+    <updated>2026-04-06T03:22:23.290Z</updated>
   </entry>
   <entry>
     <author>
@@ -313,7 +349,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</title>
-    <updated>2026-03-30T07:36:52.450Z</updated>
+    <updated>2026-04-06T03:22:23.290Z</updated>
   </entry>
   <entry>
     <author>
@@ -332,41 +368,6 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (4)</title>
-    <updated>2026-03-30T07:36:52.451Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>みなさま、こんにちは。 Configuration Manager サポート チームです。<br>本日は、Configuration Manger (ConfigMgr) のアップグレードをオフラインで行う場合の注意点についてご案内させていただきます。<br>ConfigMgr のアップグレードでは、サービス接続ポイントというサイトサービスの役割を使用しますが、この役割にはオンラインとオフラインの 2 つのモードが存在します。  </p><ul><li>オンライン モード: サービス接続ポイントは自動的に Microsoft クラウド サービスに接続し、該当する更新プログラムをダウンロードします。  </li><li>オフライン モード: サービス接続ポイントは Microsoft クラウド サービスに接続しません。 利用可能な更新プログラムをダウンロードしてインポートするには、 サービス接続ツールを使用します。</li></ul><p>サービス接続ポイントがオフライン モードの場合は、インターネットに接続したコンピューターでサービス接続ツール “ServiceConnectionTool.exe” を実行し、ConfigMgr の更新プログラムをダウンロードします。<br>その後、取得した更新プログラムを サイトサーバーにインポートし、アップグレードを行う流れになります。<br>サービス接続ツールの詳しい使い方につきましては、公開情報よりご確認いただきたく割愛させていただきますが、更新プログラムをダウンロードする場合、以下のようなコマンドをコマンド プロンプトから実行します。  </p><p>参考<br><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/use-the-service-connection-tool">Configuration Manager のサービス接続ツールを使用する</a>  </p><p>更新プログラムをダウンロードする場合のコマンド例  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServiceConnectionTool.exe -connect -downloadsiteversion -usagedatasrv C:\temp\cab -updatepackdest C:\temp\UpdatePacks  </span><br></pre></td></tr></table></figure><p>ダウンロードは主に 2 ステップに分かれており、ServiceConnectionTool.exe と ServiceConnectionTool.exe から呼び出された setupdl.exe によって行われます。<br>すべてのダウンロードが完了すると、以下のように呼び出し元に戻ってくる流れとなっており、通信断など予期せぬトラブルが発生した場合、コマンド プロンプト上でエラーが表示されますが、ファイルのダウンロード結果についてはコマンド プロンプト上で表示されません。  </p><p><img src="/blog/mecm/20250207_01/20250207.png" alt="20250207.png">  </p><p>このため、何も表示せずに呼び出し元に戻る状態の確認のみでは、ダウンロードがすべて成功したことを判断できず、ダウンロードが成功したかどうかはログを確認する必要があります。<br>一部ファイルのダウンロードが失敗した状態でサイトサーバーにインポートするとアップグレードに失敗する要因となるため、そのような事態を回避するためにも、ダウンロード完了後は、サービス接続ツールのログ ファイルからダウンロード結果をご確認いただくことをお勧めいたします。  </p><p>確認方法<br>サービス接続ツールによる更新プログラムダウンロードのログは以下 2 つのファイルに記録されます。  </p><ul><li>ServiceConnectionTool.log<br>　サービス接続ツールと同じ場所に作成されます。<br>　マニフェストや更新プログラムの実体のダウンロードに関するログが記録されます。  </li><li>ConfigMgrSetup.log<br>　システム ドライブ直下に存在します。<br>　言語パックや SQL のインストールモジュールのダウンロードに関するログが記録されます。</li></ul><p>上記それぞれのファイルを開き、ファイルのダウンロードに失敗していないか確認をします。  </p><ul><li><p>ServiceConnectionTool.log について<br>「ERROR:Failed to download redist for」という文字列が含まれていないことを確認します。  </p></li><li><p>成功の出力例</p></li></ul><pre><code>2024-11-19 11:53:40 INFO:downloading redist  2024-11-19 12:20:42 INFO:Successfully download redist for 5B8886C7-F967-4F8A-92AA-009E28368853  </code></pre><ul><li>エラーの出力例</li></ul><pre><code>2024-11-19 11:06:30 INFO:downloading redist  2024-11-19 11:10:18 ERROR:Failed to download redist for 5B8886C7-F967-4F8A-92AA-009E28368853  </code></pre><ul><li><p>ConfigMgrSetup.logについて<br>「ERROR: Download() failed」という文字列が含まれていないことを確認します。<br>また、ダウンロードしたファイル群から Redist フォルダを開き、0KB のファイルが存在しないことを確認します。  </p></li><li><p>エラーの出力例</p></li></ul><pre><code>ERROR: Download() failed with 0x80072EE2  </code></pre><p>上記ログにダウンロード失敗のログが記録されている、または Redist フォルダ配下に 0KB のファイルが存在する場合は、ダウンロードに失敗していますので、ダウンロードしたファイル群は使用せず、再ダウンロードをお試しください。<br>なお、アップグレードに伴いご確認いただきたいことや注意事項は、公開情報にてチェックリストとしてご案内しておりますのでこちらも併せて参考にしてください。<br>特に、予期せぬトラブルに備え、アップグレード前のバックアップいただくことをお勧めいたします。  </p><p>参考<br><a href="https://learn.microsoft.com/ja-jp/mem/configmgr/core/servers/manage/checklist-for-installing-update-2409">更新プログラム 2409 をインストールするためのチェックリスト</a></p>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20250207_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20250207_01/"/>
-    <published>2025-02-06T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさま、こんにちは。 Configuration Manager サポート チームです。<br>本日は、Configuration Manger (ConfigMgr) のアップグレードをオフラインで行う場合の注意点についてご案内させていただきます。<br>ConfigM]]>
-    </summary>
-    <title>Configuration Manager のアップグレードをオフラインで行う場合の注意点について</title>
-    <updated>2026-03-30T07:36:52.446Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="OS 展開" scheme="https://jpmem.github.io/blog/tags/OS-%E5%B1%95%E9%96%8B/"/>
-    <content>
-      <![CDATA[<p>みなさん、こんにちは。Configuration Manager チームです。<br>この投稿では、Configuration Manager を利用してオペレーティング システムを展開する時にお役立ていただける、タスクシーケンスのコンテンツを事前にダウンロードするオプションをご紹介します。</p><p>オペレーティング システムの展開に利用されるコンテンツのファイル サイズは比較的大きい傾向があります。タスクシーケンスの展開の種類を “利用可能” として展開をすると、ユーザーがソフトウェア センターから [インストール] ボタンをクリックすることでコンテンツのダウンロードが開始されますが、ファイル サイズが大きい場合はダウンロードおよびインストール完了までに時間を要し、ユーザーが待機する時間が長くかかってしまうと思うことはありませんか？</p><p>今回ご紹介する “事前ダウンロード” のオプションを利用すると、指定した言語とアーキテクチャに一致するコンテンツが事前にクライアントのキャッシュ フォルダーにダウンロードされます。ユーザーがソフトウェア センターから [インストール] ボタンをクリックすると、既にキャッシュされたコンテンツを使用してインストール処理から開始することができるため、ユーザーが処理を待機する時間が短くなるメリットがあります。ぜひご検討の上、活用ください。</p><h1 id="利用要件"><a href="#利用要件" class="headerlink" title="利用要件"></a>利用要件</h1><p>コンテンツの事前ダウンロードは、タスクシーケンスを利用して以下のコンテンツを配信する時に利用ができます。</p><ul><li>OS アップグレード パッケージ (*1)</li><li>OS イメージ</li><li>ドライバー パッケージ</li><li>パッケージ</li></ul><p>*1 OS アップグレード パッケージにソフトウェア更新プログラムによる機能更新プログラムを選択しているときは、事前ダウンロードが有効になりません。ISO メディアを使用したアップグレード パッケージを使用している場合に、事前ダウンロードが有効になります。詳細については、以下の公開情報もあわせて確認してください。</p><p>公開情報 : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/configure-precache-content">タスク シーケンスの事前キャッシュ コンテンツを構成する</a>  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注意  </span><br><span class="line">バージョン 2103 以降、 アップグレード OS タスク シーケンス ステップで機能更新プログラムを使用する場合、 このタスク シーケンスのコンテンツを事前にダウンロードするオプションは機能更新プログラムには適用されません。</span><br></pre></td></tr></table></figure><h1 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h1><p>OS イメージや OS アップグレード パッケージなど複数の言語やアーキテクチャを含むコンテンツに対し、クライアントの条件に一致する設定とします。</p><h2 id="OS-アップグレード-パッケージ"><a href="#OS-アップグレード-パッケージ" class="headerlink" title="OS アップグレード パッケージ"></a>OS アップグレード パッケージ</h2><p>Configuration Manager コンソールで [ソフトウェア ライブラリ] - [概要] - [オペレーティング システム] - [オペレーティング システム アップグレード パッケージ] に移動し、OS アップグレード パッケージのプロパティを開きます。<br>[データソース] タブから言語とアーキテクチャを指定します。</p><h2 id="OS-イメージ"><a href="#OS-イメージ" class="headerlink" title="OS イメージ"></a>OS イメージ</h2><p>Configuration Manager コンソールで [ソフトウェア ライブラリ] - [概要] - [オペレーティング システム] - [オペレーティング システム イメージ] に移動し、OS イメージのプロパティを開きます。<br>[データソース] タブから言語とアーキテクチャを指定します。</p><h2 id="ドライバー-パッケージ"><a href="#ドライバー-パッケージ" class="headerlink" title="ドライバー パッケージ"></a>ドライバー パッケージ</h2><p>Configuration Manager コンソールで [ソフトウェア ライブラリ] - [概要] - [オペレーティング システム] - [ドライバー パッケージ] に移動し、ドライバー パッケージのプロパティを開きます。<br>[全般] タブからモデルを指定します。</p><p>ここで評価されるモデル名は、クライアントの WMI クラス Win32_ComputerSystemProduct の Name に格納されている名前です。確認する場合はクライアント上で PowerShell コマンド <code>Get-WmiObject -query &quot;select * from win32_computersystemproduct&quot;</code> を実行し、Name の値を確認します。タスクシーケンスの実行中は <code>select * from win32_computersystemproduct where name like &quot;%指定したモデル名%&quot;</code> というように評価が行われますので、指定したモデル名を含むことで条件に一致するとみなされます。</p><h2 id="パッケージ"><a href="#パッケージ" class="headerlink" title="パッケージ"></a>パッケージ</h2><p>Configuration Manager コンソールで [ソフトウェア ライブラリ] - [概要] - [アプリケーション管理] - [パッケージ] に移動し、パッケージのプロパティを開きます。[全般] タブから言語とアーキテクチャを指定します。</p><h1 id="事前ダウンロードの利用手順"><a href="#事前ダウンロードの利用手順" class="headerlink" title="事前ダウンロードの利用手順"></a>事前ダウンロードの利用手順</h1><p>事前に作成したタスクシーケンスを “事前ダウンロード” を有効としてデバイス コレクションに展開します。</p><ol><li><p>Configuration Manager コンソールで、[ソフトウェア ライブラリ] - [概要] - [オペレーティング システム] - [タスク シーケンス] の順に展開します。</p></li><li><p>展開するタスクシーケンスを選択し、[ホーム]  メニュー内の [展開] ボタンをクリックします。</p></li><li><p>“ソフトウェアの展開ウィザード”  が起動します。</p></li><li><p>[全般] ページでコレクションを指定し、”このタスク シーケンスのコンテンツを事前にダウンロードする” にチェックを付け、[次へ] をクリックします。<br><img src="/blog/mecm/20250128_01/1.png" alt="1.png"></p></li><li><p>[展開設定] ページで目的は “利用可能” を選択し、[次へ] をクリックします。<br><img src="/blog/mecm/20250128_01/2.png" alt="2.png"></p></li><li><p>[スケジュール] ページでは、”この展開が使用可能になる日時を指定する” にチェックを付け、任意の日時を指定し、[次へ] をクリックします。クライアントはこの日時が過ぎたことを検知すると、コンテンツの事前ダウンロードを開始します。<br><img src="/blog/mecm/20250128_01/3.png" alt="3.png"></p></li><li><p>[ユーザー側の表示と操作]  ページは任意の設定に指定して、[次へ] をクリックします。</p></li><li><p>[アラート]  ページは任意の設定に指定して、[次へ] をクリックします。</p></li><li><p>[配布ポイント] ページの展開オプションの設定は、ユーザーが事前ダウンロードを完了する前にタスクシーケンスを実行した場合に参照されます。事前にすべてのコンテンツをダウンロードしておくため、こちらの展開オプションも “タスクシーケンスを開始する前にすべてのコンテンツをローカルにダウンロードする” を選択しておきます。 近隣や、既定の境界グループ内の配布ポイントの使用については任意で設定をおこない、[次へ] をクリックします。<br><img src="/blog/mecm/20250128_01/6.png" alt="6.png"></p></li><li><p>[概要] ページで設定内容を確認し、[次へ] をクリックします。</p></li><li><p>[完了]  ページが表示されたら [閉じる] をクリックします。</p></li></ol><h1 id="クライアントでの動作を確認する"><a href="#クライアントでの動作を確認する" class="headerlink" title="クライアントでの動作を確認する"></a>クライアントでの動作を確認する</h1><p>クライアント側で事前ダウンロードがおこなわれる処理の大まかなイメージです。<br><img src="/blog/mecm/20250128_01/Image.png" alt="Image.png"></p><ol><li>管理者が管理コンソールから配信の設定をおこないます。  </li><li>クライアントは、クライアント ポリシーのポーリング間隔 (既定で 60 分 ＋ ランダム遅延最大 60 分) にて自動でポリシーの取得をおこなっています。(*2)</li></ol><p>*2 既定値は [クライアント設定] &gt; [クライアント ポリシー] の “クライアント ポリシーのポーリング間隔” 箇所で設定されています。間隔を待たず、直ちにポリシーの取得をおこないたい場合は、コントロール パネルから Configuration Manager を起動し [操作] タブ上の [コンピューター ポリシーの取得および評価サイクル] を直ちに実行してください。</p><ol start="3"><li>ポリシーを取得したタイミングで、ソフトウェア センターにタスクシーケンスが表示されます。</li></ol><p><img src="/blog/mecm/20250128_01/SC.png" alt="SC.png"></p><ol start="4"><li><p>タスクシーケンスに紐づくコンテンツに対して、Configuration Manager クライアント (execmgr) が「事前準備」で設定した条件に該当するか評価をおこないます。</p></li><li><p>4 の条件に該当したコンテンツは、「事前ダウンロードの利用手順」の手順 6 で指定した使用可能になる日時が過ぎてからダウンロードを開始します。</p></li></ol><p>上記の動作上、ユーザーが 3 のソフトウェア センターに表示された直後に [インストール] ボタンをクリックすると、4、5 の事前ダウンロードの処理が完了する前にダウンロードおよびインストール処理がおこなわれる可能性があることにご留意ください。この時、「事前ダウンロードの利用手順」の手順 9 で設定した展開オプションに従ってダウンロードがおこなわれます。</p><ol start="6"><li>ダウンロードされたコンテンツはキャッシュ フォルダーに格納されます。</li></ol><p><strong>[Tips]</strong> ユーザー側で事前ダウンロードが完了したことを確認するためには、コンテンツごとの確認となりますが、クライアント上のキャッシュ フォルダーの状態から確認が可能です。まず、Configuration Manager コンソールから事前ダウンロードを有効にしたコンテンツ ID を確認します。</p><p>例: OS イメージ<br><img src="/blog/mecm/20250128_01/ID.png" alt="ID.png"></p><p>次にクライアント上で PowerShell コマンド <code>gwmi -namespace root\ccm\softmgmtagent -query &quot;select * from CacheInfoEx where contentID=&#39;コンテンツID&#39;&quot;</code> のように実行します。<br><img src="/blog/mecm/20250128_01/PS.png" alt="PS.png"></p><p>ContentComplete が True となっていればダウンロードは完了しています。実際に Location に指定されているキャッシュ フォルダーを確認すると以下のようにコンテンツが配置されていることを確認することができます。<br><img src="/blog/mecm/20250128_01/ccmcache.png" alt="ccmcache.png"></p><p>参考情報 : <a href="https://learn.microsoft.com/ja-jp/mem/configmgr/osd/deploy-use/configure-precache-content">タスク シーケンスの事前キャッシュ コンテンツを構成する</a></p>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20250128_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20250128_01/"/>
-    <published>2025-01-27T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさん、こんにちは。Configuration Manager チームです。<br>この投稿では、Configuration Manager を利用してオペレーティング システムを展開する時にお役立ていただける、タスクシーケンスのコンテンツを事前にダウンロードするオプショ]]>
-    </summary>
-    <title>タスクシーケンスのコンテンツを事前にダウンロードする</title>
-    <updated>2026-03-30T07:36:52.443Z</updated>
+    <updated>2026-04-06T03:22:23.291Z</updated>
   </entry>
 </feed>
