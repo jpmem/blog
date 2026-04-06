@@ -10,13 +10,13 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-04-06T07:50:10.004Z</updated>
+  <updated>2026-04-06T13:58:41.565Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager (ConfigMgr) においての姿勢についてご案内いたします。更新プログラムの適用失敗において調査した場合、非常に多くのケースで原因となっておりますので、本内容についてご理解を深めていただければと存じます。</p><h2 id="そもそも-スキャンとは"><a href="#そもそも-スキャンとは" class="headerlink" title="そもそも スキャンとは"></a>そもそも スキャンとは</h2><p>Windows Update &#x2F; Microsoft Update (WUMU) や WSUS、ソフトウェア更新ポイントから、それぞれが公開している更新プログラムのメタデータをクライアントがダウンロードし、その更新プログラムのインストールが必要かどうかを検出する処理のことです。更新プログラムは、Windows Update Agent (WUA) を介して、スキャン、ダウンロード、インストール、および機能更新プログラム等ではコミットまでを実施することで適用が完了する流れとなります。必ず、ダウンロードの前にスキャン処理が発生します。</p><h2 id="デュアル-スキャンが発生するようになった経緯とその影響"><a href="#デュアル-スキャンが発生するようになった経緯とその影響" class="headerlink" title="デュアル スキャンが発生するようになった経緯とその影響"></a>デュアル スキャンが発生するようになった経緯とその影響</h2><p>旧 Windows Update for Business(WUfB) 関連のポリシーが導入された際に発生するようになったものです。  WUfB は更新の取得元は クラウド上の WUMU のまま、適用タイミングのみをグループ ポリシーやレジストリの設定で遅延制御する仕組みです。現在では、WUfB は Windows Update クライアント ポリシーと改称されています (以降は WU クライアント ポリシー と記載します。)</p><p>さて、WUMU ではマイクロソフト製品の更新プログラムを配布していますが、WSUS でしか配布できない更新プログラムが残っています。このような背景から、マイクロソフトでは、Windows Update を主たる更新ソースとしつつ、WSUS でしか提供できない更新プログラムが存在する環境との互換性を保つために、デュアル スキャンの挙動を導入しました。</p><p>すなわち、WUA は、WU クライアント ポリシーと WSUS (SUP) の双方が設定されている時、以下の動きをします。</p><ul><li>スキャン自体は、WUMU および WSUS (SUP) の両方の更新プログラム メタデータをダウンロードして行います。</li><li>スキャン結果の取り扱いは、以下のようにします。<ul><li>Windows 製品については、WUMU のスキャン結果を採用します。WSUS のスキャン結果は捨てられます。</li><li>それ以外の製品については、基本的には WSUS (SUP) のスキャン結果を採用します。</li></ul></li></ul><p>しかしながらこの変更により、ConfigMgr や WSUS で一般的に管理されている、 WUMU にアクセスできない端末は、Windows 製品の更新プログラムが検出されなくなってしまいます。更新プログラムのダウンロード、インストール失敗に関するお問い合わせを受けた際、多くの原因は、このデュアル スキャンによるものがほとんどです。</p><p>これらの経緯については、過去の WSUS 製品チームのブログでも案内されています。</p><p>Demystifying “Dual Scan”<br><a href="https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan">https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan</a></p><h2 id="デュアル-スキャンを引き起こす設定-回避方法"><a href="#デュアル-スキャンを引き起こす設定-回避方法" class="headerlink" title="デュアル スキャンを引き起こす設定 &#x2F; 回避方法"></a>デュアル スキャンを引き起こす設定 &#x2F; 回避方法</h2><p>デュアル スキャンを回避する設定、および回避方法については弊社 Windows サポート チームの下記ブログをご参照ください。</p><p>WSUS から更新プログラムが配信されないときのチェックポイント (クライアント側)<br><a href="https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/">https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/</a></p><h2 id="ConfigMgr-における-デュアル-スキャンの取り扱いについて"><a href="#ConfigMgr-における-デュアル-スキャンの取り扱いについて" class="headerlink" title="ConfigMgr における デュアル スキャンの取り扱いについて"></a>ConfigMgr における デュアル スキャンの取り扱いについて</h2><h3 id="現在の方針"><a href="#現在の方針" class="headerlink" title="現在の方針"></a>現在の方針</h3><p><strong>2026 年 4 月現在サポートしている ConfigMgr Current Branch では、デュアル スキャンを回避するためのローカル グループ ポリシーやレジストリの変更を実施しておりません。</strong><br>もし、WU クライアント ポリシーを設定されたい場合は、それを防ぐための設定を、お客様側で追加していただくようお願いいたします。</p><h3 id="過去からの変遷"><a href="#過去からの変遷" class="headerlink" title="過去からの変遷"></a>過去からの変遷</h3><p>ConfigMgr CB 2403 までの一部バージョンでは、ソフトウェア更新管理の動作を安定させる目的で、ConfigMgr が以下のポリシーを構成する場合がありました：</p><ul><li>更新遅延の不許可ポリシー (DisableDualScan)</li><li>スキャン ソース ポリシー</li></ul><p>しかしながら、以下でご案内している通り、スキャン ソース ポリシーが設定されていると、オンデマンド機能(.NET 3.5 Framework), リモートサーバー管理ツール(RSAT), 言語パックなどをインターネットからダウンロードできなくなる、といった副作用がスキャン ソース ポリシーにあったことを契機に、ConfigMgr CB 2403 + KB28458746, ConfigMgr CB 2409 以降において、更新遅延の不許可ポリシー (DisableDualScan) やスキャン ソース ポリシーの設定については、お客様の方で対処していただく方針に変更されております。もし、お客様にて WU クライアント ポリシーを利用する必要がある場合は、別途スキャン ソース ポリシーや DisableDualScan 設定を実施くださいますようお願いいたします。</p><p>Microsoft Configuration Manager バージョン 2403 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746</a></p><p>また、共同管理デバイスで Windows Update のワークロードを Intune 側に寄せているにも関わらず、サード パーティ更新プログラムを有効にしている環境下で意図せず、スキャン ソース ポリシーが設定され、 逆に WU クライアント ポリシーが有効にならず、WSUS &#x2F; ConfigMgr からの更新プログラムのスキャンを優先する場合がありました。こちらも、以下の KB36495448 によりスキャン ソース ポリシーを設定しないように修正されています。</p><p>Microsoft Configuration Manager バージョン 2503 および 2509 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448</a></p>]]>
     </content>
@@ -27,7 +27,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-04-06T07:50:10.004Z</updated>
+    <updated>2026-04-06T13:58:41.565Z</updated>
   </entry>
   <entry>
     <author>
@@ -44,7 +44,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-04-06T07:50:10.004Z</updated>
+    <updated>2026-04-06T13:58:41.565Z</updated>
   </entry>
   <entry>
     <author>
@@ -61,7 +61,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-04-06T07:50:10.004Z</updated>
+    <updated>2026-04-06T13:58:41.565Z</updated>
   </entry>
   <entry>
     <author>
@@ -80,7 +80,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-04-06T07:50:10.004Z</updated>
+    <updated>2026-04-06T13:58:41.564Z</updated>
   </entry>
   <entry>
     <author>
@@ -98,7 +98,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-04-06T07:50:10.002Z</updated>
+    <updated>2026-04-06T13:58:41.562Z</updated>
   </entry>
   <entry>
     <author>
@@ -115,14 +115,14 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-04-06T07:50:10.001Z</updated>
+    <updated>2026-04-06T13:58:41.561Z</updated>
   </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
       <![CDATA[<p>みなさま、こんにちは。 Configuration Manager &#x2F; WSUS サポート チーム です。  </p><p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今まで同期していなかった製品の<br>累積更新プログラムについて、同期を開始したいときの製品ラベルの探し方についてご案内いたします。</p><h2 id="「製品」と「分類」-ラベルの探し方-その1"><a href="#「製品」と「分類」-ラベルの探し方-その1" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その1"></a>「製品」と「分類」 ラベルの探し方 その1</h2><ol><li><p>弊社は各累積更新プログラムの情報を公開しております。必要とする製品の履歴ページにアクセスします。(一覧にない製品の更新プログラムが欲しい場合はインターネット検索でお探しください)</p><ul><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-25h2-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-99c7f493-df2a-4832-bd2d-6706baa0dec0">Windows 11バージョン 25H2 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-24h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-0929c747-1815-4543-8461-0160d16f15e5">Windows 11、バージョン 24H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-23h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-59875222-b990-4bd9-932f-91a5954de434">Windows 11、バージョン 23H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2025-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%A5%E6%AD%B4-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7">Windows Server 2025の更新プログラムの履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2022-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee">Windows Server 2022 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2019-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-725fc2e1-4443-6831-a5ca-51ff5cbcb059">Windows 10 および Windows Server 2019 の更新履歴</a></li></ul></li><li><p>各ページの左ペインに過去の更新プログラムの履歴情報がが記載されておりますので、適当なものをクリックします。例えば、2026 年 1 月 13 日リリースの Windows Server 2025 向け累積品質更新プログラムをクリックします。</p></li><li><p>各更新プログラムの案内ページに「この更新プログラムの入手方法」の節があります。そちらのメニューより、「サーバー更新サービス」の項目をクリックすると、下記の通り、対象の更新プログラムの製品と分類が記載されています。  </p><p><img src="/blog/mecm/20260129_01/20260129_01_01.png" alt="ClassAndCategory"></p></li><li><p>WSUS や ConfigMgrで該当の[製品]と[分類]ラベルにチェックを入れれば、更新プログラムの同期が実施されます。</p><ul><li><p>WSUS の場合: [WSUSコンソール] - 左ペイン [オプション] - [製品と分類]<br> <img src="/blog/mecm/20260129_01/20260129_01_02.png" alt="WSUS-ClassAndCategory"></p></li><li><p>ConfigMgr の場合: [ConfigMgrコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント] - [製品] タブ<br> <img src="/blog/mecm/20260129_01/20260129_01_03.png" alt="ConfigMgr-ClassAndCategory"></p></li></ul></li></ol><h2 id="「製品」と「分類」-ラベルの探し方-その2"><a href="#「製品」と「分類」-ラベルの探し方-その2" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その2"></a>「製品」と「分類」 ラベルの探し方 その2</h2><p>具体的に適用したい更新プログラムの名前や KB 番号がわかっている場合、Microsoft Update カタログの検索で、「製品」ラベルを探すこともできます。</p><ul><li><a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a></li></ul><ol><li>Microsoft Update カタログにアクセスします。</li><li>更新プログラム名や KB 番号で検索します。例えば、以下は KB5073379 で検索した結果です。<br><img src="/blog/mecm/20260129_01/20260129_01_04.png" alt="MUClassAndCategory"></li><li>確認した「製品」と「分類」で 先にご案内した 通り WSUS コンソールやConfigMgr コンソールで同期を実施ください。</li></ol><h2 id="同期されない更新プログラム"><a href="#同期されない更新プログラム" class="headerlink" title="同期されない更新プログラム"></a>同期されない更新プログラム</h2><p>上記手順で製品や分類を設定しても同期できない更新プログラムは、インポートする必要がございます。下記ブログ記事をご参照いただければと存じます。</p><ul><li><a href="https://jpmem.github.io/blog/mecm/20250707_01/">通常では同期されない Windows OS 更新プログラムの同期方法</a></li></ul>]]>
     </content>
@@ -134,7 +134,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-04-06T07:50:09.999Z</updated>
+    <updated>2026-04-06T13:58:41.560Z</updated>
   </entry>
   <entry>
     <author>
@@ -151,7 +151,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-04-06T07:50:09.999Z</updated>
+    <updated>2026-04-06T13:58:41.559Z</updated>
   </entry>
   <entry>
     <author>
@@ -168,7 +168,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-04-06T07:50:09.990Z</updated>
+    <updated>2026-04-06T13:58:41.551Z</updated>
   </entry>
   <entry>
     <author>
@@ -185,7 +185,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-04-06T07:50:09.990Z</updated>
+    <updated>2026-04-06T13:58:41.551Z</updated>
   </entry>
   <entry>
     <author>
@@ -204,7 +204,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-04-06T07:50:09.990Z</updated>
+    <updated>2026-04-06T13:58:41.550Z</updated>
   </entry>
   <entry>
     <author>
@@ -221,7 +221,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-04-06T07:50:09.985Z</updated>
+    <updated>2026-04-06T13:58:41.546Z</updated>
   </entry>
   <entry>
     <author>
@@ -238,7 +238,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介い]]>
     </summary>
     <title>通常では同期されない Windows OS 更新プログラムの同期方法</title>
-    <updated>2026-04-06T07:50:09.984Z</updated>
+    <updated>2026-04-06T13:58:41.544Z</updated>
   </entry>
   <entry>
     <author>
@@ -256,7 +256,7 @@
 <p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内し]]>
     </summary>
     <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限</title>
-    <updated>2026-04-06T07:50:09.984Z</updated>
+    <updated>2026-04-06T13:58:41.544Z</updated>
   </entry>
   <entry>
     <author>
@@ -274,7 +274,7 @@
 <p>本記事では、Configuration Manager (ConfigMgr) のサポート バージョンについてよくあるご質問と回答をご案内いたします。こちらに記載のないご質問に関し]]>
     </summary>
     <title>ConfigMgr サポート バージョン FAQ</title>
-    <updated>2026-04-06T07:50:09.983Z</updated>
+    <updated>2026-04-06T13:58:41.544Z</updated>
   </entry>
   <entry>
     <author>
@@ -294,7 +294,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</title>
-    <updated>2026-04-06T07:50:09.979Z</updated>
+    <updated>2026-04-06T13:58:41.539Z</updated>
   </entry>
   <entry>
     <author>
@@ -314,27 +314,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</title>
-    <updated>2026-04-06T07:50:09.980Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="更新プログラム" scheme="https://jpmem.github.io/blog/tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
-    <content>
-      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p><p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p><p>※本記事では、WSUS、Intune、Windows Update、WU クライアント ポリシー に関する内容は対象外です。</p><p>各症状ごとに詳細な記事を公開しています。記載内容と一致しない事象を確認された場合、弊社サポートまでお問い合わせください。</p><h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>以下のような問題が発生することがあります。</p><ol><li>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</li><li>ソフトウェア センターでダウンロードが失敗する</li><li><strong>ソフトウェア センターでインストールに失敗する</strong></li><li>必須展開にしているのに、更新プログラムが適用されない</li></ol><p>本記事では、症状 3 の <strong>「ソフトウェア センターでインストールに失敗する」</strong> 問題について解説します。</p><h2 id="ソフトウェア-センター-でインストールに失敗する"><a href="#ソフトウェア-センター-でインストールに失敗する" class="headerlink" title="ソフトウェア センター でインストールに失敗する"></a>ソフトウェア センター でインストールに失敗する</h2><p>ソフトウェア センターでダウンロード成功後、インストールに失敗する場合、以下のような原因が考えられます。</p><ul><li>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</li></ul><h3 id="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"><a href="#更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた" class="headerlink" title="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"></a>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</h3><p>ConfigMgr の更新プログラムの展開は、適用中の意図しない トラブルを防ぐため、最長実行時間が設定されており、これを超えた場合、更新プログラムの適用処理が途中で キャンセル される動きとなっております。</p><p>上記は、<code>C:\Windows\SoftwareDistribution\ReportingEvents.log</code> に出力される以下のようなログ文字列があることでも判断可能です。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1) [AGENT_INSTALLING_STARTED]xxx&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;xxxxCcmExecSuccessContent InstallInstallation Started: Windows has started installing the following update: [更新プログラム タイトル]........</span><br><span class="line">(2) [AGENT_INSTALLING_FAILED]xxx&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;100800704c7CcmExecFailureContent InstallInstallation Failure: Windows failed to install the following update with error 0x800704c7: [更新プログラム タイトル].......</span><br></pre></td></tr></table></figure><ul><li>(1) と (2) それぞれの文字列に CCMExec による実行ログであることが記載されている。</li><li>(1) と (2) の時間が最長実行時間以上</li><li>(2) のエラーが 0x800704c: E_CANCELLED</li></ul><p>お客様の環境によっては、上記実行時間を超えても更新プログラムの適用が終わらない場合があるかと存じますので、最長実行時間の設定を見直されると良いかと存じます。</p><ul><li>更新プログラム全体の設定確認<br>[ConfigMgr コンソール] - [サイトの構成] - [サイト] - ご利用のサイトの選択 - [サイト] - ご利用のサイトを選択 - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント]  - [最長実行時間] タブ</li></ul><p><img src="/blog/mecm/20250325_03/20250325_03_01.png" alt="MaxExecution.png"></p><ul><li><p>更新プログラム単体の設定確認</p><ul><li><p>更新プログラムの場合<br>[ConfigMgr コンソール] - [ソフトウェア ライブラリ] - [概要] - [ソフトウェア更新プログラム] - [すべてのソフトウェア更新プログラム] - 該当の更新プログラムを選択 - [プロパティ] - [最長実行時間]タブ</p></li><li><p>機能更新プログラムの場合<br>[ConfigMgr コンソール] - [ソフトウェア ライブラリ] - [概要] - [Windows Servicing] - [すべての Windows 機能更新プログラム]-該当の更新プログラムを選択 - [プロパティ] - [最長実行時間]タブ</p><p><img src="/blog/mecm/20250325_03/20250325_03_02.png" alt="MaxEachExecution.png"></p></li></ul></li></ul><h1 id="更新履歴"><a href="#更新履歴" class="headerlink" title="更新履歴"></a>更新履歴</h1><ul><li>2026&#x2F;4&#x2F;6 古い名称を修正, タグ追加</li><li>2025&#x2F;3&#x2F;25 初版</li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20250325_03/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20250325_03/"/>
-    <published>2025-03-24T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p>
-<p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p>
-<]]>
-    </summary>
-    <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</title>
-    <updated>2026-04-06T07:50:09.981Z</updated>
+    <updated>2026-04-06T13:58:41.540Z</updated>
   </entry>
   <entry>
     <author>
@@ -354,7 +334,27 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (4)</title>
-    <updated>2026-04-06T07:50:09.982Z</updated>
+    <updated>2026-04-06T13:58:41.542Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <category term="更新プログラム" scheme="https://jpmem.github.io/blog/tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
+    <content>
+      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p><p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p><p>※本記事では、WSUS、Intune、Windows Update、WU クライアント ポリシー に関する内容は対象外です。</p><p>各症状ごとに詳細な記事を公開しています。記載内容と一致しない事象を確認された場合、弊社サポートまでお問い合わせください。</p><h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>以下のような問題が発生することがあります。</p><ol><li>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</li><li>ソフトウェア センターでダウンロードが失敗する</li><li><strong>ソフトウェア センターでインストールに失敗する</strong></li><li>必須展開にしているのに、更新プログラムが適用されない</li></ol><p>本記事では、症状 3 の <strong>「ソフトウェア センターでインストールに失敗する」</strong> 問題について解説します。</p><h2 id="ソフトウェア-センター-でインストールに失敗する"><a href="#ソフトウェア-センター-でインストールに失敗する" class="headerlink" title="ソフトウェア センター でインストールに失敗する"></a>ソフトウェア センター でインストールに失敗する</h2><p>ソフトウェア センターでダウンロード成功後、インストールに失敗する場合、以下のような原因が考えられます。</p><ul><li>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</li></ul><h3 id="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"><a href="#更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた" class="headerlink" title="更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた"></a>更新プログラムの最長実行時間よりも更新プログラムの適用に時間がかかり、途中でキャンセルされた</h3><p>ConfigMgr の更新プログラムの展開は、適用中の意図しない トラブルを防ぐため、最長実行時間が設定されており、これを超えた場合、更新プログラムの適用処理が途中で キャンセル される動きとなっております。</p><p>上記は、<code>C:\Windows\SoftwareDistribution\ReportingEvents.log</code> に出力される以下のようなログ文字列があることでも判断可能です。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1) [AGENT_INSTALLING_STARTED]xxx&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;xxxxCcmExecSuccessContent InstallInstallation Started: Windows has started installing the following update: [更新プログラム タイトル]........</span><br><span class="line">(2) [AGENT_INSTALLING_FAILED]xxx&#123;XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#125;100800704c7CcmExecFailureContent InstallInstallation Failure: Windows failed to install the following update with error 0x800704c7: [更新プログラム タイトル].......</span><br></pre></td></tr></table></figure><ul><li>(1) と (2) それぞれの文字列に CCMExec による実行ログであることが記載されている。</li><li>(1) と (2) の時間が最長実行時間以上</li><li>(2) のエラーが 0x800704c: E_CANCELLED</li></ul><p>お客様の環境によっては、上記実行時間を超えても更新プログラムの適用が終わらない場合があるかと存じますので、最長実行時間の設定を見直されると良いかと存じます。</p><ul><li>更新プログラム全体の設定確認<br>[ConfigMgr コンソール] - [サイトの構成] - [サイト] - ご利用のサイトの選択 - [サイト] - ご利用のサイトを選択 - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント]  - [最長実行時間] タブ</li></ul><p><img src="/blog/mecm/20250325_03/20250325_03_01.png" alt="MaxExecution.png"></p><ul><li><p>更新プログラム単体の設定確認</p><ul><li><p>更新プログラムの場合<br>[ConfigMgr コンソール] - [ソフトウェア ライブラリ] - [概要] - [ソフトウェア更新プログラム] - [すべてのソフトウェア更新プログラム] - 該当の更新プログラムを選択 - [プロパティ] - [最長実行時間]タブ</p></li><li><p>機能更新プログラムの場合<br>[ConfigMgr コンソール] - [ソフトウェア ライブラリ] - [概要] - [Windows Servicing] - [すべての Windows 機能更新プログラム]-該当の更新プログラムを選択 - [プロパティ] - [最長実行時間]タブ</p><p><img src="/blog/mecm/20250325_03/20250325_03_02.png" alt="MaxEachExecution.png"></p></li></ul></li></ul><h1 id="更新履歴"><a href="#更新履歴" class="headerlink" title="更新履歴"></a>更新履歴</h1><ul><li>2026&#x2F;4&#x2F;6 古い名称を修正, タグ追加</li><li>2025&#x2F;3&#x2F;25 初版</li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20250325_03/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20250325_03/"/>
+    <published>2025-03-24T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p>
+<p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p>
+<]]>
+    </summary>
+    <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</title>
+    <updated>2026-04-06T13:58:41.541Z</updated>
   </entry>
   <entry>
     <author>
@@ -371,6 +371,6 @@
       <![CDATA[<p>みなさま、こんにちは。 Configuration Manager サポート チームです。<br>本日は、Configuration Manger (ConfigMgr) のアップグレードをオフラインで行う場合の注意点についてご案内させていただきます。<br>ConfigM]]>
     </summary>
     <title>Configuration Manager のアップグレードをオフラインで行う場合の注意点について</title>
-    <updated>2026-04-06T07:50:09.977Z</updated>
+    <updated>2026-04-06T13:58:41.537Z</updated>
   </entry>
 </feed>
