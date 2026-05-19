@@ -16,13 +16,3 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-  delete-preview:
-    runs-on: ubuntu-latest
-    if:
-      github.event_name == 'pull_request_target' && github.event.action == 'closed'
-    steps:
-    - name: Delete preview site
-      uses: cssjpn/blog-gh-actions/delete-preview@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        azure-storage-connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
