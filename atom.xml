@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-05-19T05:45:36.015Z</updated>
+  <updated>2026-05-25T07:03:19.352Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -18,7 +18,7 @@
     <category term="MECM" scheme="https://jpmem.github.io/blog/categories/MECM/"/>
     <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
-      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<br>オンライン環境の手順ではオプトインのみを実施頂ければ バージョン 2603 の更新プログラムはコンソール上に表示されますが、オフライン環境の場合はサービス接続ツールを用いた追加の手順が必要です。  </p><h2 id="早期更新リングのオプトイン"><a href="#早期更新リングのオプトイン" class="headerlink" title="早期更新リングのオプトイン"></a>早期更新リングのオプトイン</h2><p>バージョン 2603 は早期更新リングでリリースされています。この更新プログラムをインストールするには、オプトインする必要があります。  </p><ul><li>参考情報<br>Title: Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)<br>URL: <a href="https://jpmem.github.io/blog/mecm/20260507_01/">https://jpmem.github.io/blog/mecm/20260507_01/</a></li></ul><h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><ol><li><p>インターネットへ接続可能な端末で、下記公開情報の「バージョン 2603 オプトイン スクリプト」をクリックし、EnableEarlyUpdateRing2603.exe をダウンロードします  </p><p>Title: 早期更新リング<br>URL: <a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-updates">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-updates</a>  </p></li><li><p>EnableEarlyUpdateRing2603.exe を実行すると [Choose Directory For Extracted Files] 画面が開くため、ダウンロード先パスを指定し [OK] をクリックします  </p></li><li><p>[Extraction Complete] 画面で [OK] をクリックします  </p></li><li><p>「2.」で指定したダウンロード先パスに enableearlyupdatering2603.ps1 がダウンロードされたことを確認します  </p></li><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>ダウンロードした enableearlyupdatering2603.ps1 を任意の場所に配置します  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>enableearlyupdatering2603.ps1 の配置パスへ移動します (cd &lt;配置パス&gt;)  </p></li><li><p>ps1 を下記コマンドで実行し、「The command(s) completed successfully」が表示されたら、オプトイン成功です  </p><pre><code>.\EnableEarlyUpdateRing2603.ps1 &lt;SiteServer_Name&gt;  </code></pre><p>※ <SiteServer_Name> は貴社最上位サイトのホスト名に置き換えてください</p></li></ol><h2 id="サービス接続ツールを用いた更新プログラムのインポート"><a href="#サービス接続ツールを用いた更新プログラムのインポート" class="headerlink" title="サービス接続ツールを用いた更新プログラムのインポート"></a>サービス接続ツールを用いた更新プログラムのインポート</h2><p>オフライン アップデート手順やアップデートの前提条件などの一般的な情報につきましては下記ブログにてご紹介しておりますので併せてご参考いただけますと幸いでございます。<br><a href="https://jpmem.github.io/blog/mecm/20251030_01/">Configuration Manager オフライン アップデートの流れと注意点</a>  </p><h3 id="A-cab-ファイルの準備"><a href="#A-cab-ファイルの準備" class="headerlink" title="A. cab ファイルの準備"></a>A. cab ファイルの準備</h3><ol><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、UsageData.cab を生成します  </p><pre><code>.\serviceconnectiontool.exe -prepare -usagedatadest &lt;保存先パス&gt;\UsageData.cab  </code></pre><p>※ &lt;保存先パス&gt; は cab ファイルの保存先を任意で設定ください (例.C:\usagedata\UsageData.cab)</p></li></ol><h3 id="B-更新データのダウンロード"><a href="#B-更新データのダウンロード" class="headerlink" title="B. 更新データのダウンロード"></a>B. 更新データのダウンロード</h3><ol><li><p>インターネットへ接続可能な端末にログオンします  </p></li><li><p>&lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool フォルダごと、サイトサーバーからインターネットへ接続可能な端末へコピーし配置します  </p></li><li><p>「A. cab ファイルの準備」で生成された cab ファイルを、サイトサーバーからインターネットへ接続可能な端末へコピーし配置します  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;「2.」で配置したパス&gt;\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、更新データをダウンロードします  </p><pre><code>.\serviceconnectiontool.exe -connect -downloadsiteversion -usagedatasrc &lt;cab ファイルの保存先パス&gt; -updatepackdest &lt;更新データのダウンロード先パス&gt;  </code></pre><p>※ 「A. cab ファイルの準備」で生成された cab ファイルを <code>-usagedatasrc</code> のソース ファイルとして設定ください。(例.C:\usagedatasrc)<br> ※ <code>‐usagedatasrc</code> ではフォルダーのパスまでを指定します。ファイル名までパスに含めるとエラーとなります。<br>※ 更新データの保存先パスを <code>-updatepackdest</code> のダウンロード パスとして指定します (例.C:\usagedatadest)<br>※ <code>‐downloadsiteversion</code> は、サイトのバージョン以降のバージョンの更新プログラムと修正プログラムがダウンロードされます。このオプションを使用しない場合、過去バージョンのモジュールもダウンロードされ、30 GB 以上のサイズとなってしまいますので、必ず付与下さい。</p></li></ol><h3 id="C-ダウンロードしたデータをインポート"><a href="#C-ダウンロードしたデータをインポート" class="headerlink" title="C. ダウンロードしたデータをインポート"></a>C. ダウンロードしたデータをインポート</h3><ol><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>「B. 更新データのダウンロード」で生成された更新データを、インターネットへ接続可能な端末からサイト サーバーへコピーし配置します  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、更新データをインポートします  </p><pre><code>.\serviceconnectiontool.exe -import -updatepacksrc &lt;更新データの保存先パス&gt;  </code></pre><p>※ 「B. 更新データのダウンロード」で生成された更新データの保存先パスを、<code>-updatepacksrc</code> のソースファイルとして指定します。(例.C:\updatepacksrc)</p></li></ol><h3 id="D-更新の確認"><a href="#D-更新の確認" class="headerlink" title="D. 更新の確認"></a>D. 更新の確認</h3><p>ConfigMgr コンソールより、[管理] - [更新とサービス] を展開し、2603 の更新プログラムが表示されたことを確認します。<br><img src="/blog/mecm/20260514_01/2026-05-14_6.png">  </p>]]>
+      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<br>オンライン環境の手順ではオプトインのみを実施頂ければ バージョン 2603 の更新プログラムはコンソール上に表示されますが、オフライン環境の場合はサービス接続ツールを用いた追加の手順が必要です。  </p><h2 id="早期更新リングのオプトイン"><a href="#早期更新リングのオプトイン" class="headerlink" title="早期更新リングのオプトイン"></a>早期更新リングのオプトイン</h2><p>バージョン 2603 は早期更新リングでリリースされています。この更新プログラムをインストールするには、オプトインする必要があります。  </p><ul><li>参考情報<br>Title: Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)<br>URL: <a href="https://jpmem.github.io/blog/mecm/20260507_01/">https://jpmem.github.io/blog/mecm/20260507_01/</a></li></ul><h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><ol><li><p>インターネットへ接続可能な端末で、下記公開情報の「バージョン 2603 オプトイン スクリプト」をクリックし、EnableEarlyUpdateRing2603.exe をダウンロードします  </p><p>Title: 早期更新リング<br>URL: <a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-update-2603#early-update-ring">https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/manage/checklist-for-installing-update-2603#early-update-ring</a></p></li><li><p>EnableEarlyUpdateRing2603.exe を実行すると [Choose Directory For Extracted Files] 画面が開くため、ダウンロード先パスを指定し [OK] をクリックします  </p></li><li><p>[Extraction Complete] 画面で [OK] をクリックします  </p></li><li><p>「2.」で指定したダウンロード先パスに enableearlyupdatering2603.ps1 がダウンロードされたことを確認します  </p></li><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>ダウンロードした enableearlyupdatering2603.ps1 を任意の場所に配置します  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>enableearlyupdatering2603.ps1 の配置パスへ移動します (cd &lt;配置パス&gt;)  </p></li><li><p>ps1 を下記コマンドで実行し、「The command(s) completed successfully」が表示されたら、オプトイン成功です  </p><pre><code>.\EnableEarlyUpdateRing2603.ps1 &lt;SiteServer_Name&gt;  </code></pre><p>※ <SiteServer_Name> は貴社最上位サイトのホスト名に置き換えてください</p></li></ol><h2 id="サービス接続ツールを用いた更新プログラムのインポート"><a href="#サービス接続ツールを用いた更新プログラムのインポート" class="headerlink" title="サービス接続ツールを用いた更新プログラムのインポート"></a>サービス接続ツールを用いた更新プログラムのインポート</h2><p>オフライン アップデート手順やアップデートの前提条件などの一般的な情報につきましては下記ブログにてご紹介しておりますので併せてご参考いただけますと幸いでございます。<br><a href="https://jpmem.github.io/blog/mecm/20251030_01/">Configuration Manager オフライン アップデートの流れと注意点</a>  </p><h3 id="A-cab-ファイルの準備"><a href="#A-cab-ファイルの準備" class="headerlink" title="A. cab ファイルの準備"></a>A. cab ファイルの準備</h3><ol><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、UsageData.cab を生成します  </p><pre><code>.\serviceconnectiontool.exe -prepare -usagedatadest &lt;保存先パス&gt;\UsageData.cab  </code></pre><p>※ &lt;保存先パス&gt; は cab ファイルの保存先を任意で設定ください (例.C:\usagedata\UsageData.cab)</p></li></ol><h3 id="B-更新データのダウンロード"><a href="#B-更新データのダウンロード" class="headerlink" title="B. 更新データのダウンロード"></a>B. 更新データのダウンロード</h3><ol><li><p>インターネットへ接続可能な端末にログオンします  </p></li><li><p>&lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool フォルダごと、サイトサーバーからインターネットへ接続可能な端末へコピーし配置します  </p></li><li><p>「A. cab ファイルの準備」で生成された cab ファイルを、サイトサーバーからインターネットへ接続可能な端末へコピーし配置します  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;「2.」で配置したパス&gt;\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、更新データをダウンロードします  </p><pre><code>.\serviceconnectiontool.exe -connect -downloadsiteversion -usagedatasrc &lt;cab ファイルの保存先パス&gt; -updatepackdest &lt;更新データのダウンロード先パス&gt;  </code></pre><p>※ 「A. cab ファイルの準備」で生成された cab ファイルを <code>-usagedatasrc</code> のソース ファイルとして設定ください。(例.C:\usagedatasrc)<br> ※ <code>‐usagedatasrc</code> ではフォルダーのパスまでを指定します。ファイル名までパスに含めるとエラーとなります。<br>※ 更新データの保存先パスを <code>-updatepackdest</code> のダウンロード パスとして指定します (例.C:\usagedatadest)<br>※ <code>‐downloadsiteversion</code> は、サイトのバージョン以降のバージョンの更新プログラムと修正プログラムがダウンロードされます。このオプションを使用しない場合、過去バージョンのモジュールもダウンロードされ、30 GB 以上のサイズとなってしまいますので、必ず付与下さい。</p></li></ol><h3 id="C-ダウンロードしたデータをインポート"><a href="#C-ダウンロードしたデータをインポート" class="headerlink" title="C. ダウンロードしたデータをインポート"></a>C. ダウンロードしたデータをインポート</h3><ol><li><p>ConfigMgr 最上位サイト (中央管理サイトが無ければプライマリ サイト) サーバーにログオンします  </p></li><li><p>管理者権限で PowerShell を開きます  </p></li><li><p>「B. 更新データのダウンロード」で生成された更新データを、インターネットへ接続可能な端末からサイト サーバーへコピーし配置します  </p></li><li><p>ServiceConnectionTool フォルダへ移動します  </p><pre><code>cd &lt;ConfigMgr インストール フォルダ&gt;\cd.latest\SMSSETUP\TOOLS\ServiceConnectionTool  </code></pre></li><li><p>下記コマンドを実行し、更新データをインポートします  </p><pre><code>.\serviceconnectiontool.exe -import -updatepacksrc &lt;更新データの保存先パス&gt;  </code></pre><p>※ 「B. 更新データのダウンロード」で生成された更新データの保存先パスを、<code>-updatepacksrc</code> のソースファイルとして指定します。(例.C:\updatepacksrc)</p></li></ol><h3 id="D-更新の確認"><a href="#D-更新の確認" class="headerlink" title="D. 更新の確認"></a>D. 更新の確認</h3><p>ConfigMgr コンソールより、[管理] - [更新とサービス] を展開し、2603 の更新プログラムが表示されたことを確認します。<br><img src="/blog/mecm/20260514_01/2026-05-14_6.png">  </p>]]>
     </content>
     <id>https://jpmem.github.io/blog/mecm/20260514_01/</id>
     <link href="https://jpmem.github.io/blog/mecm/20260514_01/"/>
@@ -27,7 +27,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-05-19T05:45:36.015Z</updated>
+    <updated>2026-05-25T07:03:19.352Z</updated>
   </entry>
   <entry>
     <author>
@@ -45,7 +45,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-05-19T05:45:36.015Z</updated>
+    <updated>2026-05-25T07:03:19.351Z</updated>
   </entry>
   <entry>
     <author>
@@ -63,7 +63,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-05-19T05:45:36.015Z</updated>
+    <updated>2026-05-25T07:03:19.351Z</updated>
   </entry>
   <entry>
     <author>
@@ -80,7 +80,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-05-19T05:45:36.015Z</updated>
+    <updated>2026-05-25T07:03:19.351Z</updated>
   </entry>
   <entry>
     <author>
@@ -97,7 +97,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-05-19T05:45:36.014Z</updated>
+    <updated>2026-05-25T07:03:19.351Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,7 +116,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-05-19T05:45:36.014Z</updated>
+    <updated>2026-05-25T07:03:19.351Z</updated>
   </entry>
   <entry>
     <author>
@@ -134,7 +134,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-05-19T05:45:36.011Z</updated>
+    <updated>2026-05-25T07:03:19.349Z</updated>
   </entry>
   <entry>
     <author>
@@ -151,7 +151,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-05-19T05:45:36.010Z</updated>
+    <updated>2026-05-25T07:03:19.348Z</updated>
   </entry>
   <entry>
     <author>
@@ -170,7 +170,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-05-19T05:45:36.009Z</updated>
+    <updated>2026-05-25T07:03:19.346Z</updated>
   </entry>
   <entry>
     <author>
@@ -187,7 +187,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-05-19T05:45:36.009Z</updated>
+    <updated>2026-05-25T07:03:19.346Z</updated>
   </entry>
   <entry>
     <author>
@@ -204,7 +204,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-05-19T05:45:35.999Z</updated>
+    <updated>2026-05-25T07:03:19.338Z</updated>
   </entry>
   <entry>
     <author>
@@ -221,7 +221,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-05-19T05:45:35.999Z</updated>
+    <updated>2026-05-25T07:03:19.338Z</updated>
   </entry>
   <entry>
     <author>
@@ -240,7 +240,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-05-19T05:45:35.999Z</updated>
+    <updated>2026-05-25T07:03:19.337Z</updated>
   </entry>
   <entry>
     <author>
@@ -257,7 +257,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-05-19T05:45:35.994Z</updated>
+    <updated>2026-05-25T07:03:19.333Z</updated>
   </entry>
   <entry>
     <author>
@@ -274,7 +274,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介い]]>
     </summary>
     <title>通常では同期されない Windows OS 更新プログラムの同期方法</title>
-    <updated>2026-05-19T05:45:35.993Z</updated>
+    <updated>2026-05-25T07:03:19.332Z</updated>
   </entry>
   <entry>
     <author>
@@ -292,7 +292,7 @@
 <p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内し]]>
     </summary>
     <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限</title>
-    <updated>2026-05-19T05:45:35.993Z</updated>
+    <updated>2026-05-25T07:03:19.332Z</updated>
   </entry>
   <entry>
     <author>
@@ -310,7 +310,7 @@
 <p>本記事では、Configuration Manager (ConfigMgr) のサポート バージョンについてよくあるご質問と回答をご案内いたします。こちらに記載のないご質問に関し]]>
     </summary>
     <title>ConfigMgr サポート バージョン FAQ</title>
-    <updated>2026-05-19T05:45:35.992Z</updated>
+    <updated>2026-05-25T07:03:19.331Z</updated>
   </entry>
   <entry>
     <author>
@@ -330,7 +330,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</title>
-    <updated>2026-05-19T05:45:35.987Z</updated>
+    <updated>2026-05-25T07:03:19.327Z</updated>
   </entry>
   <entry>
     <author>
@@ -350,7 +350,7 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでのOS 更新失敗を防ぐ - よくある原因と解決策 (2)</title>
-    <updated>2026-05-19T05:45:35.988Z</updated>
+    <updated>2026-05-25T07:03:19.328Z</updated>
   </entry>
   <entry>
     <author>
@@ -370,6 +370,6 @@
 <]]>
     </summary>
     <title>ConfigMgr クライアントでの OS 更新失敗を防ぐ - よくある原因と解決策 (3)</title>
-    <updated>2026-05-19T05:45:35.989Z</updated>
+    <updated>2026-05-25T07:03:19.329Z</updated>
   </entry>
 </feed>
