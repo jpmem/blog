@@ -10,7 +10,26 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-06-17T07:03:23.772Z</updated>
+  <updated>2026-07-10T05:28:37.414Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <content>
+      <![CDATA[<p>皆さま、こんにちは。 WSUS サポートチームです。</p><p>本日は、Microsoft Edge の特定チャネル更新プログラムの承認の自動化方法についてご案内します。</p><h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限界" class="headerlink" title="WSUS の自動承認の限界"></a>WSUS の自動承認の限界</h2><p>WSUS でも自動承認の仕組みはございますが、承認の単位が製品ごとまでしか指定できないため、特定のチャネルだけ、特定のアーキテクチャだけの更新プログラムの承認を自動化したい、といった要件は満たせない形となります。</p><p>なお、弊社 ConfigMgr ではより詳細なフィルタ条件で自動展開規則を組むことができますので、本ブログ記事でご案内しているような方法は不要となります。より詳細な更新プログラム管理を実施されたい場合はぜひ ConfigMgr への移行もご検討ください。</p><h2 id="実現方法"><a href="#実現方法" class="headerlink" title="実現方法"></a>実現方法</h2><p>WSUS の自動承認では実現できないので、同等の内容を WSUS API を用いた PowerShell スクリプトとタスク スケジューラを使って実現します。</p><ul><li>Windows Server Update Services 3.0 Class Library<br><a href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ms744624(v=vs.85)">https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ms744624(v=vs.85)</a></li></ul><h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>タイトル名でフィルタされた更新プログラムに対して承認を実施する仕組みとなっている都合上、承認したいタイトル名が変わると、上手く動作しなくなりますのであらかじめご承知おきください。</p><h3 id="実現手順"><a href="#実現手順" class="headerlink" title="実現手順"></a>実現手順</h3><p>承認したい Microsoft Edge の更新プログラムのタイトルを確認します。2026 年 7 月 8 日現在の、チャネルごとの名称は以下の通りです。</p><ul><li><p>Beta</p><ul><li>Microsoft Edge-Beta Channel Version [XXX] Update for [Arch] based Editions (Build [<a href="WWW.X.YYYY.ZZ%5D">WWW.X.YYYY.ZZ]</a>)</li></ul></li><li><p>Dev</p><ul><li>Microsoft Edge-Dev Channel Version [XXX] Update for [Arch] based Editions (Build [<a href="WWW.X.YYYY.ZZ%5D">WWW.X.YYYY.ZZ]</a>)</li></ul></li><li><p>Stable</p><ul><li>Microsoft Edge-Stable Channel Version [XXX] Update for [Arch] based Editions (Build [<a href="WWW.X.YYYY.ZZ%5D">WWW.X.YYYY.ZZ]</a>)</li></ul></li><li><p>Extended Stable</p><ul><li>Microsoft Edge-Extended Stable Channel Version [XXX] Update for [Arch] based Editions (Build [<a href="WWW.X.YYYY.ZZ%5D">WWW.X.YYYY.ZZ]</a>)</li></ul></li></ul><p>上記それぞれごとに正規表現パターンを考えておきます。</p><p>このほか、Microsoft Edge WebView2 Runtime も承認したい場合は、以下の文字列も利用します。</p><ul><li>WebView2<ul><li>Microsoft Edge-WebView2 Runtime Version [XXX] Update for [Arch] based Editions (Build [<a href="WWW.X.YYYY.ZZ%5D">WWW.X.YYYY.ZZ]</a>)</li></ul></li></ul><h3 id="モジュールをインストールする"><a href="#モジュールをインストールする" class="headerlink" title="モジュールをインストールする"></a>モジュールをインストールする</h3><p>PowerShell で WSUS API を実行するために、事前に UpdateServices モジュールをインストールしておきます。管理者権限で開いた PowerShell にて以下を実行しておきます。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> UpdateServices</span><br></pre></td></tr></table></figure><h3 id="スクリプトを書く"><a href="#スクリプトを書く" class="headerlink" title="スクリプトを書く"></a>スクリプトを書く</h3><p>上記と WSUS API をもとに定期実行する PowerShell スクリプトを書きます。以下は更新プログラムを承認するサンプル スクリプトになります。対象のチャネルや CPU アーキテクチャ、承認対象のコンピューター グループに沿ってスクリプトを書き換えてください。</p><ul><li>拡張安定チャネル</li><li>WebView2 も含む</li><li>x64 向け</li><li>“すべてのコンピューター” グループに対して承認</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">サンプル スクリプト免責事項</span><br><span class="line"></span><br><span class="line">サンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。</span><br><span class="line">ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</span><br><span class="line"></span><br><span class="line">なお、お客様要件に合わせた変更を弊社に依頼されてもお受けいたしかねますので予めご承知おきください。</span><br></pre></td></tr></table></figure><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetCategory</span>       = <span class="variable">$wsus</span>.GetUpdateCategories() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Microsoft Edge&#x27;</span></span><br><span class="line"><span class="variable">$targetClassification</span> = <span class="variable">$wsus</span>.GetUpdateClassifications() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Updates&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.Categories.Add(<span class="variable">$targetCategory</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"><span class="variable">$targetScope</span>.Classifications.Add(<span class="variable">$targetClassification</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$archPattern</span>     = <span class="string">&#x27;x64&#x27;</span> <span class="comment"># select &#x27;x86&#x27; &#x27;x64&#x27; &#x27;ARM64&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$betaPattern</span>     = <span class="string">&quot;^Microsoft Edge-Beta Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$devPattern</span>      = <span class="string">&quot;^Microsoft Edge-Dev Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$stablePattern</span>   = <span class="string">&quot;^Microsoft Edge-Stable Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$exStablePattern</span> = <span class="string">&quot;^Microsoft Edge-Extended Stable Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$wv2Pattern</span>       = <span class="string">&quot;^Microsoft Edge-WebView2 Runtime Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetGrpId</span> = <span class="string">&quot;a0a08746-4dbe-4a37-9adf-9e7652c0b421&quot;</span> <span class="comment">#All Computers</span></span><br><span class="line"><span class="variable">$targetGrp</span> = <span class="variable">$wsus</span>.GetComputerTargetGroup(<span class="variable">$targetGrpId</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$exStablePattern</span>)&#123;</span><br><span class="line">        <span class="string">&quot;Approved:&quot;</span> + <span class="variable">$update</span>.Title </span><br><span class="line">        <span class="variable">$update</span>.Approve([<span class="type">Microsoft.UpdateServices.Administration.UpdateApprovalAction</span>]::Install, <span class="variable">$targetGrp</span>) | <span class="built_in">Out-Null</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$wv2Pattern</span> )&#123;</span><br><span class="line">        <span class="string">&quot;Approved:&quot;</span> + <span class="variable">$update</span>.Title </span><br><span class="line">        <span class="variable">$update</span>.Approve([<span class="type">Microsoft.UpdateServices.Administration.UpdateApprovalAction</span>]::Install, <span class="variable">$targetGrp</span>) | <span class="built_in">Out-Null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="タスク-スケジューラ-に登録する"><a href="#タスク-スケジューラ-に登録する" class="headerlink" title="タスク スケジューラ に登録する"></a>タスク スケジューラ に登録する</h3><ol><li><p>作成したスクリプトを適宜名前を付けて保存します。(本記事では Approve-EdgeExStableChannel.ps1 とします。)  </p></li><li><p>タスク スケジューラを起動します。</p></li><li><p>タスク スケジューラ ライブラリを右クリックして、「タスクの作成」を指定します。<br><img src="/blog/mecm/20260709_01/20260709_01_01.png" alt="taslsched_props"></p></li><li><p>[全般]タブで適宜名前と説明を変更します。また、タスクの実行時に使うユーザーアカウントは管理者権限のあるアカウントとし、「ユーザーがログオンしているかどうかにかかわらず実行する」を選択します。<br><img src="/blog/mecm/20260709_01/20260709_01_02.png" alt="taslsched_props"></p></li><li><p>[トリガー]タブで[新規]ボタンをクリックします。<br><img src="/blog/mecm/20260709_01/20260709_01_03.png" alt="taslsched_props"></p></li><li><p>自動承認を実行するスケジュールを適宜設定して、「OK」をクリックします。<br><img src="/blog/mecm/20260709_01/20260709_01_04.png" alt="taslsched_props"></p></li><li><p>[操作]タブで[新規]ボタンをクリックします。<br><img src="/blog/mecm/20260709_01/20260709_01_05.png" alt="taslsched_props"></p></li><li><p>以下のように設定して、「OK」をクリックします。</p><ul><li>操作: プログラムの開始</li><li>プログラム&#x2F;スクリプト: powershell.exe</li><li>引数の追加: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File &quot;[スクリプトファイルのパス]&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure><img src="/blog/mecm/20260709_01/20260709_01_06.png" alt="taslsched_props"></li></ul></li><li><p>OK をクリックし、タスク登録が終わったことを確認します。</p></li><li><p>設定時間後に、タスク スケジューラの履歴と、WSUS コンソールをみて意図通り更新プログラムが承認されているか確認します。</p></li></ol>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260709_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260709_01/"/>
+    <published>2026-07-08T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆さま、こんにちは。 WSUS サポートチームです。</p>
+<p>本日は、Microsoft Edge の特定チャネル更新プログラムの承認の自動化方法についてご案内します。</p>
+<h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
+    </summary>
+    <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
+    <updated>2026-07-10T05:28:37.414Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -26,7 +45,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-06-17T07:03:23.772Z</updated>
+    <updated>2026-07-10T05:28:37.413Z</updated>
   </entry>
   <entry>
     <author>
@@ -43,7 +62,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-06-17T07:03:23.772Z</updated>
+    <updated>2026-07-10T05:28:37.412Z</updated>
   </entry>
   <entry>
     <author>
@@ -60,7 +79,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-06-17T07:03:23.768Z</updated>
+    <updated>2026-07-10T05:28:37.412Z</updated>
   </entry>
   <entry>
     <author>
@@ -78,14 +97,14 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-06-17T07:03:23.768Z</updated>
+    <updated>2026-07-10T05:28:37.412Z</updated>
   </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager (ConfigMgr) においての姿勢についてご案内いたします。更新プログラムの適用失敗において調査した場合、非常に多くのケースで原因となっておりますので、本内容についてご理解を深めていただければと存じます。</p><h2 id="そもそも-スキャンとは"><a href="#そもそも-スキャンとは" class="headerlink" title="そもそも スキャンとは"></a>そもそも スキャンとは</h2><p>Windows Update &#x2F; Microsoft Update (WUMU) や WSUS、ソフトウェア更新ポイントから、それぞれが公開している更新プログラムのメタデータをクライアントがダウンロードし、その更新プログラムのインストールが必要かどうかを検出する処理のことです。更新プログラムは、Windows Update Agent (WUA) を介して、スキャン、ダウンロード、インストール、および機能更新プログラム等ではコミットまでを実施することで適用が完了する流れとなります。必ず、ダウンロードの前にスキャン処理が発生します。</p><h2 id="デュアル-スキャンが発生するようになった経緯とその影響"><a href="#デュアル-スキャンが発生するようになった経緯とその影響" class="headerlink" title="デュアル スキャンが発生するようになった経緯とその影響"></a>デュアル スキャンが発生するようになった経緯とその影響</h2><p>旧 Windows Update for Business(WUfB) 関連のポリシーが導入された際に発生するようになったものです。  WUfB は更新の取得元は クラウド上の WUMU のまま、適用タイミングのみをグループ ポリシーやレジストリの設定で遅延制御する仕組みです。現在では、WUfB は Windows Update クライアント ポリシーと改称されています (以降は WU クライアント ポリシー と記載します。)</p><p>さて、WUMU ではマイクロソフト製品の更新プログラムを配布していますが、WSUS でしか配布できない更新プログラムが残っています。このような背景から、マイクロソフトでは、Windows Update を主たる更新ソースとしつつ、WSUS でしか提供できない更新プログラムが存在する環境との互換性を保つために、デュアル スキャンの挙動を導入しました。</p><p>すなわち、WUA は、WU クライアント ポリシーと WSUS (SUP) の双方が設定されている時、以下の動きをします。</p><ul><li>スキャン自体は、WUMU および WSUS (SUP) の両方の更新プログラム メタデータをダウンロードして行います。</li><li>スキャン結果の取り扱いは、以下のようにします。<ul><li>Windows 製品については、WUMU のスキャン結果を採用します。WSUS のスキャン結果は捨てられます。</li><li>それ以外の製品については、基本的には WSUS (SUP) のスキャン結果を採用します。</li></ul></li></ul><p>しかしながらこの変更により、ConfigMgr や WSUS で一般的に管理されている、 WUMU にアクセスできない端末は、Windows 製品の更新プログラムが検出されなくなってしまいます。更新プログラムのダウンロード、インストール失敗に関するお問い合わせを受けた際、多くの原因は、このデュアル スキャンによるものがほとんどです。</p><p>これらの経緯については、過去の WSUS 製品チームのブログでも案内されています。</p><p>Demystifying “Dual Scan”<br><a href="https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan">https://learn.microsoft.com/en-us/archive/blogs/wsus/demystifying-dual-scan</a></p><h2 id="デュアル-スキャンを引き起こす設定-回避方法"><a href="#デュアル-スキャンを引き起こす設定-回避方法" class="headerlink" title="デュアル スキャンを引き起こす設定 &#x2F; 回避方法"></a>デュアル スキャンを引き起こす設定 &#x2F; 回避方法</h2><p>デュアル スキャンを回避する設定、および回避方法については弊社 Windows サポート チームの下記ブログをご参照ください。</p><p>WSUS から更新プログラムが配信されないときのチェックポイント (クライアント側)<br><a href="https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/">https://jpwinsup.github.io/blog/2026/03/18/WindowsUpdate/WUA/NotOfferAcceptedUpdates/</a></p><h2 id="ConfigMgr-における-デュアル-スキャンの取り扱いについて"><a href="#ConfigMgr-における-デュアル-スキャンの取り扱いについて" class="headerlink" title="ConfigMgr における デュアル スキャンの取り扱いについて"></a>ConfigMgr における デュアル スキャンの取り扱いについて</h2><h3 id="現在の方針"><a href="#現在の方針" class="headerlink" title="現在の方針"></a>現在の方針</h3><p><strong>2026 年 4 月現在サポートしている ConfigMgr Current Branch では、デュアル スキャンを回避するためのローカル グループ ポリシーやレジストリの変更を実施しておりません。</strong><br>もし、WU クライアント ポリシーを設定されたい場合は、それを防ぐための設定を、お客様側で追加していただくようお願いいたします。</p><h3 id="過去からの変遷"><a href="#過去からの変遷" class="headerlink" title="過去からの変遷"></a>過去からの変遷</h3><p>ConfigMgr CB 2403 までの一部バージョンでは、ソフトウェア更新管理の動作を安定させる目的で、ConfigMgr が以下のポリシーを構成する場合がありました：</p><ul><li>更新遅延の不許可ポリシー (DisableDualScan)</li><li>スキャン ソース ポリシー</li></ul><p>しかしながら、以下でご案内している通り、スキャン ソース ポリシーが設定されていると、オンデマンド機能(.NET 3.5 Framework), リモートサーバー管理ツール(RSAT), 言語パックなどをインターネットからダウンロードできなくなる、といった副作用がスキャン ソース ポリシーにあったことを契機に、ConfigMgr CB 2403 + KB28458746, ConfigMgr CB 2409 以降において、更新遅延の不許可ポリシー (DisableDualScan) やスキャン ソース ポリシーの設定については、お客様の方で対処していただく方針に変更されております。もし、お客様にて WU クライアント ポリシーを利用する必要がある場合は、別途スキャン ソース ポリシーや DisableDualScan 設定を実施くださいますようお願いいたします。</p><p>Microsoft Configuration Manager バージョン 2403 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2403/28458746</a></p><p>また、共同管理デバイスで Windows Update のワークロードを Intune 側に寄せているにも関わらず、サード パーティ更新プログラムを有効にしている環境下で意図せず、スキャン ソース ポリシーが設定され、 逆に WU クライアント ポリシーが有効にならず、WSUS &#x2F; ConfigMgr からの更新プログラムのスキャンを優先する場合がありました。こちらも、以下の KB36495448 によりスキャン ソース ポリシーを設定しないように修正されています。</p><p>Microsoft Configuration Manager バージョン 2503 および 2509 のソフトウェア更新プログラム管理クライアントの修正<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448">https://learn.microsoft.com/ja-jp/intune/configmgr/hotfix/2509/36495448</a></p>]]>
     </content>
@@ -96,7 +115,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-06-17T07:03:23.768Z</updated>
+    <updated>2026-07-10T05:28:37.411Z</updated>
   </entry>
   <entry>
     <author>
@@ -113,7 +132,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-06-17T07:03:23.768Z</updated>
+    <updated>2026-07-10T05:28:37.411Z</updated>
   </entry>
   <entry>
     <author>
@@ -130,7 +149,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-06-17T07:03:23.767Z</updated>
+    <updated>2026-07-10T05:28:37.411Z</updated>
   </entry>
   <entry>
     <author>
@@ -149,7 +168,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-06-17T07:03:23.767Z</updated>
+    <updated>2026-07-10T05:28:37.411Z</updated>
   </entry>
   <entry>
     <author>
@@ -167,7 +186,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-06-17T07:03:23.765Z</updated>
+    <updated>2026-07-10T05:28:37.410Z</updated>
   </entry>
   <entry>
     <author>
@@ -184,14 +203,14 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-06-17T07:03:23.764Z</updated>
+    <updated>2026-07-10T05:28:37.408Z</updated>
   </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
       <![CDATA[<p>みなさま、こんにちは。 Configuration Manager &#x2F; WSUS サポート チーム です。  </p><p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今まで同期していなかった製品の<br>累積更新プログラムについて、同期を開始したいときの製品ラベルの探し方についてご案内いたします。</p><h2 id="「製品」と「分類」-ラベルの探し方-その1"><a href="#「製品」と「分類」-ラベルの探し方-その1" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その1"></a>「製品」と「分類」 ラベルの探し方 その1</h2><ol><li><p>弊社は各累積更新プログラムの情報を公開しております。必要とする製品の履歴ページにアクセスします。(一覧にない製品の更新プログラムが欲しい場合はインターネット検索でお探しください)</p><ul><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-25h2-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-99c7f493-df2a-4832-bd2d-6706baa0dec0">Windows 11バージョン 25H2 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-24h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-0929c747-1815-4543-8461-0160d16f15e5">Windows 11、バージョン 24H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-23h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-59875222-b990-4bd9-932f-91a5954de434">Windows 11、バージョン 23H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2025-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%A5%E6%AD%B4-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7">Windows Server 2025の更新プログラムの履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2022-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee">Windows Server 2022 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2019-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-725fc2e1-4443-6831-a5ca-51ff5cbcb059">Windows 10 および Windows Server 2019 の更新履歴</a></li></ul></li><li><p>各ページの左ペインに過去の更新プログラムの履歴情報がが記載されておりますので、適当なものをクリックします。例えば、2026 年 1 月 13 日リリースの Windows Server 2025 向け累積品質更新プログラムをクリックします。</p></li><li><p>各更新プログラムの案内ページに「この更新プログラムの入手方法」の節があります。そちらのメニューより、「サーバー更新サービス」の項目をクリックすると、下記の通り、対象の更新プログラムの製品と分類が記載されています。  </p><p><img src="/blog/mecm/20260129_01/20260129_01_01.png" alt="ClassAndCategory"></p></li><li><p>WSUS や ConfigMgrで該当の[製品]と[分類]ラベルにチェックを入れれば、更新プログラムの同期が実施されます。</p><ul><li><p>WSUS の場合: [WSUSコンソール] - 左ペイン [オプション] - [製品と分類]<br> <img src="/blog/mecm/20260129_01/20260129_01_02.png" alt="WSUS-ClassAndCategory"></p></li><li><p>ConfigMgr の場合: [ConfigMgrコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント] - [製品] タブ<br> <img src="/blog/mecm/20260129_01/20260129_01_03.png" alt="ConfigMgr-ClassAndCategory"></p></li></ul></li></ol><h2 id="「製品」と「分類」-ラベルの探し方-その2"><a href="#「製品」と「分類」-ラベルの探し方-その2" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その2"></a>「製品」と「分類」 ラベルの探し方 その2</h2><p>具体的に適用したい更新プログラムの名前や KB 番号がわかっている場合、Microsoft Update カタログの検索で、「製品」ラベルを探すこともできます。</p><ul><li><a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a></li></ul><ol><li>Microsoft Update カタログにアクセスします。</li><li>更新プログラム名や KB 番号で検索します。例えば、以下は KB5073379 で検索した結果です。<br><img src="/blog/mecm/20260129_01/20260129_01_04.png" alt="MUClassAndCategory"></li><li>確認した「製品」と「分類」で 先にご案内した 通り WSUS コンソールやConfigMgr コンソールで同期を実施ください。</li></ol><h2 id="同期されない更新プログラム"><a href="#同期されない更新プログラム" class="headerlink" title="同期されない更新プログラム"></a>同期されない更新プログラム</h2><p>上記手順で製品や分類を設定しても同期できない更新プログラムは、インポートする必要がございます。下記ブログ記事をご参照いただければと存じます。</p><ul><li><a href="https://jpmem.github.io/blog/mecm/20250707_01/">通常では同期されない Windows OS 更新プログラムの同期方法</a></li></ul>]]>
     </content>
@@ -203,7 +222,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-06-17T07:03:23.762Z</updated>
+    <updated>2026-07-10T05:28:37.406Z</updated>
   </entry>
   <entry>
     <author>
@@ -220,7 +239,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-06-17T07:03:23.762Z</updated>
+    <updated>2026-07-10T05:28:37.406Z</updated>
   </entry>
   <entry>
     <author>
@@ -237,7 +256,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-06-17T07:03:23.752Z</updated>
+    <updated>2026-07-10T05:28:37.398Z</updated>
   </entry>
   <entry>
     <author>
@@ -254,7 +273,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-06-17T07:03:23.752Z</updated>
+    <updated>2026-07-10T05:28:37.397Z</updated>
   </entry>
   <entry>
     <author>
@@ -273,7 +292,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-06-17T07:03:23.752Z</updated>
+    <updated>2026-07-10T05:28:37.397Z</updated>
   </entry>
   <entry>
     <author>
@@ -290,7 +309,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-06-17T07:03:23.747Z</updated>
+    <updated>2026-07-10T05:28:37.393Z</updated>
   </entry>
   <entry>
     <author>
@@ -307,7 +326,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>今回は、Configuration Manager (ConfigMgr) のソフトウェアの更新ポイントに通常では同期されないソフトウェア更新プログラムの同期方法についてご紹介い]]>
     </summary>
     <title>通常では同期されない Windows OS 更新プログラムの同期方法</title>
-    <updated>2026-06-17T07:03:23.746Z</updated>
+    <updated>2026-07-10T05:28:37.391Z</updated>
   </entry>
   <entry>
     <author>
@@ -325,7 +344,7 @@
 <p>今回は、Configuration Manager (ConfigMgr) クライアントがコンテンツのダウンロードを行う際に使用するネットワーク帯域の制限についてご案内し]]>
     </summary>
     <title>クライアントがコンテンツのダウンロードを行う際の帯域の制限</title>
-    <updated>2026-06-17T07:03:23.746Z</updated>
+    <updated>2026-07-10T05:28:37.391Z</updated>
   </entry>
   <entry>
     <author>
@@ -343,26 +362,6 @@
 <p>本記事では、Configuration Manager (ConfigMgr) のサポート バージョンについてよくあるご質問と回答をご案内いたします。こちらに記載のないご質問に関し]]>
     </summary>
     <title>ConfigMgr サポート バージョン FAQ</title>
-    <updated>2026-06-17T07:03:23.745Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="更新プログラム" scheme="https://jpmem.github.io/blog/tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
-    <content>
-      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p><p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p><p>※本記事では、WSUS、Intune、Windows Update、WU クライアント ポリシー に関する内容は対象外です。</p><p>各症状ごとに詳細な記事を公開しています。記載内容と一致しない事象を確認された場合、弊社サポートまでお問い合わせください。</p><h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>以下のような問題が発生することがあります。</p><ol><li><strong>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</strong></li><li>ソフトウェア センターでダウンロードが失敗する</li><li>ソフトウェア センターでインストールに失敗する</li><li>必須展開にしているのに、更新プログラムが適用されない</li></ol><p>本記事では、症状 1 の <strong>「利用可能展開にしているのに更新プログラムがソフトウェア センターに表示されない」</strong> 問題について解説します。</p><h2 id="利用可能展開にしているのに、更新プログラムがソフトウェア-センターに表示されない"><a href="#利用可能展開にしているのに、更新プログラムがソフトウェア-センターに表示されない" class="headerlink" title="利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない"></a>利用可能展開にしているのに、更新プログラムがソフトウェア センターに表示されない</h2><p>以下のような原因が考えられます。</p><ul><li>管理ポイントと通信できず、展開ポリシーを取得できていない</li><li>展開ポリシーに紐づくコレクションにデバイスが所属していない</li><li>ソフトウェア更新ポイントと通信できず、更新プログラムの検出が失敗している</li></ul><h3 id="管理ポイントと通信できず、展開ポリシーを取得できていない"><a href="#管理ポイントと通信できず、展開ポリシーを取得できていない" class="headerlink" title="管理ポイントと通信できず、展開ポリシーを取得できていない"></a>管理ポイントと通信できず、展開ポリシーを取得できていない</h3><p>管理ポイントと ConfigMgr クライアントの通信ができていない可能性があります。以下の PowerShell コマンドを実行し、管理ポイントと疎通できるか確認してください (拡張 HTTP 通信設定の場合のみ)。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="literal">-Uri</span> <span class="string">&quot;http://&lt;管理ポイントの FQDN&gt;/sms_mp/.sms_aut?mplist&quot;</span> <span class="literal">-UseBasicParsing</span></span><br></pre></td></tr></table></figure><p>正常な場合、<code>StatusCode : 200</code> が返ります。それ以外の場合、通信エラーの可能性があります。</p><p>ログから確認する場合は、クライアントの <code>C:\Windows\CCM\Logs\CcmMessaging.log</code> を確認すると良いかと存じます。直近に以下のようなログが出力されていれば、通信が失敗している可能性が高いです。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[CCMHTTP] ERROR: URL=[管理ポイントの URL], Port=[port 番号], Options=1248, Code=0, Text=[エラー シンボル]</span><br><span class="line">[CCMHTTP] ERROR INFO: StatusCode=[HTTP ステータス コード] StatusText=[HTTP エラー ステータス テキスト]</span><br></pre></td></tr></table></figure><p>よくあるエラー シンボル の例:</p><ul><li><code>CCM_E_BAD_HTTP_STATUS_CODE</code>: HTTP ステータスコード 4xx または 5xx (サーバー側のエラー)</li><li><code>CCM_E_NO_CLIENT_PKI_CERT</code>: HTTPS 環境でクライアント証明書が見つからない</li><li><code>ERROR_WINHTTP_NAME_NOT_RESOLVED</code>: DNS で管理ポイントを解決できない</li><li><code>ERROR_WINHTTP_TIMEOUT</code>: 管理ポイントとの通信がタイムアウト</li></ul><h2 id="展開ポリシーに紐づくコレクションにデバイスが所属していない"><a href="#展開ポリシーに紐づくコレクションにデバイスが所属していない" class="headerlink" title="展開ポリシーに紐づくコレクションにデバイスが所属していない"></a>展開ポリシーに紐づくコレクションにデバイスが所属していない</h2><p>デバイスがコレクションに所属していないと、展開ポリシーを取得できません。以下の PowerShell コマンドを実行し、展開ポリシーを取得できているか確認してください。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\Policy\Machine\ActualConfig&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateCIAssignment | <span class="built_in">Select-Object</span> AssignmentID,  AssignmentName | <span class="built_in">Sort-Object</span> <span class="literal">-Property</span> AssignmentName | <span class="built_in">Format-Table</span> </span><br></pre></td></tr></table></figure><h2 id="ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している"><a href="#ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している" class="headerlink" title="ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している"></a>ソフトウェア更新ポイントと通信できずに更新プログラムの検出が失敗している</h2><p>デバイスがソフトウェア更新ポイントと通信できていない場合、更新プログラムの検出が失敗します。以下のコマンドを実行し、通信状況を確認してください (HTTP 通信設定の場合のみ)。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="literal">-Uri</span> <span class="string">&quot;http://&lt;ソフトウェア更新ポイントの FQDN&gt;:8530/ClientWebService/client.asmx&quot;</span> <span class="literal">-UseBasicParsing</span></span><br></pre></td></tr></table></figure><p><code>StatusCode : 200</code> 以外が返る場合、通信エラーの可能性があります。</p><p>また、ソフトウェア更新ポイントとアクセスする際には、通常、WinHTTP Proxy が利用されます。ご利用の NW 経路上、該当の Proxy は利用できるのか確認いただき、利用できない場合は、Proxy をバイパスするよう設定ください。</p><p>WinHTTP Proxy の設定は、コマンド プロンプトを開き、以下のコマンドを実行して確認できます。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh winhttp show proxy</span><br></pre></td></tr></table></figure><p>このほか、ソフトウェア更新ポイントがクライアントの所属する境界グループに紐づいていない、もしくは所属するドメインのグループ ポリシーで上書きされている場合がございます。こちらの確認は、コマンド プロンプトで、以下を実行して出力されるグループ ポリシーの評価結果をご確認ください。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure><p>出力された gpresult.html にて [設定] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント&#x2F;Windows Update&#x2F;(Windows Server Update Service から提供される更新プログラムの管理)]のポリシー [イントラネットの Microsoft 更新サービスの場所を指定する] の[優勢なGPO]が　[ローカル セキュリティ ポリシー]であり、かつ、以下の項目が以下の設定であるのが正しい設定です。</p><ul><li>更新を検出するためのイントラネットの更新サービスを指定する: ソフトウェア更新ポイントの FQDN</li><li>イントラネット統計サーバーの設定: ソフトウェア更新ポイントの FQDN</li><li>代替ダウンロード サーバーの設定: <a href="http://localhost:8005/">http://localhost:8005</a></li></ul><p> <img src="/blog/mecm/20250325_01/20250325_01_01.png" alt="gpresult.png"></p><p>上記の修復は [ConfigMgrコンソール] - [管理] - [階層の構成] - [境界グループ] より設定を見直しください。<br>IP サブネット境界設定が誤っている場合などもございます。</p><p>IP サブネット境界設定の考え方<br><a href="https://jpmem.github.io/blog/mecm/20220414_01/">https://jpmem.github.io/blog/mecm/20220414_01/</a></p><p>この他、「ソフトウェア更新ポイントとの通信がタイムアウトする」場合がございます。この事象は、 <code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80072ee2</span><br><span class="line">Scan failed with error = 0x80072ee2.</span><br></pre></td></tr></table></figure><p>0x80072ee2:WININET_E_TIMEOUT</p><p>また、「ソフトウェア更新ポイントとの通信が 503 エラーで返答される」場合もございます。この事象も、<code>C:\Windows\CCM\WUAHandler.log</code> の以下のようなログの出力で確認できます。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnSearchComplete - Failed to end search job. Error = 0x80244022.</span><br><span class="line">Scan failed with error = 0x80244022. </span><br></pre></td></tr></table></figure><p>0x80244022: WU_E_PT_HTTP_STATUS_SERVICE_UNAVAIL &#x2F; Same as HTTP status 503 - the service is temporarily overloaded.</p><p>これらの原因は、ソフトウェア更新ポイントとして利用している WSUS のメンテナンスが適切に行われていない場合が極めて多いので、以下でご案内のメンテナンスを実施ください。</p><p>WSUS メンテナンスガイド新版<br><a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a></p><p>この他、実際にクライアントで更新プログラムの検出が成功しているかどうかは、以下の Powershell スクリプトを実行することでも確認できます。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\SoftwareUpdates\UpdatesStore&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateStatus | <span class="built_in">Select-Object</span> UniqueId,Title,Status | <span class="built_in">Format-Table</span></span><br></pre></td></tr></table></figure><p>適用させたい更新プログラムの Status が Missing になっているかを確認ください。該当の更新プログラムが見つからない場合、ソフトウェア更新ポイント上で該当の更新プログラムの承認状態が「未承認」でないか、そもそもソフトウェア更新ポイントと通信できていないか、もしくは、Windows 製品の更新プログラムが存在しない場合、WU クライアント ポリシーが有効になっているためにデュアル スキャン状態になっている可能性がございます。</p><p>デュアル スキャン状態については下記記事もご参考ください。</p><p>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)<br><a href="https://jpmem.github.io/blog/mecm/20260403_01/">https://jpmem.github.io/blog/mecm/20260403_01/</a></p><h1 id="更新履歴"><a href="#更新履歴" class="headerlink" title="更新履歴"></a>更新履歴</h1><ul><li>2026&#x2F;4&#x2F;6 デュアル スキャン記事の言及を追加、古い名称を修正, タグ追加</li><li>2025&#x2F;3&#x2F;25 初版</li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20250325_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20250325_01/"/>
-    <published>2025-03-24T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。</p>
-<p>本記事では、Configuration Manager (ConfigMgr) を使用した OS 更新プログラムの適用が失敗する際のよくある原因と解決策をご紹介します。</p>
-<]]>
-    </summary>
-    <title>ConfigMgr クライアントの OS 更新失敗を防ぐ - よくある原因と解決策 (1)</title>
-    <updated>2026-06-17T07:03:23.739Z</updated>
+    <updated>2026-07-10T05:28:37.391Z</updated>
   </entry>
 </feed>
