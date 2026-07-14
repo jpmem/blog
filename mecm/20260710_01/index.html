@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆さま、こんにちは。 Configuration Manager &#x2F; WSUS サポートチームです。 本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プログラムの拒否を自動化する例についてサンプル スクリプトと共にご案内します。   以下の URL などで、ConfigMgr &#x2F; W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuration Manager &#x2F; WSUS で 更新プログラムの拒否を自動化する例">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260710_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆さま、こんにちは。 Configuration Manager &#x2F; WSUS サポートチームです。 本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プログラムの拒否を自動化する例についてサンプル スクリプトと共にご案内します。   以下の URL などで、ConfigMgr &#x2F; W">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_02.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_04.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_05.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_06.png">
+<meta property="article:published_time" content="2026-07-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-14T05:57:34.217Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20260710_01/20260710_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260710_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-07-09T15:00:00.000Z" itemprop="datePublished">2026-07-10</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-07-09T15:00:00.000Z" itemprop="dateUpdated">2026-07-10</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>皆さま、こんにちは。 Configuration Manager &#x2F; WSUS サポートチームです。</p>
+<p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プログラムの拒否を自動化する例についてサンプル スクリプトと共にご案内します。  </p>
+<p>以下の URL などで、ConfigMgr &#x2F; WSUS の安定運用のためには不要な更新プログラムの拒否が重要である旨、ご案内しております。弊社でよくパフォーマンス悪化でお問い合わせをいただく際も、メンテナンスが適切に行われていなかったことが原因であった事例が大部分を占めます。</p>
+<ul>
+<li><p>不要な更新プログラムは「拒否済み」に設定しよう！<br><a href="https://jpmem.github.io/blog/wsus/2017-12-11_01/">https://jpmem.github.io/blog/wsus/2017-12-11_01/</a></p>
+</li>
+<li><p>WSUS メンテナンスガイド新版<br><a href="https://jpmem.github.io/blog/wsus/2022-05-09_01/">https://jpmem.github.io/blog/wsus/2022-05-09_01/</a></p>
+</li>
+</ul>
+<p>一方で、更新プログラムの拒否を手動で定期的に実施するのも非常に負担がかかる作業かと存じます。そのため、WSUS API を用いた PowerShell スクリプトとタスク スケジューラを使って自動化することを推奨します。</p>
+<ul>
+<li>Windows Server Update Services 3.0 Class Library<br><a href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ms744624(v=vs.85)">https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ms744624(v=vs.85)</a></li>
+</ul>
+<h2 id="自動化に向けた検討"><a href="#自動化に向けた検討" class="headerlink" title="自動化に向けた検討"></a>自動化に向けた検討</h2><p>「どのような更新プログラムが不要であるか」をあらかじめ定義しておく必要がございます。こちらを定義できないために、メンテナンスができずにパフォーマンスを悪化させてしまっている事例も多いですが、ConfigMgr &#x2F; WSUS の安定運用には必ず必要な作業となりますので、関係者の方々を巻き込んで、必ず決めましょう。なお、CPU やメモリなどリソースを多めに積めばメンテナンスをしなくても大丈夫というわけではありません。</p>
+<h3 id="不要判定の軸"><a href="#不要判定の軸" class="headerlink" title="不要判定の軸"></a>不要判定の軸</h3><p>例えば、以下のような軸で不要な更新プログラムかどうかを判断します。</p>
+<ul>
+<li>すでにサポート期限切れを迎えている製品は製品の選択から外し、かつ拒否に変更する</li>
+<li>置き換えられた更新プログラムは拒否に変更する、もしくは数か月分のみ残す</li>
+<li>社内ですでに配布していない&#x2F;配布を予定していないアーキテクチャの更新プログラム (x86, ARM64)は拒否する</li>
+<li>M365 更新プログラムのうち、社内で利用していないチャネルは拒否する</li>
+</ul>
+<p>など。</p>
+<h3 id="実行時間の検討"><a href="#実行時間の検討" class="headerlink" title="実行時間の検討"></a>実行時間の検討</h3><p>タスク スケジューラにて拒否の実行を行いますが、以下のような時間帯はスケジュールから避けることを推奨します。</p>
+<ul>
+<li>サービス稼働時間</li>
+<li>バックアップ時間</li>
+<li>その他サービス連携を行っている時間</li>
+</ul>
+<h2 id="スクリプトの作成"><a href="#スクリプトの作成" class="headerlink" title="スクリプトの作成"></a>スクリプトの作成</h2><p>不要判定の軸を含めた要件が決まったら、スクリプトを作成していきます。</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>一部、タイトル名でフィルタされた更新プログラムに対して拒否を実施する仕組みとなっている都合上、拒否したいタイトル名が変わると、上手く動作しなくなりますのであらかじめご承知おきください。</p>
+<h3 id="モジュールをインポートする"><a href="#モジュールをインポートする" class="headerlink" title="モジュールをインポートする"></a>モジュールをインポートする</h3><p>PowerShell で WSUS API を実行するために、事前に UpdateServices モジュールをインポートしておきます。管理者権限で開いた PowerShell にて以下を実行しておきます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> UpdateServices</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="サンプル-スクリプト"><a href="#サンプル-スクリプト" class="headerlink" title="サンプル スクリプト"></a>サンプル スクリプト</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">サンプル スクリプト免責事項</span><br><span class="line"></span><br><span class="line">サンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。</span><br><span class="line">ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</span><br><span class="line"></span><br><span class="line">なお、お客様要件に合わせた変更を弊社に依頼されてもお受けいたしかねますので予めご承知おきください。</span><br></pre></td></tr></table></figure>
+
+<p>以下、条件例ごとのサンプル スクリプトとなります。</p>
+<ol>
+<li>x86, ARM64 アーキテクチャの更新プログラムは不要とする (x64 のみ配る)</li>
+<li>1 年以上前にリリースされた更新プログラムはすべて不要とする</li>
+<li>置き換えられた更新プログラムのうち、リリースされてから 3 ヵ月以上経過した更新プログラムは不要とする</li>
+<li>Edge は Beta, Dev, Stable チャネルは不要とする。 (Extended Stable チャネルのみ配る)</li>
+<li>Microsoft 365 Apps は月次、カレントチャネルは不要とする。 (半期チャネルのみ配る)</li>
+</ol>
+<h3 id="サンプル-1-x86-ARM64-アーキテクチャの更新プログラムは不要とする-x64-のみ配る"><a href="#サンプル-1-x86-ARM64-アーキテクチャの更新プログラムは不要とする-x64-のみ配る" class="headerlink" title="サンプル 1: x86, ARM64 アーキテクチャの更新プログラムは不要とする (x64 のみ配る)"></a>サンプル 1: x86, ARM64 アーキテクチャの更新プログラムは不要とする (x64 のみ配る)</h3><p>※ 本サンプルは全製品、全分類に適用されるので、もし対応が必要な場合は $targetScope.Categories とClassifications にて設定ください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decline x86 update program </span></span><br><span class="line"><span class="variable">$x86Pattern</span>   = <span class="string">&quot;.*x86.*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.TextIncludes = <span class="string">&quot;x86&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$x86Pattern</span>)&#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">        <span class="variable">$update</span>.Decline()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decline ARM64 update program </span></span><br><span class="line"><span class="variable">$arm64Pattern</span> = <span class="string">&quot;.*ARM64.*&quot;</span></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.TextIncludes = <span class="string">&quot;ARM64&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$arm64Pattern</span>)&#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">        <span class="variable">$update</span>.Decline()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="サンプル-2-1-年以上前にリリースされた更新プログラムはすべて不要とする"><a href="#サンプル-2-1-年以上前にリリースされた更新プログラムはすべて不要とする" class="headerlink" title="サンプル 2: 1 年以上前にリリースされた更新プログラムはすべて不要とする"></a>サンプル 2: 1 年以上前にリリースされた更新プログラムはすべて不要とする</h3><p>※ 本サンプルは全製品、全分類に適用されるので、もし対応が必要な場合は $targetScope.Categories とClassifications にて設定ください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.ToCreationDate =  (<span class="built_in">Get-Date</span>).AddYears(<span class="literal">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">    <span class="variable">$update</span>.Decline()    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="サンプル-3-置き換えられた更新プログラムのうち、リリースされてから-3-ヵ月以上経過した更新プログラムは不要とする"><a href="#サンプル-3-置き換えられた更新プログラムのうち、リリースされてから-3-ヵ月以上経過した更新プログラムは不要とする" class="headerlink" title="サンプル 3: 置き換えられた更新プログラムのうち、リリースされてから 3 ヵ月以上経過した更新プログラムは不要とする"></a>サンプル 3: 置き換えられた更新プログラムのうち、リリースされてから 3 ヵ月以上経過した更新プログラムは不要とする</h3><p>※ 本サンプルは全製品、全分類に適用されるので、もし対応が必要な場合は $targetScope.Categories とClassifications にて設定ください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.ToCreationDate =  (<span class="built_in">Get-Date</span>).AddMonths(<span class="literal">-3</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.IsSuperseded)&#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">        <span class="variable">$update</span>.Decline()    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="サンプル-4-Edge-は-Beta-Dev-Stable-チャネルは不要とする。-Extended-Stable-チャネルのみ配る"><a href="#サンプル-4-Edge-は-Beta-Dev-Stable-チャネルは不要とする。-Extended-Stable-チャネルのみ配る" class="headerlink" title="サンプル 4: Edge は Beta, Dev, Stable チャネルは不要とする。 (Extended Stable チャネルのみ配る)"></a>サンプル 4: Edge は Beta, Dev, Stable チャネルは不要とする。 (Extended Stable チャネルのみ配る)</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$archPattern</span>     = <span class="string">&#x27;x86|x64|ARM64&#x27;</span> </span><br><span class="line"><span class="variable">$excludedEdgePattern</span> = <span class="string">&quot;^Microsoft Edge-(Beta|Dev|Stable) Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetCategory</span>       = <span class="variable">$wsus</span>.GetUpdateCategories() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Microsoft Edge&#x27;</span></span><br><span class="line"><span class="variable">$targetClassification</span> = <span class="variable">$wsus</span>.GetUpdateClassifications() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Updates&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span>.Categories.Add(<span class="variable">$targetCategory</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"><span class="variable">$targetScope</span>.Classifications.Add(<span class="variable">$targetClassification</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$excludedEdgePattern</span>)&#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">        <span class="variable">$update</span>.Decline()    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="サンプル-5-Microsoft-365-Apps-は月次、カレントチャネルは不要とする。-半期チャネルのみ配る"><a href="#サンプル-5-Microsoft-365-Apps-は月次、カレントチャネルは不要とする。-半期チャネルのみ配る" class="headerlink" title="サンプル 5: Microsoft 365 Apps は月次、カレントチャネルは不要とする。 (半期チャネルのみ配る)"></a>サンプル 5: Microsoft 365 Apps は月次、カレントチャネルは不要とする。 (半期チャネルのみ配る)</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">$excludedM365Pattern</span> = <span class="string">&#x27;^Microsoft 365 Apps Update - (?&lt;channel&gt;(?!Semi-Annual)(?:Current Channel(?: \(Preview\))?|Monthly Enterprise Channel)) (?&lt;updateType&gt;Extended Quality Update|Feature Update|Quality Update) for (?&lt;arch&gt;ARM64|x64|x86) based Edition Version (?&lt;version&gt;\d&#123;4&#125;) \(Build (?&lt;build&gt;\d+\.\d+)\)$&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetCategory</span>       = <span class="variable">$wsus</span>.GetUpdateCategories() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Microsoft 365 Apps/Office 2019/Office LTSC&#x27;</span></span><br><span class="line"><span class="variable">$targetClassification</span> = <span class="variable">$wsus</span>.GetUpdateClassifications() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Updates&#x27;</span></span><br><span class="line"><span class="variable">$targetScope</span>.Categories.Add(<span class="variable">$targetCategory</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"><span class="variable">$targetScope</span>.Classifications.Add(<span class="variable">$targetClassification</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span>.TextIncludes = <span class="string">&quot;Microsoft 365 Apps Update&quot;</span></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$excludedM365Pattern</span>)&#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;decline: &quot;</span> <span class="variable">$update</span>.Title</span><br><span class="line">        <span class="variable">$update</span>.Decline()    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="タスク-スケジューラ-に登録する"><a href="#タスク-スケジューラ-に登録する" class="headerlink" title="タスク スケジューラ に登録する"></a>タスク スケジューラ に登録する</h3><ol>
+<li><p>作成したスクリプトを適宜名前を付けて保存します。(本記事では Decline-UnneededProgram.ps1 とします。)  </p>
+</li>
+<li><p>タスク スケジューラを起動します。</p>
+</li>
+<li><p>タスク スケジューラ ライブラリを右クリックして、「タスクの作成」を指定します。<br><img src="/blog/mecm/20260710_01/20260710_01_01.png" alt="taslsched_props"></p>
+</li>
+<li><p>[全般]タブで適宜名前と説明を変更します。また、タスクの実行時に使うユーザーアカウントは管理者権限のあるアカウントとし、「ユーザーがログオンしているかどうかにかかわらず実行する」を選択します。<br><img src="/blog/mecm/20260710_01/20260710_01_02.png" alt="taslsched_props"></p>
+</li>
+<li><p>[トリガー]タブで[新規]ボタンをクリックします。<br><img src="/blog/mecm/20260710_01/20260710_01_03.png" alt="taslsched_props"></p>
+</li>
+<li><p>拒否を実行するスケジュールを適宜設定して、「OK」をクリックします。<br><img src="/blog/mecm/20260710_01/20260710_01_04.png" alt="taslsched_props"></p>
+</li>
+<li><p>[操作]タブで[新規]ボタンをクリックします。<br><img src="/blog/mecm/20260710_01/20260710_01_05.png" alt="taslsched_props">   </p>
+</li>
+<li><p>以下のように設定して、「OK」をクリックします。</p>
+<ul>
+<li>操作: プログラムの開始</li>
+<li>プログラム&#x2F;スクリプト: powershell.exe</li>
+<li>引数の追加: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File &quot;[スクリプトファイルのパス]&quot;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/mecm/20260710_01/20260710_01_06.png" alt="taslsched_props"></li>
+</ul>
+</li>
+<li><p>OK をクリックし、タスク登録が終わったことを確認します。</p>
+</li>
+<li><p>設定時間後に、タスク スケジューラの履歴と、WSUS コンソールをみて意図通り更新プログラムが拒否されているか確認します。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidAQz52APxKjlEdXMp3zt6J" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260709_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</a>
+          </li>
+        
+          <li>
+            <a href="../20260709_01/">WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</a>
+          </li>
+        
+          <li>
+            <a href="../20260616_01/">Configuration Manager での SQL Server / 互換性レベル サポートについて</a>
+          </li>
+        
+          <li>
+            <a href="../20260603_01/">Configuration Manager Current Branch 2603 が Slow ringリリースされました</a>
+          </li>
+        
+          <li>
+            <a href="../20260514_01/">オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Etc/" rel="tag">Etc</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://techcommunity.microsoft.com/t5/configuration-manager-blog/bg-p/ConfigurationManagerBlog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
