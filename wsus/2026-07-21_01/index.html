@@ -5,24 +5,21 @@
   
 
   
-  <title>WSUS のサーバー クリーンアップ ウィザードで不要な更新プログラムのコンテンツ ファイルを削除する | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <title>WSUS 同期時間の増加やタイムアウトの問題について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="みなさま、こんにちは。WSUS サポート チームです。   WSUS サーバーを長期間運用している、または自動承認規則で製品などにフィルターをかけずに運用していると、知らない間に更新プログラムのコンテンツ ファイルが多くダウンロードされており、「ディスク サイズの空き容量がない！」といったトラブルが発生することがあります。WSUS は自動でメンテナンスを行う機能を持っておりませんので、ディスク サ">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。    Windows Server Update Services sync operations might have issues or time out   R">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSUS のサーバー クリーンアップ ウィザードで不要な更新プログラムのコンテンツ ファイルを削除する">
-<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/index.html">
+<meta property="og:title" content="WSUS 同期時間の増加やタイムアウトの問題について">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2026-07-21_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="みなさま、こんにちは。WSUS サポート チームです。   WSUS サーバーを長期間運用している、または自動承認規則で製品などにフィルターをかけずに運用していると、知らない間に更新プログラムのコンテンツ ファイルが多くダウンロードされており、「ディスク サイズの空き容量がない！」といったトラブルが発生することがあります。WSUS は自動でメンテナンスを行う機能を持っておりませんので、ディスク サ">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。    Windows Server Update Services sync operations might have issues or time out   R">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/01.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/02.png">
-<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/3.png">
-<meta property="article:published_time" content="2019-04-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-21T02:55:54.405Z">
+<meta property="article:published_time" content="2026-07-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-21T02:55:54.473Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2019-04-23_01/01.png">
   
     <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
   
@@ -88,10 +85,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-wsus/2019-04-23_01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-wsus/2026-07-21_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2019-04-22T15:00:00.000Z" itemprop="datePublished">2019-04-23</time>
+  <time datetime="2026-07-20T15:00:00.000Z" itemprop="datePublished">2026-07-21</time>
 </a>
     <!--  -->
   </div>
@@ -102,7 +99,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WSUS のサーバー クリーンアップ ウィザードで不要な更新プログラムのコンテンツ ファイルを削除する
+      WSUS 同期時間の増加やタイムアウトの問題について
     </h1>
   
 
@@ -111,75 +108,41 @@
         Last Update:
         <a href="" class="article-date-single">    
     
-    <time datetime="2019-04-22T15:00:00.000Z" itemprop="dateUpdated">2019-04-23</time>
+    <time datetime="2026-07-20T15:00:00.000Z" itemprop="dateUpdated">2026-07-21</time>
     
 </a>
       </div>
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>みなさま、こんにちは。WSUS サポート チームです。  </p>
-<p>WSUS サーバーを長期間運用している、または自動承認規則で製品などにフィルターをかけずに運用していると、知らない間に更新プログラムのコンテンツ ファイルが多くダウンロードされており、「ディスク サイズの空き容量がない！」といったトラブルが発生することがあります。<br>WSUS は自動でメンテナンスを行う機能を持っておりませんので、ディスク サイズの空き容量が少なくなった場合は、「サーバー クリーンアップ ウィザード」を実行して、不要なファイルを削除する必要があります。<br>でも、「サーバー クリーンアップ ウィザードを実行しても、あまり不要なファイルが削除されない！空き容量が増えない！」という結果になったことはありませんしょうか。  </p>
-<p>そこで今回は、WSUS で不要な更新プログラムのコンテンツ ファイルを確実に削除するためのポイントについてご紹介いたします。  </p>
+        <p>皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。<br>米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。  </p>
 <ul>
-<li>「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する</li>
-<li>「サーバー クリーンアップ ウィザード」実行後も更新プログラムのコンテンツ ファイルが削除できない場合</li>
+<li><a href="https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25H2#3549msgdesc">Windows Server Update Services sync operations might have issues or time out</a>  </li>
+<li><a href="https://support.microsoft.com/help/5121986">Resolved: Windows Server Update Services sync operations issues and timeouts</a></li>
 </ul>
-<h1 id="「サーバー-クリーンアップ-ウィザード」で-WSUS-で不要な更新プログラムのコンテンツ-ファイルを削除する"><a href="#「サーバー-クリーンアップ-ウィザード」で-WSUS-で不要な更新プログラムのコンテンツ-ファイルを削除する" class="headerlink" title="「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する"></a>「サーバー クリーンアップ ウィザード」で WSUS で不要な更新プログラムのコンテンツ ファイルを削除する</h1><p>サーバー クリーンアップ ウィザード項目で <strong>「不要な更新ファイル」</strong> を実行することで、不要な更新ファイルを削除することができますが、削除対象となる更新プログラムは <strong>「拒否済み」のステータスとなっている必要があります。</strong><br>そのため、以下の流れで不要な更新プログラムのコンテンツ ファイルを削除します。  </p>
-<p>(作業の流れ)<br>STEP1 : 更新プログラムを「拒否済み」とする<br><img src="/blog/wsus/2019-04-23_01/01.png" alt="image.png"><br>STEP2 : サーバー クリーンアップ ウィザードで「不要な更新ファイル」を実行する<br><img src="/blog/wsus/2019-04-23_01/02.png" alt="image.png"></p>
-<h1 id="「サーバー-クリーンアップ-ウィザード」実行後も更新プログラムのコンテンツ-ファイルが削除できない場合"><a href="#「サーバー-クリーンアップ-ウィザード」実行後も更新プログラムのコンテンツ-ファイルが削除できない場合" class="headerlink" title="「サーバー クリーンアップ ウィザード」実行後も更新プログラムのコンテンツ ファイルが削除できない場合"></a>「サーバー クリーンアップ ウィザード」実行後も更新プログラムのコンテンツ ファイルが削除できない場合</h1><p>上記流れで「サーバー クリーンアップ ウィザード」を実行した場合でも、更新プログラムのコンテンツ ファイルが削除できないことがあります。代表的な要因は以下の通りです。  </p>
-<h2 id="要因-1-WSUS-オプション設定が既定から変更されている"><a href="#要因-1-WSUS-オプション設定が既定から変更されている" class="headerlink" title="要因 1 : WSUS オプション設定が既定から変更されている"></a>要因 1 : WSUS オプション設定が既定から変更されている</h2><p>既定では、下図のとおりWSUS オプションの「更新ファイルと更新言語」の「更新プログラムが承認されている場合にのみ、更新ファイルをこのサーバーにダウンロードします」のチェックが「オン」です。この設定が「オフ」の構成の場合には、このままクリーンアップを実行しても「拒否済み」の更新プログラムのコンテンツ ファイルを削除することは出来ません。このような構成の場合には、既定の「オン」に変更し、クリーンアップウィザード実施後に、再度「オフ」に戻します。 </p>
-<p><img src="/blog/wsus/2019-04-23_01/3.png" alt="image.png">  </p>
-<h2 id="要因-2-「拒否済み」とした更新プログラムのコンテンツ-ファイルが他の更新プログラムで利用されており、かつ、インストール承認を行っている"><a href="#要因-2-「拒否済み」とした更新プログラムのコンテンツ-ファイルが他の更新プログラムで利用されており、かつ、インストール承認を行っている" class="headerlink" title="要因 2 : 「拒否済み」とした更新プログラムのコンテンツ ファイルが他の更新プログラムで利用されており、かつ、インストール承認を行っている"></a>要因 2 : 「拒否済み」とした更新プログラムのコンテンツ ファイルが他の更新プログラムで利用されており、かつ、インストール承認を行っている</h2><p>例として、以下の更新プログラムは、同一のコンテンツ ファイルを利用しています。このような更新プログラムは、一方を「拒否済み」としても、もう一方で「インストール承認」済みの場合には、更新プログラムのコンテンツ ファイルを削除することが出来ません。  </p>
-<p>Windows 7 for x64-based Systems 用の更新プログラム (KB974431)<br>Windows Server 2008 R2 x64 Edition 用の更新プログラム (KB974431)  </p>
-<p>見分け方としては、WSUS 管理コンソールで承認ステータスが「拒否済み」でも、[ファイルの状態] 列ではインストール承認ステータスのままとなります。  </p>
-<h2 id="要因-3-子-WSUS-が「自律」の構成である-もしくは-過去に「自律」の-子-WSUS-が存在していた"><a href="#要因-3-子-WSUS-が「自律」の構成である-もしくは-過去に「自律」の-子-WSUS-が存在していた" class="headerlink" title="要因 3 : 子 WSUS が「自律」の構成である もしくは 過去に「自律」の 子 WSUS が存在していた"></a>要因 3 : 子 WSUS が「自律」の構成である もしくは 過去に「自律」の 子 WSUS が存在していた</h2><p>親子 WSUS 構成で、子 WSUS が「自律」の場合、子 WSUS 側では親 WSUS とは異なる承認情報を保持できます。<br>たとえば、親 WSUS 側では未承認の更新プログラムも、子 WSUS が必要とすれば、親 WSUS は Microsoft Update カタログから更新プログラムのダウンロードを行います。この場合　<strong>「この更新プログラムは子 WSUS の要求によりダウンロードしたものである」ことを示すフラグ</strong>　を、データベース内のファイル情報に対して設定します。  </p>
-<p>このフラグが設定されたファイルは、親 WSUS 側でサーバー クリーン アップウィザードを実行しても削除されないよう設計されています。過去に、子 WSUS が存在し、現在はすでに登録解除を行っている場合でも、この状態は変化いたしません。<br>そのため、サーバー クリーンアップ ウィザードでこのフラグが設定された不要な更新プログラムのコンテンツ ファイルを削除できるようにするためには、以下の手順でデータベースに対して SQL を発行し、フラグを解除する作業が必要になります。  </p>
-<h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><p><strong>(※ 重要) データベース内の情報を変更する操作となりますので、必ず事前に WSUS データベースのバックアップをご実施ください。</strong>  </p>
-<p>Title : WSUS データベースのバックアップ方法について<br>URL : <a href="https://jpmem.github.io/memlog/wsus/backup/backup.html">https://jpmem.github.io/memlog/wsus/backup/backup.html</a></p>
-<p>子 WSUS によって必要とされている更新プログラムの有無の確認は、親 WSUS 管理コンソールから目視で確認をすることができません。そのため、以下の手順にて、フラグが設定されている更新プログラムが存在するかを確認します。WSUS のデータベース (SUSDB) への接続手順は SQL Server か Windows Internal Database (WID) かで異なります。接続方法につきましては、以下の公開情報をご確認ください。</p>
-<p>Title : WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について<br>URL : <a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">https://jpmem.github.io/memlog/wsus/sql/sqlquery.html</a></p>
-<ol>
-<li>SQL Server Management Studio を起動し、WSUS のデータベースを実行しているデータベース エンジンに接続します。  </li>
-<li>Microsoft SQL Server Management Studio 画面が起動したら、画面左ペインの[データベース] ツリーを展開します。  </li>
-<li>[SUSDB] を右クリックし [新しいクエリ] をクリックします。  </li>
-<li>右ペインに表示された新しいクエリ画面に、以下のとおり入力し、ツールバーの [実行] をクリックするかもしくは F5 キーを押して、実行を開始します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DSSRequestedDownload) FROM dbo.tbFileOnServer WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
-
-<p>この結果、2 行目に表示される数値が 0 以外であれば、フラグの設定を持つ更新プログラムのが存在しています。<br>その場合は引き続き下記の手順をご実施します。  </p>
-<ol start="5">
-<li>引き続き下記 2 件のコマンドを順に実行します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update tbfileOnServer set actualstate=1 where (actualstate=8 or actualstate=9 or actualstate=10) and 　　DSSRequestedDownload = 1</span><br><span class="line">update tbFileOnServer set DSSRequestedDownload = 0 WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>正しく変更されたかの確認のために、下記コマンドを実行します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DSSRequestedDownload) FROM dbo.tbFileOnServer WHERE DSSRequestedDownload = 1</span><br></pre></td></tr></table></figure>
-
-<p>結果が 0 なら正しく変更されています。  </p>
-<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><p>通常の用途で WSUS を利用している場合には WSUSContent フォルダにのみファイルがダウンロードされますが、<a href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/bb902470(v=vs.85)">Local Publishing</a> とよばれる特殊な機能を利用し、任意のアプリケーションやアプリケーションの更新の配信を行っている場合には、UpdateServicesPackages フォルダにもファイルが保存され、これらのファイルはクリーンアップ ウィザードでは削除することが出来ません。  </p>
-<p>UpdateServicesPackages フォルダ配下のファイルの削除が必要な場合には、以下の手順を実施し、出力されたフォルダについて手動で削除する必要があります。  </p>
-<ol>
-<li>WSUS サーバー上で以下のコマンドを実行します。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;C:\Program Files\Update Services\Tools\WsusUtil&quot; listunreferencedpackagefolders</span><br></pre></td></tr></table></figure>
-
-<p>結果出力例)  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">次のフォルダーは、WSUS サーバーの更新プログラムのいずれからも参照されていません。  </span><br><span class="line">C:\WSUS\UpdateServicesPackages\test  </span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>上記のコマンドの実行結果にて出力された参照されていないフォルダーについて削除を行います。</li>
-</ol>
+<p>Microsoftは、Windows Server Update Services(WSUS) チャネルへの公開されたテスト検出データの蓄積によるサービスの劣化を特定しました。<br>この検出データの蓄積によって WSUS サーバーで同期時間の増加や同期操作のタイムアウトが発生することがあります。この問題は最近始まり、2026年7月13日から影響が顕著になりました。<br>Microsoft はこの問題に対する緩和策を 2026&#x2F;7&#x2F;18 に展開しました。WSUSサーバーの同期の問題は解消され、新しい WSUS のインストールおよび再構築でも正常に動作することを確認しております。<br>この対策により、新たにインストールまたは再構築された WSUS サーバーがこの問題に直面することを防ぎます。  </p>
+<p>なお、クライアント コンピューターでは、この問題により WSUS や Configuration Manager のソフトウェアの更新ポイントに対するスキャンの失敗やタイムアウトを引き起こす可能性があります。<br>この影響を受けたクライアントは、以下のエラー コードを記録することがあります。  </p>
+<ul>
+<li>0x80244010:WU_E_PT_EXCEEDED_MAX_SERVER_TRIPS  </li>
+<li>0x8024400E:WU_E_PT_SOAP_SERVER  </li>
+<li>0x80244007:WU_E_PT_SOAPCLIENT_SOAPFAULT  </li>
+<li>0x80244022:Service unavailable  </li>
+<li>0x80240439:WU_E_PT_INVALID_FORMAT  </li>
+<li>0x80072EE2:WININET timeout</li>
+</ul>
+<p>この問題の影響が続く WSUS サーバーにつきましては、お手数をおかけしますが、公開情報の「Resolution」に記載の手順を実行して WSUS サーバーを通常の状態に復元することをご検討ください。<br>WSUS データベースのバックアップ手順や SQL クエリの実行手順につきましては、当サポートにて以下の記事を日本語で公開しておりますので、こちらもご参考としていただけますと幸いです。</p>
+<ul>
+<li><a href="https://jpmem.github.io/memlog/wsus/backup/backup.html">WSUS データベースのバックアップ方法について</a>  </li>
+<li><a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cuidhU8bOTF_LWIImzz7I-Cd1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidcHZSFvOY5mJUKDPCwm5s5" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -187,19 +150,10 @@
     
 <nav id="article-nav">
   
-    <a href="../2020-03-27_01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          SUSDB.mdf が肥大化したときの対処方法について
-        
-      </div>
-    </a>
   
-  
-    <a href="../../mecm/20190417_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../mecm/20260710_01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Microsoft Endpoint Configuration Manager ハードウェア インベントリが収集されない時のトラブルシュート</div>
+      <div class="article-nav-title">Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</div>
     </a>
   
 </nav>
@@ -218,7 +172,7 @@
       <ul>
         
           <li>
-            <a href="../2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a>
+            <a href="">WSUS 同期時間の増加やタイムアウトの問題について</a>
           </li>
         
           <li>
