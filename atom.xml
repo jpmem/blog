@@ -10,23 +10,23 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-07-23T07:36:07.777Z</updated>
+  <updated>2026-07-23T07:52:09.062Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
     <content>
-      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p><p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、Microsoft Intune チームが製品の最新情報やお知らせを発信している Microsoft Intune Blog の URL が変更されました。<br>今後、Microsoft Intune Blog を参照する際は、以下の URL をご利用ください。  </p><ul><li><a href="https://aka.ms/jpintuneblog">Microsoft Intune Blog</a></li></ul><p>短縮 URL は <a href="https://aka.ms/jpintuneblog">https://aka.ms/jpintuneblog</a> になります。<br>ブラウザーのお気に入りやブックマークに登録されている場合は、上記 URL への変更をお願いいたします。<br>Microsoft Intune の最新情報をご確認いただく際は、今後はこちらのブログをご参照くださいますようお願いいたします。  </p>]]>
+      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p><p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお知らせを発信している Japan Microsoft Intune Support Team Blog の URL が変更されました。<br>今後、日本の Microsoft Intune サポート チームが発信しているブログを参照する際は、以下の URL をご利用ください。  </p><ul><li><a href="https://aka.ms/jpintuneblog">Japan Microsoft Intune Support Team Blog</a></li></ul><p>短縮 URL は <a href="https://aka.ms/jpintuneblog">https://aka.ms/jpintuneblog</a> になります。<br>ブラウザーのお気に入りやブックマークに登録されている場合は、上記 URL への変更をお願いいたします。<br>Microsoft Intune の最新情報をご確認いただく際は、今後はこちらのブログをご参照くださいますようお願いいたします。  </p>]]>
     </content>
     <id>https://jpmem.github.io/blog/mecm/20260723_01/</id>
     <link href="https://jpmem.github.io/blog/mecm/20260723_01/"/>
     <published>2026-07-22T15:00:00.000Z</published>
     <summary>
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。  </p>
-<p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、Microsoft Intune チームが製品の最新情報やお知らせを発信してい]]>
+<p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
-    <title>Microsoft Intune Blog の URL 変更のお知らせ</title>
-    <updated>2026-07-23T07:36:07.777Z</updated>
+    <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
+    <updated>2026-07-23T07:52:09.062Z</updated>
   </entry>
   <entry>
     <author>
@@ -46,7 +46,7 @@
 <li><]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-07-23T07:36:07.869Z</updated>
+    <updated>2026-07-23T07:52:09.163Z</updated>
   </entry>
   <entry>
     <author>
@@ -65,7 +65,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-07-23T07:36:07.777Z</updated>
+    <updated>2026-07-23T07:52:09.062Z</updated>
   </entry>
   <entry>
     <author>
@@ -84,7 +84,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-07-23T07:36:07.776Z</updated>
+    <updated>2026-07-23T07:52:09.061Z</updated>
   </entry>
   <entry>
     <author>
@@ -101,7 +101,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-07-23T07:36:07.774Z</updated>
+    <updated>2026-07-23T07:52:09.061Z</updated>
   </entry>
   <entry>
     <author>
@@ -118,7 +118,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-07-23T07:36:07.774Z</updated>
+    <updated>2026-07-23T07:52:09.061Z</updated>
   </entry>
   <entry>
     <author>
@@ -135,7 +135,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-07-23T07:36:07.774Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -153,7 +153,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-07-23T07:36:07.774Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -171,7 +171,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-07-23T07:36:07.774Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -188,7 +188,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-07-23T07:36:07.773Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -205,7 +205,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-07-23T07:36:07.773Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -224,7 +224,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-07-23T07:36:07.773Z</updated>
+    <updated>2026-07-23T07:52:09.060Z</updated>
   </entry>
   <entry>
     <author>
@@ -242,7 +242,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-07-23T07:36:07.771Z</updated>
+    <updated>2026-07-23T07:52:09.057Z</updated>
   </entry>
   <entry>
     <author>
@@ -259,7 +259,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-07-23T07:36:07.770Z</updated>
+    <updated>2026-07-23T07:52:09.057Z</updated>
   </entry>
   <entry>
     <author>
@@ -278,7 +278,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-07-23T07:36:07.769Z</updated>
+    <updated>2026-07-23T07:52:09.055Z</updated>
   </entry>
   <entry>
     <author>
@@ -295,7 +295,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-07-23T07:36:07.769Z</updated>
+    <updated>2026-07-23T07:52:09.055Z</updated>
   </entry>
   <entry>
     <author>
@@ -312,7 +312,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオフライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オフライン アップデートの流れと注意点</title>
-    <updated>2026-07-23T07:36:07.762Z</updated>
+    <updated>2026-07-23T07:52:09.047Z</updated>
   </entry>
   <entry>
     <author>
@@ -329,7 +329,7 @@
       <![CDATA[<p>みなさま、こんにちは。<br>本記事では Configuration Manager (ConfigMgr) のオンライン アップデートの流れと注意点をご案内します。<br>サポート期限を迎える前に計画的に進めておくことで、予期せぬトラブルが発生しても製品サポートを引き続き]]>
     </summary>
     <title>Configuration Manager オンライン アップデートの流れと注意点</title>
-    <updated>2026-07-23T07:36:07.761Z</updated>
+    <updated>2026-07-23T07:52:09.047Z</updated>
   </entry>
   <entry>
     <author>
@@ -348,7 +348,7 @@
 <p>Configuration Manager 環境においては、Wind]]>
     </summary>
     <title>Windows 10 ESU を Configuration Manager 経由で適用する</title>
-    <updated>2026-07-23T07:36:07.761Z</updated>
+    <updated>2026-07-23T07:52:09.047Z</updated>
   </entry>
   <entry>
     <author>
@@ -365,6 +365,6 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チーム です。本日は、Configuration Manager (ConfigMgr) でのバックアップについてご案内します。<br>なおバックアップには様々な方式がございますが、本記事では主に Confi]]>
     </summary>
     <title>ConfigMgr の バックアップ と リカバリ (1)</title>
-    <updated>2026-07-23T07:36:07.758Z</updated>
+    <updated>2026-07-23T07:52:09.042Z</updated>
   </entry>
 </feed>
