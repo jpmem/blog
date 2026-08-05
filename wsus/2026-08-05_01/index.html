@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>WSUS データベース メンテナンス スクリプトのご紹介 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プログラムの削除、データベースの圧縮、インデックスの再構築などを個別に実行するのは、手間がかかります。 Microsoft Learn の以下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSUS データベース メンテナンス スクリプトのご紹介">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/2026-08-05_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プログラムの削除、データベースの圧縮、インデックスの再構築などを個別に実行するのは、手間がかかります。 Microsoft Learn の以下">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/wsus/2026-08-05_01/2026-08-05_01_1.png">
+<meta property="article:published_time" content="2026-08-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-05T02:12:17.017Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/wsus/2026-08-05_01/2026-08-05_01_1.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/2026-08-05_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-08-04T15:00:00.000Z" itemprop="datePublished">2026-08-05</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WSUS データベース メンテナンス スクリプトのご紹介
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-08-04T15:00:00.000Z" itemprop="dateUpdated">2026-08-05</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>みなさま、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プログラムの削除、データベースの圧縮、インデックスの再構築などを個別に実行するのは、手間がかかります。</p>
+<p>Microsoft Learn の以下の記事では、これらの作業をまとめて実行できる PowerShell スクリプトを公開しています。</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/wsus-automatic-maintenance#maintain-the-wsus-database-susdb-automatically">Manual and automatic WSUS database maintenance</a></li>
+</ul>
+<p>今回は、この <code>SUSDB-Maintenance</code> スクリプトの実行方法と、メニューの各選択肢で行われる処理をご紹介します。</p>
+<h2 id="スクリプトの特長"><a href="#スクリプトの特長" class="headerlink" title="スクリプトの特長"></a>スクリプトの特長</h2><p>このスクリプトには、以下の特長があります。</p>
+<ul>
+<li>SUSDB の更新プログラム数の確認、クリーンアップ、圧縮、インデックスの再構築などを、1 つのメニューから実行できます。</li>
+<li><code>[RA]</code> を選択すると、一連のメンテナンスを順番に実行できます。</li>
+<li>Windows Internal Database (WID) と SQL Server の両方に対応しています。SQL Server が別のサーバーにある場合は、メニューから接続先を変更できます。</li>
+<li>SQL Server PowerShell モジュールは不要で、.NET の <code>SqlClient</code> を使用して SUSDB に接続します。</li>
+<li>実行結果や各処理の所要時間は、スクリプトを実行したフォルダーの <code>SUSDB-Maintenance.log</code> に記録されます。</li>
+</ul>
+<h2 id="実行前の注意事項"><a href="#実行前の注意事項" class="headerlink" title="実行前の注意事項"></a>実行前の注意事項</h2><p>スクリプトを実行する前に、以下をご確認ください。</p>
+<ul>
+<li>Configuration Manager のソフトウェア更新ポイント、またはスタンドアロン WSUS で設定している定期同期を無効にし、メンテナンス中に同期が実行されないようにします。</li>
+<li>事前に SUSDB をバックアップします。バックアップ方法は、<a href="https://jpmem.github.io/memlog/wsus/backup/backup.html">WSUS データベースのバックアップ方法について</a> をご参照ください。</li>
+<li>スクリプトは WSUS サーバー上の Windows PowerShell を管理者として起動して実行します。WSUS 管理コンソールも同じサーバーにインストールされている必要があります。</li>
+<li>WID は WSUS サーバー上にあるローカルの WID が対象です。リモートの SQL Server を使用している場合は、実行後に <code>[S]</code> で接続先を指定します。</li>
+<li>WSUS を階層構成にしている場合は、階層内の各 WSUS サーバーで実行します。クリーンアップや削除を行う場合は、下位の WSUS サーバーから開始します。</li>
+<li>メンテナンスではデータベースやディスクへの負荷が高くなる場合があります。業務への影響が少ない時間帯に、十分な作業時間を確保して実行してください。</li>
+</ul>
+<p><strong>重要</strong></p>
+<p>公開されているスクリプトはサンプルであり、現状有姿で提供されています。Microsoft の標準サポート プログラムまたはサービスによるサポート対象ではありません。注意事項と免責事項を公開ページで確認し、事前に検証したうえでご利用ください。</p>
+<h2 id="スクリプトの入手と実行"><a href="#スクリプトの入手と実行" class="headerlink" title="スクリプトの入手と実行"></a>スクリプトの入手と実行</h2><ol>
+<li><a href="https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/wsus-automatic-maintenance#maintain-the-wsus-database-susdb-automatically">Microsoft Learn の公開ページ</a>を開き、PowerShell のコード ブロックをコピーします。</li>
+<li>コピーした内容を、WSUS サーバー上に <code>SUSDB-Maintenance.ps1</code> などの名前で保存します。</li>
+<li>Windows PowerShell を管理者として起動し、スクリプトを保存したフォルダーへ移動して実行します。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Temp</span><br><span class="line">.\SUSDB<span class="literal">-Maintenance</span>.ps1</span><br></pre></td></tr></table></figure>
+
+<p>スクリプトは、WSUS のレジストリ設定から WID または SQL Server の接続先を判定します。起動すると <code>SUSDB-Maintenance.log</code> が作成され、以下のメニューが表示されます。</p>
+<p><img src="/blog/wsus/2026-08-05_01/2026-08-05_01_1.png" alt="SUSDB-Maintenance スクリプトのメニュー画面"></p>
+<h2 id="各選択肢で行われる処理"><a href="#各選択肢で行われる処理" class="headerlink" title="各選択肢で行われる処理"></a>各選択肢で行われる処理</h2><table>
+<thead>
+<tr>
+<th>選択肢</th>
+<th>メニュー表示</th>
+<th>行われる処理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[S]</code></td>
+<td>Change SQL Server</td>
+<td>SUSDB への接続先を変更します。リモートの SQL Server を使用している場合などに、SQL Server 名またはインスタンス名を入力します。</td>
+</tr>
+<tr>
+<td><code>[M]</code></td>
+<td>Toggle MaxXMLPerRequest</td>
+<td>SUSDB の <code>MaxXMLPerRequest</code> を <code>0</code> と既定値の <code>5242880</code> の間で切り替えます。既定以外の値が設定されている場合は、変更する値を選択できます。変更を反映するには、スクリプト終了後に IIS の再起動が必要です。</td>
+</tr>
+<tr>
+<td><code>[D]</code></td>
+<td>Delete Test Detectoids</td>
+<td>2026 年 7 月の WSUS 同期問題に関連するテスト用の検出データを検索し、参照されていないデータを削除します。参照中のデータはスキップされます。削除が行われた場合は、スクリプト終了後に IIS の再起動が必要です。</td>
+</tr>
+<tr>
+<td><code>[A]</code></td>
+<td>Update Count</td>
+<td>更新プログラムの総数、有効な更新プログラム、置き換え済み、拒否済み、クリーンアップが必要な不要な更新プログラムなどの件数を取得し、ログへ記録します。メンテナンス前後の比較に使用できます。</td>
+</tr>
+<tr>
+<td><code>[1]</code></td>
+<td>Update spDeleteUpdate procedure</td>
+<td>不要な更新プログラムを削除するストアド プロシージャ <code>spDeleteUpdate</code> を、削除処理のパフォーマンスを改善した定義に更新します。</td>
+</tr>
+<tr>
+<td><code>[2]</code></td>
+<td>Shrink Files</td>
+<td><code>DBCC SHRINKFILE</code> を実行して SUSDB のデータ ファイルを圧縮し、未使用領域を解放します。処理前後のファイル サイズもログへ記録します。</td>
+</tr>
+<tr>
+<td><code>[3]</code></td>
+<td>Shrink Database</td>
+<td><code>DBCC SHRINKDATABASE</code> を実行して SUSDB を圧縮し、データベース ファイル内の未使用領域を解放します。</td>
+</tr>
+<tr>
+<td><code>[4]</code></td>
+<td>Reindex and Update Statistics</td>
+<td>SUSDB の全テーブルのインデックスを再構築した後、列の統計情報を <code>FULLSCAN</code> で更新します。</td>
+</tr>
+<tr>
+<td><code>[5]</code></td>
+<td>Cleanup Sync History</td>
+<td>SUSDB の <code>tbEventInstance</code> から、同期履歴に使用されるイベント レコードを削除します。</td>
+</tr>
+<tr>
+<td><code>[6]</code></td>
+<td>Cleanup Superseded Updates Older than x Days</td>
+<td>入力した日数より古い、置き換え済みで未拒否の更新プログラムを「拒否済み」に設定します。入力できる値は 1 ～ 99 日です。Configuration Manager を使用している場合は、ソフトウェア更新ポイントの置き換え規則と同じ日数を指定します。</td>
+</tr>
+<tr>
+<td><code>[7]</code></td>
+<td>Cleanup Obsolete Updates</td>
+<td><code>spGetObsoleteUpdatesToCleanup</code> で不要な更新プログラムを取得し、<code>spDeleteUpdate</code> を使用して 1 件ずつ SUSDB から削除します。</td>
+</tr>
+<tr>
+<td><code>[8]</code></td>
+<td>WSUS Cleanup Wizard</td>
+<td>WSUS 管理 API を使用してクリーンアップ ウィザードを実行します。置き換え済みおよび期限切れの更新プログラムの拒否、不要な更新プログラムとリビジョン、古いコンピューター、不要なコンテンツ ファイルの削除を行います。</td>
+</tr>
+<tr>
+<td><code>[9]</code></td>
+<td>Cleanup Declined</td>
+<td>WSUS 管理 API を使用して、拒否済みの更新プログラムを削除します。ほかの更新プログラムから参照されていて削除できないものはスキップし、ログへ記録します。</td>
+</tr>
+<tr>
+<td><code>[10]</code></td>
+<td>Shrink Files</td>
+<td><code>[2]</code> と同じ処理です。更新プログラムの削除後に、SUSDB のデータ ファイルを再度圧縮します。</td>
+</tr>
+<tr>
+<td><code>[11]</code></td>
+<td>Shrink Database</td>
+<td><code>[3]</code> と同じ処理です。更新プログラムの削除後に、SUSDB を再度圧縮します。</td>
+</tr>
+<tr>
+<td><code>[12]</code></td>
+<td>Reindex and Update Statistics</td>
+<td><code>[4]</code> と同じ処理です。クリーンアップと圧縮によって断片化したインデックスを再構築し、統計情報を更新します。</td>
+</tr>
+<tr>
+<td><code>[RA]</code></td>
+<td>Run all above steps sequentially</td>
+<td>保持日数を入力した後、更新プログラム数の確認、テスト用検出データの削除、<code>[1]</code> ～ <code>[12]</code>、更新プログラム数の再確認を順番に実行します。<code>[S]</code> と <code>[M]</code> は実行されません。</td>
+</tr>
+<tr>
+<td><code>[Q]</code></td>
+<td>Quit</td>
+<td>スクリプトを終了します。</td>
+</tr>
+</tbody></table>
+<h2 id="RA-で一括実行する場合"><a href="#RA-で一括実行する場合" class="headerlink" title="[RA] で一括実行する場合"></a><code>[RA]</code> で一括実行する場合</h2><p><code>[RA]</code> を選択すると、最初に置き換え済み更新プログラムを保持する日数の入力を求められます。1 ～ 99 日の範囲で入力すると、以下の順番で処理が実行されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[A] → [D] → [1] → [2] → [3] → [4] → [5] → [6] → [7] → [8] → [9] → [10] → [11] → [12] → [A]</span><br></pre></td></tr></table></figure>
+
+<p><code>[S]</code> と <code>[M]</code> は一括実行に含まれません。リモートの SQL Server へ接続する場合は、先に <code>[S]</code> で接続先を変更してください。また、<code>[M]</code> で設定を変更した場合や <code>[D]</code> でデータが削除された場合は、すべての処理が完了してから、計画したメンテナンス時間内に IIS を再起動してください。</p>
+<h2 id="実行時間と結果の確認"><a href="#実行時間と結果の確認" class="headerlink" title="実行時間と結果の確認"></a>実行時間と結果の確認</h2><p>実行時間は、サーバーの CPU、メモリ、ディスク性能、前回のメンテナンスからの経過期間、同期対象の製品と分類、クリーンアップ対象の件数によって大きく異なります。定期的にメンテナンスしている小規模な環境では <code>[RA]</code> が 1 分未満で完了することもありますが、メンテナンスを長期間実施していない環境では、数日かかる場合があります。</p>
+<p>処理の完了後は、<code>SUSDB-Maintenance.log</code> でエラー、各処理の所要時間、削除件数、圧縮前後のファイル サイズを確認します。<code>[A]</code> の結果も比較し、拒否済みまたは不要な更新プログラムの件数が減少していることをご確認ください。</p>
+<p>拒否済みの更新プログラムが多い場合は、公開情報の手順に従い、<code>[9]</code> ～ <code>[12]</code> を複数回実行してから <code>[A]</code> で件数を確認します。一度に完了させようとせず、ログと件数を確認しながら段階的に進めてください。</p>
+<h2 id="関連情報"><a href="#関連情報" class="headerlink" title="関連情報"></a>関連情報</h2><ul>
+<li><a href="https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/wsus-maintenance-guide">The complete guide to WSUS and Configuration Manager SUP maintenance</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2020-07-21_01/">WSUS メンテナンス ガイド</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2014-03-05_01/">WSUS DB インデックスの再構成の手順について</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2020-03-27_01/">SUSDB.mdf が肥大化したときの対処方法について</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuid9pZFeQ_BzoUVCTsCpXzyM" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../mecm/20260723_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">WSUS データベース メンテナンス スクリプトのご紹介</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260723_01/">Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</a>
+          </li>
+        
+          <li>
+            <a href="../2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260710_01/">Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260709_01/">WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">8月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
