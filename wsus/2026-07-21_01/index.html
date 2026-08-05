@@ -7,15 +7,15 @@
   
   <title>WSUS 同期時間の増加やタイムアウトの問題について | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[改訂履歴]  2026&#x2F;8&#x2F;5 WSUS データベース メンテナンス スクリプトを使用した復旧手順を追記 2026&#x2F;7&#x2F;21 初版  皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開され">
+  <meta name="description" content="改訂履歴 2026&#x2F;8&#x2F;5 スクリプトを使用した手順の実行方法を追記 2026&#x2F;7&#x2F;21 初版  概要皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。    Windows S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSUS 同期時間の増加やタイムアウトの問題について">
 <meta property="og:url" content="https://jpmem.github.io/blog/wsus/2026-07-21_01/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="[改訂履歴]  2026&#x2F;8&#x2F;5 WSUS データベース メンテナンス スクリプトを使用した復旧手順を追記 2026&#x2F;7&#x2F;21 初版  皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開され">
+<meta property="og:description" content="改訂履歴 2026&#x2F;8&#x2F;5 スクリプトを使用した手順の実行方法を追記 2026&#x2F;7&#x2F;21 初版  概要皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。    Windows S">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2026-07-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-05T02:41:08.772Z">
+<meta property="article:modified_time" content="2026-08-05T03:14:18.244Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="WSUS">
@@ -117,12 +117,11 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        <p>[改訂履歴]</p>
-<ul>
-<li>2026&#x2F;8&#x2F;5 WSUS データベース メンテナンス スクリプトを使用した復旧手順を追記</li>
+        <h2 id="改訂履歴"><a href="#改訂履歴" class="headerlink" title="改訂履歴"></a>改訂履歴</h2><ul>
+<li>2026&#x2F;8&#x2F;5 スクリプトを使用した手順の実行方法を追記</li>
 <li>2026&#x2F;7&#x2F;21 初版</li>
 </ul>
-<p>皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。<br>米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。  </p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。<br>米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。  </p>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25H2#3549msgdesc">Windows Server Update Services sync operations might have issues or time out</a>  </li>
 <li><a href="https://support.microsoft.com/help/5121986">Resolved: Windows Server Update Services sync operations issues and timeouts</a></li>
@@ -137,18 +136,28 @@
 <li>0x80240439: WU_E_PT_INVALID_FORMAT  </li>
 <li>0x80072EE2: WININET timeout</li>
 </ul>
-<p>この問題の影響が続く WSUS サーバーにつきましては、お手数をおかけしますが、上記 2 番目の公開情報の「Resolution」に記載の手順を実行して WSUS サーバーを通常の状態に復元することをご検討ください。<br>SUSDB のバックアップ後は、今回公開した <a href="https://jpmem.github.io/blog/wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a> で紹介している <code>SUSDB-Maintenance</code> スクリプトを使用することで、「Resolution」に記載されているバックアップ以外の手順 2 および手順 3 を実行できます。最初に <code>[M]</code> で <code>MaxXMLPerRequest</code> を <code>0</code> に変更し、続けて <code>[D]</code> で問題のテスト検出データを削除します。その後、WSUS が安定し、クライアントが正常にスキャンできることを確認してから、再度 <code>[M]</code> を実行して <code>MaxXMLPerRequest</code> を既定値の <code>5242880</code> に戻します。</p>
-<p>なお、<code>[RA]</code> には <code>[M]</code> の処理が含まれないため、<code>[M]</code> は個別に実行してください。また、設定の変更やテスト検出データの削除後は、スクリプトの表示および公開情報に従って IIS を再起動してください。</p>
-<p>WSUS データベースのバックアップ手順や SQL クエリの実行手順につきましては、当サポート チームにて以下の記事を日本語で公開しておりますので、こちらもご参考としていただけますと幸いです。</p>
+<p>この問題の影響が続く WSUS サーバーにつきましては、お手数をおかけしますが、上記 2 番目の公開情報の「Resolution」に記載の手順を実行して WSUS サーバーを通常の状態に復元することをご検討ください。<br>WSUS データベースのバックアップ手順や SQL クエリの実行手順につきましては、当サポート チームにて以下の記事を日本語で公開しておりますので、こちらもご参考としていただけますと幸いです。</p>
 <ul>
 <li><a href="https://jpmem.github.io/memlog/wsus/backup/backup.html">WSUS データベースのバックアップ方法について</a>  </li>
 <li><a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について</a></li>
 </ul>
+<h2 id="スクリプトを使用した手順の実行方法"><a href="#スクリプトを使用した手順の実行方法" class="headerlink" title="スクリプトを使用した手順の実行方法"></a>スクリプトを使用した手順の実行方法</h2><p>SUSDB のバックアップ後は、今回公開した <a href="https://jpmem.github.io/blog/wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a> で紹介している <code>SUSDB-Maintenance</code> スクリプトを使用することで、「Resolution」に記載されているバックアップ以外の手順 2 および手順 3 を実行できます。</p>
+<p>最初に <code>[M]</code> で <code>MaxXMLPerRequest</code> を <code>0</code> に変更し、続けて <code>[D]</code> で問題のテスト検出データを削除します。<br>その後、WSUS が安定し、クライアントが正常にスキャンできることを確認してから、再度 <code>[M]</code> を実行して <code>MaxXMLPerRequest</code> を既定値の <code>5242880</code> に戻します。</p>
+<p>なお、すべてのメンテナンスを実行する <code>[RA]</code> には <code>[M]</code> の処理が含まれないため、<code>[M]</code> は個別に実行してください。設定の変更やテスト検出データの削除後は、スクリプトの表示および公開情報に従って IIS を再起動してください。</p>
+<p>各ステップが完了したときにログへ記録されるメッセージの例は、次のとおりです。ログは、スクリプトを配置したフォルダーに出力されます。件数および実行時間は環境によって異なります。</p>
+<h3 id="M-で-MaxXMLPerRequest-を-0-に変更"><a href="#M-で-MaxXMLPerRequest-を-0-に変更" class="headerlink" title="[M] で MaxXMLPerRequest を 0 に変更"></a><code>[M]</code> で <code>MaxXMLPerRequest</code> を <code>0</code> に変更</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin toggle MaxXMLPerRequest</span><br><span class="line">Current MaxXMLPerRequest value: 5242880</span><br><span class="line">MaxXMLPerRequest changed from 5242880 to 0.</span><br><span class="line">Total execution time for setting MaxXMLPerRequest.........:0.0229879 seconds</span><br><span class="line">An IISRESET is required for the MaxXMLPerRequest change to take effect.</span><br><span class="line">--&gt; End toggle MaxXMLPerRequest</span><br></pre></td></tr></table></figure>
+<p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p>
+<h3 id="D-でテスト検出データを削除"><a href="#D-でテスト検出データを削除" class="headerlink" title="[D] でテスト検出データを削除"></a><code>[D]</code> でテスト検出データを削除</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin delete test detectoids</span><br><span class="line">Title pattern: Product Detectoid for ProductName TestProduct%</span><br><span class="line">Matching test detectoids found: 14520</span><br><span class="line">Reference: Resolved: Windows Server Update Services sync operations issues and timeouts - https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/07/kb5121986-windows-server-update-service-sync-operations-issues-and-timeouts</span><br><span class="line">Total execution time for deleting test detectoids.........:106.9523006 seconds</span><br><span class="line">Test detectoids deleted: 14520 | skipped (still referenced): 0</span><br><span class="line">An IISRESET is required now that test detectoids have been deleted. (after script finishes)</span><br><span class="line">--&gt; End delete test detectoids</span><br></pre></td></tr></table></figure>
+<p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p>
+<h3 id="M-で-MaxXMLPerRequest-を既定値に変更"><a href="#M-で-MaxXMLPerRequest-を既定値に変更" class="headerlink" title="[M] で MaxXMLPerRequest を既定値に変更"></a><code>[M]</code> で <code>MaxXMLPerRequest</code> を既定値に変更</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin toggle MaxXMLPerRequest</span><br><span class="line">Current MaxXMLPerRequest value: 0</span><br><span class="line">MaxXMLPerRequest changed from 0 to 5242880.</span><br><span class="line">Total execution time for setting MaxXMLPerRequest.........:0.0160058 seconds</span><br><span class="line">An IISRESET is required for the MaxXMLPerRequest change to take effect.</span><br><span class="line">--&gt; End toggle MaxXMLPerRequest</span><br></pre></td></tr></table></figure>
+<p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p>
+<h3 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h3><p>環境によっては <code>[D]</code> の処理に時間を要する場合があります。<br>その場合は、事前に <code>[12]</code>（インデックスの再構築と統計情報の更新）を実行して、データベースを最適化してください。<code>[12]</code> も環境によっては数時間かかることがあるため、十分な作業時間を確保してください。<br>また、多量のレコードを削除した後は、SUSDB のインデックスが断片化しますので、作業実施完了後も任意のタイミングで <code>[12]</code> を実行することをお勧めします。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin reindex and update statistics</span><br><span class="line">Reindexing</span><br><span class="line">Total execution time for Reindex.........:26.6674118 seconds</span><br><span class="line">Now Updating Statistics</span><br><span class="line">Total execution time for Updating Statistics.........:164.6127164 seconds</span><br><span class="line">--&gt; End reindex and update statistics</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuid4mkYHDZO94YNxn_WJXBMO" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidtGPji-3DjD8bGjDtg3DK7" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
