@@ -4,13 +4,17 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Docker: Attach to Blog Site",
+            "name": "Blog Site: Start & Attach",
             "port": 9229,
             "address": "localhost",
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/blog/",
-            "protocol": "inspector",
-            "preLaunchTask": "docker start",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
+                "/blog/node_modules/**"
+            ],
+            "preLaunchTask": "open local blog site",
             "postDebugTask": "docker stop"
         }
     ]

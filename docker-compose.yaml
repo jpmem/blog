@@ -1,17 +1,23 @@
-version: '3'
 services:
   blog:
     image: ghcr.io/cssjpn/blog-build-tools:latest
     working_dir: /blog
-    command: ["npx", "gulp", "--node-arg=--inspect-brk"]
+    command: ["node", "--require", "./docker/gulp-watch-polling.js", "--inspect=0.0.0.0:9229", "./node_modules/gulp/bin/gulp.js"]
+    environment:
+      BLOG_WATCH_POLLING: "true"
     ports:
-      - "4000:4000"
-      - "9229:9229"
+      - "127.0.0.1:4000:4000"
+      - "127.0.0.1:9229:9229"
     volumes:
       - "./articles:/blog/articles"
+      - "./docker:/blog/docker:ro"
       - "./scaffolds:/blog/scaffolds"
       - "./source:/blog/source"
+      - "generated-posts:/blog/source/_posts"
       - "./themes:/blog/themes"
       - "./_config.yml:/blog/_config.yml"
       - "./github-issue-template.md:/blog/github-issue-template.md"
       - "./.textlintrc:/blog/.textlintrc"
+
+volumes:
+  generated-posts:
