@@ -8,7 +8,7 @@ tools: [vscode, execute, read, agent, edit, search, web, 'microsoftdocs/mcp/*', 
 
 1. `.github/copilot-instructions.md` を読み、保存先、記事構成、表記、根拠確認、およびログの取扱いに従う。
 2. ユーザーが指定したプロンプトを確認し、記事の対象範囲、必須トピック、対象外のトピック、指定された公開情報を整理する。
-3. `C:\search-knowledge\SKILL.md` が利用できる場合は、その手順に従って対象製品の情報を収集する。利用できない場合は Microsoft Learn を優先して公開情報を調査する。
+3. `search-knowledge` が利用できる場合は、その手順に従って対象製品の情報を収集する。利用できない場合は Microsoft Learn を優先して公開情報を調査する。
 4. ワークスペース内に関連ログがある場合は、対象時刻、展開 ID、Update ID、Content ID、ジョブ ID などを用いて工程間の対応を確認する。ログがない場合や不足している場合は、その事実を明示し、推測したログを作成しない。
 5. 同じ製品フォルダーの既存記事を検索し、既存記事で説明済みの内容は必要に応じて参照リンクへ置き換える。
 6. 入力要件と収集した根拠をもとに記事を作成し、`articles/mecm/` または `articles/wsus/` に保存する。
