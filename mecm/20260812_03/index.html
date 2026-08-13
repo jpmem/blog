@@ -7,15 +7,15 @@
   
   <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager [MCM] でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。対象は、管理者が MCM コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロー">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。対象は、管理者が ConfigMgr コンソールから手動でダウンロードする場合と、自動展開規則 [ADR]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明">
 <meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260812_03/index.html">
 <meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
-<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager [MCM] でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。対象は、管理者が MCM コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロー">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。対象は、管理者が ConfigMgr コンソールから手動でダウンロードする場合と、自動展開規則 [ADR]">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2026-08-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:31:22.112Z">
+<meta property="article:modified_time" content="2026-08-13T02:40:52.530Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -121,7 +121,7 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
-<p>本記事では、Microsoft Configuration Manager [MCM] でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。<br>対象は、管理者が MCM コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロードする場合です。<br>また、ダウンロード後に、コンテンツが配布ポイントへ配置されるまでの流れも説明します。<br>クライアントによるコンテンツの取得、ソフトウェア更新プログラムのインストール、および展開評価の動作は、本記事の対象外です。</p>
+<p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。<br>対象は、管理者が ConfigMgr コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロードする場合です。<br>また、ダウンロード後に、コンテンツが配布ポイントへ配置されるまでの流れも説明します。<br>クライアントによるコンテンツの取得、ソフトウェア更新プログラムのインストール、および展開評価の動作は、本記事の対象外です。</p>
 <h3 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h3><p>ソフトウェア更新プログラムのコンテンツは、概ね次の順序で処理されます。</p>
 <ol>
 <li>インターネット上またはネットワーク上のダウンロード元から、ソフトウェア更新プログラムのファイルを取得します。</li>
@@ -130,15 +130,15 @@
 <li>サイト サーバーのコンテンツ ライブラリへコンテンツを取り込みます。</li>
 <li>展開パッケージに関連付けられた配布ポイントのコンテンツ ライブラリへコンテンツを転送します。</li>
 </ol>
-<h3 id="MCM-コンソールから手動でダウンロードする場合"><a href="#MCM-コンソールから手動でダウンロードする場合" class="headerlink" title="MCM コンソールから手動でダウンロードする場合"></a>MCM コンソールから手動でダウンロードする場合</h3><p>管理者が [ソフトウェア更新プログラムのダウンロード ウィザード] を完了すると、ウィザードを実行した MCM コンソール コンピューター上でダウンロード処理が開始されます。</p>
+<h3 id="ConfigMgr-コンソールから手動でダウンロードする場合"><a href="#ConfigMgr-コンソールから手動でダウンロードする場合" class="headerlink" title="ConfigMgr コンソールから手動でダウンロードする場合"></a>ConfigMgr コンソールから手動でダウンロードする場合</h3><p>管理者が [ソフトウェア更新プログラムのダウンロード ウィザード] を完了すると、ウィザードを実行した ConfigMgr コンソール コンピューター上でダウンロード処理が開始されます。</p>
 <p>ウィザードでは、次のいずれかのダウンロード元を選択します。</p>
 <ul>
 <li>[インターネットからソフトウェア更新プログラムをダウンロードする]</li>
 <li>[ネットワーク上の場所からソフトウェア更新プログラムをダウンロードする]</li>
 </ul>
-<p>前者を選択した場合、MCM コンソール コンピューターが、更新プログラムのカタログ上に記録された [コンテンツ ソース] へ直接接続します。<br>後者は、MCM コンソール コンピューターからインターネットへ接続できない場合に、事前に別のコンピューターで取得したファイルをネットワーク上の場所から読み込む用途で使用できます。</p>
+<p>前者を選択した場合、ConfigMgr コンソール コンピューターが、更新プログラムのカタログ上に記録された [コンテンツ ソース] へ直接接続します。<br>後者は、ConfigMgr コンソール コンピューターからインターネットへ接続できない場合に、事前に別のコンピューターで取得したファイルをネットワーク上の場所から読み込む用途で使用できます。</p>
 <p>また、コンテンツはユーザーの一時フォルダーへダウンロードしています。<br>その後、ファイルの信頼性とハッシュを検証し、展開パッケージのパッケージ ソースへ移動しています。</p>
-<p>パッケージ ソースには、MCM コンソールで指定した UNC パスを使用します。ウィザードを実行する管理者ユーザーと SMS Provider のコンピューター アカウントの両方に、この場所への書き込み権限が必要です。</p>
+<p>パッケージ ソースには、ConfigMgr コンソールで指定した UNC パスを使用します。ウィザードを実行する管理者ユーザーと SMS Provider のコンピューター アカウントの両方に、この場所への書き込み権限が必要です。</p>
 <h3 id="自動展開規則でダウンロードする場合"><a href="#自動展開規則でダウンロードする場合" class="headerlink" title="自動展開規則でダウンロードする場合"></a>自動展開規則でダウンロードする場合</h3><p>自動展開規則では、サイト サーバー上の [Rule Engine] が規則を評価し、対象となるソフトウェア更新プログラムのコンテンツをダウンロードします。</p>
 <p>既定では、自動展開規則を作成したサイトのサイト サーバーの [Local System] アカウントが、インターネットへの接続とダウンロードを実行します。</p>
 <p>自動展開規則でプロキシを使用する場合は、次の両方を確認します。</p>
@@ -151,33 +151,33 @@
 <thead>
 <tr>
 <th>項目</th>
-<th>MCM コンソールからの手動ダウンロード</th>
+<th>ConfigMgr コンソールからの手動ダウンロード</th>
 <th>自動展開規則 [ADR]</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>開始方法</td>
-<td>MCM コンソールの [ソフトウェア更新プログラムのダウンロード ウィザード] から開始します。</td>
+<td>ConfigMgr コンソールの [ソフトウェア更新プログラムのダウンロード ウィザード] から開始します。</td>
 <td>サイト サーバーの [Rule Engine] が規則のスケジュールまたは手動実行を処理します。</td>
 </tr>
 <tr>
 <td>ダウンロードの実行場所</td>
-<td>ウィザードを実行している MCM コンソール コンピューターです。</td>
+<td>ウィザードを実行している ConfigMgr コンソール コンピューターです。</td>
 <td>自動展開規則を作成したサイトのサイト サーバーです。</td>
 </tr>
 <tr>
 <td>[PatchDownloader.log] の場所</td>
 <td>ウィザードを実行したユーザーの [%TEMP%] 配下です。</td>
-<td>サイト サーバーの MCM ログ フォルダーです。</td>
+<td>サイト サーバーの ConfigMgr ログ フォルダーです。</td>
 </tr>
 <tr>
 <td>インターネット アクセスが必要な場所</td>
-<td>[インターネットからソフトウェア更新プログラムをダウンロードする] を選択した場合、MCM コンソール コンピューターからコンテンツの URL へアクセスできる必要があります。</td>
+<td>[インターネットからソフトウェア更新プログラムをダウンロードする] を選択した場合、ConfigMgr コンソール コンピューターからコンテンツの URL へアクセスできる必要があります。</td>
 <td>サイト サーバーからコンテンツの URL へアクセスできる必要があります。</td>
 </tr>
 <tr>
 <td>主なプロキシ設定</td>
-<td>MCM コンソール コンピューター上で、ダウンロードを実行するプロセスが参照できるプロキシ設定を使用します。</td>
+<td>ConfigMgr コンソール コンピューター上で、ダウンロードを実行するプロセスが参照できるプロキシ設定を使用します。</td>
 <td>[サイト システム] のプロキシ設定と、ソフトウェアの更新ポイントの [自動展開規則を使用してコンテンツをダウンロードするときにプロキシ サーバーを使用する] の設定を使用します。</td>
 </tr>
 <tr>
@@ -191,12 +191,12 @@
 <td>サイト サーバー側の処理でパッケージ ソースへ格納します。</td>
 </tr>
 </tbody></table>
-<p>重要な点は、ソフトウェアの更新ポイントに構成した [自動展開規則用のプロキシ] は、MCM コンソールから手動で実行したダウンロードには適用されないことです。<br>手動ダウンロードに失敗する場合は MCM コンソール コンピューター側、自動展開規則に失敗する場合はサイト サーバーおよびサイト システム側のネットワークとプロキシを確認します。</p>
+<p>重要な点は、ソフトウェアの更新ポイントに構成した [自動展開規則用のプロキシ] は、ConfigMgr コンソールから手動で実行したダウンロードには適用されないことです。<br>手動ダウンロードに失敗する場合は ConfigMgr コンソール コンピューター側、自動展開規則に失敗する場合はサイト サーバーおよびサイト システム側のネットワークとプロキシを確認します。</p>
 <h3 id="インターネット-アクセス"><a href="#インターネット-アクセス" class="headerlink" title="インターネット アクセス"></a>インターネット アクセス</h3><p>インターネットからコンテンツをダウンロードするコンピューターは、次の公開情報に記載のインターネット アクセス要件を許可する必要があります。</p>
 <ul>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li>
 </ul>
-<h3 id="配布ポイントへのコンテンツ配置"><a href="#配布ポイントへのコンテンツ配置" class="headerlink" title="配布ポイントへのコンテンツ配置"></a>配布ポイントへのコンテンツ配置</h3><p>[PatchDownloader.log] でパッケージ ソースへの格納が完了した後、MCM は次の処理を行います。</p>
+<h3 id="配布ポイントへのコンテンツ配置"><a href="#配布ポイントへのコンテンツ配置" class="headerlink" title="配布ポイントへのコンテンツ配置"></a>配布ポイントへのコンテンツ配置</h3><p>[PatchDownloader.log] でパッケージ ソースへの格納が完了した後、ConfigMgr は次の処理を行います。</p>
 <ol>
 <li>[Distribution Manager] がパッケージ ソースの変更を検出し、展開パッケージをサイト サーバーのコンテンツ ライブラリへ取り込みます。</li>
 <li>[Distribution Manager] が、対象の配布ポイントごとにパッケージ転送ジョブを作成します。</li>
@@ -214,7 +214,7 @@
 </thead>
 <tbody><tr>
 <td>[PatchDownloader.log]</td>
-<td>手動ダウンロードでは MCM コンソールを実行したユーザーの [%TEMP%]、自動展開規則ではサイト サーバーの MCM ログ フォルダー</td>
+<td>手動ダウンロードでは ConfigMgr コンソールを実行したユーザーの [%TEMP%]、自動展開規則ではサイト サーバーの ConfigMgr ログ フォルダー</td>
 <td>ダウンロード元、ダウンロード先、一時ファイル、進捗、プロキシ使用、信頼性検証、ハッシュ検証、パッケージ ソースへの格納を確認します。</td>
 </tr>
 <tr>
@@ -233,14 +233,14 @@
 <td>配布ポイントへの実際のコンテンツ転送を確認します。</td>
 </tr>
 </tbody></table>
-<h3 id="工程-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log"><a href="#工程-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log" class="headerlink" title="工程 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]"></a>工程 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]</h3><p>手動ダウンロードでは、最初に MCM コンソール コンピューターからサイト サーバーの WMI 名前空間へ接続します。<br>その後、パッケージ ソース上のダウンロード先とインターネット上の [コンテンツ ソース] を取得します。</p>
+<h3 id="工程-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log"><a href="#工程-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log" class="headerlink" title="工程 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]"></a>工程 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]</h3><p>手動ダウンロードでは、最初に ConfigMgr コンソール コンピューターからサイト サーバーの WMI 名前空間へ接続します。<br>その後、パッケージ ソース上のダウンロード先とインターネット上の [コンテンツ ソース] を取得します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trying to connect to the root\SMS namespace on the &lt;SiteServer&gt; machine.</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\SMS</span><br><span class="line">Trying to connect to the \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt; namespace</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt;</span><br><span class="line">Download destination = \\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br><span class="line">Contentsource = http://dl.delivery.mp.microsoft.com/.../&lt;FileName&gt;</span><br></pre></td></tr></table></figure>
 
 
 <h3 id="工程-2-インターネットへの接続とダウンロード-PatchDownloader-log"><a href="#工程-2-インターネットへの接続とダウンロード-PatchDownloader-log" class="headerlink" title="工程 2 : インターネットへの接続とダウンロード [PatchDownloader.log]"></a>工程 2 : インターネットへの接続とダウンロード [PatchDownloader.log]</h3><p>次の例では、プロキシが有効であり、レジストリ設定または既定値を使用してダウンロードを開始しています。[in progress] の値により、ファイル単位の進捗を確認できます。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Downloading content for ContentID = 16845509, FileName = &lt;FileName&gt;.</span><br><span class="line">Proxy is enabled for download, using registry settings or defaults.</span><br><span class="line">Connecting - Adding file range by calling HttpAddRequestHeaders, range string = &quot;Range: bytes=0-&quot;</span><br><span class="line">Download file size : 2702463309 bytes</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 10 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 90 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... to C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; returns 0</span><br></pre></td></tr></table></figure>
 
-<p>[returns 0] は、対象ファイルの一時フォルダーへのダウンロードが成功したことを示します。<br>この記録がなく、HTTP エラーや WinHTTP &#x2F; WinINET のエラーが記録されている場合は、MCM コンソール コンピューターまたはサイト サーバーの名前解決、ファイアウォール、プロキシ、およびプロキシ認証を確認します。</p>
+<p>[returns 0] は、対象ファイルの一時フォルダーへのダウンロードが成功したことを示します。<br>この記録がなく、HTTP エラーや WinHTTP &#x2F; WinINET のエラーが記録されている場合は、ConfigMgr コンソール コンピューターまたはサイト サーバーの名前解決、ファイアウォール、プロキシ、およびプロキシ認証を確認します。</p>
 <h3 id="工程-3-信頼性とハッシュの検証-PatchDownloader-log"><a href="#工程-3-信頼性とハッシュの検証-PatchDownloader-log" class="headerlink" title="工程 3 : 信頼性とハッシュの検証 [PatchDownloader.log]"></a>工程 3 : 信頼性とハッシュの検証 [PatchDownloader.log]</h3><p>ダウンロードが完了すると、一時ファイルの信頼性とハッシュが検証されます。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Verifying file trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; verified:</span><br><span class="line">Verifying file hash C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File hash verified: C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br></pre></td></tr></table></figure>
 
@@ -264,7 +264,7 @@
 <h3 id="工程-8-配布ポイントでの配置完了-distmgr-log"><a href="#工程-8-配布ポイントでの配置完了-distmgr-log" class="headerlink" title="工程 8 : 配布ポイントでの配置完了 [distmgr.log]"></a>工程 8 : 配布ポイントでの配置完了 [distmgr.log]</h3><p>配布ポイントから状態が返されると、[distmgr.log] にパッケージ サーバー状態の更新が記録されます。今回の保存ログでは、処理中の [Status 0] の後に [Status 3] が記録されています。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 0</span><br><span class="line">...</span><br><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 3</span><br><span class="line">STATMSG: ID=2330 SEV=I ... ISTR0=&quot;PS100018&quot; ISTR1=&quot;&lt;DistributionPoint&gt;&quot;</span><br></pre></td></tr></table></figure>
 
-<p>[Status 3] と状態メッセージ ID [2330] が記録されていれば、対象配布ポイントでパッケージの配置が完了したことを確認できます。<br>MCM コンソールでは、[監視] - [配布ステータス] - [コンテンツのステータス] から、対象の展開パッケージと配布ポイントの状態をあわせて確認してください。</p>
+<p>[Status 3] と状態メッセージ ID [2330] が記録されていれば、対象配布ポイントでパッケージの配置が完了したことを確認できます。<br>ConfigMgr コンソールでは、[監視] - [配布ステータス] - [コンテンツのステータス] から、対象の展開パッケージと配布ポイントの状態をあわせて確認してください。</p>
 <h1 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h1><ul>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/proxy-server-support">Configuration Manager でのプロキシ サーバーのサポート</a></li>
@@ -277,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuidtwc7j_jgg7VoeoJOg9qHF" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuidN8EybzZdDic6H-u7GPPog" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -288,19 +288,19 @@
     
 <nav id="article-nav">
   
-    <a href="../20260812_02/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../20260812_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          ソフトウェア更新プログラムの展開についての動作説明
+          ソフトウェア更新ポイントの同期についての動作説明
         
       </div>
     </a>
   
   
-    <a href="../../wsus/2026-08-05_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20260812_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS データベース メンテナンス スクリプトのご紹介</div>
+      <div class="article-nav-title">ソフトウェア更新プログラムの展開についての動作説明</div>
     </a>
   
 </nav>
@@ -323,11 +323,11 @@
           </li>
         
           <li>
-            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>
-            <a href="">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
