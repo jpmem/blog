@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。 [ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2026-08-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.530Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.524Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -120,6 +120,13 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-1-%E6%AE%B5%E9%9A%8E-%E4%B8%8A%E6%B5%81%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%83%E3%81%8B%E3%82%89-WSUS-%E3%81%B8%E3%81%AE%E5%90%8C%E6%9C%9F"><span class="toc-text">第 1 段階 : 上流の同期元から WSUS への同期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-2-%E6%AE%B5%E9%9A%8E-WSUS-%E3%81%8B%E3%82%89-ConfigMgr-%E3%82%B5%E3%82%A4%E3%83%88-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%B8%E3%81%AE%E5%90%8C%E6%9C%9F"><span class="toc-text">第 2 段階 : WSUS から ConfigMgr サイト データベースへの同期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E6%95%B0%E3%82%B5%E3%82%A4%E3%83%88%E3%81%8A%E3%82%88%E3%81%B3%E8%A4%87%E6%95%B0%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%8C%E3%81%82%E3%82%8B%E5%A0%B4%E5%90%88"><span class="toc-text">複数サイトおよび複数ソフトウェア更新ポイントがある場合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88-%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E8%A6%81%E4%BB%B6"><span class="toc-text">インターネット アクセス要件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%8B%E3%82%89-Microsoft-Update-%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A"><span class="toc-text">ソフトウェア更新ポイントから Microsoft Update への接続</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Microsoft-365-Apps-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%92%E5%90%8C%E6%9C%9F%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88"><span class="toc-text">Microsoft 365 Apps の更新プログラムを同期する場合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="toc-text">設定方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-WSUS-%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B"><span class="toc-text">1. WSUS をインストールする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B"><span class="toc-text">2. ソフトウェア更新ポイントをインストールする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%A3%BD%E5%93%81%E3%80%81%E5%88%86%E9%A1%9E%E3%80%81%E5%90%8C%E6%9C%9F%E5%85%83%E3%80%81%E8%A8%80%E8%AA%9E%E3%80%81%E3%81%8A%E3%82%88%E3%81%B3%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B"><span class="toc-text">3. 製品、分類、同期元、言語、およびスケジュールを設定する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%90%8C%E6%9C%9F%E3%81%99%E3%82%8B"><span class="toc-text">4. 同期する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-WSUS-%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%A8%E6%8E%A5%E7%B6%9A%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : WSUS の構成と接続を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E5%90%8C%E6%9C%9F%E8%A6%81%E6%B1%82%E3%81%AE%E9%96%8B%E5%A7%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : 同期要求の開始を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E4%B8%8A%E6%B5%81%E3%81%AE%E5%90%8C%E6%9C%9F%E5%85%83%E3%81%8B%E3%82%89-WSUS-%E3%81%B8%E3%81%AE%E5%90%8C%E6%9C%9F%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 3 : 上流の同期元から WSUS への同期を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-WSUS-%E3%81%8B%E3%82%89-ConfigMgr-%E3%82%B5%E3%82%A4%E3%83%88-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%B8%E3%81%AE%E5%90%8C%E6%9C%9F%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : WSUS から ConfigMgr サイト データベースへの同期を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-ConfigMgr-%E3%82%B5%E3%82%A4%E3%83%88-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E5%90%8C%E6%9C%9F%E5%AE%8C%E4%BA%86%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 5 : ConfigMgr サイト データベースの同期完了を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%B2%E6%8D%97%E7%8E%87%E3%81%8C-100-%E3%83%91%E3%83%BC%E3%82%BB%E3%83%B3%E3%83%88%E3%81%A7%E3%82%82%E6%9C%80%E7%B5%82%E7%B5%90%E6%9E%9C%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">進捗率が 100 パーセントでも最終結果を確認する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%88%E3%81%8F%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E5%A4%B1%E6%95%97%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8"><span class="toc-text">よく確認する失敗メッセージ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#STATMSG-ID-6706-%E3%81%8C%E8%A8%98%E9%8C%B2%E3%81%95%E3%82%8C%E3%82%8B%E5%87%A6%E7%90%86"><span class="toc-text">STATMSG: ID&#x3D;6706 が記録される処理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
         <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。</p>
 <p>[ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に一致する更新プログラムのカタログ情報を、上流の同期元から [WSUS] の役割を通じて [WSUS データベース] に同期し、その後に [ConfigMgr サイト データベース] に同期する処理です。</p>
@@ -129,7 +136,7 @@
 <li><a href="https://jpmem.github.io/blog/mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a></li>
 <li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a></li>
 </ul>
-<h3 id="同期処理の全体像"><a href="#同期処理の全体像" class="headerlink" title="同期処理の全体像"></a>同期処理の全体像</h3><p>最上位サイト [中央管理サイト、またはスタンドアロン プライマリ サイト] では、同期は次の順序で進みます。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>最上位サイト [中央管理サイト、またはスタンドアロン プライマリ サイト] では、同期は次の順序で進みます。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">A[同期要求&lt;br/&gt;スケジュールまたは手動操作]</span><br><span class="line">B[Microsoft Update&lt;br/&gt;または上流 WSUS]</span><br><span class="line">C[ソフトウェア更新ポイント&lt;br/&gt;WSUS]</span><br><span class="line">D[(WSUS データベース)]</span><br><span class="line">E[(ConfigMgr サイト データベース)]</span><br><span class="line">F[ConfigMgr 管理コンソール&lt;br/&gt;すべてのソフトウェア更新プログラム]</span><br><span class="line"></span><br><span class="line">A --&gt;|同期を開始| C</span><br><span class="line">B --&gt;|カテゴリとメタデータ| C</span><br><span class="line">C --&gt;|追加または更新| D</span><br><span class="line">D --&gt;|メタデータを同期| E</span><br><span class="line">E --&gt;|同期結果を表示| F</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -142,19 +149,19 @@
 <h3 id="第-1-段階-上流の同期元から-WSUS-への同期"><a href="#第-1-段階-上流の同期元から-WSUS-への同期" class="headerlink" title="第 1 段階 : 上流の同期元から WSUS への同期"></a>第 1 段階 : 上流の同期元から WSUS への同期</h3><p>最初に既定の [ソフトウェア更新ポイント] 上の [WSUS] に同期を要求します。<br>[WSUS] は、構成された同期元へ接続し、カテゴリと更新プログラムのメタデータを [WSUS データベース] に追加または更新します。</p>
 <p>最上位サイトの同期元には、通常、[Microsoft Update] を指定します。<br>インターネットに直接接続しない構成では、既存の上流 [WSUS] または切断環境向けのエクスポート・インポート方式を使用します。<br>子プライマリ サイトとセカンダリ サイトの [ソフトウェア更新ポイント] は、親サイト側の同期元を使用します。</p>
 <h3 id="第-2-段階-WSUS-から-ConfigMgr-サイト-データベースへの同期"><a href="#第-2-段階-WSUS-から-ConfigMgr-サイト-データベースへの同期" class="headerlink" title="第 2 段階 : WSUS から ConfigMgr サイト データベースへの同期"></a>第 2 段階 : WSUS から ConfigMgr サイト データベースへの同期</h3><p>[WSUS] の同期完了後、 [WSUS データベース] からカテゴリと更新プログラムを読み取り、[ConfigMgr サイト データベース] に同期します。<br>前回同期後に追加または変更されたメタデータが、[構成項目] として挿入または更新されます。</p>
-<p>この工程では、[ソフトウェア更新ポイント コンポーネントのプロパティ] で指定した [製品]、[分類]、[言語] が使用されます。<br>対象を過剰に選択すると [WSUS] のメタデータ量、同期時間、およびクライアントのスキャン負荷が増えるため、管理対象環境で必要な項目だけを選択します。</p>
+<p>このステップでは、[ソフトウェア更新ポイント コンポーネントのプロパティ] で指定した [製品]、[分類]、[言語] が使用されます。<br>対象を過剰に選択すると [WSUS] のメタデータ量、同期時間、およびクライアントのスキャン負荷が増えるため、管理対象環境で必要な項目だけを選択します。</p>
 <h3 id="複数サイトおよび複数ソフトウェア更新ポイントがある場合"><a href="#複数サイトおよび複数ソフトウェア更新ポイントがある場合" class="headerlink" title="複数サイトおよび複数ソフトウェア更新ポイントがある場合"></a>複数サイトおよび複数ソフトウェア更新ポイントがある場合</h3><p>最上位サイトで作成された更新プログラムの [構成項目] は、データベース レプリケーションによって子プライマリ サイトへ複製されます。<br>最上位サイトから同期通知を受け取った子サイトでは、親サイトの [WSUS] を上流として [WSUS] 同期を行います。</p>
 <p>同一サイトに複数の [ソフトウェア更新ポイント] がある場合、最初にインストールした [ソフトウェア更新ポイント] が既定の同期元として動作し、追加の [ソフトウェア更新ポイント] はレプリカとして同期されます。</p>
-<h1 id="インターネット-アクセス要件"><a href="#インターネット-アクセス要件" class="headerlink" title="インターネット アクセス要件"></a>インターネット アクセス要件</h1><h2 id="ソフトウェア更新ポイントから-Microsoft-Update-への接続"><a href="#ソフトウェア更新ポイントから-Microsoft-Update-への接続" class="headerlink" title="ソフトウェア更新ポイントから Microsoft Update への接続"></a>ソフトウェア更新ポイントから Microsoft Update への接続</h2><p>最上位サイトで同期元に [Microsoft Update] を指定する場合、アクティブな [ソフトウェア更新ポイント] から [Microsoft Update] クラウド サービスへの送信通信が必要です。</p>
+<h2 id="インターネット-アクセス要件"><a href="#インターネット-アクセス要件" class="headerlink" title="インターネット アクセス要件"></a>インターネット アクセス要件</h2><h3 id="ソフトウェア更新ポイントから-Microsoft-Update-への接続"><a href="#ソフトウェア更新ポイントから-Microsoft-Update-への接続" class="headerlink" title="ソフトウェア更新ポイントから Microsoft Update への接続"></a>ソフトウェア更新ポイントから Microsoft Update への接続</h3><p>最上位サイトで同期元に [Microsoft Update] を指定する場合、アクティブな [ソフトウェア更新ポイント] から [Microsoft Update] クラウド サービスへの送信通信が必要です。</p>
 <p>[WSUS] から [Microsoft Update] への接続には [HTTP] の [TCP 80] と [HTTPS] の [TCP 443] が使用されます。組織のファイアウォールまたはプロキシでインターネット通信を制限している場合は、公開情報に記載のエンドポイントへの接続を許可します。</p>
 <ul>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">インターネット アクセス要件 - ソフトウェア更新プログラム</a></li>
 </ul>
-<h2 id="Microsoft-365-Apps-の更新プログラムを同期する場合"><a href="#Microsoft-365-Apps-の更新プログラムを同期する場合" class="headerlink" title="Microsoft 365 Apps の更新プログラムを同期する場合"></a>Microsoft 365 Apps の更新プログラムを同期する場合</h2><p>[製品] で [Microsoft 365 Apps] を選択する場合、通常の [Microsoft Update] 用エンドポイントに加え、[Office CDN] と [Microsoft 365 Apps ファイル リスト API] への接続が必要です。次の公開情報に記載のエンドポイントへの接続を許可します。</p>
+<h3 id="Microsoft-365-Apps-の更新プログラムを同期する場合"><a href="#Microsoft-365-Apps-の更新プログラムを同期する場合" class="headerlink" title="Microsoft 365 Apps の更新プログラムを同期する場合"></a>Microsoft 365 Apps の更新プログラムを同期する場合</h3><p>[製品] で [Microsoft 365 Apps] を選択する場合、通常の [Microsoft Update] 用エンドポイントに加え、[Office CDN] と [Microsoft 365 Apps ファイル リスト API] への接続が必要です。次の公開情報に記載のエンドポイントへの接続を許可します。</p>
 <ul>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#manage-microsoft-365-apps">インターネット アクセス要件 - Microsoft 365 Apps</a></li>
 </ul>
-<h1 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h1><h3 id="1-WSUS-をインストールする"><a href="#1-WSUS-をインストールする" class="headerlink" title="1. WSUS をインストールする"></a>1. WSUS をインストールする</h3><p>[ソフトウェア更新ポイント] のサイト システム役割を追加する前に、対象サーバーへ [Windows Server Update Services] をインストールします。<br>[WSUS] は、更新プログラムの同期とクライアントによる更新プログラムのスキャンサイクルの際にメタデータをダウンロードするサーバーとして必要です。</p>
+<h2 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h2><h3 id="1-WSUS-をインストールする"><a href="#1-WSUS-をインストールする" class="headerlink" title="1. WSUS をインストールする"></a>1. WSUS をインストールする</h3><p>[ソフトウェア更新ポイント] のサイト システム役割を追加する前に、対象サーバーへ [Windows Server Update Services] をインストールします。<br>[WSUS] は、更新プログラムの同期とクライアントによる更新プログラムのスキャンサイクルの際にメタデータをダウンロードするサーバーとして必要です。</p>
 <ol>
 <li>[サーバー マネージャー] で [役割と機能の追加] を開始します。</li>
 <li>[Windows Server Update Services] を選択します。</li>
@@ -193,8 +200,8 @@
 <li>[ホーム] タブで [ソフトウェア更新プログラムの同期] を選択します。</li>
 <li>確認画面で [はい] を選択します。</li>
 </ol>
-<h4 id="同期状態の確認"><a href="#同期状態の確認" class="headerlink" title="同期状態の確認"></a>同期状態の確認</h4><p>[監視] - [ソフトウェア更新ポイントの同期ステータス] で、階層内の [ソフトウェア更新ポイント] ごとの状態を確認できます。詳細な工程とエラーは、サイト サーバーの [Logs] フォルダーにある [wsyncmgr.log] を確認します。</p>
-<h1 id="ソフトウェア更新ポイントの同期時に確認するログ-について"><a href="#ソフトウェア更新ポイントの同期時に確認するログ-について" class="headerlink" title="ソフトウェア更新ポイントの同期時に確認するログ について"></a>ソフトウェア更新ポイントの同期時に確認するログ について</h1><table>
+<h4 id="同期状態の確認"><a href="#同期状態の確認" class="headerlink" title="同期状態の確認"></a>同期状態の確認</h4><p>[監視] - [ソフトウェア更新ポイントの同期ステータス] で、階層内の [ソフトウェア更新ポイント] ごとの状態を確認できます。詳細なステップとエラーは、サイト サーバーの [Logs] フォルダーにある [wsyncmgr.log] を確認します。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table>
 <thead>
 <tr>
 <th>ログ名</th>
@@ -227,28 +234,28 @@
 </tr>
 </tbody></table>
 <p>以下の抜粋は、提供された [WCM.log] および [wsyncmgr.log] 相当のログを読みやすい形式に整えた例です。サーバー名、時刻、件数は環境によって異なります。</p>
-<h3 id="工程-1-WSUS-の構成と接続を確認する"><a href="#工程-1-WSUS-の構成と接続を確認する" class="headerlink" title="工程 1 : WSUS の構成と接続を確認する"></a>工程 1 : WSUS の構成と接続を確認する</h3><p>[WCM.log] で、サポート対象の [WSUS] が検出され、指定ポートで接続でき、上流サーバーとカテゴリが正しく構成されていることを確認します。</p>
+<h3 id="ステップ-1-WSUS-の構成と接続を確認する"><a href="#ステップ-1-WSUS-の構成と接続を確認する" class="headerlink" title="ステップ 1 : WSUS の構成と接続を確認する"></a>ステップ 1 : WSUS の構成と接続を確認する</h3><p>[WCM.log] で、サポート対象の [WSUS] が検出され、指定ポートで接続でき、上流サーバーとカテゴリが正しく構成されていることを確認します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Supported WSUS version found</span><br><span class="line">Attempting connection to WSUS server: CON-PS1DPMPSUP1.contoso.com, port: 8530, useSSL: False</span><br><span class="line">Successfully connected to server: CON-PS1DPMPSUP1.contoso.com, port: 8530, useSSL: False</span><br><span class="line">No changes - WSUS Server settings are correctly configured and Upstream Server is set to Microsoft Update</span><br><span class="line">Refreshing categories from WSUS server</span><br><span class="line">Successfully refreshed categories from WSUS server</span><br></pre></td></tr></table></figure>
 
 <p>[Successfully connected] が記録されない場合は、[Update Services] サービス、[IIS] の [WSUS Administration] サイト、FQDN、ポート、SSL、ファイアウォール、プロキシ、および接続アカウントを確認します。</p>
-<h3 id="工程-2-同期要求の開始を確認する"><a href="#工程-2-同期要求の開始を確認する" class="headerlink" title="工程 2 : 同期要求の開始を確認する"></a>工程 2 : 同期要求の開始を確認する</h3><p>[wsyncmgr.log] で、スケジュールまたは手動要求により同期が開始され、対象の [ソフトウェア更新ポイント] が検出されたことを確認します。</p>
+<h3 id="ステップ-2-同期要求の開始を確認する"><a href="#ステップ-2-同期要求の開始を確認する" class="headerlink" title="ステップ 2 : 同期要求の開始を確認する"></a>ステップ 2 : 同期要求の開始を確認する</h3><p>[wsyncmgr.log] で、スケジュールまたは手動要求により同期が開始され、対象の [ソフトウェア更新ポイント] が検出されたことを確認します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Wakeup for scheduled regular sync</span><br><span class="line">Starting Sync</span><br><span class="line">Performing sync on regular schedule</span><br><span class="line">Read SUPs from SCF for CON-PS1SITE.contoso.com</span><br><span class="line">Found 2 SUPs</span><br><span class="line">STATMSG: ID=6701 SEV=I</span><br></pre></td></tr></table></figure>
 
 <p>手動同期の場合は、[Performing sync on local request] が記録されます。[STATMSG: ID&#x3D;6701] は同期処理の開始を示します。</p>
-<h3 id="工程-3-上流の同期元から-WSUS-への同期を確認する"><a href="#工程-3-上流の同期元から-WSUS-への同期を確認する" class="headerlink" title="工程 3 : 上流の同期元から WSUS への同期を確認する"></a>工程 3 : 上流の同期元から WSUS への同期を確認する</h3><p>次の記録は、[WSUS] がカテゴリ 28 件、更新プログラム 414 件を処理し、[WSUS データベース] への同期を完了したことを示します。[STATMSG: ID&#x3D;6704] は [WSUS] 同期フェーズを示します。</p>
+<h3 id="ステップ-3-上流の同期元から-WSUS-への同期を確認する"><a href="#ステップ-3-上流の同期元から-WSUS-への同期を確認する" class="headerlink" title="ステップ 3 : 上流の同期元から WSUS への同期を確認する"></a>ステップ 3 : 上流の同期元から WSUS への同期を確認する</h3><p>次の記録は、[WSUS] がカテゴリ 28 件、更新プログラム 414 件を処理し、[WSUS データベース] への同期を完了したことを示します。[STATMSG: ID&#x3D;6704] は [WSUS] 同期フェーズを示します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Synchronizing WSUS, default server is CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">STATMSG: ID=6704 SEV=I</span><br><span class="line">sync: Starting WSUS synchronization</span><br><span class="line">sync: WSUS synchronizing categories, processed 28 out of 28 items (100%)</span><br><span class="line">sync: WSUS synchronizing updates, processed 414 out of 414 items (100%)</span><br><span class="line">Done synchronizing WSUS Server con-ps1dpmpsup1.contoso.com</span><br></pre></td></tr></table></figure>
 
 <p>[Done synchronizing WSUS Server] が記録されれば、第 1 段階の [WSUS] 同期は完了しています。ただし、この時点では [ConfigMgr サイト データベース] への同期完了ではありません。</p>
-<h3 id="工程-4-WSUS-から-ConfigMgr-サイト-データベースへの同期を確認する"><a href="#工程-4-WSUS-から-ConfigMgr-サイト-データベースへの同期を確認する" class="headerlink" title="工程 4 : WSUS から ConfigMgr サイト データベースへの同期を確認する"></a>工程 4 : WSUS から ConfigMgr サイト データベースへの同期を確認する</h3><p>[STATMSG: ID&#x3D;6705] と [Starting SMS database synchronization] は、第 2 段階が開始されたことを示します。[Requested categories] では、実際に要求された [製品] と [分類] を確認できます。</p>
+<h3 id="ステップ-4-WSUS-から-ConfigMgr-サイト-データベースへの同期を確認する"><a href="#ステップ-4-WSUS-から-ConfigMgr-サイト-データベースへの同期を確認する" class="headerlink" title="ステップ 4 : WSUS から ConfigMgr サイト データベースへの同期を確認する"></a>ステップ 4 : WSUS から ConfigMgr サイト データベースへの同期を確認する</h3><p>[STATMSG: ID&#x3D;6705] と [Starting SMS database synchronization] は、第 2 段階が開始されたことを示します。[Requested categories] では、実際に要求された [製品] と [分類] を確認できます。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Synchronizing SMS database with WSUS, default server is CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">STATMSG: ID=6705 SEV=I</span><br><span class="line">sync: Starting SMS database synchronization</span><br><span class="line">Requested categories: Product=Microsoft 365 Apps/Office 2019/Office LTSC, Product=Microsoft Edge, Product=Windows 11, Product=Microsoft Defender Antivirus, Product=Microsoft SQL Server 2022, Product=Windows 10, version 1903 and later, UpdateClassification=Security Updates, UpdateClassification=Upgrades, UpdateClassification=Updates, UpdateClassification=Definition Updates</span><br><span class="line">sync: SMS synchronizing categories, processed 447 out of 447 items (100%)</span><br><span class="line">sync: SMS synchronizing updates, processed 0 out of 603 items (0%)</span><br><span class="line">sync: SMS synchronizing updates, processed 603 out of 603 items (100%)</span><br></pre></td></tr></table></figure>
 
 <p>処理中は [processed X out of Y items] とパーセント表示で進捗を確認できます。[Synchronizing update] は更新対象、[Skipped update … because it is up to date] は既に最新で更新不要と判定された対象を示します。</p>
-<h3 id="工程-5-ConfigMgr-サイト-データベースの同期完了を確認する"><a href="#工程-5-ConfigMgr-サイト-データベースの同期完了を確認する" class="headerlink" title="工程 5 : ConfigMgr サイト データベースの同期完了を確認する"></a>工程 5 : ConfigMgr サイト データベースの同期完了を確認する</h3><p>次の記録が揃っていることを確認します。[Done synchronizing SMS with WSUS Server] はサイト データベースとの同期完了、[STATMSG: ID&#x3D;6702] と [Sync succeeded] は同期処理全体の正常完了を示します。</p>
+<h3 id="ステップ-5-ConfigMgr-サイト-データベースの同期完了を確認する"><a href="#ステップ-5-ConfigMgr-サイト-データベースの同期完了を確認する" class="headerlink" title="ステップ 5 : ConfigMgr サイト データベースの同期完了を確認する"></a>ステップ 5 : ConfigMgr サイト データベースの同期完了を確認する</h3><p>次の記録が揃っていることを確認します。[Done synchronizing SMS with WSUS Server] はサイト データベースとの同期完了、[STATMSG: ID&#x3D;6702] と [Sync succeeded] は同期処理全体の正常完了を示します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Done synchronizing SMS with WSUS Server con-ps1dpmpsup1.contoso.com</span><br><span class="line">STATMSG: ID=6702 SEV=I</span><br><span class="line">Sync succeeded. Setting sync alert to canceled state on site PS1</span><br><span class="line">Updated 8467 items in SMS database, new update source content version is 181</span><br><span class="line">Sync time: 0d00h25m35s</span><br></pre></td></tr></table></figure>
 
 <p>同期成功後、管理コンソールの [すべてのソフトウェア更新プログラム] を最新の情報に更新し、選択した条件に一致する更新プログラムが表示されることを確認します。</p>
-<h3 id="進捗率が-100-パーセントでも最終結果を確認する"><a href="#進捗率が-100-パーセントでも最終結果を確認する" class="headerlink" title="進捗率が 100 パーセントでも最終結果を確認する"></a>進捗率が 100 パーセントでも最終結果を確認する</h3><p>[WSUS] 同期または [ConfigMgr サイト データベース] 同期の [100%] は、その工程で列挙された項目の処理が終わったことを示します。<br>個別の更新プログラムでエラーが発生した場合、[100%] の後に同期全体が失敗として終了することがあります。<br>必ず最後まで追跡し、[Sync succeeded] または [Sync failed] を確認してください。</p>
-<h3 id="よく確認する失敗メッセージ"><a href="#よく確認する失敗メッセージ" class="headerlink" title="よく確認する失敗メッセージ"></a>よく確認する失敗メッセージ</h3><table>
+<h3 id="進捗率が-100-パーセントでも最終結果を確認する"><a href="#進捗率が-100-パーセントでも最終結果を確認する" class="headerlink" title="進捗率が 100 パーセントでも最終結果を確認する"></a>進捗率が 100 パーセントでも最終結果を確認する</h3><p>[WSUS] 同期または [ConfigMgr サイト データベース] 同期の [100%] は、そのステップで列挙された項目の処理が終わったことを示します。<br>個別の更新プログラムでエラーが発生した場合、[100%] の後に同期全体が失敗として終了することがあります。<br>必ず最後まで追跡し、[Sync succeeded] または [Sync failed] を確認してください。</p>
+<h2 id="よく確認する失敗メッセージ"><a href="#よく確認する失敗メッセージ" class="headerlink" title="よく確認する失敗メッセージ"></a>よく確認する失敗メッセージ</h2><table>
 <thead>
 <tr>
 <th>状態</th>
@@ -285,7 +292,7 @@
 <h3 id="STATMSG-ID-6706-が記録される処理"><a href="#STATMSG-ID-6706-が記録される処理" class="headerlink" title="STATMSG: ID&#x3D;6706 が記録される処理"></a>STATMSG: ID&#x3D;6706 が記録される処理</h3><p>同一サイトに複数の [ソフトウェア更新ポイント] がある場合、既定の [ソフトウェア更新ポイント] の同期後に、追加の [ソフトウェア更新ポイント] 上の [WSUS] がレプリカとして同期されます。[STATMSG: ID&#x3D;6706] は、この追加の [WSUS] に対する同期フェーズが開始されたことを示します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Starting cleanup on WSUS, default server CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">sync: SMS performing cleanup</span><br><span class="line">Cleanup processed 606 total updates and declined 0</span><br><span class="line">Done Declining updates in WSUS Server con-ps1dpmpsup1.contoso.com</span><br><span class="line">Synchronizing replica WSUS servers</span><br><span class="line">STATMSG: ID=6706 SEV=I</span><br><span class="line">sync: Starting Replica WSUS synchronization</span><br></pre></td></tr></table></figure>
 
-<h1 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h1><ul>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
 <li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">インターネット アクセス要件 - Configuration Manager</a></li>
 <li><a href="https://learn.microsoft.com/ja-jp/microsoft-365-apps/updates/manage-microsoft-365-apps-updates-configuration-manager">Microsoft Configuration Manager を使用して Microsoft 365 Apps の更新プログラムを管理する</a></li>
 <li><a href="https://learn.microsoft.com/intune/configmgr/sum/get-started/install-a-software-update-point">ソフトウェア更新ポイントのインストールと構成</a></li>
@@ -299,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidPgcSUM7TkIbTyP2E0ESv4" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidddKwSKB4SP-kaUvxDBanV" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -311,9 +318,9 @@
 <nav id="article-nav">
   
   
-    <a href="../20260812_03/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20260812_02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</div>
+      <div class="article-nav-title">ソフトウェア更新プログラムの展開についての動作説明</div>
     </a>
   
 </nav>
@@ -336,11 +343,11 @@
           </li>
         
           <li>
-            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>

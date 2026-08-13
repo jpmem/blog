@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260812_02/20260812_02_01.png">
 <meta property="article:published_time" content="2026-08-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.530Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.524Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -122,10 +122,17 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E5%B1%95%E9%96%8B%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">テスト展開の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E5%B1%95%E9%96%8B%E3%81%AE%E4%B8%80%E6%84%8F%E3%81%AE-ID-%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : 展開の一意の ID を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E5%8F%96%E5%BE%97"><span class="toc-text">ステップ 2 : クライアント ポリシーの取得</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%A9%E2%80%95%E3%81%AB%E3%82%88%E3%82%8B%E5%B1%95%E9%96%8B%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88"><span class="toc-text">ステップ 3 : スケジューラ―による展開スケジュールのセット</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3"><span class="toc-text">ステップ 4 : ソフトウェア更新プログラムのスキャン</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"><span class="toc-text">ステップ 5 :  コンテンツのダウンロード</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-text">ステップ 6 :  インストール</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
         <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライアントが展開ポリシーを受信し、更新プログラムをスキャン、ダウンロード、インストールするまでの流れとログの確認方法をご案内します。</p>
 <p>ソフトウェア更新ポイントでの同期や、展開パッケージを配布ポイントへ配布するサーバー側の処理は、本記事の対象外です。</p>
-<h3 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h3><p>全体の流れは以下のとおりです。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>全体の流れは以下のとおりです。</p>
 <ol>
 <li>管理者様が設定した更新プログラムの展開ポリシーを受信する</li>
 <li>スケジューラ―によって展開設定のスケジュールをセットする</li>
@@ -134,7 +141,68 @@
 <li>ソフトウェア更新プログラムのインストールを実行する</li>
 <li>再起動の指示 および 再起動を実施する</li>
 </ol>
-<h1 id="ソフトウェア更新プログラムの展開の各工程とログの追跡方法について"><a href="#ソフトウェア更新プログラムの展開の各工程とログの追跡方法について" class="headerlink" title="ソフトウェア更新プログラムの展開の各工程とログの追跡方法について"></a>ソフトウェア更新プログラムの展開の各工程とログの追跡方法について</h1><h3 id="テスト展開の情報"><a href="#テスト展開の情報" class="headerlink" title="テスト展開の情報"></a>テスト展開の情報</h3><p>本記事で使用するテスト展開は、以下のとおりです。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><p>クライアント ログの既定の保存先は C:\Windows\CCM\Logs です。</p>
+<table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PolicyAgent.log</td>
+<td>コンピューター ポリシーの要求、受信、ダウンロード、適用を確認します。</td>
+</tr>
+<tr>
+<td>Scheduler.log</td>
+<td>展開の有効化時刻や期限トリガーの登録、実行を確認します。</td>
+</tr>
+<tr>
+<td>UpdatesDeployment.log</td>
+<td>展開の評価、対象判定、ダウンロード、インストールの全体的な進捗を確認します。</td>
+</tr>
+<tr>
+<td>ScanAgent.log</td>
+<td>スキャン要求、ソフトウェア更新ポイントの場所、およびスキャン完了を確認します。</td>
+</tr>
+<tr>
+<td>WUAHandler.log</td>
+<td>Windows Update Agent [WUA] API を介したスキャン、ダウンロード、インストールを確認します。</td>
+</tr>
+<tr>
+<td>UpdatesStore.log</td>
+<td>スキャン結果として更新プログラムが [Missing] または [Installed] と判定されたことを確認します。</td>
+</tr>
+<tr>
+<td>UpdatesHandler.log</td>
+<td>更新プログラム単位のダウンロードおよびインストール ジョブを確認します。</td>
+</tr>
+<tr>
+<td>CAS.log</td>
+<td>クライアント キャッシュとコンテンツ要求を確認します。</td>
+</tr>
+<tr>
+<td>ContentTransferManager.log</td>
+<td>配布ポイントの場所取得と Data Transfer Service ジョブを確認します。</td>
+</tr>
+<tr>
+<td>DataTransferService.log</td>
+<td>Background Intelligent Transfer Service [BITS] による転送状態を確認します。</td>
+</tr>
+<tr>
+<td>CMBITSManager.log</td>
+<td>Unified Update Platform [UUP] コンテンツの BITS チャンク情報を確認します。</td>
+</tr>
+<tr>
+<td>DeltaDownload.log</td>
+<td>Delivery Optimization [DO] から localhost:8005 への範囲要求と Delta Download 処理を確認します。</td>
+</tr>
+<tr>
+<td>StateMessage.log</td>
+<td>展開評価、準拠、および適用状態の状態メッセージを確認します。</td>
+</tr>
+</tbody></table>
+<h3 id="テスト展開の情報"><a href="#テスト展開の情報" class="headerlink" title="テスト展開の情報"></a>テスト展開の情報</h3><p>本記事で使用するテスト展開は、以下のとおりです。</p>
 <table>
 <thead>
 <tr>
@@ -204,11 +272,11 @@
 <td>CMBITSManager.log 内の分割ダウンロードを追跡します。</td>
 </tr>
 </tbody></table>
-<h3 id="1-展開の一意の-ID-を確認する"><a href="#1-展開の一意の-ID-を確認する" class="headerlink" title="1. 展開の一意の ID を確認する"></a>1. 展開の一意の ID を確認する</h3><p>複数の展開がある環境では、展開名だけでログを追跡すると別の展開を混同する可能性があります。<br>最初に [展開の一意の ID] を確認します。</p>
+<h3 id="ステップ-1-展開の一意の-ID-を確認する"><a href="#ステップ-1-展開の一意の-ID-を確認する" class="headerlink" title="ステップ 1 : 展開の一意の ID を確認する"></a>ステップ 1 : 展開の一意の ID を確認する</h3><p>複数の展開がある環境では、展開名だけでログを追跡すると別の展開を混同する可能性があります。<br>最初に [展開の一意の ID] を確認します。</p>
 <p>[Configuration Manager コンソール] で [ソフトウェア ライブラリ] - [ソフトウェア更新プログラム] - [ソフトウェア更新プログラム グループ] を開き、対象グループの [展開] タブを表示します。列見出しを右クリックして [展開の一意の ID] 列を追加すると、展開 ID を確認できます。</p>
 <p><img src="/blog/mecm/20260812_02/20260812_02_01.png" alt="alt text"></p>
 <p>対象の [AssignmentID] が出力されない場合は、展開対象コレクションへの所属、管理ポイントとの通信、およびコンピューター ポリシーの取得状況を確認します。</p>
-<h3 id="2-クライアント-ポリシーの取得"><a href="#2-クライアント-ポリシーの取得" class="headerlink" title="2. クライアント ポリシーの取得"></a>2. クライアント ポリシーの取得</h3><p>ソフトウェア更新プログラムを展開すると、展開割り当てポリシーがコンピューター ポリシーに追加されます。<br>クライアントは管理ポイントへポリシーを要求し、受信したポリシーをダウンロードして適用します。</p>
+<h3 id="ステップ-2-クライアント-ポリシーの取得"><a href="#ステップ-2-クライアント-ポリシーの取得" class="headerlink" title="ステップ 2 : クライアント ポリシーの取得"></a>ステップ 2 : クライアント ポリシーの取得</h3><p>ソフトウェア更新プログラムを展開すると、展開割り当てポリシーがコンピューター ポリシーに追加されます。<br>クライアントは管理ポイントへポリシーを要求し、受信したポリシーをダウンロードして適用します。</p>
 <pre>
 Requesting Machine policy assignments from authority 'SMS:PS1'
 Received Machine delta policy update with 2 assignments
@@ -222,12 +290,12 @@ Applying policy <span style="background-color: #FFE08A; color: #24292F;">{535773
 <p>クライアントが保持する展開設定は、管理者として実行した Windows PowerShell からも確認できます。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-CimInstance</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\Policy\Machine\ActualConfig&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateCIAssignment |</span><br><span class="line">    <span class="built_in">Select-Object</span> AssignmentID, AssignmentName |</span><br><span class="line">    <span class="built_in">Sort-Object</span> AssignmentName</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-スケジューラ―による展開スケジュールのセット"><a href="#3-スケジューラ―による展開スケジュールのセット" class="headerlink" title="3. スケジューラ―による展開スケジュールのセット"></a>3. スケジューラ―による展開スケジュールのセット</h3><p>ポリシーが適用されると、Scheduler.log に展開 ID を含むスケジュールが登録されます。<br>必須展開では、通常の有効化スケジュールと [DEADLINE] を含む期限スケジュールを確認します。</p>
+<h3 id="ステップ-3-スケジューラ―による展開スケジュールのセット"><a href="#ステップ-3-スケジューラ―による展開スケジュールのセット" class="headerlink" title="ステップ 3 : スケジューラ―による展開スケジュールのセット"></a>ステップ 3 : スケジューラ―による展開スケジュールのセット</h3><p>ポリシーが適用されると、Scheduler.log に展開 ID を含むスケジュールが登録されます。<br>必須展開では、通常の有効化スケジュールと [DEADLINE] を含む期限スケジュールを確認します。</p>
 <pre>
 SMSTrigger ... for scheduler 'Machine/DEADLINE:<span style="background-color: #FFE08A; color: #24292F;">{53577359-6F34-481F-8FC4-3A270B7983C4}</span>' will fire at 08/05/2026 11:27:48 AM without randomization.
 </pre>
 
-<h3 id="4-ソフトウェア更新プログラムのスキャン"><a href="#4-ソフトウェア更新プログラムのスキャン" class="headerlink" title="4. ソフトウェア更新プログラムのスキャン"></a>4. ソフトウェア更新プログラムのスキャン</h3><p>ソフトウェア更新プログラムのスキャンでは、クライアントがソフトウェア更新ポイントから更新プログラムのメタデータを取得し、WUA が端末に各更新プログラムのインストールが必要かを判定します。</p>
+<h3 id="ステップ-4-ソフトウェア更新プログラムのスキャン"><a href="#ステップ-4-ソフトウェア更新プログラムのスキャン" class="headerlink" title="ステップ 4 : ソフトウェア更新プログラムのスキャン"></a>ステップ 4 : ソフトウェア更新プログラムのスキャン</h3><p>ソフトウェア更新プログラムのスキャンでは、クライアントがソフトウェア更新ポイントから更新プログラムのメタデータを取得し、WUA が端末に各更新プログラムのインストールが必要かを判定します。</p>
 <p>スキャンにより、各更新プログラムが以下の何れかの状況であることを判断しております。<br>　・　インストール済み<br>　・　適用する必要がある<br>　・　適用する必要がない (前提条件を満たさない もしくは 既に当該更新を置き換える新しい更新が適用済み)</p>
 <p>ScanAgent.log ではスキャン要求と使用する更新ソースを確認し、WUAHandler.log では WUA API の検索開始、完了、および結果を確認します。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ScanAgent.log]</span><br><span class="line">ScanByUpdateSource request received with ForceReScan=2</span><br><span class="line">WUA locations updated</span><br><span class="line">Scan completed successfully</span><br></pre></td></tr></table></figure>
@@ -239,7 +307,7 @@ SMSTrigger ... for scheduler 'Machine/DEADLINE:<span style="background-color: #F
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-CimInstance</span> <span class="literal">-Namespace</span> <span class="string">&quot;root\CCM\SoftwareUpdates\UpdatesStore&quot;</span> <span class="literal">-ClassName</span> CCM_UpdateStatus | <span class="built_in">Select-Object</span> UniqueId, Title, Status</span><br></pre></td></tr></table></figure>
 
 <p>このクラスには展開の有無にかかわらずスキャンで評価された更新プログラムの状態が含れます。</p>
-<h3 id="スキャンでよく確認する問題"><a href="#スキャンでよく確認する問題" class="headerlink" title="スキャンでよく確認する問題"></a>スキャンでよく確認する問題</h3><p>・グループ ポリシーの競合</p>
+<h4 id="スキャンでよく確認する問題"><a href="#スキャンでよく確認する問題" class="headerlink" title="スキャンでよく確認する問題"></a>スキャンでよく確認する問題</h4><p>・グループ ポリシーの競合</p>
 <p>スキャン時にソフトウェア更新ポイントの場所を更新しますがこの際には WUA のポリシーとして設定されます。<br>ドメインのグループ ポリシーで別の WSUS が指定されている、必要なレジストリやコンポーネントが欠損または破損している、またはポリシー通知が完了しない場合は、スキャンに影響します。</p>
 <p>次のコマンドで適用されたグループ ポリシーを確認します。</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure>
@@ -293,7 +361,7 @@ SMSTrigger ... for scheduler 'Machine/DEADLINE:<span style="background-color: #F
 <p>・OS 更新プログラムが検出されない場合</p>
 <p>スキャンは成功しているにもかかわらず Windows 製品の更新プログラムが一つも [Missing] もしくは [Installed] として記録されない場合はデュアル スキャンの可能性を確認します。デュアルスキャンについては以下の Blog 記事を参照下さい。</p>
 <p><a href="https://jpmem.github.io/blog/mecm/20260403_01/">Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</a></p>
-<h3 id="5-コンテンツのダウンロード"><a href="#5-コンテンツのダウンロード" class="headerlink" title="5. コンテンツのダウンロード"></a>5. コンテンツのダウンロード</h3><p>必要な更新プログラムが展開対象に追加されると、UpdatesDeployment.log でダウンロード ジョブが開始されます。</p>
+<h3 id="ステップ-5-コンテンツのダウンロード"><a href="#ステップ-5-コンテンツのダウンロード" class="headerlink" title="ステップ 5 :  コンテンツのダウンロード"></a>ステップ 5 :  コンテンツのダウンロード</h3><p>必要な更新プログラムが展開対象に追加されると、UpdatesDeployment.log でダウンロード ジョブが開始されます。</p>
 <pre>
 DownloadCIContents Job (<span style="background-color: #D8B4FE; color: #24292F;">{223A33E0-FA49-4B7E-A531-050A564CD7B1}</span>) started for assignment (<span style="background-color: #FFE08A; color: #24292F;">{53577359-6F34-481F-8FC4-3A270B7983C4}</span>)
 Update (Site_4F61E47F-1169-4205-9252-51AD20EC884E/SUM_<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4995-925d-9840365e1133</span>) Name (2026-07 Cumulative Update for Windows 11, version 25H2 for x64-based Systems (KB5101650) (26200.8875)) ArticleID (5101650) added to the targeted list of deployment (<span style="background-color: #FFE08A; color: #24292F;">{53577359-6F34-481F-8FC4-3A270B7983C4}</span>)
@@ -330,8 +398,7 @@ DTSJob(<span style="background-color: #FFB3C7; color: #24292F;">{461D1EA9-523C-4
 DTSJob(<span style="background-color: #FFB3C7; color: #24292F;">{461D1EA9-523C-44EF-85FB-5A921DD2EF80}</span>):CDTSJob::JobTransferred - Successfully completed download.
 </pre>
 
-<p>・ [補足] 配信の最適化 (DO) について</p>
-<p>Windows OS の累積更新プログラムにおいては UUP 形式の更新プログラムとなります。<br>UUP 形式の更新プログラムのダウンロードでは OS の BITS および DO エージェントも関与します。</p>
+<h4 id="補足-配信の最適化-DO-について"><a href="#補足-配信の最適化-DO-について" class="headerlink" title="[補足] 配信の最適化 (DO) について"></a>[補足] 配信の最適化 (DO) について</h4><p>Windows OS の累積更新プログラムにおいては UUP 形式の更新プログラムとなります。<br>UUP 形式の更新プログラムのダウンロードでは OS の BITS および DO エージェントも関与します。</p>
 <p>DO エージェントは Configuration Manager クライアントがローカルに作成した localhost:8005 のサーバーへ必要なバイト範囲を要求し、Configuration Manager クライアント側が CMBITSManager を通じて配布ポイントなどからコンテンツを取得します。</p>
 <p>DeltaDownload.log では [Microsoft-Delivery-Optimization&#x2F;10.1] から localhost:8005 への要求、子更新プログラムの Update ID、範囲要求、および HTTP 206 [Partial Content] 応答を確認できます。</p>
 <pre>
@@ -358,7 +425,7 @@ Total Files: 1, Transferred Files: 0, Total Bytes: 5242880, Transferred Bytes: 5
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Bytes Transferred: 0</span><br><span class="line">Bytes Transferred: 0</span><br><span class="line">Bytes Transferred: 0</span><br><span class="line">Correlation vector:u3Jow7qH6kSMAafw.38.0.0.56.4.1.3.1.1.13, Download error</span><br><span class="line">Correlation vector:u3Jow7qH6kSMAafw.38.0.0.56.4.1.3.1.1.13, Sending Response status code:504 with reason = Gateway timeout</span><br><span class="line">Download timed out with 5 minutes of no progress. Cancelling download job</span><br></pre></td></tr></table></figure>
 
 <p>この場合には以下の対処をお願いします。<br>　- BITS の通信速度を高速にする<br>　- 同時に配布している更新プログラムを減らす<br>　- 経過観測する (並行で配布中の更新プログラムの配布が完了することにより、事象が徐々に解消することも期待できます)</p>
-<h3 id="6-インストール"><a href="#6-インストール" class="headerlink" title="6. インストール"></a>6. インストール</h3><p>コンテンツのダウンロードが完了すると、UpdatesDeployment.log がインストールを開始し、UpdatesHandler が WUAHandler を介して WUA へインストールを要求します。</p>
+<h3 id="ステップ-6-インストール"><a href="#ステップ-6-インストール" class="headerlink" title="ステップ 6 :  インストール"></a>ステップ 6 :  インストール</h3><p>コンテンツのダウンロードが完了すると、UpdatesDeployment.log がインストールを開始し、UpdatesHandler が WUAHandler を介して WUA へインストールを要求します。</p>
 <pre>
 [UpdatesDeployment.log]
 Update (Site_4F61E47F-1169-4205-9252-51AD20EC884E/SUM_<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4995-925d-9840365e1133</span>) Name (2026-07 Cumulative Update for Windows 11, version 25H2 for x64-based Systems (KB5101650) (26200.8875)) ArticleID (5101650) added to the targeted list of deployment (<span style="background-color: #FFE08A; color: #24292F;">{53577359-6F34-481F-8FC4-3A270B7983C4}</span>)
@@ -395,67 +462,6 @@ Update (<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4
 
 <p>WUAHandler.log は、WUA が返した進捗や結果を Configuration Manager 側のログとして記録します。<br>更新プログラムの実際のインストール処理は OS の WUA 側で行われるため、WUAHandler.log にエラーが記録された場合は、Configuration Manager のログだけでは原因を特定できないことがあります。</p>
 <p>その場合は、OS 観点の調査を行いますのでご留意下さい。</p>
-<h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><p>クライアント ログの既定の保存先は C:\Windows\CCM\Logs です。</p>
-<table>
-<thead>
-<tr>
-<th>ログ名</th>
-<th>主な用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PolicyAgent.log</td>
-<td>コンピューター ポリシーの要求、受信、ダウンロード、適用を確認します。</td>
-</tr>
-<tr>
-<td>Scheduler.log</td>
-<td>展開の有効化時刻や期限トリガーの登録、実行を確認します。</td>
-</tr>
-<tr>
-<td>UpdatesDeployment.log</td>
-<td>展開の評価、対象判定、ダウンロード、インストールの全体的な進捗を確認します。</td>
-</tr>
-<tr>
-<td>ScanAgent.log</td>
-<td>スキャン要求、ソフトウェア更新ポイントの場所、およびスキャン完了を確認します。</td>
-</tr>
-<tr>
-<td>WUAHandler.log</td>
-<td>Windows Update Agent [WUA] API を介したスキャン、ダウンロード、インストールを確認します。</td>
-</tr>
-<tr>
-<td>UpdatesStore.log</td>
-<td>スキャン結果として更新プログラムが [Missing] または [Installed] と判定されたことを確認します。</td>
-</tr>
-<tr>
-<td>UpdatesHandler.log</td>
-<td>更新プログラム単位のダウンロードおよびインストール ジョブを確認します。</td>
-</tr>
-<tr>
-<td>CAS.log</td>
-<td>クライアント キャッシュとコンテンツ要求を確認します。</td>
-</tr>
-<tr>
-<td>ContentTransferManager.log</td>
-<td>配布ポイントの場所取得と Data Transfer Service ジョブを確認します。</td>
-</tr>
-<tr>
-<td>DataTransferService.log</td>
-<td>Background Intelligent Transfer Service [BITS] による転送状態を確認します。</td>
-</tr>
-<tr>
-<td>CMBITSManager.log</td>
-<td>Unified Update Platform [UUP] コンテンツの BITS チャンク情報を確認します。</td>
-</tr>
-<tr>
-<td>DeltaDownload.log</td>
-<td>Delivery Optimization [DO] から localhost:8005 への範囲要求と Delta Download 処理を確認します。</td>
-</tr>
-<tr>
-<td>StateMessage.log</td>
-<td>展開評価、準拠、および適用状態の状態メッセージを確認します。</td>
-</tr>
-</tbody></table>
 <h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
 <li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/track-software-update-deployment-process">ソフトウェア更新プログラムの展開プロセスを追跡する</a></li>
 <li><a href="https://learn.microsoft.com/intune/configmgr/core/plan-design/hierarchy/log-files">Configuration Manager のログ ファイル リファレンス</a></li>
@@ -474,7 +480,7 @@ Update (<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_02/" data-id="cuidBiwk68U_mOw30vDQKd-o1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_02/" data-id="cuidNO1ZWKt-KxlVRKn8FLOER" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -485,19 +491,19 @@ Update (<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4
     
 <nav id="article-nav">
   
-    <a href="../20260812_03/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../20260812_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明
+          ソフトウェア更新ポイントの同期についての動作説明
         
       </div>
     </a>
   
   
-    <a href="../../wsus/2026-08-05_01/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../20260812_03/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">WSUS データベース メンテナンス スクリプトのご紹介</div>
+      <div class="article-nav-title">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</div>
     </a>
   
 </nav>
@@ -520,11 +526,11 @@ Update (<span style="background-color: #B6E3FF; color: #24292F;">99751b16-0794-4
           </li>
         
           <li>
-            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>

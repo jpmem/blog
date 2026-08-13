@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆さま こんにちは。WSUS サポート チームです。 WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。 レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2019-04-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.568Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.569Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -116,6 +116,8 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
         <p>皆さま こんにちは。WSUS サポート チームです。</p>
 <p>WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。</p>
 <p>レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。<br>親 WSUS サーバーで大量の「拒否済み」の更新プログラムがある状態で、レプリカの WSUS サーバーが同期を行うとタイムアウトが発生し、同期が失敗する可能性があることが判っています。<br>目安としましては、親 WSUS サーバーにて一度に約 1,000 件ほどの更新プログラムを手動で「拒否済み」に変更し、レプリカ WSUS サーバーで同期を行いますと、タイムアウト発生に至る場合があることを確認しております。同期の条件 (初回か2回目以降か等) や 性能面の条件 (データベースの状態、サーバー スペック、WSUS サーバーの全体的な負荷等) によっても変動いたします。<br>また、多数の「拒否済み」データをレプリカ同期において取り扱えないという点は、WSUS サーバーの設計上の問題として認識しております。</p>
@@ -141,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cuid87ZtyhYnl83gbD6NSBRjL" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cuidN3vwxX1kcfWUY3U39azg3" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -187,11 +189,11 @@
           </li>
         
           <li>
-            <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>

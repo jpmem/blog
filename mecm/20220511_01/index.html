@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220511_01/1.png">
 <meta property="article:published_time" content="2022-05-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.439Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.422Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -118,6 +118,8 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。</p>
 <p>Configuration Manager を利用したアプリケーションや更新プログラムの配布運用をされているなかで、管理対象クライアントに対して過去配布したコンテンツを一括で削除されたいと思われたことはございませんか？<br>また、クライアント設定で指定したクライアント キャッシュのサイズを超過していることがあると不思議に思われたことはありませんか？<br>今回は、クライアント キャッシュの動作と管理対象デバイスへ配布したコンテンツをサーバーから一括で削除する方法についてご紹介させていただきます。</p>
 <p>管理対象デバイスにコンテンツ（アプリケーション、パッケージや更新プログラム　など）を展開すると、管理対象デバイスはクライアント キャッシュ（ccmcache フォルダー）にコンテンツのダウンロードを行います。<br>クライアント キャッシュは、指定されたキャッシュ サイズまでコンテンツのダウンロードし保存します。<br>次に、新しいコンテンツをダウンロードする際に、指定されたキャッシュ サイズ（累積）を超えるコンテンツのダウンロードを行う場合は、新しいコンテンツをクライアント キャッシュ内にダウンロードを行うための領域を確保するのに、古いコンテンツを自動で削除してからダウンロードを行います。<br>ここまでが基本動作となりますが、ソフトウェア更新プログラム機能で配布した更新プログラムはクライアント キャッシュのサイズに関係なくダウンロードするため、指定したクライアント キャッシュのサイズを超過することが起きます。</p>
@@ -201,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220511_01/" data-id="cuid-rbsGCuIJIzkLlCFBP7uI" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220511_01/" data-id="cuidTFaI48DtCrrOQBBmQkY2w" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -247,11 +249,11 @@
           </li>
         
           <li>
-            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>

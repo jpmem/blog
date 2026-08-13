@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_2.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2022-05-23_01/2022-05-23_01_3.png">
 <meta property="article:published_time" content="2022-05-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.596Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.599Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -120,6 +120,8 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
         <p>みなさま、こんにちは。 WSUS サポート チームです。<br>今回は、 WSUS コンソールが全く開かず、以下のような接続エラーがでてしまっているときにご一読いただきたい WsusPoolの停止 についてご紹介します。<br><img src="/blog/wsus/2022-05-23_01/2022-05-23_01_1.png">   </p>
 <h1 id="WSUS-コンソールが全く開かなくなってしまった！"><a href="#WSUS-コンソールが全く開かなくなってしまった！" class="headerlink" title="WSUS コンソールが全く開かなくなってしまった！"></a>WSUS コンソールが全く開かなくなってしまった！</h1><p>WSUS は、 IIS の WsusPool を介してデータベースへアクセスする仕組みになっています。<br>WsusPool は、IIS のアプリケーション プールであり、IIS のワーカープロセス (w3wp.exe) として動作しますので、以下のように IIS マネージャーから WsusPool の動作状況を確認できます。<br><img src="/blog/wsus/2022-05-23_01/2022-05-23_01_2.png"> </p>
 <p>その為、 Windows Internal Database や SQL Server などデータベース サービスが動作しているにも関わらず、 WSUS コンソールが全く開かず上記のような接続エラーとなってしまう場合には、WsusPool が停止しデータベースへアクセスできない状態となっている可能性が考えられるのです。  </p>
@@ -138,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="cuidtnIrZY_LYIGzXfZJzdm7F" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-23_01/" data-id="cuidmqp08myVatA5XYq3C4y7F" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -184,11 +186,11 @@
           </li>
         
           <li>
-            <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>

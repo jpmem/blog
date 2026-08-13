@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_01.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20230816_01/20230816_01_02.png">
 <meta property="article:published_time" content="2023-08-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T02:40:52.493Z">
+<meta property="article:modified_time" content="2026-08-13T06:20:49.483Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="CMG">
 <meta property="article:tag" content="MECM">
@@ -121,6 +121,8 @@
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
+        
+        
         <p>みなさま、こんにちは。Configuration Manager サポート チームです。本日は、 Microsoft Configuration Manager (ConfigMgr) において、suffix が cloudapp.net である、クラウド サービス(クラシック) ベースのクラウド管理ゲートウェイ (CMG) を仮想マシンスケールセット （VMSS) の CMG に移行する方法についてご案内させて頂きます。</p>
 <p>以前も下記記事でご案内させて頂いている通り、クライアントからアクセスする際に使われる URL (サービス名) が 展開名と同じ、 [ホスト名].cloudapp.net の CMG については VMSS の CMG への変換が利用できません。それは、VMSS への変換に伴い、展開名の URL の形式が [ホスト名].[リージョン名].cloudapp.azure.com に変わりますが、その変更をクライアント側に伝える手段が無いためです。DNS サーバーに CNAME レコードにより、お客様独自の サービス名を、[ホスト名].cloudapp.net の エイリアスとして登録されていたお客様であれば、CNAME レコードのエイリアスを変更するだけで対処が出来るのですが、それが使えないため、 VMSS 版 CMG への変換をご提供していません。</p>
 <p>仮想マシン スケールセットのクラウド管理ゲートウェイについて<br><a href="https://jpmem.github.io/blog/mecm/20211212_01/">https://jpmem.github.io/blog/mecm/20211212_01/</a>  </p>
@@ -169,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230816_01/" data-id="cuidZHSeoB91KAeTBDqQbIk1_" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230816_01/" data-id="cuida0Tr3W29eOqToqC8yoELP" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -215,11 +217,11 @@
           </li>
         
           <li>
-            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
-            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>
