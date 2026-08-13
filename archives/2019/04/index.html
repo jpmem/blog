@@ -126,7 +126,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cuidMg7MgAsvefczge9MmiC6a" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-23_01/" data-id="cuid6ERWXehUiPpyskG_5CNzx" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -179,7 +179,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20190417_01/" data-id="cuidtxgbh1PySuld6Yaz7qhYN" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20190417_01/" data-id="cuidGWBj98ILAj8cZ8TOG9O9V" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -235,7 +235,7 @@ WSUS サーバーを長期間運用している、または自動承認規則で
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cuidpkqD-7l7odA8RH6S5POXs" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-16_01/" data-id="cuidhW_0Uky4BuB95mhyJSbRK" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -289,7 +289,58 @@ WSUS クライアント &#x2F; Windows Update に関するトラブルシュー�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="cuidLOj-CF3XAhy0UOA5jHHqE" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-11_01/" data-id="cuid4THEMTHDi0zmPLHjtd63M" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wsus/2019-04-09_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../../wsus/2019-04-09_01/" class="article-date">
+  <time datetime="2019-04-08T15:00:00.000Z" itemprop="datePublished">2019-04-09</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../../wsus/2019-04-09_01/">レプリカ WSUS サーバーの同期がタイムアウトで失敗する</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../../wsus/2019-04-09_01/" class="article-date-single">    
+    
+    <time datetime="2019-04-08T15:00:00.000Z" itemprop="dateUpdated">2019-04-09</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        皆さま こんにちは。WSUS サポート チームです。
+WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。
+レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒否済み」の更新プログラムがある状態で、レプリカの WSUS サーバーが同期を行うとタイムアウトが発生し、同期が失敗する可能性があることが判っています。目安としましては、親 WSUS サーバーにて一度に約 1,000 件ほどの更新プログラムを手動で「拒否済み」に変更し、レプリカ WSUS サーバーで同期を行いますと、タイムアウト発生に至る場合があることを確認しております。同期の条件 (初回か2回目以...
+        <p class="article-more-link">
+          <a href="../../../wsus/2019-04-09_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cuidVKpdDscF_Mv9tikTXb_46" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -342,61 +393,10 @@ WSUS クライアント &#x2F; Windows Update に関するトラブルシュー�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="cuidnoMRHGr0k2I2Rm0QCrDes" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_02/" data-id="cuid8jID_n5OF3bLUT8B9X1KB" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2019-04-09_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../../wsus/2019-04-09_01/" class="article-date">
-  <time datetime="2019-04-08T15:00:00.000Z" itemprop="datePublished">2019-04-09</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../../wsus/2019-04-09_01/">レプリカ WSUS サーバーの同期がタイムアウトで失敗する</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../../wsus/2019-04-09_01/" class="article-date-single">    
-    
-    <time datetime="2019-04-08T15:00:00.000Z" itemprop="dateUpdated">2019-04-09</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        皆さま こんにちは。WSUS サポート チームです。
-WSUS サーバーを長期的に運用していただいている管理者より、「レプリカ WSUS サーバーの同期がタイムアウトにて失敗する」 というお問い合わせをいただくことがあります。
-レプリカとして構成されている WSUS サーバーは 自律の WSUS サーバーと異なり、承認情報は親 WSUS サーバーが保持しています。親 WSUS サーバーで大量の「拒否済み」の更新プログラムがある状態で、レプリカの WSUS サーバーが同期を行うとタイムアウトが発生し、同期が失敗する可能性があることが判っています。目安としましては、親 WSUS サーバーにて一度に約 1,000 件ほどの更新プログラムを手動で「拒否済み」に変更し、レプリカ WSUS サーバーで同期を行いますと、タイムアウト発生に至る場合があることを確認しております。同期の条件 (初回か2回目以...
-        <p class="article-more-link">
-          <a href="../../../wsus/2019-04-09_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019-04-09_01/" data-id="cuidTBkh5rPddJhDiR5HrxfqV" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
 
     </footer>
   </div>
@@ -449,7 +449,7 @@ WSUS サーバーを長期的に運用していただいている管理者より
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cuidieGeyNpRH0YZOalROd_hb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-06-30_01/" data-id="cuidGe5oZtl5ft5EV_uwDrgvG" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -500,7 +500,7 @@ Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期してい
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cuidfUlhC5AOVxWiftQAStilS" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2019_04-04_01/" data-id="cuidhNppHTPPcEGt_xMP17tZs" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -525,23 +525,23 @@ Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期してい
       <ul>
         
           <li>
+            <a href="../../../mecm/20260812_01/">ソフトウェア更新ポイントの同期についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+          </li>
+        
+          <li>
             <a href="../../../wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a>
           </li>
         
           <li>
             <a href="../../../mecm/20260723_01/">Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</a>
-          </li>
-        
-          <li>
-            <a href="../../../wsus/2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a>
-          </li>
-        
-          <li>
-            <a href="../../../mecm/20260710_01/">Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</a>
-          </li>
-        
-          <li>
-            <a href="../../../mecm/20260709_01/">WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</a>
           </li>
         
       </ul>
@@ -550,6 +550,13 @@ Windows 10 &#x2F; Windows Server 2016 の更新プログラムを同期してい
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
 
   
     

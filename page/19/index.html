@@ -87,6 +87,169 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wsus/2017-09-08_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2017-09-08_01/" class="article-date">
+  <time datetime="2017-09-07T15:00:00.000Z" itemprop="datePublished">2017-09-08</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2017-09-08_01/">Windows 10 / Windows Server 2016 でも Windows Update の自動更新は止められます</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2017-09-08_01/" class="article-date-single">    
+    
+    <time datetime="2017-09-07T15:00:00.000Z" itemprop="dateUpdated">2017-09-08</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。WSUS サポート チームです。
+いきなり結論ですが Windows Server 2016 および Windows 10 でも Pro 以上のエディションであれば、下記のグループ ポリシーを利用することで Windows Update による自動更新は止めることが出来ます。このブログでも紹介している通り、「設定」画面から自動更新の設定が変更出来ないため、不安に思うかもしれませんが安心してください！
+[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update][自動更新を構成する] を ”無効”
+私も 3 年以上 WSUS &#x2F; Windows Update のサポートをしており、何度も「無効にしていたはずなのに動作してしまった」「実際に Windows Update は無効に出来ないのでは...
+        <p class="article-more-link">
+          <a href="../../wsus/2017-09-08_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-09-08_01/" data-id="cuidKCuRTr-ORnWhTHbiDlTnX" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wsus/2017-09-04_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2017-09-04_01/" class="article-date">
+  <time datetime="2017-09-03T15:00:00.000Z" itemprop="datePublished">2017-09-04</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2017-09-04_01/">「削除の承認」が Windows 10 / Windows Server 2016 のクライアントに反映されない事象について</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2017-09-04_01/" class="article-date-single">    
+    
+    <time datetime="2017-09-03T15:00:00.000Z" itemprop="dateUpdated">2017-09-04</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        みなさま、こんにちは。WSUS サポート チームです。  
+今回は WSUS で 「削除の承認」 を設定しても Windows 10 のクライアントに反映されない事象について紹介します。問題の修正については、さらに開発部門から進展が得られた場合には、本ブログを更新する予定です。ご不便をおかけしますが、何卒ご了承賜りますようお願い申し上げます。
+- 事象の概要WSUS サーバー上で更新プログラムの 「削除の承認」 を実施しても、Windows 10 クライアントで更新プログラムのアンインストールが行われません。  
+- 対処方法Windows 10 バージョン 1703 以降の環境においては、本不具合が修正されております。  
+それ以前のバージョンでは現時点で本不具合は修正されていないため、更新プログラムのアンインストールについては、DISM コマンドを利用し、アンインストールいただけますと...
+        <p class="article-more-link">
+          <a href="../../wsus/2017-09-04_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-09-04_01/" data-id="cuidJ_kMV5kDAScB1GVC3lvDa" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wsus/2017-09-04_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../wsus/2017-09-04_02/" class="article-date">
+  <time datetime="2017-09-03T15:00:00.000Z" itemprop="datePublished">2017-09-04</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../wsus/2017-09-04_02/">WSUS のレポートに表示される「状態」の項目の説明</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="../../wsus/2017-09-04_02/" class="article-date-single">    
+    
+    <time datetime="2017-09-03T15:00:00.000Z" itemprop="dateUpdated">2017-09-04</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        こんにちは。WSUS サポート チームです。
+今回は WSUS サポート チームに、多くご質問いただく内容の 1 つである WSUS レポートに表示される「状態」の項目について説明いたします。WSUS のレポートからクライアントへの更新プログラムの配信可否を確認出来る、非常に便利かつ強力な機能です。
+WSUS のレポートや管理コンソールに表示される「状態」情報には、以下 (A) (B) の 2 種類の表記があります。
+(A) 詳細表示
+下記の詳細レポート画面に表示される内容です。個々の更新プログラム毎の具体的な状態を示します。
+
+(B) サマリー表記
+下記の４種類に集計(サマライズ)した表記です。表形式レポートのほか、管理コンソールの更新ビューの「状態」フィルターなどに表示されている情報です。
+
+本表記にて全てのクライアントが「インストール済みまたは該当しない」に該当している場合には、配信...
+        <p class="article-more-link">
+          <a href="../../wsus/2017-09-04_02/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-09-04_02/" data-id="cuidLjDim__Abj7f1FUsiNKHh" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-mecm/20170818_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../mecm/20170818_01/" class="article-date">
@@ -128,7 +291,7 @@ System Center Configuration Manager Current Branch では、Windows 10 のリリ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cuid73BdVgivpz179mEcCyGs_" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cuidXtpl7AWiiiBuMv9kYlD8I" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -179,7 +342,7 @@ Windows 10 Enterprise LTSB 2016 以降をご利用のお客様より、弊社へ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2017-08-09_01/" data-id="cuidmV8TSWQrmZrRCeIX90fOz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-08-09_01/" data-id="cuid0jb2pMHb6vj9t0k8_l0Hz" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -231,7 +394,7 @@ Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170808_01/" data-id="cuidNIpFFJxmc8H8wN-Lp9A3S" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170808_01/" data-id="cuid9zqjh6Zct8jWOWhNuqsQX" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -286,7 +449,7 @@ https://support.microsoft.com/ja-jp/help/900935/how-the-windows-update-client-de
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2017-03-02/" data-id="cuid3bNbifmB3O42B6q01deCM" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-03-02/" data-id="cuidMXdudAdlhw0B-pE9MxPgU" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -336,7 +499,7 @@ https://support.microsoft.com/ja-jp/help/900935/how-the-windows-update-client-de
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170208_01/" data-id="cuid9IhP4v2h1dOpDo6Qnk9-g" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170208_01/" data-id="cuidETQ3ZF6T80579vt_k_7vi" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -387,7 +550,7 @@ https://support.microsoft.com/ja-jp/help/900935/how-the-windows-update-client-de
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-11-02_01/" data-id="cuidMuiDD-Xb6RNTAwNo5vJPI" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2016-11-02_01/" data-id="cuidg7pXsEqXu-KtomdqMQ_RA" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -441,163 +604,7 @@ https://support.microsoft.com/ja-jp/help/900935/how-the-windows-update-client-de
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-10-28_01/" data-id="cuidsZfXIAETEUBQasva-SXcf" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2016-10-07_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2016-10-07_01/" class="article-date">
-  <time datetime="2016-10-06T15:00:00.000Z" itemprop="datePublished">2016-10-07</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2016-10-07_01/">WSUS で予期しない更新プログラムを展開してしまったときの対応方法</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2016-10-07_01/" class="article-date-single">    
-    
-    <time datetime="2016-10-06T15:00:00.000Z" itemprop="dateUpdated">2016-10-07</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        2026&#x2F;01&#x2F;27 更新
-こんにちは。WSUS サポート チームです。
-本ポストでは、WSUS で更新プログラムを配信する運用をしている中で、管理者が予期しない更新プログラムを展開してしまったときの対応方法をご紹介いたします。
-WSUS で更新プログラムを展開する場合、手動で更新プログラムを承認して配信する方法と、自動承認規則を使用して配信する方法の 2 種類があります。誤って予期しない更新プログラムを配信する問題が生じた場合の多くが後者の自動承認規則によって、管理者が予期していない更新プログラムが自動承認規則の条件に含まれてしまい展開されるケースです。
-万が一、予期しない更新プログラムが適用されてしまった場合は、更新プログラムのアンインストールが必要です。ただし、ここでいきなりクライアント側のアンインストール作業をしてはいけません。なぜなら WSUS サーバー側で対...
-        <p class="article-more-link">
-          <a href="../../wsus/2016-10-07_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-10-07_01/" data-id="cuidNUyJDV6hvH4GK7uyEE-_o" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mecm/20161007_02" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../mecm/20161007_02/" class="article-date">
-  <time datetime="2016-10-06T15:00:00.000Z" itemprop="datePublished">2016-10-07</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20161007_02/">System Center Configuration Manager で管理者が予期しない更新プログラムが配信されてしまったときの対応方法</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../mecm/20161007_02/" class="article-date-single">    
-    
-    <time datetime="2016-10-06T15:00:00.000Z" itemprop="dateUpdated">2016-10-07</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        こんにちは。System Center Support Teamです。
-本ポストでは、System Center Configuration Manager（以降Configuration Manager）で更新プログラムを配信する運用をしている中で、管理者が予期しない更新プログラムが配信されてしまったときの対応方法をご紹介いたします。
-Configuration Manager で更新プログラムを展開する場合、手動で展開パッケージを作成し展開する方法と、自動展開規則を使用して配信する方法の 2 種類があります。誤って予期しない更新プログラムを配信する問題が生じた場合の多くが後者の自動展開規則によって、管理者が予期していない更新プログラムが自動展開規則の条件に含まれてしまい展開されるケースです。
-万が一、予期しない更新プログラムが適用されてしまった場合は、各クライアントで個別にアンインスト...
-        <p class="article-more-link">
-          <a href="../../mecm/20161007_02/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20161007_02/" data-id="cuid5YewOG5Oz0pnOZ_MfyS9u" class="article-share-link">共有</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wsus/2016-09-23_01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../wsus/2016-09-23_01/" class="article-date">
-  <time datetime="2016-09-22T15:00:00.000Z" itemprop="datePublished">2016-09-23</time>
-</a>
-    <!--  -->
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header-single">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../wsus/2016-09-23_01/">WSUS で選択する Windows 10 の製品分類について</a>
-    </h1>
-  
-
-      </header>
-      <div class="article-share">
-        Last Update:
-        <a href="../../wsus/2016-09-23_01/" class="article-date-single">    
-    
-    <time datetime="2016-09-22T15:00:00.000Z" itemprop="dateUpdated">2016-09-23</time>
-    
-</a>
-      </div>
-    
-    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
-      
-        更新 (05&#x2F;28&#x2F;2019)～～～～～～～～～～～～～Windows 10 バージョン 1903 について、 WSUS の製品タブに「 Windows 10, version 1903 and Later 」が追加されました。新しい更新プログラムの配信プラットフォームである 「 Unified Update Platform (UUP) 」 のサポートに備えた対応となります。
-Windows 10 バージョン 1903 以降の更新プログラムを配布する場合には、製品タブにおいて「 Windows 10, version 1903 and Later 」を追加する必要がございますので、ご注意ください。
-リリース情報: Updating Windows 10, version 1903 using Configuration Manager or WSUShttps://t...
-        <p class="article-more-link">
-          <a href="../../wsus/2016-09-23_01/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2016-09-23_01/" data-id="cuidegUft4T4IRijdyAi_F1PL" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2016-10-28_01/" data-id="cuidpCaD0YVLefgLlanpOX6in" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -627,23 +634,23 @@ Windows 10 バージョン 1903 以降の更新プログラムを配布する場
       <ul>
         
           <li>
+            <a href="../../mecm/20260812_01/">ソフトウェア更新ポイントの同期についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+          </li>
+        
+          <li>
             <a href="../../wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a>
           </li>
         
           <li>
             <a href="../../mecm/20260723_01/">Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</a>
-          </li>
-        
-          <li>
-            <a href="../../wsus/2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20260710_01/">Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20260709_01/">WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</a>
           </li>
         
       </ul>
@@ -652,6 +659,13 @@ Windows 10 バージョン 1903 以降の更新プログラムを配布する場
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
 
   
     

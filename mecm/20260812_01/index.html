@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ソフトウェア更新ポイントの同期についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager [MCM] の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。 [ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に一致する更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ソフトウェア更新ポイントの同期についての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260812_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager [MCM] の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。 [ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に一致する更新">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-08-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-13T01:42:55.856Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260812_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-08-11T15:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ソフトウェア更新ポイントの同期についての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-08-11T15:00:00.000Z" itemprop="dateUpdated">2026-08-12</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager [MCM] の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。</p>
+<p>[ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に一致する更新プログラムのカタログ情報を、上流の同期元から [WSUS] の役割を通じて [WSUS データベース] に同期し、その後に [MCM サイト データベース] に同期する処理です。</p>
+<p>同期するのは、更新プログラムのタイトル、製品、分類、適用条件、置き換え関係などのメタデータです。この時点では、クライアントへ配布する更新プログラムのバイナリはダウンロードまたは展開されません。</p>
+<p>MCM に更新プログラムをダウンロードする動作 および MCM クライアントに対する展開動作については、本記事の対象外です。</p>
+<p>・ MCM に更新プログラムをダウンロードする際の動作について (リンクを貼る)<br>・ MCM クライアントに対する展開動作について (リンクを貼る)</p>
+<h3 id="同期処理の全体像"><a href="#同期処理の全体像" class="headerlink" title="同期処理の全体像"></a>同期処理の全体像</h3><p>最上位サイト [中央管理サイト、またはスタンドアロン プライマリ サイト] では、同期は次の順序で進みます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">A[同期要求&lt;br/&gt;スケジュールまたは手動操作]</span><br><span class="line">B[Microsoft Update&lt;br/&gt;または上流 WSUS]</span><br><span class="line">C[ソフトウェア更新ポイント&lt;br/&gt;WSUS]</span><br><span class="line">D[(WSUS データベース)]</span><br><span class="line">E[(MCM サイト データベース)]</span><br><span class="line">F[MCM 管理コンソール&lt;br/&gt;すべてのソフトウェア更新プログラム]</span><br><span class="line"></span><br><span class="line">A --&gt;|同期を開始| C</span><br><span class="line">B --&gt;|カテゴリとメタデータ| C</span><br><span class="line">C --&gt;|追加または更新| D</span><br><span class="line">D --&gt;|メタデータを同期| E</span><br><span class="line">E --&gt;|同期結果を表示| F</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>スケジュール、または管理コンソールからの手動操作により同期要求が発生します。</li>
+<li>[WSUS] が [Microsoft Update]、または指定された上流の [WSUS] から、更新プログラムのカテゴリとメタデータを同期します。</li>
+<li>2 で同期された更新プログラムのメタデータを [MCM サイト データベース] に挿入または更新します。</li>
+<li>[MCM サイト データベース] の同期が正常に完了すると、同期された更新プログラムが管理コンソールの [ソフトウェア ライブラリ] - [ソフトウェア更新プログラム] - [すべてのソフトウェア更新プログラム] に表示されます。</li>
+</ol>
+<p>管理コンソールに表示される情報は [MCM サイト データベース] の情報です。このため、[WSUS] 側の同期が完了しただけでは不十分であり、その後の [MCM サイト データベース] との同期が完了している必要があります。</p>
+<h3 id="第-1-段階-上流の同期元から-WSUS-への同期"><a href="#第-1-段階-上流の同期元から-WSUS-への同期" class="headerlink" title="第 1 段階 : 上流の同期元から WSUS への同期"></a>第 1 段階 : 上流の同期元から WSUS への同期</h3><p>最初に既定の [ソフトウェア更新ポイント] 上の [WSUS] に同期を要求します。<br>[WSUS] は、構成された同期元へ接続し、カテゴリと更新プログラムのメタデータを [WSUS データベース] に追加または更新します。</p>
+<p>最上位サイトの同期元には、通常、[Microsoft Update] を指定します。<br>インターネットに直接接続しない構成では、既存の上流 [WSUS] または切断環境向けのエクスポート・インポート方式を使用します。<br>子プライマリ サイトとセカンダリ サイトの [ソフトウェア更新ポイント] は、親サイト側の同期元を使用します。</p>
+<h3 id="第-2-段階-WSUS-から-MCM-サイト-データベースへの同期"><a href="#第-2-段階-WSUS-から-MCM-サイト-データベースへの同期" class="headerlink" title="第 2 段階 : WSUS から MCM サイト データベースへの同期"></a>第 2 段階 : WSUS から MCM サイト データベースへの同期</h3><p>[WSUS] の同期完了後、 [WSUS データベース] からカテゴリと更新プログラムを読み取り、[MCM サイト データベース] に同期します。<br>前回同期後に追加または変更されたメタデータが、[構成項目] として挿入または更新されます。</p>
+<p>この工程では、[ソフトウェア更新ポイント コンポーネントのプロパティ] で指定した [製品]、[分類]、[言語] が使用されます。<br>対象を過剰に選択すると [WSUS] のメタデータ量、同期時間、およびクライアントのスキャン負荷が増えるため、管理対象環境で必要な項目だけを選択します。</p>
+<h3 id="複数サイトおよび複数ソフトウェア更新ポイントがある場合"><a href="#複数サイトおよび複数ソフトウェア更新ポイントがある場合" class="headerlink" title="複数サイトおよび複数ソフトウェア更新ポイントがある場合"></a>複数サイトおよび複数ソフトウェア更新ポイントがある場合</h3><p>最上位サイトで作成された更新プログラムの [構成項目] は、データベース レプリケーションによって子プライマリ サイトへ複製されます。<br>最上位サイトから同期通知を受け取った子サイトでは、親サイトの [WSUS] を上流として [WSUS] 同期を行います。</p>
+<p>同一サイトに複数の [ソフトウェア更新ポイント] がある場合、最初にインストールした [ソフトウェア更新ポイント] が既定の同期元として動作し、追加の [ソフトウェア更新ポイント] はレプリカとして同期されます。</p>
+<h1 id="インターネット-アクセス要件"><a href="#インターネット-アクセス要件" class="headerlink" title="インターネット アクセス要件"></a>インターネット アクセス要件</h1><h2 id="ソフトウェア更新ポイントから-Microsoft-Update-への接続"><a href="#ソフトウェア更新ポイントから-Microsoft-Update-への接続" class="headerlink" title="ソフトウェア更新ポイントから Microsoft Update への接続"></a>ソフトウェア更新ポイントから Microsoft Update への接続</h2><p>最上位サイトで同期元に [Microsoft Update] を指定する場合、アクティブな [ソフトウェア更新ポイント] から [Microsoft Update] クラウド サービスへの送信通信が必要です。</p>
+<p>[WSUS] から [Microsoft Update] への接続には [HTTP] の [TCP 80] と [HTTPS] の [TCP 443] が使用されます。組織のファイアウォールまたはプロキシでインターネット通信を制限している場合は、公開情報に記載のエンドポイントへの接続を許可します。</p>
+<ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">インターネット アクセス要件 - ソフトウェア更新プログラム</a></li>
+</ul>
+<h2 id="Microsoft-365-Apps-の更新プログラムを同期する場合"><a href="#Microsoft-365-Apps-の更新プログラムを同期する場合" class="headerlink" title="Microsoft 365 Apps の更新プログラムを同期する場合"></a>Microsoft 365 Apps の更新プログラムを同期する場合</h2><p>[製品] で [Microsoft 365 Apps] を選択する場合、通常の [Microsoft Update] 用エンドポイントに加え、[Office CDN] と [Microsoft 365 Apps ファイル リスト API] への接続が必要です。次の公開情報に記載のエンドポイントへの接続を許可します。</p>
+<ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#manage-microsoft-365-apps">インターネット アクセス要件 - Microsoft 365 Apps</a></li>
+</ul>
+<h1 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h1><h3 id="1-WSUS-をインストールする"><a href="#1-WSUS-をインストールする" class="headerlink" title="1. WSUS をインストールする"></a>1. WSUS をインストールする</h3><p>[ソフトウェア更新ポイント] のサイト システム役割を追加する前に、対象サーバーへ [Windows Server Update Services] をインストールします。<br>[WSUS] は、更新プログラムの同期とクライアントによる更新プログラムのスキャンサイクルの際にメタデータをダウンロードするサーバーとして必要です。</p>
+<ol>
+<li>[サーバー マネージャー] で [役割と機能の追加] を開始します。</li>
+<li>[Windows Server Update Services] を選択します。</li>
+<li>環境設計に従い、[WID Connectivity] または [SQL Server Connectivity] を選択します。</li>
+<li>更新ファイルをローカルに保存する設計の場合は、コンテンツ格納先を指定します。</li>
+<li>役割のインストール後、[WSUS] のインストール後タスクを完了します。</li>
+</ol>
+<p>[WSUS 管理コンソール] で [製品]、[分類]、同期元などを個別に構成しないでください。<br>[MCM] が [ソフトウェア更新ポイント] 上の [WSUS] に接続し、[ソフトウェア更新ポイント コンポーネントのプロパティ] で指定した設定を反映します。</p>
+<h3 id="2-ソフトウェア更新ポイントをインストールする"><a href="#2-ソフトウェア更新ポイントをインストールする" class="headerlink" title="2. ソフトウェア更新ポイントをインストールする"></a>2. ソフトウェア更新ポイントをインストールする</h3><ol>
+<li>[MCM 管理コンソール] で [管理] - [サイトの構成] - [サーバーとサイト システムの役割] を開きます。</li>
+<li>[WSUS] をインストールした既存のサイト システム サーバーを選択し、[サイト システムの役割の追加] を実行します。新しいサーバーを使用する場合は、[サイト システム サーバーの作成] を実行します。</li>
+<li>必要に応じて、サイト システムのプロキシ設定と資格情報を指定します。</li>
+<li>[システムの役割の選択] で [ソフトウェア更新ポイント] を選択します。</li>
+<li>[WSUS] で使用しているポートを指定します。[WSUS] を SSL で構成している場合は、[WSUS サーバーとの SSL 通信を必須にする] を有効にします。</li>
+<li>リモートの [WSUS] へサイト サーバーのコンピューター アカウントで接続できない場合は、適切な権限を持つ [WSUS サーバー接続アカウント] を指定します。</li>
+<li>ウィザードを完了し、[SUPSetup.log] で役割のインストール結果、[WCM.log] で [WSUS] への接続と構成結果を確認します。</li>
+</ol>
+<p>階層がある場合は、中央管理サイト、子プライマリ サイト、必要に応じてセカンダリ サイトの順に追加します。</p>
+<h3 id="3-製品、分類、同期元、言語、およびスケジュールを設定する"><a href="#3-製品、分類、同期元、言語、およびスケジュールを設定する" class="headerlink" title="3. 製品、分類、同期元、言語、およびスケジュールを設定する"></a>3. 製品、分類、同期元、言語、およびスケジュールを設定する</h3><p>初めて最上位サイトへ [ソフトウェア更新ポイント] を追加する場合は、初回同期で最新の [製品] と [分類] の一覧を取得してから、実際に必要な項目を選択する方法を推奨します。</p>
+<ol>
+<li>初回の役割追加時は、[製品] と [分類] をすべてオフにした状態でウィザードを完了します。</li>
+<li>初回同期を実行し、最新の [製品] と [分類] の一覧を取得します。</li>
+<li>[管理] - [サイトの構成] - [サイト] を開き、中央管理サイトまたはスタンドアロン プライマリ サイトを選択します。</li>
+<li>[ホーム] タブの [設定] から [サイト コンポーネントの構成] - [ソフトウェア更新ポイント] を開きます。</li>
+<li>[同期設定] タブで、[Microsoft Update から同期する]、または設計した上流データ ソースを指定します。</li>
+<li>[分類] タブで、[セキュリティ更新プログラム]、[重要な更新]、[更新]、[定義更新プログラム]、[Upgrades] など、必要な分類を選択します。</li>
+<li>[製品] タブで、管理対象の Windows 11、Microsoft 365 Apps、Microsoft Edge など、必要な製品だけを選択します。</li>
+<li>[言語] タブで、必要な更新ファイルおよび更新プログラムの詳細の言語を選択します。English は必須でチェックを入れます。</li>
+<li>[同期スケジュール] タブで [スケジュールに従って同期する] を有効にし、[WSUS]、サイト サーバー、およびネットワークの負荷が低い時間帯を指定します。</li>
+<li>設定を保存した後、再度同期を実行して、選択した条件に一致する更新プログラムのメタデータを取得します。</li>
+</ol>
+<p>[製品] の親項目を選択すると、配下の現在および将来の製品が対象となる場合があります。不要なメタデータの増加を避けるため、選択範囲を定期的に見直してください。</p>
+<h3 id="4-同期する"><a href="#4-同期する" class="headerlink" title="4. 同期する"></a>4. 同期する</h3><h4 id="スケジュール同期"><a href="#スケジュール同期" class="headerlink" title="スケジュール同期"></a>スケジュール同期</h4><p>設定した日時になると、最上位サイトの [WSUS Synchronization Manager] が起動し、同期を開始します。通常運用では、定期スケジュールによる同期を使用します。</p>
+<h4 id="手動同期"><a href="#手動同期" class="headerlink" title="手動同期"></a>手動同期</h4><ol>
+<li>[MCM 管理コンソール] で [ソフトウェア ライブラリ] - [ソフトウェア更新プログラム] - [すべてのソフトウェア更新プログラム] を開きます。</li>
+<li>[ホーム] タブで [ソフトウェア更新プログラムの同期] を選択します。</li>
+<li>確認画面で [はい] を選択します。</li>
+</ol>
+<h4 id="同期状態の確認"><a href="#同期状態の確認" class="headerlink" title="同期状態の確認"></a>同期状態の確認</h4><p>[監視] - [ソフトウェア更新ポイントの同期ステータス] で、階層内の [ソフトウェア更新ポイント] ごとの状態を確認できます。詳細な工程とエラーは、サイト サーバーの [Logs] フォルダーにある [wsyncmgr.log] を確認します。</p>
+<h1 id="ソフトウェア更新ポイントの同期時に確認するログ-について"><a href="#ソフトウェア更新ポイントの同期時に確認するログ-について" class="headerlink" title="ソフトウェア更新ポイントの同期時に確認するログ について"></a>ソフトウェア更新ポイントの同期時に確認するログ について</h1><table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[SUPSetup.log]</td>
+<td>[ソフトウェア更新ポイント] 役割のインストール状態を確認します。</td>
+</tr>
+<tr>
+<td>[WCM.log]</td>
+<td>[WSUS] のバージョン、接続、ポート、上流サーバー、プロキシ、およびカテゴリ設定の構成状態を確認します。</td>
+</tr>
+<tr>
+<td>[wsyncmgr.log]</td>
+<td>同期要求の開始、[WSUS] 同期、[MCM サイト データベース] 同期、進捗率、完了、および失敗を確認します。</td>
+</tr>
+<tr>
+<td>[SoftwareDistribution.log]</td>
+<td>[WSUS] サービス内部の同期開始、上流との通信、および同期完了を確認します。</td>
+</tr>
+<tr>
+<td>[SMSProv.log]</td>
+<td>管理コンソールから手動同期を要求した操作を確認します。</td>
+</tr>
+<tr>
+<td>[SMSDBMON.log]</td>
+<td>手動同期要求を検知し、[WSyncMgr.box] に同期通知を生成する処理を確認します。</td>
+</tr>
+</tbody></table>
+<p>以下の抜粋は、提供された [WCM.log] および [wsyncmgr.log] 相当のログを読みやすい形式に整えた例です。サーバー名、時刻、件数は環境によって異なります。</p>
+<h3 id="工程-1-WSUS-の構成と接続を確認する"><a href="#工程-1-WSUS-の構成と接続を確認する" class="headerlink" title="工程 1 : WSUS の構成と接続を確認する"></a>工程 1 : WSUS の構成と接続を確認する</h3><p>[WCM.log] で、サポート対象の [WSUS] が検出され、指定ポートで接続でき、上流サーバーとカテゴリが正しく構成されていることを確認します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Supported WSUS version found</span><br><span class="line">Attempting connection to WSUS server: CON-PS1DPMPSUP1.contoso.com, port: 8530, useSSL: False</span><br><span class="line">Successfully connected to server: CON-PS1DPMPSUP1.contoso.com, port: 8530, useSSL: False</span><br><span class="line">No changes - WSUS Server settings are correctly configured and Upstream Server is set to Microsoft Update</span><br><span class="line">Refreshing categories from WSUS server</span><br><span class="line">Successfully refreshed categories from WSUS server</span><br></pre></td></tr></table></figure>
+
+<p>[Successfully connected] が記録されない場合は、[Update Services] サービス、[IIS] の [WSUS Administration] サイト、FQDN、ポート、SSL、ファイアウォール、プロキシ、および接続アカウントを確認します。</p>
+<h3 id="工程-2-同期要求の開始を確認する"><a href="#工程-2-同期要求の開始を確認する" class="headerlink" title="工程 2 : 同期要求の開始を確認する"></a>工程 2 : 同期要求の開始を確認する</h3><p>[wsyncmgr.log] で、スケジュールまたは手動要求により同期が開始され、対象の [ソフトウェア更新ポイント] が検出されたことを確認します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Wakeup for scheduled regular sync</span><br><span class="line">Starting Sync</span><br><span class="line">Performing sync on regular schedule</span><br><span class="line">Read SUPs from SCF for CON-PS1SITE.contoso.com</span><br><span class="line">Found 2 SUPs</span><br><span class="line">STATMSG: ID=6701 SEV=I</span><br></pre></td></tr></table></figure>
+
+<p>手動同期の場合は、[Performing sync on local request] が記録されます。[STATMSG: ID&#x3D;6701] は同期処理の開始を示します。</p>
+<h3 id="工程-3-上流の同期元から-WSUS-への同期を確認する"><a href="#工程-3-上流の同期元から-WSUS-への同期を確認する" class="headerlink" title="工程 3 : 上流の同期元から WSUS への同期を確認する"></a>工程 3 : 上流の同期元から WSUS への同期を確認する</h3><p>次の記録は、[WSUS] がカテゴリ 28 件、更新プログラム 414 件を処理し、[WSUS データベース] への同期を完了したことを示します。[STATMSG: ID&#x3D;6704] は [WSUS] 同期フェーズを示します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Synchronizing WSUS, default server is CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">STATMSG: ID=6704 SEV=I</span><br><span class="line">sync: Starting WSUS synchronization</span><br><span class="line">sync: WSUS synchronizing categories, processed 28 out of 28 items (100%)</span><br><span class="line">sync: WSUS synchronizing updates, processed 414 out of 414 items (100%)</span><br><span class="line">Done synchronizing WSUS Server con-ps1dpmpsup1.contoso.com</span><br></pre></td></tr></table></figure>
+
+<p>[Done synchronizing WSUS Server] が記録されれば、第 1 段階の [WSUS] 同期は完了しています。ただし、この時点では [MCM サイト データベース] への同期完了ではありません。</p>
+<h3 id="工程-4-WSUS-から-MCM-サイト-データベースへの同期を確認する"><a href="#工程-4-WSUS-から-MCM-サイト-データベースへの同期を確認する" class="headerlink" title="工程 4 : WSUS から MCM サイト データベースへの同期を確認する"></a>工程 4 : WSUS から MCM サイト データベースへの同期を確認する</h3><p>[STATMSG: ID&#x3D;6705] と [Starting SMS database synchronization] は、第 2 段階が開始されたことを示します。[Requested categories] では、実際に要求された [製品] と [分類] を確認できます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Synchronizing SMS database with WSUS, default server is CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">STATMSG: ID=6705 SEV=I</span><br><span class="line">sync: Starting SMS database synchronization</span><br><span class="line">Requested categories: Product=Microsoft 365 Apps/Office 2019/Office LTSC, Product=Microsoft Edge, Product=Windows 11, Product=Microsoft Defender Antivirus, Product=Microsoft SQL Server 2022, Product=Windows 10, version 1903 and later, UpdateClassification=Security Updates, UpdateClassification=Upgrades, UpdateClassification=Updates, UpdateClassification=Definition Updates</span><br><span class="line">sync: SMS synchronizing categories, processed 447 out of 447 items (100%)</span><br><span class="line">sync: SMS synchronizing updates, processed 0 out of 603 items (0%)</span><br><span class="line">sync: SMS synchronizing updates, processed 603 out of 603 items (100%)</span><br></pre></td></tr></table></figure>
+
+<p>処理中は [processed X out of Y items] とパーセント表示で進捗を確認できます。[Synchronizing update] は更新対象、[Skipped update … because it is up to date] は既に最新で更新不要と判定された対象を示します。</p>
+<h3 id="工程-5-MCM-サイト-データベースの同期完了を確認する"><a href="#工程-5-MCM-サイト-データベースの同期完了を確認する" class="headerlink" title="工程 5 : MCM サイト データベースの同期完了を確認する"></a>工程 5 : MCM サイト データベースの同期完了を確認する</h3><p>次の記録が揃っていることを確認します。[Done synchronizing SMS with WSUS Server] はサイト データベースとの同期完了、[STATMSG: ID&#x3D;6702] と [Sync succeeded] は同期処理全体の正常完了を示します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Done synchronizing SMS with WSUS Server con-ps1dpmpsup1.contoso.com</span><br><span class="line">STATMSG: ID=6702 SEV=I</span><br><span class="line">Sync succeeded. Setting sync alert to canceled state on site PS1</span><br><span class="line">Updated 8467 items in SMS database, new update source content version is 181</span><br><span class="line">Sync time: 0d00h25m35s</span><br></pre></td></tr></table></figure>
+
+<p>同期成功後、管理コンソールの [すべてのソフトウェア更新プログラム] を最新の情報に更新し、選択した条件に一致する更新プログラムが表示されることを確認します。</p>
+<h3 id="進捗率が-100-パーセントでも最終結果を確認する"><a href="#進捗率が-100-パーセントでも最終結果を確認する" class="headerlink" title="進捗率が 100 パーセントでも最終結果を確認する"></a>進捗率が 100 パーセントでも最終結果を確認する</h3><p>[WSUS] 同期または [MCM サイト データベース] 同期の [100%] は、その工程で列挙された項目の処理が終わったことを示します。<br>個別の更新プログラムでエラーが発生した場合、[100%] の後に同期全体が失敗として終了することがあります。<br>必ず最後まで追跡し、[Sync succeeded] または [Sync failed] を確認してください。</p>
+<h3 id="よく確認する失敗メッセージ"><a href="#よく確認する失敗メッセージ" class="headerlink" title="よく確認する失敗メッセージ"></a>よく確認する失敗メッセージ</h3><table>
+<thead>
+<tr>
+<th>状態</th>
+<th>ログ例</th>
+<th>確認箇所</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[WSUS] が未構成</td>
+<td>[WSUS server not configured. Please refer to WCM.log]</td>
+<td>[WCM.log] で [WSUS] 接続、ポート、SSL、プロキシ、サービス、および IIS を確認します。</td>
+</tr>
+<tr>
+<td>再試行待ち</td>
+<td>[Sync failed. Will retry in 60 minutes]</td>
+<td>原因を解消し、次回の再試行時刻または手動同期を確認します。</td>
+</tr>
+<tr>
+<td>個別更新の同期失敗</td>
+<td>[Failed to synchronize O365 update]</td>
+<td>直前の例外、接続先、プロキシ、およびファイアウォールを確認します。</td>
+</tr>
+<tr>
+<td>全体の同期失敗</td>
+<td>[STATMSG: ID&#x3D;6703]、[Sync failed]</td>
+<td>同じ時刻の直前に記録された最初のエラーを確認します。</td>
+</tr>
+<tr>
+<td>全体の同期成功</td>
+<td>[STATMSG: ID&#x3D;6702]、[Sync succeeded]</td>
+<td>[すべてのソフトウェア更新プログラム] を更新して表示を確認します。</td>
+</tr>
+</tbody></table>
+<h3 id="STATMSG-ID-6706-が記録される処理"><a href="#STATMSG-ID-6706-が記録される処理" class="headerlink" title="STATMSG: ID&#x3D;6706 が記録される処理"></a>STATMSG: ID&#x3D;6706 が記録される処理</h3><p>同一サイトに複数の [ソフトウェア更新ポイント] がある場合、既定の [ソフトウェア更新ポイント] の同期後に、追加の [ソフトウェア更新ポイント] 上の [WSUS] がレプリカとして同期されます。[STATMSG: ID&#x3D;6706] は、この追加の [WSUS] に対する同期フェーズが開始されたことを示します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Starting cleanup on WSUS, default server CON-PS1DPMPSUP1.contoso.com</span><br><span class="line">sync: SMS performing cleanup</span><br><span class="line">Cleanup processed 606 total updates and declined 0</span><br><span class="line">Done Declining updates in WSUS Server con-ps1dpmpsup1.contoso.com</span><br><span class="line">Synchronizing replica WSUS servers</span><br><span class="line">STATMSG: ID=6706 SEV=I</span><br><span class="line">sync: Starting Replica WSUS synchronization</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h1><ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">インターネット アクセス要件 - Configuration Manager</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/microsoft-365-apps/updates/manage-microsoft-365-apps-updates-configuration-manager">Microsoft Configuration Manager を使用して Microsoft 365 Apps の更新プログラムを管理する</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/sum/get-started/install-a-software-update-point">ソフトウェア更新ポイントのインストールと構成</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/sum/plan-design/prerequisites-for-software-updates">Configuration Manager のソフトウェア更新プログラムの前提条件</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/sum/get-started/configure-classifications-and-products">同期する分類と製品の構成</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/sum/get-started/synchronize-software-updates">ソフトウェア更新プログラムの同期</a></li>
+<li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/track-software-update-synchronization">ソフトウェア更新プログラムの同期の追跡</a></li>
+<li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/troubleshoot-software-update-synchronization">ソフトウェア更新プログラムの同期に関するトラブルシューティング</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidm89ZsVhv6224Rvk_klSzF" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260812_02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ソフトウェア更新プログラムの展開についての動作説明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">ソフトウェア更新ポイントの同期についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../../wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a>
+          </li>
+        
+          <li>
+            <a href="../20260723_01/">Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">8月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
