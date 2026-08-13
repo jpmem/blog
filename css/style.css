@@ -539,7 +539,7 @@ body {
 .article-share {
   color: #999;
   border-bottom: 1px solid #ddd;
-  height: 20px;
+  min-height: 20px;
   margin: 0 20px 0;
 }
 .article-share a {
@@ -714,6 +714,32 @@ a.article-title:hover {
 }
 .article-entry li p {
   margin: 0.5em 0;
+}
+div.alert {
+  display: block;
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #5d627b;
+  background: #fff;
+  border-top: 10px solid;
+  -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.22);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.22);
+}
+div.alert p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.alert p.alert-title {
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+div.alert.is-info {
+  border-color: #e2daf1;
+}
+div.alert.is-info .alert-title:before {
+  content: "\f06a";
+  font-family: FontAwesome;
+  padding-right: 6px;
 }
 .article-more-link a {
   display: inline-block;

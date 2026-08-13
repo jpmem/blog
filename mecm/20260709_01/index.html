@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260709_01/20260709_01_05.png">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260709_01/20260709_01_06.png">
 <meta property="article:published_time" content="2026-07-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T06:20:49.523Z">
+<meta property="article:modified_time" content="2026-08-13T07:49:07.421Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -71,7 +71,7 @@
         
           <a class="main-nav-link" href="../../index.html">Home</a>
         
-          <a class="main-nav-link" href="../../archives">Archives</a>
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
         
           <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
         
@@ -113,7 +113,11 @@
 
       </header>
       <div class="article-share">
-        Last Update:
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-07-08T15:00:00.000Z" itemprop="datePublished">2026-07-09</time>
+</a>
+        / Last update:
         <a href="" class="article-date-single">    
     
     <time datetime="2026-07-08T15:00:00.000Z" itemprop="dateUpdated">2026-07-09</time>
@@ -175,8 +179,9 @@
 <li>x64 向け</li>
 <li>“すべてのコンピューター” グループに対して承認</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">サンプル スクリプト免責事項</span><br><span class="line"></span><br><span class="line">サンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。</span><br><span class="line">ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</span><br><span class="line"></span><br><span class="line">なお、お客様要件に合わせた変更を弊社に依頼されてもお受けいたしかねますので予めご承知おきください。</span><br></pre></td></tr></table></figure>
-
+<div class="alert is-info"><p class="alert-title">Note</p><p><strong>免責事項</strong></p>
+<p>サンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。</p><p>ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</p>
+<p>なお、お客様要件に合わせた変更を弊社に依頼されてもお受けいたしかねますので予めご承知おきください。</p></div>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wsus</span> = [<span class="type">Microsoft.UpdateServices.Administration.AdminProxy</span>]::GetUpdateServer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$targetCategory</span>       = <span class="variable">$wsus</span>.GetUpdateCategories() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Microsoft Edge&#x27;</span></span><br><span class="line"><span class="variable">$targetClassification</span> = <span class="variable">$wsus</span>.GetUpdateClassifications() | <span class="built_in">where</span> Title <span class="operator">-eq</span> <span class="string">&#x27;Updates&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetScope</span> = <span class="built_in">New-Object</span> Microsoft.UpdateServices.Administration.UpdateScope</span><br><span class="line"><span class="variable">$targetScope</span>.ApprovedStates = [<span class="type">Microsoft.UpdateServices.Administration.ApprovedStates</span>]::NotApproved</span><br><span class="line"><span class="variable">$targetScope</span>.Categories.Add(<span class="variable">$targetCategory</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"><span class="variable">$targetScope</span>.Classifications.Add(<span class="variable">$targetClassification</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetUpdates</span> = <span class="variable">$wsus</span>.GetUpdates(<span class="variable">$targetScope</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$archPattern</span>     = <span class="string">&#x27;x64&#x27;</span> <span class="comment"># select &#x27;x86&#x27; &#x27;x64&#x27; &#x27;ARM64&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$betaPattern</span>     = <span class="string">&quot;^Microsoft Edge-Beta Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$devPattern</span>      = <span class="string">&quot;^Microsoft Edge-Dev Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$stablePattern</span>   = <span class="string">&quot;^Microsoft Edge-Stable Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"><span class="variable">$exStablePattern</span> = <span class="string">&quot;^Microsoft Edge-Extended Stable Channel Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$wv2Pattern</span>       = <span class="string">&quot;^Microsoft Edge-WebView2 Runtime Version \d+ Update for (?:<span class="variable">$archPattern</span>) based Editions \(Build \d+\.\d+\.\d+\.\d+\)<span class="variable">$</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$targetGrpId</span> = <span class="string">&quot;a0a08746-4dbe-4a37-9adf-9e7652c0b421&quot;</span> <span class="comment">#All Computers</span></span><br><span class="line"><span class="variable">$targetGrp</span> = <span class="variable">$wsus</span>.GetComputerTargetGroup(<span class="variable">$targetGrpId</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$update</span> <span class="keyword">in</span> <span class="variable">$targetUpdates</span>)&#123;       </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$exStablePattern</span>)&#123;</span><br><span class="line">        <span class="string">&quot;Approved:&quot;</span> + <span class="variable">$update</span>.Title </span><br><span class="line">        <span class="variable">$update</span>.Approve([<span class="type">Microsoft.UpdateServices.Administration.UpdateApprovalAction</span>]::Install, <span class="variable">$targetGrp</span>) | <span class="built_in">Out-Null</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$update</span>.Title <span class="operator">-match</span> <span class="variable">$wv2Pattern</span> )&#123;</span><br><span class="line">        <span class="string">&quot;Approved:&quot;</span> + <span class="variable">$update</span>.Title </span><br><span class="line">        <span class="variable">$update</span>.Approve([<span class="type">Microsoft.UpdateServices.Administration.UpdateApprovalAction</span>]::Install, <span class="variable">$targetGrp</span>) | <span class="built_in">Out-Null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="タスク-スケジューラ-に登録する"><a href="#タスク-スケジューラ-に登録する" class="headerlink" title="タスク スケジューラ に登録する"></a>タスク スケジューラ に登録する</h3><ol>
@@ -212,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuids67cfIUz1AV2MGrYd5i5t" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuidoiuk1yA6lM7qv7xoy8nCh" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -258,11 +263,11 @@
           </li>
         
           <li>
-            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
           </li>
         
           <li>
-            <a href="../20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
+            <a href="../20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
@@ -324,7 +329,7 @@
   
     <a href="../../index.html" class="mobile-nav-link">Home</a>
   
-    <a href="../../archives" class="mobile-nav-link">Archives</a>
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
   
     <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
   
