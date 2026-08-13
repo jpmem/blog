@@ -9,12 +9,14 @@
 ## 記事の作成
 
 - 記事の製品に応じて `articles/mecm/` または `articles/wsus/` を選び、`YYYYMMDD_NN.md` の形式で保存します。対象日の既存記事を確認し、`NN` は重複しない連番にします。
-- front matter は次の形式にします。日付は執筆日またはユーザー指定日を `YYYY-MM-DD` で記載し、タグは原則として `MECM` または `WSUS` を指定します。
+- front matter は次の形式にします。日付は執筆日またはユーザー指定日を `YYYY-MM-DD` で記載し、カテゴリーは原則として `[Configuration Manager/Windows Server Update Services, 機能名, 動作説明/how to/トラブルシューティング]` を指定し、タグは原則として `MECM` または `WSUS` を指定します。
 
 ```
 ---
 title: 記事タイトル
 date: YYYY-MM-DD
+categories:
+  - [Configuration Manager, xx, xxx]
 tags:
   - MECM
 ---
