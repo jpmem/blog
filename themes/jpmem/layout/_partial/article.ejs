@@ -28,6 +28,17 @@
           <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
         </p>
       <% } else { %>
+        <% const tocConfig = Object.assign({}, config.toc, post.toc); %>
+        <% if (tocConfig.enabled) { %>
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <%- toc(post.content, {
+              min_depth: post.min_depth || 1,
+              max_depth: post.max_depth || 6,
+              list_number: post.list_number !== false
+            }) %>
+          </details>
+        <% } %>
         <%- post.content %>
       <% } %>
     </div>
