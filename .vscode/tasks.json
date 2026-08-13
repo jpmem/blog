@@ -2,23 +2,46 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "install Docker if missing",
+			"type": "shell",
+			"command": "& '${workspaceFolder}/.vscode/install-docker.ps1'",
+			"problemMatcher": []
+		},
+		{
 			"label": "git module update",
 			"type": "shell",
-			"command": "git submodule update -i"
+			"command": "git submodule update --init --recursive"
 		},
 		{
 			"label": "docker start",
 			"type": "shell",
-			"command": "docker-compose up",
+			"command": "docker compose up -d"
+		},
+		{
+			"label": "wait for blog debug readiness",
+			"type": "shell",
+			"command": "$ProgressPreference = 'SilentlyContinue'; $deadline = (Get-Date).AddMinutes(5); do { try { $blogResponse = Invoke-WebRequest -Uri 'http://localhost:4000/blog/' -UseBasicParsing -TimeoutSec 5 } catch { $blogResponse = $null }; try { $debugResponse = Invoke-WebRequest -Uri 'http://localhost:9229/json/list' -UseBasicParsing -TimeoutSec 5 } catch { $debugResponse = $null }; if (($blogResponse.StatusCode -eq 200) -and ($debugResponse.StatusCode -eq 200)) { exit 0 }; Start-Sleep -Milliseconds 250 } while ((Get-Date) -lt $deadline); throw 'Blog and Node inspector did not become ready within 5 minutes.'"
+		},
+		{
+			"label": "open blog",
+			"type": "shell",
+			"command": "Start-Process 'http://localhost:4000/blog/'"
+		},
+		{
+			"label": "open local blog site",
 			"dependsOrder": "sequence",
-            "dependsOn": [
-                "git module update"
-            ]
+			"dependsOn": [
+				"install Docker if missing",
+				"git module update",
+				"docker start",
+				"wait for blog debug readiness",
+				"open blog"
+			]
 		},
 		{
 			"label": "docker stop",
 			"type": "shell",
-			"command": "docker-compose down"
+			"command": "docker compose down"
 		}
 	]
 }
