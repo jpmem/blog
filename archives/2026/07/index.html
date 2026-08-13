@@ -129,7 +129,7 @@ Japan Microsoft Intune Support Team Blog
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuidKUflFFbQIjgNRz1yBlpA6" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuidpKz6CaTZj8eSgmLZfC6Ls" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
@@ -187,7 +187,7 @@ Microsoft は、Windows Server Update Services(WSUS) チャネ...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuide9sqx15wPQRX0MkNIkdmx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidSeSEoq7Vg8CurMBMd2lPq" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -242,7 +242,7 @@ WSUS メンテナン...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidIzw5nIXM4otNcpqsH3uo3" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidEBZSRCOMFFFf7kgF08N05" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -295,7 +295,7 @@ WSUS の自動承認の限界WSUS でも自動承認の仕組みはございま�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuiddni5VVkASPcVFaq3PcJJ1" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuidB5idewlyMHbFYuCJmunbV" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -406,6 +406,32 @@ WSUS の自動承認の限界WSUS でも自動承認の仕組みはございま�
 
 <script src="../../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 

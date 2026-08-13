@@ -130,7 +130,7 @@ Title : Import updates into WSUS using PowerShellURL : https://learn.microsoft.c
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2023-07-27_01/" data-id="cuidU2wWd6SUI0eCm07DttxWB" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2023-07-27_01/" data-id="cuidOAixlsgznx2BW6ipJNtRz" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -188,7 +188,7 @@ Title : Import updates into WSUS using PowerShellURL : https://learn.microsoft.c
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20230720_01/" data-id="cuidKE9aVeCKi-Eh7_XJB83qj" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20230720_01/" data-id="cuid_ZcLQ5u8-XjTTg2P6ALov" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li></ul>
@@ -299,6 +299,32 @@ Title : Import updates into WSUS using PowerShellURL : https://learn.microsoft.c
 
 <script src="../../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 

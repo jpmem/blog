@@ -128,7 +128,7 @@ System Center Configuration Manager Current Branch では、Windows 10 のリリ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cuidXtpl7AWiiiBuMv9kYlD8I" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170818_01/" data-id="cuidEwwPnlnIE7GWNUTkYt0H0" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -179,7 +179,7 @@ Windows 10 Enterprise LTSB 2016 以降をご利用のお客様より、弊社へ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2017-08-09_01/" data-id="cuid0jb2pMHb6vj9t0k8_l0Hz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2017-08-09_01/" data-id="cuidt1-eXhIyXjPnEjY9UPcdU" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -231,7 +231,7 @@ Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロ
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20170808_01/" data-id="cuid9zqjh6Zct8jWOWhNuqsQX" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20170808_01/" data-id="cuidd4FbeMx0AlVu0THrRzm0W" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -342,6 +342,32 @@ Windows Server 2012, 2012 R2, 2016 については、プレビュー版月例ロ
 
 <script src="../../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 

@@ -131,7 +131,7 @@ Microsoft Endpoint Configuration Manager Current Branch
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20121030_03/" data-id="cuidV-L0I-52o_mlEl-vIVZCz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20121030_03/" data-id="cuidCOvOWuQhnk21izkpjGVrR" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -184,7 +184,7 @@ Microsoft Endpoint Configuration Manager Current Branch
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-06-07_01/" data-id="cuiduuB7MfXFjt3BDpZgEhovo" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-06-07_01/" data-id="cuid5BtROYyyXPe6fhHLJWmf7" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -238,7 +238,7 @@ WSUS の基本的な制限事項WSUS サーバーへ同期することのでき�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-05-01_01/" data-id="cuidCh-AgCNVlb0hgTx3xOXmT" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-05-01_01/" data-id="cuidjPBHRe8wdQ-1n8jWF9qWy" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -290,7 +290,7 @@ Description of Software Update Services and Windows Server Update Services chang
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-30_01/" data-id="cuid_Qs7OhT-RJRqwUZJRzqjb" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-30_01/" data-id="cuidxaEk0W4jxJRKpsnSeEl7w" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -349,7 +349,7 @@ https://www.catalog.update.microsoft.com/home.aspx
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cuidpgFX1KcL4YGwWodzhbK-z" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-19_01/" data-id="cuidBTYDi_du2iJpBkAxa0_eY" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -406,7 +406,7 @@ C. サポート技術情報の記事でソート少々わかりにくい表現�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-07_01/" data-id="cuidPCzuP1a3lMbZ7Ze8Ovryw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2012-03-07_01/" data-id="cuidHvQnV_96NM1JVAuLX6Jh4" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -517,6 +517,32 @@ C. サポート技術情報の記事でソート少々わかりにくい表現�
 
 <script src="../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 

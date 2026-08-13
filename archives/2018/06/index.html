@@ -127,7 +127,7 @@ Configuration Manager で使用する SSRS のデータベースは、破損し�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180629_01/" data-id="cuidhXwYZlyOaVn8U3dE6Ilxj" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180629_01/" data-id="cuidZ7alfNUSGJfeU0ywT4i5o" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -179,7 +179,7 @@ Configuration Manager で使用する SSRS のデータベースは、破損し�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_01/" data-id="cuid50Gxz5_7cQZA7sDOLDTtq" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_01/" data-id="cuidf9C_rc3mNMhPe-CxGjRmg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -231,7 +231,7 @@ A. WPAD を利用した設定方法WPAD (Web Proxy Auto-Discovery) はクライ�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cuidxdQB6xmL2M3olsFEYhSO0" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-29_02/" data-id="cuidrIoisZnO3gaQCurX_jvtB" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -280,7 +280,7 @@ A. WPAD を利用した設定方法WPAD (Web Proxy Auto-Discovery) はクライ�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20180619_01/" data-id="cuidyGCglqdvPWM_9pv-XNTEz" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20180619_01/" data-id="cuidc9k4S2I6sZQx9x9VSy2Aj" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -333,7 +333,7 @@ WSUS では以下の分類の内、どれを配信するか選択することが
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-19_01/" data-id="cuidMm5g2qg1vZ8AxSJvcmpeh" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2018-06-19_01/" data-id="cuidi2vLI5k-AKUoq0OYati-I" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -444,6 +444,32 @@ WSUS では以下の分類の内、どれを配信するか選択することが
 
 <script src="../../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 

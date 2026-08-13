@@ -15,7 +15,7 @@
 <meta property="og:description" content="みなさま、こんにちは。 WSUS サポート チームです。WSUS サーバーに正常にアクセス可能な状態のソース PC からインストールイメージを作成し、ほかの PC にイメージを展開して建てた端末について、 WSUS 　サーバー側へ接続した際に、クライアントが表示されたりされなかったりといったように正常に認識されなくなる事象が発生することがございます。今回はそのような事象がなぜ起こるのか対処方法を含">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2022-05-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T01:42:55.938Z">
+<meta property="article:modified_time" content="2026-08-13T02:31:22.179Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="WSUS">
 <meta name="twitter:card" content="summary">
@@ -142,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-18_01/" data-id="cuidVWSLbNyQ70F158Q9mSvfK" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2022-05-18_01/" data-id="cuidJzZ58E-5eJqcMFYQsvqDG" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -270,6 +270,32 @@
 
 <script src="../../js/script.js"></script>
 
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
 
 
 
