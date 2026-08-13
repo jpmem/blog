@@ -34,7 +34,7 @@
 .article-share
   color: #999
   border-bottom: 1px solid #ddd
-  height: 20px
+  min-height: 20px
   margin: 0 article-padding 0
   a
     color: color-grey
@@ -161,6 +161,27 @@
   li
     p
       margin: .5em 0
+
+div.alert
+  display: block
+  padding: .5em 1em
+  margin: 2em 0
+  color: #5d627b
+  background: #fff
+  border-top: 10px solid
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .22)
+  p
+    margin-top: 0
+    margin-bottom: 0
+    &.alert-title
+      margin-bottom: .2rem
+      font-weight: 600
+  &.is-info
+    border-color: #e2daf1
+    .alert-title:before
+      content: "\f06a"
+      font-family: FontAwesome
+      padding-right: 6px
 
 .article-more-link a
   display: inline-block
