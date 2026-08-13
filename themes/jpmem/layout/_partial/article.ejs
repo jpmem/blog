@@ -10,7 +10,9 @@
         <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
       <div class="article-share">
-        Last Update:
+        Published:
+        <%- partial('post/date', {class_name: 'article-date-single', date_format: null}) %>
+        / Last update:
         <%- partial('post/lastupdate', {class_name: 'article-date-single', date_format: null}) %>
       </div>
     <% } %>
