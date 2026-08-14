@@ -88,6 +88,33 @@
     text-decoration: none
     &:hover
       text-decoration: underline
+  h1, h2, h3, h4, h5, h6
+    position: relative
+    &:hover, &:focus-within
+      .headerlink
+        opacity: 1
+  .headerlink
+    cursor: pointer
+    position: absolute
+    top: 0.1em
+    left: -1em
+    width: 1em
+    height: 1em
+    line-height: 1
+    opacity: 0
+    transition: opacity 0.2s
+    color: color-grey
+    vertical-align: middle
+    &:hover
+      text-decoration: none
+    &:focus
+      opacity: 1
+    &:before
+      position: absolute
+      content: "\f0c1"
+      font-family: FontAwesome
+      font-size: 0.6em
+      transform: rotate(-45deg)
   ul, ol, dl
     margin-top: line-height
     margin-bottom: line-height
