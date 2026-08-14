@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/wsus/2026-08-05_01/2026-08-05_01_1.png">
 <meta property="article:published_time" content="2026-08-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-13T07:49:07.533Z">
+<meta property="article:modified_time" content="2026-08-14T01:55:10.502Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta property="article:tag" content="WSUS">
@@ -149,8 +149,7 @@
 <li>WSUS を階層構成にしている場合は、階層内の各 WSUS サーバーで実行します。クリーンアップや削除を行う場合は、下位の WSUS サーバーから開始します。</li>
 <li>メンテナンスではデータベースやディスクへの負荷が高くなる場合があります。業務への影響が少ない時間帯に、十分な作業時間を確保して実行してください。</li>
 </ul>
-<p><strong>重要</strong></p>
-<p>公開されているスクリプトはサンプルであり、現状有姿で提供されています。Microsoft の標準サポート プログラムまたはサービスによるサポート対象ではありません。注意事項と免責事項を公開ページで確認し、事前に検証したうえでご利用ください。</p>
+<div class="alert is-info"><p class="alert-title">Note</p><p>公開されているスクリプトはサンプルであり、現状有姿で提供されています。Microsoft の標準サポート プログラムまたはサービスによるサポート対象ではありません。注意事項と免責事項を公開ページで確認し、事前に検証したうえでご利用ください。</p></div>
 <h2 id="スクリプトの入手と実行"><a href="#スクリプトの入手と実行" class="headerlink" title="スクリプトの入手と実行"></a>スクリプトの入手と実行</h2><ol>
 <li><a href="https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/wsus-automatic-maintenance#maintain-the-wsus-database-susdb-automatically">Microsoft Learn の公開ページ</a>を開き、PowerShell のコード ブロックをコピーします。</li>
 <li>コピーした内容を、WSUS サーバー上に <code>SUSDB-Maintenance.ps1</code> などの名前で保存します。</li>
@@ -191,7 +190,7 @@
 <tr>
 <td><code>[1]</code></td>
 <td>Update spDeleteUpdate procedure</td>
-<td>不要な更新プログラムを削除するストアド プロシージャ <code>spDeleteUpdate</code> を、削除処理のパフォーマンスを改善した定義に更新します。</td>
+<td>不要な更新プログラムを削除するストアド プロシージャ <code>spDeleteUpdate</code> を、削除処理のパフォーマンスを改善した実装に更新します。(<a href="https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/spdeleteupdate-slow-performance">The spDeleteUpdate stored procedure runs slowly</a> に記載の SQL を実行します。)</td>
 </tr>
 <tr>
 <td><code>[2]</code></td>
@@ -276,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidb7cbZMv3LhkQOYdgSXd7-" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidRtVUg-WThf_SiLlIi--oj" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -287,11 +286,11 @@
     
 <nav id="article-nav">
   
-    <a href="../../mecm/20260812_02/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../mecm/20260812_03/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">次の記事</strong>
       <div class="article-nav-title">
         
-          ソフトウェア更新プログラムの展開についての動作説明
+          ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明
         
       </div>
     </a>
@@ -318,15 +317,15 @@
       <ul>
         
           <li>
+            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+          </li>
+        
+          <li>
             <a href="../../mecm/20260812_01/">ソフトウェア更新ポイントの同期についての動作説明</a>
           </li>
         
           <li>
             <a href="../../mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
           </li>
         
           <li>
