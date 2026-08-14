@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-08-14T02:16:59.199Z</updated>
+  <updated>2026-08-14T04:13:25.891Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -30,28 +30,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-08-14T02:16:59.199Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
-    <category term="ソフトウェア更新プログラム" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
-    <category term="動作説明" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/"/>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。<br>対象は、管理者が ConfigMgr コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロードする場合です。<br>また、ダウンロード後に、コンテンツが配布ポイントへ配置されるまでの流れも説明します。<br>クライアントによるコンテンツの取得、ソフトウェア更新プログラムのインストール、および展開評価の動作は、本記事の対象外です。</p><h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>ソフトウェア更新プログラムのコンテンツは、概ね次の順序で処理されます。</p><ol><li>インターネット上またはネットワーク上のダウンロード元から、ソフトウェア更新プログラムのファイルを取得します。</li><li>取得したファイルの信頼性やハッシュを検証します。</li><li>検証済みのファイルを、展開パッケージのパッケージ ソースへ格納します。</li><li>サイト サーバーのコンテンツ ライブラリへコンテンツを取り込みます。</li><li>展開パッケージに関連付けられた配布ポイントのコンテンツ ライブラリへコンテンツを転送します。</li></ol><h3 id="ConfigMgr-コンソールから手動でダウンロードする場合"><a href="#ConfigMgr-コンソールから手動でダウンロードする場合" class="headerlink" title="ConfigMgr コンソールから手動でダウンロードする場合"></a>ConfigMgr コンソールから手動でダウンロードする場合</h3><p>管理者が [ソフトウェア更新プログラムのダウンロード ウィザード] を完了すると、ウィザードを実行した ConfigMgr コンソール コンピューター上でダウンロード処理が開始されます。</p><p>ウィザードでは、次のいずれかのダウンロード元を選択します。</p><ul><li>[インターネットからソフトウェア更新プログラムをダウンロードする]</li><li>[ネットワーク上の場所からソフトウェア更新プログラムをダウンロードする]</li></ul><p>前者を選択した場合、ConfigMgr コンソール コンピューターが、更新プログラムのカタログ上に記録された [コンテンツ ソース] へ直接接続します。<br>後者は、ConfigMgr コンソール コンピューターからインターネットへ接続できない場合に、事前に別のコンピューターで取得したファイルをネットワーク上の場所から読み込む用途で使用できます。</p><p>また、コンテンツはユーザーの一時フォルダーへダウンロードしています。<br>その後、ファイルの信頼性とハッシュを検証し、展開パッケージのパッケージ ソースへ移動しています。</p><p>パッケージ ソースには、ConfigMgr コンソールで指定した UNC パスを使用します。ウィザードを実行する管理者ユーザーと SMS Provider のコンピューター アカウントの両方に、この場所への書き込み権限が必要です。</p><h3 id="自動展開規則でダウンロードする場合"><a href="#自動展開規則でダウンロードする場合" class="headerlink" title="自動展開規則でダウンロードする場合"></a>自動展開規則でダウンロードする場合</h3><p>自動展開規則では、サイト サーバー上の [Rule Engine] が規則を評価し、対象となるソフトウェア更新プログラムのコンテンツをダウンロードします。</p><p>既定では、自動展開規則を作成したサイトのサイト サーバーの [Local System] アカウントが、インターネットへの接続とダウンロードを実行します。</p><p>自動展開規則でプロキシを使用する場合は、次の両方を確認します。</p><ol><li>[管理] - [サイトの構成] - [サーバーとサイト システムの役割] から、対象サイト システムの [プロキシ] を構成します。</li><li>[ソフトウェアの更新ポイント] のプロパティにある [プロキシとアカウントの設定] で、[自動展開規則を使用してコンテンツをダウンロードするときにプロキシ サーバーを使用する] を有効にします。</li></ol><h3 id="手動ダウンロードと自動展開規則のすみ分け"><a href="#手動ダウンロードと自動展開規則のすみ分け" class="headerlink" title="手動ダウンロードと自動展開規則のすみ分け"></a>手動ダウンロードと自動展開規則のすみ分け</h3><p>手動ダウンロードと自動展開規則では、インターネットへ接続してコンテンツを取得するコンピューターと、使用するプロキシ設定が異なります。</p><table><thead><tr><th>項目</th><th>ConfigMgr コンソールからの手動ダウンロード</th><th>自動展開規則 [ADR]</th></tr></thead><tbody><tr><td>開始方法</td><td>ConfigMgr コンソールの [ソフトウェア更新プログラムのダウンロード ウィザード] から開始します。</td><td>サイト サーバーの [Rule Engine] が規則のスケジュールまたは手動実行を処理します。</td></tr><tr><td>ダウンロードの実行場所</td><td>ウィザードを実行している ConfigMgr コンソール コンピューターです。</td><td>自動展開規則を作成したサイトのサイト サーバーです。</td></tr><tr><td>[PatchDownloader.log] の場所</td><td>ウィザードを実行したユーザーの [%TEMP%] 配下です。</td><td>サイト サーバーの ConfigMgr ログ フォルダーです。</td></tr><tr><td>インターネット アクセスが必要な場所</td><td>[インターネットからソフトウェア更新プログラムをダウンロードする] を選択した場合、ConfigMgr コンソール コンピューターからコンテンツの URL へアクセスできる必要があります。</td><td>サイト サーバーからコンテンツの URL へアクセスできる必要があります。</td></tr><tr><td>主なプロキシ設定</td><td>ConfigMgr コンソール コンピューター上で、ダウンロードを実行するプロセスが参照できるプロキシ設定を使用します。</td><td>[サイト システム] のプロキシ設定と、ソフトウェアの更新ポイントの [自動展開規則を使用してコンテンツをダウンロードするときにプロキシ サーバーを使用する] の設定を使用します。</td></tr><tr><td>既定の実行コンテキスト</td><td>ウィザードを実行した管理者ユーザーです。</td><td>自動展開規則を作成したサイトのサイト サーバーの [Local System] アカウントです。必要に応じて [サイト システム プロキシ サーバー アカウント] を構成します。</td></tr><tr><td>パッケージ ソースへの書き込み</td><td>ウィザードを実行した管理者ユーザーに書き込み権限が必要です。</td><td>サイト サーバー側の処理でパッケージ ソースへ格納します。</td></tr></tbody></table><p>重要な点は、ソフトウェアの更新ポイントに構成した [自動展開規則用のプロキシ] は、ConfigMgr コンソールから手動で実行したダウンロードには適用されないことです。<br>手動ダウンロードに失敗する場合は ConfigMgr コンソール コンピューター側、自動展開規則に失敗する場合はサイト サーバーおよびサイト システム側のネットワークとプロキシを確認します。</p><h3 id="配布ポイントへのコンテンツ配置"><a href="#配布ポイントへのコンテンツ配置" class="headerlink" title="配布ポイントへのコンテンツ配置"></a>配布ポイントへのコンテンツ配置</h3><p>[PatchDownloader.log] でパッケージ ソースへの格納が完了した後、ConfigMgr は次の処理を行います。</p><ol><li>[Distribution Manager] がパッケージ ソースの変更を検出し、展開パッケージをサイト サーバーのコンテンツ ライブラリへ取り込みます。</li><li>[Distribution Manager] が、対象の配布ポイントごとにパッケージ転送ジョブを作成します。</li><li>[Package Transfer Manager] がコンテンツを配布ポイントへ転送します。</li><li>配布ポイント側の処理結果がサイト サーバーへ返され、[Distribution Manager] がパッケージの配布状態を更新します。</li></ol><p>この処理は、インターネットから更新ファイルを取得する処理とは別です。<br>配布ポイントは通常、展開パッケージのコンテンツをサイト サーバー側から受信します。</p><h2 id="インターネット-アクセス要件"><a href="#インターネット-アクセス要件" class="headerlink" title="インターネット アクセス要件"></a>インターネット アクセス要件</h2><p>インターネットからコンテンツをダウンロードするコンピューターは、次の公開情報に記載のインターネット アクセス要件を許可する必要があります。</p><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li></ul><h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table><thead><tr><th>ログ名</th><th>保存場所</th><th>主な用途</th></tr></thead><tbody><tr><td>[PatchDownloader.log]</td><td>手動ダウンロードでは ConfigMgr コンソールを実行したユーザーの [%TEMP%]、自動展開規則ではサイト サーバーの ConfigMgr ログ フォルダー</td><td>ダウンロード元、ダウンロード先、一時ファイル、進捗、プロキシ使用、信頼性検証、ハッシュ検証、パッケージ ソースへの格納を確認します。</td></tr><tr><td>[ruleengine.log]</td><td>サイト サーバー</td><td>自動展開規則の評価、ダウンロード ソースの選択、各 ContentID のダウンロード結果を確認します。</td></tr><tr><td>[distmgr.log]</td><td>サイト サーバー</td><td>パッケージの作成または更新、コンテンツ ライブラリへの取り込み、配布ポイント向け転送ジョブの作成、配布状態を確認します。</td></tr><tr><td>[PkgXferMgr.log]</td><td>サイト サーバー</td><td>配布ポイントへの実際のコンテンツ転送を確認します。</td></tr></tbody></table><h3 id="ステップ-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log"><a href="#ステップ-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log" class="headerlink" title="ステップ 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]"></a>ステップ 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]</h3><p>手動ダウンロードでは、最初に ConfigMgr コンソール コンピューターからサイト サーバーの WMI 名前空間へ接続します。<br>その後、パッケージ ソース上のダウンロード先とインターネット上の [コンテンツ ソース] を取得します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trying to connect to the root\SMS namespace on the &lt;SiteServer&gt; machine.</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\SMS</span><br><span class="line">Trying to connect to the \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt; namespace</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt;</span><br><span class="line">Download destination = \\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br><span class="line">Contentsource = http://dl.delivery.mp.microsoft.com/.../&lt;FileName&gt;</span><br></pre></td></tr></table></figure><h3 id="ステップ-2-インターネットへの接続とダウンロード-PatchDownloader-log"><a href="#ステップ-2-インターネットへの接続とダウンロード-PatchDownloader-log" class="headerlink" title="ステップ 2 : インターネットへの接続とダウンロード [PatchDownloader.log]"></a>ステップ 2 : インターネットへの接続とダウンロード [PatchDownloader.log]</h3><p>次の例では、プロキシが有効であり、レジストリ設定または既定値を使用してダウンロードを開始しています。[in progress] の値により、ファイル単位の進捗を確認できます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Downloading content for ContentID = 16845509, FileName = &lt;FileName&gt;.</span><br><span class="line">Proxy is enabled for download, using registry settings or defaults.</span><br><span class="line">Connecting - Adding file range by calling HttpAddRequestHeaders, range string = &quot;Range: bytes=0-&quot;</span><br><span class="line">Download file size : 2702463309 bytes</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 10 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 90 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... to C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; returns 0</span><br></pre></td></tr></table></figure><p>[returns 0] は、対象ファイルの一時フォルダーへのダウンロードが成功したことを示します。<br>この記録がなく、HTTP エラーや WinHTTP &#x2F; WinINET のエラーが記録されている場合は、ConfigMgr コンソール コンピューターまたはサイト サーバーの名前解決、ファイアウォール、プロキシ、およびプロキシ認証を確認します。</p><h3 id="ステップ-3-信頼性とハッシュの検証-PatchDownloader-log"><a href="#ステップ-3-信頼性とハッシュの検証-PatchDownloader-log" class="headerlink" title="ステップ 3 : 信頼性とハッシュの検証 [PatchDownloader.log]"></a>ステップ 3 : 信頼性とハッシュの検証 [PatchDownloader.log]</h3><p>ダウンロードが完了すると、一時ファイルの信頼性とハッシュが検証されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Verifying file trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; verified:</span><br><span class="line">Verifying file hash C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File hash verified: C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br></pre></td></tr></table></figure><p>[File trust … verified] と [File hash verified] の両方が記録されていれば、対象ファイルの検証は完了しています。<br>ここで失敗する場合は、一時ファイルの破損、セキュリティ製品による変更、証明書の信頼関係、またはパッケージ ソースへ移動する前のファイル操作を確認します。</p><h3 id="ステップ-4-パッケージ-ソースへの格納-PatchDownloader-log"><a href="#ステップ-4-パッケージ-ソースへの格納-PatchDownloader-log" class="headerlink" title="ステップ 4 : パッケージ ソースへの格納 [PatchDownloader.log]"></a>ステップ 4 : パッケージ ソースへの格納 [PatchDownloader.log]</h3><p>検証済みファイルは、指定したパッケージ ソースへ移動されます。すべての対象ファイルを格納した後、一時的なフォルダー名から正式なフォルダー名へ変更されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully moved C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; to \\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br><span class="line">Renaming \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;.1 to \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;</span><br><span class="line">Successfully moved \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;.1 to \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;</span><br></pre></td></tr></table></figure><p>最後の [Successfully moved] まで記録されていれば、[PatchDownloader] によるパッケージ ソースへの格納は完了しています。<br>ここで失敗する場合は、ウィザードを実行した管理者ユーザーと SMS Provider のコンピューター アカウントの共有アクセス権および NTFS アクセス権、空き容量、ファイル ロックを確認します。</p><h3 id="ステップ-5-自動展開規則側でのダウンロード結果-ruleengine-log、PatchDownloader-log"><a href="#ステップ-5-自動展開規則側でのダウンロード結果-ruleengine-log、PatchDownloader-log" class="headerlink" title="ステップ 5 : 自動展開規則側でのダウンロード結果 [ruleengine.log、PatchDownloader.log]"></a>ステップ 5 : 自動展開規則側でのダウンロード結果 [ruleengine.log、PatchDownloader.log]</h3><p>自動展開規則の場合は、[ruleengine.log] で規則の処理とダウンロード結果を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CRuleHandler: Processing Rule with ID:3, Name:&lt;ADRName&gt;.</span><br><span class="line">Download Rule Action XML is: ... &lt;Source Name=&quot;Internet&quot; Order=&quot;1&quot;/&gt; ...</span><br><span class="line">Successfully downloaded the update content with ID 16845862 from internet.</span><br></pre></td></tr></table></figure><p>[Processing Rule] で対象規則の開始、[Source Name] でダウンロード元と優先順位、[Successfully downloaded] で ContentID 単位の成功を確認できます。<br>ファイル単位の URL、進捗、検証、パッケージ ソースへの移動は、同じ時間帯のサイト サーバー側 [PatchDownloader.log] で確認します。</p><h3 id="ステップ-6-サイト-サーバーでのパッケージ更新と転送ジョブの作成-distmgr-log"><a href="#ステップ-6-サイト-サーバーでのパッケージ更新と転送ジョブの作成-distmgr-log" class="headerlink" title="ステップ 6 : サイト サーバーでのパッケージ更新と転送ジョブの作成 [distmgr.log]"></a>ステップ 6 : サイト サーバーでのパッケージ更新と転送ジョブの作成 [distmgr.log]</h3><p>[distmgr.log] では、パッケージ ソースの変更検出、パッケージの更新、および配布ポイント向け転送ジョブの作成を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The source for package PS100018 has changed or the package source needs to be refreshed</span><br><span class="line">Adding these contents to the package PS100018 version 171.</span><br><span class="line">Successfully created/updated the package PS100018</span><br><span class="line">Start updating package PS100018 on server &lt;DistributionPoint&gt;</span><br><span class="line">Created package transfer job to send package PS100018 to distribution point &lt;DistributionPoint&gt;.</span><br></pre></td></tr></table></figure><p>[Successfully created&#x2F;updated the package] まで記録されていれば、サイト側でのパッケージ更新が完了しています。<br>[Created package transfer job] まで記録されていれば、対象配布ポイント向けの転送処理が [Package Transfer Manager] に引き渡されています。</p><h3 id="ステップ-7-配布ポイントへのコンテンツ転送-PkgXferMgr-log"><a href="#ステップ-7-配布ポイントへのコンテンツ転送-PkgXferMgr-log" class="headerlink" title="ステップ 7 : 配布ポイントへのコンテンツ転送 [PkgXferMgr.log]"></a>ステップ 7 : 配布ポイントへのコンテンツ転送 [PkgXferMgr.log]</h3><p>[PkgXferMgr.log] では、パッケージ ID、コンテンツ ID、および配布ポイント上の転送先を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sending content 252ad9d5-8bcb-4805-8f20-5a7639da8140 for package PS100018</span><br><span class="line">Sending file &#x27;\\&lt;DistributionPoint&gt;\SMS_DP$\&lt;ContentID&gt;.&lt;PackageID&gt;.temp&#x27;</span><br><span class="line">Adding &lt;UpdateFileName&gt; file in 252ad9d5-8bcb-4805-8f20-5a7639da8140.</span><br><span class="line">Successfully send state change notification &lt;NotificationID&gt;</span><br></pre></td></tr></table></figure><p>[Sending content] が記録されていれば、対象コンテンツの転送が開始されています。<br>[Adding … file] では、転送対象に含まれるファイルを確認できます。</p><h3 id="ステップ-8-配布ポイントでの配置完了-distmgr-log"><a href="#ステップ-8-配布ポイントでの配置完了-distmgr-log" class="headerlink" title="ステップ 8 : 配布ポイントでの配置完了 [distmgr.log]"></a>ステップ 8 : 配布ポイントでの配置完了 [distmgr.log]</h3><p>配布ポイントから状態が返されると、[distmgr.log] にパッケージ サーバー状態の更新が記録されます。今回の保存ログでは、処理中の [Status 0] の後に [Status 3] が記録されています。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 0</span><br><span class="line">...</span><br><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 3</span><br><span class="line">STATMSG: ID=2330 SEV=I ... ISTR0=&quot;PS100018&quot; ISTR1=&quot;&lt;DistributionPoint&gt;&quot;</span><br></pre></td></tr></table></figure><p>[Status 3] と状態メッセージ ID [2330] が記録されていれば、対象配布ポイントでパッケージの配置が完了したことを確認できます。<br>ConfigMgr コンソールでは、[監視] - [配布ステータス] - [コンテンツのステータス] から、対象の展開パッケージと配布ポイントの状態をあわせて確認してください。</p><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/proxy-server-support">Configuration Manager でのプロキシ サーバーのサポート</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/download-software-updates">ソフトウェア更新プログラムのダウンロード</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/install-a-software-update-point">ソフトウェアの更新ポイントのインストールと構成</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/understand/software-updates-introduction">Configuration Manager のソフトウェア更新プログラムの概要</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/deploy/configure/deploy-and-manage-content">Configuration Manager のコンテンツの展開と管理</a></li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260812_03/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260812_03/"/>
-    <published>2026-08-11T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
-<p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
-    </summary>
-    <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-08-14T02:16:59.199Z</updated>
+    <updated>2026-08-14T04:13:25.891Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +51,28 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-08-14T02:16:59.199Z</updated>
+    <updated>2026-08-14T04:13:25.891Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
+    <category term="動作説明" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロードしたときの動作を説明します。<br>対象は、管理者が ConfigMgr コンソールから手動でダウンロードする場合と、自動展開規則 [ADR] がコンテンツをダウンロードする場合です。<br>また、ダウンロード後に、コンテンツが配布ポイントへ配置されるまでの流れも説明します。<br>クライアントによるコンテンツの取得、ソフトウェア更新プログラムのインストール、および展開評価の動作は、本記事の対象外です。</p><h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>ソフトウェア更新プログラムのコンテンツは、概ね次の順序で処理されます。</p><ol><li>インターネット上またはネットワーク上のダウンロード元から、ソフトウェア更新プログラムのファイルを取得します。</li><li>取得したファイルの信頼性やハッシュを検証します。</li><li>検証済みのファイルを、展開パッケージのパッケージ ソースへ格納します。</li><li>サイト サーバーのコンテンツ ライブラリへコンテンツを取り込みます。</li><li>展開パッケージに関連付けられた配布ポイントのコンテンツ ライブラリへコンテンツを転送します。</li></ol><h3 id="ConfigMgr-コンソールから手動でダウンロードする場合"><a href="#ConfigMgr-コンソールから手動でダウンロードする場合" class="headerlink" title="ConfigMgr コンソールから手動でダウンロードする場合"></a>ConfigMgr コンソールから手動でダウンロードする場合</h3><p>管理者が [ソフトウェア更新プログラムのダウンロード ウィザード] を完了すると、ウィザードを実行した ConfigMgr コンソール コンピューター上でダウンロード処理が開始されます。</p><p>ウィザードでは、次のいずれかのダウンロード元を選択します。</p><ul><li>[インターネットからソフトウェア更新プログラムをダウンロードする]</li><li>[ネットワーク上の場所からソフトウェア更新プログラムをダウンロードする]</li></ul><p>前者を選択した場合、ConfigMgr コンソール コンピューターが、更新プログラムのカタログ上に記録された [コンテンツ ソース] へ直接接続します。<br>後者は、ConfigMgr コンソール コンピューターからインターネットへ接続できない場合に、事前に別のコンピューターで取得したファイルをネットワーク上の場所から読み込む用途で使用できます。</p><p>また、コンテンツはユーザーの一時フォルダーへダウンロードしています。<br>その後、ファイルの信頼性とハッシュを検証し、展開パッケージのパッケージ ソースへ移動しています。</p><p>パッケージ ソースには、ConfigMgr コンソールで指定した UNC パスを使用します。ウィザードを実行する管理者ユーザーと SMS Provider のコンピューター アカウントの両方に、この場所への書き込み権限が必要です。</p><h3 id="自動展開規則でダウンロードする場合"><a href="#自動展開規則でダウンロードする場合" class="headerlink" title="自動展開規則でダウンロードする場合"></a>自動展開規則でダウンロードする場合</h3><p>自動展開規則では、サイト サーバー上の [Rule Engine] が規則を評価し、対象となるソフトウェア更新プログラムのコンテンツをダウンロードします。</p><p>既定では、自動展開規則を作成したサイトのサイト サーバーの [Local System] アカウントが、インターネットへの接続とダウンロードを実行します。</p><p>自動展開規則でプロキシを使用する場合は、次の両方を確認します。</p><ol><li>[管理] - [サイトの構成] - [サーバーとサイト システムの役割] から、対象サイト システムの [プロキシ] を構成します。</li><li>[ソフトウェアの更新ポイント] のプロパティにある [プロキシとアカウントの設定] で、[自動展開規則を使用してコンテンツをダウンロードするときにプロキシ サーバーを使用する] を有効にします。</li></ol><h3 id="手動ダウンロードと自動展開規則のすみ分け"><a href="#手動ダウンロードと自動展開規則のすみ分け" class="headerlink" title="手動ダウンロードと自動展開規則のすみ分け"></a>手動ダウンロードと自動展開規則のすみ分け</h3><p>手動ダウンロードと自動展開規則では、インターネットへ接続してコンテンツを取得するコンピューターと、使用するプロキシ設定が異なります。</p><table><thead><tr><th>項目</th><th>ConfigMgr コンソールからの手動ダウンロード</th><th>自動展開規則 [ADR]</th></tr></thead><tbody><tr><td>開始方法</td><td>ConfigMgr コンソールの [ソフトウェア更新プログラムのダウンロード ウィザード] から開始します。</td><td>サイト サーバーの [Rule Engine] が規則のスケジュールまたは手動実行を処理します。</td></tr><tr><td>ダウンロードの実行場所</td><td>ウィザードを実行している ConfigMgr コンソール コンピューターです。</td><td>自動展開規則を作成したサイトのサイト サーバーです。</td></tr><tr><td>[PatchDownloader.log] の場所</td><td>ウィザードを実行したユーザーの [%TEMP%] 配下です。</td><td>サイト サーバーの ConfigMgr ログ フォルダーです。</td></tr><tr><td>インターネット アクセスが必要な場所</td><td>[インターネットからソフトウェア更新プログラムをダウンロードする] を選択した場合、ConfigMgr コンソール コンピューターからコンテンツの URL へアクセスできる必要があります。</td><td>サイト サーバーからコンテンツの URL へアクセスできる必要があります。</td></tr><tr><td>主なプロキシ設定</td><td>ConfigMgr コンソール コンピューター上で、ダウンロードを実行するプロセスが参照できるプロキシ設定を使用します。</td><td>[サイト システム] のプロキシ設定と、ソフトウェアの更新ポイントの [自動展開規則を使用してコンテンツをダウンロードするときにプロキシ サーバーを使用する] の設定を使用します。</td></tr><tr><td>既定の実行コンテキスト</td><td>ウィザードを実行した管理者ユーザーです。</td><td>自動展開規則を作成したサイトのサイト サーバーの [Local System] アカウントです。必要に応じて [サイト システム プロキシ サーバー アカウント] を構成します。</td></tr><tr><td>パッケージ ソースへの書き込み</td><td>ウィザードを実行した管理者ユーザーに書き込み権限が必要です。</td><td>サイト サーバー側の処理でパッケージ ソースへ格納します。</td></tr></tbody></table><p>重要な点は、ソフトウェアの更新ポイントに構成した [自動展開規則用のプロキシ] は、ConfigMgr コンソールから手動で実行したダウンロードには適用されないことです。<br>手動ダウンロードに失敗する場合は ConfigMgr コンソール コンピューター側、自動展開規則に失敗する場合はサイト サーバーおよびサイト システム側のネットワークとプロキシを確認します。</p><h3 id="配布ポイントへのコンテンツ配置"><a href="#配布ポイントへのコンテンツ配置" class="headerlink" title="配布ポイントへのコンテンツ配置"></a>配布ポイントへのコンテンツ配置</h3><p>[PatchDownloader.log] でパッケージ ソースへの格納が完了した後、ConfigMgr は次の処理を行います。</p><ol><li>[Distribution Manager] がパッケージ ソースの変更を検出し、展開パッケージをサイト サーバーのコンテンツ ライブラリへ取り込みます。</li><li>[Distribution Manager] が、対象の配布ポイントごとにパッケージ転送ジョブを作成します。</li><li>[Package Transfer Manager] がコンテンツを配布ポイントへ転送します。</li><li>配布ポイント側の処理結果がサイト サーバーへ返され、[Distribution Manager] がパッケージの配布状態を更新します。</li></ol><p>この処理は、インターネットから更新ファイルを取得する処理とは別です。<br>配布ポイントは通常、展開パッケージのコンテンツをサイト サーバー側から受信します。</p><h2 id="インターネット-アクセス要件"><a href="#インターネット-アクセス要件" class="headerlink" title="インターネット アクセス要件"></a>インターネット アクセス要件</h2><p>インターネットからコンテンツをダウンロードするコンピューターは、次の公開情報に記載のインターネット アクセス要件を許可する必要があります。</p><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li></ul><h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table><thead><tr><th>ログ名</th><th>保存場所</th><th>主な用途</th></tr></thead><tbody><tr><td>[PatchDownloader.log]</td><td>手動ダウンロードでは ConfigMgr コンソールを実行したユーザーの [%TEMP%]、自動展開規則ではサイト サーバーの ConfigMgr ログ フォルダー</td><td>ダウンロード元、ダウンロード先、一時ファイル、進捗、プロキシ使用、信頼性検証、ハッシュ検証、パッケージ ソースへの格納を確認します。</td></tr><tr><td>[ruleengine.log]</td><td>サイト サーバー</td><td>自動展開規則の評価、ダウンロード ソースの選択、各 ContentID のダウンロード結果を確認します。</td></tr><tr><td>[distmgr.log]</td><td>サイト サーバー</td><td>パッケージの作成または更新、コンテンツ ライブラリへの取り込み、配布ポイント向け転送ジョブの作成、配布状態を確認します。</td></tr><tr><td>[PkgXferMgr.log]</td><td>サイト サーバー</td><td>配布ポイントへの実際のコンテンツ転送を確認します。</td></tr></tbody></table><h3 id="ステップ-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log"><a href="#ステップ-1-サイトへの接続とダウンロード情報の取得-PatchDownloader-log" class="headerlink" title="ステップ 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]"></a>ステップ 1 : サイトへの接続とダウンロード情報の取得 [PatchDownloader.log]</h3><p>手動ダウンロードでは、最初に ConfigMgr コンソール コンピューターからサイト サーバーの WMI 名前空間へ接続します。<br>その後、パッケージ ソース上のダウンロード先とインターネット上の [コンテンツ ソース] を取得します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trying to connect to the root\SMS namespace on the &lt;SiteServer&gt; machine.</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\SMS</span><br><span class="line">Trying to connect to the \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt; namespace</span><br><span class="line">Connected to \\&lt;SiteServer&gt;\root\sms\site_&lt;SiteCode&gt;</span><br><span class="line">Download destination = \\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br><span class="line">Contentsource = http://dl.delivery.mp.microsoft.com/.../&lt;FileName&gt;</span><br></pre></td></tr></table></figure><h3 id="ステップ-2-インターネットへの接続とダウンロード-PatchDownloader-log"><a href="#ステップ-2-インターネットへの接続とダウンロード-PatchDownloader-log" class="headerlink" title="ステップ 2 : インターネットへの接続とダウンロード [PatchDownloader.log]"></a>ステップ 2 : インターネットへの接続とダウンロード [PatchDownloader.log]</h3><p>次の例では、プロキシが有効であり、レジストリ設定または既定値を使用してダウンロードを開始しています。[in progress] の値により、ファイル単位の進捗を確認できます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Downloading content for ContentID = 16845509, FileName = &lt;FileName&gt;.</span><br><span class="line">Proxy is enabled for download, using registry settings or defaults.</span><br><span class="line">Connecting - Adding file range by calling HttpAddRequestHeaders, range string = &quot;Range: bytes=0-&quot;</span><br><span class="line">Download file size : 2702463309 bytes</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 10 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... in progress: 90 percent complete</span><br><span class="line">Download http://dl.delivery.mp.microsoft.com/... to C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; returns 0</span><br></pre></td></tr></table></figure><p>[returns 0] は、対象ファイルの一時フォルダーへのダウンロードが成功したことを示します。<br>この記録がなく、HTTP エラーや WinHTTP &#x2F; WinINET のエラーが記録されている場合は、ConfigMgr コンソール コンピューターまたはサイト サーバーの名前解決、ファイアウォール、プロキシ、およびプロキシ認証を確認します。</p><h3 id="ステップ-3-信頼性とハッシュの検証-PatchDownloader-log"><a href="#ステップ-3-信頼性とハッシュの検証-PatchDownloader-log" class="headerlink" title="ステップ 3 : 信頼性とハッシュの検証 [PatchDownloader.log]"></a>ステップ 3 : 信頼性とハッシュの検証 [PatchDownloader.log]</h3><p>ダウンロードが完了すると、一時ファイルの信頼性とハッシュが検証されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Verifying file trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File trust C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; verified:</span><br><span class="line">Verifying file hash C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br><span class="line">File hash verified: C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt;</span><br></pre></td></tr></table></figure><p>[File trust … verified] と [File hash verified] の両方が記録されていれば、対象ファイルの検証は完了しています。<br>ここで失敗する場合は、一時ファイルの破損、セキュリティ製品による変更、証明書の信頼関係、またはパッケージ ソースへ移動する前のファイル操作を確認します。</p><h3 id="ステップ-4-パッケージ-ソースへの格納-PatchDownloader-log"><a href="#ステップ-4-パッケージ-ソースへの格納-PatchDownloader-log" class="headerlink" title="ステップ 4 : パッケージ ソースへの格納 [PatchDownloader.log]"></a>ステップ 4 : パッケージ ソースへの格納 [PatchDownloader.log]</h3><p>検証済みファイルは、指定したパッケージ ソースへ移動されます。すべての対象ファイルを格納した後、一時的なフォルダー名から正式なフォルダー名へ変更されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully moved C:\Users\&lt;User&gt;\AppData\Local\Temp\&lt;Session&gt;\&lt;TempFile&gt; to \\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br><span class="line">Renaming \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;.1 to \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;</span><br><span class="line">Successfully moved \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;.1 to \\&lt;PackageSource&gt;\&lt;PackageFolder&gt;</span><br></pre></td></tr></table></figure><p>最後の [Successfully moved] まで記録されていれば、[PatchDownloader] によるパッケージ ソースへの格納は完了しています。<br>ここで失敗する場合は、ウィザードを実行した管理者ユーザーと SMS Provider のコンピューター アカウントの共有アクセス権および NTFS アクセス権、空き容量、ファイル ロックを確認します。</p><h3 id="ステップ-5-自動展開規則側でのダウンロード結果-ruleengine-log、PatchDownloader-log"><a href="#ステップ-5-自動展開規則側でのダウンロード結果-ruleengine-log、PatchDownloader-log" class="headerlink" title="ステップ 5 : 自動展開規則側でのダウンロード結果 [ruleengine.log、PatchDownloader.log]"></a>ステップ 5 : 自動展開規則側でのダウンロード結果 [ruleengine.log、PatchDownloader.log]</h3><p>自動展開規則の場合は、[ruleengine.log] で規則の処理とダウンロード結果を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CRuleHandler: Processing Rule with ID:3, Name:&lt;ADRName&gt;.</span><br><span class="line">Download Rule Action XML is: ... &lt;Source Name=&quot;Internet&quot; Order=&quot;1&quot;/&gt; ...</span><br><span class="line">Successfully downloaded the update content with ID 16845862 from internet.</span><br></pre></td></tr></table></figure><p>[Processing Rule] で対象規則の開始、[Source Name] でダウンロード元と優先順位、[Successfully downloaded] で ContentID 単位の成功を確認できます。<br>ファイル単位の URL、進捗、検証、パッケージ ソースへの移動は、同じ時間帯のサイト サーバー側 [PatchDownloader.log] で確認します。</p><h3 id="ステップ-6-サイト-サーバーでのパッケージ更新と転送ジョブの作成-distmgr-log"><a href="#ステップ-6-サイト-サーバーでのパッケージ更新と転送ジョブの作成-distmgr-log" class="headerlink" title="ステップ 6 : サイト サーバーでのパッケージ更新と転送ジョブの作成 [distmgr.log]"></a>ステップ 6 : サイト サーバーでのパッケージ更新と転送ジョブの作成 [distmgr.log]</h3><p>[distmgr.log] では、パッケージ ソースの変更検出、パッケージの更新、および配布ポイント向け転送ジョブの作成を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The source for package PS100018 has changed or the package source needs to be refreshed</span><br><span class="line">Adding these contents to the package PS100018 version 171.</span><br><span class="line">Successfully created/updated the package PS100018</span><br><span class="line">Start updating package PS100018 on server &lt;DistributionPoint&gt;</span><br><span class="line">Created package transfer job to send package PS100018 to distribution point &lt;DistributionPoint&gt;.</span><br></pre></td></tr></table></figure><p>[Successfully created&#x2F;updated the package] まで記録されていれば、サイト側でのパッケージ更新が完了しています。<br>[Created package transfer job] まで記録されていれば、対象配布ポイント向けの転送処理が [Package Transfer Manager] に引き渡されています。</p><h3 id="ステップ-7-配布ポイントへのコンテンツ転送-PkgXferMgr-log"><a href="#ステップ-7-配布ポイントへのコンテンツ転送-PkgXferMgr-log" class="headerlink" title="ステップ 7 : 配布ポイントへのコンテンツ転送 [PkgXferMgr.log]"></a>ステップ 7 : 配布ポイントへのコンテンツ転送 [PkgXferMgr.log]</h3><p>[PkgXferMgr.log] では、パッケージ ID、コンテンツ ID、および配布ポイント上の転送先を確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sending content 252ad9d5-8bcb-4805-8f20-5a7639da8140 for package PS100018</span><br><span class="line">Sending file &#x27;\\&lt;DistributionPoint&gt;\SMS_DP$\&lt;ContentID&gt;.&lt;PackageID&gt;.temp&#x27;</span><br><span class="line">Adding &lt;UpdateFileName&gt; file in 252ad9d5-8bcb-4805-8f20-5a7639da8140.</span><br><span class="line">Successfully send state change notification &lt;NotificationID&gt;</span><br></pre></td></tr></table></figure><p>[Sending content] が記録されていれば、対象コンテンツの転送が開始されています。<br>[Adding … file] では、転送対象に含まれるファイルを確認できます。</p><h3 id="ステップ-8-配布ポイントでの配置完了-distmgr-log"><a href="#ステップ-8-配布ポイントでの配置完了-distmgr-log" class="headerlink" title="ステップ 8 : 配布ポイントでの配置完了 [distmgr.log]"></a>ステップ 8 : 配布ポイントでの配置完了 [distmgr.log]</h3><p>配布ポイントから状態が返されると、[distmgr.log] にパッケージ サーバー状態の更新が記録されます。今回の保存ログでは、処理中の [Status 0] の後に [Status 3] が記録されています。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 0</span><br><span class="line">...</span><br><span class="line">Processing status update for package PS100018</span><br><span class="line">Successfully updated the package server status for &lt;DistributionPoint&gt; for package PS100018, Status 3</span><br><span class="line">STATMSG: ID=2330 SEV=I ... ISTR0=&quot;PS100018&quot; ISTR1=&quot;&lt;DistributionPoint&gt;&quot;</span><br></pre></td></tr></table></figure><p>[Status 3] と状態メッセージ ID [2330] が記録されていれば、対象配布ポイントでパッケージの配置が完了したことを確認できます。<br>ConfigMgr コンソールでは、[監視] - [配布ステータス] - [コンテンツのステータス] から、対象の展開パッケージと配布ポイントの状態をあわせて確認してください。</p><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/proxy-server-support">Configuration Manager でのプロキシ サーバーのサポート</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/download-software-updates">ソフトウェア更新プログラムのダウンロード</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/install-a-software-update-point">ソフトウェアの更新ポイントのインストールと構成</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/understand/software-updates-introduction">Configuration Manager のソフトウェア更新プログラムの概要</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/deploy/configure/deploy-and-manage-content">Configuration Manager のコンテンツの展開と管理</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260812_03/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260812_03/"/>
+    <published>2026-08-11T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
+    </summary>
+    <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
+    <updated>2026-08-14T04:13:25.892Z</updated>
   </entry>
   <entry>
     <author>
@@ -91,7 +91,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-08-14T02:16:59.279Z</updated>
+    <updated>2026-08-14T04:13:26.011Z</updated>
   </entry>
   <entry>
     <author>
@@ -109,7 +109,7 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-08-14T02:16:59.199Z</updated>
+    <updated>2026-08-14T04:13:25.891Z</updated>
   </entry>
   <entry>
     <author>
@@ -129,7 +129,7 @@
 <li>2026&#x]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-08-14T02:16:59.279Z</updated>
+    <updated>2026-08-14T04:13:26.011Z</updated>
   </entry>
   <entry>
     <author>
@@ -148,7 +148,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-08-14T02:16:59.198Z</updated>
+    <updated>2026-08-14T04:13:25.891Z</updated>
   </entry>
   <entry>
     <author>
@@ -167,7 +167,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-08-14T02:16:59.198Z</updated>
+    <updated>2026-08-14T04:13:25.890Z</updated>
   </entry>
   <entry>
     <author>
@@ -184,7 +184,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-08-14T02:16:59.196Z</updated>
+    <updated>2026-08-14T04:13:25.889Z</updated>
   </entry>
   <entry>
     <author>
@@ -201,7 +201,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-08-14T02:16:59.196Z</updated>
+    <updated>2026-08-14T04:13:25.889Z</updated>
   </entry>
   <entry>
     <author>
@@ -218,7 +218,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-08-14T02:16:59.196Z</updated>
+    <updated>2026-08-14T04:13:25.888Z</updated>
   </entry>
   <entry>
     <author>
@@ -236,7 +236,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-08-14T02:16:59.195Z</updated>
+    <updated>2026-08-14T04:13:25.888Z</updated>
   </entry>
   <entry>
     <author>
@@ -254,7 +254,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-08-14T02:16:59.195Z</updated>
+    <updated>2026-08-14T04:13:25.888Z</updated>
   </entry>
   <entry>
     <author>
@@ -271,7 +271,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-08-14T02:16:59.195Z</updated>
+    <updated>2026-08-14T04:13:25.888Z</updated>
   </entry>
   <entry>
     <author>
@@ -288,7 +288,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-08-14T02:16:59.195Z</updated>
+    <updated>2026-08-14T04:13:25.887Z</updated>
   </entry>
   <entry>
     <author>
@@ -307,7 +307,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-08-14T02:16:59.195Z</updated>
+    <updated>2026-08-14T04:13:25.887Z</updated>
   </entry>
   <entry>
     <author>
@@ -325,7 +325,7 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-08-14T02:16:59.194Z</updated>
+    <updated>2026-08-14T04:13:25.885Z</updated>
   </entry>
   <entry>
     <author>
@@ -342,7 +342,7 @@
       <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
     </summary>
     <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-08-14T02:16:59.193Z</updated>
+    <updated>2026-08-14T04:13:25.884Z</updated>
   </entry>
   <entry>
     <author>
@@ -361,7 +361,7 @@
 <p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
     </summary>
     <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-08-14T02:16:59.192Z</updated>
+    <updated>2026-08-14T04:13:25.882Z</updated>
   </entry>
   <entry>
     <author>
@@ -378,6 +378,6 @@
       <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
     </summary>
     <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-08-14T02:16:59.191Z</updated>
+    <updated>2026-08-14T04:13:25.882Z</updated>
   </entry>
 </feed>
