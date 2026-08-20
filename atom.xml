@@ -10,7 +10,70 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-08-20T04:56:15.159Z</updated>
+  <updated>2026-08-20T05:03:28.125Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
+    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] に更新ソースの追加失敗とエラー コード 0x800703ee または 0x80004005 が記録され、コンピューター側の [registry.pol] をリセットすることで改善した事例と対処方法をご案内します。</p><p>本記事の対象は、[ScanAgent.log] でソフトウェア更新ポイントの場所を取得した後、[WUAHandler.log] で更新ソースを [Windows Update Agent] に追加する段階で失敗する事象です。ソフトウェア更新ポイントの同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因する問題の対処は対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>[Configuration Manager] クライアントは、ソフトウェア更新プログラムをスキャンする際、[ScanAgent] で取得したソフトウェア更新ポイントを更新ソースとして [Windows Update Agent] に追加します。この処理では、[WUAHandler] が更新ソースをローカル ポリシーに設定し、ドメイン参加端末ではドメインのグループ ポリシーによって設定が上書きされないかも確認します。</p><p>[WUAHandler.log] に次のいずれかのエラーが記録され、更新ソースの追加が完了しない場合があります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x800703ee.</span><br></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x80004005.</span><br></pre></td></tr></table></figure><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、[registry.pol] ファイルが破損していたため、グループ ポリシー オブジェクトへのアクセスに失敗し、[WSUS] へのスキャンが失敗し続けていました。</p><p>[registry.pol] ファイルが破損する原因については、本記事では扱いません。詳細は、<a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a> をご参照ください。</p><p>これらのエラーが発生すると、ソフトウェア更新プログラムのスキャンが完了しないため、適用対象の評価や更新プログラムの適用に進みません。</p><p>エラー コード 0x800703ee は [ERROR_FILE_INVALID]、0x80004005 は [Unspecified error] を示します。これらのエラー コードが記録されたすべての事象で [registry.pol] の破損が原因とは限りません。本記事の対処方法は、前述のタイミングで更新ソースの追加に失敗し、[registry.pol] の再構成によって改善した事例に基づきます。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="registry-pol-を退避して再構成する"><a href="#registry-pol-を退避して再構成する" class="headerlink" title="registry.pol を退避して再構成する"></a>registry.pol を退避して再構成する</h3><p>[registry.pol] をリセットし、グループ ポリシーとソフトウェア更新プログラムのスキャンが正常に実行できるかを確認します。</p><p>[registry.pol] は、ローカル ポリシーに変更が加えられたタイミングで作成されます。今回のシナリオでは、ソフトウェア更新プログラムのスキャンを実行すると、更新ソースの設定によってローカル ポリシーが変更されます。スキャンが正常に完了することで、この変更が反映され、新しい [registry.pol] が作成されます。</p><p>次の手順は、管理者権限を持つアカウントで実施します。</p><ol><li><p>問題が発生している PC で、C:\Windows\System32\GroupPolicy\Machine にある [registry.pol] を [registry.pol.old] などの任意の名前に変更します。</p></li><li><p>問題が発生している PC を再起動します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li><li><p>%windir%\CCM\Logs\WUAHandler.log を開き、次のログが記録されていることを確認します。</p></li></ol><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><ol start="5"><li>C:\Windows\System32\GroupPolicy\Machine に新しい [registry.pol] が作成されたことを確認します。</li></ol><h3 id="改善の確認"><a href="#改善の確認" class="headerlink" title="改善の確認"></a>改善の確認</h3><p>[WUAHandler.log] で、更新ソースが正常に追加されたことを確認します。代表的なログは、次のとおりです。これは Microsoft の公開情報に掲載されている例であり、時刻、URL、および ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enabling WUA Managed server policy to use server: http://&lt;SUP の FQDN&gt;:&lt;ポート&gt;</span><br><span class="line">Policy refresh forced.</span><br><span class="line">Added Update Source (&#123;&lt;更新ソース ID&gt;&#125;) of content type: 2</span><br></pre></td></tr></table></figure><p>[registry.pol] のリセット後に更新ソースの追加とスキャンが成功し、上記のエラーが記録されなくなれば、対処は完了です。今回の事例では、この手順によって更新ソースを追加できるようになり、[WSUS] へのスキャンが成功しました。</p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>[registry.pol] には、[Windows Update] 以外のローカルの [管理用テンプレート] 設定も格納される場合があります。影響を把握できるよう、削除せずに退避してください。</li><li>対処後に業務で必要なローカル ポリシーが適用されていることを確認してください。</li><li>退避したファイルは問題が解消した直後に削除せず、ロールバックに備えて保管してください。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-server-location">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260819_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260819_01/"/>
+    <published>2026-08-18T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
+    </summary>
+    <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
+    <updated>2026-08-20T05:03:28.125Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
+    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] にエラー コード 0x87d00692 が記録される場合の対処方法をご案内します。</p><p>本記事の対象は、Configuration Manager が設定した更新ソースがドメインのグループ ポリシー オブジェクト [GPO] によって上書きされ、ソフトウェア更新プログラムのスキャンが失敗する事象です。[ソフトウェア更新ポイント] の同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因するスキャン エラーは対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>Configuration Manager クライアントは、ソフトウェア更新プログラムをスキャンする際、[ソフトウェア更新ポイント] の場所を [Windows Update Agent] の更新ソースとしてローカル ポリシーに設定します。ドメイン参加端末では、[WUAHandler] がグループ ポリシーの更新後に、設定した更新ソースが上位の GPO によって上書きされていないかを確認します。</p><p>[WUAHandler.log] に次のログとエラー コード 0x87d00692 が記録され、更新ソースを追加できない場合があります。サーバー名と更新ソース ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Group policy settings were overwritten by a higher authority (Domain Controller) to: Server http://&lt;WSUS サーバー&gt;:8530 and Policy ENABLED</span><br><span class="line">Failed to Add Update Source for WUAgent of type (2) and id (&#123;&lt;更新ソース ID&gt;&#125;). Error = 0x87d00692.</span><br></pre></td></tr></table></figure><p>エラー コード 0x87d00692 は、[Group policy conflict] (グループ ポリシーの競合) を示します。この状態ではソフトウェア更新プログラムのスキャンが完了しないため、更新プログラムの適用要否を評価できず、更新プログラムの適用に進みません。</p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、ドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] が有効に設定されていました。この設定が、Configuration Manager クライアントによってローカル ポリシーに設定された更新ソースを上書きしたため、グループ ポリシーの競合が発生しました。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#conflicting-configurations">ソフトウェア更新プログラムの設定を管理する - Configuration Manager | Microsoft Learn</a> には、次のように記載されています。</p><blockquote><p>ドメイン グループ ポリシーで WSUS サーバーが設定されている場合、Configuration Manager設定を構成またはアクセスできないため、正常に動作しない可能性があります。</p></blockquote><p>このため、Configuration Manager でソフトウェア更新プログラムを管理する環境では、ドメイン GPO で WSUS サーバーを指定する設定は推奨されません。Configuration Manager クライアントがローカル ポリシーに設定する更新ソースと競合しないよう、ドメイン GPO では WSUS サーバーを指定しないでください。</p><p>エラー コード 0x87d00692 だけでは、上書き元の GPO や設定値を特定できません。[WUAHandler.log] のメッセージと、端末に適用されたグループ ポリシーの結果をあわせて確認してください。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="競合するドメイン-GPO-を未構成にする"><a href="#競合するドメイン-GPO-を未構成にする" class="headerlink" title="競合するドメイン GPO を未構成にする"></a>競合するドメイン GPO を未構成にする</h3><p>Configuration Manager に更新ソースの管理を任せるため、ドメイン GPO の競合する設定を [未構成] に変更します。ドメイン GPO の変更は、Active Directory の管理者と影響範囲を確認したうえで実施してください。</p><ol><li>問題が発生している PC で、管理者として [コマンド プロンプト] を開き、次のコマンドを実行します。</li></ol><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure><ol start="2"><li><p>出力された [gpresult.html] を開き、次のポリシーの [優勢な GPO] と設定値を確認します。</p><p>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]</p></li><li><p>[グループ ポリシーの管理] で、手順 2. で確認したドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] を [未構成] に変更します。</p></li><li><p>問題が発生している PC にグループ ポリシーの変更が反映されたことを確認します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li></ol><h3 id="改善を確認する"><a href="#改善を確認する" class="headerlink" title="改善を確認する"></a>改善を確認する</h3><p>%windir%\CCM\Logs\WUAHandler.log を開き、前述のエラーが記録されなくなり、次のログが記録されることを確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><p>このログを確認できれば、クライアントのソフトウェア更新プログラムのスキャンは完了しています。</p><h3 id="GPO-の変更後も改善しない場合"><a href="#GPO-の変更後も改善しない場合" class="headerlink" title="GPO の変更後も改善しない場合"></a>GPO の変更後も改善しない場合</h3><p>ドメイン GPO を [未構成] に変更しても同様の事象が続く場合、コンピューター側の [registry.pol] の破損によって更新ソースの設定に失敗している可能性があります。次の記事を参照し、[registry.pol] の再構成を検討してください。</p><p><a href="https://jpmem.github.io/blog/mecm/20260819_01/">エラー コード 0x800703ee &#x2F; 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a></p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>ドメイン GPO の変更は、その GPO が適用される他の端末にも影響します。変更前に適用範囲を確認してください。</li><li>[未構成] に変更した後は、Configuration Manager クライアントが [ソフトウェア更新ポイント] の場所を取得し、ローカル ポリシーへ設定できる状態であることが前提です。</li><li>複数の [ソフトウェア更新ポイント] を使用する環境では、ドメイン GPO で特定の WSUS サーバーを固定すると、[ソフトウェア更新ポイント] の切り替えに影響する可能性があります。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/troubleshoot-software-update-scan-failures#%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%84-wsus-%E6%A7%8B%E6%88%90%E6%83%85%E5%A0%B1%E3%82%92%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%89%E3%81%99%E3%82%8B">Configuration Manager でのソフトウェア更新プログラムのスキャンエラーのトラブルシューティング</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#%E7%AB%B6%E5%90%88%E3%81%99%E3%82%8B%E6%A7%8B%E6%88%90">ソフトウェア更新プログラムの設定を管理する</a></li><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E5%A0%B4%E6%89%80">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260819_02/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260819_02/"/>
+    <published>2026-08-18T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
+    </summary>
+    <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
+    <updated>2026-08-20T05:03:28.126Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="クライアント インストール" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"/>
+    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [Return code 7] が記録される場合の原因と対処方法をご案内します。</p><p>本記事の対象は、[CCMSetup.exe] によるクライアント インストールが完了し、OS の再起動が必要となった事象です。[Return code 7] 以外の戻り値や、OS の再起動後も発生するクライアントの登録、通信、ポリシー取得などの問題は対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>[CCMSetup.exe] を実行した後、%windir%\ccmsetup\Logs\ccmsetup.log に次のログが記録される場合があります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 7</span><br></pre></td></tr></table></figure><p>Microsoft Learn の [CCMSetup.exe の戻りコード] では、戻り値 7 は [再起動が必要] であることを示します。この戻り値はクライアント インストールの失敗を示すものではなく、インストールしたコンポーネントをシステムへ反映するために OS の再起動が必要な状態を示します。</p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>[CCMSetup.exe] は、Configuration Manager クライアントのインストールに必要な前提コンポーネントが端末にない場合、それらを自動的にインストールすることがあります。前提コンポーネントには、[Microsoft .NET Framework] や [Microsoft Visual C++ 再頒布可能パッケージ] などがあり、端末の OS、インストール済みのソフトウェア、および使用する Configuration Manager のバージョンによって必要なコンポーネントが異なります。</p><p>これらのコンポーネントのインストールまたは更新に OS の再起動が必要となった場合、[CCMSetup.exe] は [Return code 7] を記録して終了します。たとえば、[Microsoft .NET Framework] のインストールでは、次のような状態で再起動が必要となる場合があります。</p><ul><li>[.NET] を使用するアプリケーションまたはサービスが実行されている</li><li>[.NET] のインストールに必要なソフトウェア更新プログラムが不足している</li><li>以前にインストールした [.NET Framework] の更新プログラムによる再起動が保留されている</li></ul><p>[Return code 7] だけでは、再起動を必要としたコンポーネントを特定できません。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="OS-を再起動する"><a href="#OS-を再起動する" class="headerlink" title="OS を再起動する"></a>OS を再起動する</h3><p>端末の利用者や業務への影響を確認し、適切なタイミングで OS を再起動します。この事象に対する追加の修復操作や、[CCMSetup.exe] の再実行は必要ありません。</p><h3 id="対処後の状態を確認する"><a href="#対処後の状態を確認する" class="headerlink" title="対処後の状態を確認する"></a>対処後の状態を確認する</h3><p>OS の再起動を実施すれば、本事象に対する対処は完了です。</p><p>OS を再起動しても、既に記録されている次のログが [Return code 0] に書き換わることはありません。また、OS の再起動直後に [ccmsetup.log] が更新されないこと自体は、問題を示す動作ではありません。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CcmSetup is exiting with return code 7</span><br></pre></td></tr></table></figure><p>このため、[ccmsetup.log] に新しい終了行が記録されることを待たず、OS の再起動をもって本事象への対応を完了してください。</p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>[Return code 7] は再起動が必要な状態を示しますが、再起動を必要としたコンポーネントまでは示しません。</li><li>再起動後にクライアントの登録、管理ポイントとの通信、またはポリシー取得に問題がある場合は、[Return code 7] とは別の事象として、関連するクライアント ログを確認してください。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-installation-properties#ccmsetupReturnCodes">Configuration Manager のクライアント インストール パラメーターとプロパティについて</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/prerequisites-for-deploying-clients-to-windows-computers#dependencies-external-to-configuration-manager">Windows コンピューターにクライアントを展開するための前提条件</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260819_03/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260819_03/"/>
+    <published>2026-08-18T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [R]]>
+    </summary>
+    <title>return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</title>
+    <updated>2026-08-20T05:03:28.126Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -30,7 +93,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-08-20T04:56:15.159Z</updated>
+    <updated>2026-08-20T05:03:28.125Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,7 +114,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-08-20T04:56:15.159Z</updated>
+    <updated>2026-08-20T05:03:28.125Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +135,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
     </summary>
     <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-08-20T04:56:15.159Z</updated>
+    <updated>2026-08-20T05:03:28.125Z</updated>
   </entry>
   <entry>
     <author>
@@ -91,7 +154,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-08-20T04:56:15.269Z</updated>
+    <updated>2026-08-20T05:03:28.245Z</updated>
   </entry>
   <entry>
     <author>
@@ -109,7 +172,7 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-08-20T04:56:15.159Z</updated>
+    <updated>2026-08-20T05:03:28.125Z</updated>
   </entry>
   <entry>
     <author>
@@ -129,7 +192,7 @@
 <li>2026&#x]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-08-20T04:56:15.269Z</updated>
+    <updated>2026-08-20T05:03:28.245Z</updated>
   </entry>
   <entry>
     <author>
@@ -148,7 +211,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-08-20T04:56:15.158Z</updated>
+    <updated>2026-08-20T05:03:28.124Z</updated>
   </entry>
   <entry>
     <author>
@@ -167,7 +230,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-08-20T04:56:15.157Z</updated>
+    <updated>2026-08-20T05:03:28.123Z</updated>
   </entry>
   <entry>
     <author>
@@ -184,7 +247,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-08-20T04:56:15.156Z</updated>
+    <updated>2026-08-20T05:03:28.122Z</updated>
   </entry>
   <entry>
     <author>
@@ -201,7 +264,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-08-20T04:56:15.156Z</updated>
+    <updated>2026-08-20T05:03:28.122Z</updated>
   </entry>
   <entry>
     <author>
@@ -218,7 +281,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-08-20T04:56:15.155Z</updated>
+    <updated>2026-08-20T05:03:28.122Z</updated>
   </entry>
   <entry>
     <author>
@@ -236,7 +299,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-08-20T04:56:15.155Z</updated>
+    <updated>2026-08-20T05:03:28.121Z</updated>
   </entry>
   <entry>
     <author>
@@ -254,7 +317,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-08-20T04:56:15.155Z</updated>
+    <updated>2026-08-20T05:03:28.121Z</updated>
   </entry>
   <entry>
     <author>
@@ -271,7 +334,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-08-20T04:56:15.155Z</updated>
+    <updated>2026-08-20T05:03:28.121Z</updated>
   </entry>
   <entry>
     <author>
@@ -288,7 +351,7 @@
       <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
     </summary>
     <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-08-20T04:56:15.154Z</updated>
+    <updated>2026-08-20T05:03:28.121Z</updated>
   </entry>
   <entry>
     <author>
@@ -307,7 +370,7 @@
 <p>本ブログでは、Microsoft Configuration Manager（ConfigMgr）や Win]]>
     </summary>
     <title>Microsoft Japan ConfigMgr / WSUS サポート チーム ブログ アンケートご協力のお願い</title>
-    <updated>2026-08-20T04:56:15.154Z</updated>
+    <updated>2026-08-20T05:03:28.121Z</updated>
   </entry>
   <entry>
     <author>
@@ -325,59 +388,6 @@
 <p>Configuration Manager (ConfigMgr) 環境における、MDAV 定義ファイルの更新方式は、更新する主体が、ConfigMgr 以外にも存在する]]>
     </summary>
     <title>ConfigMgr 環境における MDAV 定義ファイルの更新形式</title>
-    <updated>2026-08-20T04:56:15.152Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/the-content-library">コンテンツ ライブラリ (SCCMContentLib)</a> フォルダーが肥大化します。<br>このフォルダーが肥大化することで、空きディスク容量が少なくなり、不要なコンテンツの削除を検討されているお客様も多いかと思います。  </p><p>この記事では、そのような場合に、SCCMContentLib フォルダー内の不要なコンテンツを削除する方法をご案内します。<br>なお、エクスプローラーで SCCMContentLib フォルダーを開いて、ファイルを手動で削除する方法はサポートされておりません。そのような手動削除をすると、予期しない問題が発生する可能性がありますので、ご注意ください。  </p><p>削除の基本的な流れとしては　<strong>「展開されているコンテンツの確認」</strong> <strong>「不要なコンテンツの削除」</strong> の順となりますので、こちらの順でご案内します。  </p><h1 id="1-展開されているコンテンツの確認"><a href="#1-展開されているコンテンツの確認" class="headerlink" title="1. 展開されているコンテンツの確認"></a>1. 展開されているコンテンツの確認</h1><p>展開されているコンテンツの確認手順には、以下の方法があります。</p><p>A. Configuration Manager コンソールからの確認<br>B. レポートによる確認<br>C. ツール（Content Library Explorer）による確認  </p><p>これらの方法を使って、削除されたい不要なコンテンツを特定してください。</p><h2 id="A-Configuration-Manager-コンソールからの確認"><a href="#A-Configuration-Manager-コンソールからの確認" class="headerlink" title="A. Configuration Manager コンソールからの確認"></a>A. Configuration Manager コンソールからの確認</h2><p>Configuration Manager コンソールから確認いただく場合には、配布ポイントのプロパティより展開されているコンテンツを確認します。<br>確認方法につきましては、以下のとおりです。  </p><ol><li>Configuration Manager コンソールより、[管理] &gt; [概要] &gt; [配布ポイント] へ移動します。  </li><li>[配布ポイント] の [ナビゲーション ペイン] より、確認対象の配布ポイントを右クリックし、[プロパティ] をクリックします。  </li><li>[配布ポイント プロパティ] より、[コンテンツ] タブをクリックします。  </li><li>[コンテンツ] タブより、対象配布ポイントに展開しているコンテンツの一覧を確認します。<br><img src="/blog/mecm/20260203_01/20260203_01_01.png"></li></ol><h2 id="B-レポートによる確認"><a href="#B-レポートによる確認" class="headerlink" title="B. レポートによる確認"></a>B. レポートによる確認</h2><p>特定の配布ポイントに展開されているコンテンツの一覧および状態をご確認いただけます。<br>CSV 形式や Excel 形式などでエクスポート可能となりますので、展開しているコンテンツの比較を行う場合は、レポート利用が宜しいかと存じます。  </p><ol><li>Configuration Manager コンソールより、[監視] &gt; [概要] &gt; [レポート] &gt; [レポート] &gt; [ソフトウェアの配布 - コンテンツ] へ移動します。  </li><li>[ソフトウェアの配布 - コンテンツ] のナビゲーション ペインより、[特定の配布ポイントのすべてのコンテンツ] のレポートを選択して、[リボン（上段のメニュー バー）] より、[実行] をクリックします。  </li><li>[特定の配布ポイントのすべてのコンテンツ] レポートより、確認した配布ポイントを検索条件に入力し、[レポートの表示] をクリックします。<br><img src="/blog/mecm/20260203_01/20260203_01_02.png"></li></ol><h2 id="C-ツール（Content-Library-Explorer）による確認"><a href="#C-ツール（Content-Library-Explorer）による確認" class="headerlink" title="C. ツール（Content Library Explorer）による確認"></a>C. ツール（Content Library Explorer）による確認</h2><p>ツール（Content Library Explorer）を利用して、配布ポイントへ展開されているコンテンツを確認します。<br>ツールの使い方につきましては <a href="https://jpmem.github.io/blog/mecm/20241004_01/">こちらのブログ記事</a> でも紹介しておりますので、ご参照ください。</p><h1 id="2-不要なコンテンツの削除"><a href="#2-不要なコンテンツの削除" class="headerlink" title="2. 不要なコンテンツの削除"></a>2. 不要なコンテンツの削除</h1><p>上記の手順にて、以前配布したコンテンツで、現在利用していないパッケージを特定します。<br>そのうえで、不要となるコンテンツを以下の方法で削除して空き容量を確保します。　　</p><p>A. Configuration Manager コンソールからの削除<br>B. ツール（Content library cleanup tool）による削除  </p><h2 id="A-Configuration-Manager-コンソールからの削除"><a href="#A-Configuration-Manager-コンソールからの削除" class="headerlink" title="A. Configuration Manager コンソールからの削除"></a>A. Configuration Manager コンソールからの削除</h2><p>Configuration Manager コンソールからの削除方法は以下の通りです。</p><ol><li>Configuration Manager コンソールより、[管理] &gt; [概要] &gt; [配布ポイント] へ移動します。</li><li>[配布ポイント] の [ナビゲーション ペイン] より、確認対象の配布ポイントを右クリックし、[プロパティ] をクリックします。</li><li>[配布ポイント プロパティ] より、[コンテンツ] タブをクリックします。</li><li>[コンテンツ] タブより、不要なコンテンツを選択して、[削除] をクリックします。※ 複数選択可能です。</li></ol><p>場合によってはコンソール上には表示されず、Content Library Explorer でしか確認ができない孤立コンテンツ（配布ポイント上のオブジェクトにて関連付けがなくなったコンテンツ）が存在します。<br>コンソール上から削除が行えない場合は、次のツール（Content library cleanup tool）を利用して削除を行います。</p><p>なお、孤立コンテンツにつきましては、Content Library Explorer 上で対象コンテンツには ID の右側に「*」が付与されます。</p><p>表示例）PS100005*</p><h2 id="B-ツール（Content-library-cleanup-tool）による削除"><a href="#B-ツール（Content-library-cleanup-tool）による削除" class="headerlink" title="B. ツール（Content library cleanup tool）による削除"></a>B. ツール（Content library cleanup tool）による削除</h2><p>コンソールからの削除が行えない孤立コンテンツがある場合は、こちらの Content library cleanup tool を活用して、コンテンツの削除を行います。<br>ツールの使い方につきましては以下の公開情報でも紹介しておりますので、ご参照ください。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/content-library-cleanup-tool">コンテンツ ライブラリのクリーンアップ ツール</a></p><p>プライマリ サイト サーバーでのツールの実行手順の例は以下の通りです。</p><ol><li><code>&lt;プライマリ サイト インストール フォルダー&gt;\CD.Latest\SMSSETUP\TOOLS\ContentLibraryCleanup</code> に、<code>ContentLibraryCleanup.exe</code> が存在することを確認します。</li><li>コマンド プロンプトを管理者として実行します。</li><li>下記コマンドを順に実行します。<br>※ &lt;プライマリ サイト インストール フォルダー&gt; が既定の場所の場合<br><code>cd C:\Program Files\Microsoft Configuration Manager\CD.Latest\SMSSETUP\TOOLS\ContentLibraryCleanup</code>  </li><li>ContentLibraryCleanup.exe を実行します。なお、対象がプライマリ サイトかそれ以外かでコマンドが異なりますのでそれぞれご確認下さい。<br>コマンド実行の途中で入力を求められますので、「y」を入力して先に進んでください。<br>なお、対象がセカンダリ サイトまたはリモート サイトであっても、コマンド実行はプライマリ サイトから実行可能です。<br>4-1. 削除対象配布ポイントがプライマリ サイトの場合、下記を実行します。<br><code>ContentLibraryCleanup.exe /dp &lt;プライマリ サイト FQDN&gt;</code><br>例<br><code>ContentLibraryCleanup.exe /dp cm.contoso.com</code><br>4-2. 削除対象配布ポイントがセカンダリ サイトまたはリモート サイトの場合、下記を実行します。<br><code>ContentLibraryCleanup.exe /dp &lt;セカンダリ サイトまたはリモート サイトの FQDN&gt; /ps &lt;プライマリ サイト FQDN&gt; /sc &lt;サイト コード&gt;</code><br>例<br><code>ContentLibraryCleanup.exe /dp WIN-SRVR2016-01.contoso.com /ps cm.contoso.com /sc P01</code></li><li>上記実行後、WhatIf_cm_***.log が出力されます。「Orphaned contents:」以下に出力されるファイルが今回削除対象となります。ログの出力先は、実行結果の「Output has been logged to」直後のパスで確認可能です。</li><li>上記削除対象確認後、下記コマンドを実行します。<br>実行途中で入力を求められます。初めの入力は「y」で次に進みます。<br>次からは削除対象となるパッケージそれぞれで削除するかどうかの入力を求められます。すべて一括で削除されたい場合には「a」を入力して下さい。<br>なお、パッケージ ID を 手順 5 の WhatIf_cm_***.log で検索することで、削除対象のパスを確認可能です。<br>出力例：下記の場合 7babb759-0c79-41ae-9e2e-ed636984e67f がパッケージ ID です。<br><code>&gt;Delete 7babb759-0c79-41ae-9e2e-ed636984e67f: &#39;y&#39; = yes / &#39;n&#39; = no / &#39;a&#39; = yes to all / &#39;s&#39; = skip all :: y</code><br>6-1. 削除対象配布ポイントがプライマリ サイトの場合、下記を実行します。<br><code>ContentLibraryCleanup.exe /dp &lt;プライマリ サイト FQDN&gt; /delete</code><br>例：<br><code>ContentLibraryCleanup.exe /dp cm.contoso.com /delete</code><br>6-2. 削除対象配布ポイントがセカンダリ サイトまたはリモート サイトの場合、下記を実行します。<br><code>ContentLibraryCleanup.exe /dp &lt;セカンダリ サイトまたはリモート サイトの FQDN&gt; /ps &lt;プライマリ サイト FQDN&gt; /sc &lt;サイト コード&gt;  /delete</code><br>例：<br><code>ContentLibraryCleanup.exe /dp WIN-SRVR2016-01.contoso.com /ps cm.contoso.com /sc P01  /delete</code></li></ol><h1 id="参考情報-NO-SMS-ON-DRIVE-SMS-について"><a href="#参考情報-NO-SMS-ON-DRIVE-SMS-について" class="headerlink" title="参考情報: NO_SMS_ON_DRIVE.SMS について"></a>参考情報: NO_SMS_ON_DRIVE.SMS について</h1><p>配布ポイントの構成は、利用できるドライブを確認すると自動で配布ポイントのコンテンツ ライブラリを作成する動作となります。<br>そのため、配布ポイントのコンテンツ ライブラリを作成したくないドライブがある場合は（特に、システム領域となる Cドライブなど）、配布ポイントの役割と追加・構成いただく前に、ドライブのルートに NO_SMS_ON_DRIVE.SMS の空のファイルを配置します。<br>こちらのファイルを検知すると、コンテンツ ライブラリを作成するドライブとして除外する動作となりますので、意図せずに別のディスク ドライブにコンテンツが配布されてディスクの使用量が増加することを防ぐことが可能となります。  </p><p>こちらのファイルにつきましては、以下にご案内するコマンドを管理者として実行した [コマンドプロンプト] にて実行いただくことで、簡単に作成できます。今後ディスクの増設等をご検討される際のご参考としていただけますと幸いです。  </p><ul><li><p>実行コマンド<br><code>Type nul &gt; &lt;ドライブ レター&gt;:\NO_SMS_ON_DRIVE.SMS</code>  </p></li><li><p>実行コマンド例(C ドライブに配置する場合)<br><code>Type nul &gt; C:\NO_SMS_ON_DRIVE.SMS</code></p></li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260203_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260203_01/"/>
-    <published>2026-02-02T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager を長期間運用していると、クライアントに配布するアプリケーションや更新プログラムなどのコンテンツの格納先である<a href="http]]>
-    </summary>
-    <title>肥大化したコンテンツ ライブラリ (SCCMContentLib) フォルダー内の不要なコンテンツを削除する</title>
-    <updated>2026-08-20T04:56:15.151Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
-    <content>
-      <![CDATA[<p>みなさま、こんにちは。 Configuration Manager &#x2F; WSUS サポート チーム です。  </p><p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今まで同期していなかった製品の<br>累積更新プログラムについて、同期を開始したいときの製品ラベルの探し方についてご案内いたします。</p><h2 id="「製品」と「分類」-ラベルの探し方-その1"><a href="#「製品」と「分類」-ラベルの探し方-その1" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その1"></a>「製品」と「分類」 ラベルの探し方 その1</h2><ol><li><p>弊社は各累積更新プログラムの情報を公開しております。必要とする製品の履歴ページにアクセスします。(一覧にない製品の更新プログラムが欲しい場合はインターネット検索でお探しください)</p><ul><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-25h2-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-99c7f493-df2a-4832-bd2d-6706baa0dec0">Windows 11バージョン 25H2 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-24h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-0929c747-1815-4543-8461-0160d16f15e5">Windows 11、バージョン 24H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-11-%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3-23h2-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-59875222-b990-4bd9-932f-91a5954de434">Windows 11、バージョン 23H2 の更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2025-%E3%81%AE%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E5%B1%A5%E6%AD%B4-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7">Windows Server 2025の更新プログラムの履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-server-2022-%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee">Windows Server 2022 更新履歴</a></li><li><a href="https://support.microsoft.com/ja-jp/topic/windows-10-%E3%81%8A%E3%82%88%E3%81%B3-windows-server-2019-%E3%81%AE%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4-725fc2e1-4443-6831-a5ca-51ff5cbcb059">Windows 10 および Windows Server 2019 の更新履歴</a></li></ul></li><li><p>各ページの左ペインに過去の更新プログラムの履歴情報がが記載されておりますので、適当なものをクリックします。例えば、2026 年 1 月 13 日リリースの Windows Server 2025 向け累積品質更新プログラムをクリックします。</p></li><li><p>各更新プログラムの案内ページに「この更新プログラムの入手方法」の節があります。そちらのメニューより、「サーバー更新サービス」の項目をクリックすると、下記の通り、対象の更新プログラムの製品と分類が記載されています。  </p><p><img src="/blog/mecm/20260129_01/20260129_01_01.png" alt="ClassAndCategory"></p></li><li><p>WSUS や ConfigMgrで該当の[製品]と[分類]ラベルにチェックを入れれば、更新プログラムの同期が実施されます。</p><ul><li><p>WSUS の場合: [WSUSコンソール] - 左ペイン [オプション] - [製品と分類]<br> <img src="/blog/mecm/20260129_01/20260129_01_02.png" alt="WSUS-ClassAndCategory"></p></li><li><p>ConfigMgr の場合: [ConfigMgrコンソール] - [管理] - [概要] - [サイトの構成] - [サイト] - [サイト コンポーネントの構成] - [ソフトウェアの更新ポイント] - [製品] タブ<br> <img src="/blog/mecm/20260129_01/20260129_01_03.png" alt="ConfigMgr-ClassAndCategory"></p></li></ul></li></ol><h2 id="「製品」と「分類」-ラベルの探し方-その2"><a href="#「製品」と「分類」-ラベルの探し方-その2" class="headerlink" title="「製品」と「分類」 ラベルの探し方 その2"></a>「製品」と「分類」 ラベルの探し方 その2</h2><p>具体的に適用したい更新プログラムの名前や KB 番号がわかっている場合、Microsoft Update カタログの検索で、「製品」ラベルを探すこともできます。</p><ul><li><a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update カタログ</a></li></ul><ol><li>Microsoft Update カタログにアクセスします。</li><li>更新プログラム名や KB 番号で検索します。例えば、以下は KB5073379 で検索した結果です。<br><img src="/blog/mecm/20260129_01/20260129_01_04.png" alt="MUClassAndCategory"></li><li>確認した「製品」と「分類」で 先にご案内した 通り WSUS コンソールやConfigMgr コンソールで同期を実施ください。</li></ol><h2 id="同期されない更新プログラム"><a href="#同期されない更新プログラム" class="headerlink" title="同期されない更新プログラム"></a>同期されない更新プログラム</h2><p>上記手順で製品や分類を設定しても同期できない更新プログラムは、インポートする必要がございます。下記ブログ記事をご参照いただければと存じます。</p><ul><li><a href="https://jpmem.github.io/blog/mecm/20250707_01/">通常では同期されない Windows OS 更新プログラムの同期方法</a></li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260129_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260129_01/"/>
-    <published>2026-01-28T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさま、こんにちは。 Configuration Manager &#x2F; WSUS サポート チーム です。  </p>
-<p>本日は、時折皆様よりお問い合わせいただく、Configuration Manager (ConfigMgr) &#x2F; WSUS で今]]>
-    </summary>
-    <title>同期したい更新プログラムの製品と分類の探し方</title>
-    <updated>2026-08-20T04:56:15.149Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本記事では、この変更の背景や影響点、今後のリリース予定などについてご紹介いたします。</p><p><a href="https://techcommunity.microsoft.com/blog/configurationmanagerblog/announcing-the-annual-release-cadence-for-microsoft-configuration-manager/4464794">Announcing the Annual Release Cadence for Microsoft Configuration Manager</a></p><h2 id="リリース-サイクル変更の概要"><a href="#リリース-サイクル変更の概要" class="headerlink" title="リリース サイクル変更の概要"></a>リリース サイクル変更の概要</h2><p>これまで ConfigMgr は年 2 回（3 月・9 月）のリリースを基本として提供されてきましたが、2026 年 9 月リリース予定のバージョン 2609 からは、“年 1 回（9 月）” に統一されます。<br>今回の変更は、従来以上にセキュリティ・品質・安定性を重視したメンテナンス モデルへ移行することを目的としています。<br>また、引き続き ConfigMgr のサービスを提供していきますが、新しい機能開発の中心を Microsoft Intune へ移行してまいります。</p><h2 id="リリース変更の背景"><a href="#リリース変更の背景" class="headerlink" title="リリース変更の背景"></a>リリース変更の背景</h2><p>今回の変更には、以下のような背景があります。</p><ul><li>長期的な運用計画を立てやすくし、リリース時期を明確化すること  </li><li>新機能開発やクラウドベース管理については Intune へ集約していく方向であること  </li><li>ConfigMgr をオンプレミス管理の基盤として安定化させる方針が強まっていること  </li><li>安定性とセキュリティを最優先とすること</li></ul><p>これらの理由から、ConfigMgr は「積極的な新機能の提供」ではなく、「確実・堅牢な管理基盤」という役割をより強く担っていきます。</p><h2 id="今後のリリース予定"><a href="#今後のリリース予定" class="headerlink" title="今後のリリース予定"></a>今後のリリース予定</h2><p>2509 (2025 年 12 月リリース）<br>2509 につきましてはこちらをご確認ください。<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/changes/whats-new-in-version-2509">2509 の新機能</a></p><p>2603（2026 年 3 月リリース予定）<br>Microsoft Secure Future Initiative に沿ったセキュリティ強化が中心となる予定です。</p><p>2609（2026 年 9 月リリース予定）<br>年 1 回のリリースモデルの最初のバージョンとなります。</p><p>2709（2027 年 9 月リリース予定）<br>将来を見据えた改善を予定しておりますが、具体的な内容は未定です。</p><p>なお、今後は以下の方針にそってリリースしていきます。  </p><ul><li>必要に応じて重要なアップデートやパッチを適用しています。  </li><li>ホットフィックスのロールアップは、絶対に必要な場合(例:重大なセキュリティや機能上の問題)にのみ提供します。  </li><li>機能の非推奨があれば事前に通知しつつ、既存の環境をサポートし続けます。</li></ul><h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul><li><p>アップグレード計画を “年 1 回（9 月）” に合わせる必要があります。<br>今後は 9 月リリース予定のバージョンを基準に運用計画を立てていただくことをおすすめします。</p></li><li><p>サポート期間はこれまでどおり、各バージョンのリリース日 18 カ月間です。<br>サポート期限が切れると弊社サポートにてご支援を承ることができなくなりますので期間内のアップデートをお願いします。</p></li><li><p>ConfigMgr は今後も継続してサポートします。<br>廃止ではなく、ConfigMgr を“安定したオンプレミス管理基盤” として提供し続けていくための前向きな方針とご理解ください。</p></li></ul><p>以上、ConfigMgr サポートチーム一同、今後もお客様のビジネスに貢献できるよう尽力して参りますので、今後ともよろしくお願いいたします。</p>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20251215_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20251215_01/"/>
-    <published>2025-12-14T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>みなさま、こんにちは。<br>2025 年 11 月、Microsoft Configuration Manager（ConfigMgr）は、2026 年 9 月リリース予定のバージョン 2609 から年 1 回のリリース サイクルへ移行することが発表されました。<br>本]]>
-    </summary>
-    <title>Configuration Manager のリリース サイクルが年 1 回に変わります</title>
-    <updated>2026-08-20T04:56:15.149Z</updated>
+    <updated>2026-08-20T05:03:28.118Z</updated>
   </entry>
 </feed>
