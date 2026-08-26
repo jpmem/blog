@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://jpmem.github.io/blog/mecm/20220511_01/1.png">
 <meta property="article:published_time" content="2022-05-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-20T05:59:32.147Z">
+<meta property="article:modified_time" content="2026-08-26T05:29:13.680Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -122,8 +122,8 @@
 </a>
         / Last update:
         <a href="" class="article-date-single">    
-    
-    <time datetime="2022-05-10T15:00:00.000Z" itemprop="dateUpdated">2022-05-11</time>
+        
+    <time datetime="2026-08-26T00:00:00.000Z" itemprop="lastupdate">2026-08-26</time>    
     
 </a>
       </div>
@@ -161,6 +161,7 @@
 <p>ご覧のとおり、パッケージとアプリケーションのデータ サイズは展開するデータ サイズと同一のデータ サイズでリクエストを受け取りますが、一方で機能更新プログラムおよび累積更新プログラムのデータ サイズは数百 MB や数 GB の実際のデータ サイズではなく、0KB としてリクエストを受け取っていることが確認できます。</p>
 <h1 id="クライアント-キャッシュのクリア方法"><a href="#クライアント-キャッシュのクリア方法" class="headerlink" title="クライアント キャッシュのクリア方法"></a>クライアント キャッシュのクリア方法</h1><p>通常、クライアント キャッシュのクリアする場合、管理対象デバイス上で [コントロールパネル] にございます [Configuration Manager] の [キャッシュ] タブより、個別にキャッシュのクリアが必要となります。<br>しかしながら、こちらは管理者権限を持ち合わせたアカウントでないと実行いただけなく、また、ご利用者様にてご実施いただく必要があります。</p>
 <p>以下にご案内する PowerShell スクリプトを実行することにより、管理対象デバイス上にて [Configuration Manager] でキャッシュのクリアを行わずに、ダウンロードしたコンテンツを削除いただけます。</p>
+<div class="alert is-info"><p class="alert-title">Note</p><p> 当ブログ内でご紹介しているサンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</p></div>
 <h2 id="ccmcache-フォルダー内すべて削除"><a href="#ccmcache-フォルダー内すべて削除" class="headerlink" title="ccmcache フォルダー内すべて削除"></a>ccmcache フォルダー内すべて削除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="ソフトウェア更新プログラムのみすべて削除"><a href="#ソフトウェア更新プログラムのみすべて削除" class="headerlink" title="ソフトウェア更新プログラムのみすべて削除"></a>ソフトウェア更新プログラムのみすべて削除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | <span class="built_in">where-object</span> &#123;<span class="variable">$_</span>.ContentId.Length <span class="operator">-ne</span> <span class="number">8</span> <span class="operator">-and</span> <span class="variable">$_</span>.ContentId <span class="operator">-notlike</span> <span class="string">&#x27;conten*&#x27;</span>&#125; | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
@@ -177,7 +178,7 @@
 <li>[パッケージとプログラムの作成ウィザード] の [パッケージ] より、[名前] に任意の名前を入力し、[このパッケージにソース ファイルを含める] にチェックを入れます。</li>
 <li>[ソース フォルダー] の参照ボタンをクリックし、上述にご案内している PowerShell コマンドレットの *.PS1 ファイルを、スクリプト ファイルの格納場所 (共有フォルダー パス) を指定し、[次へ] をクリックします。</li>
 <li>[プログラムの種類] にて、[次へ] をクリックします。</li>
-<li>[標準プログラム] にて、[名前] に任意の名前を指定し、ログオン状態に関わらずスクリプトを実行するために次のように指定します。<br>　・コマンドライン<br>　　-32bit OS の場合：powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .&lt;ファイル名&gt;.ps1<br>　　-64bit OS の場合：%windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .&lt;ファイル名&gt;.ps1<br>　　　　※&lt;ファイル名&gt;.ps1 の「ファイル名」には、事前に作成したスクリプト ファイルの名に変更ください。<br>　・プログラムの実行条件<br>　　ユーザーのログオン状態に関係なし<br>　・実行モード<br>　　管理者権限で実行する</li>
+<li>[標準プログラム] にて、[名前] に任意の名前を指定し、ログオン状態に関わらずスクリプトを実行するために次のように指定します。<br>　・コマンドライン<br>　　-32bit OS の場合：<code>powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .\&lt;ファイル名&gt;.ps1</code><br>　　-64bit OS の場合：<code>%windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -File .\&lt;ファイル名&gt;.ps1</code><br>　　　　※&lt;ファイル名&gt;.ps1 の「ファイル名」には、事前に作成したスクリプト ファイルの名に変更ください。<br>　・プログラムの実行条件<br>　　ユーザーのログオン状態に関係なし<br>　・実行モード<br>　　管理者権限で実行する</li>
 <li>[要件] より、[次へ] をクリックします。</li>
 <li>[概要] より、設定内容を確認して、[次へ] をクリックします。</li>
 <li>[完了] より、正常に完了したことを確認し、[閉じる] をクリックします。</li>
@@ -208,14 +209,11 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$targetdate</span>=(<span class="built_in">Get-Date</span>).AddDays(<span class="literal">-xx</span>)</span><br><span class="line"><span class="variable">$UIResourceMgr</span> = <span class="built_in">New-Object</span> <span class="literal">-Com</span> <span class="string">&quot;UIResource.UIResourceMgr&quot;</span></span><br><span class="line"><span class="variable">$Cache</span> = <span class="variable">$UIResourceMgr</span>.GetCacheInfo()</span><br><span class="line"><span class="variable">$Cache</span>.GetCacheElements() | <span class="built_in">where</span> &#123;<span class="variable">$_</span>.LastReferenceTime <span class="operator">-lt</span> <span class="variable">$targetdate</span>&#125; | % &#123;<span class="variable">$Cache</span>.DeleteCacheElement(<span class="variable">$_</span>.CacheElementID)&#125;</span><br></pre></td></tr></table></figure>
 
 <p>※「xx」の箇所については、現在の日時より前のコンテンツを削除する日数をご指定ください。<br>　 例えば、90 日前とする場合は、「$targetdate&#x3D;(Get-Date).AddDays(-90)」とします。</p>
-<ul>
-<li>免責事項<br>当ブログ内でご紹介しているサンプル スクリプトは弊社環境で検証した上でご案内しておりますが、弊社にてその動作を保証するものではございません。<br>ご使用の際は、お客様の環境に合わせて変更いただき、十分にテストした上で、ご利用くださいますようお願いいたします。</li>
-</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20220511_01/" data-id="cuid6g7hbEzhp9PNA8P29osGg" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20220511_01/" data-id="cuid96e9XC_yBtIAhQjHU8Que" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -257,11 +255,11 @@
       <ul>
         
           <li>
-            <a href="../20260819_02/">エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</a>
+            <a href="../20260819_01/">エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a>
           </li>
         
           <li>
-            <a href="../20260819_01/">エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a>
+            <a href="../20260819_02/">エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</a>
           </li>
         
           <li>
