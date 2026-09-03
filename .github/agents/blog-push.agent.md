@@ -22,9 +22,72 @@ Git への書き込み操作を行う前に、次の内容を確認してくだ�
 - staged、unstaged、および untracked の全ファイル
 - `origin` の URL と既定ブランチ
 - `git fetch origin` 後の `origin/master` と現在のブランチとの差分コミットおよび差分ファイル
+- 対象記事が `origin/master` に存在するか。存在しない場合は [未公開記事の日付更新] に従い、ファイル名と `date` を当日の日付へそろえる
+- 他メンバーの open Pull Request が `articles/` 配下に追加または変更するファイル。当日の日付でファイル名が重複しないことを確認する
 - 現在のブランチを head とする既存の Pull Request の有無、状態、およびレビューが開始されているか。GitHub 用ツールを利用できない場合は、GitHub の比較ページまたは公開 API で確認し、確認できなかったことを明示する
 
 対象記事以外の変更は、staging、commit、stash、削除、復元、または Push の対象にしないでください。
+
+## 未公開記事の日付更新
+
+`origin/master` に存在しない記事は未公開です。未公開記事を Push する場合は、ファイル名と front matter の `date` を Push 当日の日付にそろえてください。レビュー中に修正を重ねた記事の公開日が、実際の公開日と乖離することを防ぐためです。
+
+既に `origin/master` にある記事を更新する場合は、`date` を変更せず、必要に応じて `lastupdate` を追加してください。
+
+### 公開済みかどうかの判定
+
+`git fetch origin` の後、記事ごとに次を実行します。終了コードが 0 なら公開済みのため、リネームの対象外です。
+
+```powershell
+git cat-file -e origin/master:articles/mecm/<ファイル名>.md
+```
+
+### 連番の決定と重複の確認
+
+当日の日付でファイル名を決めるときは、`NN` が次のすべてと重複しないことを確認してください。
+
+1. ローカル作業ツリーの同じ製品フォルダー
+2. `origin/master` の同じ製品フォルダー
+3. open な Pull Request が追加または変更するファイル
+
+3 は GitHub の公開 API で確認します。
+
+```powershell
+$h = @{ 'User-Agent' = 'blog-push'; 'Accept' = 'application/vnd.github+json' }
+$prs = Invoke-RestMethod -Uri 'https://api.github.com/repos/jpmem/blog/pulls?state=open&per_page=100' -Headers $h
+foreach ($pr in $prs) {
+    Invoke-RestMethod -Uri "https://api.github.com/repos/jpmem/blog/pulls/$($pr.number)/files?per_page=100" -Headers $h |
+        Where-Object { $_.filename -like 'articles/*' } |
+        ForEach-Object { "PR #{0} [{1}] {2}" -f $pr.number, $pr.user.login, $_.filename }
+}
+```
+
+自分が更新しようとしている Pull Request が変更するファイルは、重複の対象から除外します。
+
+未認証の API はレート制限が 1 時間あたり 60 回です。制限に達した場合、または API へ到達できない場合は、リネームを行わず、他メンバーとの重複を確認できなかったことをユーザーへ報告し、日付を変えずに進めるかどうかの判断を求めてください。
+
+### リネームの手順
+
+1. 追跡済みのファイルは `git mv`、未追跡のファイルは通常のリネームで移動する
+2. front matter の `date` を当日の日付へ更新する
+3. 記事と同名の画像フォルダーがある場合は、フォルダーも同じ名前へリネームし、本文の相対パスを更新する
+4. 同時に Push する記事どうしが `https://jpmem.github.io/blog/<製品>/<日付>_<連番>/` の形式で相互参照している場合は、その URL も新しいファイル名へ更新する
+5. リポジトリ内の他の記事が、リネーム対象の URL を参照していないか検索し、あれば更新する
+
+### 変更しない内容
+
+- 本文中のログ取得日時、検証を実施した日付、および製品バージョン
+- `origin/master` に存在する記事の `date`
+- 記事の本文そのもの
+
+### 確認
+
+リネーム後、次をユーザーへ提示してください。
+
+- 変更前と変更後のファイル名の対応
+- front matter の `date` が当日の日付であること
+- 同じ日付の連番がローカル、`origin/master`、および他メンバーの open Pull Request と重複していないこと
+- 相互参照の URL が新しいファイル名を指していること
 
 ## 必須確認
 
