@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>CMG 経由でのクライアント インストールについての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Configuration Manager のクライアントをインストールする際に、[CCMSetup.exe] がどのように管理ポイントを選択し">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMG 経由でのクライアント インストールについての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260903_02/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Configuration Manager のクライアントをインストールする際に、[CCMSetup.exe] がどのように管理ポイントを選択し">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-09-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-03T04:39:48.649Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260903_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-09-02T15:00:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/">クラウド管理ゲートウェイ</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CMG 経由でのクライアント インストールについての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-09-02T15:00:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-09-02T15:00:00.000Z" itemprop="dateUpdated">2026-09-03</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A4%9C%E8%A8%BC%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">検証環境について</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMG-%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89-%E3%83%A9%E3%82%A4%E3%83%B3"><span class="toc-text">CMG を指定するときのコマンド ライン</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CMG-%E3%81%AE-URL-%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><span class="toc-text">CMG の URL を確認する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL-%E3%81%AB%E5%90%AB%E3%81%BE%E3%82%8C%E3%82%8B-2-%E3%81%A4%E3%81%AE%E3%83%97%E3%83%AD%E3%82%AD%E3%82%B7%E3%81%AE%E3%83%91%E3%82%B9"><span class="toc-text">URL に含まれる 2 つのプロキシのパス</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AA%8D%E8%A8%BC%E6%89%8B%E6%AE%B5%E3%81%8C%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88%E3%81%AE%E5%8B%95%E4%BD%9C"><span class="toc-text">認証手段がない場合の動作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%AA%8D%E8%A8%BC%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%8E%A2%E7%B4%A2"><span class="toc-text">クライアント認証証明書の探索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMG-%E3%81%AE%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%8C%E5%80%99%E8%A3%9C%E3%81%8B%E3%82%89%E9%99%A4%E5%A4%96%E3%81%95%E3%82%8C%E3%82%8B"><span class="toc-text">CMG の管理ポイントが候補から除外される</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B5%90%E6%9E%9C%E3%81%A8%E3%81%97%E3%81%A6%E4%BD%BF%E7%94%A8%E3%81%95%E3%82%8C%E3%81%9F%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">結果として使用された管理ポイント</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E3%83%96%E3%83%BC%E3%83%88%E3%82%B9%E3%83%88%E3%83%A9%E3%83%83%E3%83%97%E3%81%8B%E3%82%89%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%B8%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E"><span class="toc-text">ステップ 1 : ブートストラップからサービスへの引き継ぎ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-Microsoft-Entra-ID-%E3%81%AE%E3%82%AA%E3%83%B3%E3%83%9C%E3%83%BC%E3%83%89%E6%83%85%E5%A0%B1%E3%81%AE%E4%BF%9D%E5%AD%98"><span class="toc-text">ステップ 2 : Microsoft Entra ID のオンボード情報の保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AE%E5%80%99%E8%A3%9C%E3%81%B8%E3%81%AE-CMG-%E3%81%AE%E6%8E%A1%E7%94%A8"><span class="toc-text">ステップ 3 : 管理ポイントの候補への CMG の採用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AE%E9%81%B8%E6%8A%9E%E3%81%A8-Microsoft-Entra-ID-%E3%81%AE%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E5%8F%96%E5%BE%97"><span class="toc-text">ステップ 4 : 管理ポイントの選択と Microsoft Entra ID のトークン取得</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%81%AE%E5%A0%B4%E6%89%80%E3%81%AE%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B"><span class="toc-text">ステップ 5 : コンテンツの場所の問い合わせ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-Azure-Storage-%E3%81%8B%E3%82%89%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"><span class="toc-text">ステップ 6 : Azure Storage からのダウンロード</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-7-client-msi-%E3%81%AE%E5%AE%9F%E8%A1%8C%E3%81%A8%E5%AE%8C%E4%BA%86"><span class="toc-text">ステップ 7 : client.msi の実行と完了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AB-Microsoft-Entra-ID-%E3%81%AE%E6%83%85%E5%A0%B1%E3%81%8C%E4%BF%9D%E5%AD%98%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AE%E5%8B%95%E4%BD%9C"><span class="toc-text">クライアントに Microsoft Entra ID の情報が保存されている場合の動作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-text">留意事項</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CCMSetup-exe-%E3%81%AE%E5%AE%8C%E4%BA%86%E3%81%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%AE%E5%AE%8C%E4%BA%86%E3%81%AE%E3%81%BF%E3%82%92%E7%A4%BA%E3%81%99"><span class="toc-text">CCMSetup.exe の完了はインストールの完了のみを示す</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A4%9C%E8%A8%BC%E6%99%82%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%88%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88%E7%B5%8C%E8%B7%AF%E3%81%AE%E6%89%B1%E3%81%84"><span class="toc-text">検証時のイントラネット経路の扱い</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E7%A2%BA%E8%AA%8D%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">ログ確認のポイント</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CMG-%E3%81%8C%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%9F%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E8%A1%8C"><span class="toc-text">CMG が使われたかどうかを判断する行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ccmsetup-log-%E3%81%AE%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E5%88%86%E5%89%B2%E3%81%AB%E6%B3%A8%E6%84%8F%E3%81%99%E3%82%8B"><span class="toc-text">ccmsetup.log のセッション分割に注意する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%94%E4%B8%AD%E3%81%AE%E5%A4%B1%E6%95%97%E8%A1%8C%E3%81%A0%E3%81%91%E3%81%A7%E5%88%A4%E6%96%AD%E3%81%97%E3%81%AA%E3%81%84"><span class="toc-text">途中の失敗行だけで判断しない</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Configuration Manager のクライアントをインストールする際に、[CCMSetup.exe] がどのように管理ポイントを選択し、認証方式を判断し、インストール ファイルを取得するのかを、実際のログに沿ってご案内します。</p>
+<p>本記事の対象は、[CCMSetup.exe] のコマンド ラインで CMG を指定した場合の管理ポイントの選択、Microsoft Entra ID を使用した認証、および CMG 経由でのコンテンツ取得です。CMG の構築手順、Azure 側の設計、サイジングやコスト見積は対象外です。また、インストール後のクライアント登録とサイト割り当ては、クライアント自身のネットワーク位置の判定に依存するため対象外とし、留意事項でのみ触れます。</p>
+<p>[CCMSetup.exe] によるクライアント インストールの一般的な流れ (マニフェストの読み込み、前提コンポーネントの判定、[client.msi] の起動など) は本記事では繰り返しません。次の記事で説明しておりますので、あわせてご参照ください。</p>
+<ul>
+<li><a href="https://jpmem.github.io/blog/mecm/20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a></li>
+</ul>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>CMG を指定して [CCMSetup.exe] を実行した場合、処理は次の順序で進みます。</p>
+<ol>
+<li>[CCMSetup.exe] が自身をコピーし、[ccmsetup] サービスとして処理を継続する</li>
+<li>コマンド ラインで指定された Microsoft Entra ID のオンボード情報をクライアントへ保存する</li>
+<li>使用できる認証手段を判定し、インストール元となる管理ポイントの候補を作成する</li>
+<li>CMG の管理ポイントを選択し、Microsoft Entra ID のトークンとクライアント認証用のトークンを取得する</li>
+<li>CMG 経由で管理ポイントへコンテンツの場所を問い合わせる</li>
+<li>CMG に紐づく Azure Storage からインストール ファイルをダウンロードする</li>
+<li>[client.msi] を起動し、クライアント コンポーネントを構成する</li>
+</ol>
+<p>なお、手順 3 で使用できる認証手段がないと判定された場合、CMG の管理ポイントは候補から除外されます。このときの動作は、後述の [認証手段がない場合の動作] でご説明します。</p>
+<h2 id="検証環境について"><a href="#検証環境について" class="headerlink" title="検証環境について"></a>検証環境について</h2><p>本記事に掲載するログは、弊社検証環境で 2026 年 8 月 28 日に取得したものです。読者環境で同じ行が記録されるとは限りませんので、動作の考え方をご確認いただく目的でご覧ください。コンピューター名、FQDN、サイト コード、テナント ID、アプリケーション ID、共有アクセス署名などは、一貫したプレースホルダーへ置き換えています。長い行は読みやすさのために一部を省略しています。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>サイト</td>
+<td>プライマリ サイト 1 つ。サイト バージョン 5.00.9141.1000</td>
+</tr>
+<tr>
+<td>管理ポイント</td>
+<td>サイト システム サーバー 1 台。[CMG トラフィックの許可] と [インターネット向け] を有効</td>
+</tr>
+<tr>
+<td>CMG</td>
+<td>仮想マシン スケール セット (VMSS) ベース。Microsoft Entra ID のテナントと関連付け済み</td>
+</tr>
+<tr>
+<td>クライアント</td>
+<td>Windows 11。Microsoft Entra ハイブリッド参加済みで、CMG と同じテナントに参加</td>
+</tr>
+<tr>
+<td>クライアント ベースライン バージョン</td>
+<td>5.00.9141.1011</td>
+</tr>
+</tbody></table>
+<p>インターネット上のクライアントを模擬するため、検証ではクライアントからイントラネットの管理ポイントおよび配布ポイントへ到達できない状態を作ったうえで [CCMSetup.exe] を実行しています。</p>
+<p>なお、[CCMALWAYSINF] プロパティは使用していません。これは値を 1 に設定すると、クライアントが常にインターネット ベースでありイントラネットには一切接続しないことを指定するプロパティで、クライアントの接続の種類は [常にインターネット] になります。本記事では [CCMSetup.exe] 自身がどの管理ポイントを選択するかを確認することが目的のため、クライアントの接続の種類は既定のまま、経路の到達可否だけを変えています。</p>
+<h2 id="CMG-を指定するときのコマンド-ライン"><a href="#CMG-を指定するときのコマンド-ライン" class="headerlink" title="CMG を指定するときのコマンド ライン"></a>CMG を指定するときのコマンド ライン</h2><p>Microsoft Learn では、Microsoft Entra ID を使用して CMG 経由でクライアントをインストールする際のコマンド ラインが、次の形で示されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /mp:&lt;インストール元の管理ポイント&gt; CCMHOSTNAME=&lt;インターネット向け管理ポイント&gt; SMSSITECODE=&lt;サイト コード&gt; SMSMP=&lt;初期管理ポイント&gt; AADTENANTID=&lt;テナント ID&gt; AADCLIENTAPPID=&lt;クライアント アプリの ID&gt; AADRESOURCEURI=&lt;サーバー アプリの ID&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMG-の-URL-を確認する"><a href="#CMG-の-URL-を確認する" class="headerlink" title="CMG の URL を確認する"></a>CMG の URL を確認する</h3><p>[&#x2F;mp] と [CCMHOSTNAME] に指定する値は、既にサイトへ登録済みで CMG の情報を受け取っているクライアント上で、管理者として次のコマンドを実行して取得します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">Get-WmiObject</span> <span class="literal">-Namespace</span> Root\Ccm\LocationServices <span class="literal">-Class</span> SMS_ActiveMPCandidate | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Type <span class="operator">-eq</span> <span class="string">&quot;Internet&quot;</span>&#125;).MP</span><br></pre></td></tr></table></figure>
+
+<p>返される値は、CMG のサービス名とプロキシのパス、および CMG が公開している管理ポイントの ID を連結した次の形式です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt;</span><br></pre></td></tr></table></figure>
+
+<p>取得した値は、パラメーターとプロパティで指定の仕方が異なります。</p>
+<table>
+<thead>
+<tr>
+<th>指定先</th>
+<th>指定する値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[&#x2F;mp] パラメーター</td>
+<td>取得した値の先頭に https:&#x2F;&#x2F; を付ける</td>
+</tr>
+<tr>
+<td>[CCMHOSTNAME] プロパティ</td>
+<td>取得した値をそのまま使用し、https:&#x2F;&#x2F; などのプレフィックスは付けない</td>
+</tr>
+</tbody></table>
+<p>このコマンドは、クライアントが保持しているインターネット向け管理ポイントの一覧を参照します。そのため、CMG を構築し、クライアントがその情報を受け取っている必要があります。詳細は <a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-installation-properties#mp">クライアントのインストール パラメーターとプロパティ</a> をご参照ください。</p>
+<h3 id="URL-に含まれる-2-つのプロキシのパス"><a href="#URL-に含まれる-2-つのプロキシのパス" class="headerlink" title="URL に含まれる 2 つのプロキシのパス"></a>URL に含まれる 2 つのプロキシのパス</h3><p>CMG は、同じ管理ポイントに対して次の 2 つのパスを公開しています。上記のコマンドで返るのは [CCM_Proxy_MutualAuth] の形式ですが、クライアントのログには [CCM_Proxy_ServerAuth] も現れるため、両方を押さえておくとログを追いやすくなります。</p>
+<table>
+<thead>
+<tr>
+<th>パス</th>
+<th>主に使用される場面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;CCM_Proxy_MutualAuth&#x2F;&lt;管理ポイントの ID&gt;</td>
+<td>PKI で発行されたクライアント認証証明書による相互認証</td>
+</tr>
+<tr>
+<td>&#x2F;CCM_Proxy_ServerAuth&#x2F;&lt;管理ポイントの ID&gt;</td>
+<td>Microsoft Entra ID のトークン、または一括登録トークンによる認証</td>
+</tr>
+</tbody></table>
+<p>ただし、後述の [クライアントに Microsoft Entra ID の情報が保存されている場合の動作] のとおり、CMG の管理ポイントを使用できるかどうかは、指定したパスの形式ではなく、クライアントがいずれかの方法で認証できるかどうかで決まります。</p>
+<h2 id="認証手段がない場合の動作"><a href="#認証手段がない場合の動作" class="headerlink" title="認証手段がない場合の動作"></a>認証手段がない場合の動作</h2><p>はじめに、クライアントを削除した状態から、Microsoft Entra ID 関連のプロパティを付けずに [CCM_Proxy_MutualAuth] のパスを指定して実行しました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /mp:https://&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt; CCMHOSTNAME=&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt; SMSSITECODE=&lt;サイト コード&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="クライアント認証証明書の探索"><a href="#クライアント認証証明書の探索" class="headerlink" title="クライアント認証証明書の探索"></a>クライアント認証証明書の探索</h3><p>[CCMSetup.exe] は、コンピューターの [個人] 証明書ストアからクライアント認証に使える証明書を探します。検証環境のクライアントには証明書が複数ありましたが、いずれも [クライアント認証] の拡張キー使用法を持たないなど、Configuration Manager が要求する条件を満たしていませんでした。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The &#x27;MY&#x27; of &#x27;Local Computer&#x27; store has 4 certificate(s). Using custom selection criteria based on the machine name.</span><br><span class="line">The Certificate [Thumbprint &lt;拇印&gt;] issued to &#x27;&lt;コンピューター名&gt;&#x27; doesn&#x27;t have &#x27;Client Authentication&#x27; capability.</span><br><span class="line">The certificate [Thumbprint &lt;拇印&gt;] found using &#x27;&lt;コンピューター名の FQDN&gt;&#x27; as cert name is not valid for ConfigMgr usage.</span><br><span class="line">Using custom selection criteria based on the machine NetBIOS name.</span><br><span class="line">There are no certificate(s) that meet the criteria.</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMG-の管理ポイントが候補から除外される"><a href="#CMG-の管理ポイントが候補から除外される" class="headerlink" title="CMG の管理ポイントが候補から除外される"></a>CMG の管理ポイントが候補から除外される</h3><p>証明書が見つからず、かつコマンド ラインに Microsoft Entra ID の情報がないため、[CCMSetup.exe] は指定した CMG の管理ポイントを候補から除外しました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MP &#x27;https://&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt;&#x27; is HTTPS. Client does not allow to use PKI issued cert and is not AAD capable. Ignoring this MP.</span><br></pre></td></tr></table></figure>
+
+<p>この行は、次の 2 つの条件がどちらも満たされないため、この HTTPS の管理ポイントは使用できないという判定を示しています。</p>
+<ul>
+<li>PKI で発行されたクライアント認証証明書を使用できる</li>
+<li>Microsoft Entra ID のトークンを取得できる (ログ上の [AAD capable])</li>
+</ul>
+<h3 id="結果として使用された管理ポイント"><a href="#結果として使用された管理ポイント" class="headerlink" title="結果として使用された管理ポイント"></a>結果として使用された管理ポイント</h3><p>CMG の管理ポイントが除外されたため、[Source List] には Active Directory ドメイン サービス (AD DS) から取得したイントラネットの管理ポイントだけが残りました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Source List:</span><br><span class="line">MPs:</span><br><span class="line">                  http://&lt;管理ポイントの FQDN&gt;</span><br><span class="line">Only one MP http://&lt;管理ポイントの FQDN&gt; is specified. Use it.</span><br></pre></td></tr></table></figure>
+
+<p>この検証ではイントラネットの管理ポイントへ到達できない状態にしていたため、インストールは進まず、再試行が予約されました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Next retry in 10 minute(s)...</span><br><span class="line">Successfully created task &#x27;Configuration Manager Client Retry Task&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>CMG を指定したはずなのにイントラネットの管理ポイントが使われている、あるいはインストールが進まない場合は、まず [Ignoring this MP] の行の有無をご確認ください。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><p>ここからは、パスの [CCM_Proxy_MutualAuth] を [CCM_Proxy_ServerAuth] に置き換え、Microsoft Entra ID 関連のプロパティを追加して実行したときのログに沿って、各ステップをご説明します。イントラネットの管理ポイントへ到達できない状態は、前のセクションと同じです。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup.exe /mp:https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt; CCMHOSTNAME=&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt; SMSSITECODE=&lt;サイト コード&gt; AADTENANTID=&lt;テナント ID&gt; AADCLIENTAPPID=&lt;クライアント アプリの ID&gt; AADRESOURCEURI=&lt;サーバー アプリの ID&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>既定の保存場所</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[ccmsetup.log]</td>
+<td>%WinDir%\ccmsetup\Logs\ccmsetup.log</td>
+<td>管理ポイントの選択、認証方式の判定、コンテンツの取得元、[client.msi] の起動と最終結果を確認します。</td>
+</tr>
+<tr>
+<td>[client.msi.log]</td>
+<td>%WinDir%\ccmsetup\Logs\client.msi.log</td>
+<td>[client.msi] が実行した Windows Installer の各アクションと結果を確認します。</td>
+</tr>
+<tr>
+<td>[ClientIDManagerStartup.log]</td>
+<td>%WinDir%\CCM\Logs\ClientIDManagerStartup.log</td>
+<td>インストール後のクライアント登録の成否を確認します。</td>
+</tr>
+<tr>
+<td>[LocationServices.log]</td>
+<td>%WinDir%\CCM\Logs\LocationServices.log</td>
+<td>管理ポイントの一覧取得と切り替えの契機を確認します。</td>
+</tr>
+<tr>
+<td>[ClientLocation.log]</td>
+<td>%WinDir%\CCM\Logs\ClientLocation.log</td>
+<td>実際に使用している管理ポイントとサイト割り当てを確認します。</td>
+</tr>
+</tbody></table>
+<p>サーバー側では、CMG のログのほか、管理ポイントの [CCM_STS.log]、[MP_RegistrationManager.log]、[ClientAuth.log] を確認します。</p>
+<h3 id="ステップ-1-ブートストラップからサービスへの引き継ぎ"><a href="#ステップ-1-ブートストラップからサービスへの引き継ぎ" class="headerlink" title="ステップ 1 : ブートストラップからサービスへの引き継ぎ"></a>ステップ 1 : ブートストラップからサービスへの引き継ぎ</h3><p>[CCMSetup.exe] は、まず自身を %WinDir%\ccmsetup へコピーし、[ccmsetup] サービスとして処理を継続します。このとき、コマンド ラインで指定したプロパティがサービス側へ引き継がれます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">==========[ ccmsetup started in process &lt;プロセス ID&gt; ]==========</span><br><span class="line">Ccmsetup command line: &quot;&lt;実行したフォルダー&gt;\ccmsetup.exe&quot; /mp:https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt; CCMHOSTNAME=&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt; SMSSITECODE=&lt;サイト コード&gt; AADTENANTID=&lt;テナント ID&gt; ...</span><br><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
+
+<p>最初に記録される [CcmSetup is exiting with return code 0] は、ブートストラップ プロセスがサービスへ処理を引き渡して終了したことを示すもので、インストールの最終結果ではありません。続けて、サービスとして起動した後のセッションを追跡します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==========[ ccmsetup started in process &lt;プロセス ID&gt; ]==========</span><br><span class="line">Ccmsetup command line: &quot;C:\WINDOWS\ccmsetup\ccmsetup.exe&quot; /runservice  &quot;/mp:https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;&quot; AADCLIENTAPPID=&quot;&lt;クライアント アプリの ID&gt;&quot; AADRESOURCEURI=&quot;&lt;サーバー アプリの ID&gt;&quot; AADTENANTID=&quot;&lt;テナント ID&gt;&quot; CCMHOSTNAME=&quot;&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ステップ-2-Microsoft-Entra-ID-のオンボード情報の保存"><a href="#ステップ-2-Microsoft-Entra-ID-のオンボード情報の保存" class="headerlink" title="ステップ 2 : Microsoft Entra ID のオンボード情報の保存"></a>ステップ 2 : Microsoft Entra ID のオンボード情報の保存</h3><p>[CCMSetup.exe] は、Microsoft Entra ID で認証するために必要な情報をクライアントへ保存します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Updating AAD onboarding info to ClientAppId &#x27;&lt;クライアント アプリの ID&gt;&#x27;, ResourceUri &#x27;&lt;サーバー アプリの ID&gt;&#x27;, AADAuthUrl &#x27;https://login.microsoftonline.com/&#x27;, UserAuthReady 1</span><br><span class="line">Persisted AAD on-boarding info.</span><br></pre></td></tr></table></figure>
+
+<h3 id="ステップ-3-管理ポイントの候補への-CMG-の採用"><a href="#ステップ-3-管理ポイントの候補への-CMG-の採用" class="headerlink" title="ステップ 3 : 管理ポイントの候補への CMG の採用"></a>ステップ 3 : 管理ポイントの候補への CMG の採用</h3><p>前のセクションと同様にクライアント認証証明書は見つかりませんでしたが、今回は Microsoft Entra ID による認証が使えるため、[Ignoring this MP] は記録されず、CMG の管理ポイントが [Source List] の先頭に採用されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Domain joined client is in Intranet</span><br><span class="line">Found MP http://&lt;管理ポイントの FQDN&gt; from AD</span><br><span class="line">Source List:</span><br><span class="line">MPs:</span><br><span class="line">                  https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;</span><br><span class="line">                  http://&lt;管理ポイントの FQDN&gt;</span><br></pre></td></tr></table></figure>
+
+<p>検証環境のクライアントはドメインに参加しているため、AD DS から取得したイントラネットの管理ポイントも候補に加わり、候補は 2 つになりました。</p>
+<h3 id="ステップ-4-管理ポイントの選択と-Microsoft-Entra-ID-のトークン取得"><a href="#ステップ-4-管理ポイントの選択と-Microsoft-Entra-ID-のトークン取得" class="headerlink" title="ステップ 4 : 管理ポイントの選択と Microsoft Entra ID のトークン取得"></a>ステップ 4 : 管理ポイントの選択と Microsoft Entra ID のトークン取得</h3><p>[CCMSetup.exe] は候補を順に確認し、応答が得られた管理ポイントを使用します。今回は [Source List] の先頭にある CMG の URL が確認され、Microsoft Entra ID のデバイス トークンを取得したうえで、CMG 上の [CCM_STS] からクライアント認証用のトークンを取得しました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Searching for a valid online MP...</span><br><span class="line">Checking the URL &#x27;https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;/CCM_Client/ccmsetup.cab&#x27;</span><br><span class="line">Getting AAD (device) token with: ClientId = &lt;クライアント アプリの ID&gt;, ResourceUrl = &lt;サーバー アプリの ID&gt;, AccountId = , Null parent window handle = true</span><br><span class="line">Getting CCM Token from STS server &#x27;&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;&#x27;</span><br><span class="line">Getting CCM Token from https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;/CCM_STS</span><br><span class="line">Cached encrypted token for &#x27;S-1-5-18&#x27;. Will expire at &#x27;&lt;有効期限&gt;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>取得したトークンは、以降の要求のヘッダーへ付与されます。[CcmTokenAuth&#x3D;1] は、トークン認証を使用した要求であることを示します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ccmsetup: Host=&lt;CMG のサービス名&gt;, Path=/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;/CCM_Client, Port=443, Protocol=https, CcmTokenAuth=1, Flags=0x44300, Options=0x4e0</span><br><span class="line">Appending CCM Token to the header.</span><br><span class="line">Found a valid online MP &#x27;https://&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>なお、このトークンは [S-1-5-18] (Local System) に対して発行され、キャッシュの有効期限は取得から 8 時間後でした。</p>
+<h3 id="ステップ-5-コンテンツの場所の問い合わせ"><a href="#ステップ-5-コンテンツの場所の問い合わせ" class="headerlink" title="ステップ 5 : コンテンツの場所の問い合わせ"></a>ステップ 5 : コンテンツの場所の問い合わせ</h3><p>[CCMSetup.exe] は、CMG 経由で管理ポイントへコンテンツの場所を問い合わせます。イントラネット経由の場合と異なり、パスが [ccm_system_tokenauth&#x2F;request] になっている点にご注目ください。トークン認証で処理される要求であることを示しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Searching for DP locations from MP(s)...</span><br><span class="line">Returned CCM token for &#x27;S-1-5-18&#x27; from the cache.</span><br><span class="line">ccmsetup: Host=&lt;CMG のサービス名&gt;, Path=/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;/ccm_system_tokenauth/request, Port=443, Protocol=https, CcmTokenAuth=1, Flags=0x44300, Options=0x4e0</span><br><span class="line">Appending CCM Token to the header.</span><br></pre></td></tr></table></figure>
+
+<p>続いて、CMG の [downloadrestservice.svc] へコンテンツの一覧を要求し、これを配布ポイントの場所として採用しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Using DP location https://&lt;CMG のサービス名&gt;/downloadrestservice.svc/getcontentxmlsecure?dp=*&amp;pid=&lt;パッケージ ID&gt;&amp;cid=&lt;パッケージ ID&gt;&amp;tid=*&amp;iss=&lt;署名証明書の拇印&gt;&amp;alg=&lt;署名アルゴリズム&gt;&amp;st=&lt;開始日時&gt;&amp;et=&lt;終了日時&gt;&amp;ver=3</span><br></pre></td></tr></table></figure>
+
+<h3 id="ステップ-6-Azure-Storage-からのダウンロード"><a href="#ステップ-6-Azure-Storage-からのダウンロード" class="headerlink" title="ステップ 6 : Azure Storage からのダウンロード"></a>ステップ 6 : Azure Storage からのダウンロード</h3><p>CMG をクラウドの配布ポイントとして使用する構成では、実際のファイルは CMG に紐づく Azure Storage から取得されます。ログには、共有アクセス署名 (SAS) を含む BLOB の URL が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Downloading &#x27;https://&lt;CMG のストレージ アカウント&gt;.blob.core.windows.net:443/content-&lt;パッケージ ID&gt;/ccmsetup.cab?&lt;SAS トークン&gt;&#x27; to &#x27;C:\WINDOWS\ccmsetup\\ccmsetup.cab&#x27;</span><br><span class="line">Retrieved client version &#x27;5.00.9141.1011&#x27; and minimum assignable site version &#x27;5.00.8200.1000&#x27; from manifest</span><br><span class="line">Checking compatibility of site version &#x27;5.00.9141.1002&#x27;, expect newer than &#x27;5.00.8200.1000&#x27;</span><br><span class="line">Site version &#x27;5.00.9141.1002&#x27; is compatible. Client deployment will continue.</span><br><span class="line">Location &#x27;https://&lt;CMG のサービス名&gt;/downloadrestservice.svc/getcontentxmlsecure?&lt;省略&gt;&#x27; passed site version check.</span><br></pre></td></tr></table></figure>
+
+<p>マニフェストの確認後、必要なファイルも同じ Azure Storage から Background Intelligent Transfer Service (BITS) でダウンロードされます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Adding file &#x27;https://&lt;CMG のストレージ アカウント&gt;.blob.core.windows.net:443/content-&lt;パッケージ ID&gt;/x64/client.msi?&lt;SAS トークン&gt;&#x27; to BITS job, saving as &#x27;C:\WINDOWS\ccmsetup\client.msi&#x27;.</span><br><span class="line">Adding file &#x27;https://&lt;CMG のストレージ アカウント&gt;.blob.core.windows.net:443/content-&lt;パッケージ ID&gt;/x64/LanguagePack/CLP1041.CAB?&lt;SAS トークン&gt;&#x27; to BITS job, saving as &#x27;C:\WINDOWS\ccmsetup\CLP1041.CAB&#x27;.</span><br><span class="line">Starting BITS download for client deployment files.</span><br><span class="line">Successfully completed BITS download for client deployment files.</span><br><span class="line">Retrieved client version &#x27;5.00.9141.1000&#x27; and minimum assignable site version &#x27;5.00.8200.1000&#x27; from client package</span><br><span class="line">Successfully downloaded client files via BITS.</span><br></pre></td></tr></table></figure>
+
+<h3 id="ステップ-7-client-msi-の実行と完了"><a href="#ステップ-7-client-msi-の実行と完了" class="headerlink" title="ステップ 7 : client.msi の実行と完了"></a>ステップ 7 : client.msi の実行と完了</h3><p>ダウンロード後の処理はイントラネット経由の場合と同じで、[client.msi] が起動されます。CMG を指定した際のプロパティは [client.msi] へそのまま渡されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Installing version 5.00.9141.1000 of the client with product code &#123;&lt;製品コード&gt;&#125;</span><br><span class="line">MSI PROPERTIES are  AADCLIENTAPPID=&quot;&lt;クライアント アプリの ID&gt;&quot; AADRESOURCEURI=&quot;&lt;サーバー アプリの ID&gt;&quot; AADTENANTID=&quot;&lt;テナント ID&gt;&quot; CCMCERTSTORE=&quot;MY&quot; CCMFIRSTCERT=&quot;1&quot; CCMHOSTNAME=&quot;&lt;CMG のサービス名&gt;/CCM_Proxy_ServerAuth/&lt;管理ポイントの ID&gt;&quot; SMSSITECODE=&quot;&lt;サイト コード&gt;&quot;</span><br><span class="line">File C:\WINDOWS\ccmsetup\&#123;&lt;一時フォルダーの GUID&gt;&#125;\client.msi installation succeeded.</span><br><span class="line">C:\WINDOWS\CCM\clientstate.dat exists after client.msi run.</span><br><span class="line">Successfully installed &#x27;CLP1041.5.00.9141.1002&#x27;</span><br><span class="line">CcmSetup is exiting with return code 0</span><br></pre></td></tr></table></figure>
+
+<p>この検証では、[CCMSetup.exe] の起動から終了まで約 3 分 40 秒でした。所要時間は回線速度、Azure リージョン、ダウンロード対象によって変わります。</p>
+<h2 id="クライアントに-Microsoft-Entra-ID-の情報が保存されている場合の動作"><a href="#クライアントに-Microsoft-Entra-ID-の情報が保存されている場合の動作" class="headerlink" title="クライアントに Microsoft Entra ID の情報が保存されている場合の動作"></a>クライアントに Microsoft Entra ID の情報が保存されている場合の動作</h2><p>前のセクションのインストールが完了した後、同じクライアントに対して、Microsoft Entra ID 関連のプロパティを付けずに [CCM_Proxy_MutualAuth] のパスを指定して実行しました。[認証手段がない場合の動作] と同じコマンド ラインですが、結果は異なります。</p>
+<p>サービスとして起動した [CCMSetup.exe] のコマンド ラインには、コマンド ラインで指定していない Microsoft Entra ID の情報が追加されています。これは、直前のインストールで保存された値がクライアントから読み込まれたためです。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ccmsetup command line: &quot;C:\WINDOWS\ccmsetup\ccmsetup.exe&quot; /runservice  &quot;/mp:https://&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt;&quot; AADAUTHURL=&quot;https://login.microsoftonline.com/&quot; AADCLIENTAPPID=&quot;&lt;クライアント アプリの ID&gt;&quot; AADRESOURCEURI=&quot;&lt;サーバー アプリの ID&gt;&quot; ...</span><br></pre></td></tr></table></figure>
+
+<p>その結果、[Ignoring this MP] は記録されず、CMG の管理ポイントがそのまま使用されました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Checking the URL &#x27;http://&lt;管理ポイントの FQDN&gt;/CCM_Client/ccmsetup.cab&#x27;</span><br><span class="line">Failed to get directory list from &#x27;http://&lt;管理ポイントの FQDN&gt;/CCM_Client&#x27;. Error 0x80072efd</span><br><span class="line">Accessing the URL &#x27;http://&lt;管理ポイントの FQDN&gt;/CCM_Client/ccmsetup.cab&#x27; failed with 80004005</span><br><span class="line">Checking the URL &#x27;https://&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt;/CCM_Client/ccmsetup.cab&#x27;</span><br><span class="line">Getting AAD (device) token with: ClientId = &lt;クライアント アプリの ID&gt;, ResourceUrl = &lt;サーバー アプリの ID&gt;, AccountId = https://login.microsoftonline.com/, Null parent window handle = true</span><br><span class="line">Found a valid online MP &#x27;https://&lt;CMG のサービス名&gt;/CCM_Proxy_MutualAuth/&lt;管理ポイントの ID&gt;&#x27;.</span><br></pre></td></tr></table></figure>
+
+<p>この検証から、CMG の管理ポイントを使用できるかどうかは、URL のパスが [CCM_Proxy_MutualAuth] か [CCM_Proxy_ServerAuth] かで決まるのではなく、クライアントがいずれかの方法で認証できるかどうかで決まることが確認できます。同じコマンド ラインでも、クライアントの状態によって結果が変わるため、検証結果を比較する際はクライアントの初期状態をそろえてください。</p>
+<h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><h3 id="CCMSetup-exe-の完了はインストールの完了のみを示す"><a href="#CCMSetup-exe-の完了はインストールの完了のみを示す" class="headerlink" title="CCMSetup.exe の完了はインストールの完了のみを示す"></a>CCMSetup.exe の完了はインストールの完了のみを示す</h3><p>戻り値 0 は、クライアント コンポーネントのインストールが完了したことを示します。その後のクライアント登録、サイト割り当て、ポリシー取得までを保証するものではありません。</p>
+<p>インストール後にクライアントがどの管理ポイントを使用するかは、[CCMHOSTNAME] の値だけでなく、クライアント自身がインターネット上にあると判定するかどうかによって決まります。本検証のクライアントはドメインに参加しており、ネットワーク位置がイントラネットと判定されたため、割り当て先はイントラネットの管理ポイントとなりました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Client is now successfully assigned to site &#x27;&lt;サイト コード&gt;&#x27;</span><br><span class="line">Setting current Management Point as http://&lt;管理ポイントの FQDN&gt;</span><br></pre></td></tr></table></figure>
+
+<p>このため、インストール後に CMG を経由して登録される流れは本記事の検証範囲外です。実際のインターネット上のクライアントでの動作については、Microsoft Learn の [Microsoft Entra ID を使用してクライアントをインストールする] をご参照ください。</p>
+<h3 id="検証時のイントラネット経路の扱い"><a href="#検証時のイントラネット経路の扱い" class="headerlink" title="検証時のイントラネット経路の扱い"></a>検証時のイントラネット経路の扱い</h3><p>本検証では、インターネット上のクライアントを模擬するために、クライアントからイントラネットの管理ポイントおよび配布ポイントへ到達できない状態を作りました。この方法は動作確認のための一時的な措置です。実運用の環境で同様の設定を行わないでください。</p>
+<h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><h3 id="CMG-が使われたかどうかを判断する行"><a href="#CMG-が使われたかどうかを判断する行" class="headerlink" title="CMG が使われたかどうかを判断する行"></a>CMG が使われたかどうかを判断する行</h3><p>[ccmsetup.log] では、次の行から CMG が使用されたかどうかを判断できます。</p>
+<ul>
+<li>[Source List] の [MPs:] に CMG の URL が並んでいるか</li>
+<li>[Ignoring this MP] が記録されていないか</li>
+<li>[Found a valid online MP] で選択されたのが CMG の URL か</li>
+<li>[Using DP location] と [Adding file] の URL が CMG または Azure Storage を指しているか</li>
+</ul>
+<h3 id="ccmsetup-log-のセッション分割に注意する"><a href="#ccmsetup-log-のセッション分割に注意する" class="headerlink" title="ccmsetup.log のセッション分割に注意する"></a>ccmsetup.log のセッション分割に注意する</h3><p>[CCMSetup.exe] は、ブートストラップ プロセスとサービスの 2 つのセッションを記録します。また、ログが一定のサイズを超えると、ファイル名に日時が付いたファイルへローテーションされます。開始行から終了行までを 1 つの実行として、必要に応じてローテーション後のファイルもあわせて確認してください。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">==========[ ccmsetup started in process &lt;プロセス ID&gt; ]==========</span><br></pre></td></tr></table></figure>
+
+<h3 id="途中の失敗行だけで判断しない"><a href="#途中の失敗行だけで判断しない" class="headerlink" title="途中の失敗行だけで判断しない"></a>途中の失敗行だけで判断しない</h3><p>CMG 経由のインストールでは、クライアントの WMI 名前空間が未作成であることによる [Failed to connect to machine policy namespace. 0x8004100e] や、フォールバック ステータス ポイントが未構成であることによる状態メッセージの送信失敗など、処理の途中に失敗を示す行が記録されます。これらは後続の処理が成功していれば問題ではありません。最終的な [CcmSetup is exiting with return code] まで確認して判断してください。</p>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/deploy-clients-cmg-azure">Microsoft Entra ID を使用してクライアントをインストールする</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/deploy-clients-cmg-token">CMG のトークンベースの認証</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-installation-properties">クライアント インストールのプロパティについて</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-installation-properties#mp">CCMSetup.exe の &#x2F;mp パラメーター</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/manage/cmg/overview">クラウド管理ゲートウェイの概要</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/manage/cmg/configure-authentication">CMG のクライアント認証を構成する</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files#client-installation">Configuration Manager のログ ファイルについて</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20220328_01/">クラウド管理ゲートウェイ (CMG) の設計ポイントについて (1)</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20220401_01/">クラウド管理ゲートウェイ (CMG) の設計ポイントについて (2)</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20220501_01/">クラウド管理ゲートウェイ (CMG) の構築手順例</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260903_02/" data-id="cuidH4I687iyaNVifZPEJSDdP" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20260903_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          CCMSetup.exe によるクライアント インストールについての動作説明
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20260819_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="">CMG 経由でのクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_01/">エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_02/">エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_03/">return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">クライアント インストール</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/">クラウド管理ゲートウェイ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/09/">9月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">8月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
