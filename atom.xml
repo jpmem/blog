@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-09-18T06:51:32.162Z</updated>
+  <updated>2026-09-18T07:17:52.625Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -30,7 +30,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパ]]>
     </summary>
     <title>自動展開規則についての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,7 +51,7 @@
 <p>本記事では、Microsoft Configuration Manager の [CCMSetup.exe] を実行した後、インストール元の検索、必要]]>
     </summary>
     <title>CCMSetup.exe によるクライアント インストールについての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +72,7 @@
 <p>本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Co]]>
     </summary>
     <title>CMG 経由でのクライアント インストールについての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -93,7 +93,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -114,7 +114,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -135,7 +135,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [R]]>
     </summary>
     <title>return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -156,7 +156,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -177,7 +177,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -198,12 +198,14 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
     </summary>
     <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
+    <category term="Windows Server Update Services" scheme="https://jpmem.github.io/blog/categories/Windows-Server-Update-Services/"/>
+    <category term="操作手順" scheme="https://jpmem.github.io/blog/categories/Windows-Server-Update-Services/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/"/>
     <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
     <content>
@@ -217,7 +219,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-09-18T06:51:32.263Z</updated>
+    <updated>2026-09-18T07:17:52.742Z</updated>
   </entry>
   <entry>
     <author>
@@ -235,7 +237,7 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-09-18T06:51:32.162Z</updated>
+    <updated>2026-09-18T07:17:52.625Z</updated>
   </entry>
   <entry>
     <author>
@@ -255,7 +257,7 @@
 <li>2026&#x]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-09-18T06:51:32.263Z</updated>
+    <updated>2026-09-18T07:17:52.742Z</updated>
   </entry>
   <entry>
     <author>
@@ -276,7 +278,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-09-18T06:51:32.161Z</updated>
+    <updated>2026-09-18T07:17:52.624Z</updated>
   </entry>
   <entry>
     <author>
@@ -297,7 +299,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-09-18T06:51:32.160Z</updated>
+    <updated>2026-09-18T07:17:52.624Z</updated>
   </entry>
   <entry>
     <author>
@@ -314,7 +316,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.622Z</updated>
   </entry>
   <entry>
     <author>
@@ -331,7 +333,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.622Z</updated>
   </entry>
   <entry>
     <author>
@@ -351,7 +353,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.622Z</updated>
   </entry>
   <entry>
     <author>
@@ -369,7 +371,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.621Z</updated>
   </entry>
   <entry>
     <author>
@@ -390,7 +392,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.621Z</updated>
   </entry>
   <entry>
     <author>
@@ -410,6 +412,6 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-09-18T06:51:32.159Z</updated>
+    <updated>2026-09-18T07:17:52.621Z</updated>
   </entry>
 </feed>
