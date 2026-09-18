@@ -10,7 +10,28 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-09-03T04:39:48.649Z</updated>
+  <updated>2026-09-18T03:36:02.448Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/"/>
+    <category term="動作説明" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパティ フィルターとプレビュー機能、および規則の実行をサイト サーバーのログで確認する方法をご案内します。</p><p>本記事のログ抜粋は、Microsoft Defender Antivirus の定義更新プログラムを対象とした検証環境で取得しました。環境を特定できるサーバー名、共有パス、および識別子は、一貫したプレースホルダーへ置換しています。</p><p>配布ポイントへのコンテンツ転送、およびクライアントによる更新プログラムのスキャン、ダウンロード、インストールは、本記事の対象外です。</p><h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>自動展開規則は、概ね次の順序で処理されます。</p><ol><li>自動展開規則を作成し、フィルター規則とプレビュー結果を確認します。</li><li>設定した評価スケジュール、または管理者による手動操作を契機に規則を実行します。</li><li>サイト サーバーの [Rule Engine] がフィルター規則を評価し、対象のソフトウェア更新プログラムを特定します。</li><li>必要な更新プログラムのコンテンツを取得し、展開パッケージへ格納します。</li><li>評価結果に基づいてソフトウェア更新プログラム グループを作成または更新します。</li><li>対象コレクションへの展開を作成または更新し、規則の実行結果を記録します。</li></ol><h2 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h2><h3 id="自動展開規則の作成手順"><a href="#自動展開規則の作成手順" class="headerlink" title="自動展開規則の作成手順"></a>自動展開規則の作成手順</h3><p>自動展開規則を作成する前に、対象とするデバイス コレクションを準備します。新しい展開パッケージを使用する場合は、パッケージ ソースとして使用する共有フォルダーも準備します。</p><ol><li>[Configuration Manager コンソール] で [ソフトウェア ライブラリ] - [ソフトウェア更新プログラム] - [自動展開規則] を開き、[自動展開規則の作成] を選択します。</li><li>[全般] で規則名、対象コレクション、および使用するソフトウェア更新プログラム グループを指定します。</li><li>[展開設定] で展開の種類、Wake on LAN、状態メッセージ、および使用許諾契約の設定を指定します。</li><li>[ソフトウェア更新プログラム] で、展開対象を選ぶプロパティ フィルターを指定します。</li><li>[評価スケジュール] で、ソフトウェア更新ポイントの同期後、指定したスケジュール、または自動実行なしのいずれかを指定します。</li><li>[展開スケジュール] で使用可能時刻とインストール期限を指定します。</li><li>[ユーザー側の表示と操作]、[アラート]、および [ダウンロードの設定] を運用要件に合わせて指定します。</li><li>[展開パッケージ] で既存または新規の展開パッケージを指定します。新規作成する場合は、続けて配布ポイントを指定します。</li><li>[ダウンロード場所] と [言語の選択] を指定します。</li><li>[概要] で設定を確認し、ウィザードを完了します。</li></ol><p>[展開パッケージなし] を選択して作成した自動展開規則は、後から展開パッケージを使用する構成へ変更できません。また、1 回の自動展開規則で扱えるソフトウェア更新プログラムは最大 1,000 件です。フィルター規則は、対象が 1,000 件を超えないように設定してください。</p><p>各ページの詳細な画面例については、既存記事の <a href="https://jpmem.github.io/blog/mecm/20220706_01/">MECM 自動展開規則 ～使い方シリーズ～</a> もあわせて参照してください。</p><h3 id="フィルター規則とプレビュー機能"><a href="#フィルター規則とプレビュー機能" class="headerlink" title="フィルター規則とプレビュー機能"></a>フィルター規則とプレビュー機能</h3><p>[ソフトウェア更新プログラム] では、[製品]、[更新プログラムの分類]、[リリース日または変更日]、[必須]、[置き換え済み]、[タイトル] などを使用して、展開対象を絞り込みます。</p><p>次の例では、Microsoft Defender Antivirus の置き換えられていない定義更新プログラムを対象としています。</p><p><img src="/blog/mecm/20260916_01/20260916_01_01.png" alt="自動展開規則のプロパティ フィルター"></p><p>[プレビュー] を選択すると、サイト データベースに現在登録されているソフトウェア更新プログラムのうち、設定したフィルター規則に一致する項目を確認できます。次の検証環境では 21 件が表示されました。</p><p><img src="/blog/mecm/20260916_01/20260916_01_02.png" alt="フィルター規則に一致した更新プログラムのプレビュー"></p><p>意図しない製品、分類、アーキテクチャ、または古い更新プログラムが表示される場合は、規則を実行する前にフィルターを見直します。</p><p>[プレビュー] は、確認した時点で同期済みのメタデータに対する結果です。次回の同期で新しい更新プログラムが追加された場合や、既存の更新プログラムのメタデータが変更された場合は、その後の規則実行で異なる結果になることがあります。</p><p>初めて自動展開規則を作成する前に、ソフトウェア更新プログラムの同期を完了してください。同期前後で分類名などの表示が異なる場合、文字列に依存する条件が期待どおりに一致しない可能性があります。また、[タイトル] を使用する条件は、製品名や更新プログラムのタイトル変更による影響を受けるため、実行前に [プレビュー] で結果を確認してください。</p><h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table><thead><tr><th>ログ名</th><th>保存場所</th><th>主な用途</th></tr></thead><tbody><tr><td>[ruleengine.log]</td><td>サイト サーバーの ConfigMgr ログ フォルダー</td><td>自動展開規則による更新プログラムの識別、コンテンツのダウンロード、ソフトウェア更新プログラム グループおよび展開の作成を確認します。</td></tr><tr><td>[PatchDownloader.log]</td><td>自動展開規則を実行したサイト サーバー</td><td>更新プログラムごとのダウンロード元、進捗、信頼性とハッシュの検証、およびパッケージ ソースへの格納を確認します。</td></tr></tbody></table><p>サイト サーバー ログの既定の保存先は C:\Program Files\Microsoft Configuration Manager\Logs です。[PatchDownloader.log] は、サイト サーバーに ConfigMgr クライアントがインストールされている場合、既定では C:\Windows\CCM\Logs に保存されます。</p><h3 id="テスト規則の情報"><a href="#テスト規則の情報" class="headerlink" title="テスト規則の情報"></a>テスト規則の情報</h3><p>本記事では、次の規則を 2026 年 9 月 15 日に手動で実行したログを使用します。</p><table><thead><tr><th>項目</th><th>値</th></tr></thead><tbody><tr><td>自動展開規則名</td><td>Test</td></tr><tr><td>規則 ID</td><td>1</td></tr><tr><td>対象製品</td><td>Microsoft Defender Antivirus</td></tr><tr><td>更新プログラムの分類</td><td>Definition Updates</td></tr><tr><td>置き換え済み</td><td>いいえ</td></tr><tr><td>評価結果</td><td>21 件</td></tr><tr><td>展開パッケージ ID</td><td><PackageID></td></tr></tbody></table><p>ログがローテーションされると、1 回の実行が [ruleengine.lo_] と [ruleengine.log] に分かれる場合があります。本記事の例でも開始行は [ruleengine.lo_]、完了行は [ruleengine.log] に記録されています。規則名、規則 ID、実行時刻、およびスレッド ID を使用して、ローテーション前後のログを続けて確認します。</p><h3 id="ステップ-1-自動展開規則を作成してプレビューする"><a href="#ステップ-1-自動展開規則を作成してプレビューする" class="headerlink" title="ステップ 1 : 自動展開規則を作成してプレビューする"></a>ステップ 1 : 自動展開規則を作成してプレビューする</h3><p>前述の手順で規則を作成し、[プレビュー] で対象を確認します。この検証では [更新プログラムの分類]、[置き換え済み]、[製品] を指定し、プレビューに 21 件が表示されました。</p><p>プレビュー結果は実行前の確認に使用します。実際にどの更新プログラムが選ばれたかは、規則実行後の [ruleengine.log] と、作成または更新されたソフトウェア更新プログラム グループで確認します。</p><h3 id="ステップ-2-自動展開規則を実行する"><a href="#ステップ-2-自動展開規則を実行する" class="headerlink" title="ステップ 2 : 自動展開規則を実行する"></a>ステップ 2 : 自動展開規則を実行する</h3><p>自動展開規則は、[評価スケジュール] で指定した契機に実行されます。管理者が直ちに確認する場合は、[自動展開規則] で対象の規則を選択し、[今すぐ実行] を選択します。</p><p>[ruleengine.log] では、規則名と規則 ID を含む [Processing Rule] が記録されていることを確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CRuleHandler: Need to Process 1 rules</span><br><span class="line">CRuleHandler: Processing Rule with ID:1, Name:Test.</span><br></pre></td></tr></table></figure><p>複数の規則が同じ時間帯に実行される場合は、以降も規則 ID [1] と同じスレッド ID の行を追跡します。</p><h3 id="ステップ-3-フィルター規則を評価する"><a href="#ステップ-3-フィルター規則を評価する" class="headerlink" title="ステップ 3 : フィルター規則を評価する"></a>ステップ 3 : フィルター規則を評価する</h3><p>[Rule Engine] は規則に設定された条件を使用して、対象のソフトウェア更新プログラムを特定します。</p><p>今回のログでは、後続の処理で現在の評価結果が 21 件であることを確認できます。前回の評価結果は 19 件であったため、既存の展開が現在の評価結果と異なることも記録されています。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">21 of 21 updates are downloaded and will be added to the Deployment.</span><br><span class="line">Updates Count in Old Deployment (19) is different from Current Rule Evaluation (21). Deployment is not current.</span><br></pre></td></tr></table></figure><p>[プレビュー] の 21 件と現在の規則評価の 21 件が一致しています。ただし、常に一致することを保証するものではありません。プレビュー後に同期やメタデータの変更があった場合は、規則実行時点の評価結果を正としてください。</p><h3 id="ステップ-4-更新プログラムのコンテンツを取得する"><a href="#ステップ-4-更新プログラムのコンテンツを取得する" class="headerlink" title="ステップ 4 : 更新プログラムのコンテンツを取得する"></a>ステップ 4 : 更新プログラムのコンテンツを取得する</h3><p>[ruleengine.log] では、展開パッケージに存在するコンテンツはスキップされ、新たに必要なコンテンツは Content ID 単位でダウンロードされます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Contents &lt;ExistingContentID&gt; is already present in the package &quot;&lt;PackageID&gt;&quot;. Skipping download.</span><br><span class="line">Downloading content with ID 372436 in the package, srctype = 1</span><br><span class="line">Successfully downloaded the update content with ID 372436 from internet.</span><br></pre></td></tr></table></figure><p>Content ID [372436] の詳細は、同じ時刻の [PatchDownloader.log] で確認できます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Download destination = \\&lt;SiteServer&gt;\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt; .</span><br><span class="line">Contentsource = http://download.windowsupdate.com/.../&lt;FileName&gt; .</span><br><span class="line">Downloading content for ContentID = 372436, FileName = &lt;FileName&gt;.</span><br><span class="line">Download http://download.windowsupdate.com/.../&lt;FileName&gt; in progress: 95 percent complete</span><br><span class="line">Download http://download.windowsupdate.com/.../&lt;FileName&gt; to C:\Windows\TEMP\&lt;TemporaryFile&gt; returns 0</span><br><span class="line">Verifying file trust C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">File trust C:\Windows\TEMP\&lt;TemporaryFile&gt; verified:</span><br><span class="line">Verifying file hash C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">File hash verified: C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">Successfully moved C:\Windows\TEMP\&lt;TemporaryFile&gt; to \\&lt;SiteServer&gt;\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br></pre></td></tr></table></figure><p>[returns 0]、[File trust … verified]、[File hash verified]、および最後の [Successfully moved] を確認できれば、対象ファイルの取得、検証、およびパッケージ ソースへの格納まで完了しています。</p><p>コンテンツ取得の詳細と、配布ポイントへ配置されるまでの確認方法については、<a href="https://jpmem.github.io/blog/mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a> を参照してください。</p><h3 id="ステップ-5-ソフトウェア更新プログラム-グループを更新する"><a href="#ステップ-5-ソフトウェア更新プログラム-グループを更新する" class="headerlink" title="ステップ 5 : ソフトウェア更新プログラム グループを更新する"></a>ステップ 5 : ソフトウェア更新プログラム グループを更新する</h3><p>コンテンツの処理が完了すると、[ruleengine.log] にソフトウェア更新プログラム グループの処理が記録されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Updating package &quot;&lt;PackageID&gt;&quot; now...</span><br><span class="line">Download action completed for the AutoDeployment</span><br><span class="line">Creating Software Update Group for ADR</span><br><span class="line">21 of 21 updates are downloaded and will be added to the Deployment.</span><br></pre></td></tr></table></figure><p>既存のソフトウェア更新プログラム グループを使用する規則では、現在のフィルター規則に一致した更新プログラムでグループが更新されます。実行後に [ソフトウェア更新プログラム グループ] を開き、メンバーが意図した更新プログラムであることも確認してください。</p><h3 id="ステップ-6-展開を更新して規則を完了する"><a href="#ステップ-6-展開を更新して規則を完了する" class="headerlink" title="ステップ 6 : 展開を更新して規則を完了する"></a>ステップ 6 : 展開を更新して規則を完了する</h3><p>ソフトウェア更新プログラム グループの処理後、評価結果に含まれる更新プログラムが展開へ追加されます。ログが長くなるため、次の抜粋では途中を省略しています。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Associated Update Group ID found as: &lt;UpdateGroupID&gt;</span><br><span class="line">Associated Deployment ID found as: &lt;DeploymentID&gt;</span><br><span class="line">Added CI with CI_UniqueID=&lt;CIUniqueID&gt;, CI_ID=&lt;CIID&gt; to the deployment</span><br><span class="line">...</span><br><span class="line">CRuleHandler: Rule 1 Successfully Applied!</span><br><span class="line">Rule result is: 1</span><br><span class="line">Updated Success Information for Rule: 1</span><br></pre></td></tr></table></figure><p>[Rule 1 Successfully Applied!] と [Updated Success Information for Rule: 1] まで確認できれば、規則 ID [1] の処理は成功として記録されています。[Configuration Manager コンソール] でも、対象規則の [最終規則評価]、[最後のエラー コード]、および [最後のエラーの説明] を確認してください。</p><p>今回のログには、展開作成中に [Failed to load additional properties xml doc] も記録されていますが、その後に 21 件の追加、[Rule 1 Successfully Applied!]、および成功情報の更新まで続いています。エラーを示す語を含む 1 行だけで成否を判断せず、同じ規則 ID の最終結果まで確認してください。</p><p>規則の成功後も展開パッケージの配布、クライアント ポリシーの受信、および更新プログラムのインストールは別の処理として続きます。自動展開規則の成功は、クライアントへのインストール完了を意味しません。</p><h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><ul><li>最初に規則名と規則 ID を特定し、同じ実行時刻とスレッド ID の行を追跡します。</li><li>[プレビュー] の件数と [Current Rule Evaluation] の件数を比較します。</li><li>コンテンツ取得は [ruleengine.log] と [PatchDownloader.log] の Content ID および時刻で関連付けます。</li><li>[Skipping download] は、対象コンテンツが既に展開パッケージに存在するため、取得を省略したことを示します。</li><li>最終的な成否は、単独の警告または失敗行ではなく、同じ規則 ID の [Successfully Applied] と成功情報の更新まで確認して判断します。</li><li>規則実行後は、ソフトウェア更新プログラム グループのメンバー、展開先コレクション、および展開スケジュールが意図した設定であることをコンソールでも確認します。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/automatically-deploy-software-updates">ソフトウェア更新プログラムを自動的に展開する</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files">Configuration Manager のログ ファイル リファレンス</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/about-log-files">Configuration Manager のログ ファイルについて</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/download-software-updates">ソフトウェア更新プログラムのダウンロード</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li><li><a href="https://jpmem.github.io/blog/mecm/20220706_01/">MECM 自動展開規則 ～使い方シリーズ～</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260916_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260916_01/"/>
+    <published>2026-09-15T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパ]]>
+    </summary>
+    <title>自動展開規則についての動作説明</title>
+    <updated>2026-09-18T03:36:02.448Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -30,7 +51,7 @@
 <p>本記事では、Microsoft Configuration Manager の [CCMSetup.exe] を実行した後、インストール元の検索、必要]]>
     </summary>
     <title>CCMSetup.exe によるクライアント インストールについての動作説明</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.448Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,7 +72,7 @@
 <p>本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Co]]>
     </summary>
     <title>CMG 経由でのクライアント インストールについての動作説明</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.448Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +93,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.447Z</updated>
   </entry>
   <entry>
     <author>
@@ -93,7 +114,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.447Z</updated>
   </entry>
   <entry>
     <author>
@@ -114,7 +135,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [R]]>
     </summary>
     <title>return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.448Z</updated>
   </entry>
   <entry>
     <author>
@@ -135,7 +156,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.447Z</updated>
   </entry>
   <entry>
     <author>
@@ -156,7 +177,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.447Z</updated>
   </entry>
   <entry>
     <author>
@@ -177,7 +198,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
     </summary>
     <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.447Z</updated>
   </entry>
   <entry>
     <author>
@@ -196,7 +217,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-09-03T04:39:48.770Z</updated>
+    <updated>2026-09-18T03:36:02.558Z</updated>
   </entry>
   <entry>
     <author>
@@ -214,7 +235,7 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-09-03T04:39:48.649Z</updated>
+    <updated>2026-09-18T03:36:02.446Z</updated>
   </entry>
   <entry>
     <author>
@@ -234,7 +255,7 @@
 <li>2026&#x]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-09-03T04:39:48.770Z</updated>
+    <updated>2026-09-18T03:36:02.558Z</updated>
   </entry>
   <entry>
     <author>
@@ -253,7 +274,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-09-03T04:39:48.647Z</updated>
+    <updated>2026-09-18T03:36:02.446Z</updated>
   </entry>
   <entry>
     <author>
@@ -272,7 +293,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-09-03T04:39:48.647Z</updated>
+    <updated>2026-09-18T03:36:02.445Z</updated>
   </entry>
   <entry>
     <author>
@@ -289,7 +310,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-09-03T04:39:48.646Z</updated>
+    <updated>2026-09-18T03:36:02.444Z</updated>
   </entry>
   <entry>
     <author>
@@ -306,7 +327,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-09-03T04:39:48.646Z</updated>
+    <updated>2026-09-18T03:36:02.444Z</updated>
   </entry>
   <entry>
     <author>
@@ -323,7 +344,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-09-03T04:39:48.645Z</updated>
+    <updated>2026-09-18T03:36:02.444Z</updated>
   </entry>
   <entry>
     <author>
@@ -341,7 +362,7 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-09-03T04:39:48.645Z</updated>
+    <updated>2026-09-18T03:36:02.443Z</updated>
   </entry>
   <entry>
     <author>
@@ -359,7 +380,7 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。本日は、Windows 10 1607 の頃から導入されたデュアル スキャンについての解説と、2026 年 4 月現在の対処方法、および、現在の Configuration Manager]]>
     </summary>
     <title>Configuration Manager 管理クライアントにおける Windows Update クライアント ポリシーの取り扱い(デュアル スキャン関連)</title>
-    <updated>2026-09-03T04:39:48.644Z</updated>
+    <updated>2026-09-18T03:36:02.443Z</updated>
   </entry>
   <entry>
     <author>
@@ -376,23 +397,6 @@
       <![CDATA[<p>皆さま、こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) では、システムの運用監視のために複数のメッセージ種類が使用されています。ConfigMgr は 30 年以上の歴]]>
     </summary>
     <title>Configuration Manager における運用監視メッセージ</title>
-    <updated>2026-09-03T04:39:48.644Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、パフォーマンスへの影響も大きい部分となりますので、設定および運用設計の参考にしていただければと存じます。</p><h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>ConfigMgr の情報収集の全体的な流れは以下の通りです。ConfigMgr は定期的もしくは必要に応じて、管理ポイントに対して HTTP&#x2F;HTTPS 通信で情報をアップロードします。管理ポイントはその内容を自身の Outbox フォルダーに格納し、ファイル共有の仕組みを介して、定期的にサイト サーバーの Inbox フォルダーに移動します。サイト サーバーは Inbox フォルダーのファイルの存在を検知すると、その内容を解釈し、SQL 命令に変換してサイト データベース内の SQL Server に書き込みます。</p><p>管理ポイント、サイト サーバーには、1 クライアントにつき、情報の種類ごと、情報収集のタイミングごとに 1 つのファイルが生成されます。</p><p><img src="/blog/mecm/20260317_01/20260317_01_01.png" alt="Outline"></p><p>なお、Inbox と Outbox はサーバー間の通知処理でも使われます。</p><h2 id="フォルダーの場所"><a href="#フォルダーの場所" class="headerlink" title="フォルダーの場所"></a>フォルダーの場所</h2><p>サイト サーバーの Inbox フォルダーは ConfigMgr のインストール フォルダー配下です。</p><ul><li>[ConfigMgr インストール フォルダー]\inboxes</li></ul><p>管理ポイントの Outbox フォルダーは、以下の通りです。</p><ul><li>サイト サーバーと同居している場合:<ul><li>[ConfigMgr インストール フォルダー]\MP\outboxes</li></ul></li><li>サイト サーバーと別居している（リモート管理ポイント）場合:<ul><li>[ドライブルート]\SMS\MP\OUTBOXES</li></ul></li></ul><h2 id="情報収集の代表例"><a href="#情報収集の代表例" class="headerlink" title="情報収集の代表例"></a>情報収集の代表例</h2><p>上記仕組みを用いる代表例は以下の通りです。この他にもございます。</p><ul><li>クライアント登録</li><li>クライアント通知</li><li>探索情報</li><li>インベントリ <ul><li>ハードウェア</li><li>ソフトウェア</li></ul></li><li>ステータス メッセージ</li><li>状態メッセージ</li></ul><h2 id="モニタリングの方法"><a href="#モニタリングの方法" class="headerlink" title="モニタリングの方法"></a>モニタリングの方法</h2><p>ある時点での Inbox と Outbox に格納されているファイル個数を見ることで、処理に滞留が発生していないかを判断できます。</p><h3 id="ログからの確認"><a href="#ログからの確認" class="headerlink" title="ログからの確認"></a>ログからの確認</h3><ul><li>Inbox<ul><li>[ConfigMgr インストール フォルダー]\Logs\inboxmon.log <ul><li>15 分に 1 回、Inbox 内に存在するファイル個数が出力される</li></ul></li></ul></li><li>Outbox<ul><li>サイト サーバーと同居している場合:<ul><li>[ConfigMgr インストール フォルダー]\Logs\outboxmon.log</li></ul></li><li>サイト サーバーと別居している（リモート管理ポイント）場合:<ul><li>[ドライブルート]\SMS\logs\outboxmon.log</li></ul></li><li>15 分に 1 回、Outbox 内に存在するファイル個数が出力される</li></ul></li></ul><h2 id="パフォーマンスに与える影響"><a href="#パフォーマンスに与える影響" class="headerlink" title="パフォーマンスに与える影響"></a>パフォーマンスに与える影響</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">弊社サポートではサイジング、チューニングに関するお問い合わせに関しましては公開情報のご案内までとなります。お客様固有のワークロード、ユースケース、環境固有の条件等、種々の状況に合わせたお問い合わせに関してはご対応いたしませんので予めご容赦くださいますようお願いいたします。</span><br></pre></td></tr></table></figure><p>クライアントから収集する情報のサイズはそれほど大きくはありませんが、ConfigMgr は非常に多くのクライアントから情報収集を行うので、その処理負荷は非常に大きなものとなります。</p><h3 id="負荷を増大する要素"><a href="#負荷を増大する要素" class="headerlink" title="負荷を増大する要素"></a>負荷を増大する要素</h3><p>負荷を増大する要素は以下となります。</p><ul><li>データ収集サイズ</li><li>データ収集するクライアント台数</li><li>データ収集間隔</li></ul><h4 id="データ収集サイズ"><a href="#データ収集サイズ" class="headerlink" title="データ収集サイズ"></a>データ収集サイズ</h4><p>インベントリ系の情報収集の場合、設定によって収集する情報量が異なります。多くのシナリオで、アプリケーション情報やストアアプリ情報は大幅に情報量を増加させる傾向があります。</p><p>また、インベントリや状態メッセージは通常時は前回との差分転送が行われますが、ネットワーク遅延などで転送に失敗すると、次回の転送はフル転送となります。</p><h4 id="データ収集するクライアント台数"><a href="#データ収集するクライアント台数" class="headerlink" title="データ収集するクライアント台数"></a>データ収集するクライアント台数</h4><p>管理台数が多ければ多いほど、当然、収集されるデータ量も多くなります。</p><h4 id="データ収集間隔"><a href="#データ収集間隔" class="headerlink" title="データ収集間隔"></a>データ収集間隔</h4><p>データ収集間隔が短くなれば短くなるほど、負荷が増加します。<br>データ収集間隔の設定方法及び、デフォルト間隔は以下の通りです。</p><table><thead><tr><th align="right">#</th><th align="left">項目</th><th align="left">デフォルト間隔</th><th align="left">設定箇所</th></tr></thead><tbody><tr><td align="right">1</td><td align="left">探索情報</td><td align="left">7 日に 1 回</td><td align="left">[管理] - [階層の構成] - [探索方法] - [定期探索] - [プロパティ]</td></tr><tr><td align="right">2</td><td align="left">ハードウェア インベントリ</td><td align="left">7 日に 1 回</td><td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [ハードウェア インベントリ] - [ハードウェア インベントリのスケジュール]</td></tr><tr><td align="right">3</td><td align="left">ソフトウェア インベントリ</td><td align="left">7 日に 1 回</td><td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [ソフトウェア インベントリ] - [[ソフトウェア インベントリおよびファイル収集をスケジュールする]</td></tr><tr><td align="right">4</td><td align="left">状態メッセージ</td><td align="left">15 分に 1 回</td><td align="left">[管理] - [クライアント設定] - クライアント設定を選択 - [プロパティ] - [状態メッセージ] - [状態メッセージのレポート サイクル (分) ]</td></tr></tbody></table><h3 id="データ処理速度に影響を与える要素"><a href="#データ処理速度に影響を与える要素" class="headerlink" title="データ処理速度に影響を与える要素"></a>データ処理速度に影響を与える要素</h3><p>データ処理速度に影響を与える主な要素は以下となります。</p><ul><li>サイト サーバーのストレージ性能</li><li>サイト サーバー &#x2F; 管理ポイント間の通信遅延</li></ul><h4 id="サイト-サーバーのストレージ性能"><a href="#サイト-サーバーのストレージ性能" class="headerlink" title="サイト サーバーのストレージ性能"></a>サイト サーバーのストレージ性能</h4><p>以下のガイダンスに、クライアントの管理台数ごとに Inbox や SQL サーバーにおおよそ必要とされる IOPS 値が記載されています。<br>2026&#x2F;3&#x2F;17 時点で確認できる値を用いると、例えば、1 台のサーバーにプライマリ サイト サーバーとサイト データベースを同居させる環境の場合で、25,000 台以下の端末を管理させる場合、Inbox を配置する論理ドライブでは 600、データベース ファイルを配置する論理ドライブでは 1,700 の IOPS が必要とされます。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#general-sizing-guidelines">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#general-sizing-guidelines</a></p><p>この時、例えばハードウェア インベントリの収集間隔をデフォルトの 7 日に 1 回から、2 日に 1 回とした場合、<br>下記でもご案内の通り、約 3 倍強の管理台数、すなわち 75,000 台以上の端末を管理できる IOPS を目安に用意する必要があります。ガイダンスでは近い値として 100,000 台の端末を管理するときの IOPS がありますので、Inbox を配置する論理ドライブでは 1,200、データベース ファイルを配置する論理ドライブでは 5,000 の IOPS を目安とします。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#feature-intervals-settings">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/configs/site-size-performance-guidelines#feature-intervals-settings</a></p><h4 id="サイト-サーバー-管理ポイント間の通信遅延"><a href="#サイト-サーバー-管理ポイント間の通信遅延" class="headerlink" title="サイト サーバー &#x2F; 管理ポイント間の通信遅延"></a>サイト サーバー &#x2F; 管理ポイント間の通信遅延</h4><p>管理ポイントの Outbox からサイト サーバーの Inbox へのファイル転送は SMB が使われますが、通信遅延が大きい環境の場合、ファイル一つ一つが小さい分、ファイルを転送する通信よりもプロトコルのための通信の方が、通信時間の大部分を示すようになります。サイト サーバーと管理ポイントをネットワーク的に離れた場所に置くと、Outbox にファイルが滞留する、といった事象が発生しやすくなります。ネットワーク距離が遠い場所にはリモート管理ポイントではなく、サイト サーバーを置くことを検討ください。サイト サーバー間通信では、ファイル レプリケーションではなく、データベース レプリケーションでデータのやり取りが行われるため、通信遅延による影響を軽減できます。</p>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260317_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260317_01/"/>
-    <published>2026-03-16T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>皆さま、こんにちは。 Configuration Manager サポート チームです。 本日は、 Configuration Manager (ConfigMgr) におけるクライアントからの情報収集について、仕組みを解説します。多数のクライアントから情報収集を行うため、]]>
-    </summary>
-    <title>Configuration Manager におけるクライアントからの情報収集の仕組み</title>
-    <updated>2026-09-03T04:39:48.644Z</updated>
+    <updated>2026-09-18T03:36:02.443Z</updated>
   </entry>
 </feed>

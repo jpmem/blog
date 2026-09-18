@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>自動展開規則についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパティ フィルターとプレビュー機能、および規則の実行をサイト サーバーのログで確認する方法をご案内します。 本記事のログ抜粋は、Microso">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自動展開規則についての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260916_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパティ フィルターとプレビュー機能、および規則の実行をサイト サーバーのログで確認する方法をご案内します。 本記事のログ抜粋は、Microso">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260916_01/20260916_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20260916_01/20260916_01_02.png">
+<meta property="article:published_time" content="2026-09-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-18T03:36:02.448Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20260916_01/20260916_01_01.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260916_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-09-15T15:00:00.000Z" itemprop="datePublished">2026-09-16</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自動展開規則についての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-09-15T15:00:00.000Z" itemprop="datePublished">2026-09-16</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-09-15T15:00:00.000Z" itemprop="dateUpdated">2026-09-16</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="toc-text">設定方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E8%A6%8F%E5%89%87%E3%81%AE%E4%BD%9C%E6%88%90%E6%89%8B%E9%A0%86"><span class="toc-text">自動展開規則の作成手順</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%E8%A6%8F%E5%89%87%E3%81%A8%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E6%A9%9F%E8%83%BD"><span class="toc-text">フィルター規則とプレビュー機能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E8%A6%8F%E5%89%87%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">テスト規則の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E8%A6%8F%E5%89%87%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%A6%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : 自動展開規則を作成してプレビューする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E8%A6%8F%E5%89%87%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : 自動展開規則を実行する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%E8%A6%8F%E5%89%87%E3%82%92%E8%A9%95%E4%BE%A1%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 3 : フィルター規則を評価する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : 更新プログラムのコンテンツを取得する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0-%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 5 : ソフトウェア更新プログラム グループを更新する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E5%B1%95%E9%96%8B%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E3%81%A6%E8%A6%8F%E5%89%87%E3%82%92%E5%AE%8C%E4%BA%86%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 6 : 展開を更新して規則を完了する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E7%A2%BA%E8%AA%8D%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">ログ確認のポイント</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパティ フィルターとプレビュー機能、および規則の実行をサイト サーバーのログで確認する方法をご案内します。</p>
+<p>本記事のログ抜粋は、Microsoft Defender Antivirus の定義更新プログラムを対象とした検証環境で取得しました。環境を特定できるサーバー名、共有パス、および識別子は、一貫したプレースホルダーへ置換しています。</p>
+<p>配布ポイントへのコンテンツ転送、およびクライアントによる更新プログラムのスキャン、ダウンロード、インストールは、本記事の対象外です。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>自動展開規則は、概ね次の順序で処理されます。</p>
+<ol>
+<li>自動展開規則を作成し、フィルター規則とプレビュー結果を確認します。</li>
+<li>設定した評価スケジュール、または管理者による手動操作を契機に規則を実行します。</li>
+<li>サイト サーバーの [Rule Engine] がフィルター規則を評価し、対象のソフトウェア更新プログラムを特定します。</li>
+<li>必要な更新プログラムのコンテンツを取得し、展開パッケージへ格納します。</li>
+<li>評価結果に基づいてソフトウェア更新プログラム グループを作成または更新します。</li>
+<li>対象コレクションへの展開を作成または更新し、規則の実行結果を記録します。</li>
+</ol>
+<h2 id="設定方法"><a href="#設定方法" class="headerlink" title="設定方法"></a>設定方法</h2><h3 id="自動展開規則の作成手順"><a href="#自動展開規則の作成手順" class="headerlink" title="自動展開規則の作成手順"></a>自動展開規則の作成手順</h3><p>自動展開規則を作成する前に、対象とするデバイス コレクションを準備します。新しい展開パッケージを使用する場合は、パッケージ ソースとして使用する共有フォルダーも準備します。</p>
+<ol>
+<li>[Configuration Manager コンソール] で [ソフトウェア ライブラリ] - [ソフトウェア更新プログラム] - [自動展開規則] を開き、[自動展開規則の作成] を選択します。</li>
+<li>[全般] で規則名、対象コレクション、および使用するソフトウェア更新プログラム グループを指定します。</li>
+<li>[展開設定] で展開の種類、Wake on LAN、状態メッセージ、および使用許諾契約の設定を指定します。</li>
+<li>[ソフトウェア更新プログラム] で、展開対象を選ぶプロパティ フィルターを指定します。</li>
+<li>[評価スケジュール] で、ソフトウェア更新ポイントの同期後、指定したスケジュール、または自動実行なしのいずれかを指定します。</li>
+<li>[展開スケジュール] で使用可能時刻とインストール期限を指定します。</li>
+<li>[ユーザー側の表示と操作]、[アラート]、および [ダウンロードの設定] を運用要件に合わせて指定します。</li>
+<li>[展開パッケージ] で既存または新規の展開パッケージを指定します。新規作成する場合は、続けて配布ポイントを指定します。</li>
+<li>[ダウンロード場所] と [言語の選択] を指定します。</li>
+<li>[概要] で設定を確認し、ウィザードを完了します。</li>
+</ol>
+<p>[展開パッケージなし] を選択して作成した自動展開規則は、後から展開パッケージを使用する構成へ変更できません。また、1 回の自動展開規則で扱えるソフトウェア更新プログラムは最大 1,000 件です。フィルター規則は、対象が 1,000 件を超えないように設定してください。</p>
+<p>各ページの詳細な画面例については、既存記事の <a href="https://jpmem.github.io/blog/mecm/20220706_01/">MECM 自動展開規則 ～使い方シリーズ～</a> もあわせて参照してください。</p>
+<h3 id="フィルター規則とプレビュー機能"><a href="#フィルター規則とプレビュー機能" class="headerlink" title="フィルター規則とプレビュー機能"></a>フィルター規則とプレビュー機能</h3><p>[ソフトウェア更新プログラム] では、[製品]、[更新プログラムの分類]、[リリース日または変更日]、[必須]、[置き換え済み]、[タイトル] などを使用して、展開対象を絞り込みます。</p>
+<p>次の例では、Microsoft Defender Antivirus の置き換えられていない定義更新プログラムを対象としています。</p>
+<p><img src="/blog/mecm/20260916_01/20260916_01_01.png" alt="自動展開規則のプロパティ フィルター"></p>
+<p>[プレビュー] を選択すると、サイト データベースに現在登録されているソフトウェア更新プログラムのうち、設定したフィルター規則に一致する項目を確認できます。次の検証環境では 21 件が表示されました。</p>
+<p><img src="/blog/mecm/20260916_01/20260916_01_02.png" alt="フィルター規則に一致した更新プログラムのプレビュー"></p>
+<p>意図しない製品、分類、アーキテクチャ、または古い更新プログラムが表示される場合は、規則を実行する前にフィルターを見直します。</p>
+<p>[プレビュー] は、確認した時点で同期済みのメタデータに対する結果です。次回の同期で新しい更新プログラムが追加された場合や、既存の更新プログラムのメタデータが変更された場合は、その後の規則実行で異なる結果になることがあります。</p>
+<p>初めて自動展開規則を作成する前に、ソフトウェア更新プログラムの同期を完了してください。同期前後で分類名などの表示が異なる場合、文字列に依存する条件が期待どおりに一致しない可能性があります。また、[タイトル] を使用する条件は、製品名や更新プログラムのタイトル変更による影響を受けるため、実行前に [プレビュー] で結果を確認してください。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>保存場所</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[ruleengine.log]</td>
+<td>サイト サーバーの ConfigMgr ログ フォルダー</td>
+<td>自動展開規則による更新プログラムの識別、コンテンツのダウンロード、ソフトウェア更新プログラム グループおよび展開の作成を確認します。</td>
+</tr>
+<tr>
+<td>[PatchDownloader.log]</td>
+<td>自動展開規則を実行したサイト サーバー</td>
+<td>更新プログラムごとのダウンロード元、進捗、信頼性とハッシュの検証、およびパッケージ ソースへの格納を確認します。</td>
+</tr>
+</tbody></table>
+<p>サイト サーバー ログの既定の保存先は C:\Program Files\Microsoft Configuration Manager\Logs です。[PatchDownloader.log] は、サイト サーバーに ConfigMgr クライアントがインストールされている場合、既定では C:\Windows\CCM\Logs に保存されます。</p>
+<h3 id="テスト規則の情報"><a href="#テスト規則の情報" class="headerlink" title="テスト規則の情報"></a>テスト規則の情報</h3><p>本記事では、次の規則を 2026 年 9 月 15 日に手動で実行したログを使用します。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自動展開規則名</td>
+<td>Test</td>
+</tr>
+<tr>
+<td>規則 ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td>対象製品</td>
+<td>Microsoft Defender Antivirus</td>
+</tr>
+<tr>
+<td>更新プログラムの分類</td>
+<td>Definition Updates</td>
+</tr>
+<tr>
+<td>置き換え済み</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>評価結果</td>
+<td>21 件</td>
+</tr>
+<tr>
+<td>展開パッケージ ID</td>
+<td><PackageID></td>
+</tr>
+</tbody></table>
+<p>ログがローテーションされると、1 回の実行が [ruleengine.lo_] と [ruleengine.log] に分かれる場合があります。本記事の例でも開始行は [ruleengine.lo_]、完了行は [ruleengine.log] に記録されています。規則名、規則 ID、実行時刻、およびスレッド ID を使用して、ローテーション前後のログを続けて確認します。</p>
+<h3 id="ステップ-1-自動展開規則を作成してプレビューする"><a href="#ステップ-1-自動展開規則を作成してプレビューする" class="headerlink" title="ステップ 1 : 自動展開規則を作成してプレビューする"></a>ステップ 1 : 自動展開規則を作成してプレビューする</h3><p>前述の手順で規則を作成し、[プレビュー] で対象を確認します。この検証では [更新プログラムの分類]、[置き換え済み]、[製品] を指定し、プレビューに 21 件が表示されました。</p>
+<p>プレビュー結果は実行前の確認に使用します。実際にどの更新プログラムが選ばれたかは、規則実行後の [ruleengine.log] と、作成または更新されたソフトウェア更新プログラム グループで確認します。</p>
+<h3 id="ステップ-2-自動展開規則を実行する"><a href="#ステップ-2-自動展開規則を実行する" class="headerlink" title="ステップ 2 : 自動展開規則を実行する"></a>ステップ 2 : 自動展開規則を実行する</h3><p>自動展開規則は、[評価スケジュール] で指定した契機に実行されます。管理者が直ちに確認する場合は、[自動展開規則] で対象の規則を選択し、[今すぐ実行] を選択します。</p>
+<p>[ruleengine.log] では、規則名と規則 ID を含む [Processing Rule] が記録されていることを確認します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CRuleHandler: Need to Process 1 rules</span><br><span class="line">CRuleHandler: Processing Rule with ID:1, Name:Test.</span><br></pre></td></tr></table></figure>
+
+<p>複数の規則が同じ時間帯に実行される場合は、以降も規則 ID [1] と同じスレッド ID の行を追跡します。</p>
+<h3 id="ステップ-3-フィルター規則を評価する"><a href="#ステップ-3-フィルター規則を評価する" class="headerlink" title="ステップ 3 : フィルター規則を評価する"></a>ステップ 3 : フィルター規則を評価する</h3><p>[Rule Engine] は規則に設定された条件を使用して、対象のソフトウェア更新プログラムを特定します。</p>
+<p>今回のログでは、後続の処理で現在の評価結果が 21 件であることを確認できます。前回の評価結果は 19 件であったため、既存の展開が現在の評価結果と異なることも記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">21 of 21 updates are downloaded and will be added to the Deployment.</span><br><span class="line">Updates Count in Old Deployment (19) is different from Current Rule Evaluation (21). Deployment is not current.</span><br></pre></td></tr></table></figure>
+
+<p>[プレビュー] の 21 件と現在の規則評価の 21 件が一致しています。ただし、常に一致することを保証するものではありません。プレビュー後に同期やメタデータの変更があった場合は、規則実行時点の評価結果を正としてください。</p>
+<h3 id="ステップ-4-更新プログラムのコンテンツを取得する"><a href="#ステップ-4-更新プログラムのコンテンツを取得する" class="headerlink" title="ステップ 4 : 更新プログラムのコンテンツを取得する"></a>ステップ 4 : 更新プログラムのコンテンツを取得する</h3><p>[ruleengine.log] では、展開パッケージに存在するコンテンツはスキップされ、新たに必要なコンテンツは Content ID 単位でダウンロードされます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Contents &lt;ExistingContentID&gt; is already present in the package &quot;&lt;PackageID&gt;&quot;. Skipping download.</span><br><span class="line">Downloading content with ID 372436 in the package, srctype = 1</span><br><span class="line">Successfully downloaded the update content with ID 372436 from internet.</span><br></pre></td></tr></table></figure>
+
+<p>Content ID [372436] の詳細は、同じ時刻の [PatchDownloader.log] で確認できます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Download destination = \\&lt;SiteServer&gt;\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt; .</span><br><span class="line">Contentsource = http://download.windowsupdate.com/.../&lt;FileName&gt; .</span><br><span class="line">Downloading content for ContentID = 372436, FileName = &lt;FileName&gt;.</span><br><span class="line">Download http://download.windowsupdate.com/.../&lt;FileName&gt; in progress: 95 percent complete</span><br><span class="line">Download http://download.windowsupdate.com/.../&lt;FileName&gt; to C:\Windows\TEMP\&lt;TemporaryFile&gt; returns 0</span><br><span class="line">Verifying file trust C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">File trust C:\Windows\TEMP\&lt;TemporaryFile&gt; verified:</span><br><span class="line">Verifying file hash C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">File hash verified: C:\Windows\TEMP\&lt;TemporaryFile&gt;</span><br><span class="line">Successfully moved C:\Windows\TEMP\&lt;TemporaryFile&gt; to \\&lt;SiteServer&gt;\&lt;PackageSource&gt;\&lt;TemporaryFolder&gt;\&lt;FileName&gt;</span><br></pre></td></tr></table></figure>
+
+<p>[returns 0]、[File trust … verified]、[File hash verified]、および最後の [Successfully moved] を確認できれば、対象ファイルの取得、検証、およびパッケージ ソースへの格納まで完了しています。</p>
+<p>コンテンツ取得の詳細と、配布ポイントへ配置されるまでの確認方法については、<a href="https://jpmem.github.io/blog/mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a> を参照してください。</p>
+<h3 id="ステップ-5-ソフトウェア更新プログラム-グループを更新する"><a href="#ステップ-5-ソフトウェア更新プログラム-グループを更新する" class="headerlink" title="ステップ 5 : ソフトウェア更新プログラム グループを更新する"></a>ステップ 5 : ソフトウェア更新プログラム グループを更新する</h3><p>コンテンツの処理が完了すると、[ruleengine.log] にソフトウェア更新プログラム グループの処理が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Updating package &quot;&lt;PackageID&gt;&quot; now...</span><br><span class="line">Download action completed for the AutoDeployment</span><br><span class="line">Creating Software Update Group for ADR</span><br><span class="line">21 of 21 updates are downloaded and will be added to the Deployment.</span><br></pre></td></tr></table></figure>
+
+<p>既存のソフトウェア更新プログラム グループを使用する規則では、現在のフィルター規則に一致した更新プログラムでグループが更新されます。実行後に [ソフトウェア更新プログラム グループ] を開き、メンバーが意図した更新プログラムであることも確認してください。</p>
+<h3 id="ステップ-6-展開を更新して規則を完了する"><a href="#ステップ-6-展開を更新して規則を完了する" class="headerlink" title="ステップ 6 : 展開を更新して規則を完了する"></a>ステップ 6 : 展開を更新して規則を完了する</h3><p>ソフトウェア更新プログラム グループの処理後、評価結果に含まれる更新プログラムが展開へ追加されます。ログが長くなるため、次の抜粋では途中を省略しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Associated Update Group ID found as: &lt;UpdateGroupID&gt;</span><br><span class="line">Associated Deployment ID found as: &lt;DeploymentID&gt;</span><br><span class="line">Added CI with CI_UniqueID=&lt;CIUniqueID&gt;, CI_ID=&lt;CIID&gt; to the deployment</span><br><span class="line">...</span><br><span class="line">CRuleHandler: Rule 1 Successfully Applied!</span><br><span class="line">Rule result is: 1</span><br><span class="line">Updated Success Information for Rule: 1</span><br></pre></td></tr></table></figure>
+
+<p>[Rule 1 Successfully Applied!] と [Updated Success Information for Rule: 1] まで確認できれば、規則 ID [1] の処理は成功として記録されています。[Configuration Manager コンソール] でも、対象規則の [最終規則評価]、[最後のエラー コード]、および [最後のエラーの説明] を確認してください。</p>
+<p>今回のログには、展開作成中に [Failed to load additional properties xml doc] も記録されていますが、その後に 21 件の追加、[Rule 1 Successfully Applied!]、および成功情報の更新まで続いています。エラーを示す語を含む 1 行だけで成否を判断せず、同じ規則 ID の最終結果まで確認してください。</p>
+<p>規則の成功後も展開パッケージの配布、クライアント ポリシーの受信、および更新プログラムのインストールは別の処理として続きます。自動展開規則の成功は、クライアントへのインストール完了を意味しません。</p>
+<h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><ul>
+<li>最初に規則名と規則 ID を特定し、同じ実行時刻とスレッド ID の行を追跡します。</li>
+<li>[プレビュー] の件数と [Current Rule Evaluation] の件数を比較します。</li>
+<li>コンテンツ取得は [ruleengine.log] と [PatchDownloader.log] の Content ID および時刻で関連付けます。</li>
+<li>[Skipping download] は、対象コンテンツが既に展開パッケージに存在するため、取得を省略したことを示します。</li>
+<li>最終的な成否は、単独の警告または失敗行ではなく、同じ規則 ID の [Successfully Applied] と成功情報の更新まで確認して判断します。</li>
+<li>規則実行後は、ソフトウェア更新プログラム グループのメンバー、展開先コレクション、および展開スケジュールが意図した設定であることをコンソールでも確認します。</li>
+</ul>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/automatically-deploy-software-updates">ソフトウェア更新プログラムを自動的に展開する</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files">Configuration Manager のログ ファイル リファレンス</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/about-log-files">Configuration Manager のログ ファイルについて</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/deploy-use/download-software-updates">ソフトウェア更新プログラムのダウンロード</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/network/internet-endpoints#software-updates">Configuration Manager のインターネット アクセス要件 - ソフトウェア更新プログラム</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20220706_01/">MECM 自動展開規則 ～使い方シリーズ～</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20260812_03/">ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260916_01/" data-id="cuidy5mQR8qrlyyGQQXznKUpK" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260903_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">CCMSetup.exe によるクライアント インストールについての動作説明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">自動展開規則についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260903_02/">CMG 経由でのクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_01/">エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_02/">エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">クライアント インストール</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/">クラウド管理ゲートウェイ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/">ソフトウェア更新プログラム</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/09/">9月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">8月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
