@@ -10,27 +10,27 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-09-30T06:28:30.543Z</updated>
+  <updated>2026-09-30T06:35:35.228Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
     </author>
     <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
-    <category term="クライアント" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88/"/>
-    <category term="動作説明" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/"/>
+    <category term="クライアント管理" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/"/>
+    <category term="動作説明" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/"/>
     <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
     <content>
       <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を取得し、適用するまでの流れとログの確認方法をご案内します。<br>クライアントがサイクルを実行して管理ポイント [MP] へポリシー割り当てを要求し、割り当てとポリシー本体を受信して、Windows Management Instrumentation [WMI] へ格納し、評価と適用を完了するまでを対象とします。</p><p>サイト サーバー側でコンソール操作や展開設定の変更からポリシーを生成する処理、および [ユーザー ポリシー] の処理は、本記事の対象外です。</p><h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>コンピューター ポリシー処理は、概ね次の順序で進みます。</p><ol><li>[コンピューター ポリシーの取得および評価サイクル] を実行します。</li><li>管理ポイントへコンピューター ポリシー割り当てを要求します。</li><li>コンピューター ポリシー割り当て (完全または差分) を受信します。</li><li>ポリシー本体をダウンロードします。</li><li>ポリシーをコンパイルし、WMI の [RequestedConfig] 名前空間へ格納します。</li><li>設定を評価して適用し、各コンポーネントへ通知します。</li></ol><h2 id="検証環境について"><a href="#検証環境について" class="headerlink" title="検証環境について"></a>検証環境について</h2><p>本記事のログ抜粋は、検証環境のクライアント診断ログから採取したものです。掲載する識別子、コンピューター名、ドメイン名は、いずれも検証環境の値です。</p><table><thead><tr><th>項目</th><th>値</th></tr></thead><tbody><tr><td>対象クライアント</td><td>&lt;クライアント名&gt;</td></tr><tr><td>サイト コード</td><td>&lt;サイト コード&gt;</td></tr><tr><td>権限</td><td>SMS:&lt;サイト コード&gt;</td></tr><tr><td>管理ポイント</td><td>&lt;管理ポイント&gt;</td></tr></tbody></table><p>クライアントは、[コンピューター ポリシーの取得および評価サイクル] を一定間隔で自動実行します。この間隔は [クライアント設定] の [クライアント ポリシーのポーリング間隔] で構成し、既定値は 60 分です。</p><h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><p>クライアント ログの既定の保存先は C:\Windows\CCM\Logs です。</p><table><thead><tr><th>ログ名</th><th>主な用途</th></tr></thead><tbody><tr><td>PolicyAgent.log</td><td>コンピューター ポリシー割り当ての要求、受信、コンパイル、適用の全体を確認します。</td></tr><tr><td>CcmMessaging.log</td><td>管理ポイントとの HTTP または HTTPS 通信、およびポリシー要求メッセージのキュー処理を確認します。</td></tr><tr><td>DataTransferService.log</td><td>Background Intelligent Transfer Service [BITS] によるポリシー本体のダウンロードを確認します。</td></tr><tr><td>PolicyAgentProvider.log</td><td>受信したポリシーの WMI クラスおよびインスタンスへの反映を確認します。</td></tr><tr><td>PolicyEvaluator.log</td><td>クライアントでのポリシー評価と適用状況を確認します。</td></tr></tbody></table><h3 id="テスト検証の情報"><a href="#テスト検証の情報" class="headerlink" title="テスト検証の情報"></a>テスト検証の情報</h3><p>本記事では、次のマシン ポリシー割り当てを 1 件受信したサイクルを例に説明します。</p><table><thead><tr><th>項目</th><th>値</th></tr></thead><tbody><tr><td>クライアント ID</td><td><span style="background-color: #B6E3FF; color: #24292F; padding: 1px 3px;">&lt;クライアント ID&gt;</span></td></tr><tr><td>割り当て ID</td><td><span style="background-color: #FFE08A; color: #24292F; padding: 1px 3px;">&lt;割り当て ID&gt;</span></td></tr><tr><td>ポリシー ID</td><td><span style="background-color: #B7E4C7; color: #24292F; padding: 1px 3px;">&lt;ポリシー ID&gt;</span></td></tr></tbody></table><p>本記事のログ抜粋では、同じ ID の紐づきを視覚的に追跡できるよう、次の色で統一しています。</p><table><thead><tr><th>色</th><th>ID の種類</th><th>用途</th></tr></thead><tbody><tr><td><span style="background-color: #B6E3FF; color: #24292F; padding: 1px 12px;">青色</span></td><td>クライアント ID</td><td>クライアントを識別し、複数ログにまたがる処理を関連付けます。</td></tr><tr><td><span style="background-color: #FFE08A; color: #24292F; padding: 1px 12px;">黄色</span></td><td>割り当て ID</td><td>受信したポリシー割り当てとコンパイル処理を関連付けます。</td></tr><tr><td><span style="background-color: #B7E4C7; color: #24292F; padding: 1px 12px;">緑色</span></td><td>ポリシー ID</td><td>ポリシー本体、WMI への格納、適用を関連付けます。</td></tr></tbody></table><h3 id="ステップ-1-コンピューター-ポリシーの取得および評価サイクルを実行する"><a href="#ステップ-1-コンピューター-ポリシーの取得および評価サイクルを実行する" class="headerlink" title="ステップ 1 : コンピューター ポリシーの取得および評価サイクルを実行する"></a>ステップ 1 : コンピューター ポリシーの取得および評価サイクルを実行する</h3><p>クライアントは、次のいずれかの契機で [コンピューター ポリシーの取得および評価サイクル] を実行します。</p><ul><li>[クライアント ポリシーのポーリング間隔] に基づく定期実行 (既定で 60 分、ランダム遅延あり)</li><li>コンソールからの [クライアント通知] による [コンピューター ポリシーのダウンロード]</li><li>クライアントの [コントロール パネル] - [Configuration Manager] - [アクション] タブ - [コンピューター ポリシーの取得および評価サイクル] - [今すぐ実行]</li><li>管理者として実行した Windows PowerShell からのトリガー</li></ul><p>コマンドで実行する場合は、次のようにトリガー ID を指定します。トリガー ID <code>{00000000-0000-0000-0000-000000000021}</code> が [コンピューター ポリシーの取得および評価サイクル] です。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WmiMethod</span> <span class="literal">-Namespace</span> root\ccm <span class="literal">-Class</span> SMS_Client <span class="literal">-Name</span> TriggerSchedule <span class="literal">-ArgumentList</span> <span class="string">&quot;&#123;00000000-0000-0000-0000-000000000021&#125;&quot;</span></span><br></pre></td></tr></table></figure><p>サイクル自体の専用の成功メッセージはありません。実行された結果は、次のステップの [PolicyAgent.log] における割り当て要求として記録されます。</p><h3 id="ステップ-2-管理ポイントへマシン-ポリシー割り当てを要求する"><a href="#ステップ-2-管理ポイントへマシン-ポリシー割り当てを要求する" class="headerlink" title="ステップ 2 : 管理ポイントへマシン ポリシー割り当てを要求する"></a>ステップ 2 : 管理ポイントへマシン ポリシー割り当てを要求する</h3><p>サイクルが実行されると、クライアントは権限 (Authority) に対してマシン ポリシー割り当てを要求します。</p><pre>Requesting Machine policy assignments from authority 'SMS:<サイト コード>'</pre><p>要求メッセージは [CcmMessaging.log] のキュー処理を経て管理ポイントへ送信されます。ポリシー要求に関するキューには、次のものがあります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Initialized queue processor &#x27;PolicyAgent_RequestAssignments&#x27;. Enabled=true Concurrency=5</span><br><span class="line">Initialized queue processor &#x27;PolicyAgent_ReplyAssignments&#x27;. Enabled=true Concurrency=5</span><br><span class="line">Initialized queue processor &#x27;PolicyAgent_PolicyDownload&#x27;. Enabled=true Concurrency=5</span><br></pre></td></tr></table></figure><p>管理ポイントとの通信が成功すると、[CcmMessaging.log] に対象ホストへの <code>CCM_CcmHttp_Status</code> が <code>HRESULT = &quot;0x00000000&quot;</code> および <code>StatusCode = 0</code> で記録されます。</p><pre>instance of CCM_CcmHttp_Status{ClientID = "<span style="background-color: #B6E3FF; color: #24292F;"><クライアント ID></span>";HostName = "<管理ポイント>";HRESULT = "0x00000000";StatusCode = 0;};</pre><p><code>HRESULT</code> が <code>0x00000000</code> 以外の場合や、管理ポイントへのメッセージが配信されない場合は、名前解決、ファイアウォール、および管理ポイントの正常性を確認します。</p><h3 id="ステップ-3-コンピューター-ポリシー割り当てを受信する"><a href="#ステップ-3-コンピューター-ポリシー割り当てを受信する" class="headerlink" title="ステップ 3 : コンピューター ポリシー割り当てを受信する"></a>ステップ 3 : コンピューター ポリシー割り当てを受信する</h3><p>管理ポイントからの応答を受信すると、[PolicyAgent.log] に割り当ての受信が記録されます。<br>[The new cookie] は前回の取得以降の変更を管理するための情報で、これにより差分 (Delta) を判定します。</p><pre>Processing Machine assignments from 'SMS:<サイト コード>'. The new cookie is '2023-04-08 07:54:09.703'.Received Machine delta policy update with 1 assignments</pre><p><code>Received Machine delta policy update with 1 assignments</code> は、差分ポリシーとして 1 件の割り当てを受信したことを示します。初回取得や大きな変更時は、<code>Delta</code> ではなく完全 (Full) の応答となります。</p><p>前回から変更がない場合は、割り当てを受信せず、次のように記録されます。</p><pre>[Assignment Request] No new assignments for Machine <クライアント名></pre><h3 id="ステップ-4-ポリシー本体をダウンロードする"><a href="#ステップ-4-ポリシー本体をダウンロードする" class="headerlink" title="ステップ 4 : ポリシー本体をダウンロードする"></a>ステップ 4 : ポリシー本体をダウンロードする</h3><p>割り当てを受信すると、クライアントは各割り当てに対応するポリシー本体をコンパイルします。<br>[PolicyAgent.log] では、割り当て ID とポリシー ID を確認できます。</p><pre>Compiling policy assignment '<span style="background-color: #FFE08A; color: #24292F;"><割り当て ID></span>' (ver. 1.00) from 'SMS:<サイト コード>' (2023-04-08 07:54:09.703)Compiling policy '<span style="background-color: #B7E4C7; color: #24292F;"><ポリシー ID></span>' version '1.00' hash 'SHA256:1C2A94FF4F2D856E80F13B8D2F2DF9C17117AE7A4286B00DA0F6D9752AAA7D49' from 'SMS:<サイト コード>'Policy <span style="background-color: #B7E4C7; color: #24292F;"><ポリシー ID></span> version 1.00 hash SHA256:1C2A94FF... already exists on client[PolicyBodyDownload] Adding 1 policies to the queue.</pre><p><code>already exists on client</code> は、同一バージョンのポリシー本体をクライアントが既に保持しており、再ダウンロードが不要であることを示します。<br>クライアントがポリシー本体を保持していない場合は、[DataTransferService.log] に管理ポイントの [SMS_MP] からの .sms_pol のダウンロードが記録されます。ダウンロード先は C:\Windows\CCM\Staging です。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Added (source=.sms_pol?&#123;01000003&#125;-&#123;&lt;サイト コード&gt;&#125;.5_00,dest=&#123;01000003&#125;-&#123;&lt;サイト コード&gt;&#125;.5.00.tmp) pair from manifest.</span><br><span class="line">DataTransferService: DTSJob(&#123;304A1E69-CDD5-4069-BFEC-BCE5DEA2898E&#125;) - created to download from &#x27;http://&lt;管理ポイント&gt;:80/SMS_MP&#x27; to &#x27;C:\Windows\CCM\Staging&#x27;.</span><br><span class="line">DTSJob &#123;304A1E69-CDD5-4069-BFEC-BCE5DEA2898E&#125; in state &#x27;DownloadingData&#x27;.</span><br><span class="line">DTSJob(&#123;304A1E69-CDD5-4069-BFEC-BCE5DEA2898E&#125;): Job has completed: Status : SUCCESS, Start time : 03/28/2023 13:35:55, Completion time : 03/28/2023 13:35:57, Elapsed time : 1 seconds</span><br></pre></td></tr></table></figure><p><code>Status : SUCCESS</code> が、ポリシー本体のダウンロード成功を示します。<br>ダウンロードに失敗する場合は、次のように BITS のエラーと対象の .sms_pol が記録されます。次の例は、管理ポイントが一時的に過負荷 (HTTP status 503) となり、ダウンロードに失敗した状態です。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DTSJob(&#123;7DB9C752-E223-4ECE-95D0-4185189E32A9&#125;):CDTSJob::HandleDownloadError - BITS job &#123;228679BF-9CB0-4448-9EBD-6DFCA021CED9&#125; failed to download source file http://&lt;管理ポイント&gt;:80/SMS_MP/.sms_pol?%7B01000003%7D-%7B&lt;サイト コード&gt;%7D.5_00 to destination C:\Windows\CCM\Staging\&#123;01000003&#125;-&#123;&lt;サイト コード&gt;&#125;.5.00.tmp with error 0x801901F7</span><br></pre></td></tr></table></figure><h3 id="ステップ-5-ポリシーをコンパイルして-WMI-へ格納する"><a href="#ステップ-5-ポリシーをコンパイルして-WMI-へ格納する" class="headerlink" title="ステップ 5 : ポリシーをコンパイルして WMI へ格納する"></a>ステップ 5 : ポリシーをコンパイルして WMI へ格納する</h3><p>コンパイルしたポリシーは、WMI の [\.\ROOT\ccm\policy\Machine\RequestedConfig] 名前空間へ格納されます。<br>[PolicyAgent.log] では、対象ポリシー ID と反映先の名前空間を確認できます。</p><pre>Evaluating and applying policy 'CCM_Policy_Policy5.PolicyID="<span style="background-color: #B7E4C7; color: #24292F;"><ポリシー ID></span>",PolicyVersion="1.00",PolicySource="SMS:<サイト コード>"' to '\\.\ROOT\ccm\policy\Machine\RequestedConfig'Applying policy <span style="background-color: #B7E4C7; color: #24292F;"><ポリシー ID></span>[PolicyEval] Applied 1 policies successfully.</pre><p><code>[PolicyEval] Applied 1 policies successfully.</code> が、WMI への適用が成功したことを示します。<br>WMI 上のインスタンスの追加や変更は、[PolicyAgentProvider.log] に設定変更として記録されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--- Processing 1 settings change(s).</span><br><span class="line">--- [1] __InstanceCreationEvent settings change on object CCM_ClientActions.ActionID=&quot;&#123;00000000-0000-0000-0000-000000000101&#125;&quot;.</span><br><span class="line">--- Begin Indicating 1 settings change(s).</span><br><span class="line">--- Completed Indicating 1 settings change(s).</span><br></pre></td></tr></table></figure><p><code>__InstanceCreationEvent</code> は新規作成、<code>__InstanceModificationEvent</code> は変更を表し、<code>Completed Indicating</code> までが記録されていれば、当該変更の通知が完了しています。</p><h3 id="ステップ-6-設定を評価して適用し、各コンポーネントへ通知する"><a href="#ステップ-6-設定を評価して適用し、各コンポーネントへ通知する" class="headerlink" title="ステップ 6 : 設定を評価して適用し、各コンポーネントへ通知する"></a>ステップ 6 : 設定を評価して適用し、各コンポーネントへ通知する</h3><p>最後に、クライアントは [RequestedConfig] の内容を評価し、実際に適用する [ActualConfig] を更新します。<br>[PolicyAgent.log] または [PolicyEvaluator.log] で、次の一連の記録を確認できます。</p><pre>Updating settings for machine. Update flags 0x0Updating policy instances for user 'S-1-5-18'. Total RequestedConfig policy instance(s) : 793New/Changed ActualConfig policy instance(s) : 0[PolicyUpdate] Updated namespace '\\.\ROOT\ccm\policy\machine\requestedconfig' successfully</pre><p><code>Updating settings for machine</code> および <code>user &#39;S-1-5-18&#39;</code> は、マシン (Local System) を対象とした処理であることを示します。<br><code>New/Changed ActualConfig policy instance(s)</code> は、今回のサイクルで実際に変化した設定の数です。上記の例では <code>0</code> であり、受信した割り当ては既に適用済みで、実効的な変更がなかったことを示します。<br><code>[PolicyUpdate] Updated namespace &#39;...\machine\requestedconfig&#39; successfully</code> が、マシン ポリシーの評価と適用が正常に完了したことを示します。</p><p>[PolicyEvaluator.log] には、以降の定期的な評価が記録されます。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Evaluating policy in \\.\ROOT\ccm\policy\machine\requestedconfig</span><br><span class="line">Evaluated namespace &#x27;\\.\ROOT\ccm\policy\machine\requestedconfig&#x27; successfully, duration: 0 seconds</span><br></pre></td></tr></table></figure><h2 id="よく確認する失敗メッセージ"><a href="#よく確認する失敗メッセージ" class="headerlink" title="よく確認する失敗メッセージ"></a>よく確認する失敗メッセージ</h2><p>各ステップで処理が進まない場合は、次の記録を確認します。</p><ul><li>ステップ 2 - 3: [CcmMessaging.log] の <code>CCM_CcmHttp_Status</code> の <code>HRESULT</code> が <code>0x00000000</code> 以外である。管理ポイントとの通信、名前解決、ファイアウォールを確認します。</li><li>ステップ 4: [DataTransferService.log] に <code>CDTSJob::HandleDownloadError</code> と BITS のエラー コードが記録される。上記の <code>0x801901F7</code> は HTTP status 503 (管理ポイントの一時的な過負荷) を示します。管理ポイントおよび IIS の正常性を確認します。</li><li>ステップ 3: 常に <code>No new assignments</code> となり期待するポリシーを受信しない場合は、対象クライアントのコレクション所属、および展開や [クライアント設定] の対象範囲を確認します。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/manage/manage-clients#start-policy-retrieval">Configuration Manager クライアントを管理する方法 - ポリシー取得の開始</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/clients/deploy/about-client-settings#client-policy">Configuration Manager のクライアント設定 - クライアント ポリシー</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files#client-log-files">ログ ファイル リファレンス - クライアント ログ ファイル</a></li></ul>]]>
     </content>
-    <id>https://jpmem.github.io/blog/mecm/20260925_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260925_01/"/>
-    <published>2026-09-24T15:00:00.000Z</published>
+    <id>https://jpmem.github.io/blog/mecm/20260930_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260930_01/"/>
+    <published>2026-09-29T15:00:00.000Z</published>
     <summary>
       <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を]]>
     </summary>
-    <title>クライアントのマシン ポリシー処理についての動作説明</title>
-    <updated>2026-09-30T06:28:30.543Z</updated>
+    <title>クライアントのコンピューター ポリシー処理についての動作説明</title>
+    <updated>2026-09-30T06:35:35.228Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,7 +51,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) で、オペレーティング システム [OS] が導入さ]]>
     </summary>
     <title>PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明</title>
-    <updated>2026-09-30T06:28:30.543Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +72,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパ]]>
     </summary>
     <title>自動展開規則についての動作説明</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -93,7 +93,7 @@
 <p>本記事では、Microsoft Configuration Manager の [CCMSetup.exe] を実行した後、インストール元の検索、必要]]>
     </summary>
     <title>CCMSetup.exe によるクライアント インストールについての動作説明</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -114,7 +114,7 @@
 <p>本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Co]]>
     </summary>
     <title>CMG 経由でのクライアント インストールについての動作説明</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -135,7 +135,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -156,7 +156,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
     </summary>
     <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -177,7 +177,7 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [R]]>
     </summary>
     <title>return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -198,7 +198,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-09-30T06:28:30.541Z</updated>
+    <updated>2026-09-30T06:35:35.226Z</updated>
   </entry>
   <entry>
     <author>
@@ -219,7 +219,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
     </summary>
     <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-09-30T06:28:30.542Z</updated>
+    <updated>2026-09-30T06:35:35.227Z</updated>
   </entry>
   <entry>
     <author>
@@ -240,7 +240,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-09-30T06:28:30.541Z</updated>
+    <updated>2026-09-30T06:35:35.226Z</updated>
   </entry>
   <entry>
     <author>
@@ -261,7 +261,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-09-30T06:28:30.674Z</updated>
+    <updated>2026-09-30T06:35:35.308Z</updated>
   </entry>
   <entry>
     <author>
@@ -279,7 +279,7 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-09-30T06:28:30.541Z</updated>
+    <updated>2026-09-30T06:35:35.226Z</updated>
   </entry>
   <entry>
     <author>
@@ -299,7 +299,7 @@
 <li>2026&#x]]>
     </summary>
     <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-09-30T06:28:30.674Z</updated>
+    <updated>2026-09-30T06:35:35.308Z</updated>
   </entry>
   <entry>
     <author>
@@ -320,7 +320,7 @@
 <p>本日は、Configuration Manager (ConfigMgr) &#x2F; WSUS のメンテナンスにおいて、重要である不要な更新プロ]]>
     </summary>
     <title>Configuration Manager / WSUS で 更新プログラムの拒否を自動化する例</title>
-    <updated>2026-09-30T06:28:30.540Z</updated>
+    <updated>2026-09-30T06:35:35.225Z</updated>
   </entry>
   <entry>
     <author>
@@ -341,7 +341,7 @@
 <h2 id="WSUS-の自動承認の限界"><a href="#WSUS-の自動承認の限]]>
     </summary>
     <title>WSUS で Microsoft Edge の特定チャネル更新プログラムの承認を自動化する</title>
-    <updated>2026-09-30T06:28:30.540Z</updated>
+    <updated>2026-09-30T06:35:35.225Z</updated>
   </entry>
   <entry>
     <author>
@@ -358,7 +358,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;]]>
     </summary>
     <title>Configuration Manager での SQL Server / 互換性レベル サポートについて</title>
-    <updated>2026-09-30T06:28:30.539Z</updated>
+    <updated>2026-09-30T06:35:35.224Z</updated>
   </entry>
   <entry>
     <author>
@@ -375,7 +375,7 @@
       <![CDATA[<p>皆さま、こんにちは。<br>Configuration Manager サポート チームです。<br>記事執筆が遅れましたが、Fast ring release されていた Configuration Manager Current Branch 2603 が 5&#x2F]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 が Slow ringリリースされました</title>
-    <updated>2026-09-30T06:28:30.539Z</updated>
+    <updated>2026-09-30T06:35:35.224Z</updated>
   </entry>
   <entry>
     <author>
@@ -395,7 +395,7 @@
       <![CDATA[<p>こんにちは。Configuration Manager サポート チームです。<br>本記事では、オフライン環境でバージョン 2603 の Early update ring へオプトインする手順と、サービス接続ツールを用いた更新プログラムのインポート手順をご紹介します。<]]>
     </summary>
     <title>オフライン環境の ConfigMgr でバージョン 2603 の更新プログラムをインポートする手順</title>
-    <updated>2026-09-30T06:28:30.538Z</updated>
+    <updated>2026-09-30T06:35:35.224Z</updated>
   </entry>
   <entry>
     <author>
@@ -413,6 +413,6 @@
 <p>現在のブランチのバージョン 26]]>
     </summary>
     <title>Configuration Manager Current Branch 2603 がリリースされました。(Early update ring)</title>
-    <updated>2026-09-30T06:28:30.538Z</updated>
+    <updated>2026-09-30T06:35:35.224Z</updated>
   </entry>
 </feed>
