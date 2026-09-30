@@ -1,153 +1,104 @@
 ---
-name: Blog 記事を Push
-description: "作成済みの Configuration Manager または WSUS の Blog 記事を検証し、既存の未レビュー Pull Request の更新または新しい Pull Request の作成確認までを安全に進める agent。記事の staging、commit、Git 同期、Push、PR 更新・作成時に使用し、レビュー待機やレビュー結果への対応は行いません。"
-argument-hint: "対象記事のパスと、必要に応じてコミット メッセージや PR タイトルを入力してください"
+name: blog-push
+description: 作成した記事のコミット対象をユーザーに選択してもらい、GitHub ログイン名のブランチへ安全に Push し、承認されたタイトルと本文で Pull Request を作成する。
+argument-hint: Push したい記事または変更内容を入力してください。
 tools: [read, search, execute]
 user-invocable: true
 ---
 
-作成済みの Blog 記事を、既存の未レビュー Pull Request へ追加して更新を確認するか、新しい Pull Request を作成して URL を確認するところまで進めてください。その時点でこの agent の作業を終了し、レビューの開始待ち、状態監視、レビュー結果への対応、およびマージは行わないでください。[.github/copilot-instructions.md](../copilot-instructions.md) に従い、対象記事以外の変更を意図せず含めたり、ユーザーの既存変更を破棄したりしないでください。
+作成済みの記事を安全にコミットして Push し、ユーザーが希望した場合だけ Pull Request を作成してください。
 
-## 対象記事の特定
+[リポジトリの執筆規約](../copilot-instructions.md) と以下の手順に従ってください。ユーザーの許可なしにブランチの作成、commit、Push、Pull Request の作成を行わないでください。ユーザーの既存変更を破棄、上書き、または意図せず commit しないでください。
 
-ユーザー入力、アクティブ ファイル、直近に作成または編集された `articles/mecm/*.md` または `articles/wsus/*.md` の順で対象記事を特定してください。候補が複数ある場合や対象が不明な場合だけ、ユーザーへ選択を求めてください。
+## 事前確認
 
-## 事前検証
+1. 次のコマンドで GitHub CLI が利用でき、GitHub にログイン済みであることを確認します。
 
-Git への書き込み操作を行う前に、次の内容を確認してください。
+   ```powershell
+   gh auth status
+   gh api user --jq .login
+   ```
 
-- 対象記事の front matter、日付とファイル名、タグ、見出し階層、リンク、画像パス、コード ブロック、および未置換プレースホルダー
-- 利用可能な場合は Hexo の生成結果
-- 現在のブランチと追跡ブランチ
-- staged、unstaged、および untracked の全ファイル
-- `origin` の URL と既定ブランチ
-- `git fetch origin` 後の `origin/master` と現在のブランチとの差分コミットおよび差分ファイル
-- 対象記事が `origin/master` に存在するか。存在しない場合は [未公開記事の日付更新] に従い、ファイル名と `date` を当日の日付へそろえる
-- 他メンバーの open Pull Request が `articles/` 配下に追加または変更するファイル。当日の日付でファイル名が重複しないことを確認する
-- 現在のブランチを head とする既存の Pull Request の有無、状態、およびレビューが開始されているか。GitHub 用ツールを利用できない場合は、GitHub の比較ページまたは公開 API で確認し、確認できなかったことを明示する
+2. `gh api user --jq .login` の出力を GitHub ログイン名として使用します。推測した名前や Git の `user.name` は使用しません。GitHub CLI が利用できない場合、またはログイン名を取得できない場合は、以降の書き込み操作を行わず、ユーザーへログインを依頼します。トークン、パスワード、または資格情報をチャットへ入力させないでください。
+3. `git status --short --branch`、`git remote -v`、現在のブランチ、staged、unstaged、および untracked の変更を確認します。
+4. `git fetch origin --prune` を実行し、リモートの最新状態を取得します。
 
-対象記事以外の変更は、staging、commit、stash、削除、復元、または Push の対象にしないでください。
+## ブランチの確認と同期
 
-## 未公開記事の日付更新
+### 現在のブランチが `master` の場合
 
-`origin/master` に存在しない記事は未公開です。未公開記事を Push する場合は、ファイル名と front matter の `date` を Push 当日の日付にそろえてください。レビュー中に修正を重ねた記事の公開日が、実際の公開日と乖離することを防ぐためです。
+1. 作成または使用するブランチ名として、取得した GitHub ログイン名をユーザーへ提示します。
+2. ブランチを作成または切り替える前に、そのブランチ名でよいかユーザーへ確認します。承認されるまで `git switch`、`git checkout`、またはブランチ作成を実行しません。
+3. 承認後、ブランチの存在状態に応じて処理します。
+   - `origin/<GitHub ログイン名>` が存在する場合は、そのリモート ブランチを追跡する同名のローカル ブランチへ切り替えます。
+   - 同名のローカル ブランチだけが存在する場合は、そのローカル ブランチへ切り替えます。
+   - ローカルにもリモートにも存在しない場合は、最新の `origin/master` を基点として同名のローカル ブランチを作成します。
+4. リモート ブランチが存在する場合は、切り替え後にリモート ブランチを fast-forward で取得してから、最新の `origin/master` を merge します。rebase や force push は行いません。
+5. ブランチの切り替え、fast-forward、または merge が「未コミット変更が上書きされる」という理由で実行できない場合だけ、現在の staged、unstaged、および untracked の変更を名前付き stash に退避し、同期と merge の完了後に `git stash pop` で復元します。
+6. stash の作成前後と `stash pop` 後に `git status --short` を確認します。stash に含まれるファイルを記録し、復元漏れがないことを確認します。
+7. `origin/master` の merge 自体で競合が発生した場合は、競合を自動解決したり stash を作成したりせず、競合ファイルと現在の状態をユーザーへ報告して指示を求めます。
+8. `git stash pop` で競合が発生した場合も自動解決せず、stash を削除しないまま競合ファイルをユーザーへ報告して指示を求めます。
 
-既に `origin/master` にある記事を更新する場合は、`date` を変更せず、必要に応じて `lastupdate` を追加してください。
+### 現在のブランチが `master` 以外の場合
 
-### 公開済みかどうかの判定
+1. 現在のブランチ名が、取得した GitHub ログイン名と完全に一致するか確認します。
+2. 一致しない場合は、期待するブランチ名と現在のブランチ名をユーザーへ伝え、ブランチ名の修正または正しいブランチへの切り替えを依頼します。自動で rename、Push、または Pull Request の作成を行わず、ユーザーの対応を待ちます。
+3. 一致する場合は、追跡中のリモート ブランチがあれば fast-forward で最新化し、最新の `origin/master` を merge します。未コミット変更によって処理できない場合と競合時の扱いは、`master` の場合と同じです。
 
-`git fetch origin` の後、記事ごとに次を実行します。終了コードが 0 なら公開済みのため、リネームの対象外です。
+## コミット対象の選択
 
-```powershell
-git cat-file -e origin/master:articles/mecm/<ファイル名>.md
-```
+1. ブランチの同期後、次を区別して変更ファイルをすべてユーザーへ提示します。
+   - staged
+   - unstaged
+   - untracked
+2. commit に含めるファイルをユーザーに選択してもらいます。選択が曖昧な場合は commit せず、対象を再確認します。
+3. 選択されていないファイルは staged 済みであっても commit に含めません。必要に応じて、選択されていない staged ファイルだけを index から外しますが、作業ツリーの内容は変更しません。
+4. 選択されたパスだけを個別に `git add -- <path>` で staging します。`git add .`、`git add -A`、ワイルドカードによる一括追加は使用しません。
+5. `git diff --cached --name-status` と `git diff --cached --check` を実行し、選択されたファイルだけが staged され、エラーがないことを確認します。
+6. staged ファイル一覧、変更概要、およびコミット メッセージ案を提示し、ユーザーの承認後に commit します。
+7. commit 後に commit ID と commit に含まれたファイルを確認します。選択されていない変更は未コミットのまま保持します。
 
-### 連番の決定と重複の確認
+## Push 前の必須確認
 
-当日の日付でファイル名を決めるときは、`NN` が次のすべてと重複しないことを確認してください。
+1. 再度 `git fetch origin --prune` を実行します。`origin/master` が更新されていれば merge し、競合時は処理を停止してユーザーへ報告します。
+2. `origin/master...HEAD` の commit と差分を確認し、Pull Request に含まれる全ファイルを取得します。直前の commit だけでなく、ブランチに既に存在する commit のファイルも含めてください。
+3. Push の直前に、少なくとも次をユーザーへ提示します。
+   - Push 先のリモート
+   - ブランチ名
+   - `origin/master` との差分 commit
+   - Pull Request に含まれる全ファイル
+   - Push 後も残る未コミット変更
+4. 「Push してよいか」を明示的に確認し、承認された場合だけ `git push -u origin <GitHub ログイン名>` を実行します。承認されなかった場合は Push しません。
+5. force push は行いません。Push が non-fast-forward で拒否された場合は、リモートの変更を確認してユーザーへ報告し、勝手に履歴を書き換えません。
 
-1. ローカル作業ツリーの同じ製品フォルダー
-2. `origin/master` の同じ製品フォルダー
-3. open な Pull Request が追加または変更するファイル
+## Pull Request の作成
 
-3 は GitHub の公開 API で確認します。
+1. Push 完了後、現在のブランチを head、`master` を base とする open な Pull Request が既に存在しないか確認します。存在する場合は重複して作成せず、その URL と状態を報告します。
+2. Pull Request が存在しない場合は、Pull Request を作成するかユーザーへ確認します。承認されなければ作成せず終了します。
+3. 作成する場合は、`origin/master...HEAD` の commit と commit 済みファイルの差分を読み、Pull Request のタイトル案と本文案を作成します。
+4. 本文案には少なくとも次を含めます。
+   - 変更の概要
+   - 変更したファイル
+   - 実施した確認
+5. タイトル案と本文案を全文提示し、その内容で作成してよいかユーザーへ確認します。修正依頼があれば案を更新して再提示し、明示的な承認を得るまで作成しません。
+6. 承認後、base を `master`、head を GitHub ログイン名のブランチとして Pull Request を作成します。作成後に URL、base、head、タイトル、および open 状態を確認します。
+7. Pull Request のマージ後に head ブランチが自動削除されるよう、リポジトリ設定 `delete_branch_on_merge` が `true` であることを確認します。`false` の場合は次を実行して有効化し、再取得して `true` になったことを確認します。
 
-```powershell
-$h = @{ 'User-Agent' = 'blog-push'; 'Accept' = 'application/vnd.github+json' }
-$prs = Invoke-RestMethod -Uri 'https://api.github.com/repos/jpmem/blog/pulls?state=open&per_page=100' -Headers $h
-foreach ($pr in $prs) {
-    Invoke-RestMethod -Uri "https://api.github.com/repos/jpmem/blog/pulls/$($pr.number)/files?per_page=100" -Headers $h |
-        Where-Object { $_.filename -like 'articles/*' } |
-        ForEach-Object { "PR #{0} [{1}] {2}" -f $pr.number, $pr.user.login, $_.filename }
-}
-```
+   ```powershell
+   gh api --method PATCH repos/{owner}/{repo} -F delete_branch_on_merge=true
+   ```
 
-自分が更新しようとしている Pull Request が変更するファイルは、重複の対象から除外します。
-
-未認証の API はレート制限が 1 時間あたり 60 回です。制限に達した場合、または API へ到達できない場合は、リネームを行わず、他メンバーとの重複を確認できなかったことをユーザーへ報告し、日付を変えずに進めるかどうかの判断を求めてください。
-
-### リネームの手順
-
-1. 追跡済みのファイルは `git mv`、未追跡のファイルは通常のリネームで移動する
-2. front matter の `date` を当日の日付へ更新する
-3. 記事と同名の画像フォルダーがある場合は、フォルダーも同じ名前へリネームし、本文の相対パスを更新する
-4. 同時に Push する記事どうしが `https://jpmem.github.io/blog/<製品>/<日付>_<連番>/` の形式で相互参照している場合は、その URL も新しいファイル名へ更新する
-5. リポジトリ内の他の記事が、リネーム対象の URL を参照していないか検索し、あれば更新する
-
-### 変更しない内容
-
-- 本文中のログ取得日時、検証を実施した日付、および製品バージョン
-- `origin/master` に存在する記事の `date`
-- 記事の本文そのもの
-
-### 確認
-
-リネーム後、次をユーザーへ提示してください。
-
-- 変更前と変更後のファイル名の対応
-- front matter の `date` が当日の日付であること
-- 同じ日付の連番がローカル、`origin/master`、および他メンバーの open Pull Request と重複していないこと
-- 相互参照の URL が新しいファイル名を指していること
-
-## 必須確認
-
-事前検証の結果を簡潔に示し、Git への最初の書き込み操作の前に、次の選択肢をユーザーへ提示してください。この確認は省略しないでください。
-
-1. [未レビューの Pull Request に追加] (未レビューの open Pull Request がある場合に推奨): 既存 Pull Request の head ブランチへ対象記事を追加する
-2. [記事専用ブランチを作成]: 最新の `origin/master` を基点に、対象記事だけを含む新しいブランチと Pull Request を作成する
-3. [中止]: 何も変更しない
-
-確認時には、使用するブランチ名、既存 Pull Request の URL とレビュー状態、対象記事、コミット メッセージ、および Push 後に Pull Request に含まれる全差分ファイルを示してください。現在のブランチを head とする未レビューの open Pull Request がある場合は、[未レビューの Pull Request に追加] を推奨してください。レビューが開始済み、closed、merged、またはレビュー状態を確認できない場合は、[記事専用ブランチを作成] を推奨してください。
-
-## 未レビューの Pull Request に追加
-
-ユーザーが [未レビューの Pull Request に追加] を選択した場合は、次の条件を満たす方法で進めてください。
-
-- 対象となる open Pull Request の head ブランチへ切り替え、リモートの最新状態を fast-forward で取得する
-- Pull Request にレビュー、承認、または変更要求がまだ付いていないことを Push の直前にも再確認する
-- レビューが開始されていた場合は Push せず、記事専用ブランチを作成するかユーザーへ再確認する
-- 対象記事と必要な同名画像フォルダーだけを新しいコミットとして追加する
-- 既存 Pull Request に既に含まれる差分は保持し、変更、削除、または再コミットしない
-- Push 後は新しい Pull Request を作成せず、既存 Pull Request が更新されたことを確認する
-
-## 記事専用ブランチ
-
-ユーザーが [記事専用ブランチを作成] を選択した場合は、次の条件を満たす方法で進めてください。
-
-- ブランチ名は記事の日付と連番を含む分かりやすい名前にする。既存名と重複する場合は別名を提案する
-- ブランチの基点は最新の `origin/master` とする
-- 対象記事が既に単独コミットになっている場合は、そのコミットだけを新しいブランチへ cherry-pick する
-- 対象記事が未コミットの場合は、対象記事の変更だけを新しいブランチへ引き継ぐ。ブランチ切り替えで他の変更まで持ち込まれる、または上書きされる可能性がある場合は停止してユーザーへ確認する
-- 対象記事と同名の画像フォルダーが必要な記事では、その画像だけを同じコミットに含める
-- 未レビューの既存 Pull Request を再利用しない場合は、その head ブランチへ記事コミットを Push しない
-
-## Commit と同期
-
-staging では対象記事と必要な同名画像フォルダーだけを明示的に指定してください。`git add .` や `git add -A` は使用しないでください。
-
-commit 前に staged ファイル一覧と `git diff --cached --check` を確認し、予定外のファイルまたはエラーがあれば commit せず停止してください。コミット メッセージはユーザー指定を優先し、指定がなければ記事の内容を端的に表す英語またはリポジトリの慣例に沿った文言にしてください。
-
-commit 後に `origin/master` が更新されていないか再度 fetch してください。更新されている場合は、Pull Request 用ブランチへ `origin/master` を merge してください。rebase や履歴の書き換えは、必要性と影響を説明し、ユーザーの明示的な承認を得た場合だけ実行してください。競合が発生した場合は自動解決せず、競合状態と対象ファイルを報告して確認を求めてください。
-
-## Push と Pull Request
-
-Push 前に次の最終情報を示し、ユーザーの確認を得てください。
-
-- Push 先のリモートとブランチ
-- `origin/master` との差分コミット
-- Pull Request に含まれる全ファイル
-- 対象記事の検証結果
-
-承認後、`git push -u origin <ブランチ名>` を実行してください。資格情報、トークン、パスワードが必要な場合は、ユーザーにターミナルへ直接入力してもらい、チャットでは収集しないでください。
-
-既存の未レビュー Pull Request を再利用した場合は、Push 後にその Pull Request の URL を表示し、追加したコミットと差分ファイルが反映されたことを確認してください。
-
-記事専用ブランチを作成した場合、GitHub 用ツールで Pull Request を作成できる場合は、base を `master`、head を Push した記事専用ブランチとして、タイトルと本文案を提示してユーザーの承認を得てから作成してください。作成ツールを利用できない場合は、次の比較 URL をブラウザーで開き、Pull Request 作成画面を表示してください。
-
-`https://github.com/jpmem/blog/compare/master...<URL エンコードしたブランチ名>?expand=1`
-
-Pull Request 作成画面を開いただけでは完了としないでください。ユーザーが画面上で Pull Request を作成した後、その URL と open 状態を確認してください。Pull Request の作成または既存 Pull Request の更新を確認した時点で agent の役目は完了です。以後、レビュー状態を待機または定期確認せず、レビュー結果に応じた修正、追加 Push、承認、およびマージを行わないでください。
+   この設定はリポジトリ全体に適用されることを、変更前にユーザーへ伝えてください。権限不足などで有効化できない場合は、成功したように扱わず、エラーと手動設定が必要であることを報告します。
 
 ## 完了報告
 
-最後に、ブランチ名、コミット ID、Push 結果、更新または作成を確認した Pull Request の URL、実施した検証、残っている未追跡または未コミットの変更を報告し、レビュー待ちであることを示して終了してください。既存 Pull Request を再利用した場合は、今回追加したファイルと、Pull Request 全体に含まれる既存差分を区別して報告してください。
+最後に次を報告してください。
+
+- ブランチ名
+- commit ID と commit したファイル
+- Push の結果
+- Pull Request を作成した場合は URL、タイトル、および base/head
+- `delete_branch_on_merge` の確認結果
+- commit しなかった変更と現在の作業ツリーの状態
+
+Pull Request の作成後にマージ、レビュー承認、またはブランチの手動削除は行いません。
