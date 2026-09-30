@@ -15,7 +15,7 @@
 <meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を取得し、適用するまでの流れとログの確認方法をご案内します。クライアントがサイクルを実行して管理ポイント [MP] へポリシー割り当てを要求し">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2026-09-29T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-09-30T06:43:28.877Z">
+<meta property="article:modified_time" content="2026-09-30T06:51:35.128Z">
 <meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
 <meta property="article:tag" content="MECM">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
         
           <details class="article-toc" open>
             <summary class="article-toc-title">この記事の内容</summary>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A4%9C%E8%A8%BC%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">検証環境について</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E6%A4%9C%E8%A8%BC%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">テスト検証の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E5%8F%96%E5%BE%97%E3%81%8A%E3%82%88%E3%81%B3%E8%A9%95%E4%BE%A1%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : コンピューター ポリシーの取得および評価サイクルを実行する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%B8%E3%83%9E%E3%82%B7%E3%83%B3-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%92%E8%A6%81%E6%B1%82%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : 管理ポイントへマシン ポリシー割り当てを要求する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%92%E5%8F%97%E4%BF%A1%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 3 : コンピューター ポリシー割り当てを受信する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E6%9C%AC%E4%BD%93%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : ポリシー本体をダウンロードする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%82%92%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%97%E3%81%A6-WMI-%E3%81%B8%E6%A0%BC%E7%B4%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 5 : ポリシーをコンパイルして WMI へ格納する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A9%95%E4%BE%A1%E3%81%97%E3%81%A6%E9%81%A9%E7%94%A8%E3%81%97%E3%80%81%E5%90%84%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%B8%E9%80%9A%E7%9F%A5%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 6 : 設定を評価して適用し、各コンポーネントへ通知する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%88%E3%81%8F%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E5%A4%B1%E6%95%97%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8"><span class="toc-text">よく確認する失敗メッセージ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A4%9C%E8%A8%BC%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">検証環境について</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E6%A4%9C%E8%A8%BC%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">テスト検証の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E5%8F%96%E5%BE%97%E3%81%8A%E3%82%88%E3%81%B3%E8%A9%95%E4%BE%A1%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : コンピューター ポリシーの取得および評価サイクルを実行する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E7%AE%A1%E7%90%86%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%B8%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%92%E8%A6%81%E6%B1%82%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : 管理ポイントへコンピューター ポリシー割り当てを要求する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%92%E5%8F%97%E4%BF%A1%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 3 : コンピューター ポリシー割り当てを受信する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E6%9C%AC%E4%BD%93%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : ポリシー本体をダウンロードする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%82%92%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%97%E3%81%A6-WMI-%E3%81%B8%E6%A0%BC%E7%B4%8D%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 5 : ポリシーをコンパイルして WMI へ格納する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A9%95%E4%BE%A1%E3%81%97%E3%81%A6%E9%81%A9%E7%94%A8%E3%81%97%E3%80%81%E5%90%84%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%B8%E9%80%9A%E7%9F%A5%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 6 : 設定を評価して適用し、各コンポーネントへ通知する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%88%E3%81%8F%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E5%A4%B1%E6%95%97%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8"><span class="toc-text">よく確認する失敗メッセージ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
           </details>
         
         <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
@@ -206,7 +206,7 @@
 <td>クライアントでのポリシー評価と適用状況を確認します。</td>
 </tr>
 </tbody></table>
-<h3 id="テスト検証の情報"><a href="#テスト検証の情報" class="headerlink" title="テスト検証の情報"></a>テスト検証の情報</h3><p>本記事では、次のマシン ポリシー割り当てを 1 件受信したサイクルを例に説明します。</p>
+<h3 id="テスト検証の情報"><a href="#テスト検証の情報" class="headerlink" title="テスト検証の情報"></a>テスト検証の情報</h3><p>本記事では、次のコンピューター ポリシー割り当てを 1 件受信したサイクルを例に説明します。</p>
 <table>
 <thead>
 <tr>
@@ -256,14 +256,14 @@
 <ul>
 <li>[クライアント ポリシーのポーリング間隔] に基づく定期実行 (既定で 60 分、ランダム遅延あり)</li>
 <li>コンソールからの [クライアント通知] による [コンピューター ポリシーのダウンロード]</li>
-<li>クライアントの [コントロール パネル] - [Configuration Manager] - [アクション] タブ - [コンピューター ポリシーの取得および評価サイクル] - [今すぐ実行]</li>
+<li>クライアントの [コントロール パネル] - [Configuration Manager] - [操作] タブ - [コンピューター ポリシーの取得および評価サイクル] - [今すぐ実行]</li>
 <li>管理者として実行した Windows PowerShell からのトリガー</li>
 </ul>
 <p>コマンドで実行する場合は、次のようにトリガー ID を指定します。トリガー ID <code>{00000000-0000-0000-0000-000000000021}</code> が [コンピューター ポリシーの取得および評価サイクル] です。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WmiMethod</span> <span class="literal">-Namespace</span> root\ccm <span class="literal">-Class</span> SMS_Client <span class="literal">-Name</span> TriggerSchedule <span class="literal">-ArgumentList</span> <span class="string">&quot;&#123;00000000-0000-0000-0000-000000000021&#125;&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>サイクル自体の専用の成功メッセージはありません。実行された結果は、次のステップの [PolicyAgent.log] における割り当て要求として記録されます。</p>
-<h3 id="ステップ-2-管理ポイントへマシン-ポリシー割り当てを要求する"><a href="#ステップ-2-管理ポイントへマシン-ポリシー割り当てを要求する" class="headerlink" title="ステップ 2 : 管理ポイントへマシン ポリシー割り当てを要求する"></a>ステップ 2 : 管理ポイントへマシン ポリシー割り当てを要求する</h3><p>サイクルが実行されると、クライアントは権限 (Authority) に対してマシン ポリシー割り当てを要求します。</p>
+<h3 id="ステップ-2-管理ポイントへコンピューター-ポリシー割り当てを要求する"><a href="#ステップ-2-管理ポイントへコンピューター-ポリシー割り当てを要求する" class="headerlink" title="ステップ 2 : 管理ポイントへコンピューター ポリシー割り当てを要求する"></a>ステップ 2 : 管理ポイントへコンピューター ポリシー割り当てを要求する</h3><p>サイクルが実行されると、クライアントは権限 (Authority) に対してコンピューター ポリシー割り当てを要求します。</p>
 <pre>
 Requesting Machine policy assignments from authority 'SMS:<サイト コード>'
 </pre>
@@ -328,7 +328,7 @@ New/Changed ActualConfig policy instance(s) : 0
 [PolicyUpdate] Updated namespace '\\.\ROOT\ccm\policy\machine\requestedconfig' successfully
 </pre>
 
-<p><code>Updating settings for machine</code> および <code>user &#39;S-1-5-18&#39;</code> は、マシン (Local System) を対象とした処理であることを示します。<br><code>New/Changed ActualConfig policy instance(s)</code> は、今回のサイクルで実際に変化した設定の数です。上記の例では <code>0</code> であり、受信した割り当ては既に適用済みで、実効的な変更がなかったことを示します。<br><code>[PolicyUpdate] Updated namespace &#39;...\machine\requestedconfig&#39; successfully</code> が、マシン ポリシーの評価と適用が正常に完了したことを示します。</p>
+<p><code>Updating settings for machine</code> および <code>user &#39;S-1-5-18&#39;</code> は、マシン (Local System) を対象とした処理であることを示します。<br><code>New/Changed ActualConfig policy instance(s)</code> は、今回のサイクルで実際に変化した設定の数です。上記の例では <code>0</code> であり、受信した割り当ては既に適用済みで、実効的な変更がなかったことを示します。<br><code>[PolicyUpdate] Updated namespace &#39;...\machine\requestedconfig&#39; successfully</code> が、コンピューター ポリシーの評価と適用が正常に完了したことを示します。</p>
 <p>[PolicyEvaluator.log] には、以降の定期的な評価が記録されます。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Evaluating policy in \\.\ROOT\ccm\policy\machine\requestedconfig</span><br><span class="line">Evaluated namespace &#x27;\\.\ROOT\ccm\policy\machine\requestedconfig&#x27; successfully, duration: 0 seconds</span><br></pre></td></tr></table></figure>
 
@@ -347,7 +347,7 @@ New/Changed ActualConfig policy instance(s) : 0
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260930_01/" data-id="cuidlOdxGDvA20Y1fP1lvZYcI" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260930_01/" data-id="cuidXjiXTP96HKiiSuf8eyB3g" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
