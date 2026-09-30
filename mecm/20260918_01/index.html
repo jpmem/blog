@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) で、オペレーティング システム [OS] が導入されていないコンピューターにタスク シーケンスで OS を新規に展開するときの動作と、ログの追跡方法をご案内します。タスク シーケンスを開始す">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20260918_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager (ConfigMgr) で、オペレーティング システム [OS] が導入されていないコンピューターにタスク シーケンスで OS を新規に展開するときの動作と、ログの追跡方法をご案内します。タスク シーケンスを開始す">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-09-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-30T01:32:23.462Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20260918_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-09-17T15:00:00.000Z" itemprop="datePublished">2026-09-18</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/">オペレーティング システムの展開</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-09-17T15:00:00.000Z" itemprop="datePublished">2026-09-18</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-09-17T15:00:00.000Z" itemprop="dateUpdated">2026-09-18</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-PE-%E3%83%95%E3%82%A7%E3%83%BC%E3%82%BA%E3%81%A8%E3%83%95%E3%83%AB-OS-%E3%83%95%E3%82%A7%E3%83%BC%E3%82%BA"><span class="toc-text">Windows PE フェーズとフル OS フェーズ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E3%81%A4%E3%81%AE%E9%96%8B%E5%A7%8B%E6%96%B9%E6%B3%95%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%81%A5%E3%81%91"><span class="toc-text">3 つの開始方法の位置づけ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A4%9C%E8%A8%BC%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">検証環境について</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E6%8A%9C%E7%B2%8B%E3%81%AE%E8%A1%A8%E8%A8%98%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">ログ抜粋の表記について</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E5%B1%95%E9%96%8B%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">テスト展開の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E8%B5%B7%E5%8B%95%E7%92%B0%E5%A2%83%E3%81%AE%E6%BA%96%E5%82%99"><span class="toc-text">ステップ 1 : 起動環境の準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E3%83%96%E3%83%BC%E3%83%88-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%85%A5%E6%89%8B%E3%81%A8-Windows-PE-%E3%81%AE%E8%B5%B7%E5%8B%95"><span class="toc-text">ステップ 2 : ブート イメージの入手と Windows PE の起動</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E9%96%8B%E5%A7%8B%E6%96%B9%E6%B3%95%E3%81%AE%E5%88%A4%E5%AE%9A%E3%81%A8%E6%A7%8B%E6%88%90%E6%83%85%E5%A0%B1%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF"><span class="toc-text">ステップ 3 : 開始方法の判定と構成情報の読み込み</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%82%BF%E3%82%B9%E3%82%AF-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E5%8F%96%E5%BE%97%E3%81%A8%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%82%BF%E3%82%B9%E3%82%AF-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E6%B1%BA%E5%AE%9A"><span class="toc-text">ステップ 4 : タスク シーケンス ポリシーの取得と実行するタスク シーケンスの決定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%81%AE%E5%8F%96%E5%BE%97%E5%85%83%E3%81%AE%E8%A7%A3%E6%B1%BA"><span class="toc-text">ステップ 5 : コンテンツの取得元の解決</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%A8-OS-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E9%81%A9%E7%94%A8"><span class="toc-text">ステップ 6 : ディスクの構成と OS イメージの適用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-7-Windows-%E8%A8%AD%E5%AE%9A%E3%80%81%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%A8%AD%E5%AE%9A%E3%80%81%E3%81%8A%E3%82%88%E3%81%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E3%81%AE%E9%81%A9%E7%94%A8"><span class="toc-text">ステップ 7 : Windows 設定、ネットワーク設定、およびドライバーの適用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-8-%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97-%E3%83%95%E3%83%83%E3%82%AF%E3%81%AE%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%A8%E3%83%8F%E3%83%BC%E3%83%89-%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%8B%E3%82%89%E3%81%AE%E5%86%8D%E8%B5%B7%E5%8B%95"><span class="toc-text">ステップ 8 : セットアップ フックの組み込みとハード ディスクからの再起動</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-9-%E3%83%95%E3%83%AB-OS-%E3%81%A7%E3%81%AE%E3%82%BF%E3%82%B9%E3%82%AF-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%86%8D%E9%96%8B%E3%81%A8%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-text">ステップ 9 : フル OS でのタスク シーケンス再開とクライアントのインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-10-%E6%AE%8B%E3%82%8A%E3%81%AE%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9F%E8%A1%8C%E3%81%A8%E5%AE%8C%E4%BA%86%E5%87%A6%E7%90%86"><span class="toc-text">ステップ 10 : 残りのステップの実行と完了処理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E7%A2%BA%E8%AA%8D%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">ログ確認のポイント</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#smsts-log-%E3%81%AE%E4%BF%9D%E5%AD%98%E5%85%88%E3%81%AF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%BA%E3%81%94%E3%81%A8%E3%81%AB%E5%A4%89%E3%82%8F%E3%82%8B"><span class="toc-text">smsts.log の保存先はフェーズごとに変わる</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9F%E8%A1%8C%E7%B5%90%E6%9E%9C%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E8%A1%8C"><span class="toc-text">実行結果を判断する行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%E3%82%A2%E3%83%AD%E3%83%B3-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AF%E5%AE%9F%E8%A1%8C%E4%B8%AD%E3%82%82%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E4%BF%9D%E6%8C%81%E3%81%99%E3%82%8B"><span class="toc-text">スタンドアロン メディアは実行中もメディアを保持する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E3%81%98%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E5%86%8D%E5%B1%95%E9%96%8B%E3%81%99%E3%82%8B%E3%81%A8%E8%B5%B7%E5%8B%95%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE%E5%80%99%E8%A3%9C%E3%81%8C%E5%A4%89%E3%82%8F%E3%82%8B"><span class="toc-text">同じコンピューターを再展開すると起動メディアの候補が変わる</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%B1%E6%95%97%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AB%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E7%AE%87%E6%89%80"><span class="toc-text">失敗したときに確認する箇所</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager (ConfigMgr) で、オペレーティング システム [OS] が導入されていないコンピューターにタスク シーケンスで OS を新規に展開するときの動作と、ログの追跡方法をご案内します。タスク シーケンスを開始する 3 つの方法、[Preboot Execution Environment] [PXE] ブート、[起動メディア]、および [スタンドアロン メディア] を対象とし、開始方法によって何が変わり、どこから先が共通なのかを合わせて説明します。なお [起動メディア] は、Microsoft Learn では [起動可能なメディア] と表記されています。</p>
+<p>対象は、いわゆるベア メタル展開 (新規インストール) です。既存の OS 上から実行する [インプレース アップグレード] のタスク シーケンス、[ユーザー状態] の移行そのものの詳細、[キャプチャ メディア]、[事前ステージ済みメディア]、[マルチキャスト] の動作、およびブート イメージ、OS イメージ、タスク シーケンス、メディアの作成手順そのものは対象外です。</p>
+<p>本記事のログ抜粋は、検証環境で実際に実行した 3 回の OS 展開から取得したものです。PXE ブートは 2026-09-08 に、起動メディアとスタンドアロン メディアは 2026-09-18 に、同一の検証環境で実行しています。抜粋の出どころと加工内容は、[ログ抜粋の表記について] をご確認ください。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>全体の流れは以下のとおりです。ステップ 1 からステップ 5 までが開始方法によって異なる部分、ステップ 6 以降が 3 つの開始方法で共通の部分です。</p>
+<ol>
+<li>開始方法に応じた起動環境を準備する</li>
+<li>ブート イメージを入手して Windows PE を起動する</li>
+<li>開始方法を判定し、構成情報を読み込む</li>
+<li>タスク シーケンス ポリシーを取得し、実行するタスク シーケンスを決定する</li>
+<li>コンテンツの取得元を解決する</li>
+<li>Windows PE でディスクを構成し、OS イメージを適用する</li>
+<li>Windows の設定、ネットワーク設定、およびドライバーを適用する</li>
+<li>セットアップ フックを組み込み、ハード ディスクから再起動する</li>
+<li>フル OS でタスク シーケンスを再開し、Configuration Manager クライアントをインストールする</li>
+<li>残りのステップを実行してタスク シーケンスを完了する</li>
+</ol>
+<h3 id="Windows-PE-フェーズとフル-OS-フェーズ"><a href="#Windows-PE-フェーズとフル-OS-フェーズ" class="headerlink" title="Windows PE フェーズとフル OS フェーズ"></a>Windows PE フェーズとフル OS フェーズ</h3><p>クライアントは、ステップ 2 で Windows PE を起動し、ステップ 3 からステップ 8 までを Windows PE 上で実行します。その後、ステップ 8 の最後に再起動し、ステップ 9 以降を新しくインストールした OS 上で実行します。</p>
+<p>この境界にあたるのが [Windows および ConfigMgr のセットアップ] ステップです。このステップだけが Windows PE とフル OS の両方にまたがって動作し、その前後で smsts.log の出力先も切り替わります。</p>
+<h3 id="3-つの開始方法の位置づけ"><a href="#3-つの開始方法の位置づけ" class="headerlink" title="3 つの開始方法の位置づけ"></a>3 つの開始方法の位置づけ</h3><p>ステップ 1 からステップ 5 までの違いをまとめると、以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>PXE ブート</th>
+<th>起動メディア</th>
+<th>スタンドアロン メディア</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ブート イメージの入手元</td>
+<td>配布ポイントから Trivial File Transfer Protocol [TFTP] で受信します。</td>
+<td>メディア内の sources\boot.wim です。</td>
+<td>メディア内の sources\boot.wim です。</td>
+</tr>
+<tr>
+<td>事前に必要な準備</td>
+<td>配布ポイントで [PXE を有効にする] を構成します。</td>
+<td>[タスク シーケンス メディアの作成] ウィザードで作成します。</td>
+<td>[タスク シーケンス メディアの作成] ウィザードで作成します。</td>
+</tr>
+<tr>
+<td>タスク シーケンスの展開</td>
+<td>必要です。</td>
+<td>必要です。</td>
+<td>不要です。メディアにタスク シーケンスが同梱されます。</td>
+</tr>
+<tr>
+<td>実行時の管理ポイント</td>
+<td>必要です。</td>
+<td>必要です。</td>
+<td>不要です。</td>
+</tr>
+<tr>
+<td>タスク シーケンス ポリシーの入手元</td>
+<td>管理ポイントです。</td>
+<td>管理ポイントです。</td>
+<td>メディア内の SMS\data\Policy.xml です。</td>
+</tr>
+<tr>
+<td>コンテンツの取得元</td>
+<td>配布ポイントです。</td>
+<td>配布ポイントです。</td>
+<td>メディア内の SMS\PKG 配下です。</td>
+</tr>
+<tr>
+<td>[不明なコンピューター] の判定</td>
+<td>配布ポイントと管理ポイントで行います。</td>
+<td>管理ポイントで行います。</td>
+<td>行いません。</td>
+</tr>
+<tr>
+<td>サイトへの状態メッセージ</td>
+<td>送信します。</td>
+<td>送信します。</td>
+<td>送信しません。</td>
+</tr>
+<tr>
+<td>検証環境でのサイズ</td>
+<td>—</td>
+<td>579.7 MB</td>
+<td>6,777.4 MB</td>
+</tr>
+</tbody></table>
+<p>スタンドアロン メディアだけが、実行時にサイトへ一切接続しない点が最大の違いです。起動メディアは、ブート イメージをメディアから読み込むだけで、それ以降の動作は PXE ブートとほぼ同じです。</p>
+<h2 id="検証環境について"><a href="#検証環境について" class="headerlink" title="検証環境について"></a>検証環境について</h2><p>本記事の観測に使用した環境は以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>サイト</td>
+<td>Configuration Manager 5.00.9141 (バージョン 2509)。中央管理サイトと 2 つのプライマリ サイトによる階層構成。</td>
+</tr>
+<tr>
+<td>サイト システム</td>
+<td>プライマリ サイト サーバーに管理ポイントと配布ポイントを同居。HTTP サイトで、拡張 HTTP を使用。</td>
+</tr>
+<tr>
+<td>配布ポイント</td>
+<td>[PXE を有効にする] および [不明なコンピューターのサポート] を有効化。[Windows 展開サービス] を使用しない PXE レスポンダー構成。</td>
+</tr>
+<tr>
+<td>クライアント</td>
+<td>UEFI かつセキュア ブート有効の仮想マシン。ハード ディスクを消去した状態から開始。</td>
+</tr>
+<tr>
+<td>タスク シーケンス</td>
+<td>[新しいタスク シーケンスの作成] ウィザードの [既存のイメージ パッケージのインストール] で作成した既定構成。</td>
+</tr>
+<tr>
+<td>展開</td>
+<td>[All Unknown Computers] コレクションに対して [利用可能] (任意) として展開。スタンドアロン メディアでは展開を使用しません。</td>
+</tr>
+<tr>
+<td>メディア</td>
+<td>いずれも [無人のオペレーティング システムの展開を許可する] を有効にして作成。起動メディアは [不明なコンピューターのサポート] を有効化。</td>
+</tr>
+</tbody></table>
+<p>[Windows 展開サービス] を使用しない PXE レスポンダー構成のため、検証環境には [RemoteInstall] フォルダーと [WDSServer] サービスは存在しません。この構成の詳細は、[参考リンク] の [ネットワーク上の OSD に PXE を使用する] をご確認ください。</p>
+<p>メディアは無人として作成しているため、Windows PE 起動後に [タスク シーケンス ウィザード] は表示されません。起動メディアでは、メディア変数 SMSTSPreferredAdvertID に実行したい展開 ID を設定し、実行するタスク シーケンスを一意に決めています。</p>
+<p>なお、検証に使用した仮想マシンのファームウェアでは、ISO 起動時の [Press any key to boot from CD or DVD] に応答できませんでした。そのため、ConfigMgr が作成したメディアの内容はそのままに、キー入力を求めない UEFI 起動イメージを用いて ISO を再作成して使用しています。メディアに格納されるファイルは ConfigMgr が作成したものと同一です。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><p>本記事で使用するログは以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>保存場所</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CreateTsMedia.log</td>
+<td>メディアを作成した ConfigMgr コンソール コンピューターの AdminUILog フォルダー</td>
+<td>メディアの種類、作成オプション、同梱するポリシーとコンテンツ、および ISO の作成を確認します。</td>
+</tr>
+<tr>
+<td>SMSPXE.log</td>
+<td>PXE 対応配布ポイントの &lt;ConfigMgr インストール先&gt;\Logs</td>
+<td>PXE 要求の受信、システム レコードの照合、候補となる展開の判定、およびブート ファイルの送信を確認します。</td>
+</tr>
+<tr>
+<td>MP_ClientID.log</td>
+<td>管理ポイント</td>
+<td>PXE またはメディアから開始したタスク シーケンスのクライアント ID 要求に対する応答を確認します。</td>
+</tr>
+<tr>
+<td>smsts.log</td>
+<td>フェーズにより変わります (後述の [smsts.log の保存先はフェーズごとに変わる] を参照)</td>
+<td>タスク シーケンスの実行全体を確認します。</td>
+</tr>
+<tr>
+<td>ccmsetup.log</td>
+<td>C:\Windows\ccmsetup\Logs</td>
+<td>[Windows および ConfigMgr のセットアップ] によるクライアントのインストールを確認します。</td>
+</tr>
+<tr>
+<td>setupact.log</td>
+<td>C:\Windows\Panther</td>
+<td>Windows セットアップ (ミニ セットアップ) の処理を確認します。</td>
+</tr>
+<tr>
+<td>distmgr.log</td>
+<td>サイト サーバー</td>
+<td>配布ポイントの PXE 有効化処理を確認します。</td>
+</tr>
+<tr>
+<td>IIS ログ</td>
+<td>管理ポイントの C:\inetpub\logs\LogFiles 配下</td>
+<td>メディアから起動したクライアントが管理ポイントへ要求を送信しているかを確認します。</td>
+</tr>
+</tbody></table>
+<h3 id="ログ抜粋の表記について"><a href="#ログ抜粋の表記について" class="headerlink" title="ログ抜粋の表記について"></a>ログ抜粋の表記について</h3><p>本記事の抜粋は、検証環境で実際に取得したログから、説明に必要な行だけを抜き出したものです。読みやすさのために以下の加工を行っています。</p>
+<ul>
+<li>日時、スレッド ID、およびソース ファイル名を含む CMTrace 形式の属性部分を省略しています。</li>
+<li>連続しない行を並べている箇所があります。一部の長い行は <code>...</code> で省略しています。</li>
+<li>smsts.log は 1 つのファイルに複数のコンポーネントが出力するため、抜粋の先頭に <code>[TSManager]</code> のようにコンポーネント名を付けています。実際のログでは、[CMTrace] の [コンポーネント] 列に表示される値です。SMSPXE.log と CreateTsMedia.log は単一のコンポーネントのみのため、この接頭辞を付けていません。</li>
+<li>サーバー名、ドメイン名、MAC アドレス、IP アドレス、GUID、コンピューター名、アダプター名、およびメディアのファイル名は、対応関係を保ったまま <code>CON-PS1SITE.contoso.com</code> や <code>&lt;MAC&gt;</code> のような固定のプレースホルダーへ置換しています。</li>
+</ul>
+<p>抜粋の出どころは、ステップの冒頭または抜粋の直前に、ログ名と保存先を明記しています。開始方法によって記録が異なる箇所では、どの開始方法の抜粋かを明記しています。</p>
+<h3 id="テスト展開の情報"><a href="#テスト展開の情報" class="headerlink" title="テスト展開の情報"></a>テスト展開の情報</h3><p>本記事のログ抜粋に登場する ID は以下のとおりです。ログを追跡する際は、これらの ID を手掛かりにします。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>展開 ID</td>
+<td>CS120006</td>
+</tr>
+<tr>
+<td>タスク シーケンス パッケージ ID</td>
+<td>CS100010</td>
+</tr>
+<tr>
+<td>ポリシー割り当て ID</td>
+<td>CS120006-CS100010-6F6BCC28</td>
+</tr>
+<tr>
+<td>ブート イメージ パッケージ ID</td>
+<td>CS100002</td>
+</tr>
+<tr>
+<td>OS イメージ パッケージ ID</td>
+<td>CS10000A</td>
+</tr>
+<tr>
+<td>Configuration Manager クライアント パッケージ ID</td>
+<td>CS100003</td>
+</tr>
+<tr>
+<td>ユーザー状態移行ツール パッケージ ID</td>
+<td>CS100001</td>
+</tr>
+</tbody></table>
+<h3 id="ステップ-1-起動環境の準備"><a href="#ステップ-1-起動環境の準備" class="headerlink" title="ステップ 1 : 起動環境の準備"></a>ステップ 1 : 起動環境の準備</h3><p>PXE ブートでは、配布ポイントのプロパティで [PXE を有効にする] を構成します。有効化の処理はサイト サーバーの distmgr.log で確認できます。</p>
+<p>起動メディアとスタンドアロン メディアでは、[ソフトウェア ライブラリ] - [オペレーティング システム] - [タスク シーケンス] から [タスク シーケンス メディアの作成] を実行します。実行内容は CreateTsMedia.log の冒頭に記録されます。</p>
+<p>以下は、起動メディアを作成したときの CreateTsMedia.log の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Begin media creation: </span><br><span class="line">Media: boot</span><br><span class="line">&#x27;Provider&#x27;=CON-PS1SITE.contoso.com</span><br><span class="line">&#x27;Site Code&#x27;=PS1</span><br><span class="line">&#x27;Media Destination&#x27;=E:\Media\BootMedia.iso</span><br><span class="line">&#x27;Temporary data storage&#x27;=E:\Media\Temp</span><br><span class="line">&#x27;Unattended Media&#x27;=Yes</span><br><span class="line">&#x27;Physical Media Type&#x27;=CD</span><br><span class="line">&#x27;Boot Image Package ID&#x27;=CS100002</span><br><span class="line">&#x27;Unknown Machine Support&#x27;=Yes</span><br><span class="line">&#x27;Distribution Points(s)&#x27;=CON-PS1SITE.contoso.com</span><br></pre></td></tr></table></figure>
+
+<p>以下は、スタンドアロン メディアを作成したときの、同じ CreateTsMedia.log の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Begin media creation: </span><br><span class="line">Media: full</span><br><span class="line">&#x27;Media Destination&#x27;=E:\Media\StandaloneMedia.iso</span><br><span class="line">&#x27;Unattended Media&#x27;=Yes</span><br><span class="line">&#x27;Physical Media Type&#x27;=CD</span><br><span class="line">&#x27;Distribution Points(s)&#x27;=CON-PS1SITE.contoso.com</span><br><span class="line">&#x27;Task Sequence ID&#x27;=CS100010</span><br><span class="line">&#x27;Media Size&#x27;=2147483647</span><br></pre></td></tr></table></figure>
+
+<p>[Media] の値が [boot] であれば起動メディア、[full] であればスタンドアロン メディアです。起動メディアにはブート イメージのパッケージ ID だけが記録され、スタンドアロン メディアにはタスク シーケンスのパッケージ ID が記録されます。この 1 行が、以降のすべての違いの起点です。</p>
+<p>起動メディアでは、メディアが管理ポイントへ接続するための証明書が作成され、サイトに登録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Staging base files</span><br><span class="line">TsmBootstrap.ini written</span><br><span class="line">Staging self-signed certificate</span><br><span class="line">Generating self-signed certificate</span><br><span class="line">Media certificate registered with site</span><br><span class="line">Staging manifest</span><br><span class="line">Saving Media Variables to &quot;E:\Media\Temp\_tsmedia_&lt;番号&gt;\stage\sms\data\Variables.dat&quot;</span><br><span class="line">Start creating ISO image &#x27;E:\Media\BootMedia.iso&#x27; using staging area ...</span><br><span class="line">ISO image created successfully at ...</span><br><span class="line">Done with media generation</span><br></pre></td></tr></table></figure>
+
+<p>スタンドアロン メディアでは、証明書の作成に代えて、タスク シーケンスのポリシーとサイトのクライアント設定ポリシーがメディアへ取り込まれます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Retrieving policies for &#x27;CS100010&#x27; Task Sequence used in stand-alone media</span><br><span class="line">5 policies retrieved by method GetTsPoliciesSaMedia</span><br><span class="line">Stored policy 1, PolicyID=&#x27;&#123;&lt;メディア展開 ID&gt;&#125;-CS100010-6F6BCC28&#x27;</span><br><span class="line">Stored policy 2, PolicyID=&#x27;DEP-&#123;&lt;メディア展開 ID&gt;&#125;-CS100001-6F6BCC28&#x27;</span><br><span class="line">Stored policy 3, PolicyID=&#x27;DEP-&#123;&lt;メディア展開 ID&gt;&#125;-CS100002-6F6BCC28&#x27;</span><br><span class="line">Stored policy 4, PolicyID=&#x27;DEP-&#123;&lt;メディア展開 ID&gt;&#125;-CS100003-6F6BCC28&#x27;</span><br><span class="line">Stored policy 5, PolicyID=&#x27;DEP-&#123;&lt;メディア展開 ID&gt;&#125;-CS10000A-6F6BCC28&#x27;</span><br><span class="line">Stand-alone media task sequence policies added</span><br><span class="line">Retrieving client config policies on site CON-PS1SITE.contoso.com (PS1)</span><br><span class="line">39 policies retrieved</span><br></pre></td></tr></table></figure>
+
+<p>続いて、タスク シーケンスが参照するコンテンツがメディアへ格納されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Staging boot image package CS100002</span><br><span class="line">Staging base files</span><br><span class="line">TsmBootstrap.ini written</span><br><span class="line">Staging policy</span><br><span class="line">Staging package CS100001</span><br><span class="line">Staging package CS100003</span><br><span class="line">Staging OS Image Package CS10000A</span><br><span class="line">Staging Next Swm ...</span><br><span class="line">Staging manifest</span><br></pre></td></tr></table></figure>
+
+<p>[Staging Next Swm …] は、OS イメージが分割形式 [SWM] としてメディアへ書き込まれたことを示します。メディアは FAT32 ファイル システムを使用するため、4 GB を超える WIM ファイルは 4 GB 未満に分割されます。この動作は [参考リンク] の [スタンドアロン メディアの作成] に記載されています。</p>
+<p>検証環境では、起動メディアの作成に約 69 秒、スタンドアロン メディアの作成に約 14.3 分を要しました。後者のうち約 10 分は [Staging OS Image Package] の処理でした。メディアの作成時間の大半は、コンテンツの格納です。</p>
+<p>作成されたメディアのファイル構成は、以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>パス</th>
+<th>起動メディア</th>
+<th>スタンドアロン メディア</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sources\boot.wim</td>
+<td>あり</td>
+<td>あり</td>
+</tr>
+<tr>
+<td>SMS\bin</td>
+<td>あり</td>
+<td>あり</td>
+</tr>
+<tr>
+<td>SMS\data\TsmBootstrap.ini</td>
+<td>あり</td>
+<td>あり</td>
+</tr>
+<tr>
+<td>SMS\data\Variables.dat</td>
+<td>あり</td>
+<td>あり</td>
+</tr>
+<tr>
+<td>SMS\data\Policy.xml</td>
+<td>なし</td>
+<td>あり (検証環境では約 1.1 MB)</td>
+</tr>
+<tr>
+<td>SMS\PKG&lt;パッケージ ID&gt;</td>
+<td>なし</td>
+<td>あり (参照するパッケージごと)</td>
+</tr>
+<tr>
+<td>VolumeId.xml</td>
+<td>なし</td>
+<td>あり</td>
+</tr>
+</tbody></table>
+<p>SMS\data\TsmBootstrap.ini には、メディアの種類が記録されています。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[MediaInfo]</span></span><br><span class="line"><span class="attr">MediaType</span>=BootMedia</span><br><span class="line"><span class="attr">PasswordRequired</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">Unattended</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>スタンドアロン メディアでは、MediaType の値が FullMedia になります。</p>
+<h3 id="ステップ-2-ブート-イメージの入手と-Windows-PE-の起動"><a href="#ステップ-2-ブート-イメージの入手と-Windows-PE-の起動" class="headerlink" title="ステップ 2 : ブート イメージの入手と Windows PE の起動"></a>ステップ 2 : ブート イメージの入手と Windows PE の起動</h3><p>PXE ブートでは、クライアントがネットワーク ブートを開始すると、PXE 対応の配布ポイントが要求を受け取ります。配布ポイントは、まず管理ポイントへ問い合わせて、要求元がサイト データベースに登録済みかどうかを判定します。</p>
+<p>以下は、PXE 対応配布ポイントの SMSPXE.log から、判定に関する行を抜き出したものです。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PXE: &lt;MAC&gt;: Parsed a discover/solicit packet.</span><br><span class="line">PXE: &lt;MAC&gt;: &lt;SMBIOS GUID&gt;: Client is 64-bit, UEFI, Firmware.</span><br><span class="line">PXE: &lt;MAC&gt;: Prioritizing local Management Point http://CON-PS1SITE.contoso.com.</span><br><span class="line">PXE: &lt;MAC&gt;: Using Management Point: http://CON-PS1SITE.contoso.com</span><br><span class="line">PXE: &lt;MAC&gt;: System records:</span><br><span class="line">PXE: &lt;MAC&gt;:   0, , SMBIOS ID is NOT a match, MAC Address is NOT a match.</span><br><span class="line">PXE: &lt;MAC&gt;: No valid system records.</span><br><span class="line">PXE: &lt;MAC&gt;: Client machine is UNKNOWN.</span><br></pre></td></tr></table></figure>
+
+<p>[SMBIOS ID is NOT a match, MAC Address is NOT a match] と [Client machine is UNKNOWN] は、要求元がサイト データベースに存在しないことを示します。この場合、配布ポイントは [不明なコンピューター] 向けの展開だけを候補にします。</p>
+<p>続いて、候補となるタスク シーケンス展開の一覧が出力されます。以下も同じ SMSPXE.log の、上記の直後に記録される行です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PXE: &lt;MAC&gt;: Task Sequence deployment(s) to unknown machines:</span><br><span class="line">PXE: &lt;MAC&gt;:   CS120011, CS100002, 64-bit, optional, is valid.</span><br><span class="line">PXE: &lt;MAC&gt;:   CS120007, CS100002, 64-bit, optional, is valid.</span><br><span class="line">PXE: &lt;MAC&gt;:   CS120006, CS100002, 64-bit, optional, is valid.</span><br><span class="line">PXE: &lt;MAC&gt;:   CS120005, CS100002, 64-bit, optional, is valid.</span><br><span class="line">PXE: &lt;MAC&gt;:   CS120004, CS100002, 64-bit, optional, is valid.</span><br><span class="line">PXE: &lt;MAC&gt;: Using Task Sequence deployment CS120011.</span><br></pre></td></tr></table></figure>
+
+<p>各行は、展開 ID、ブート イメージ パッケージ ID、アーキテクチャ、必須 (mandatory) か任意 (optional) か、および判定結果の順に出力されます。</p>
+<p>ここで [Using Task Sequence deployment CS120011] と記録されているのは、どのタスク シーケンスを実行するかの決定ではなく、送り返すブート イメージを決めるための選択です。公開情報のとおり、複数の候補が見つかった場合は展開 ID が最上位のものが使用されます。実行するタスク シーケンスは、Windows PE 起動後にステップ 4 で決定されます。</p>
+<p>判定の根拠は、管理ポイントからの応答 XML でも確認できます。この XML は、同じ SMSPXE.log に [Client Boot TS reply:] に続けて 1 行で記録されます。以下は、その行に含まれる 5 つの TSInfo 要素のうち、今回実行した展開の要素だけを抜き出して改行したものです。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TSInfo</span> <span class="attr">DeploymentID</span>=<span class="string">&quot;CS120006&quot;</span> <span class="attr">PkgID</span>=<span class="string">&quot;CS100010&quot;</span> <span class="attr">BootImageID</span>=<span class="string">&quot;CS100002&quot;</span> <span class="attr">Architecture</span>=<span class="string">&quot;9&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Required</span>=<span class="string">&quot;0&quot;</span> <span class="attr">AlreadyRun</span>=<span class="string">&quot;0&quot;</span> <span class="attr">ForPXE</span>=<span class="string">&quot;1&quot;</span> <span class="attr">Disabled</span>=<span class="string">&quot;0&quot;</span> <span class="attr">PackageAvailable</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">FutureAvailability</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Expired</span>=<span class="string">&quot;0&quot;</span> <span class="attr">UEFIArchitectureMismatch</span>=<span class="string">&quot;0&quot;</span> <span class="attr">ArchitectureMismatch</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Required は必須展開かどうか、AlreadyRun は同じ展開を実行済みかどうか、ForPXE は PXE で利用できるかどうかを表します。候補から特定の展開が消えている場合は、この XML の属性を確認すると、どの条件で除外されたかを絞り込めます。</p>
+<p>なお、検証環境では 7 本のタスク シーケンスを [All Unknown Computers] へ展開していますが、応答に含まれたのは 5 本のみでした。除外された 2 本はいずれもインプレース アップグレード用でブート イメージを参照していないタスク シーケンスであり、Windows PE では実行できないためと考えられます。これは本検証のログから確認できた範囲の事実です。</p>
+<p>判定が完了すると、配布ポイントは応答パケットにブート ファイル名を設定して返し、続いて TFTP でファイルを送信します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Packet: Operation: 2 (reply), ... BootFile: smsboot\CS100002\x64\wdsmgfw.efi, ...</span><br><span class="line">TFTP: &lt;クライアント IP&gt;: request for smsboot\CS100002\x64\wdsmgfw.efi.</span><br><span class="line">TFTP: &lt;クライアント IP&gt;: sending smsboot\CS100002\x64\wdsmgfw.efi, 4, 1482, 0.</span><br><span class="line">TFTP: &lt;クライアント IP&gt;: end of file. 1093952.</span><br></pre></td></tr></table></figure>
+
+<p>BootFile に含まれる CS100002 がブート イメージのパッケージ ID です。ここで意図しないブート イメージが選択されていないかを確認します。BootFile が空の場合は、配布ポイントがブートを拒否しています。</p>
+<p>任意 (optional) の展開では、この段階でネットワーク ブートを続行するためのキー入力が必要です。入力がない場合、コンピューターは次のブート デバイスへ処理を移します。必須 (mandatory) の展開では、キー入力なしで処理が続行されます。</p>
+<p>起動メディアとスタンドアロン メディアでは、この一連のやり取りは発生しません。ブート イメージはメディア内の sources\boot.wim から直接読み込まれ、配布ポイントも管理ポイントも関与しません。</p>
+<h3 id="ステップ-3-開始方法の判定と構成情報の読み込み"><a href="#ステップ-3-開始方法の判定と構成情報の読み込み" class="headerlink" title="ステップ 3 : 開始方法の判定と構成情報の読み込み"></a>ステップ 3 : 開始方法の判定と構成情報の読み込み</h3><p>Windows PE が起動すると、以降の記録はクライアント側の smsts.log に移ります。Windows PE 側では TSBootShell.exe が最初に動作し、どこから起動したかを判定します。</p>
+<p>以下は、PXE ブートしたときのクライアントの smsts.log (Windows PE フェーズ) の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[TSBootShell]  ==============================[ TSBootShell.exe ]==============================</span><br><span class="line">[TSBootShell]  RAM Disk Boot Path: NET(0)\CS100002.WIM</span><br><span class="line">[TSBootShell]  Booted from network (PXE)</span><br><span class="line">[TSBootShell]  Executing command line: wpeinit.exe -winpe</span><br><span class="line">[TSBootShell]  Executing command line: X:\sms\bin\x64\TsmBootstrap.exe /env:WinPE /configpath:X:\sms\data\</span><br></pre></td></tr></table></figure>
+
+<p>以下は、起動メディアから起動したときの、同じ smsts.log の抜粋です。スタンドアロン メディアでも同じ記録になります。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[TSBootShell]  RAM Disk Boot Path: MULTI(0)DISK(0)CDROM(0)\SOURCES\BOOT.WIM</span><br><span class="line">[TSBootShell]  Booted from removable media</span><br><span class="line">[TSBootShell]  Checking for &quot;D:\SOURCES\BOOT.WIM&quot;</span><br><span class="line">[TSBootShell]  Found D:\SOURCES\BOOT.WIM</span><br><span class="line">[TSBootShell]  Removable media path: D:\SOURCES\BOOT.WIM</span><br><span class="line">[TSBootShell]  Found config path D:\</span><br><span class="line">[TSBootShell]  Booting from removable media, not restoring bootloaders on hard drive</span><br><span class="line">[TSBootShell]  Executing command line: X:\sms\bin\x64\TsmBootstrap.exe /env:WinPE /configpath:D:\</span><br></pre></td></tr></table></figure>
+
+<p>[Booted from network (PXE)] と [Booted from removable media] が、開始方法を最初に区別する行です。あわせて TsmBootstrap.exe の &#x2F;configpath も変わります。PXE ブートでは Windows PE 内の X:\sms\data\ が、メディアからの起動ではメディアのドライブ レター (検証環境では D:) が渡されます。この &#x2F;configpath が、次に読み込む構成情報の場所です。</p>
+<p>続いて TsmBootstrap.exe が、PXE ブートかどうかを改めて確認します。以下は起動メディアから起動したときの抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Unable to open PXE registry key. Not a PXE boot.</span><br><span class="line">[TSMBootstrap]  Media Root = D:\</span><br><span class="line">[TSMBootstrap]  Dynamicallly found media is launched in WinPE from CD/DVD&#x27;</span><br><span class="line">[TSMBootstrap]  Executing from Media in WinPE</span><br><span class="line">[TSMBootstrap]  Verifying Media Layout.</span><br><span class="line">[TSMBootstrap]  MediaType = BootMedia</span><br><span class="line">[TSMBootstrap]  PasswordRequired = false</span><br></pre></td></tr></table></figure>
+
+<p>[MediaType] には、ステップ 1 でメディアに書き込まれた TsmBootstrap.ini の値がそのまま出力されます。スタンドアロン メディアでは [MediaType &#x3D; FullMedia] になります。開始方法を一意に確定させたい場合は、この 1 行を確認します。PXE ブートでは、この [MediaType] の行自体が記録されません。</p>
+<p>メディアから起動した場合、TsmBootstrap.exe はメディア上の Variables.dat を読み込み、メディア作成時に決定した設定をタスク シーケンス環境へ展開します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Loading variables from the Task Sequencing Removable Media.</span><br><span class="line">[TSMBootstrap]  Loading Media Variables from &quot;D:\sms\data\variables.dat&quot;</span><br><span class="line">[TSMBootstrap]  Setting SMSTSLocationMPs Task Sequence environment variable</span><br><span class="line">[TSMBootstrap]  Setting _SMSTSMediaType Task Sequence environment variable</span><br><span class="line">[TSMBootstrap]  Setting _SMSTSSiteCode Task Sequence environment variable</span><br><span class="line">[TSMBootstrap]  Setting _SMSTSSupportUnknownMachines Task Sequence environment variable</span><br><span class="line">[TSMBootstrap]  Support Unknown Machines: 1</span><br></pre></td></tr></table></figure>
+
+<p>いずれの開始方法でも、この段階でネットワーク アダプターが認識されている必要があります。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Found network adapter &quot;&lt;アダプター名&gt;&quot; with IP Address &lt;クライアント IP&gt;.</span><br><span class="line">[TSMBootstrap]  UEFI: true</span><br><span class="line">[TSMBootstrap]  SecureBootState: Enabled</span><br></pre></td></tr></table></figure>
+
+<p>ネットワーク アダプターが認識されない場合は、ブート イメージへのネットワーク ドライバーの追加状況を確認します。ただしスタンドアロン メディアでは、この後の処理でネットワークを使用しないため、アダプターが無くてもタスク シーケンス自体は進行します。</p>
+<h3 id="ステップ-4-タスク-シーケンス-ポリシーの取得と実行するタスク-シーケンスの決定"><a href="#ステップ-4-タスク-シーケンス-ポリシーの取得と実行するタスク-シーケンスの決定" class="headerlink" title="ステップ 4 : タスク シーケンス ポリシーの取得と実行するタスク シーケンスの決定"></a>ステップ 4 : タスク シーケンス ポリシーの取得と実行するタスク シーケンスの決定</h3><p>PXE ブートと起動メディアでは、管理ポイントからポリシーを取得します。以下は PXE ブートしたときの smsts.log の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]      site=PS1,PS1, MP=http://CON-PS1SITE.contoso.com, ports: http=80,https=443</span><br><span class="line">[TSMBootstrap]  Downloading policy from http://CON-PS1SITE.contoso.com.</span><br><span class="line">[TSMBootstrap]      Processing Policy Assignment CS120006-CS100010-6F6BCC28.</span><br><span class="line">[TSMBootstrap]  Downloading policy body CS120006-CS100010-6F6BCC28.</span><br><span class="line">[TSMBootstrap]  Request location: HTTP://&lt;MP&gt;/SMS_MP/.SMS_POL?CS120006-CS100010-6F6BCC28.1_00</span><br><span class="line">[TSMBootstrap]  Response ID: CS120006-CS100010-6F6BCC28</span><br></pre></td></tr></table></figure>
+
+<p>ポリシー割り当ての ID は、展開 ID とタスク シーケンス パッケージ ID を連結した形式です。目的の展開が列挙されない場合は、展開先コレクションへの所属、展開の有効化時刻、および配布ポイントへのコンテンツ配布状況を確認します。</p>
+<p>起動メディアでは、管理ポイントへ接続する前に、メディアに埋め込まれた証明書で認証情報を組み立てます。以下は起動メディアから起動したときの smsts.log の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Authenticator from the environment is empty.</span><br><span class="line">[TSMBootstrap]  Need to create Authenticator Info using PFX</span><br><span class="line">[TSMBootstrap]  Using the following user-defined management point locations: http://CON-PS1SITE.contoso.com.</span><br><span class="line">[TSMBootstrap]  Set media certificates in transport</span><br><span class="line">[TSMBootstrap]  ... GET /SMS_MP/.sms_aut?MPLOCATION&amp;ir=&lt;クライアント IP&gt;&amp;ip=&lt;サブネット&gt;</span><br><span class="line">[TSMBootstrap]      site=PS1,PS1, MP=http://CON-PS1SITE.contoso.com, ports: http=80,https=443</span><br><span class="line">[TSMBootstrap]  ... GET /SMS_MP/.sms_aut?MPKEYINFORMATIONMEDIA</span><br><span class="line">[TSMBootstrap]  Downloading policy from http://CON-PS1SITE.CONTOSO.COM.</span><br></pre></td></tr></table></figure>
+
+<p>[Using the following user-defined management point locations] に出力されるのは、メディア作成時に指定した管理ポイントです。[MPKEYINFORMATIONMEDIA] は、メディアから開始したときにだけ送信される要求です。管理ポイント側では、IIS ログでこの要求を確認できます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /SMS_MP/.sms_aut MPKEYINFORMATIONMEDIA 80 - &lt;クライアント IP&gt; SMS+CCM+5.0+TS 200 0 0</span><br></pre></td></tr></table></figure>
+
+<p>起動メディアでも、要求元がサイト データベースに登録済みかどうかの判定が行われます。PXE ブートでは配布ポイントが先に判定していましたが、起動メディアには配布ポイント側のログが存在しないため、判定の記録はクライアントの smsts.log だけになります。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]      Setting SMBIOS GUID = &lt;SMBIOS GUID&gt;.</span><br><span class="line">[TSMBootstrap]      Adding MAC Address &lt;MAC&gt;.</span><br><span class="line">[TSMBootstrap]  Executing Client Identity Request.</span><br><span class="line">[TSMBootstrap]  Unknown machine GUIDs: &lt;x86 用 GUID&gt; &lt;x64 用 GUID&gt;</span><br><span class="line">[TSMBootstrap]      Management Point specific X64 unknown machine GUID is received at run time</span><br></pre></td></tr></table></figure>
+
+<p>一方、スタンドアロン メディアでは管理ポイントへの接続は行わず、メディア上のポリシー ファイルを直接読み込みます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Loading policy from D:\sms\data\Policy.XML.</span><br><span class="line">[TSMBootstrap]  Loading policy from file: D:\sms\data\Policy.XML</span><br><span class="line">[TSMBootstrap]  This Task sequence is set for RunFromDP</span><br><span class="line">[TSMBootstrap]  Retrieving collection variable policy.</span><br><span class="line">[TSMBootstrap]  Found 0 collection variables.</span><br><span class="line">[TSMBootstrap]  Retrieving machine variable policy.</span><br><span class="line">[TSMBootstrap]  Found 0 machine variables.</span><br></pre></td></tr></table></figure>
+
+<p>スタンドアロン メディアの smsts.log には、管理ポイントへの HTTP 要求を示す行が一切現れません。コレクション変数やコンピューター変数も、サイトから取得されないため 0 件になります。これらをタスク シーケンスで使用している場合は、メディア作成時に変数を指定する必要があります。</p>
+<p>ポリシーが揃うと、実行するタスク シーケンスが決定されます。任意の展開が複数ある場合は [タスク シーケンス ウィザード] が表示され、実行するタスク シーケンスをユーザーが選択します。無人のメディアで SMSTSPreferredAdvertID を指定している場合は、ウィザードを表示せずに展開 ID が選択されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Running Wizard in Unattended mode</span><br><span class="line">[TSMBootstrap]  Successfully read 154 policy assignments.</span><br><span class="line">[TSMBootstrap]  Using preferred deployment CS120006</span><br><span class="line">[TSMBootstrap]  Setting Selected Task Sequence Information Task Sequencing Environment.</span><br><span class="line">[TSMBootstrap]  Setting selected task sequence information in the environment.</span><br></pre></td></tr></table></figure>
+
+<p>スタンドアロン メディアでは、実行するタスク シーケンスがメディア作成時に確定しているため、この選択処理自体がありません。ポリシーの読み込みに続いて、そのままタスク シーケンス環境の作成へ進みます。</p>
+<h3 id="ステップ-5-コンテンツの取得元の解決"><a href="#ステップ-5-コンテンツの取得元の解決" class="headerlink" title="ステップ 5 : コンテンツの取得元の解決"></a>ステップ 5 : コンテンツの取得元の解決</h3><p>タスク シーケンスが決まると、参照するパッケージごとにポリシーとコンテンツの場所が解決されます。</p>
+<p>PXE ブートと起動メディアでは、配布ポイントの URL が解決されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Successfully resolved policy for CS10000A.</span><br><span class="line">[TSMBootstrap]  Resolving content location for CS10000A</span><br><span class="line">[TSMBootstrap]  CS10000A http content location: https://CON-PS1SITE.contoso.com/CCMTOKENAUTH_SMS_DP_SMSPKG$/CS10000A,http://CON-PS1SITE.contoso.com/SMS_DP_SMSPKG$/CS10000A</span><br></pre></td></tr></table></figure>
+
+<p>[Successfully resolved policy] と [content location] が、参照するすべてのパッケージ (本検証では OS イメージ、ブート イメージ、クライアント パッケージ、ユーザー状態移行ツール パッケージ) について記録されていることを確認します。ここでコンテンツの場所が解決できない場合は、境界グループに対する配布ポイントの割り当てと、対象パッケージの配布状況を確認します。</p>
+<p>スタンドアロン メディアでは、同じ箇所がメディア上のパスになります。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Resolving content location for CS100001</span><br><span class="line">[TSMBootstrap]  CS100001 content location: file:VOL001:\SMS\PKG\CS100001</span><br><span class="line">[TSMBootstrap]  CS100002 content location: file:VOL001:sources</span><br><span class="line">[TSMBootstrap]  CS100003 content location: file:VOL001:\SMS\PKG\CS100003</span><br><span class="line">[TSMBootstrap]  CS10000A content location: file:VOL001:\SMS\PKG\CS10000A</span><br><span class="line">[TSMBootstrap]  Setting source for CS10000A to file:VOL001:\SMS\PKG\CS10000A</span><br></pre></td></tr></table></figure>
+
+<p>[file:VOL001:] は、メディアのボリュームを指す表記です。コンテンツの取得元を確認したい場合は、[content location] の行が [http] で始まるか [file:VOL001:] で始まるかを見ます。</p>
+<h3 id="ステップ-6-ディスクの構成と-OS-イメージの適用"><a href="#ステップ-6-ディスクの構成と-OS-イメージの適用" class="headerlink" title="ステップ 6 : ディスクの構成と OS イメージの適用"></a>ステップ 6 : ディスクの構成と OS イメージの適用</h3><p>本ステップ以降は、3 つの開始方法で共通です。以下の抜粋は、断りのない限り PXE ブートで実行したときのクライアントの smsts.log (Windows PE フェーズ) からのものです。</p>
+<p>ポリシーの解決が完了すると、TSManager.exe がタスク シーケンス エンジンとして実行を開始します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Executing in WinPE</span><br><span class="line">[TSManager]  The task execution engine started execution</span><br><span class="line">[TSManager]  Set a global environment variable _SMSTSNextInstructionPointer=0</span><br></pre></td></tr></table></figure>
+
+<p>[Executing in WinPE] は Windows PE で実行中であることを示します。フル OS では [NOT executing in WinPE] になります。</p>
+<p>以降、エンジンは 1 ステップずつ [Start executing an instruction] を記録しながら進みます。実行位置は _SMSTSNextInstructionPointer に保持され、再起動をまたいでも同じ位置から再開されます。</p>
+<p>条件が false と評価されたステップは、実行されずにスキップされます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Partition Disk 0 - BIOS&#x27;.  Pointer: 11. Type: &#x27;SMS_TaskSequence_PartitionDiskAction&#x27;. Disabled: 0</span><br><span class="line">[TSManager]  The action (Partition Disk 0 - BIOS) has been skipped because the condition is evaluated to be false</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Partition Disk 0 - UEFI&#x27;.  Pointer: 12. Type: &#x27;SMS_TaskSequence_PartitionDiskAction&#x27;. Disabled: 0</span><br></pre></td></tr></table></figure>
+
+<p>既定のタスク シーケンスには [Partition Disk 0 - BIOS] と [Partition Disk 0 - UEFI] の 2 つのステップが含まれ、ファームウェアの種類に応じてどちらか一方だけが実行されます。UEFI のコンピューターでは BIOS 用のステップがスキップされます。</p>
+<p>[ディスクのフォーマットとパーティション分割] の実処理は OSDDiskPart.exe が担当し、実行された diskpart のスクリプトがそのまま記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[OSDDiskPart]  ==============================[ OSDDiskPart.exe ]==============================</span><br><span class="line">[OSDDiskPart]  Executing diskpart script: list volume  select disk 0 clean convert gpt create partition primary size=300 ...</span><br><span class="line">[OSDDiskPart]  Formatting partitions</span><br><span class="line">[OSDDiskPart]  Formatting drive C: with NTFS filesystem, method quick</span><br><span class="line">[TSManager]  Successfully completed the action (Partition Disk 0 - UEFI) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>ディスクが確保されると、タスク シーケンスは作業フォルダー C:_SMSTaskSequence を作成し、以降のコンテンツをここへダウンロードします。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  C:\_SMSTaskSequence does not exist</span><br><span class="line">[TSManager]  Creating directory C:\_SMSTaskSequence</span><br></pre></td></tr></table></figure>
+
+<p>[オペレーティング システム イメージの適用] ステップでは、OSDApplyOS.exe が OS イメージを取得し、対象ボリュームへ適用します。PXE ブートと起動メディアでは、配布ポイントからのダウンロードになります。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Executing command line: OSDApplyOS.exe /image:CS10000A,%OSDImageIndex% /runfromnet:False</span><br><span class="line">[ApplyOperatingSystem]  Set command line: &quot;OSDApplyOS.exe&quot; /image:CS10000A,3 /runfromnet:False</span><br><span class="line">[ApplyOperatingSystem]  Downloaded file from http://CON-PS1SITE.contoso.com:443/CCMTOKENAUTH_SMS_DP_SMSPKG$/CS10000A/sccm?/install.wim to C:\_SMSTaskSequence\Packages\CS10000A\install.wim</span><br><span class="line">[ApplyOperatingSystem]  Content successfully downloaded at C:\_SMSTaskSequence\Packages\CS10000A.</span><br><span class="line">[ApplyOperatingSystem]  Applying image to C:\</span><br><span class="line">[ApplyOperatingSystem]  Applying image 3</span><br><span class="line">[TSManager]  Successfully completed the action (Apply Operating System) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>&#x2F;image に続くのが OS イメージのパッケージ ID とイメージ インデックスです。意図したエディションが選択されているかは、このインデックスで確認します。検証環境では、ダウンロードに約 2 分 10 秒、イメージの適用に約 4 分 20 秒を要しました。</p>
+<p>[Downloaded file] が記録されない場合はコンテンツの取得に失敗しています。境界グループ、配布ポイントの割り当て、およびクライアント側のネットワーク構成を確認します。</p>
+<p>スタンドアロン メディアでは、ダウンロードを伴わずメディアから直接適用されます。以下はスタンドアロン メディアで実行したときの smsts.log の抜粋です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ApplyOperatingSystem]  ResolveSource flags: 0x00000001</span><br><span class="line">[ApplyOperatingSystem]  Package location: _SMSTSCS10000A, file:VOL001:\SMS\PKG\CS10000A</span><br><span class="line">[ApplyOperatingSystem]  wim file not found, looking for spanned images..</span><br><span class="line">[ApplyOperatingSystem]  Applying image to C:\</span><br><span class="line">[ApplyOperatingSystem]  Applying image 3</span><br></pre></td></tr></table></figure>
+
+<p>[wim file not found, looking for spanned images..] は、ステップ 1 で分割形式として格納された OS イメージを探していることを示します。エラーではありません。</p>
+<h3 id="ステップ-7-Windows-設定、ネットワーク設定、およびドライバーの適用"><a href="#ステップ-7-Windows-設定、ネットワーク設定、およびドライバーの適用" class="headerlink" title="ステップ 7 : Windows 設定、ネットワーク設定、およびドライバーの適用"></a>ステップ 7 : Windows 設定、ネットワーク設定、およびドライバーの適用</h3><p>本ステップの抜粋も、クライアントの smsts.log (Windows PE フェーズ) からのものです。</p>
+<p>イメージの適用後、Windows PE 上で 3 つのステップが続けて実行されます。いずれも設定を応答ファイルへ書き込む、またはドライバーを配置するステップであり、この時点では Windows は起動していません。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Apply Windows Settings&#x27;. ...</span><br><span class="line">[OSDWinSettings]  ============================[ OSDWinSettings.exe ]============================</span><br><span class="line">[TSManager]  Successfully completed the action (Apply Windows Settings) with the exit win32 code 0</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Apply Network Settings&#x27;. ...</span><br><span class="line">[OSDNetSettings]  ==============================[ OSDNetSettings.exe ]===========================</span><br><span class="line">[OSDNetSettings]  Configuring &quot;OSDNetSettings.exe finalize&quot; to run on first boot</span><br><span class="line">[TSManager]  Successfully completed the action (Apply Network Settings) with the exit win32 code 0</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Apply Device Drivers&#x27;. ...</span><br><span class="line">[OSDDriverClient]  ============================[ OSDDriverClient.exe ]============================</span><br><span class="line">[OSDDriverClient]  Driver path is C:\_SMSTaskSequence\drivers</span><br></pre></td></tr></table></figure>
+
+<p>[Apply Network Settings] で記録される [Configuring “OSDNetSettings.exe finalize” to run on first boot] は、ドメイン参加を含むネットワーク設定の確定処理を、フル OS の初回起動時に実行するよう予約したことを示します。実際の確定処理はステップ 9 で行われます。</p>
+<p>[Apply Device Drivers] は、ハードウェアを列挙して管理ポイントへ問い合わせ、該当するドライバーをダウンロードして C:_SMSTaskSequence\drivers へ配置します。ドライバーが適用されない場合は、このステップのログでドライバー カタログへの問い合わせ結果を確認し、必要に応じて管理ポイントの MP_DriverManager.log を併せて確認します。なおスタンドアロン メディアでは管理ポイントへ問い合わせできないため、[ドライバーの自動適用] はサポートされません。詳細は [参考リンク] の [スタンドアロン メディアの作成] をご確認ください。</p>
+<h3 id="ステップ-8-セットアップ-フックの組み込みとハード-ディスクからの再起動"><a href="#ステップ-8-セットアップ-フックの組み込みとハード-ディスクからの再起動" class="headerlink" title="ステップ 8 : セットアップ フックの組み込みとハード ディスクからの再起動"></a>ステップ 8 : セットアップ フックの組み込みとハード ディスクからの再起動</h3><p>本ステップの抜粋も、クライアントの smsts.log (Windows PE フェーズ) からのものです。</p>
+<p>Windows PE フェーズの最後が [Windows および ConfigMgr のセットアップ] ステップです。このステップは OSDSetupWindows.exe が担当し、Windows PE 側では、適用済みの OS へセットアップ フックを組み込みます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Setup Windows and Configuration Manager&#x27;.  Pointer: 20. Type: &#x27;SMS_TaskSequence_SetupWindowsAndSMSAction&#x27;. Disabled: 0</span><br><span class="line">[OSDSetupWindows]  ==============================[ OSDSetupWindows.exe ]===========================</span><br><span class="line">[OSDSetupWindows]  Set command line: &quot;X:\sms\bin\x64\OSDSETUPHOOK.EXE&quot; &quot;/configure:C:\WINDOWS\SYSTEM32&quot; /version:10.0</span><br><span class="line">[OSDSetupWindows]  Installing hook to &#x27;C:\WINDOWS&#x27;</span><br><span class="line">[OSDSetupWindows]  Set command line: &quot;X:\sms\bin\x64\OSDSETUPHOOK.EXE&quot; &quot;/install:C:\WINDOWS&quot; /version:10.0</span><br><span class="line">[OSDSetupWindows]  Loading offline registry hive &quot;C:\WINDOWS\system32\config\software&quot; into HKLM\OfflineRegistry1</span><br><span class="line">[OSDSetupWindows]  SMS Client is not installed</span><br><span class="line">[TSManager]  Successfully completed the action (Setup Windows and Configuration Manager) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>適用したイメージ内のレジストリをオフラインで読み込み、Configuration Manager クライアントの有無を確認しています。イメージにクライアントが含まれていた場合は、ここでサービスの自動起動が無効化されます。</p>
+<p>処理が完了すると、エンジンは再起動を要求し、Windows PE を終了します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Reboot to local hard disk</span><br><span class="line">[TSManager]  Execution engine result code: Reboot (2)</span><br><span class="line">[TSMBootstrap]  Task Sequence Manager returned code 0x80070BC2</span><br><span class="line">[TSMBootstrap]  Setting reboot required flag.</span><br><span class="line">[TSBootShell]  Successfully finalized logs to C:\SMSTSLog</span><br></pre></td></tr></table></figure>
+
+<p>[Reboot to local hard disk] は、次回の起動をハード ディスクから行うことを示します。エンジンの戻り値 [Reboot (2)] と 0x80070BC2 (ERROR_SUCCESS_REBOOT_REQUIRED) は、エラーではなく再起動要求です。</p>
+<p>このタイミングで、Windows PE 上の X:\Windows\TEMP\SMSTSLog\smsts.log が C:\SMSTSLog へ退避されます。Windows PE フェーズの調査には、この C:\SMSTSLog\smsts.log を使用します。</p>
+<p>メディアから起動している場合、スタンドアロン メディアは以降のステップでもメディアを参照します。詳細は [スタンドアロン メディアは実行中もメディアを保持する] をご確認ください。</p>
+<h3 id="ステップ-9-フル-OS-でのタスク-シーケンス再開とクライアントのインストール"><a href="#ステップ-9-フル-OS-でのタスク-シーケンス再開とクライアントのインストール" class="headerlink" title="ステップ 9 : フル OS でのタスク シーケンス再開とクライアントのインストール"></a>ステップ 9 : フル OS でのタスク シーケンス再開とクライアントのインストール</h3><p>本ステップ以降の抜粋は、クライアントの smsts.log (フル OS フェーズ) からのものです。</p>
+<p>再起動後、Windows のミニ セットアップが実行され、その完了時に SetupComplete.cmd 経由でセットアップ フックが起動します。検証環境では、再起動からセットアップ フックの起動まで約 5 分を要しました。</p>
+<p>セットアップ フックは 2 回実行されます。1 回目は再起動を要求して終了し、2 回目でタスク シーケンス環境を読み込みます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[OSDSetupHook]  ==============================[ OSDSetupHook.exe ]==============================</span><br><span class="line">[OSDSetupHook]  Logging successfully initialized to C:\_SMSTaskSequence\Logs</span><br><span class="line">[OSDSetupHook]  Registry value SMSTSSetupCompleteRebooted is not set. Running OSD ConfigMgr setup hook first time: requesting reboot</span><br><span class="line">[OSDSetupHook]  Registry value SMSTSSetupCompleteRebooted is set. Running OSD ConfigMgr setup hook second time (after reboot)</span><br><span class="line">[OSDSetupHook]  Loading the Task Sequencing Environment from &quot;C:\_SMSTaskSequence\TSEnv.dat&quot;.</span><br></pre></td></tr></table></figure>
+
+<p>C:_SMSTaskSequence\TSEnv.dat が、Windows PE で設定したタスク シーケンス変数と実行位置を保持しているファイルです。これを読み込むことで、再起動をまたいで同じ位置から実行を再開できます。</p>
+<p>続いて、ローカル管理者アカウントの構成や時刻同期などの初期化が行われ、Configuration Manager クライアントがインストールされます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[OSDSetupHook]  Clients is joined to a domain.</span><br><span class="line">[OSDSetupHook]  Installing SMS client</span><br><span class="line">[OSDSetupHook]  TS started from an unknown machine... Using submitted GUID GUID:&lt;クライアント GUID&gt;</span><br><span class="line">[OSDSetupHook]  Executing C:\_SMSTaskSequence\OSD\CS100003\ccmsetup.exe /useronly /source:C:\_SMSTaskSequence\OSD\CS100003 /config:MobileClient.TCF /status:1028</span><br><span class="line">[OSDSetupHook]  Process completed with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>[Clients is joined to a domain.] により、ステップ 7 で予約したネットワーク設定の確定処理でドメイン参加が完了していることを確認できます。クライアントは、ステップ 5 で解決したクライアント パッケージ (本検証では CS100003) をソースとしてローカルからインストールされます。インストールの詳細は ccmsetup.log を確認します。検証環境では、クライアントのインストールに約 3 分 20 秒を要しました。</p>
+<p>クライアントのインストールが完了すると、TsmBootstrap.exe と TSManager.exe がフル OS 上で起動し、中断したステップから実行が再開されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  NOT executing in WinPE</span><br><span class="line">[TSManager]  The task execution engine started execution</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Setup Windows and Configuration Manager&#x27;.  Pointer: 20. Type: &#x27;SMS_TaskSequence_SetupWindowsAndSMSAction&#x27;. Disabled: 0</span><br><span class="line">[OSDNetSettings]  Command line: &quot;OSDNetSettings.exe&quot; finalize</span><br><span class="line">[TSManager]  Successfully completed the action (Setup Windows and Configuration Manager) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>実行位置 (Pointer) がステップ 8 と同じ 20 である点にご注目ください。[Windows および ConfigMgr のセットアップ] は 1 つのステップでありながら、Windows PE で開始してフル OS で完了します。</p>
+<p>なお、この時点のクライアントは [プロビジョニング モード] で動作しており、タスク シーケンスが完了するまで新しいポリシー要求を処理しません。</p>
+<h3 id="ステップ-10-残りのステップの実行と完了処理"><a href="#ステップ-10-残りのステップの実行と完了処理" class="headerlink" title="ステップ 10 : 残りのステップの実行と完了処理"></a>ステップ 10 : 残りのステップの実行と完了処理</h3><p>本ステップの抜粋も、クライアントの smsts.log (フル OS フェーズ) からのものです。</p>
+<p>以降は、フル OS 上で残りのステップが順に実行されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Enable BitLocker&#x27;. ...</span><br><span class="line">[TSManager]  Successfully completed the action (Enable BitLocker) with the exit win32 code 0</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Install Updates&#x27;. ...</span><br><span class="line">[TSManager]  Successfully completed the action (Install Updates) with the exit win32 code 0</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Restore User Files and Settings&#x27;. ...</span><br><span class="line">[TSManager]  The execution engine ignored the failure of the action (Restore User Files and Settings) and continues execution</span><br></pre></td></tr></table></figure>
+
+<p>[The execution engine ignored the failure of the action] は、そのステップで [エラー時に続行] が有効になっているため、失敗してもタスク シーケンス全体は継続することを示します。ステップ単位の失敗を見落とさないためには、この行の有無を確認します。</p>
+<p>スタンドアロン メディアでは、この区間の動作が一部変わります。既定のタスク シーケンスには、スタンドアロン メディアでは実行しない条件が設定されたステップが含まれます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Install Updates&#x27;.  Pointer: 22. Type: &#x27;SMS_TaskSequence_InstallUpdateAction&#x27;. Disabled: 0</span><br><span class="line">[TSManager]  Evaluating a variable condition expression</span><br><span class="line">[TSManager]  Value = FullMedia</span><br><span class="line">[TSManager]  Operator = notEquals</span><br><span class="line">[TSManager]  The variable condition expression is evaluated to be FALSE</span><br><span class="line">[TSManager]  The action (Install Updates) has been skipped because the condition is evaluated to be false</span><br></pre></td></tr></table></figure>
+
+<p>[ソフトウェア更新プログラムのインストール] ステップには、既定で [_SMSTSMediaType が FullMedia と等しくない] という条件が設定されています。スタンドアロン メディアではサイトへ接続できないため、このステップはスキップされます。ソフトウェア更新プログラムのインストールがスタンドアロン メディアでサポートされないことは、[参考リンク] の [スタンドアロン メディアの作成] に記載されています。</p>
+<p>また、スタンドアロン メディアでは、各ステップの後に状態メッセージを送信しない旨が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Successfully completed the action (Enable BitLocker) with the exit win32 code 0</span><br><span class="line">[TSManager]  Do not send status message in full media case</span><br></pre></td></tr></table></figure>
+
+<p>PXE ブートと起動メディアで実行した場合は、同じ箇所で [Sending StatusMessage] が記録されます。検証環境では、スタンドアロン メディアの smsts.log に [Sending StatusMessage] は 1 件も記録されず、起動メディアの smsts.log には記録されていました。サイトに接続しないため、スタンドアロン メディアで実行した結果は ConfigMgr コンソールの展開状態に反映されません。実行結果はクライアント側の smsts.log で確認します。</p>
+<p>すべてのステップが終わると、エンジンが結果コードを記録し、セットアップ フックが後片付けを行います。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  The task execution engine successfully completed the current task sequence step</span><br><span class="line">[TSManager]  Execution engine result code: Success (0)</span><br><span class="line">[OSDSetupHook]  Task sequence completed 0x00000000</span><br><span class="line">[OSDSetupHook]  Resume SCCM Client.</span><br><span class="line">[OSDSetupHook]  CCMExec Service started</span><br><span class="line">[OSDSetupHook]  CcmExec service is up and fully operational</span><br><span class="line">[OSDSetupHook]  Successfully connected to Management Point CON-PS1SITE.CONTOSO.COM:80</span><br><span class="line">[OSDSetupHook]  Exiting SetClientProvisioningMode 0x00000000</span><br><span class="line">[OSDSetupHook]  Uninstalling Setup Hook</span><br><span class="line">[OSDSetupHook]  Removing setup hook from registry.</span><br><span class="line">[OSDSetupHook]  Successfully finalized logs to SMS client log directory from C:\WINDOWS\CCM\Logs</span><br></pre></td></tr></table></figure>
+
+<p>[Execution engine result code: Success (0)] と [Task sequence completed 0x00000000] が、タスク シーケンスの正常終了を示します。その後、[Exiting SetClientProvisioningMode 0x00000000] でプロビジョニング モードが解除され、クライアントが通常運用に切り替わります。</p>
+<p>最後の [Successfully finalized logs to SMS client log directory] により、すべてのログが C:\Windows\CCM\Logs に集約されます。展開が完了したコンピューターを調査する場合は、まずこのログを確認します。</p>
+<p>検証環境で要した時間は、以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>開始方法</th>
+<th>メディアの作成</th>
+<th>OS 展開の開始から完了まで</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PXE ブート</td>
+<td>—</td>
+<td>約 25 分</td>
+</tr>
+<tr>
+<td>起動メディア</td>
+<td>約 69 秒 (579.7 MB)</td>
+<td>約 25 分</td>
+</tr>
+<tr>
+<td>スタンドアロン メディア</td>
+<td>約 14.3 分 (6,777.4 MB)</td>
+<td>約 24 分</td>
+</tr>
+</tbody></table>
+<h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><h3 id="smsts-log-の保存先はフェーズごとに変わる"><a href="#smsts-log-の保存先はフェーズごとに変わる" class="headerlink" title="smsts.log の保存先はフェーズごとに変わる"></a>smsts.log の保存先はフェーズごとに変わる</h3><p>smsts.log は 1 つのファイルではなく、フェーズごとに異なる場所へ出力されます。検証環境の PXE ブートで確認できた保存先は以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>フェーズ</th>
+<th>保存先</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows PE 実行中</td>
+<td>X:\Windows\TEMP\SMSTSLog\smsts.log</td>
+<td>ステップ 3 からステップ 8 まで。Windows PE を終了すると失われます。</td>
+</tr>
+<tr>
+<td>Windows PE 終了時</td>
+<td>C:\SMSTSLog\smsts.log</td>
+<td>Windows PE フェーズの記録がハード ディスクへ退避されたもの。</td>
+</tr>
+<tr>
+<td>フル OS フェーズ</td>
+<td>C:_SMSTaskSequence\Logs</td>
+<td>セットアップ フックの起動から再開後のステップまで。タスク シーケンスの完了時に C:_SMSTaskSequence ごと削除されます。</td>
+</tr>
+<tr>
+<td>タスク シーケンス完了後</td>
+<td>C:\Windows\CCM\Logs\smsts.log</td>
+<td>全フェーズを集約したもの。</td>
+</tr>
+</tbody></table>
+<p>上記に加えて、検証環境では進行状況 UI の記録だけを含む C:\Windows\Temp\SMSTSLog\smsts.log も残っていました。調査には、集約後の C:\Windows\CCM\Logs\smsts.log と、Windows PE フェーズの C:\SMSTSLog\smsts.log を使用します。</p>
+<p>なお、起動メディアとスタンドアロン メディアで実行した検証では、完了後のクライアントに C:\SMSTSLog\smsts.log は残っていませんでした。この場合も、集約後の C:\Windows\CCM\Logs\smsts.log には Windows PE フェーズの記録が含まれます。</p>
+<p>Windows PE の途中で失敗した場合は、Windows PE が終了すると X: ドライブごと記録が失われます。タスク シーケンス変数 SMSTSLogPath でログの出力先を変更する方法や、失敗時に [コマンド ラインの実行] でログをコピーする方法を、あらかじめ検討ください。</p>
+<h3 id="実行結果を判断する行"><a href="#実行結果を判断する行" class="headerlink" title="実行結果を判断する行"></a>実行結果を判断する行</h3><p>タスク シーケンスの結果は、以下の行で判断します。</p>
+<table>
+<thead>
+<tr>
+<th>確認する内容</th>
+<th>記録される行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>開始方法</td>
+<td>Booted from network (PXE) または Booted from removable media、および MediaType &#x3D; BootMedia または MediaType &#x3D; FullMedia</td>
+</tr>
+<tr>
+<td>ステップの開始</td>
+<td>Start executing an instruction. Instruction name: ‘&lt;ステップ名&gt;’.  Pointer: &lt;実行位置&gt;.</td>
+</tr>
+<tr>
+<td>ステップの正常終了</td>
+<td>Successfully completed the action (&lt;ステップ名&gt;) with the exit win32 code 0</td>
+</tr>
+<tr>
+<td>条件によるスキップ</td>
+<td>The action (&lt;ステップ名&gt;) has been skipped because the condition is evaluated to be false</td>
+</tr>
+<tr>
+<td>エラー時に続行による継続</td>
+<td>The execution engine ignored the failure of the action (&lt;ステップ名&gt;) and continues execution</td>
+</tr>
+<tr>
+<td>再起動要求</td>
+<td>Execution engine result code: Reboot (2)</td>
+</tr>
+<tr>
+<td>タスク シーケンス全体の成功</td>
+<td>Execution engine result code: Success (0) および Task sequence completed 0x00000000</td>
+</tr>
+</tbody></table>
+<h3 id="スタンドアロン-メディアは実行中もメディアを保持する"><a href="#スタンドアロン-メディアは実行中もメディアを保持する" class="headerlink" title="スタンドアロン メディアは実行中もメディアを保持する"></a>スタンドアロン メディアは実行中もメディアを保持する</h3><p>スタンドアロン メディアは、コンテンツをメディアから読み出します。そのため、タスク シーケンスが後半のステップでコンテンツを必要とする場合、その時点でメディアが接続されている必要があります。</p>
+<p>検証環境では、[BitLocker を有効にする] ステップで [BitLocker ドライブ暗号化により、起動可能なメディアがコンピューターで検出されました。メディアを取り外してから、[OK] をクリックして続行してください。] という趣旨のダイアログが表示され、メディアを取り外して続行した後、[ユーザー ファイルと設定の復元] ステップで [タスク シーケンス用のメディア #1 を挿入し、[OK] をクリックしてください。] という趣旨のダイアログが表示されました。ログ上は、ユーザー状態移行ツールのパッケージをメディアから解決しようとした箇所に対応します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[OSDUSMT]  ResolveSource flags: 0x00000000</span><br><span class="line">[OSDUSMT]  Package location: _SMSTSCS100001, file:VOL001:\SMS\PKG\CS100001</span><br></pre></td></tr></table></figure>
+
+<p>無人での運用を想定する場合は、タスク シーケンスの構成とメディアの取り扱いを合わせて設計ください。</p>
+<h3 id="同じコンピューターを再展開すると起動メディアの候補が変わる"><a href="#同じコンピューターを再展開すると起動メディアの候補が変わる" class="headerlink" title="同じコンピューターを再展開すると起動メディアの候補が変わる"></a>同じコンピューターを再展開すると起動メディアの候補が変わる</h3><p>起動メディアは、実行のたびに SMBIOS GUID と MAC アドレスを管理ポイントへ送り、[不明なコンピューター] かどうかを判定し直します。前回の OS 展開でサイトにデバイス レコードが作成されていると、判定結果が [Known] となり、[All Unknown Computers] を対象とした展開は候補から外れます。</p>
+<p>検証環境で、前回の展開で作成されたデバイス レコードを残したまま起動メディアを実行したところ、Windows PE の起動と管理ポイントとの通信はすべて成功しているにもかかわらず、タスク シーケンスが 1 つも見つからない状態になりました。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Client Identity: GUID:&lt;クライアント GUID&gt;</span><br><span class="line">[TSMBootstrap]  Netbios name: MININT-XXXXXXX</span><br><span class="line">[TSMBootstrap]  Client GUID = GUID:&lt;クライアント GUID&gt;, Netbios name = MININT-XXXXXXX, State = Known</span><br><span class="line">[TSMBootstrap]  Successfully read 130 policy assignments.</span><br><span class="line">[TSMBootstrap]  Provided preferred deployment CS120006 is not found among the available deployments.</span><br><span class="line">[TSMBootstrap]  There are no task sequences available to this computer.. Please ensure you have at least one task sequence deployed to this computer. Unspecified error (Error: 80004005; Source: Windows)</span><br></pre></td></tr></table></figure>
+
+<p>[Successfully read 130 policy assignments.] のように多くのポリシーが読み込まれていても、その中にタスク シーケンス展開が含まれているとは限りません。判断に使用するのは、直後の [available deployments] の行です。</p>
+<p>無人のメディアではウィザードが表示されないため、エラー画面も表示されずにコンピューターが再起動します。外形的には [Windows PE が短時間で再起動を繰り返す] ようにしか見えない点にご注意ください。</p>
+<p>再展開する場合は、対象のデバイス レコードを削除するか、そのデバイスが所属するコレクションに対してタスク シーケンスを展開ください。PXE ブートの場合は、同じ判定が SMSPXE.log の [System records:] に記録されます。</p>
+<h2 id="失敗したときに確認する箇所"><a href="#失敗したときに確認する箇所" class="headerlink" title="失敗したときに確認する箇所"></a>失敗したときに確認する箇所</h2><table>
+<thead>
+<tr>
+<th>症状</th>
+<th>確認するログと確認箇所</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PXE で起動しない</td>
+<td>SMSPXE.log。System records の照合結果、候補となる展開の一覧、応答パケットの BootFile が空でないこと。</td>
+</tr>
+<tr>
+<td>メディアから起動しない</td>
+<td>ファームウェアのブート順とセキュア ブートの設定。CreateTsMedia.log で ISO が正常に作成されていること。</td>
+</tr>
+<tr>
+<td>どの開始方法で起動したか分からない</td>
+<td>smsts.log の [Booted from network (PXE)] または [Booted from removable media]、および [MediaType &#x3D; BootMedia] または [MediaType &#x3D; FullMedia]。</td>
+</tr>
+<tr>
+<td>タスク シーケンスの一覧に表示されない</td>
+<td>PXE ブートは SMSPXE.log の Client Boot TS reply にある Required、AlreadyRun、ForPXE、Expired の各属性。起動メディアは smsts.log の [State &#x3D; ] と [available deployments] の行。</td>
+</tr>
+<tr>
+<td>起動メディアが管理ポイントに到達できない</td>
+<td>smsts.log の [Using the following user-defined management point locations] と、その後の要求の結果。管理ポイントの IIS ログで [MPKEYINFORMATIONMEDIA] の有無も確認します。</td>
+</tr>
+<tr>
+<td>Windows PE で管理ポイントに到達できない</td>
+<td>smsts.log。Found network adapter の有無と、Downloading policy from の結果。ブート イメージへのネットワーク ドライバーの追加状況。</td>
+</tr>
+<tr>
+<td>コンテンツをダウンロードできない</td>
+<td>smsts.log。Resolving content location と Downloaded file。境界グループへの配布ポイントの割り当てとコンテンツの配布状況。</td>
+</tr>
+<tr>
+<td>スタンドアロン メディアでコンテンツが見つからない</td>
+<td>smsts.log の [content location] が [file:VOL001:] になっているか。メディアが接続されたままかを確認します。</td>
+</tr>
+<tr>
+<td>メディアの作成に失敗する</td>
+<td>CreateTsMedia.log の [Size available] と [size required]、および [Staging] 行。出力先と一時フォルダーの空き容量を確認します。</td>
+</tr>
+<tr>
+<td>再起動後にタスク シーケンスが再開しない</td>
+<td>C:_SMSTaskSequence\Logs 配下の smsts.log。OSDSetupHook.exe の起動と TSEnv.dat の読み込み。</td>
+</tr>
+<tr>
+<td>クライアントがインストールされない</td>
+<td>smsts.log の OSDSetupHook による ccmsetup.exe の実行結果、および ccmsetup.log。</td>
+</tr>
+<tr>
+<td>スタンドアロン メディアの結果がコンソールに出ない</td>
+<td>smsts.log の [Do not send status message in full media case]。仕様上、サイトへ状態メッセージは送信されません。</td>
+</tr>
+</tbody></table>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/use-pxe-to-deploy-windows-over-the-network">ネットワーク上の OSD に PXE を使用する</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-bootable-media">ブータブル メディアの作成</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-stand-alone-media">スタンドアロン メディアの作成</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/get-started/prepare-for-unknown-computer-deployments">不明なコンピューターの展開に備える</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/understand/task-sequence-steps">タスク シーケンスの手順</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/understand/task-sequence-variables">タスク シーケンス変数</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/understand/provisioning-mode">プロビジョニング モード</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files">Configuration Manager のログ ファイル リファレンス</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/get-started/manage-boot-images">ブート イメージを管理する</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/servers/deploy/configure/install-and-configure-distribution-points">配布ポイントのインストールまたは変更</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260918_01/" data-id="cuidUNv5CvYWRJ76G66YM0hDn" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260916_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">自動展開規則についての動作説明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260916_01/">自動展開規則についての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260903_02/">CMG 経由でのクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a>
+          </li>
+        
+          <li>
+            <a href="../20260819_02/">エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/">OS 展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/">アプリケーション管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/">オペレーティング システムの展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/">クラウド管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/">サーバー インフラストラクチャ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/">ソフトウェア更新プログラム管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/">デバイス コンプライアンス</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/">リアルタイム管理 (CMPivot/PowerShell)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/">共同管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/">Windows Server Update Services</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/09/">9月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">8月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">7月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/06/">6月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/05/">5月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/04/">4月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/02/">2月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/01/">1月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">12月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">10月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/07/">7月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/06/">6月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">3月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">10月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/09/">9月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">6月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/05/">5月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/03/">3月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/02/">2月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">1月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/12/">12月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">11月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">7月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">6月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">3月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">10月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">6月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">5月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/04/">4月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">3月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">1月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/12/">12月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">11月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/10/">10月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">9月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">8月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/11/">11月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/10/">10月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/09/">9月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/04/">4月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/03/">3月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">2月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">10月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">9月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">8月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">7月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">6月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">5月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">4月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">3月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">2月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">1月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">12月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">11月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">10月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/09/">9月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/08/">8月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/03/">3月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/02/">2月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/11/">11月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/10/">10月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/09/">9月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/05/">5月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/03/">3月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/02/">2月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/06/">6月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/05/">5月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/03/">3月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/09/">9月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/08/">8月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/04/">4月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/03/">3月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/12/">12月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/05/">5月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/02/">2月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/10/">10月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/06/">6月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/05/">5月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/03/">3月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/10/">10月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
