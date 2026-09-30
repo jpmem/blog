@@ -1440,13 +1440,16 @@ pre .javascript .function {
 .widget-wrap {
   margin: 50px 0;
 }
+.widget-title {
+  color: #143578;
+  text-shadow: none;
+}
 .widget {
-  color: #737373;
-  text-shadow: 0 1px #fff;
-  background: #d2d2d2;
-  -webkit-box-shadow: 0 -1px 4px #d2d2d2 inset;
-  box-shadow: 0 -1px 4px #d2d2d2 inset;
-  border: 1px solid #d2d2d2;
+  color: #323130;
+  background: #fff;
+  -webkit-box-shadow: 0 2px 6px #c5c5c5;
+  box-shadow: 0 2px 6px #c5c5c5;
+  border: 1px solid #a6b5c8;
   padding: 15px;
   border-radius: 3px;
 }
