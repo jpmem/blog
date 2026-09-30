@@ -83,8 +83,8 @@ user-invocable: true
 5. タイトル案と本文案を全文提示し、その内容で作成してよいかユーザーへ確認します。修正依頼があれば案を更新して再提示し、明示的な承認を得るまで作成しません。
 6. 承認後、base を `master`、head を GitHub ログイン名のブランチとして Pull Request を作成します。作成後に URL、base、head、タイトル、および open 状態を確認します。
 7. 作成した Pull Request の Assignee に、事前確認で取得した GitHub ログイン名のアカウントを追加します。
-8. 作成した Pull Request の Reviewer に、`MEM Blog Team`（`jpmem/mem-blog-team`）を追加します。
-9. Assignee と Reviewer の設定を API で再取得し、GitHub ログイン名と `MEM Blog Team` が登録されたことを確認します。権限不足やチーム名の変更などで設定できない場合は、成功したように扱わず、エラーと手動設定が必要であることを報告します。
+8. 作成した Pull Request の Reviewer に、`yuhonda` と `tkaji-w` を追加します。
+9. Assignee と Reviewer の設定を API で再取得し、GitHub ログイン名、`yuhonda`、および `tkaji-w` が登録されたことを確認します。権限不足やアカウント名の変更などで設定できない場合は、成功したように扱わず、エラーと手動設定が必要であることを報告します。
 10. Pull Request のマージ後に head ブランチが自動削除されるよう、リポジトリ設定 `delete_branch_on_merge` が `true` であることを確認します。`false` の場合は次を実行して有効化し、再取得して `true` になったことを確認します。
 
    ```powershell
