@@ -100,11 +100,7 @@
     <a href="../../mecm/20260930_01/" class="article-date">
   <time datetime="2026-09-29T15:00:00.000Z" itemprop="datePublished">2026-09-30</time>
 </a>
-    <!-- 
-  <div class="article-category">
-    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
-  </div>
- -->
+    <!--  -->
   </div>
   <div class="article-inner">
     
@@ -113,7 +109,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20260930_01/">クライアントのコンピューター ポリシー処理についての動作説明</a>
+      <a class="article-title" href="../../mecm/20260930_01/">Configuration Manager Current Branch 2609 がリリースされました。(Early update ring)</a>
     </h1>
   
 
@@ -134,18 +130,78 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。
-本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を取得し、適用するまでの流れとログの確認方法をご案内します。クライアントがサイクルを実行して管理ポイント [MP] へポリシー割り当てを要求し、割り当てとポリシー本体を受信して、Windows Management Instrumentation [WMI] へ格納し、評価と適用を完了するまでを対象とします。
-サイト サーバー側でコンソール操作や展開設定の変更からポリシーを生成する処理、および [ユーザー ポリシー] の処理は、本記事の対象外です。
-全体の流れコンピューター ポリシー処理は、概ね次の順序で進みます。
-
-[コンピューター ...
+Configuration Manager Current Branch バージョン 2609 が、早期更新リング (Early update ring) 向けにリリースされました。この記事では、公開情報と現時点の提供状況をご案内します。新機能の詳細や個別の更新手順は、末尾の参考リンクにある公開情報をご確認ください。  
+バージョン 2609 は、Configuration Manager Current Branch が年 2 回から年 1 回のリリース サイクルへ移行する最初のバージョンです。変更の背景と今後の予定は、Configuration Manager のリリース サイクルが年 1 回に変わりますをご覧ください。  
+早期更新リングでの提供について2026 年 9 月 ...
         <p class="article-more-link">
           <a href="../../mecm/20260930_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260930_01/" data-id="cuidXjiXTP96HKiiSuf8eyB3g" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260930_01/" data-id="cuiduuFAGFAZ8IWuTVDvQb3Rt" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mecm/20260929_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../mecm/20260929_01/" class="article-date">
+  <time datetime="2026-09-28T15:00:00.000Z" itemprop="datePublished">2026-09-29</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../mecm/20260929_01/">クライアントのコンピューター ポリシー処理についての動作説明</a>
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="../../mecm/20260929_01/" class="article-date-single">
+  <time datetime="2026-09-28T15:00:00.000Z" itemprop="datePublished">2026-09-29</time>
+</a>
+        / Last update:
+        <a href="../../mecm/20260929_01/" class="article-date-single">    
+    
+    <time datetime="2026-09-28T15:00:00.000Z" itemprop="dateUpdated">2026-09-29</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。
+本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を取得し、適用するまでの流れとログの確認方法をご案内します。クライアントがサイクルを実行して管理ポイント [MP] へポリシー割り当てを要求し、割り当てとポリシー本体を受信して、Windows Management Instrumentation [WMI] へ格納し、評価と適用を完了するまでを対象とします。
+サイト サーバー側でコンソール操作や展開設定の変更からポリシーを生成する処理、および [ユーザー ポリシー] の処理は、本記事の対象外です。
+全体の流れコンピューター ポリシー処理は、概ね次の順序で進みます。
+
+[コンピューター ...
+        <p class="article-more-link">
+          <a href="../../mecm/20260929_01/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20260929_01/" data-id="cuidtWmRG5oI3UGLreK5kimwK" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -204,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260918_01/" data-id="cuidbU792DGzI3UW6ZJTk57hx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260918_01/" data-id="cuidA2E8dmJGapitAfgRIXrdy" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -267,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260916_01/" data-id="cuidhXsgoIRXYq1EZ-JQc8ODx" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260916_01/" data-id="cuidvap8pHE02qlctySedrUOV" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -326,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260903_01/" data-id="cuidxROcFTPBeEg9iONVSBF1x" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260903_01/" data-id="cuidYisVm8y4mDxEvRAd-TJdH" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -385,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260903_02/" data-id="cuid19Eqz5ZYGlbH1scryG3_g" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260903_02/" data-id="cuidtdAFCbSkyFi-2-AXf_ygs" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -444,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260819_01/" data-id="cuidP5kpo2uKQw-jWRKlmK569" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260819_01/" data-id="cuid4bvsZEIPrCEyM002GjmVm" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -504,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260819_02/" data-id="cuidno5ZZZmxiSRdDBlH0WeR0" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260819_02/" data-id="cuidvlmnmoGJ9EPy1t8hXRVtL" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -565,7 +621,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260819_03/" data-id="cuidIkLPfJyfG-qgOMUHv32gL" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260819_03/" data-id="cuidigd8SxW4x1uAMsm9nQuAL" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -626,7 +682,7 @@ C...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidxc_6K9IeEZfDD5mirDZ_A" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidp1mxmQpw6LS4jCOwr31eF" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -692,7 +748,7 @@ C...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_02/" data-id="cuidu7AuJf1A4qz5i7g7c_HCg" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_02/" data-id="cuidvDj8vCAIsNvpjScuejdRZ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -753,7 +809,7 @@ C...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuidq6Pv1Y3eU1-NdbX7jl3qP" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuidRIW6zDG9jljupG-sJOo8e" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -819,7 +875,7 @@ SUSDB の更新...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidUGZhG3T0d3eyhZVoc7V3a" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidV45gtNgdUdYdNG96by4mO" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -877,7 +933,7 @@ Japan Microsoft Intune Support Team Blog
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuid2jXLkzjC3Op7jQrIUKWWm" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuidVCxG4HeXdKgF3I-zVd5T-" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
@@ -939,7 +995,7 @@ Microsoft は、Windows Server Update Services(WSUS) チャネ...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuid5pSNQ_PSO8UskG_ELhk36" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidqXo072X_ldNSNlwJAgf6F" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -1002,7 +1058,7 @@ WSUS メンテナン...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidSzthsOJSxkJZ4GVdfentI" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuid1GAK5Gd3EVvLtw_iYKFVg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -1063,7 +1119,7 @@ WSUS の自動承認の限界WSUS でも自動承認の仕組みはございま�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuiddkiamDbsZWmM4wrxHmtFO" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuidNhqmMABJq0iS0jyi6u8fv" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -1120,7 +1176,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260616_01/" data-id="cuid9TkbtjeP6i10BPdb6SNvU" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260616_01/" data-id="cuidOmcb-WkUJdrFV5MeSZqO4" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1175,10 +1231,10 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260603_01/" data-id="cuid5-OTdbXszaLxamfps_1dW" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260603_01/" data-id="cuidSncFNRAX234wkXiL-bs-K" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li></ul>
 
     </footer>
   </div>
@@ -1235,7 +1291,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260514_01/" data-id="cuidzGIZuNUkKs10BRR9Pkwzw" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260514_01/" data-id="cuidEym5ET3jYZ1suxyeJc5z3" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1291,10 +1347,10 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260507_01/" data-id="cuidBXgLM6Ku6QhlJkQR-jBBY" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260507_01/" data-id="cuidL0_BZQX2wUkPusW7rq_oe" class="article-share-link">共有</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li></ul>
 
     </footer>
   </div>
@@ -1349,7 +1405,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260403_01/" data-id="cuidPQ7VF8B6LrKytx6lAsCSl" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260403_01/" data-id="cuidhrBC6md5JD9bXNwqI8GBp" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -1410,7 +1466,7 @@ ConfigMgr サーバー コンポーネント
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260330_01/" data-id="cuidEJCfR88REfWcJeCAuXvDW" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260330_01/" data-id="cuidXbmTRU0QfZxltvq3AKbpl" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1468,7 +1524,7 @@ ConfigMgr サーバー コンポーネント
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260317_01/" data-id="cuid2VZkUeHICscc7gMwEBiM-" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260317_01/" data-id="cuidC9AFWkV5JGLs290F6t5DL" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1525,7 +1581,7 @@ ConfigMgr サーバー コンポーネント
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260302_01/" data-id="cuidQJWjQcpttJUbGurXijmno" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260302_01/" data-id="cuidEUok50BYFRBOvW7Mh-Nmg" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
@@ -1588,7 +1644,7 @@ MDAV ...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260226_01/" data-id="cuidSJWVVHhH3cv_JuL-2f5rS" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260226_01/" data-id="cuid_0lD0k36xcJKYscGiiI3h" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1646,7 +1702,7 @@ MDAV ...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260203_01/" data-id="cuid2m7eGJQ91JlUHrLILhNRO" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260203_01/" data-id="cuidFTU4G4nTg79oq9nLQhEz-" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -1711,7 +1767,7 @@ Windows Serve...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260129_01/" data-id="cuidLWD_h8ToeojZQQiU9FTPv" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260129_01/" data-id="cuidrnss8isZbLCGeX5wHed7a" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -1736,7 +1792,11 @@ Windows Serve...
       <ul>
         
           <li>
-            <a href="../../mecm/20260930_01/">クライアントのコンピューター ポリシー処理についての動作説明</a>
+            <a href="../../mecm/20260930_01/">Configuration Manager Current Branch 2609 がリリースされました。(Early update ring)</a>
+          </li>
+        
+          <li>
+            <a href="../../mecm/20260929_01/">クライアントのコンピューター ポリシー処理についての動作説明</a>
           </li>
         
           <li>
@@ -1749,10 +1809,6 @@ Windows Serve...
         
           <li>
             <a href="../../mecm/20260903_01/">CCMSetup.exe によるクライアント インストールについての動作説明</a>
-          </li>
-        
-          <li>
-            <a href="../../mecm/20260903_02/">CMG 経由でのクライアント インストールについての動作説明</a>
           </li>
         
       </ul>
@@ -1774,7 +1830,7 @@ Windows Serve...
   <div class="widget-wrap">
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
     </div>
   </div>
 
