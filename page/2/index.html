@@ -95,9 +95,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-mecm/20260812_02" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mecm/20260812_01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="../../mecm/20260812_02/" class="article-date">
+    <a href="../../mecm/20260812_01/" class="article-date">
   <time datetime="2026-08-11T15:00:00.000Z" itemprop="datePublished">2026-08-12</time>
 </a>
     <!-- 
@@ -113,18 +113,18 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="../../mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明</a>
+      <a class="article-title" href="../../mecm/20260812_01/">ソフトウェア更新ポイントの同期についての動作説明</a>
     </h1>
   
 
       </header>
       <div class="article-share">
         Published:
-        <a href="../../mecm/20260812_02/" class="article-date-single">
+        <a href="../../mecm/20260812_01/" class="article-date-single">
   <time datetime="2026-08-11T15:00:00.000Z" itemprop="datePublished">2026-08-12</time>
 </a>
         / Last update:
-        <a href="../../mecm/20260812_02/" class="article-date-single">    
+        <a href="../../mecm/20260812_01/" class="article-date-single">    
     
     <time datetime="2026-08-11T15:00:00.000Z" itemprop="dateUpdated">2026-08-12</time>
     
@@ -134,22 +134,17 @@
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
         皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。
-本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライアントが展開ポリシーを受信し、更新プログラムをスキャン、ダウンロード、インストールするまでの流れとログの確認方法をご案内します。
-ソフトウェア更新ポイントでの同期や、展開パッケージを配布ポイントへ配布するサーバー側の処理は、本記事の対象外です。
-全体の流れ全体の流れは以下のとおりです。
-
-管理者様が設定した更新プログラムの展開ポリシーを受信する
-スケジューラ―によって展開設定のスケジュールをセットする
-ソフトウェア更新プログラムのスキャンサイクルを実行する
-ソフトウェア更新プログラムのコンテンツ ダウンロードを実行する
-ソフトウェア更新...
+本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理、設定方法、およびログによる進捗確認方法を説明します。
+[ソフトウェア更新プログラムの同期] は、指定した [製品]、[分類] などの条件に一致する更新プログラムのカタログ情報を、上流の同期元から [WSUS] の役割を通じて [WSUS データベース] に同期し、その後に [ConfigMgr サイト データベース] に同期する処理です。
+同期するのは、更新プログラムのタイトル、製品、分類、適用条件、置き換え関係などのメタデータです。この時点では、クライアントへ配布する更新プログラムのバイナリはダウンロードまたは展開されません。
+C...
         <p class="article-more-link">
-          <a href="../../mecm/20260812_02/#more">Read More</a>
+          <a href="../../mecm/20260812_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_02/" data-id="cuidyUvt4nDebjN0oY2w0aort" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_01/" data-id="cuidzM7QtV78Ep_i2ibMiDJSq" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -210,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuidNnZqmW5BwQ6so9mYZL2TL" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260812_03/" data-id="cuid_IH0UbkIFYKy3Eu3ndwyp" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -276,7 +271,7 @@ SUSDB の更新...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidIntTn8nQjmoIdf0e-21lS" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-08-05_01/" data-id="cuidd1lf87QMXLeSjOMysaaww" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -334,7 +329,7 @@ Japan Microsoft Intune Support Team Blog
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuidit-p9wG09QPaVM-8Jjgfq" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260723_01/" data-id="cuidHMRE26bPVqroMpsYXmCyH" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
@@ -396,7 +391,7 @@ Microsoft は、Windows Server Update Services(WSUS) チャネ...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidZFNnJ5vUIL986yf1MIURD" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/wsus/2026-07-21_01/" data-id="cuidz9qWybmgK8Udf6Xan88oJ" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -459,7 +454,7 @@ WSUS メンテナン...
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidbDjCaZZEEe0cJFI6_wZMa" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260710_01/" data-id="cuidaOWIXucJE1y0yshCZqFPa" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -520,7 +515,7 @@ WSUS の自動承認の限界WSUS でも自動承認の仕組みはございま�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuid0INg0wHQvRP8xzNWtMXHS" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260709_01/" data-id="cuidKpN2vQnxxU3bkkZsRDWAt" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
@@ -566,18 +561,18 @@ WSUS の自動承認の限界WSUS でも自動承認の仕組みはございま�
     
     <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
       
-        こんにちは。Configuration Manager サポート チームです。Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;6&#x2F;16 現在のサポート バージョンをご案内します。詳しくは下記にも記載していますので、ご確認ください。
+        こんにちは。Configuration Manager サポート チームです。Configuration Manager (ConfigMgr) Current Branch (CB) での SQL Server サポートについて、2026&#x2F;10&#x2F;06 現在のサポート バージョンをご案内します。詳しくは下記にも記載していますので、ご確認ください。
 
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-sql-server-versions#standard--enterprise-sql-editions
 
-お使いの CB によって、サポートされる SQL Server のバージョンや互換性レベルが異なりますので、ご注意ください。特に ConfigM...
+お使いの CB によって、サポートされる SQL Server のバージョンや互換性レベルが異なりますので、ご注意ください。特に Config...
         <p class="article-more-link">
           <a href="../../mecm/20260616_01/#more">Read More</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260616_01/" data-id="cuidhK-_bmDxW0fmAEY1imkFR" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260616_01/" data-id="cuidXfKsy0QjCfehahIzRZqwm" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
@@ -632,7 +627,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260603_01/" data-id="cuidbzUwmMun0nwIbQE67_F4n" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260603_01/" data-id="cuidJw-Mpj7upo14wYL1ZQm5v" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li></ul>
@@ -692,7 +687,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/supp
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jpmem.github.io/blog/mecm/20260514_01/" data-id="cuidqufGLhQBZIHJ0ygnJl2R2" class="article-share-link">共有</a>
+      <a data-url="https://jpmem.github.io/blog/mecm/20260514_01/" data-id="cuidn0EQl4IG3BmjpLblrEWLn" class="article-share-link">共有</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
