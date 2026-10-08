@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>WSUS サーバーと Microsoft Update の同期についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Windows Server Update Services (WSUS) サーバーが Microsoft Update (MU) と同期する処理について、手動またはスケジュールによる開始から、更新プログラムのメタデータを WSUS データベース (SUSDB) へ取り込んで完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSUS サーバーと Microsoft Update の同期についての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/wsus/20261007_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Windows Server Update Services (WSUS) サーバーが Microsoft Update (MU) と同期する処理について、手動またはスケジュールによる開始から、更新プログラムのメタデータを WSUS データベース (SUSDB) へ取り込んで完">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-10-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-08T01:15:41.317Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="WSUS">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wsus/20261007_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-10-06T15:00:00.000Z" itemprop="datePublished">2026-10-07</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Windows-Server-Update-Services/">Windows Server Update Services</a>►<a class="article-category-link" href="../../categories/Windows-Server-Update-Services/%E5%90%8C%E6%9C%9F/">同期</a>►<a class="article-category-link" href="../../categories/Windows-Server-Update-Services/%E5%90%8C%E6%9C%9F/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WSUS サーバーと Microsoft Update の同期についての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-10-06T15:00:00.000Z" itemprop="datePublished">2026-10-07</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-10-06T15:00:00.000Z" itemprop="dateUpdated">2026-10-07</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%9C%9F%E3%81%AE%E9%96%8B%E5%A7%8B%E6%96%B9%E6%B3%95"><span class="toc-text">同期の開始方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%9B%9E%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8-2-%E5%9B%9E%E7%9B%AE%E4%BB%A5%E9%99%8D%E3%81%AE%E5%90%8C%E6%9C%9F"><span class="toc-text">初回の同期と 2 回目以降の同期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%9F-WSUS-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><span class="toc-text">動作確認した WSUS サーバーについて</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%BD%E8%B7%A1%E3%81%99%E3%82%8B%E5%90%8C%E6%9C%9F%E3%81%AE%E6%83%85%E5%A0%B1"><span class="toc-text">追跡する同期の情報</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E5%90%8C%E6%9C%9F%E3%81%AE%E8%A6%81%E6%B1%82%E3%81%AE%E5%8F%97%E4%BB%98"><span class="toc-text">ステップ 1 : 同期の要求の受付</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E5%90%8C%E6%9C%9F%E5%87%A6%E7%90%86%E3%81%AE%E9%96%8B%E5%A7%8B"><span class="toc-text">ステップ 2 : 同期処理の開始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E5%90%8C%E6%9C%9F%E5%85%83%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A"><span class="toc-text">ステップ 3 : 同期元への接続</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%81%AE%E5%90%8C%E6%9C%9F"><span class="toc-text">ステップ 4 : カテゴリの同期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8-SUSDB-%E3%81%B8%E3%81%AE%E5%8F%96%E3%82%8A%E8%BE%BC%E3%81%BF"><span class="toc-text">ステップ 5 : 更新プログラムのメタデータの同期と SUSDB への取り込み</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-%E5%90%8C%E6%9C%9F%E3%81%AE%E7%B5%90%E6%9E%9C%E3%81%AE%E8%A8%98%E9%8C%B2%E3%81%A8%E5%90%8C%E6%9C%9F%E5%87%A6%E7%90%86%E3%81%AE%E7%B5%82%E4%BA%86"><span class="toc-text">ステップ 6 : 同期の結果の記録と同期処理の終了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E7%A2%BA%E8%AA%8D%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">ログ確認のポイント</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%9C%9F%E5%87%A6%E7%90%86%E3%81%AE%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89%E3%81%A7%E7%B5%9E%E3%82%8A%E8%BE%BC%E3%82%80"><span class="toc-text">同期処理のスレッドで絞り込む</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E3%82%8A%E8%BE%BC%E3%81%BF%E4%B8%AD%E3%81%AE-Warning-%E3%81%AE%E8%A1%8C"><span class="toc-text">取り込み中の Warning の行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%9C%9F%E3%81%8C%E5%A4%B1%E6%95%97%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%AE%E7%A2%BA%E8%AA%8D%E7%AE%87%E6%89%80"><span class="toc-text">同期が失敗した場合の確認箇所</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Windows Server Update Services (WSUS) サーバーが Microsoft Update (MU) と同期する処理について、手動またはスケジュールによる開始から、更新プログラムのメタデータを WSUS データベース (SUSDB) へ取り込んで完了するまでの流れと、ログによる追跡方法をご案内します。</p>
+<p>上流の WSUS サーバーからの同期 (レプリカ モードや自律モードの下流サーバー)、Configuration Manager のソフトウェアの更新ポイントによる同期 (WSUS 同期マネージャー)、更新プログラムの承認、更新ファイル本体のダウンロード、Microsoft Update カタログからのインポート、およびクライアントのスキャンは対象外です。</p>
+<p>掲載するログは、実際の WSUS サーバーで同期を実行して動作を確認した際のものです。抜粋は関連する行のみとし、各行の先頭の日時は省略しています。そのほかの省略箇所は (中略) と表記しています。WSUS サーバーの ID はプレースホルダーに置き換えています。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>WSUS の同期は、WSUS サーバーから同期元へ接続して開始します。[製品と分類] と言語の設定に該当する更新プログラムの情報 (メタデータ) を取得し、SUSDB へ取り込みます。</p>
+<p>1 回の同期処理は、次の順序で進みます。</p>
+<ol>
+<li>同期の要求を受け付ける</li>
+<li>[WSUS サービス] が同期処理を開始する</li>
+<li>同期元 (Microsoft Update) へ接続する</li>
+<li>カテゴリ (製品や分類など) の情報を同期する</li>
+<li>更新プログラムのメタデータを同期し、SUSDB へ取り込む</li>
+<li>同期の結果を記録し、同期処理を終了する</li>
+</ol>
+<p>同期の後に続く、承認済みの更新プログラムのファイル本体のダウンロードについては、<a href="https://jpmem.github.io/blog/wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a> をご参照ください。</p>
+<h3 id="同期の開始方法"><a href="#同期の開始方法" class="headerlink" title="同期の開始方法"></a>同期の開始方法</h3><p>開始方法によらず、ステップ 2 以降の処理は同じです。違いはステップ 1 とステップ 2 のログに表れます。</p>
+<table>
+<thead>
+<tr>
+<th>開始方法</th>
+<th>操作</th>
+<th>開始を示すログ ([SoftwareDistribution.log])</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>手動同期</td>
+<td>[WSUS 管理コンソール] で上位のサーバー ノードを選択し、[概要] の [同期の状態] で [今すぐ同期] を選択します。</td>
+<td>[Synchronization manually started] と [EventId&#x3D;382]</td>
+</tr>
+<tr>
+<td>スケジュール同期</td>
+<td>[オプション] - [同期スケジュール] で [自動的に同期する] を選択し、[最初の同期] の時刻と [1 日あたりの同期回数] を指定します。</td>
+<td>[EventId&#x3D;381]</td>
+</tr>
+</tbody></table>
+<p>Microsoft Update への接続を分散するため、スケジュールの時刻にはランダムな時間が加算されます。</p>
+<p>手動同期は、管理者として実行した Windows PowerShell からも開始できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">Get-WsusServer</span>).GetSubscription().StartSynchronization()</span><br></pre></td></tr></table></figure>
+
+<h3 id="初回の同期と-2-回目以降の同期"><a href="#初回の同期と-2-回目以降の同期" class="headerlink" title="初回の同期と 2 回目以降の同期"></a>初回の同期と 2 回目以降の同期</h3><p>初回の同期では、指定した範囲のすべての更新プログラムを取得します。2 回目以降は、新しい更新プログラムと、既存の更新プログラムの改訂 (リビジョン) や期限切れの情報のみを取得します。</p>
+<p>この差分の取得には、アンカー (Anchor) を使用します。同期元は同期のたびにアンカーを生成して WSUS サーバーへ返し、WSUS サーバーは次回の同期でこのアンカーを [SyncAnchor] として同期元へ送ります。同期元は、アンカー以降に変更されたリビジョンだけを返します。アンカーは、カテゴリの同期と更新プログラムの同期で別々に使用されます。詳しくはステップ 4 とステップ 5 でご案内します。</p>
+<h2 id="動作確認した-WSUS-サーバーについて"><a href="#動作確認した-WSUS-サーバーについて" class="headerlink" title="動作確認した WSUS サーバーについて"></a>動作確認した WSUS サーバーについて</h2><p>動作を確認した WSUS サーバーの構成は、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WSUS サーバーの OS</td>
+<td>Windows Server 2025 (ビルド 26100)</td>
+</tr>
+<tr>
+<td>同期元</td>
+<td>Microsoft Update</td>
+</tr>
+<tr>
+<td>プロキシ サーバー</td>
+<td>使用しない</td>
+</tr>
+<tr>
+<td>製品 (8 件)</td>
+<td>Microsoft Azure Information Protection Unified Labeling Client、Microsoft Defender Antivirus、Microsoft Edge、Windows 10, version 1903 and later、Windows 10、Windows 11、Windows Server 2016、Windows Server 2019</td>
+</tr>
+<tr>
+<td>分類 (5 件)</td>
+<td>Upgrades、セキュリティ問題の修正プログラム、更新、重要な更新、定義更新プログラム</td>
+</tr>
+<tr>
+<td>言語</td>
+<td>英語 (en)、日本語 (ja)</td>
+</tr>
+<tr>
+<td>同期スケジュール</td>
+<td>自動的に同期する (1 日 2 回)</td>
+</tr>
+<tr>
+<td>[新しいリビジョンにより期限切れとなった更新プログラムを自動的に拒否する]</td>
+<td>有効 (既定値)</td>
+</tr>
+<tr>
+<td>動作確認した同期</td>
+<td>手動同期</td>
+</tr>
+<tr>
+<td>前回の同期</td>
+<td>スケジュール同期</td>
+</tr>
+</tbody></table>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>保存場所</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[SoftwareDistribution.log]</td>
+<td>WSUS サーバーの %ProgramFiles%\Update Services\LogFiles</td>
+<td>同期元から SUSDB へ同期される更新プログラムの詳細を記録します。同期の開始、同期元への接続、メタデータの取り込み、および結果を確認します。</td>
+</tr>
+<tr>
+<td>[Change.log]</td>
+<td>WSUS サーバーの %ProgramFiles%\Update Services\LogFiles</td>
+<td>データベースで変更された情報を記録します。手動同期の開始、同期中の拒否、および同期後のダウンロードの再開を確認します。</td>
+</tr>
+</tbody></table>
+<p>古い期間の同期は、同じフォルダーの [SoftwareDistribution.log.old] と [Change.log.old] もあわせて確認します。</p>
+<p>[SoftwareDistribution.log] の各行は、タブ区切りで次の項目を記録しています。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日時</td>
+<td>YYYY-MM-DD hh:mm:ss.fff UTC</td>
+<td>記録された日時 (UTC) です。本記事の抜粋では省略しています。</td>
+</tr>
+<tr>
+<td>種類</td>
+<td>Info、Change、Warning、Error</td>
+<td>行の種類です。Change の行は [Change.log] にも記録されます。</td>
+</tr>
+<tr>
+<td>プロセスとスレッド</td>
+<td>w3wp.48、WsusService.27</td>
+<td>記録したプロセスとスレッドです。w3wp は IIS のワーカー プロセス、WsusService は [WSUS サービス] です。</td>
+</tr>
+<tr>
+<td>処理名</td>
+<td>CatalogSyncAgentCore.ExecuteSyncProtocol</td>
+<td>記録した処理の名前です。</td>
+</tr>
+<tr>
+<td>メッセージ</td>
+<td>Need 11770 updates, 10759 are new</td>
+<td>処理の内容です。</td>
+</tr>
+</tbody></table>
+<h3 id="追跡する同期の情報"><a href="#追跡する同期の情報" class="headerlink" title="追跡する同期の情報"></a>追跡する同期の情報</h3><p>本記事で追跡する同期は、次のとおりです。スレッド以外の値は、ステップ 6 で紹介する Windows PowerShell の出力で確認したものです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同期の ID</td>
+<td>8f0cc900-d560-41f1-a861-a363eacad0cc</td>
+</tr>
+<tr>
+<td>開始方法</td>
+<td>手動 (StartedManually : True)</td>
+</tr>
+<tr>
+<td>結果</td>
+<td>Succeeded</td>
+</tr>
+<tr>
+<td>同期処理を実行したスレッド</td>
+<td>WsusService.27 (ステップ 2 からステップ 6 の結果の記録まで)</td>
+</tr>
+</tbody></table>
+<p>同期の ID は [SoftwareDistribution.log] に記録されないため、ステップ 6 で紹介する [StartTime] と [EndTime] (UTC) をログの日時と照合して対応付けます。</p>
+<h3 id="ステップ-1-同期の要求の受付"><a href="#ステップ-1-同期の要求の受付" class="headerlink" title="ステップ 1 : 同期の要求の受付"></a>ステップ 1 : 同期の要求の受付</h3><p>手動同期の要求は、IIS のワーカー プロセス (w3wp) が受け付けます。このとき、[SoftwareDistribution.log] に種類が Change の [Synchronization manually started] が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change	w3wp.48	AdminDataAccess.StartSubscriptionManually	Synchronization manually started</span><br></pre></td></tr></table></figure>
+
+<p>同じ内容は [Change.log] にも記録されます。[Change.log] は記録量が少ないため、手動同期の開始時刻を探すのに便利です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Synchronization manually started</span><br></pre></td></tr></table></figure>
+
+<p>スケジュール同期ではこの行はどちらのログにも記録されないため、開始はステップ 2 の [EventId&#x3D;381] で確認します。</p>
+<p>手動同期を開始しても [Synchronization manually started] が記録されない場合は、要求が WSUS サーバーに届いていません。WSUS サーバーで管理者として Windows PowerShell を実行し、WSUS サーバーへ接続できるかと、要求を受け付ける IIS のアプリケーション プール [WsusPool] が開始されているかを確認します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WsusServer</span></span><br><span class="line"><span class="built_in">Import-Module</span> WebAdministration</span><br><span class="line"><span class="built_in">Get-WebAppPoolState</span> <span class="literal">-Name</span> WsusPool</span><br></pre></td></tr></table></figure>
+
+<p>[Get-WsusServer] がエラーにならず、[Get-WebAppPoolState] の [Value] が [Started] であれば正常です。[WsusPool] が停止している場合は、<a href="https://jpmem.github.io/blog/wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a> をご参照ください。</p>
+<p>手動同期が 0% から進まない場合は、[WSUS サービス] (サービス名 : WsusService) が実行中であるかを確認します。[サービス] 管理ツールで [状態] が [実行中] であるか、または次のコマンドの [Status] が [Running] であるかを確認します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-Service</span> <span class="literal">-Name</span> WsusService</span><br></pre></td></tr></table></figure>
+
+<p>停止している場合は、[WSUS サービス] を開始してから手動同期を再度実行します。[WSUS サービス] が実行中でも 0% から進まない場合は、次の手順で [WSUS 管理コンソール] のキャッシュをリセットします。</p>
+<ol>
+<li>[WSUS 管理コンソール] を閉じます。</li>
+<li>[WSUS サービス] を停止します。</li>
+<li>%appdata%\Microsoft\mmc フォルダーの wsus を wsus_bak に名前変更します。</li>
+<li>[WSUS サービス] を開始します。</li>
+<li>[WSUS 管理コンソール] を開き、手動同期を再度実行します。</li>
+</ol>
+<h3 id="ステップ-2-同期処理の開始"><a href="#ステップ-2-同期処理の開始" class="headerlink" title="ステップ 2 : 同期処理の開始"></a>ステップ 2 : 同期処理の開始</h3><p>要求を受け付けると [WSUS サービス] で同期処理 (CatalogSyncAgent) が開始され、手動同期では [EventId&#x3D;382] の [A manual synchronization was started.] が記録されます。以降の同期処理の行は、ステップ 6 の [EventId&#x3D;384] まで、この行と同じスレッド (本記事では WsusService.27) で記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.8	SusEventDispatcher.TriggerEvent	TriggerEvent called for NotificationEventName: CatalogSyncAgent, EventInfo: </span><br><span class="line">Info	WsusService.10	SusEventDispatcher.DispatchManagerWorkerThreadProc	DispatchManager Worker Thread Processing NotificationEvent: CatalogSyncAgent</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.27	EventLogEventReporter.ReportEvent	EventId=382,Type=Information,Category=Synchronization,Message=A manual synchronization was started.</span><br></pre></td></tr></table></figure>
+
+<p>スケジュール同期では w3wp による受付の行がなく、[EventId&#x3D;381] の [A scheduled synchronization was started.] が記録されます。次は、前回のスケジュール同期の開始部分です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.8	SusEventDispatcher.TriggerEvent	TriggerEvent called for NotificationEventName: CatalogSyncAgent, EventInfo: </span><br><span class="line">Info	WsusService.38	SusEventDispatcher.DispatchManagerWorkerThreadProc	DispatchManager Worker Thread Processing NotificationEvent: CatalogSyncAgent</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.26	EventLogEventReporter.ReportEvent	EventId=381,Type=Information,Category=Synchronization,Message=A scheduled synchronization was started.</span><br></pre></td></tr></table></figure>
+
+<p>スケジュール同期のみ開始されない場合は、手動同期が成功するかを確認したうえで、[同期スケジュール] の設定を確認します。</p>
+<h3 id="ステップ-3-同期元への接続"><a href="#ステップ-3-同期元への接続" class="headerlink" title="ステップ 3 : 同期元への接続"></a>ステップ 3 : 同期元への接続</h3><p>同期処理は、まず構成された同期元を確認します。同期元が Microsoft Update の場合は [Found config says USS is MU site] が記録されます。USS は上流サーバー (Upstream Server) の略です。続いて同期用のホスト (sws.update.microsoft.com) へ接続し、SSL 証明書を検証します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.27	AuthorizationManager.GetUpstreamServerUriHeader	Found config says USS is MU site</span><br><span class="line">Info	WsusService.27	ServerSyncLib.GetWebServiceProxyInternal	Found config says USS is MU site</span><br><span class="line">Info	WsusService.27	AuthorizationManager.GetUpstreamServerUriHeader	Found config says USS is MU site</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ExecuteSyncProtocol	Server ID is &lt;WSUS サーバー ID&gt;</span><br><span class="line">Info	WsusService.27	SusService.ValidateServerCertificate	CheckValidationResult Succeeds: CertOK</span><br><span class="line">Info	WsusService.27	ServerCertificateValidator.IsHostAllowedException	Requested host: sws.update.microsoft.com</span><br><span class="line">Info	WsusService.27	ServerCertificateValidator.VerifyServerCertificate	SSL validation succeeded.</span><br></pre></td></tr></table></figure>
+
+<p>[SSL validation succeeded.] の後にステップ 4 のカテゴリの同期が記録されていれば、接続は成功しています。</p>
+<p>接続に失敗する場合は、[SoftwareDistribution.log] の Error の行を確認します。WSUS は WinHTTP を使用して同期元へ接続します。WSUS サーバーとインターネットの間にプロキシ サーバーやファイアウォールがある場合は、[オプション] - [更新元及びプロキシサーバー] の設定と、同期に必要な URL へのアクセスが許可されているかを確認します。必要な URL は、<a href="https://learn.microsoft.com/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus">Step 2: Configure WSUS</a> と <a href="https://jpmem.github.io/blog/wsus/2019-02-14_01/">WSUS の同期先の URL の追加について</a> をご参照ください。</p>
+<h3 id="ステップ-4-カテゴリの同期"><a href="#ステップ-4-カテゴリの同期" class="headerlink" title="ステップ 4 : カテゴリの同期"></a>ステップ 4 : カテゴリの同期</h3><p>更新プログラムを取得する前に、製品、分類、および detectoid (検出用の定義) の情報を同期します。新しい製品や分類も、ここで取得します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.27	CatalogSyncAgentCore.SyncConfigUpdatesFromUSS	Category Sync: Filter: &lt;filter SyncAnchor=&quot;2026-09-17 06:24:02.608&quot; GetConfig=&quot;1&quot;&gt;&lt;/filter&gt;</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.SyncConfigUpdatesFromUSS	Need 260 config updates, 4 are new</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ImportMultipleUpdates	Imported 4/4 updates in 1 iterations; 0 will be retried</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.GetUpdateDataInChunksAndImport	0 updates to go</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.SyncConfigUpdatesFromUSS	Category Sync: New Config Anchor: 2026-09-30 13:51:50.674</span><br></pre></td></tr></table></figure>
+
+<p>各メッセージの内容は、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>メッセージ</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Category Sync: Filter</td>
+<td>カテゴリの同期の条件です。[GetConfig&#x3D;”1”] は製品、分類、および detectoid の情報の要求、[SyncAnchor] は前回の同期のアンカーです。</td>
+</tr>
+<tr>
+<td>Need 260 config updates, 4 are new</td>
+<td>前回のアンカー以降に変更された製品、分類、および detectoid の情報 260 件のうち、4 件が SUSDB にないものです。</td>
+</tr>
+<tr>
+<td>Imported 4&#x2F;4 updates in 1 iterations; 0 will be retried</td>
+<td>4 件をすべて取り込み、再試行が必要なものはありません。</td>
+</tr>
+<tr>
+<td>0 updates to go</td>
+<td>取り込みの残りはありません。</td>
+</tr>
+<tr>
+<td>Category Sync: New Config Anchor</td>
+<td>次回の同期で使用されるアンカーです。</td>
+</tr>
+</tbody></table>
+<p>前回のスケジュール同期では、今回の [SyncAnchor] と同じ値が [New Config Anchor] として記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.26	CatalogSyncAgentCore.SyncConfigUpdatesFromUSS	Category Sync: New Config Anchor: 2026-09-17 06:24:02.608</span><br></pre></td></tr></table></figure>
+
+<h3 id="ステップ-5-更新プログラムのメタデータの同期と-SUSDB-への取り込み"><a href="#ステップ-5-更新プログラムのメタデータの同期と-SUSDB-への取り込み" class="headerlink" title="ステップ 5 : 更新プログラムのメタデータの同期と SUSDB への取り込み"></a>ステップ 5 : 更新プログラムのメタデータの同期と SUSDB への取り込み</h3><p>続いて、更新プログラムのメタデータを同期します。[Catalog Sync: Filter] には、更新プログラムの同期のアンカーと、[製品と分類] および言語の設定が含まれています。次の抜粋の 1 行目は 1,241 文字あるため、途中を省略しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ExecuteSyncProtocol	Catalog Sync: Filter: &lt;filter SyncAnchor=&quot;2026-09-17 04:02:34.000&quot;&gt;&lt;CategoryList&gt;&lt;category delta=&quot;1&quot; value=&quot;db2680cc-4207-46d2-8d6e-6d5b57e6110b&quot; /&gt; (中略) &lt;/UCList&gt;&lt;languageList&gt;&lt;language delta=&quot;1&quot; value=&quot;1033&quot; /&gt;&lt;language delta=&quot;1&quot; value=&quot;1041&quot; /&gt;&lt;/languageList&gt;&lt;/filter&gt;</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ExecuteSyncProtocol	Catalog Sync: New Anchor: 2026-09-30 11:46:17.000</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ExecuteSyncProtocol	Need 11770 updates, 10759 are new</span><br></pre></td></tr></table></figure>
+
+<p>抜粋では省略していますが、[CategoryList] の製品 8 件、[UCList] の分類 5 件、[languageList] の言語 2 件 (1033 は英語、1041 は日本語) は、WSUS サーバーの設定と件数が一致しています。[SyncAnchor] には、前回のスケジュール同期で記録された [New Anchor] と同じ値が使われています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.26	CatalogSyncAgentCore.ExecuteSyncProtocol	Catalog Sync: New Anchor: 2026-09-17 04:02:34.000</span><br></pre></td></tr></table></figure>
+
+<p>[Need 11770 updates, 10759 are new] は、前回のアンカー以降に変更された 11,770 件のリビジョンのうち、SUSDB にない 10,759 件を取り込むことを示します。取り込みは複数回に分けて行われ、そのたびに [Imported] と、残りの件数を示す [updates to go] が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ImportMultipleUpdates	Imported 99/100 updates in 2 iterations; 1 will be retried</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.GetUpdateDataInChunksAndImport	10660 updates to go</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ImportMultipleUpdates	Imported 60/60 updates in 2 iterations; 0 will be retried</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.GetUpdateDataInChunksAndImport	0 updates to go</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.GetAndSaveUpdateMetadata	Total actually inserted updates: 10759</span><br></pre></td></tr></table></figure>
+
+<p>[0 updates to go] の後に [Total actually inserted updates] が記録されれば、メタデータの取り込みは完了です。各 [Imported] の件数の合計 (10,759 件) は、[10759 are new] および [Total actually inserted updates: 10759] と一致しています。</p>
+<p>[オプション] - [自動承認] の [詳細] タブで [新しいリビジョンにより期限切れとなった更新プログラムを自動的に拒否する] が有効な場合 (既定で有効)、該当する更新プログラムは取り込み中に拒否され、種類 Change として記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change	WsusService.27	DBConnection.OnReceivingInfoMessage	Successfully deployed deployment(Decline) of Full Deltas 1.459.248.0 (patch from 1.459.215.0) for Defender x86fre [Ring0, Ring1, Ring2, Ring3, Ring4, Broad, Delayed] UpdateID:85ED65E3-C505-4D68-8A55-DE5944C153CF Revision Number:201 </span><br></pre></td></tr></table></figure>
+
+<p>本記事の WSUS サーバーではこの設定が有効で、取り込み中に 9,760 件の拒否が [Change.log] に記録されました。その多くは Microsoft Defender Antivirus の定義更新プログラムです。期限切れの更新プログラムについては、<a href="https://jpmem.github.io/blog/wsus/2023-03-01_01/">期限が切れた更新プログラムについて</a> をご参照ください。</p>
+<p>取り込みに時間がかかる場合やタイムアウトする場合は、[updates to go] の件数が減っているかを確認します。<a href="https://jpmem.github.io/blog/wsus/2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a> もご参照ください。</p>
+<h3 id="ステップ-6-同期の結果の記録と同期処理の終了"><a href="#ステップ-6-同期の結果の記録と同期処理の終了" class="headerlink" title="ステップ 6 : 同期の結果の記録と同期処理の終了"></a>ステップ 6 : 同期の結果の記録と同期処理の終了</h3><p>取り込みが完了すると、ダウンロードの再開が要求され、同期の結果が記録されます。成功した場合は [EventId&#x3D;384] の [Synchronization completed successfully.] が記録され、同期処理 (CatalogSyncAgent) が終了します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Change	WsusService.27	AdminDataAccess.ExecuteSPResumeAllDownloads	Downloading retried</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.UpdateSyncResultAndGenerateReportingEvent	CatalogSyncThreadProcess: report subscription succeeded</span><br><span class="line">Info	WsusService.27	EventLogEventReporter.ReportEvent	EventId=384,Type=Information,Category=Synchronization,Message=Synchronization completed successfully.</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.3	CatalogSyncAgent.WaitUntilSyncFinishedOrCancelled	Agent signalled done.</span><br><span class="line">Info	WsusService.3	CatalogSyncAgent.SetSubscriptionStateWithRetry	Firing event SyncFinish...</span><br><span class="line">Info	WsusService.3	CatalogSyncAgent.WakeUpWorkerThreadProc	Found no more jobs. CatalogSyncAgent quits but will run rollup before terminating ...</span><br><span class="line">Info	WsusService.3	CatalogSyncAgent.UpdateServerHealthStatusBasedOnError	ServerHealth: Updating Server Health for Component: CatalogSyncAgent, Marking as Not Running</span><br></pre></td></tr></table></figure>
+
+<p>各メッセージの内容は、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>メッセージ</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Downloading retried</td>
+<td>ファイル本体のダウンロードの再開 (処理名は ExecuteSPResumeAllDownloads) が要求されました。ダウンロードは本記事の対象外です。</td>
+</tr>
+<tr>
+<td>CatalogSyncThreadProcess: report subscription succeeded</td>
+<td>同期の結果が成功として記録されました。</td>
+</tr>
+<tr>
+<td>EventId&#x3D;384 … Synchronization completed successfully.</td>
+<td>同期が成功しました。</td>
+</tr>
+<tr>
+<td>Agent signalled done. &#x2F; Firing event SyncFinish…</td>
+<td>同期処理が終了しました。</td>
+</tr>
+<tr>
+<td>Marking as Not Running</td>
+<td>同期処理 (CatalogSyncAgent) が実行中ではなくなりました。</td>
+</tr>
+</tbody></table>
+<p>[Downloading retried] は [Change.log] にも記録されるため、[Change.log] でも同期の終了時刻を確認できます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Downloading retried</span><br></pre></td></tr></table></figure>
+
+<p>同期の結果は、[WSUS 管理コンソール] の [同期] ノードか、管理者として実行した Windows PowerShell で確認できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sub</span> = (<span class="built_in">Get-WsusServer</span>).GetSubscription()</span><br><span class="line"><span class="variable">$sub</span>.GetLastSynchronizationInfo() | <span class="built_in">Format-List</span> *</span><br></pre></td></tr></table></figure>
+
+<p>出力は次のとおりです。[StartTime] と [EndTime] の行は省略しています。[StartedManually] が True の場合は手動同期、False の場合はスケジュール同期です。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Id              : 8f0cc900-d560-41f1-a861-a363eacad0cc</span><br><span class="line">(中略)</span><br><span class="line">StartedManually : True</span><br><span class="line">Result          : Succeeded</span><br><span class="line">Error           : NotApplicable</span><br><span class="line">ErrorText       :</span><br><span class="line">UpdateErrors    : &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[StartTime] はステップ 2 で同期処理が開始された日時、[EndTime] はステップ 6 で結果が記録された日時 (いずれも UTC) です。同期が失敗した場合は、[Result]、[Error]、[ErrorText] を確認し、同じ時刻の [SoftwareDistribution.log] の Error の行を確認します。</p>
+<p>同期処理の終了後には、ロールアップ処理 (RollupAgent) による Microsoft Update への接続が記録されますが、同期処理 (CatalogSyncAgent) とは別の処理のため本記事では扱いません。</p>
+<h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><h3 id="同期処理のスレッドで絞り込む"><a href="#同期処理のスレッドで絞り込む" class="headerlink" title="同期処理のスレッドで絞り込む"></a>同期処理のスレッドで絞り込む</h3><p>[SoftwareDistribution.log] には、w3wp による [WSUS 管理コンソール] やクライアントからの要求の処理も記録されます。[EventId&#x3D;382] または [EventId&#x3D;381] の行のスレッド (本記事では WsusService.27) で絞り込むと、同期処理を追いやすくなります。ただし、[Agent signalled done.] 以降の行は別のスレッド (本記事では WsusService.3) で記録されます。</p>
+<h3 id="取り込み中の-Warning-の行"><a href="#取り込み中の-Warning-の行" class="headerlink" title="取り込み中の Warning の行"></a>取り込み中の Warning の行</h3><p>ステップ 5 の取り込み中に、次のような SqlException の Warning の行が記録されることがあります (本記事の同期では 5,427 件)。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Warning	WsusService.27	DBConnection.ExecuteCommandNoResult	SqlException occurred. Number 515 and message Cannot insert the value NULL into column &#x27;RevisionID&#x27;, table &#x27;@AtLeastOneBundle&#x27;; column does not allow nulls. INSERT fails.</span><br><span class="line">Error loading information from upd:BundledUpdates/upd:AtLeastOne/upd:UpdateIdentity for update18A370ED-A6BD-441A-9EAC-6EE711D69D7F\200. Some update revisions in bundle information are not already present in the database.</span><br><span class="line">The statement has been terminated.</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ImportMultipleUpdates	Imported 149/150 updates in 4 iterations; 1 will be retried</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.GetUpdateDataInChunksAndImport	60 updates to go</span><br><span class="line">(中略)</span><br><span class="line">Info	WsusService.27	CatalogSyncAgentCore.ImportMultipleUpdates	Imported 60/60 updates in 2 iterations; 0 will be retried</span><br></pre></td></tr></table></figure>
+
+<p>これらの行は、バンドルに含まれる更新プログラムのリビジョンがまだデータベースにないことを示しています。直後の [Imported] の行に再試行の件数 ([1 will be retried]) が記録され、最後の [Imported] の行では 0 になっています。同期の成否は、Warning の行の有無ではなく、ステップ 6 の [EventId&#x3D;384] と [GetLastSynchronizationInfo()] の [Result] で判断します。</p>
+<h3 id="同期が失敗した場合の確認箇所"><a href="#同期が失敗した場合の確認箇所" class="headerlink" title="同期が失敗した場合の確認箇所"></a>同期が失敗した場合の確認箇所</h3><p>事象ごとに、次の箇所を確認します。</p>
+<table>
+<thead>
+<tr>
+<th>事象</th>
+<th>確認箇所</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>手動同期が開始されない、0% から進まない</td>
+<td>ステップ 1 の [Synchronization manually started] と、ステップ 2 の [EventId&#x3D;382] の有無を確認します。あわせて、ステップ 1 の手順で [WsusPool] と [WSUS サービス] の状態を確認します。</td>
+</tr>
+<tr>
+<td>スケジュール同期が開始されない</td>
+<td>ステップ 2 の [EventId&#x3D;381] が予定の時刻に記録されているかと、[同期スケジュール] の設定を確認します。</td>
+</tr>
+<tr>
+<td>同期元へ接続できない</td>
+<td>ステップ 3 の [SSL validation succeeded.] の前後の Error の行と、プロキシ サーバーや同期に必要な URL へのアクセスを確認します。</td>
+</tr>
+<tr>
+<td>同期に時間がかかる、タイムアウトする</td>
+<td>ステップ 5 の [updates to go] の件数が減っているかを確認します。</td>
+</tr>
+<tr>
+<td>同期の結果が成功にならない</td>
+<td>[GetLastSynchronizationInfo()] の [Result]、[Error]、[ErrorText] と、同じ時刻の [SoftwareDistribution.log] の Error の行を確認します。</td>
+</tr>
+</tbody></table>
+<p>同期の失敗の個別の事例は、<a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/troubleshoot-wsus-import-sync-issues">Troubleshoot WSUS synchronization and import issues</a> と <a href="https://jpmem.github.io/blog/wsus/2018-07-12_01/">WSUS 上に配信が必要な更新プログラムが同期されてこない！と思ったら</a> をご参照ください。</p>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/windows-server/administration/windows-server-update-services/manage/setting-up-update-synchronizations">Setting up Update Synchronizations</a></li>
+<li><a href="https://learn.microsoft.com/windows-server/administration/windows-server-update-services/deploy/2-configure-wsus">Step 2: Configure WSUS</a></li>
+<li><a href="https://learn.microsoft.com/windows-server/administration/windows-server-update-services/manage/updates-operations">Updates Operations</a></li>
+<li><a href="https://learn.microsoft.com/openspecs/windows_protocols/ms-wsusss/b447d5ba-e7b6-43f5-b267-0d37f05b721a">MS-WSUSSS: Glossary</a></li>
+<li><a href="https://learn.microsoft.com/openspecs/windows_protocols/ms-wsusss/6336c011-ede5-42a3-9416-b715e754e2bd">MS-WSUSSS: GetRevisionIdList</a></li>
+<li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/troubleshoot-software-update-management#wsus-to-microsoft-update-synchronization">Configuration Manager のソフトウェア更新プログラム管理のトラブルシューティング (WSUS to Microsoft Update synchronization)</a></li>
+<li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/troubleshoot-wsus-import-sync-issues">Troubleshoot WSUS synchronization and import issues</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/plan-design/hierarchy/log-files">Configuration Manager のログ ファイル リファレンス</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2022-06-06_01/">WSUS の仕組み ダウンロード編</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2023-03-01_01/">期限が切れた更新プログラムについて</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2019-02-14_01/">WSUS の同期先の URL の追加について</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2022-05-23_01/">WSUS コンソールが全く開かなくなってしまった！ WsusPool の停止とは</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2018-07-12_01/">WSUS 上に配信が必要な更新プログラムが同期されてこない！と思ったら</a></li>
+<li><a href="https://jpmem.github.io/blog/wsus/2026-07-21_01/">WSUS 同期時間の増加やタイムアウトの問題について</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/wsus/20261007_01/" data-id="cuidu4XD1NTjOVyAiVJ8aaTI6" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../mecm/20260930_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Configuration Manager Current Branch 2609 がリリースされました。(Early update ring)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/">OS 展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/">アプリケーション管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/">オペレーティング システムの展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/">クラウド管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/">サーバー インフラストラクチャ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/">ソフトウェア更新プログラム管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/">デバイス コンプライアンス</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/">リアルタイム管理 (CMPivot/PowerShell)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/">共同管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/">Windows Server Update Services</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%90%8C%E6%9C%9F/">同期</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%90%8C%E6%9C%9F/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/">2026</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/">2025</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/">2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/">2023</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/">2022</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/">2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/">2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/">2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/">2018</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/">2017</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/">2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/">2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/">2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/">2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/">2012</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/">2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
