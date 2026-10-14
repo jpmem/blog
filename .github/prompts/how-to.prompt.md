@@ -44,7 +44,7 @@ agent: blog-creator
 
 ## 継承先へ任せる内容
 
-記事の構成、扱う範囲と扱わない範囲、front matter、表記、公式情報の調査、関連 Blog の検索、手順の根拠確認、および参考リンクは、`blog-creator` と `.github/copilot-instructions.md` に従ってください。これらをユーザーへの必須設問にしないでください。
+記事の構成、扱う範囲と扱わない範囲、front matter、表記、手順の根拠確認、および参考リンクは、[公開記事の規約](../instructions/blog-article.instructions.md) に従ってください。公式情報の調査、関連 Blog の検索、執筆、および検証は、[記事作成エージェント](../agents/blog-creator.agent.md) に任せます。これらをユーザーへの必須設問にしないでください。
 
 ## 記事作成への引き渡し
 

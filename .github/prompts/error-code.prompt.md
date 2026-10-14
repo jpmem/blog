@@ -45,4 +45,6 @@ agent: blog-creator
 
 ## 記事作成への引き渡し
 
+記事の構成、タイトル、表記、根拠、およびログ編集は、[公開記事の規約](../instructions/blog-article.instructions.md) に従ってください。執筆と検証は、[記事作成エージェント](../agents/blog-creator.agent.md) に任せます。
+
 記事固有の要点が揃ったら、確認内容の再掲や追加の承認待ちは行わず、整理した内容を要件として `blog-creator` の作業手順へ進んでください。
