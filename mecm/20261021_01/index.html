@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ソフトウェア インベントリの動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、[Configuration Manager] クライアントの [ソフトウェア インベントリ] について、ポリシーの取得・評価からファイル情報の収集、レポート生成、管理ポイント (Management Point、以下 MP) への転送までを説明します。 [ソフトウェア インベ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ソフトウェア インベントリの動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20261021_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、[Configuration Manager] クライアントの [ソフトウェア インベントリ] について、ポリシーの取得・評価からファイル情報の収集、レポート生成、管理ポイント (Management Point、以下 MP) への転送までを説明します。 [ソフトウェア インベ">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-10-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-22T02:05:07.986Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20261021_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-10-20T15:00:00.000Z" itemprop="datePublished">2026-10-21</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ソフトウェア インベントリの動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-10-20T15:00:00.000Z" itemprop="datePublished">2026-10-21</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-10-20T15:00:00.000Z" itemprop="dateUpdated">2026-10-21</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E%E3%81%AE%E5%89%8D%E6%8F%90"><span class="toc-text">動作説明の前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E3%81%A8%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E5%AE%9F%E8%A1%8C%E6%96%B9%E6%B3%95"><span class="toc-text">設定と一般的な実行方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%B2%E8%BC%89%E3%81%99%E3%82%8B%E5%87%A6%E7%90%86%E3%81%A8%E8%AD%98%E5%88%A5%E5%AD%90"><span class="toc-text">掲載する処理と識別子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%82%92%E5%8F%96%E5%BE%97%E3%83%BB%E8%A9%95%E4%BE%A1%E3%81%97%E3%80%81%E8%A8%AD%E5%AE%9A%E3%82%92%E5%8F%8D%E6%98%A0%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 1 : クライアント ポリシーを取得・評価し、設定を反映する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2-%E3%82%A4%E3%83%B3%E3%83%99%E3%83%B3%E3%83%88%E3%83%AA%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%97%E3%80%81%E5%AF%BE%E8%B1%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%8E%E9%9B%86%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : ソフトウェア インベントリを開始し、対象ファイルの情報を収集する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E5%8F%8E%E9%9B%86%E7%B5%90%E6%9E%9C%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%83%99%E3%83%B3%E3%83%88%E3%83%AA-%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 3 : 収集結果からインベントリ レポートを生成する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%82%92-MP-%E3%81%B8%E8%BB%A2%E9%80%81%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : レポートを MP へ転送する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、[Configuration Manager] クライアントの [ソフトウェア インベントリ] について、ポリシーの取得・評価からファイル情報の収集、レポート生成、管理ポイント (Management Point、以下 MP) への転送までを説明します。</p>
+<p>[ソフトウェア インベントリ] は、指定したファイルの名前、サイズ、バージョンなどの情報を収集する機能です。インストール済みアプリケーションの一覧を取得する [ハードウェア インベントリ]、ファイル実体を収集する [ファイル収集]、および MP から先のサイト サーバーやデータベースでの処理は、本記事の対象外です。</p>
+<p>サイト コード、環境固有の識別子、収集対象のパス、MP のホスト名を一貫した表記へ匿名化しています。途中の行を省略した箇所には「（中略）」を記載しています。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>設定の反映からレポートの転送までは、次の順序で確認します。</p>
+<ol>
+<li>クライアント ポリシーを取得・評価し、設定を反映します。</li>
+<li>ソフトウェア インベントリを開始し、対象ファイルの情報を収集します。</li>
+<li>収集結果からインベントリ レポートを生成します。</li>
+<li>レポートを MP へ転送します。</li>
+</ol>
+<p>ポリシーの取得・評価とインベントリの実行は、それぞれのタイミングで行われる別の処理です。ここでは、設定の反映からレポートの転送までを順に紹介します。</p>
+<h2 id="動作説明の前提"><a href="#動作説明の前提" class="headerlink" title="動作説明の前提"></a>動作説明の前提</h2><p>本記事では、初回のフル インベントリと、その後の差分インベントリのログを紹介します。両者は別々の実行であり、ステップ 2 でレポート種別の違いを確認した後、差分の実行例を使って、ファイル情報の収集から MP への転送までを追跡します。ステップ 1 のポリシー取得・評価も、この差分インベントリに先立つ記録を使用します。</p>
+<p>掲載ログの開始操作は特定していないため、後述の手動操作は、必要に応じて実行を開始する場合の一般的な方法として紹介します。</p>
+<h2 id="設定と一般的な実行方法"><a href="#設定と一般的な実行方法" class="headerlink" title="設定と一般的な実行方法"></a>設定と一般的な実行方法</h2><p>[ソフトウェア インベントリ] の有効化と実行スケジュールは、[クライアント設定] の [ソフトウェア インベントリ] で構成します。収集する情報を確認する際は、次の項目を確認します。</p>
+<table>
+<thead>
+<tr>
+<th>確認する設定</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有効化とスケジュール</td>
+<td>クライアントで機能を有効にするか、どの間隔で実行するかを指定します。</td>
+</tr>
+<tr>
+<td>レポートの詳細</td>
+<td>レポートするファイル情報の詳細レベルを指定します。</td>
+</tr>
+<tr>
+<td>対象ファイル</td>
+<td>ファイル名や拡張子のパターン、検索場所、サブフォルダーを検索するかを指定します。</td>
+</tr>
+<tr>
+<td>除外条件</td>
+<td>Windows フォルダー内のファイル、暗号化ファイル、圧縮ファイルを除外するかを指定します。</td>
+</tr>
+</tbody></table>
+<p>複数のカスタム クライアント設定が適用される場合、それぞれが返すインベントリはマージされます。適用される設定全体を確認すると、収集対象を把握しやすくなります。[ファイル収集] はファイル実体を収集する別の設定であり、本記事では使用方法を扱いません。</p>
+<p>設定変更は、クライアントが次にクライアント ポリシーをダウンロードした際に反映されます。[既定のクライアント設定] の変更は階層全体のコンピューターに適用されるため、一部のデバイスだけを対象とする場合は、カスタム クライアント デバイス設定を作成して対象コレクションへ割り当てます。</p>
+<p>必要に応じて、クライアントの [コントロール パネル] - [Configuration Manager] - [操作] タブから、次のサイクルを手動で開始できます。</p>
+<ul>
+<li>[コンピューター ポリシーの取得および評価サイクル] : クライアント ポリシーの取得・評価を開始します。</li>
+<li>[ソフトウェア インベントリ サイクル] : ソフトウェア インベントリの実行を開始します。</li>
+</ul>
+<p>設定の適用結果の確認は <a href="https://jpmem.github.io/blog/mecm/20220408_01/">クライアント設定が適用されない！確認すべき 3 つのポイント</a>、手動サイクルとその名称は <a href="https://jpmem.github.io/blog/mecm/20180619_01/">Configuration Manager で、できる限り早く更新プログラムを適用する方法について</a> でも紹介しています。後者の記事は更新プログラムを主題とするため、本記事ではサイクルの起動方法と名称を参考にしています。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><p>以下はいずれもクライアント側のログです。既定の保存先は C:\Windows\CCM\logs です。</p>
+<table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>保存場所 (既定)</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PolicyAgent.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>ポリシーの要求を記録します。今回の抜粋では、ダウンロード、受信したポリシーの評価・適用も確認します。</td>
+</tr>
+<tr>
+<td>PolicyEvaluator.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>クライアント上でのポリシー評価を確認します。ポリシー ID とバージョン、評価のタイミングを照合します。</td>
+</tr>
+<tr>
+<td>InventoryAgent.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>インベントリ処理の開始、収集条件、レポート生成、送信結果を確認します。</td>
+</tr>
+<tr>
+<td>InventoryProvider.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>インベントリ処理の詳細を確認するために併読します。</td>
+</tr>
+<tr>
+<td>FileSystemFile.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>ソフトウェア インベントリおよびファイル収集を担当する Windows Management Instrumentation (WMI) プロバイダーの動作を確認します。</td>
+</tr>
+<tr>
+<td>CcmMessaging.log</td>
+<td>C:\Windows\CCM\logs</td>
+<td>クライアントと MP 間の通信を記録します。今回の抜粋では、レポートのメッセージ ID に対応する配送結果を確認します。</td>
+</tr>
+</tbody></table>
+<div class="alert is-info"><p class="alert-title">Note</p><p>ログがローテーションしている場合は、同名の .lo_ ファイルにも過去の記録が残っていることがあります。.log が最大サイズに達すると .lo_ へコピーされ、その後のローテーションで .lo_ は上書きされます。</p></div>
+<h3 id="掲載する処理と識別子"><a href="#掲載する処理と識別子" class="headerlink" title="掲載する処理と識別子"></a>掲載する処理と識別子</h3><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>掲載する値</th>
+<th>対応付ける範囲</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ポリシー ID とバージョン</td>
+<td>{POLICY-ID-A}&#x2F;2、2.00</td>
+<td>[PolicyAgent.log] 内のポリシー本体の取得と評価・適用を対応付けます。</td>
+</tr>
+<tr>
+<td>インベントリのアクション ID</td>
+<td>{00000000-0000-0000-0000-000000000002}</td>
+<td>初回と差分の両方で [Action&#x3D;Software] に対応します。個々の実行は検索条件や記録日時も合わせて確認します。</td>
+</tr>
+<tr>
+<td>収集対象 (差分の実行例)</td>
+<td>C:\InventoryTarget\ 配下の <code>*.exe</code> と <code>*.ps1</code></td>
+<td>[InventoryAgent.log] と [FileSystemFile.log] の検索条件を照合します。</td>
+</tr>
+<tr>
+<td>レポート種別 (初回の実行例)</td>
+<td>Full、MajorVersion&#x3D;1、MinorVersion&#x3D;0</td>
+<td>初回のフル インベントリに記録されたレポート種別とバージョンです。</td>
+</tr>
+<tr>
+<td>レポート種別 (差分の実行例)</td>
+<td>Delta、MajorVersion&#x3D;1、MinorVersion&#x3D;1</td>
+<td>差分インベントリに記録されたレポート種別とバージョンです。</td>
+</tr>
+<tr>
+<td>レポートのメッセージ ID (差分の実行例)</td>
+<td>{MESSAGE-ID-A}</td>
+<td>[InventoryAgent.log] の送信結果と [CcmMessaging.log] の配送結果を対応付けます。</td>
+</tr>
+<tr>
+<td>配送先 MP</td>
+<td>mp01.example.com</td>
+<td>匿名化した配送先ホスト名です。</td>
+</tr>
+</tbody></table>
+<p>[POLICY-ID-A] と [MESSAGE-ID-A] は環境固有の ID を置換した匿名化表記であり、実際の GUID の形式ではありません。サイト コードは「サイト コード」という表記に置換しています。アクション ID とその他の非匿名化部分は原文を維持しています。</p>
+<p>表中の [MajorVersion] と [MinorVersion] はインベントリ レポートのバージョンで、クライアントの製品バージョンとは異なります。</p>
+<p>ポリシー ID とレポートのメッセージ ID は、それぞれのログ内で処理を追うための別の識別子です。また、[InventoryAgent.log] と [FileSystemFile.log] の収集処理には共通のジョブ ID が記録されていないため、本記事では、同じ検索条件と原本の記録順・日時を手掛かりに対応付けています。ログを見比べる際は、スレッド ID に加えて検索条件や記録日時も合わせて確認すると、処理の流れを追いやすくなります。</p>
+<h3 id="ステップ-1-クライアント-ポリシーを取得・評価し、設定を反映する"><a href="#ステップ-1-クライアント-ポリシーを取得・評価し、設定を反映する" class="headerlink" title="ステップ 1 : クライアント ポリシーを取得・評価し、設定を反映する"></a>ステップ 1 : クライアント ポリシーを取得・評価し、設定を反映する</h3><p>クライアント設定の変更を反映するには、クライアント ポリシーの取得と評価を確認します。詳細な工程は <a href="https://jpmem.github.io/blog/mecm/20260929_01/">クライアントのコンピューター ポリシー処理についての動作説明</a> で紹介しています。</p>
+<p>今回の [PolicyAgent.log] では、差分インベントリの実行例に先立って、コンピューター ポリシーの差分更新を受信しています。次の抜粋では、ダウンロード対象のポリシー ID とバージョン 2.00 に対応するファイル名を確認します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Requesting Machine policy assignments from authority &#x27;SMS:サイト コード&#x27;]LOG]!&gt;&lt;component=&quot;PolicyAgent_RequestAssignments&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;9260&quot; file=&quot;requestassignmentstask.cpp:1192&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[Received Machine delta policy update with 2 assignments]LOG]!&gt;&lt;component=&quot;PolicyAgent_RequestAssignments&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;9260&quot; file=&quot;replyassignmentsendpoint.cpp:1645&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[PolicyDownload: &lt;File Source=&quot;.sms_pol?&#123;POLICY-ID-A&#125;/2.2_00&quot; Destination=&quot;&#123;POLICY-ID-A&#125;-2.2.00.tmp&quot;/&gt;]LOG]!&gt;&lt;component=&quot;PolicyAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;11936&quot; file=&quot;policystatemgr.cpp:1491&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>同じポリシー ID とバージョンについて、[RequestedConfig] への評価・適用と、その後の設定更新が記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Evaluating and applying policy &#x27;CCM_Policy_Policy5.PolicyID=&quot;&#123;POLICY-ID-A&#125;/2&quot;,PolicyVersion=&quot;2.00&quot;,PolicySource=&quot;SMS:サイト コード&quot;&#x27; to &#x27;\\.\ROOT\ccm\policy\Machine\RequestedConfig&#x27;]LOG]!&gt;&lt;component=&quot;PolicyAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;11936&quot; file=&quot;policyobject.cpp:570&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[[PolicyEval] Applied 1 policies successfully.]LOG]!&gt;&lt;component=&quot;PolicyAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;11936&quot; file=&quot;policystatemgr.cpp:998&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[New/Changed ActualConfig policy instance(s) : 1]LOG]!&gt;&lt;component=&quot;PolicyAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;11936&quot; file=&quot;policyutil.cpp:6495&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>この範囲では、受信したポリシーの評価・適用が成功したことと、[ActualConfig] の新規または変更されたインスタンスが 1 件あったことを確認できます。この抜粋では、設定の具体的な変更内容までは分からないため、実際に使用された収集条件は、後述のクエリで確認します。</p>
+<p>[PolicyEvaluator.log] にも同じポリシー ID の評価が記録されていますが、今回のバージョン 2.00 の受信前後に行われた別の評価です。本記事では、受信したバージョンと評価・適用の対応を確認できる [PolicyAgent.log] の記録を例にしています。</p>
+<p>設定の反映状況は、ダウンロード結果と、対象のポリシー ID とバージョンに対応する評価・適用結果を合わせて確認すると把握しやすくなります。ポリシー要求や評価の途中で処理が止まっている場合は、[PolicyAgent.log]、[PolicyEvaluator.log]、および [CcmMessaging.log] の該当処理が確認の手掛かりになります。</p>
+<h3 id="ステップ-2-ソフトウェア-インベントリを開始し、対象ファイルの情報を収集する"><a href="#ステップ-2-ソフトウェア-インベントリを開始し、対象ファイルの情報を収集する" class="headerlink" title="ステップ 2 : ソフトウェア インベントリを開始し、対象ファイルの情報を収集する"></a>ステップ 2 : ソフトウェア インベントリを開始し、対象ファイルの情報を収集する</h3><p>[InventoryAgent.log] では、最初に処理の種類とレポート種別を確認します。他のインベントリ処理も記録されるため、[Action&#x3D;Software] を手掛かりに、ソフトウェア インベントリの処理を探します。</p>
+<h4 id="初回実行時-フル-インベントリ"><a href="#初回実行時-フル-インベントリ" class="headerlink" title="初回実行時 (フル インベントリ)"></a>初回実行時 (フル インベントリ)</h4><p>[ソフトウェア インベントリ] は、初回に収集対象全体の情報を報告します。提供ログでは、前回のフル レポートがないことを示すメッセージに続いて、[ReportType&#x3D;Full] が記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Inventory: Delta report without a previous Full report; will do a Full report.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;agentstate.cpp:1472&quot;&gt;</span><br><span class="line">&lt;![LOG[Inventory: Action=Software, ReportType=Full, MajorVersion=1, MinorVersion=0]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;agentstate.cpp:1745&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-回目以降-差分インベントリ"><a href="#2-回目以降-差分インベントリ" class="headerlink" title="2 回目以降 (差分インベントリ)"></a>2 回目以降 (差分インベントリ)</h4><p>初回の報告後は、通常、前回からの変更分を報告します。後続の実行例では、[ReportType&#x3D;Delta] が記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Inventory: *********************** Start of message processing. ***********************]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;agentendpoint.cpp:422&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[Inventory: Opening store for action &#123;00000000-0000-0000-0000-000000000002&#125; ...]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;datastore.cpp:176&quot;&gt;</span><br><span class="line">&lt;![LOG[Inventory: Action=Software, ReportType=Delta, MajorVersion=1, MinorVersion=1]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;agentstate.cpp:1745&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="収集処理の確認"><a href="#収集処理の確認" class="headerlink" title="収集処理の確認"></a>収集処理の確認</h4><p>以降は、差分インベントリの実行例を使って収集処理を確認します。この例では、匿名化後の C:\InventoryTarget\ を対象に、<code>*.exe</code> と <code>*.ps1</code> のファイル情報を問い合わせています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Collection: Namespace = \\.\root\ccm\invagt; Query = SELECT Name, Path, LastWriteDate, Size, CompanyName, ProductName, ProductVersion, ProductLanguage, FileVersion, FileDescription FROM FileSystemFile WHERE Name = &#x27;*.exe|*.ps1&#x27; AND Path = &#x27;C:\\InventoryTarget\\*&#x27; AND SkipWindirFolders = TRUE AND IsCompressed = FALSE AND IsEncrypted = FALSE; Timeout = 14400 secs.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;11936&quot; file=&quot;filesystemcollectiontask.cpp:479&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>収集対象の名前、場所、除外条件が想定どおりかは、このクエリとクライアント設定を照合します。この例の対象パスや拡張子は、すべてのクライアントに共通する既定値ではありません。</p>
+<p>[FileSystemFile.log] では、同じ検索条件について、クエリの解析、スキャン、および終了を確認できます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[ ************* Start of File System Query. *************]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:161&quot;&gt;</span><br><span class="line">&lt;![LOG[Query = SELECT __class, __path, __relpath, name, path, lastwritedate, size, companyname, productname, productversion, productlanguage, fileversion, filedescription  FROM FileSystemFile WHERE name = &#x27;*.exe|*.ps1&#x27; and path = &#x27;c:\\inventorytarget\\*&#x27; and skipwindirfolders = true and iscompressed = false and isencrypted = false; Timeout = 14400 secs; ScanInterval = 2 msecs; SkipFile = skpswi.dat]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:342&quot;&gt;</span><br><span class="line">&lt;![LOG[Query parsed successfully... ready to scan for files.]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:214&quot;&gt;</span><br><span class="line">（中略）</span><br><span class="line">&lt;![LOG[File scan completed; 2 instances reported.]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:248&quot;&gt;</span><br><span class="line">&lt;![LOG[File System File: Query completed successfully.]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:171&quot;&gt;</span><br><span class="line">&lt;![LOG[ ************* End of File System Query. *************]LOG]!&gt;&lt;component=&quot;FileSystemFile&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemquerytask.cpp:178&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>このクエリでは 2 インスタンスが報告され、クエリの成功終了が記録されています。さらに [InventoryAgent.log] では、インベントリ対象のデータ項目の処理結果を確認します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Collection: 1/1 inventory data items successfully inventoried.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;filesystemcollectiontask.cpp:281&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ここでの「1&#x2F;1」はインベントリ データ項目の処理結果で、直前のファイル スキャンで報告された「2 インスタンス」とは集計の単位が異なります。各メッセージが示す対象を確認すると、収集結果を把握しやすくなります。</p>
+<p>収集が完了しない場合は、[InventoryAgent.log] の対象クエリと結果、[FileSystemFile.log] の同じ検索条件の処理を確認します。必要に応じて [InventoryProvider.log] も併読します。エラー行や警告行に加え、後続の収集結果とレポート生成まで確認すると、サイクル全体の状況を把握しやすくなります。</p>
+<h3 id="ステップ-3-収集結果からインベントリ-レポートを生成する"><a href="#ステップ-3-収集結果からインベントリ-レポートを生成する" class="headerlink" title="ステップ 3 : 収集結果からインベントリ レポートを生成する"></a>ステップ 3 : 収集結果からインベントリ レポートを生成する</h3><p>収集後、[InventoryAgent.log] にレポート生成タスクの開始と結果が記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Inventory: Starting reporting task.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;reporttask.cpp:240&quot;&gt;</span><br><span class="line">&lt;![LOG[Reporting: 1 report entries created.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;reporttask.cpp:260&quot;&gt;</span><br><span class="line">&lt;![LOG[Inventory: Reporting Task completed in 0.157 seconds]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;agentstate.cpp:1012&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>この差分インベントリの実行例では、レポートのエントリが 1 件生成され、レポート生成タスクの完了が記録されています。ファイル スキャンでは 2 インスタンス、差分レポートでは 1 エントリというように、各工程の件数が記録されています。MP への配送結果は、次のステップで確認します。</p>
+<p>レポート生成の開始や完了が見つからない場合は、同じインベントリ処理の収集結果から続けて確認します。エントリ数と合わせてレポート種別、タスクの終了結果、および後続の送信結果を確認すると、処理の進行状況を追いやすくなります。</p>
+<h3 id="ステップ-4-レポートを-MP-へ転送する"><a href="#ステップ-4-レポートを-MP-へ転送する" class="headerlink" title="ステップ 4 : レポートを MP へ転送する"></a>ステップ 4 : レポートを MP へ転送する</h3><p>[InventoryAgent.log] で、送信先とレポートのメッセージ ID を確認します。この実行では [MP_SinvEndpoint] 宛ての送信結果が記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Inventory: Successfully sent report. Destination:mp:MP_SinvEndpoint, ID: &#123;MESSAGE-ID-A&#125;, Timeout: 80640 minutes MsgMode: Signed, Not Encrypted]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;agentstate.cpp:2311&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>次に、[CcmMessaging.log] で同じメッセージ ID を検索します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[OutgoingMessage(Queue=&#x27;mp_mp_sinvendpoint&#x27;, ID=&#123;MESSAGE-ID-A&#125;): Delivered successfully to host &#x27;mp01.example.com&#x27;.]LOG]!&gt;&lt;component=&quot;CcmMessaging&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;3592&quot; file=&quot;messagequeueproc_outgoing.cpp:1808&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>同じ [メッセージ ID] と、配送先ホストへの [Delivered successfully] により、このレポートの MP への配送成功を確認できます。[InventoryAgent.log] にも、今回のインベントリ処理の完了が記録されています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[Inventory: Action completed.]LOG]!&gt;&lt;component=&quot;InventoryAgent&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;10248&quot; file=&quot;agentstate.cpp:1810&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>[InventoryAgent.log] の送信結果や [Action completed.] に加え、[CcmMessaging.log] の同じメッセージ ID に対応する配送結果を確認すると、MP への配送までを追跡できます。配送成功が見つからない場合は、同じ ID に関連するキュー処理と通信結果が確認の手掛かりになります。</p>
+<p>クライアント側の [ソフトウェア インベントリ] の動作やログを確認する際に、本記事が参考になれば幸いです。</p>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/clients/manage/inventory/introduction-to-software-inventory">ソフトウェア インベントリの概要</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/clients/manage/inventory/configure-software-inventory">ソフトウェア インベントリの構成</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/clients/deploy/about-client-settings#software-inventory">クライアント設定について - ソフトウェア インベントリ</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/clients/manage/manage-clients#start-policy-retrieval">クライアントの管理 - ポリシーの取得を開始する</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/plan-design/hierarchy/log-files">ログ ファイル リファレンス</a></li>
+<li><a href="https://learn.microsoft.com/intune/configmgr/core/plan-design/hierarchy/about-log-files#locating-log-files">ログ ファイルについて - ログ ファイルの場所</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20260929_01/">クライアントのコンピューター ポリシー処理についての動作説明</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20220408_01/">クライアント設定が適用されない！確認すべき 3 つのポイント</a></li>
+<li><a href="https://jpmem.github.io/blog/mecm/20180619_01/">Configuration Manager で、できる限り早く更新プログラムを適用する方法について</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20261021_01/" data-id="cuidUmxXuHyGIIcShI45mtqqP" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../wsus/20261007_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">WSUS サーバーと Microsoft Update の同期についての動作説明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/">OS 展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/">アプリケーション管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/">クラウド管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/">サーバー インフラストラクチャ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/">ソフトウェア更新プログラム管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/">デバイス コンプライアンス</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/">リアルタイム管理 (CMPivot/PowerShell)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/">共同管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/">Windows Server Update Services</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/">2026</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/">2025</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/">2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/">2023</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/">2022</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/">2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/">2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/">2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/">2018</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/">2017</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/">2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/">2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/">2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/">2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/">2012</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/">2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
