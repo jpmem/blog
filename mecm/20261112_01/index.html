@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>キャプチャ メディアによる OS イメージのキャプチャについての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager でキャプチャ メディアを作成し、参照コンピューターから OS イメージ (.wim) を取得するまでの流れと操作手順をご案内します。あわせて、キャプチャ中に実行される処理と、ログで確認する主なポイントを説明します。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="キャプチャ メディアによる OS イメージのキャプチャについての動作説明">
+<meta property="og:url" content="https://jpmem.github.io/blog/mecm/20261112_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Configuration Manager Support Team Blog">
+<meta property="og:description" content="皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。 本記事では、Microsoft Configuration Manager でキャプチャ メディアを作成し、参照コンピューターから OS イメージ (.wim) を取得するまでの流れと操作手順をご案内します。あわせて、キャプチャ中に実行される処理と、ログで確認する主なポイントを説明します。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20261112_01/20261112_01_03.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20261112_01/20261112_01_01.png">
+<meta property="og:image" content="https://jpmem.github.io/blog/mecm/20261112_01/20261112_01_02.png">
+<meta property="article:published_time" content="2026-11-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-12T06:56:32.253Z">
+<meta property="article:author" content="Japan Microsoft Configuration Manager Support Team">
+<meta property="article:tag" content="MECM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmem.github.io/blog/mecm/20261112_01/20261112_01_03.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Microsoft Configuration Manager Support Team Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="manifest" href="../../icons/site.webmanifest">
+    <link rel="mask-icon" href="../../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="../../icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pukpn4pxov");
+</script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Configuration Manager Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="https://jpmem.github.io/blog/mecm/20260302_01/">当ブログのアンケート</a>
+        
+          <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/jpintuneblog">JP Intune Support Team Blog</a>
+        
+          <a class="main-nav-link" href="https://aka.ms/configmgrblog">US Configuration Manager Blog</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmem.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mecm/20261112_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2026-11-11T15:00:00.000Z" itemprop="datePublished">2026-11-12</time>
+</a>
+    <!-- 
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Configuration-Manager/">Configuration Manager</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/">OS 展開</a>►<a class="article-category-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a>
+  </div>
+ -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      キャプチャ メディアによる OS イメージのキャプチャについての動作説明
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published:
+        <a href="" class="article-date-single">
+  <time datetime="2026-11-11T15:00:00.000Z" itemprop="datePublished">2026-11-12</time>
+</a>
+        / Last update:
+        <a href="" class="article-date-single">    
+    
+    <time datetime="2026-11-11T15:00:00.000Z" itemprop="dateUpdated">2026-11-12</time>
+    
+</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody" style="overflow-wrap: break-word">
+      
+        
+        
+          <details class="article-toc" open>
+            <summary class="article-toc-title">この記事の内容</summary>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E3%81%AE%E6%B5%81%E3%82%8C"><span class="toc-text">全体の流れ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%95%E3%83%AB-OS-%E3%81%A8-Windows-PE-%E3%81%AE%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83"><span class="toc-text">フル OS と Windows PE の実行環境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E%E3%81%AE%E5%89%8D%E6%8F%90"><span class="toc-text">動作説明の前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E7%85%A7%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E8%A6%81%E4%BB%B6"><span class="toc-text">参照コンピューターの要件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE%E4%BD%9C%E6%88%90%E3%81%8B%E3%82%89-OS-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E5%8F%96%E5%BE%97%E3%81%BE%E3%81%A7%E3%81%AE%E6%89%8B%E9%A0%86"><span class="toc-text">キャプチャ メディアの作成から OS イメージ取得までの手順</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E9%A0%86-1-%E5%8F%82%E7%85%A7%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%A8%E4%BF%9D%E5%AD%98%E5%85%88%E3%82%92%E6%BA%96%E5%82%99%E3%81%99%E3%82%8B"><span class="toc-text">手順 1 : 参照コンピューターと保存先を準備する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E9%A0%86-2-%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"><span class="toc-text">手順 2 : キャプチャ メディアを作成する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E9%A0%86-3-%E5%8F%82%E7%85%A7%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE-Windows-%E4%B8%8A%E3%81%A7%E3%82%A6%E3%82%A3%E3%82%B6%E3%83%BC%E3%83%89%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B"><span class="toc-text">手順 3 : 参照コンピューターの Windows 上でウィザードを起動する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E9%A0%86-4-%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%E6%83%85%E5%A0%B1%E3%82%92%E5%85%A5%E5%8A%9B%E3%81%97%E3%80%81%E5%87%A6%E7%90%86%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%99%E3%82%8B"><span class="toc-text">手順 4 : キャプチャ情報を入力し、処理を開始する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E9%A0%86-5-%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%E3%81%AE%E5%AE%8C%E4%BA%86%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%80%81-wim-%E3%82%92%E5%9B%9E%E5%8F%8E%E3%81%99%E3%82%8B"><span class="toc-text">手順 5 : キャプチャの完了を確認し、.wim を回収する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%83%AD%E3%82%B0%E3%81%AE%E8%BF%BD%E8%B7%A1%E6%96%B9%E6%B3%95"><span class="toc-text">各ステップとログの追跡方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%A2%E9%80%A3%E3%83%AD%E3%82%B0"><span class="toc-text">関連ログ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E3%81%A7%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%A8%E4%BF%9D%E5%AD%98%E5%85%88"><span class="toc-text">ログで確認する名前と保存先</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1-%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE-TSMBootstrap-%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%97%E3%80%81%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE%E6%A7%8B%E6%88%90%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80"><span class="toc-text">ステップ 1 : キャプチャ メディアの TSMBootstrap を起動し、メディアの構成情報を読み込む</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-2-Image-Capture-Wizard-%E3%81%A7%E8%A6%81%E4%BB%B6%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%80%81%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%E6%83%85%E5%A0%B1%E3%82%92%E5%85%A5%E5%8A%9B%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 2 : Image Capture Wizard で要件を確認し、キャプチャ情報を入力する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-3-%E3%82%BF%E3%82%B9%E3%82%AF-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9-%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%97%E3%80%81%E3%82%BF%E3%82%B9%E3%82%AF-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80"><span class="toc-text">ステップ 3 : タスク シーケンス マネージャーを起動し、タスク シーケンスを読み込む</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-4-Configuration-Manager-%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%82%92%E6%BA%96%E5%82%99%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 4 : Configuration Manager クライアントを準備する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-5-%E5%8F%82%E7%85%A7%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%80%81%E8%B5%B7%E5%8B%95%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E6%83%85%E5%A0%B1%E3%82%92%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 5 : 参照コンピューターを確認し、起動に必要な情報をバックアップする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-6-Windows-PE-%E3%81%AE%E3%83%96%E3%83%BC%E3%83%88-%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%8B%E3%82%89%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99"><span class="toc-text">ステップ 6 : Windows PE のブート イメージをメディアから取り出す</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-7-Sysprep-%E3%81%A7-OS-%E3%82%92%E4%B8%80%E8%88%AC%E5%8C%96%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 7 : Sysprep で OS を一般化する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-8-Windows-PE-%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E6%A7%8B%E6%88%90%E3%81%97%E3%80%81%E5%86%8D%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 8 : Windows PE を起動するように構成し、再起動する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-9-Windows-PE-%E3%81%A7%E5%8F%82%E7%85%A7%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%82%92%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 9 : Windows PE で参照コンピューターのボリュームをキャプチャする</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-10-%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%E5%AE%8C%E4%BA%86%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%97%E3%80%81%E5%86%8D%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B"><span class="toc-text">ステップ 10 : キャプチャ完了メッセージを表示し、再起動する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%AD%E3%82%B0%E7%A2%BA%E8%AA%8D%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88"><span class="toc-text">ログ確認のポイント</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9F%E8%A1%8C%E7%B5%90%E6%9E%9C%E3%82%92%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E8%A1%8C"><span class="toc-text">実行結果を判断する行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AD%A6%E5%91%8A%E3%82%84%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AB%E8%A6%8B%E3%81%88%E3%82%8B%E8%A1%8C"><span class="toc-text">警告やエラーに見える行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E6%95%97%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AB%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E7%AE%87%E6%89%80"><span class="toc-text">失敗したときに確認する箇所</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-text">留意事項</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-text">参考リンク</span></a></li></ol>
+          </details>
+        
+        <p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager でキャプチャ メディアを作成し、参照コンピューターから OS イメージ (.wim) を取得するまでの流れと操作手順をご案内します。あわせて、キャプチャ中に実行される処理と、ログで確認する主なポイントを説明します。</p>
+<p>参照コンピューターは、ほかのコンピューターへ展開する Windows のひな形を作るためのコンピューターです。Windows やアプリケーション、設定を展開用の .wim ファイルにまとめる処理を、キャプチャと呼びます。</p>
+<p>対象は、参照コンピューターと保存先の準備、キャプチャ メディアの作成、通常起動した Windows (フル OS) 上でのウィザードの実行、および Windows PE でのキャプチャ完了までです。</p>
+<p>Windows PE は、OS の展開や保守に使う最小構成の Windows で、本記事ではキャプチャを実行する環境として使用します。</p>
+<p>キャプチャした .wim の Configuration Manager への登録、および OS の展開は、本記事の対象外です。また、Windows のインストールからキャプチャまでを自動化する「ビルドとキャプチャ」のタスク シーケンスは扱いません。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>作業は、参照コンピューターと保存先の準備、キャプチャ メディアの作成、ウィザードでの保存先の指定、自動処理の完了確認、.wim の回収の順に進めます。参照コンピューターが満たす条件は後述の「参照コンピューターの要件」で、具体的な操作は後述の「キャプチャ メディアの作成から OS イメージ取得までの手順」で説明します。</p>
+<p>キャプチャ メディアには、Windows PE を起動するためのブート イメージと、キャプチャに必要な作業を順番に実行するタスク シーケンスが含まれています。メディアを参照コンピューターの Windows 上で実行すると、次の順序で処理されます。</p>
+<ol>
+<li>キャプチャ メディアの TSMBootstrap を起動し、メディアの構成情報を読み込む</li>
+<li>Image Capture Wizard で、参照コンピューターがキャプチャの要件を満たしていることを確認し、キャプチャ情報を入力する</li>
+<li>タスク シーケンス マネージャーを起動し、キャプチャ用のタスク シーケンスを読み込む</li>
+<li>Configuration Manager クライアントを準備する</li>
+<li>参照コンピューターを確認し、起動に必要な情報をバックアップする</li>
+<li>Windows PE のブート イメージをメディアから取り出す</li>
+<li>Sysprep で OS を一般化する</li>
+<li>Windows PE を起動するように構成し、再起動する</li>
+<li>Windows PE で参照コンピューターのボリュームをキャプチャする</li>
+<li>キャプチャ完了メッセージを表示し、再起動する</li>
+</ol>
+<h3 id="フル-OS-と-Windows-PE-の実行環境"><a href="#フル-OS-と-Windows-PE-の実行環境" class="headerlink" title="フル OS と Windows PE の実行環境"></a>フル OS と Windows PE の実行環境</h3><p>キャプチャ用のタスク シーケンスは、Capture the Reference Machine というグループの中に 4 つのステップを持っています。ステップごとの実行環境は、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>タスク シーケンスのステップ</th>
+<th>実行環境</th>
+<th>本記事のステップ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prepare Configuration Manager Client</td>
+<td>フル OS</td>
+<td>ステップ 4</td>
+</tr>
+<tr>
+<td>Prepare Operating System</td>
+<td>フル OS</td>
+<td>ステップ 5 からステップ 8</td>
+</tr>
+<tr>
+<td>Capture the Reference Machine</td>
+<td>Windows PE</td>
+<td>ステップ 9</td>
+</tr>
+<tr>
+<td>Show Capture Complete Message</td>
+<td>Windows PE とフル OS (コマンド ラインの実行)</td>
+<td>ステップ 10</td>
+</tr>
+</tbody></table>
+<p>ステップ 8 で Windows PE へ再起動するため、ステップ 1 からステップ 8 までは参照コンピューターの OS 上、ステップ 9 は Windows PE 上で実行されます。</p>
+<h2 id="動作説明の前提"><a href="#動作説明の前提" class="headerlink" title="動作説明の前提"></a>動作説明の前提</h2><p>本記事で説明する動作の条件は、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参照コンピューター</td>
+<td>Windows 11 (OS バージョン 10.0.26200.0)。UEFI で、セキュア ブートが有効です。ワークグループで、Configuration Manager クライアントはインストールされていません。</td>
+</tr>
+<tr>
+<td>メディア</td>
+<td>キャプチャ メディアです。メディアに含まれる Configuration Manager の実行ファイルのバージョンは 5.0.9146.1009 で、ブート イメージ (パッケージ ID PS100002) は x64 です。参照コンピューターには D: ドライブとして接続されています。</td>
+</tr>
+<tr>
+<td>実行方法</td>
+<td>キャプチャ メディアを、フル OS 上で実行しています。ログには、メディアの D:\SMS\BIN\x64\TSMBootstrap.exe が &#x2F;env:FullOS で実行されたことが記録されます。</td>
+</tr>
+<tr>
+<td>キャプチャ先</td>
+<td>参照コンピューター上のローカル パス C:\image\cm.wim です。</td>
+</tr>
+</tbody></table>
+<h2 id="参照コンピューターの要件"><a href="#参照コンピューターの要件" class="headerlink" title="参照コンピューターの要件"></a>参照コンピューターの要件</h2><p>キャプチャ中には、Sysprep (システム準備ツール) が参照コンピューター上で自動的に実行されます。Sysprep は、コンピューター固有の情報を削除し、ほかのコンピューターへ展開できる状態にします。この処理を「一般化」と呼びます。</p>
+<p>参照コンピューターは、次の条件を満たした状態でキャプチャしてください。条件のうち、必須のものには (必須) と記載しています。そのほかの条件は、キャプチャを正常に完了するために、満たしておくことを推奨します。</p>
+<ul>
+<li>ボリューム ライセンス サービス センター (VLSC) から入手した Windows のイメージを使用します (必須)。</li>
+<li>最新の累積的な品質更新プログラムを適用します。Windows 11 のイメージをキャプチャ メディアでキャプチャする場合は、更新プログラムの適用が完了していないと、Sysprep が失敗することがあります。更新プログラムを適用した後は再起動し、新たに適用できる更新プログラムがない状態にします。</li>
+<li>Sysprep の実行時は、組み込みの Administrator アカウント (Built-in Administrator) を使用します。これは、Windows に標準で用意されている Administrator アカウントです。</li>
+<li>OS のアップグレードを行いません。</li>
+<li>ユーザー プロファイルが複数存在しない状態にします。</li>
+<li>ワークグループ環境にします。ドメインに参加していると、キャプチャ用に Windows を準備する処理が失敗します。</li>
+<li>Microsoft Store アプリの追加や、既存の Microsoft Store アプリの更新を行いません。Microsoft Store アプリを追加または更新した状態で Sysprep を実行すると、失敗します。</li>
+<li>Configuration Manager クライアントのインストールは不要です。</li>
+</ul>
+<p>詳細は、<a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/os-deployment/windows-11-image-capture-fail">Configuration Manager でキャプチャ メディアを使用して Windows 11 イメージをキャプチャするときのエラー</a> および <a href="https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/sysprep--generalize--a-windows-installation">Windows インストールに対する Sysprep (一般化) の実行</a> をご確認ください。</p>
+<h2 id="キャプチャ-メディアの作成から-OS-イメージ取得までの手順"><a href="#キャプチャ-メディアの作成から-OS-イメージ取得までの手順" class="headerlink" title="キャプチャ メディアの作成から OS イメージ取得までの手順"></a>キャプチャ メディアの作成から OS イメージ取得までの手順</h2><p>ここでは、x64 の参照コンピューターに ISO 形式のキャプチャ メディアを接続し、C:\image\cm.wim に保存する例で説明します。作成する ISO はキャプチャ用のツールを含むメディアで、キャプチャの結果として取得する .wim とは別のファイルです。</p>
+<p>画面ショットは、仮想マシンのウィンドウ タイトルを除き、ブランド名が表示されている箇所を塗りつぶしています。</p>
+<h3 id="手順-1-参照コンピューターと保存先を準備する"><a href="#手順-1-参照コンピューターと保存先を準備する" class="headerlink" title="手順 1 : 参照コンピューターと保存先を準備する"></a>手順 1 : 参照コンピューターと保存先を準備する</h3><ol>
+<li>「参照コンピューターの要件」を満たす参照コンピューターに、必要なアプリケーションをインストールし、イメージに含める設定を完了します。</li>
+<li>システム パーティションが NTFS であることを確認します。参照コンピューターでの操作は、組み込みの Administrator アカウントで実施します。</li>
+<li>キャプチャ中に Sysprep が OS を一般化するため、元の状態に戻す必要がある場合は、実行前にバックアップや仮想マシンのチェックポイントを取得します。</li>
+<li>キャプチャ先のフォルダー C:\image を作成し、.wim を保存できる空き容量を確保します。既存の .wim は上書きされるため、必要なファイルが残っている場合は、別の保存先やファイル名を使用します。</li>
+</ol>
+<p>ネットワーク共有へ保存する場合は、保存先を <code>\\fileserver\capture\cm.wim</code> のように、サーバー名と共有名で始まるパス (UNC パス) で指定します。その共有へ読み取りと書き込みができるアカウントも準備します。Windows PE からも共有へ接続できるように、ネットワーク接続とブート イメージ内のネットワーク ドライバーを確認します。ここで示したサーバー名と共有名は例示です。</p>
+<h3 id="手順-2-キャプチャ-メディアを作成する"><a href="#手順-2-キャプチャ-メディアを作成する" class="headerlink" title="手順 2 : キャプチャ メディアを作成する"></a>手順 2 : キャプチャ メディアを作成する</h3><ol>
+<li>x64 など、参照コンピューターの種類に対応するブート イメージを用意し、少なくとも 1 つの配布ポイントへ配布します。本記事の例では x64 のブート イメージを使用します。必要なネットワーク ドライバーとストレージ ドライバーも、ブート イメージに含めておきます。</li>
+<li>Configuration Manager コンソールを実行するコンピューターで、ISO の出力先フォルダーを作成します。メディアの作成には、このコンピューターの管理者権限と、使用する配布ポイントのコンテンツ ライブラリに対する読み取りアクセス許可が必要です。</li>
+<li>コンソールで [ソフトウェア ライブラリ] → [オペレーティング システム] → [タスク シーケンス] を開き、[タスク シーケンス メディアの作成] を選択します。</li>
+<li>作成するメディアの種類として、キャプチャ用のメディア (Capture media) を選択します。続いて、[CD&#x2F;DVD セット] を選択します。</li>
+<li>メディアの容量と、出力先の ISO ファイル名を指定します。例として、C:\CaptureMedia\capture.iso を指定します。既存の ISO を指定すると、次のページへ進んだ時点でそのファイルが削除されるため、新しいファイル名を使用します。</li>
+<li>ブート イメージと、そのコンテンツを配置した配布ポイントを選択し、ウィザードを完了します。</li>
+<li>ウィザードが正常に完了し、指定した場所に ISO が作成されていることを確認します。作成に失敗した場合は、コンソールを実行したコンピューターの CreateTSMedia.log を確認します。</li>
+</ol>
+<p>USB ドライブへ直接メディアを作成する場合は、[CD&#x2F;DVD セット] の代わりに [リムーバブル USB ドライブ] を選択します。USB ドライブをフォーマットする場合は、保存されている必要なデータを事前に退避します。メディアは FAT32 ファイル システムを使用するため、4 GB を超えるファイルがコンテンツに含まれる場合は、USB ドライブにメディアを作成できません。これは、作成するキャプチャ メディア側の制限です。</p>
+<p>メディア作成の前提と各設定の詳細は、<a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-capture-media">キャプチャ メディアの作成</a> をご確認ください。</p>
+<h3 id="手順-3-参照コンピューターの-Windows-上でウィザードを起動する"><a href="#手順-3-参照コンピューターの-Windows-上でウィザードを起動する" class="headerlink" title="手順 3 : 参照コンピューターの Windows 上でウィザードを起動する"></a>手順 3 : 参照コンピューターの Windows 上でウィザードを起動する</h3><ol>
+<li>参照コンピューターを通常の Windows で起動し、作成したキャプチャ メディアを接続します。仮想マシンの場合は、仮想 DVD ドライブに ISO を接続します。ここでは、メディアが D: ドライブとして認識されているものとします。</li>
+<li>エクスプローラーでメディアのドライブ (本記事の例では D:) を開きます。</li>
+<li>LaunchMedia.cmd をダブルクリックして実行します。コマンドを入力する必要はありません。</li>
+<li>イメージ キャプチャ ウィザード (英語表記は Image Capture Wizard) が起動し、「イメージのキャプチャ ウィザードの開始」画面が表示されることを確認します。</li>
+</ol>
+<p>LaunchMedia.cmd の実行後に表示されるウィザードの開始画面は、次のようになります。</p>
+<p><img src="/blog/mecm/20261112_01/20261112_01_03.png" alt="イメージ キャプチャ ウィザードに「イメージのキャプチャ ウィザードの開始」画面が表示され、コンピューターがドメインのメンバーではないことを確認して続行するよう案内されている"></p>
+<p>コマンド プロンプトから開始する場合は、管理者権限でコマンド プロンプトを開き、本記事の x64 メディアでは次のコマンドを実行します。ドライブ文字は、実際に接続したメディアに合わせて変更します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\SMS\BIN\x64\TSMBootstrap.exe /env:FullOS</span><br></pre></td></tr></table></figure>
+
+<p>どちらの方法でも、キャプチャ対象の Windows 上でウィザードが開始します。Windows PE への再起動は、後続の処理で自動的に行われます。</p>
+<h3 id="手順-4-キャプチャ情報を入力し、処理を開始する"><a href="#手順-4-キャプチャ情報を入力し、処理を開始する" class="headerlink" title="手順 4 : キャプチャ情報を入力し、処理を開始する"></a>手順 4 : キャプチャ情報を入力し、処理を開始する</h3><ol>
+<li>イメージ キャプチャ ウィザードの開始画面で、参照コンピューターがドメインに参加していないことを確認し、[次へ] を選択します。このタイミングで、参照コンピューターの要件確認が行われます。</li>
+<li>保存先を指定する画面で、.wim の保存先とファイル名を入力します。本記事の例では C:\image\cm.wim です。ネットワーク共有へ保存する場合は、共有のパスと、その共有にアクセスするためのアカウント情報を指定します。</li>
+<li>イメージ情報の画面で、必要に応じて作成者、バージョン、および説明を入力します。</li>
+<li>確認画面で保存先などの設定を確認し、ウィザードを完了してキャプチャ処理を開始します。</li>
+</ol>
+<p>以降は、Configuration Manager クライアントの準備、Sysprep による一般化、Windows PE への再起動、およびディスク上の領域 (ボリューム) のキャプチャが自動で進みます。ブート イメージはメディアから参照コンピューターへコピーされるため、処理中はメディアを接続したままにします。</p>
+<p>Windows PE で再起動してキャプチャが始まると、次のように進行状況が表示されます。</p>
+<p><img src="/blog/mecm/20261112_01/20261112_01_01.png" alt="Installation Progress ダイアログに、Running: Image Capture Wizard、Running action: Capture the Reference Machine、Capturing volume 1 of 1... と表示されている"></p>
+<p>Capturing volume 1 of 1… は、キャプチャ対象のボリュームが 1 つで、その 1 つ目をキャプチャしていることを示します。</p>
+<h3 id="手順-5-キャプチャの完了を確認し、-wim-を回収する"><a href="#手順-5-キャプチャの完了を確認し、-wim-を回収する" class="headerlink" title="手順 5 : キャプチャの完了を確認し、.wim を回収する"></a>手順 5 : キャプチャの完了を確認し、.wim を回収する</h3><ol>
+<li>Windows PE で、手順 4 の画面のように進行状況が表示され、キャプチャが進むことを確認します。</li>
+<li>Image successfully captured to ‘C:\image\cm.wim’. という完了メッセージと、表示された保存先を確認します。<br><img src="/blog/mecm/20261112_01/20261112_01_02.png" alt="Image Capture Wizard のメッセージに、Image successfully captured to &#39;C:\image\cm.wim&#39;. Press OK to restart the computer and run Windows setup. と表示されている"></li>
+<li>[OK] を選択して参照コンピューターを再起動します。OS は一般化されているため、次回起動時には Windows の初回セットアップ (OOBE) が始まります。</li>
+<li>参照コンピューター内に保存した場合は、C:\image\cm.wim を別の保管先へコピーします。コピーには、参照コンピューターのディスクを読み取れる環境が必要です。ネットワーク共有へ保存した場合は、その共有上に .wim が作成されていることを確認します。参照コンピューターの復元や再作成は、必要なファイルを回収してから行います。</li>
+</ol>
+<p>ここまでで、キャプチャ メディアを使用した OS イメージの取得は完了です。以下では、処理の流れを確認したい場合に参照できるログのポイントを説明します。</p>
+<h2 id="各ステップとログの追跡方法"><a href="#各ステップとログの追跡方法" class="headerlink" title="各ステップとログの追跡方法"></a>各ステップとログの追跡方法</h2><h3 id="関連ログ"><a href="#関連ログ" class="headerlink" title="関連ログ"></a>関連ログ</h3><table>
+<thead>
+<tr>
+<th>ログ名</th>
+<th>保存場所</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>smsts.log</td>
+<td>参照コンピューター。本記事のログでは <code>C:\Users\&lt;ユーザー名&gt;\AppData\Local\Temp\SMSTSLog</code></td>
+<td>ステップ 1 からステップ 8 (メディアの起動から Windows PE への再起動まで) の実行を確認します。</td>
+</tr>
+<tr>
+<td>CreateTSMedia.log</td>
+<td>メディアを作成した Configuration Manager コンソールを実行するコンピューター</td>
+<td>メディアの作成の詳細を確認します。</td>
+</tr>
+<tr>
+<td>Setupact.log &#x2F; Setuperr.log</td>
+<td>参照コンピューター</td>
+<td>Sysprep の詳細を確認します。</td>
+</tr>
+</tbody></table>
+<p>Windows PE で実行されるステップ 9 とステップ 10 の smsts.log は掲載せず、手順 4 と手順 5 の画面と公開情報で説明しています。</p>
+<p>ログ抜粋は、smsts.log から説明に必要な行だけを抜き出したもので、各行の日時、スレッド ID、ソース ファイル名などの付加情報は省いています。行を省略した箇所は <code>...</code> で示し、どの処理の記録かを区別できるよう、先頭に <code>[TSManager]</code> のようなコンポーネント名を付けています。展開 ID、スコープ GUID、およびボリューム ID は、対応関係を保ったまま <code>&lt;展開 ID&gt;</code>、<code>&lt;スコープ GUID&gt;</code>、<code>&lt;ボリューム ID&gt;</code> に匿名化しています。</p>
+<h3 id="ログで確認する名前と保存先"><a href="#ログで確認する名前と保存先" class="headerlink" title="ログで確認する名前と保存先"></a>ログで確認する名前と保存先</h3><p>ログを追跡するときの手掛かりは、次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>タスク シーケンス名</td>
+<td>Image Capture Wizard</td>
+</tr>
+<tr>
+<td>タスク シーケンスのパッケージ ID</td>
+<td>INMEM_TS</td>
+</tr>
+<tr>
+<td>ブート イメージのパッケージ ID</td>
+<td>PS100002</td>
+</tr>
+<tr>
+<td>キャプチャ先 (OSDCaptureDestination)</td>
+<td>C:\image\cm.wim</td>
+</tr>
+</tbody></table>
+<h3 id="ステップ-1-キャプチャ-メディアの-TSMBootstrap-を起動し、メディアの構成情報を読み込む"><a href="#ステップ-1-キャプチャ-メディアの-TSMBootstrap-を起動し、メディアの構成情報を読み込む" class="headerlink" title="ステップ 1 : キャプチャ メディアの TSMBootstrap を起動し、メディアの構成情報を読み込む"></a>ステップ 1 : キャプチャ メディアの TSMBootstrap を起動し、メディアの構成情報を読み込む</h3><p>メディアの D:\SMS\BIN\x64\TSMBootstrap.exe が &#x2F;env:FullOS で実行され、通常の Windows 上でキャプチャの準備が始まります。続いて、メディア内の variables.dat から設定情報を、Policy.xml から実行する手順の情報を読み込みます。この例では、必要な情報とブート イメージ (PS100002) をメディア内から取得しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  ==============================[ TSMBootStrap.exe ]==============================</span><br><span class="line">[TSMBootstrap]  Command line: TSMBootstrap.exe /env:FullOS</span><br><span class="line">[TSMBootstrap]  Current OS version is 10.0.26200.0</span><br><span class="line">[TSMBootstrap]  In full OS starting tsmbootstrap.exe version 5.0.9146.1009 from location &#x27;D:\SMS\BIN\x64\TSMBootstrap.exe&#x27;</span><br><span class="line">[TSMBootstrap]  Media Root = D:\</span><br><span class="line">[TSMBootstrap]  Executing from Media in Full OS</span><br><span class="line">[TSMBootstrap]  MediaType = FullMedia</span><br><span class="line">[TSMBootstrap]  Loading Media Variables from &quot;D:\sms\data\variables.dat&quot;</span><br><span class="line">[TSMBootstrap]  UEFI: true</span><br><span class="line">[TSMBootstrap]  SecureBootState: Enabled</span><br><span class="line">[TSMBootstrap]  Loading policy from D:\sms\data\Policy.XML.</span><br><span class="line">...</span><br><span class="line">[TSMBootstrap]  Getting policy for CCM_SoftwareDistribution[AdvertID=&quot;&#123;&lt;展開 ID&gt;&#125;&quot;, PackageID=&quot;PS100002&quot;, ProgramID=&quot;*&quot;]</span><br><span class="line">...</span><br><span class="line">[TSMBootstrap]  PS100002 content location: file:VOL001:\SMS\PKG\PS100002</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、Executing from Media in Full OS とブート イメージの content location が記録され、ステップ 2 で OsdCaptureCD.exe が起動することです。失敗時は、メディアを参照コンピューターから読み取れることを確認します。メディアの作成結果は、CreateTSMedia.log で確認できます。</p>
+<h3 id="ステップ-2-Image-Capture-Wizard-で要件を確認し、キャプチャ情報を入力する"><a href="#ステップ-2-Image-Capture-Wizard-で要件を確認し、キャプチャ情報を入力する" class="headerlink" title="ステップ 2 : Image Capture Wizard で要件を確認し、キャプチャ情報を入力する"></a>ステップ 2 : Image Capture Wizard で要件を確認し、キャプチャ情報を入力する</h3><p>TSMBootstrap は、メディアの内容を C:_SMSTaskSequence へコピーした後、OsdCaptureCD.exe (画面に表示される Image Capture Wizard) を起動します。</p>
+<p>ウィザードは、[次へ] が選択されたタイミングで、参照コンピューターが次の要件を満たしているかを確認します。</p>
+<ul>
+<li>ドメイン コントローラーではないこと</li>
+<li>システム パーティションが NTFS であること</li>
+<li>展開に必要なツールが存在すること</li>
+<li>ドメインに参加していないこと</li>
+</ul>
+<p>その後、入力した保存先などを保存します。ログでは、キャプチャ先が OSDCaptureDestination として記録されます。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  copying files from d:\ to C:\_SMSTaskSequence</span><br><span class="line">[TSMBootstrap]  Set command line: OsdCaptureCD.exe</span><br><span class="line">[OSDCaptureCD]  ==============================[ OsdCaptureCD.exe ]==============================</span><br><span class="line">[OSDCaptureCD]  Running module version 5.0.9146.1009 from location &#x27;D:\SMS\BIN\x64\OsdCaptureCD.exe&#x27;</span><br><span class="line">[OSDCaptureCD]  Activating Welcome Page.</span><br><span class="line">[OSDCaptureCD]  WelcomePage::OnWizardNext()</span><br><span class="line">[OSDCaptureCD]  Verifying that this machine meets the capture requirements.</span><br><span class="line">[OSDCaptureCD]  Local machine is not a domain controller.</span><br><span class="line">[OSDCaptureCD]  System partition is NTFS</span><br><span class="line">[OSDCaptureCD]  Verified deploy tools are present.</span><br><span class="line">[OSDCaptureCD]  Local machine is not part of a domain</span><br><span class="line">[OSDCaptureCD]  Activating Destination Page.</span><br><span class="line">[OSDCaptureCD]  DestinationPage::OnWizardNext()</span><br><span class="line">[OSDCaptureCD]  Activating Welcome Page.</span><br><span class="line">[OSDCaptureCD]  InfoPage::OnWizardNext()</span><br><span class="line">[OSDCaptureCD]  Activating Finish Page.</span><br><span class="line">[OSDCaptureCD]  Saving capture information in the environment.</span><br><span class="line">[OSDCaptureCD]  Adding OSDCaptureDestination to the path migration list.</span><br><span class="line">[OSDCaptureCD]  Exiting with return code 0x00000000</span><br><span class="line">[TSMBootstrap]  Process completed with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、4 つの確認結果が上記のように記録され、OsdCaptureCD が Exiting with return code 0x00000000 で終了することです。失敗時は、4 つの確認結果と、参照コンピューターがワークグループであることをご確認ください。</p>
+<h3 id="ステップ-3-タスク-シーケンス-マネージャーを起動し、タスク-シーケンスを読み込む"><a href="#ステップ-3-タスク-シーケンス-マネージャーを起動し、タスク-シーケンスを読み込む" class="headerlink" title="ステップ 3 : タスク シーケンス マネージャーを起動し、タスク シーケンスを読み込む"></a>ステップ 3 : タスク シーケンス マネージャーを起動し、タスク シーケンスを読み込む</h3><p>TSMBootstrap は、処理の実行を管理するタスク シーケンス マネージャー (TSManager) を起動します。TSManager は、キャプチャ用のタスク シーケンス (名前は Image Capture Wizard、ID は INMEM_TS) を読み込み、Capture the Reference Machine グループの 4 つのステップと、各ステップを通常の Windows と Windows PE のどちらで実行するかを記録します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[TSMBootstrap]  Creating the Task Sequence Manager Service.</span><br><span class="line">[TSMBootstrap]  Starting Task Sequence Manager Service.</span><br><span class="line">[TSManager]  Commandline: &quot;C:\_SMSTaskSequence\sms\bin\x64\TsManager.exe&quot; /service /noclient /loghandle 1876 544</span><br><span class="line">[TSManager]  NOT executing in WinPE</span><br><span class="line">[TSManager]  TSManager initialized environment for task sequence: deployment ID = &#x27;&#123;&lt;展開 ID&gt;&#125;&#x27;, package ID = &#x27;INMEM_TS&#x27;, Name = &#x27;Image Capture Wizard&#x27;</span><br><span class="line">[TSManager]  There are 1 first level steps or groups</span><br><span class="line">[TSManager]  Parsing group node: Capture the Reference Machine</span><br><span class="line">[TSManager]  There are 4 first level steps or groups</span><br><span class="line">[TSManager]  Parsing step node: Prepare Configuration Manager Client</span><br><span class="line">[TSManager]  Run in attribute: FullOS</span><br><span class="line">[TSManager]  Parsing step node: Prepare Operating System</span><br><span class="line">[TSManager]  Run in attribute: FullOS</span><br><span class="line">[TSManager]  Parsing step node: Capture the Reference Machine</span><br><span class="line">[TSManager]  Run in attribute: WinPE</span><br><span class="line">[TSManager]  Parsing step node: Show Capture Complete Message</span><br><span class="line">[TSManager]  Run in attribute: WinPEandFullOS</span><br><span class="line">...</span><br><span class="line">[TSManager]  Do not send status message in full media case</span><br><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Capture the Reference Machine&#x27;.  Pointer: 0. Type: &#x27;&#x27;. Disabled: 0</span><br><span class="line">[TSManager]  The group (Capture the Reference Machine) has been successfully started</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、The group (Capture the Reference Machine) has been successfully started が記録されることです。</p>
+<h3 id="ステップ-4-Configuration-Manager-クライアントを準備する"><a href="#ステップ-4-Configuration-Manager-クライアントを準備する" class="headerlink" title="ステップ 4 : Configuration Manager クライアントを準備する"></a>ステップ 4 : Configuration Manager クライアントを準備する</h3><p>最初のステップ Prepare Configuration Manager Client では、osdpreparesmsclient.exe が、参照コンピューター上の Configuration Manager クライアントを削除または構成して、キャプチャできる状態にします。このログは、参照コンピューターに Configuration Manager クライアントがインストールされていない場合のものです。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Prepare Configuration Manager Client&#x27;.  Pointer: 1. Type: &#x27;SMS_TaskSequence_PrepareSMSClientAction&#x27;. Disabled: 0</span><br><span class="line">[TSManager]  Start executing the command line: osdpreparesmsclient.exe</span><br><span class="line">[PrepareSMSClient]  Running module version 5.0.9146.1009 from location &#x27;C:\_SMSTaskSequence\sms\bin\x64\osdpreparesmsclient.exe&#x27;</span><br><span class="line">...</span><br><span class="line">[PrepareSMSClient]  This computer does not have SMS site server installed</span><br><span class="line">[PrepareSMSClient]  SMS Client is not installed on this machine.</span><br><span class="line">[PrepareSMSClient]  Successfully opened client certificate store.</span><br><span class="line">[PrepareSMSClient]  No certificates to delete</span><br><span class="line">[PrepareSMSClient]  No client configuration file found.</span><br><span class="line">[PrepareSMSClient]  Deleting &#x27;smstsmgr&#x27; service from SCM database..</span><br><span class="line">[PrepareSMSClient]  &#x27;smstsmgr&#x27; service successfully deleted from SCM database</span><br><span class="line">[TSManager]  Process completed with exit code 0</span><br><span class="line">[TSManager]  Successfully completed the action (Prepare Configuration Manager Client) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、Successfully completed the action (Prepare Configuration Manager Client) with the exit win32 code 0 です。失敗時は、PrepareSMSClient の行をご確認ください。</p>
+<h3 id="ステップ-5-参照コンピューターを確認し、起動に必要な情報をバックアップする"><a href="#ステップ-5-参照コンピューターを確認し、起動に必要な情報をバックアップする" class="headerlink" title="ステップ 5 : 参照コンピューターを確認し、起動に必要な情報をバックアップする"></a>ステップ 5 : 参照コンピューターを確認し、起動に必要な情報をバックアップする</h3><p>次のステップ Prepare Operating System では、osdprepareos.exe が Sysprep を実行し、Windows PE へ再起動する準備を進めます。ステップ 5 からステップ 8 が、この処理に対応します。</p>
+<p>最初に、Windows の起動に必要なファイルと、起動先などを管理する構成情報 (BCD) をバックアップします。続いて、ステップ 2 と同じ 4 つの要件を再確認し、一時ファイルを削除します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Start executing an instruction. Instruction name: &#x27;Prepare Operating System&#x27;.  Pointer: 2. Type: &#x27;SMS_TaskSequence_PrepareOSAction&#x27;. Disabled: 0</span><br><span class="line">[TSManager]  Start executing the command line: osdprepareos.exe /activate:%OSDKeepActivation% /bmsd:%OSDBuildStorageDriverList% /shutdown:%OSDShutdownPreparedOs%</span><br><span class="line">[PrepareOS]  Command line: &quot;osdprepareos.exe&quot; /activate:false /bmsd:false /shutdown:false</span><br><span class="line">[PrepareOS]  Backing up existing boot system.</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  BackupEfiBoot: Z:\, C:\_SMSTaskSequence\backup-EFI</span><br><span class="line">[PrepareOS]  Failed to copy Z:\EFI\Microsoft\Boot\BCD to C:\_SMSTaskSequence\backup-EFI\EFI\Microsoft\Boot\BCD. 0x80070020</span><br><span class="line">[PrepareOS]  Failed to copy Z:\EFI\Microsoft\Boot\BCD.LOG to C:\_SMSTaskSequence\backup-EFI\EFI\Microsoft\Boot\BCD.LOG. 0x80070020</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  BcdBackup: C:\_SMSTaskSequence\BCD-EFI\bcd</span><br><span class="line">[PrepareOS]  Set command line: &quot;bcdedit.exe&quot; /export C:\_SMSTaskSequence\BCD-EFI\bcd</span><br><span class="line">[PrepareOS]  Process completed with exit code 0</span><br><span class="line">[PrepareOS]  Local machine is not a domain controller.</span><br><span class="line">[PrepareOS]  System partition is NTFS</span><br><span class="line">[PrepareOS]  Verified deploy tools are present.</span><br><span class="line">[PrepareOS]  Local machine is not part of a domain</span><br><span class="line">[PrepareOS]  Emptying Recycle bin..</span><br><span class="line">[PrepareOS]  SHEmptyRecycleBin failed, hr=8000ffff</span><br><span class="line">[PrepareOS]  Emptying Recycle bin failed, hr=8000ffff</span><br><span class="line">[PrepareOS]  Successfully deleted contents of directory &#x27;C:\WINDOWS\temp&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>このログには、BCD のコピーやごみ箱を空にする処理の失敗が記録されていますが、続く bcdedit.exe &#x2F;export は正常に終了し、ステップ全体も成功しています (ステップ 7 の末尾を参照)。</p>
+<h3 id="ステップ-6-Windows-PE-のブート-イメージをメディアから取り出す"><a href="#ステップ-6-Windows-PE-のブート-イメージをメディアから取り出す" class="headerlink" title="ステップ 6 : Windows PE のブート イメージをメディアから取り出す"></a>ステップ 6 : Windows PE のブート イメージをメディアから取り出す</h3><p>osdprepareos.exe は、Windows PE で起動するためのブート イメージを、参照コンピューターのローカル ディスクへ配置します。このログでは、ブート イメージ (PS100002) が C:_SMSTaskSequence\WinPE\sources\boot.wim にないため、D: のメディアの SMS\PKG\PS100002\boot.PS100002.wim からコピーし、ブート ファイルを展開しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[PrepareOS]  Staging boot image PS100002</span><br><span class="line">[PrepareOS]  Checking to see if the data path is on a bootable volume</span><br><span class="line">[PrepareOS]  Boot Image not found in local data cache at &#x27;C:\_SMSTaskSequence\WinPE\sources\boot.wim&#x27;. Staging is required</span><br><span class="line">[PrepareOS]  Package location: _SMSTSPS100002, file:VOL001:\SMS\PKG\PS100002</span><br><span class="line">[PrepareOS]  Searching C:\ for Fullmedia content</span><br><span class="line">[PrepareOS]  Searching D:\ for Fullmedia content</span><br><span class="line">[PrepareOS]  Found Fullmedia content in drive D:\.</span><br><span class="line">[PrepareOS]  Found boot image D:\SMS\PKG\PS100002\boot.PS100002.wim</span><br><span class="line">[PrepareOS]  Copying boot image from &#x27;D:\SMS\PKG\PS100002\boot.PS100002.wim&#x27; to local destination &#x27;C:\_SMSTaskSequence\WinPE\sources\boot.wim&#x27;...</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  Opening image file C:\_SMSTaskSequence\WinPE\sources\boot.wim</span><br><span class="line">[PrepareOS]  Extracting boot files from boot image of architecture 9 on computer system of architecture 9</span><br><span class="line">[PrepareOS]  Applying image 1</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  Closing image file C:\_SMSTaskSequence\WinPE\sources\boot.wim</span><br><span class="line">[PrepareOS]  Capturing WinPE bootstrap settings</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  Pre-staging of WINPE image successful</span><br></pre></td></tr></table></figure>
+
+<p>続いて、ネットワーク設定を取得する osdnetsettings.exe が実行されます。このログの参照コンピューターでは物理ネットワーク アダプターが見つからず、正常終了しています。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[PrepareOS]  Set command line: &quot;osdnetsettings.exe&quot; capture adapters:true scope:Global\&#123;&lt;スコープ GUID&gt;&#125;</span><br><span class="line">[OSDNetSettings]  No physical network adapters found</span><br><span class="line">[OSDNetSettings]  OSDNetSettings finished: 0x00000000</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、Pre-staging of WINPE image successful です。このログではブート イメージをメディアから取得するため、この時点でメディアを接続しておく必要があります。失敗時は、Found boot image の行、メディアの接続状態、およびブート イメージが参照コンピューターの種類 (x64 など) に対応していることをご確認ください。</p>
+<h3 id="ステップ-7-Sysprep-で-OS-を一般化する"><a href="#ステップ-7-Sysprep-で-OS-を一般化する" class="headerlink" title="ステップ 7 : Sysprep で OS を一般化する"></a>ステップ 7 : Sysprep で OS を一般化する</h3><p>osdprepareos.exe は、コンピューター証明書を削除した後、Sysprep を &#x2F;quiet &#x2F;generalize &#x2F;oobe &#x2F;quit で実行します。&#x2F;generalize はコンピューター固有の情報を削除し、&#x2F;oobe は次回起動時に Windows の初回セットアップ (OOBE) を表示するようにし、&#x2F;quit は Sysprep の完了後に再起動やシャットダウンを行いません。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[PrepareOS]  Opening Certificate store my ok.</span><br><span class="line">[PrepareOS]  No Machine Certificates to delete</span><br><span class="line">[PrepareOS]  Deleting Machine Certificates succeeded</span><br><span class="line">[PrepareOS]  Executing &#x27;C:\WINDOWS\system32\sysprep\sysprep.exe /quiet /generalize /oobe /quit&#x27; ...</span><br><span class="line">[PrepareOS]  Sysprep will run using this command line &#x27;C:\WINDOWS\system32\sysprep\sysprep.exe /quiet /generalize /oobe /quit&#x27;</span><br><span class="line">[PrepareOS]  Admin &#x27;Administrator&#x27; is logged on, running Sysprep under the admin account.</span><br><span class="line">[PrepareOS]  Sysprep is being executed using admin account token.</span><br><span class="line">[PrepareOS]  Failed to show task sequence progress dialog. Error code 0x8001010e</span><br><span class="line">[TSProgressUI.exe]  Starting ProgressDlg::OnInitDialog()</span><br><span class="line">...</span><br><span class="line">[PrepareOS]  Sysprep state set to IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE</span><br><span class="line">[PrepareOS]  Sysprep.exe has marked the OS as generalized for deployment.</span><br><span class="line">[PrepareOS]  Sysprep finished successfully</span><br><span class="line">[PrepareOS]  Sysprep&#x27;ing the machine successful</span><br><span class="line">[PrepareOS]  Exiting with error code 0</span><br><span class="line">[TSManager]  Process completed with exit code 0</span><br><span class="line">[TSManager]  Successfully completed the action (Prepare Operating System) with the exit win32 code 0</span><br></pre></td></tr></table></figure>
+
+<p>Sysprep の実行中は、TSProgressUI.exe の Starting ProgressDlg::OnInitDialog() が繰り返し記録されますが、その後に Sysprep は正常に完了しています。</p>
+<p>成功の目安は、Sysprep.exe has marked the OS as generalized for deployment. と Sysprep finished successfully、およびステップの終了を示す Successfully completed the action (Prepare Operating System) with the exit win32 code 0 です。失敗時は、PrepareOS の Sysprep の行に加えて、参照コンピューターの Setupact.log と Setuperr.log をご確認ください。</p>
+<h3 id="ステップ-8-Windows-PE-を起動するように構成し、再起動する"><a href="#ステップ-8-Windows-PE-を起動するように構成し、再起動する" class="headerlink" title="ステップ 8 : Windows PE を起動するように構成し、再起動する"></a>ステップ 8 : Windows PE を起動するように構成し、再起動する</h3><p>Sysprep の完了後、TSManager は Reboot to WinPE を記録し、次回は Windows PE で起動するように Windows の起動設定 (BCD) を変更します。このとき、キャプチャ先などのパスに含まれるドライブ文字 (C: など) が、ディスク上の領域を識別する値 (ボリューム ID) に置き換わります。ログの例では C:\image\cm.wim が &lt;ボリューム ID&gt;:\image\cm.wim になりますが、保存先を入力し直す必要はありません。その後、TSManager が再起動を要求します。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[TSManager]  Reboot to WinPE</span><br><span class="line">[TSManager]  Created volatile registry entry for pending reboot initiated by this task sequence</span><br><span class="line">[TSManager]  Calling RebootSystem()</span><br><span class="line">[TSManager]  Staging boot image PS100002</span><br><span class="line">...</span><br><span class="line">[TSManager]  Boot image already staged locally</span><br><span class="line">[TSManager]  Installing boot image to hard drive</span><br><span class="line">[TSManager]  This is boot image of architecture 9 on UEFI system of architecture 9</span><br><span class="line">[TSManager]      Setting up new boot system</span><br><span class="line">[TSManager]  BootSystemBcdEfi::loadSource</span><br><span class="line">[TSManager]  Successfully loaded a source EFI BCD boot system</span><br><span class="line">[TSManager]  Adding BCD entry for C:\_SMSTaskSequence\WinPE\sources\boot.wim</span><br><span class="line">...</span><br><span class="line">[TSManager]  BootLoader::restore: C:\_SMSTaskSequence\WinPE, Z:\</span><br><span class="line">[TSManager]  Saving bcd store to C:\_SMSTaskSequence\WinPE\boot\BCD</span><br><span class="line">...</span><br><span class="line">[TSManager]  Path variable OSDCaptureDestination converted from C:\image\cm.wim to &lt;ボリューム ID&gt;:\image\cm.wim</span><br><span class="line">[TSManager]  Path variable OSDTargetSystemRoot converted from C:\WINDOWS to &lt;ボリューム ID&gt;:\WINDOWS</span><br><span class="line">[TSManager]  Path variable OSDTargetSystemDrive converted from C: to &lt;ボリューム ID&gt;:</span><br><span class="line">...</span><br><span class="line">[TSManager]  _SMSTSCaptureMedia variable set to true</span><br><span class="line">[TSManager]  InitiateSystemReboot() is attempting to reboot the system</span><br><span class="line">[TSManager]  The system will reboot in 0 seconds.</span><br><span class="line">[TSManager]  The action (Prepare Operating System) initiated a reboot request</span><br><span class="line">...</span><br><span class="line">[TSManager]  Execution engine result code: Reboot (2)</span><br><span class="line">[TSManager]  Task Sequence Manager execution terminated as system shutdown is in progress. Code 0x00000000</span><br></pre></td></tr></table></figure>
+
+<p>成功の目安は、Adding BCD entry for C:_SMSTaskSequence\WinPE\sources\boot.wim と Saving bcd store の記録、および Execution engine result code: Reboot (2) です。この例の Reboot (2) は、Windows PE へ切り替えるための再起動を示しており、エラーではありません。再起動後は、参照コンピューターが Windows PE で起動します。失敗時は、Installing boot image to hard drive から Saving bcd store までの行と、参照コンピューターの起動に関する設定 (UEFI、セキュア ブート) をご確認ください。</p>
+<h3 id="ステップ-9-Windows-PE-で参照コンピューターのボリュームをキャプチャする"><a href="#ステップ-9-Windows-PE-で参照コンピューターのボリュームをキャプチャする" class="headerlink" title="ステップ 9 : Windows PE で参照コンピューターのボリュームをキャプチャする"></a>ステップ 9 : Windows PE で参照コンピューターのボリュームをキャプチャする</h3><p>Windows PE で起動すると、ステップ Capture the Reference Machine が実行されます。進行状況の画面は、手順 4 に掲載しています。</p>
+<p>このステップでは、次の条件で OS イメージを取得します。</p>
+<ul>
+<li>Windows PE でのみ実行され、指定した場所に Windows イメージ (.wim) ファイルを作成します。既存の .wim ファイルは上書きされます。</li>
+<li>ボリュームごとに、.wim ファイル内の個別のイメージとしてキャプチャします。対象は、NTFS または FAT32 でフォーマットされたボリュームだけです。</li>
+<li>OS がインストールされているボリュームとブート ボリュームは、同じボリュームである必要があります。</li>
+<li>キャプチャ先にネットワーク共有を指定する場合は、その共有への読み取りと書き込みのアクセス許可を持つ、キャプチャ OS イメージ アカウントが必要です。</li>
+</ul>
+<p>本記事の例のキャプチャ先は、ステップ 2 で保存された C:\image\cm.wim です。このステップは Windows PE で実行されるため、smsts.log は掲載していません。</p>
+<h3 id="ステップ-10-キャプチャ完了メッセージを表示し、再起動する"><a href="#ステップ-10-キャプチャ完了メッセージを表示し、再起動する" class="headerlink" title="ステップ 10 : キャプチャ完了メッセージを表示し、再起動する"></a>ステップ 10 : キャプチャ完了メッセージを表示し、再起動する</h3><p>最後のステップ Show Capture Complete Message は、完了メッセージを表示するコマンドを実行します (ステップ 3 のログでは、Windows PE とフル OS の両方で実行する設定です)。メッセージの画面は手順 5 に掲載しています。表示される保存先は、ステップ 2 でウィザードに入力した C:\image\cm.wim で、[OK] を選択すると再起動します。</p>
+<p>キャプチャした .wim は、[オペレーティング システム イメージ パッケージの追加] ウィザードで Configuration Manager に登録し、別のコンピューターへの OS 展開で使用できます。</p>
+<h2 id="ログ確認のポイント"><a href="#ログ確認のポイント" class="headerlink" title="ログ確認のポイント"></a>ログ確認のポイント</h2><h3 id="実行結果を判断する行"><a href="#実行結果を判断する行" class="headerlink" title="実行結果を判断する行"></a>実行結果を判断する行</h3><table>
+<thead>
+<tr>
+<th>確認する内容</th>
+<th>smsts.log に記録される行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ステップの開始</td>
+<td>Start executing an instruction. Instruction name: ‘&lt;ステップ名&gt;’.  Pointer: &lt;実行位置&gt;.</td>
+</tr>
+<tr>
+<td>ステップの正常終了</td>
+<td>Successfully completed the action (&lt;ステップ名&gt;) with the exit win32 code 0</td>
+</tr>
+<tr>
+<td>再起動による中断</td>
+<td>Execution engine result code: Reboot (2)</td>
+</tr>
+<tr>
+<td>サイトへの実行状況の通知</td>
+<td>Do not send status message in full media case</td>
+</tr>
+</tbody></table>
+<h3 id="警告やエラーに見える行"><a href="#警告やエラーに見える行" class="headerlink" title="警告やエラーに見える行"></a>警告やエラーに見える行</h3><p>smsts.log には、警告やエラーとして記録された行が含まれます。本記事のログには次のような行がありますが、その後にステップが正常に終了し、後続の処理へ進んでいます。</p>
+<ul>
+<li>Failed to copy Z:\EFI\Microsoft\Boot\BCD … 0x80070020 (ステップ 5)</li>
+<li>SHEmptyRecycleBin failed, hr&#x3D;8000ffff (ステップ 5)</li>
+<li>Failed to show task sequence progress dialog. Error code 0x8001010e (ステップ 7)</li>
+<li>Cannot find NAAConfig CCM_NetworkAccessAccount (ステップ 1)</li>
+</ul>
+<p>こうした行がある場合も、後続の処理とステップの終了結果をあわせて確認します。ステップの正常終了を確認する目安は、Successfully completed the action の行です。</p>
+<h3 id="失敗したときに確認する箇所"><a href="#失敗したときに確認する箇所" class="headerlink" title="失敗したときに確認する箇所"></a>失敗したときに確認する箇所</h3><table>
+<thead>
+<tr>
+<th>症状</th>
+<th>確認する箇所</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ウィザードで要件を満たさないと判断される</td>
+<td>OsdCaptureCD の 4 つの確認結果。参照コンピューターがドメインに参加していないこと、システム パーティションが NTFS であること。</td>
+</tr>
+<tr>
+<td>Prepare Operating System で失敗する</td>
+<td>PrepareOS の Sysprep の行、および参照コンピューターの Setupact.log と Setuperr.log。</td>
+</tr>
+<tr>
+<td>ブート イメージを取得できない</td>
+<td>Found boot image の行。メディアが接続されていること。</td>
+</tr>
+<tr>
+<td>Windows PE で起動しない</td>
+<td>Installing boot image to hard drive から Saving bcd store までの行。UEFI やセキュア ブートなど、起動に関する設定。</td>
+</tr>
+<tr>
+<td>キャプチャが完了しない</td>
+<td>Windows PE の smsts.log。キャプチャ先のパスと、ネットワーク共有の場合は、キャプチャ OS イメージ アカウントのアクセス許可。ボリュームの形式 (NTFS または FAT32)。</td>
+</tr>
+</tbody></table>
+<h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul>
+<li>OS イメージをキャプチャするたびに、新しい参照コンピューターを用意します。同じ参照コンピューターを再利用する場合に必要な対応は、<a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-a-task-sequence-to-capture-an-operating-system#example-task-sequence">OS をキャプチャするタスク シーケンスの作成</a> をご確認ください。</li>
+<li>異なるモデルのデバイスへの展開時に、ドライバーに起因する問題を避けるため、カスタマイズした OS イメージは仮想マシンで作成することが推奨されています。</li>
+</ul>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-capture-media">キャプチャ メディアの作成</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-task-sequence-media">タスク シーケンス メディアの作成</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/deploy-use/create-a-task-sequence-to-capture-an-operating-system">OS をキャプチャするタスク シーケンスの作成</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/os-deployment/windows-11-image-capture-fail">Configuration Manager でキャプチャ メディアを使用して Windows 11 イメージをキャプチャするときのエラー</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/osd/understand/task-sequence-steps">タスク シーケンスの手順</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/accounts">Configuration Manager で使用するアカウント</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/log-files">ログ ファイルのリファレンス</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11">Windows PE (WinPE)</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/sysprep-command-line-options">Sysprep コマンド ライン オプション</a></li>
+<li><a href="https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/sysprep--generalize--a-windows-installation">Windows インストールに対する Sysprep (一般化) の実行</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmem.github.io/blog/mecm/20261112_01/" data-id="cuidk26N3QB-w3aMJ0gnK6_yu" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20261029_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">パッケージ展開についての動作説明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/">Configuration Manager</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/">OS 展開</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/OS-%E5%B1%95%E9%96%8B/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/">アプリケーション管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/">クライアント管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/">クラウド管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/">サーバー インフラストラクチャ</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC-%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/">ソフトウェア更新プログラム管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/">デバイス コンプライアンス</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9-%E3%82%B3%E3%83%B3%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%82%B9/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/">リアルタイム管理 (CMPivot/PowerShell)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E7%AE%A1%E7%90%86-CMPivot-PowerShell/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/">共同管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Configuration-Manager/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/">Windows Server Update Services</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/">トラブルシューティング</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E5%8B%95%E4%BD%9C%E8%AA%AC%E6%98%8E/">動作説明</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Windows-Server-Update-Services/%E6%93%8D%E4%BD%9C%E6%89%8B%E9%A0%86/">操作手順</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CMG/" rel="tag">CMG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MECM/" rel="tag">MECM</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OS-%E5%B1%95%E9%96%8B/" rel="tag">OS 展開</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/WSUS/" rel="tag">WSUS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" rel="tag">チェックポイント</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF-%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8/" rel="tag">ベーシック ナレッジ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">リリースのお知らせ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E4%BD%BF%E3%81%84%E6%96%B9/" rel="tag">使い方</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B1%E5%90%8C%E7%AE%A1%E7%90%86/" rel="tag">共同管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0/" rel="tag">更新プログラム</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A7%8B%E7%AF%89%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" rel="tag">構築マニュアル</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%87%AA%E7%BF%92%E6%9B%B8%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/" rel="tag">自習書シリーズ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%81%8B%E5%96%B6%E3%81%8B%E3%82%89%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" rel="tag">運営からのお知らせ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/">2026</a><span class="archive-list-count">32</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/">2025</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/">2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/">2023</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/">2022</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/">2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/">2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/">2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/">2018</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/">2017</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2016/">2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2015/">2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2014/">2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2013/">2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2012/">2012</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2011/">2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Configuration Manager Support Team<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="https://jpmem.github.io/blog/mecm/20260302_01/" class="mobile-nav-link">当ブログのアンケート</a>
+  
+    <a href="https://cssjpn.github.io/" class="mobile-nav-link">サポート情報</a>
+  
+    <a href="https://aka.ms/jpintuneblog" class="mobile-nav-link">JP Intune Support Team Blog</a>
+  
+    <a href="https://aka.ms/configmgrblog" class="mobile-nav-link">US Configuration Manager Blog</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+<script type="module">
+  const mermaidSyntax = /^(?:architecture-beta|block-beta|C4Context|C4Container|C4Component|C4Deployment|classDiagram|erDiagram|flowchart|gantt|gitGraph|journey|kanban|mindmap|packet-beta|pie|quadrantChart|requirementDiagram|sankey-beta|sequenceDiagram|stateDiagram(?:-v2)?|timeline|xychart-beta)\b/;
+  const mermaidBlocks = Array.from(document.querySelectorAll('figure.highlight'), (block) => {
+    const lines = block.querySelectorAll('.code .line');
+    const source = Array.from(lines, (line) => line.textContent).join('\n').trim();
+
+    return { block, source };
+  }).filter(({ source }) => mermaidSyntax.test(source));
+
+  if (mermaidBlocks.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    const diagrams = [];
+
+    mermaidBlocks.forEach(({ block, source }) => {
+      const diagram = document.createElement('div');
+
+      diagram.className = 'mermaid';
+      diagram.textContent = source;
+      block.replaceWith(diagram);
+      diagrams.push(diagram);
+    });
+
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({ nodes: diagrams });
+  }
+</script>
+
+
+
+  </div>
+</body>
+</html>
