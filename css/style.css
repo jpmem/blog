@@ -694,6 +694,9 @@ a.article-title:hover {
   display: block;
   margin: auto;
 }
+.article-entry .align-left img {
+  margin-left: 0;
+}
 .article-entry iframe {
   border: none;
 }

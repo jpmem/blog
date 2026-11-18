@@ -10,7 +10,26 @@
   <rights>All rights reserved 2026, Japan Microsoft Configuration Manager Support Team</rights>
   <subtitle>日本マイクロソフト Microsoft Configuration Manager / WSUS サポート チームのブログです。</subtitle>
   <title>Japan Microsoft Configuration Manager Support Team Blog</title>
-  <updated>2026-11-17T01:45:33.337Z</updated>
+  <updated>2026-11-18T07:33:42.805Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。<br>今回は、弊社サポートにお問い合わせを起票いただく前にご利用いただける、公開情報やブログ情報などを紹介いたします。</p><h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>いつも多くのお問い合わせを弊社サポートにお寄せいただき誠にありがとうございます。<br>サポートをご利用いただくなかで、下記のような経験をお持ちのお客様もいらっしゃるかと思います。  </p><ul><li>お問い合わせを起票し、回答を待っている間に AI に聞いてみたら自己解決できた</li><li>サポートからの回答を確認したら、サポート ブログで既に公開されている情報だった</li><li>発生したエラーについて検索してみたところ、同じような事象と対処策についての情報が出てきたが参考にしてよいのかわからない</li><li>似たような事象がコミュニティ サイトにあったが、英語なのでわかりにくい</li></ul><p>弊社サポートにおきましても、可能な限り迅速にお客様への連絡や回答をご案内できるよう努めておりますが、お客様がよりスムーズに問題を解決できるよう、お問い合わせを起票いただく前にお客様側にて利用いただける情報についておまとめいたしました。</p><p>また、Microsoft 365 Copilot をはじめ、AI を活用いただいているお客様や、今後利用したいと考えているお客様向けに、AI エージェントでの活用方法についても後半でご案内しております。<br>下記でご紹介する公開情報やブログなどを “エージェント” のナレッジとして活用いただくことで、エージェントへの質問を通じて一次回答や情報採取の手順を確認でき、お客様ご自身でスムーズに問題や疑問点を解決いただけます。</p><p>具体的なエージェントのプロンプトにつきましては、お客様環境によって設定や指示が異なる点もございますため本記事では割愛いたしますが、応答のソースとなるサイトの指定方法などを後半でご案内しておりますので、生成 AI を活用いただくうえでも参考になりましたら幸いです。</p><p>なお、本記事では Configuration Manager に限らず、セキュリティ関連製品についても記載しております。<br>Microsoft Intune や Microsoft Defender をはじめとするセキュリティ製品をご利用のお客様も、ぜひご利用ください。</p><h2 id="各製品ごとの推奨公開情報の紹介"><a href="#各製品ごとの推奨公開情報の紹介" class="headerlink" title="各製品ごとの推奨公開情報の紹介"></a>各製品ごとの推奨公開情報の紹介</h2><p>弊社におけるセキュリティ関連製品には、主に 5 種類のカテゴリがございます。<br>トラブルシューティングや製品の情報を確認したいときにご利用いただける推奨情報を、製品ごとにご案内します。</p><p>公開情報 (Microsoft Learn など) は製品の公式な情報です。<br>日本語の技術情報ブログは、公開情報を補足する内容 (よくあるお問い合わせや、公開情報だけでは分かりにくい内容など) を、サポート チームが日本語でご案内するものです。<br>ブログの内容は公開時点の情報となり、最新の公開情報と異なる場合がありますので、最新情報については公開情報もあわせてご確認ください。  </p><h3 id="Microsoft-Configuration-Manager-MCM-旧-MECM-SCCM"><a href="#Microsoft-Configuration-Manager-MCM-旧-MECM-SCCM" class="headerlink" title="Microsoft Configuration Manager (MCM &#x2F; 旧 MECM, SCCM)"></a>Microsoft Configuration Manager (MCM &#x2F; 旧 MECM, SCCM)</h3><p>Microsoft Configuration Manager (旧称 MECM&#x2F;SCCM) は、組織内のデバイスやアプリケーションを管理するための製品です。<br>アプリケーションや更新プログラムの展開、デバイスの構成管理など、企業内のさまざまなデバイスを効率よく管理・運用するための幅広い機能を提供しています。  </p><p>各機能の動作やトラブル シューティングについては Microsoft Learn の公開ドキュメントをご利用いただけます。<br>また、よくあるお問い合わせや公開情報を補足する内容を日本語の技術情報ブログでもご案内しておりますので、併せてご利用いただけます。</p><table><thead><tr><th>サイト</th><th>用途</th><th>日本語利用可否</th></tr></thead><tbody><tr><td><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/welcome-configuration-manager">Configuration Manager Troubleshooting (Microsoft Learn)</a></td><td>トラブルシューティング、障害対応</td><td>○</td></tr><tr><td><a href="https://jpmem.github.io/blog/categories/Configuration-Manager/">Japan Configuration Manager Support Blog</a></td><td>日本語の技術情報、サポート事例</td><td>○（日本語のみ）</td></tr></tbody></table><h3 id="Microsoft-Intune"><a href="#Microsoft-Intune" class="headerlink" title="Microsoft Intune"></a>Microsoft Intune</h3><p>Microsoft Intune は、組織で利用するデバイスやアプリケーションをクラウド上で管理し、組織のデータ保護やセキュリティ対策を支援する製品です。<br>機能の詳細や設定手順、トラブル シューティングをご案内する公開ドキュメントのほか、よくある質問や公開情報を補足する内容を日本語の技術情報ブログでもご案内しておりますので、併せてご利用いただけます。  </p><table><thead><tr><th>サイト</th><th>用途</th><th>日本語利用可否</th></tr></thead><tbody><tr><td><a href="https://learn.microsoft.com/ja-jp/intune/">Microsoft Intune Documentation</a></td><td>Intune の新機能、導入方法、トラブル シューティング全般</td><td>○</td></tr><tr><td><a href="https://techcommunity.microsoft.com/category/microsoftintune/blog/microsoftintuneblog">Microsoft Intune Blog | Microsoft Community Hub</a></td><td>最新のアップデート、新機能、既知の問題などの Intune ブログ</td><td>×（英語のみ）</td></tr><tr><td><a href="https://jpintune.github.io/blog/">Japan Microsoft Intune Support Team Blog</a></td><td>日本のお客様向けの技術情報やサポート事例</td><td>○（日本語のみ）</td></tr></tbody></table><h3 id="Security-Microsoft-Defender-Microsoft-Sentinel-Security-platform"><a href="#Security-Microsoft-Defender-Microsoft-Sentinel-Security-platform" class="headerlink" title="Security (Microsoft Defender &#x2F; Microsoft Sentinel &#x2F; Security platform)"></a>Security (Microsoft Defender &#x2F; Microsoft Sentinel &#x2F; Security platform)</h3><h4 id="Defender-Security-Platform"><a href="#Defender-Security-Platform" class="headerlink" title="Defender &#x2F; Security Platform"></a>Defender &#x2F; Security Platform</h4><p>Microsoft Defender は、エンドポイント、ID、電子メール、クラウドアプリケーションなどに対する脅威の検出、防止、調査、対応を担う機能です。<br>動作の詳細や手順などをご案内しておりますドキュメントのほか、トラブル シューティング用のガイドもございます。<br>公開情報で網羅できていないトラブル シューティングやよくある質問を、日本語の技術情報としてブログでもご案内いたしておりますので、日本語の技術情報ブログも、公開情報と同様にご利用いただけます。  </p><p>さまざまな領域から得られるセキュリティ情報を集約し、脅威の検出、調査、対応を行うための基盤として Security Platform のひとつと呼ばれる事もあります。<br>Microsoft Defender ポータルを中心とした各機能の設定や連携、インシデントやアラートの管理などについて、公開ドキュメントや技術情報をご案内しています。  </p><h4 id="Microsoft-Sentinel"><a href="#Microsoft-Sentinel" class="headerlink" title="Microsoft Sentinel"></a>Microsoft Sentinel</h4><p>Microsoft Sentinel は、さまざまな製品やサービスからセキュリティに関するログやデータを収集し、脅威の検出、調査、対応を行うためのサービスです。<br>データの収集や分析、インシデントの調査、分析ルールや自動化など、各機能の利用方法やトラブルシューティングについて公開ドキュメントをご用意しています。<br>また、公開情報だけでは分かりにくい内容や、よくあるお問い合わせについては、日本語の技術情報ブログでもご案内しています。  </p><table><thead><tr><th>サイト</th><th>用途</th><th>日本語利用可否</th></tr></thead><tbody><tr><td><a href="https://jp-sec.github.io/blog/">Security 日本語 Blog</a></td><td>日本語の技術情報、サポート情報</td><td>○（日本語のみ）</td></tr><tr><td><a href="https://techcommunity.microsoft.com/">Microsoft Community Hub</a></td><td>技術コミュニティ、ナレッジ共有</td><td>×（英語のみ）</td></tr><tr><td><a href="https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoft-security-blog">Microsoft Security Community Blog</a></td><td>Security 製品全般の技術情報</td><td>×（英語のみ）</td></tr><tr><td><a href="https://techcommunity.microsoft.com/category/microsoft-sentinel/blog/microsoftsentinelblog">Microsoft Sentinel Blog</a></td><td>Sentinel 関連情報</td><td>×（英語のみ）</td></tr><tr><td><a href="https://www.microsoft.com/en-us/msrc">Microsoft Security Response Center (MSRC)</a></td><td>セキュリティ情報、アドバイザリ</td><td>×（英語のみ）</td></tr><tr><td><a href="https://msrc.microsoft.com/update-guide/">Security Update Guide</a></td><td>CVE、脆弱性情報</td><td>×（英語のみ）</td></tr><tr><td><a href="https://www.microsoft.com/en-us/wdsi/">Antimalware and cybersecurity portal - Microsoft Security Intelligence</a></td><td>脅威インテリジェンス</td><td>×（英語のみ）</td></tr></tbody></table><h3 id="Compliance-Microsoft-Purview"><a href="#Compliance-Microsoft-Purview" class="headerlink" title="Compliance (Microsoft Purview)"></a>Compliance (Microsoft Purview)</h3><p>Microsoft Purview は、組織内のデータを適切に管理・保護し、情報漏えいの防止やコンプライアンス対応を支援する製品です。<br>機能の詳細や設定手順、トラブル シューティングをご案内する公開ドキュメントのほか、新機能や製品の更新情報、運用に役立つ情報を公式ブログでもご案内しておりますので、併せてご利用いただけます。  </p><table><thead><tr><th>サイト</th><th>用途</th><th>日本語利用可否</th></tr></thead><tbody><tr><td><a href="https://learn.microsoft.com/ja-jp/purview/whats-new">Microsoft Purview の最新情報</a></td><td>Purview各機能の新機能・変更点の公式まとめ</td><td>○</td></tr><tr><td><a href="https://techcommunity.microsoft.com/category/microsoft-security/blog/microsoft-purview-blog">Microsoft Purview Blog</a></td><td>Purview全般の新機能・運用ノウハウを発信する公式ブログ</td><td>×（英語のみ）</td></tr></tbody></table><h3 id="Microsoft-Entra-ID"><a href="#Microsoft-Entra-ID" class="headerlink" title="Microsoft Entra ID"></a>Microsoft Entra ID</h3><p>Microsoft Entra ID は、ユーザー、デバイス、アプリ、リソースに対する認証、ポリシーの適用、保護を提供するクラウドベースの ID およびアクセス管理サービスです。<br>動作の詳細や手順などをご案内しているドキュメントのほか、トラブル シューティング用のガイドもございます。<br>公開情報で網羅できていないトラブル シューティングやよくある質問は、日本語の技術情報としてブログでもご案内しておりますので、日本語の技術情報ブログも公開情報を補足する情報としてご活用いただけます。  </p><table><thead><tr><th>サイト</th><th>用途</th><th>日本語利用可否</th></tr></thead><tbody><tr><td><a href="https://learn.microsoft.com/ja-jp/entra/identity/">Microsoft Entra ID Documentation</a></td><td>製品ドキュメント、設計情報</td><td>○</td></tr><tr><td><a href="https://learn.microsoft.com/ja-jp/troubleshoot/entra/welcome-entra">Troubleshoot Microsoft Entra Issues</a></td><td>トラブルシューティング</td><td>○</td></tr><tr><td><a href="https://learn.microsoft.com/ja-jp/entra/fundamentals/whats-new">Microsoft Entra Releases &amp; Announcements</a></td><td>新機能、仕様変更情報</td><td>○</td></tr><tr><td><a href="https://learn.microsoft.com/ja-jp/entra/fundamentals/whats-new-archive">Release Archive</a></td><td>過去のリリース履歴</td><td>○</td></tr><tr><td><a href="https://jpazureid.github.io/blog/">Japan Azure Identity Support Blog</a></td><td>日本語の技術情報、サポート事例</td><td>○（日本語のみ）</td></tr><tr><td><a href="https://www.microsoft.com/en-us/security/blog/">Microsoft Security Blog</a></td><td>セキュリティ関連アップデート</td><td>×（英語のみ）</td></tr></tbody></table><h2 id="エージェントでの活用方法について"><a href="#エージェントでの活用方法について" class="headerlink" title="エージェントでの活用方法について"></a>エージェントでの活用方法について</h2><p>お問い合わせを起票いただく前にお客様側でご利用いただける公開情報やブログなどを上記でご案内しましたが、ひとつずつ確認いただくには時間も手間もかかり、ほしい情報を見つけ出すのが難しいこともあるかと思います。<br>Copilot のチャット機能などをすでに利用いただいているお客様も多いかと思いますが、たとえばエージェントを活用すると、指定したナレッジをもとに応答が生成されるため、効率よく情報にたどり着くことを期待できます。</p><h3 id="エージェントにおけるナレッジの指定方法について"><a href="#エージェントにおけるナレッジの指定方法について" class="headerlink" title="エージェントにおけるナレッジの指定方法について"></a>エージェントにおけるナレッジの指定方法について</h3><p>最も簡単にエージェントを作成できる方法は、Microsoft 365 Copilot 内にあるエージェント ビルダーを利用する方法です (利用には Microsoft 365 Copilot のライセンスが必要です)。<br>エージェントにどのようにふるまってほしいかという「指示」の具体的な書き方がわからなくても、どのようなエージェントを作成したいかをチャットに入力すれば、指示も自動的に生成してくれます。<br>また、プレビューの機能もあり、どのように動作するかを事前に試すこともできます。<a href="https://learn.microsoft.com/ja-jp/microsoft-365/copilot/extensibility/agent-builder-build-agents">こちらの公開情報</a>から詳細をご確認いただけます。  </p><p>エージェントを作成するときには、エージェントがどのような情報を探して応答するかの「指示」のほかに、どこから情報を取得するかを指定する「ナレッジ」の項目があります。<br>この項目で、応答のソースとしたい Web サイトやファイルを指定することで、指定されたナレッジから情報を取得できます。  </p><p>具体的には、Web サイトを指定したい場合、Web 検索の項目をオンにしたうえで URL を指定します。<br>下記の通り、指定できる Web サイトの URL には次の制限があります。</p><ul><li>追加できる URL は <strong>最大 4 つ</strong> まで</li><li>URL のレベルは <strong>2 階層まで</strong> (例: <code>https://learn.microsoft.com/ja-jp</code> や <code>https://jpazureid.github.io/blog</code> は指定可能ですが、<code>https://learn.microsoft.com/ja-jp/entra/identity/</code> のように 3 階層以上の URL は指定できません)</li><li>クエリ パラメーターを含む URL は指定できません</li></ul><p>そのため、広く情報を収集するエージェントを作成する場合は、できるだけ上位の階層 (Microsoft Learn であれば個別のページではなく <code>https://learn.microsoft.com/ja-jp</code> など) を指定してください。  </p><p><span class="align-left"><img src="/blog/mecm/20261118_01/20261118_01.png"></span></p><p>詳細は <a href="https://learn.microsoft.com/ja-jp/microsoft-365/copilot/extensibility/agent-builder-add-knowledge#public-websites">こちらの公開情報</a> も併せてご確認ください。  </p><h3 id="本ブログにおけるエージェント構築時のおすすめ参照順について"><a href="#本ブログにおけるエージェント構築時のおすすめ参照順について" class="headerlink" title="本ブログにおけるエージェント構築時のおすすめ参照順について"></a>本ブログにおけるエージェント構築時のおすすめ参照順について</h3><p>上記の通り、エージェントを作成する際にはナレッジを指定できますが、指定できる数や URL の階層に制限がございます。<br>実際にエージェントを作成いただく際、どの URL を優先してナレッジに指定すべきか判断に迷う場合には、下記の推奨参照順をご利用ください。</p><h4 id="Agent-構築時の推奨参照順"><a href="#Agent-構築時の推奨参照順" class="headerlink" title="Agent 構築時の推奨参照順"></a>Agent 構築時の推奨参照順</h4><ol><li>Microsoft Learn（製品ドキュメント・Troubleshooting）</li><li>日本語 Support Blog</li><li>Product Blog</li><li>MSRC &#x2F; Security Update Guide</li></ol><p>Microsoft Community Hub は、広くトラブルシュートや特定のエラーコードなどに関する参考情報を必要とする場合に上記と入れ替えて登録することをご検討ください。  </p><p>Agent の回答品質を重視する場合は、Microsoft Learn を優先してナレッジに登録します。<br>Microsoft Learn はサービスの正式な公開情報となりますので、動作やトラブルシューティングに際し、公式な情報としてご確認いただけます。  </p><p>公開情報に反映されていない新機能の情報や、日本語でよくお問い合わせいただく内容につきましては、別途ブログで案内していることもございます。<br>公開情報以外の補足情報も含んだ形でエージェントを利用されたい場合には、併せて日本語のサポート ブログや製品ブログの URL もナレッジに登録することで、より幅広い情報を取得することができます。<br>お客様の要望や用途に合わせ、必要に応じて登録いただき、補完情報として活用いただけましたら幸いです。  </p><h3 id="AI-を活用いただく際のご注意"><a href="#AI-を活用いただく際のご注意" class="headerlink" title="AI を活用いただく際のご注意"></a>AI を活用いただく際のご注意</h3><ul><li>AI の回答には誤りや古い情報が含まれる可能性があります。操作や設定変更を行う前に、回答の根拠となっている公開情報をご確認ください。</li><li>エージェントやチャットに入力する情報 (テナント ID、ユーザー名、ログなど) の取り扱いについては、お客様の組織のポリシーに従ってください。</li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20261118_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20261118_01/"/>
+    <published>2026-11-17T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。<br>今回は、弊社サポートにお問い合わせを起票いただく前にご利用いただける、公開情報やブログ情報などを紹介いたします。</p>
+<h2 id="はじめに"><a h]]>
+    </summary>
+    <title>よりスムーズな問題解決のために - お問い合わせ前に役立つ公開情報</title>
+    <updated>2026-11-18T07:33:42.805Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Configuration Manager Support Team</name>
@@ -30,7 +49,7 @@
 <p>本記事では、Configuration Manager のハードウェア インベントリについて、クライアントで収集が起動されてから、管理ポイントを経由し]]>
     </summary>
     <title>ハードウェア インベントリについての動作説明</title>
-    <updated>2026-11-17T01:45:33.337Z</updated>
+    <updated>2026-11-18T07:33:42.805Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,7 +70,7 @@
 <p>本記事では、Microsoft Configuration Manager でキャプチャ メディアを作成し、参照コンピューターから OS イメージ (]]>
     </summary>
     <title>キャプチャ メディアによる OS イメージのキャプチャについての動作説明</title>
-    <updated>2026-11-17T01:45:33.337Z</updated>
+    <updated>2026-11-18T07:33:42.804Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,7 +91,7 @@
 <p>今回は、Configuration Manager のパッケージ展開について、パッケージとプログラムの作成から、配布ポイントへのコンテンツ配布、クライ]]>
     </summary>
     <title>パッケージ展開についての動作説明</title>
-    <updated>2026-11-17T01:45:33.326Z</updated>
+    <updated>2026-11-18T07:33:42.793Z</updated>
   </entry>
   <entry>
     <author>
@@ -93,7 +112,7 @@
 <p>本記事では、[Configuration Manager] クライアントの [ソフトウェア インベントリ] について、ポリシーの取得・評価からファイル]]>
     </summary>
     <title>ソフトウェア インベントリの動作説明</title>
-    <updated>2026-11-17T01:45:33.326Z</updated>
+    <updated>2026-11-18T07:33:42.793Z</updated>
   </entry>
   <entry>
     <author>
@@ -113,7 +132,7 @@
 <p>本記事では、Windows Server Update Services (WSUS) サーバーが Microsoft Update (MU) と同期]]>
     </summary>
     <title>WSUS サーバーと Microsoft Update の同期についての動作説明</title>
-    <updated>2026-11-17T01:45:33.433Z</updated>
+    <updated>2026-11-18T07:33:42.916Z</updated>
   </entry>
   <entry>
     <author>
@@ -132,7 +151,7 @@
 <p>Configuration Manager Current Branch バージョン 2609 が、早期更新リング (Early update rin]]>
     </summary>
     <title>Configuration Manager Current Branch 2609 がリリースされました。(Early update ring)</title>
-    <updated>2026-11-17T01:45:33.326Z</updated>
+    <updated>2026-11-18T07:33:42.793Z</updated>
   </entry>
   <entry>
     <author>
@@ -153,7 +172,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) のクライアントが [コンピューター ポリシー] を]]>
     </summary>
     <title>クライアントのコンピューター ポリシー処理についての動作説明</title>
-    <updated>2026-11-17T01:45:33.326Z</updated>
+    <updated>2026-11-18T07:33:42.792Z</updated>
   </entry>
   <entry>
     <author>
@@ -174,7 +193,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) で、オペレーティング システム [OS] が導入さ]]>
     </summary>
     <title>PXE ブート、起動メディア、およびスタンドアロン メディアによる OS 展開についての動作説明</title>
-    <updated>2026-11-17T01:45:33.326Z</updated>
+    <updated>2026-11-18T07:33:42.792Z</updated>
   </entry>
   <entry>
     <author>
@@ -195,7 +214,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の自動展開規則 [ADR] を作成する方法、プロパ]]>
     </summary>
     <title>自動展開規則についての動作説明</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
+    <updated>2026-11-18T07:33:42.792Z</updated>
   </entry>
   <entry>
     <author>
@@ -216,7 +235,7 @@
 <p>本記事では、Microsoft Configuration Manager の [CCMSetup.exe] を実行した後、インストール元の検索、必要]]>
     </summary>
     <title>CCMSetup.exe によるクライアント インストールについての動作説明</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
+    <updated>2026-11-18T07:33:42.791Z</updated>
   </entry>
   <entry>
     <author>
@@ -237,49 +256,7 @@
 <p>本記事では、クラウド管理ゲートウェイ (Cloud Management Gateway &#x2F; CMG) を経由して Microsoft Co]]>
     </summary>
     <title>CMG 経由でのクライアント インストールについての動作説明</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
-    <category term="ソフトウェア更新プログラム管理" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/"/>
-    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] に更新ソースの追加失敗とエラー コード 0x800703ee または 0x80004005 が記録され、コンピューター側の [registry.pol] をリセットすることで改善した事例と対処方法をご案内します。</p><p>本記事の対象は、[ScanAgent.log] でソフトウェア更新ポイントの場所を取得した後、[WUAHandler.log] で更新ソースを [Windows Update Agent] に追加する段階で失敗する事象です。ソフトウェア更新ポイントの同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因する問題の対処は対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>[Configuration Manager] クライアントは、ソフトウェア更新プログラムをスキャンする際、[ScanAgent] で取得したソフトウェア更新ポイントを更新ソースとして [Windows Update Agent] に追加します。この処理では、[WUAHandler] が更新ソースをローカル ポリシーに設定し、ドメイン参加端末ではドメインのグループ ポリシーによって設定が上書きされないかも確認します。</p><p>[WUAHandler.log] に次のいずれかのエラーが記録され、更新ソースの追加が完了しない場合があります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x800703ee.</span><br></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x80004005.</span><br></pre></td></tr></table></figure><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、[registry.pol] ファイルが破損していたため、グループ ポリシー オブジェクトへのアクセスに失敗し、[WSUS] へのスキャンが失敗し続けていました。</p><p>[registry.pol] ファイルが破損する原因については、本記事では扱いません。詳細は、<a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a> をご参照ください。</p><p>これらのエラーが発生すると、ソフトウェア更新プログラムのスキャンが完了しないため、適用対象の評価や更新プログラムの適用に進みません。</p><p>エラー コード 0x800703ee は [ERROR_FILE_INVALID]、0x80004005 は [Unspecified error] を示します。これらのエラー コードが記録されたすべての事象で [registry.pol] の破損が原因とは限りません。本記事の対処方法は、前述のタイミングで更新ソースの追加に失敗し、[registry.pol] の再構成によって改善した事例に基づきます。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="registry-pol-を退避して再構成する"><a href="#registry-pol-を退避して再構成する" class="headerlink" title="registry.pol を退避して再構成する"></a>registry.pol を退避して再構成する</h3><p>[registry.pol] をリセットし、グループ ポリシーとソフトウェア更新プログラムのスキャンが正常に実行できるかを確認します。</p><p>[registry.pol] は、ローカル ポリシーに変更が加えられたタイミングで作成されます。今回のシナリオでは、ソフトウェア更新プログラムのスキャンを実行すると、更新ソースの設定によってローカル ポリシーが変更されます。スキャンが正常に完了することで、この変更が反映され、新しい [registry.pol] が作成されます。</p><p>次の手順は、管理者権限を持つアカウントで実施します。</p><ol><li><p>問題が発生している PC で、C:\Windows\System32\GroupPolicy\Machine にある [registry.pol] を [registry.pol.old] などの任意の名前に変更します。</p></li><li><p>問題が発生している PC を再起動します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li><li><p>%windir%\CCM\Logs\WUAHandler.log を開き、次のログが記録されていることを確認します。</p></li></ol><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><ol start="5"><li>C:\Windows\System32\GroupPolicy\Machine に新しい [registry.pol] が作成されたことを確認します。</li></ol><h3 id="改善の確認"><a href="#改善の確認" class="headerlink" title="改善の確認"></a>改善の確認</h3><p>[WUAHandler.log] で、更新ソースが正常に追加されたことを確認します。代表的なログは、次のとおりです。これは Microsoft の公開情報に掲載されている例であり、時刻、URL、および ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enabling WUA Managed server policy to use server: http://&lt;SUP の FQDN&gt;:&lt;ポート&gt;</span><br><span class="line">Policy refresh forced.</span><br><span class="line">Added Update Source (&#123;&lt;更新ソース ID&gt;&#125;) of content type: 2</span><br></pre></td></tr></table></figure><p>[registry.pol] のリセット後に更新ソースの追加とスキャンが成功し、上記のエラーが記録されなくなれば、対処は完了です。今回の事例では、この手順によって更新ソースを追加できるようになり、[WSUS] へのスキャンが成功しました。</p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>[registry.pol] には、[Windows Update] 以外のローカルの [管理用テンプレート] 設定も格納される場合があります。影響を把握できるよう、削除せずに退避してください。</li><li>対処後に業務で必要なローカル ポリシーが適用されていることを確認してください。</li><li>退避したファイルは問題が解消した直後に削除せず、ロールバックに備えて保管してください。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-server-location">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260819_01/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260819_01/"/>
-    <published>2026-08-18T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
-<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
-    </summary>
-    <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
-    <category term="ソフトウェア更新プログラム管理" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/"/>
-    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <content>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] にエラー コード 0x87d00692 が記録される場合の対処方法をご案内します。</p><p>本記事の対象は、Configuration Manager が設定した更新ソースがドメインのグループ ポリシー オブジェクト [GPO] によって上書きされ、ソフトウェア更新プログラムのスキャンが失敗する事象です。[ソフトウェア更新ポイント] の同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因するスキャン エラーは対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>Configuration Manager クライアントは、ソフトウェア更新プログラムをスキャンする際、[ソフトウェア更新ポイント] の場所を [Windows Update Agent] の更新ソースとしてローカル ポリシーに設定します。ドメイン参加端末では、[WUAHandler] がグループ ポリシーの更新後に、設定した更新ソースが上位の GPO によって上書きされていないかを確認します。</p><p>[WUAHandler.log] に次のログとエラー コード 0x87d00692 が記録され、更新ソースを追加できない場合があります。サーバー名と更新ソース ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Group policy settings were overwritten by a higher authority (Domain Controller) to: Server http://&lt;WSUS サーバー&gt;:8530 and Policy ENABLED</span><br><span class="line">Failed to Add Update Source for WUAgent of type (2) and id (&#123;&lt;更新ソース ID&gt;&#125;). Error = 0x87d00692.</span><br></pre></td></tr></table></figure><p>エラー コード 0x87d00692 は、[Group policy conflict] (グループ ポリシーの競合) を示します。この状態ではソフトウェア更新プログラムのスキャンが完了しないため、更新プログラムの適用要否を評価できず、更新プログラムの適用に進みません。</p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、ドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] が有効に設定されていました。この設定が、Configuration Manager クライアントによってローカル ポリシーに設定された更新ソースを上書きしたため、グループ ポリシーの競合が発生しました。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#conflicting-configurations">ソフトウェア更新プログラムの設定を管理する - Configuration Manager | Microsoft Learn</a> には、次のように記載されています。</p><blockquote><p>ドメイン グループ ポリシーで WSUS サーバーが設定されている場合、Configuration Manager設定を構成またはアクセスできないため、正常に動作しない可能性があります。</p></blockquote><p>このため、Configuration Manager でソフトウェア更新プログラムを管理する環境では、ドメイン GPO で WSUS サーバーを指定する設定は推奨されません。Configuration Manager クライアントがローカル ポリシーに設定する更新ソースと競合しないよう、ドメイン GPO では WSUS サーバーを指定しないでください。</p><p>エラー コード 0x87d00692 だけでは、上書き元の GPO や設定値を特定できません。[WUAHandler.log] のメッセージと、端末に適用されたグループ ポリシーの結果をあわせて確認してください。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="競合するドメイン-GPO-を未構成にする"><a href="#競合するドメイン-GPO-を未構成にする" class="headerlink" title="競合するドメイン GPO を未構成にする"></a>競合するドメイン GPO を未構成にする</h3><p>Configuration Manager に更新ソースの管理を任せるため、ドメイン GPO の競合する設定を [未構成] に変更します。ドメイン GPO の変更は、Active Directory の管理者と影響範囲を確認したうえで実施してください。</p><ol><li>問題が発生している PC で、管理者として [コマンド プロンプト] を開き、次のコマンドを実行します。</li></ol><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure><ol start="2"><li><p>出力された [gpresult.html] を開き、次のポリシーの [優勢な GPO] と設定値を確認します。</p><p>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]</p></li><li><p>[グループ ポリシーの管理] で、手順 2. で確認したドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] を [未構成] に変更します。</p></li><li><p>問題が発生している PC にグループ ポリシーの変更が反映されたことを確認します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li></ol><h3 id="改善を確認する"><a href="#改善を確認する" class="headerlink" title="改善を確認する"></a>改善を確認する</h3><p>%windir%\CCM\Logs\WUAHandler.log を開き、前述のエラーが記録されなくなり、次のログが記録されることを確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><p>このログを確認できれば、クライアントのソフトウェア更新プログラムのスキャンは完了しています。</p><h3 id="GPO-の変更後も改善しない場合"><a href="#GPO-の変更後も改善しない場合" class="headerlink" title="GPO の変更後も改善しない場合"></a>GPO の変更後も改善しない場合</h3><p>ドメイン GPO を [未構成] に変更しても同様の事象が続く場合、コンピューター側の [registry.pol] の破損によって更新ソースの設定に失敗している可能性があります。次の記事を参照し、[registry.pol] の再構成を検討してください。</p><p><a href="https://jpmem.github.io/blog/mecm/20260819_01/">エラー コード 0x800703ee &#x2F; 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a></p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>ドメイン GPO の変更は、その GPO が適用される他の端末にも影響します。変更前に適用範囲を確認してください。</li><li>[未構成] に変更した後は、Configuration Manager クライアントが [ソフトウェア更新ポイント] の場所を取得し、ローカル ポリシーへ設定できる状態であることが前提です。</li><li>複数の [ソフトウェア更新ポイント] を使用する環境では、ドメイン GPO で特定の WSUS サーバーを固定すると、[ソフトウェア更新ポイント] の切り替えに影響する可能性があります。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/troubleshoot-software-update-scan-failures#%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%84-wsus-%E6%A7%8B%E6%88%90%E6%83%85%E5%A0%B1%E3%82%92%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%89%E3%81%99%E3%82%8B">Configuration Manager でのソフトウェア更新プログラムのスキャンエラーのトラブルシューティング</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#%E7%AB%B6%E5%90%88%E3%81%99%E3%82%8B%E6%A7%8B%E6%88%90">ソフトウェア更新プログラムの設定を管理する</a></li><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E5%A0%B4%E6%89%80">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/mecm/20260819_02/</id>
-    <link href="https://jpmem.github.io/blog/mecm/20260819_02/"/>
-    <published>2026-08-18T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
-<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
-    </summary>
-    <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
+    <updated>2026-11-18T07:33:42.792Z</updated>
   </entry>
   <entry>
     <author>
@@ -300,7 +277,49 @@
 <p>本記事では、Microsoft Configuration Manager のクライアントをインストールした際、[ccmsetup.log] に [R]]>
     </summary>
     <title>return code 7: ccmsetup.log でクライアント インストール後に再起動が必要となる場合の対処方法</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
+    <updated>2026-11-18T07:33:42.791Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム管理" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/"/>
+    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] に更新ソースの追加失敗とエラー コード 0x800703ee または 0x80004005 が記録され、コンピューター側の [registry.pol] をリセットすることで改善した事例と対処方法をご案内します。</p><p>本記事の対象は、[ScanAgent.log] でソフトウェア更新ポイントの場所を取得した後、[WUAHandler.log] で更新ソースを [Windows Update Agent] に追加する段階で失敗する事象です。ソフトウェア更新ポイントの同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因する問題の対処は対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>[Configuration Manager] クライアントは、ソフトウェア更新プログラムをスキャンする際、[ScanAgent] で取得したソフトウェア更新ポイントを更新ソースとして [Windows Update Agent] に追加します。この処理では、[WUAHandler] が更新ソースをローカル ポリシーに設定し、ドメイン参加端末ではドメインのグループ ポリシーによって設定が上書きされないかも確認します。</p><p>[WUAHandler.log] に次のいずれかのエラーが記録され、更新ソースの追加が完了しない場合があります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x800703ee.</span><br></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to read existing WUA Group Policy object. Error = 0x80004005.</span><br></pre></td></tr></table></figure><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、[registry.pol] ファイルが破損していたため、グループ ポリシー オブジェクトへのアクセスに失敗し、[WSUS] へのスキャンが失敗し続けていました。</p><p>[registry.pol] ファイルが破損する原因については、本記事では扱いません。詳細は、<a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a> をご参照ください。</p><p>これらのエラーが発生すると、ソフトウェア更新プログラムのスキャンが完了しないため、適用対象の評価や更新プログラムの適用に進みません。</p><p>エラー コード 0x800703ee は [ERROR_FILE_INVALID]、0x80004005 は [Unspecified error] を示します。これらのエラー コードが記録されたすべての事象で [registry.pol] の破損が原因とは限りません。本記事の対処方法は、前述のタイミングで更新ソースの追加に失敗し、[registry.pol] の再構成によって改善した事例に基づきます。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="registry-pol-を退避して再構成する"><a href="#registry-pol-を退避して再構成する" class="headerlink" title="registry.pol を退避して再構成する"></a>registry.pol を退避して再構成する</h3><p>[registry.pol] をリセットし、グループ ポリシーとソフトウェア更新プログラムのスキャンが正常に実行できるかを確認します。</p><p>[registry.pol] は、ローカル ポリシーに変更が加えられたタイミングで作成されます。今回のシナリオでは、ソフトウェア更新プログラムのスキャンを実行すると、更新ソースの設定によってローカル ポリシーが変更されます。スキャンが正常に完了することで、この変更が反映され、新しい [registry.pol] が作成されます。</p><p>次の手順は、管理者権限を持つアカウントで実施します。</p><ol><li><p>問題が発生している PC で、C:\Windows\System32\GroupPolicy\Machine にある [registry.pol] を [registry.pol.old] などの任意の名前に変更します。</p></li><li><p>問題が発生している PC を再起動します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li><li><p>%windir%\CCM\Logs\WUAHandler.log を開き、次のログが記録されていることを確認します。</p></li></ol><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><ol start="5"><li>C:\Windows\System32\GroupPolicy\Machine に新しい [registry.pol] が作成されたことを確認します。</li></ol><h3 id="改善の確認"><a href="#改善の確認" class="headerlink" title="改善の確認"></a>改善の確認</h3><p>[WUAHandler.log] で、更新ソースが正常に追加されたことを確認します。代表的なログは、次のとおりです。これは Microsoft の公開情報に掲載されている例であり、時刻、URL、および ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enabling WUA Managed server policy to use server: http://&lt;SUP の FQDN&gt;:&lt;ポート&gt;</span><br><span class="line">Policy refresh forced.</span><br><span class="line">Added Update Source (&#123;&lt;更新ソース ID&gt;&#125;) of content type: 2</span><br></pre></td></tr></table></figure><p>[registry.pol] のリセット後に更新ソースの追加とスキャンが成功し、上記のエラーが記録されなくなれば、対処は完了です。今回の事例では、この手順によって更新ソースを追加できるようになり、[WSUS] へのスキャンが成功しました。</p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>[registry.pol] には、[Windows Update] 以外のローカルの [管理用テンプレート] 設定も格納される場合があります。影響を把握できるよう、削除せずに退避してください。</li><li>対処後に業務で必要なローカル ポリシーが適用されていることを確認してください。</li><li>退避したファイルは問題が解消した直後に削除せず、ロールバックに備えて保管してください。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-server-location">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpwinsup.github.io/blog/2021/12/17/ActiveDirectory/GroupPolicy/Introduction-of-the-registry-pol-file/">registry.pol ファイルの破損について</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260819_01/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260819_01/"/>
+    <published>2026-08-18T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
+    </summary>
+    <title>エラー コード 0x800703ee / 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</title>
+    <updated>2026-11-18T07:33:42.791Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Japan Microsoft Configuration Manager Support Team</name>
+    </author>
+    <category term="Configuration Manager" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/"/>
+    <category term="ソフトウェア更新プログラム管理" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/"/>
+    <category term="トラブルシューティング" scheme="https://jpmem.github.io/blog/categories/Configuration-Manager/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%9B%B4%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%AE%A1%E7%90%86/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
+    <content>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p><p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUAHandler.log] にエラー コード 0x87d00692 が記録される場合の対処方法をご案内します。</p><p>本記事の対象は、Configuration Manager が設定した更新ソースがドメインのグループ ポリシー オブジェクト [GPO] によって上書きされ、ソフトウェア更新プログラムのスキャンが失敗する事象です。[ソフトウェア更新ポイント] の同期、境界グループ、通信、プロキシ、または [Windows Update Agent] のデータ ストアに起因するスキャン エラーは対象外です。</p><h2 id="問題の概要"><a href="#問題の概要" class="headerlink" title="問題の概要"></a>問題の概要</h2><p>Configuration Manager クライアントは、ソフトウェア更新プログラムをスキャンする際、[ソフトウェア更新ポイント] の場所を [Windows Update Agent] の更新ソースとしてローカル ポリシーに設定します。ドメイン参加端末では、[WUAHandler] がグループ ポリシーの更新後に、設定した更新ソースが上位の GPO によって上書きされていないかを確認します。</p><p>[WUAHandler.log] に次のログとエラー コード 0x87d00692 が記録され、更新ソースを追加できない場合があります。サーバー名と更新ソース ID は環境によって異なります。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Group policy settings were overwritten by a higher authority (Domain Controller) to: Server http://&lt;WSUS サーバー&gt;:8530 and Policy ENABLED</span><br><span class="line">Failed to Add Update Source for WUAgent of type (2) and id (&#123;&lt;更新ソース ID&gt;&#125;). Error = 0x87d00692.</span><br></pre></td></tr></table></figure><p>エラー コード 0x87d00692 は、[Group policy conflict] (グループ ポリシーの競合) を示します。この状態ではソフトウェア更新プログラムのスキャンが完了しないため、更新プログラムの適用要否を評価できず、更新プログラムの適用に進みません。</p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>今回の事例では、ドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] が有効に設定されていました。この設定が、Configuration Manager クライアントによってローカル ポリシーに設定された更新ソースを上書きしたため、グループ ポリシーの競合が発生しました。</p><p><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#conflicting-configurations">ソフトウェア更新プログラムの設定を管理する - Configuration Manager | Microsoft Learn</a> には、次のように記載されています。</p><blockquote><p>ドメイン グループ ポリシーで WSUS サーバーが設定されている場合、Configuration Manager設定を構成またはアクセスできないため、正常に動作しない可能性があります。</p></blockquote><p>このため、Configuration Manager でソフトウェア更新プログラムを管理する環境では、ドメイン GPO で WSUS サーバーを指定する設定は推奨されません。Configuration Manager クライアントがローカル ポリシーに設定する更新ソースと競合しないよう、ドメイン GPO では WSUS サーバーを指定しないでください。</p><p>エラー コード 0x87d00692 だけでは、上書き元の GPO や設定値を特定できません。[WUAHandler.log] のメッセージと、端末に適用されたグループ ポリシーの結果をあわせて確認してください。</p><h2 id="対処方法"><a href="#対処方法" class="headerlink" title="対処方法"></a>対処方法</h2><h3 id="競合するドメイン-GPO-を未構成にする"><a href="#競合するドメイン-GPO-を未構成にする" class="headerlink" title="競合するドメイン GPO を未構成にする"></a>競合するドメイン GPO を未構成にする</h3><p>Configuration Manager に更新ソースの管理を任せるため、ドメイン GPO の競合する設定を [未構成] に変更します。ドメイン GPO の変更は、Active Directory の管理者と影響範囲を確認したうえで実施してください。</p><ol><li>問題が発生している PC で、管理者として [コマンド プロンプト] を開き、次のコマンドを実行します。</li></ol><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpresult /H gpresult.html</span><br></pre></td></tr></table></figure><ol start="2"><li><p>出力された [gpresult.html] を開き、次のポリシーの [優勢な GPO] と設定値を確認します。</p><p>[コンピューターの構成] - [ポリシー] - [管理用テンプレート] - [Windows コンポーネント] - [Windows Update] - [Windows Server Update Service から提供される更新プログラムの管理] - [イントラネットの Microsoft 更新サービスの場所を指定する]</p></li><li><p>[グループ ポリシーの管理] で、手順 2. で確認したドメイン GPO の [イントラネットの Microsoft 更新サービスの場所を指定する] を [未構成] に変更します。</p></li><li><p>問題が発生している PC にグループ ポリシーの変更が反映されたことを確認します。</p></li><li><p>[コントロール パネル] から [システムとセキュリティ] - [Configuration Manager] を開き、[操作] タブで [ソフトウェア更新プログラムのスキャン サイクル] を選択して、[直ちに実行] をクリックします。</p></li></ol><h3 id="改善を確認する"><a href="#改善を確認する" class="headerlink" title="改善を確認する"></a>改善を確認する</h3><p>%windir%\CCM\Logs\WUAHandler.log を開き、前述のエラーが記録されなくなり、次のログが記録されることを確認します。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully completed scan.</span><br></pre></td></tr></table></figure><p>このログを確認できれば、クライアントのソフトウェア更新プログラムのスキャンは完了しています。</p><h3 id="GPO-の変更後も改善しない場合"><a href="#GPO-の変更後も改善しない場合" class="headerlink" title="GPO の変更後も改善しない場合"></a>GPO の変更後も改善しない場合</h3><p>ドメイン GPO を [未構成] に変更しても同様の事象が続く場合、コンピューター側の [registry.pol] の破損によって更新ソースの設定に失敗している可能性があります。次の記事を参照し、[registry.pol] の再構成を検討してください。</p><p><a href="https://jpmem.github.io/blog/mecm/20260819_01/">エラー コード 0x800703ee &#x2F; 0x80004005: WUAHandler.log で更新ソースの追加に失敗する場合の対処方法</a></p><h2 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h2><ul><li>ドメイン GPO の変更は、その GPO が適用される他の端末にも影響します。変更前に適用範囲を確認してください。</li><li>[未構成] に変更した後は、Configuration Manager クライアントが [ソフトウェア更新ポイント] の場所を取得し、ローカル ポリシーへ設定できる状態であることが前提です。</li><li>複数の [ソフトウェア更新ポイント] を使用する環境では、ドメイン GPO で特定の WSUS サーバーを固定すると、[ソフトウェア更新ポイント] の切り替えに影響する可能性があります。</li></ul><h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/troubleshoot-software-update-scan-failures#%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%84-wsus-%E6%A7%8B%E6%88%90%E6%83%85%E5%A0%B1%E3%82%92%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%89%E3%81%99%E3%82%8B">Configuration Manager でのソフトウェア更新プログラムのスキャンエラーのトラブルシューティング</a></li><li><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/sum/get-started/manage-settings-for-software-updates#%E7%AB%B6%E5%90%88%E3%81%99%E3%82%8B%E6%A7%8B%E6%88%90">ソフトウェア更新プログラムの設定を管理する</a></li><li><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/configmgr/update-management/track-software-update-compliance-assessment#wsus-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E5%A0%B4%E6%89%80">ソフトウェア更新プログラムのコンプライアンス評価を追跡する</a></li><li><a href="https://jpmem.github.io/blog/mecm/20260812_02/">ソフトウェア更新プログラムの展開についての動作説明 | Japan Microsoft Configuration Manager Support Team Blog</a></li></ul>]]>
+    </content>
+    <id>https://jpmem.github.io/blog/mecm/20260819_02/</id>
+    <link href="https://jpmem.github.io/blog/mecm/20260819_02/"/>
+    <published>2026-08-18T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>皆様、こんにちは。Configuration Manager &#x2F; WSUS サポート チームです。</p>
+<p>本記事では、Microsoft Configuration Manager のクライアントでソフトウェア更新プログラムのスキャンを実行した際、[WUA]]>
+    </summary>
+    <title>エラー コード 0x87d00692: WUAHandler.log で更新ソースがドメイン GPO に上書きされる場合の対処方法</title>
+    <updated>2026-11-18T07:33:42.791Z</updated>
   </entry>
   <entry>
     <author>
@@ -321,7 +340,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) の [ソフトウェア更新ポイント] における同期処理]]>
     </summary>
     <title>ソフトウェア更新ポイントの同期についての動作説明</title>
-    <updated>2026-11-17T01:45:33.324Z</updated>
+    <updated>2026-11-18T07:33:42.790Z</updated>
   </entry>
   <entry>
     <author>
@@ -342,7 +361,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムを展開した後、クライア]]>
     </summary>
     <title>ソフトウェア更新プログラムの展開についての動作説明</title>
-    <updated>2026-11-17T01:45:33.324Z</updated>
+    <updated>2026-11-18T07:33:42.790Z</updated>
   </entry>
   <entry>
     <author>
@@ -363,7 +382,7 @@
 <p>本記事では、Microsoft Configuration Manager (ConfigMgr) でソフトウェア更新プログラムのコンテンツをダウンロ]]>
     </summary>
     <title>ソフトウェア更新プログラムのコンテンツのダウンロードについての動作説明</title>
-    <updated>2026-11-17T01:45:33.325Z</updated>
+    <updated>2026-11-18T07:33:42.791Z</updated>
   </entry>
   <entry>
     <author>
@@ -384,7 +403,7 @@
 <p>WSUS データベース (SUSDB) の定期的なメンテナンスは、WSUS の健全性とパフォーマンスを維持するために重要です。しかし、不要な更新プ]]>
     </summary>
     <title>WSUS データベース メンテナンス スクリプトのご紹介</title>
-    <updated>2026-11-17T01:45:33.433Z</updated>
+    <updated>2026-11-18T07:33:42.916Z</updated>
   </entry>
   <entry>
     <author>
@@ -402,26 +421,6 @@
 <p>これまで、本ブログにて Microsoft Intune の情報も公開しておりましたが、日本の Microsoft Intune サポート チームが製品の最新情報やお]]>
     </summary>
     <title>Japan Microsoft Intune Support Team Blog の URL 変更のお知らせ</title>
-    <updated>2026-11-17T01:45:33.324Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Configuration Manager Support Team</name>
-    </author>
-    <category term="MECM" scheme="https://jpmem.github.io/blog/tags/MECM/"/>
-    <category term="WSUS" scheme="https://jpmem.github.io/blog/tags/WSUS/"/>
-    <content>
-      <![CDATA[<h2 id="改訂履歴"><a href="#改訂履歴" class="headerlink" title="改訂履歴"></a>改訂履歴</h2><ul><li>2026&#x2F;8&#x2F;5 スクリプトを使用した手順の実行方法を追記</li><li>2026&#x2F;7&#x2F;21 初版</li></ul><h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>皆様、こんにちは。Configuration Manager&#x2F;WSUS サポート チームです。<br>米国時間 2026&#x2F;7&#x2F;20 に、WSUS 同期時間の増加やタイムアウトの問題に関する情報が公開されました。  </p><ul><li><a href="https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25H2#3549msgdesc">Windows Server Update Services sync operations might have issues or time out</a>  </li><li><a href="https://support.microsoft.com/help/5121986">Resolved: Windows Server Update Services sync operations issues and timeouts</a></li></ul><p>Microsoft は、Windows Server Update Services(WSUS) チャネルへの公開されたテスト検出データの蓄積によるサービスの劣化を特定しました。<br>この検出データの蓄積によって WSUS サーバーで同期時間の増加や同期操作のタイムアウトが発生することがあります。この問題は最近始まり 2026&#x2F;7&#x2F;13 から影響が顕著になりました。<br>Microsoft はこの問題に対する緩和策を 2026&#x2F;7&#x2F;18 に展開しました。WSUSサーバーの同期の問題は解消され、新しい WSUS のインストールおよび再構築でも正常に動作することを確認しております。<br>この対策により、新たにインストールまたは再構築された WSUS サーバーがこの問題に直面することを防ぎます。  </p><p>なお、クライアント コンピューターでは、この問題により WSUS や Configuration Manager のソフトウェアの更新ポイントに対するスキャンの失敗やタイムアウトを引き起こす可能性があります。<br>この影響を受けたクライアントは、以下のエラー コードを記録することがあります。  </p><ul><li>0x80244010: WU_E_PT_EXCEEDED_MAX_SERVER_TRIPS  </li><li>0x8024400E: WU_E_PT_SOAP_SERVER  </li><li>0x80244007: WU_E_PT_SOAPCLIENT_SOAPFAULT  </li><li>0x80244022: Service unavailable  </li><li>0x80240439: WU_E_PT_INVALID_FORMAT  </li><li>0x80072EE2: WININET timeout</li></ul><p>この問題の影響が続く WSUS サーバーにつきましては、お手数をおかけしますが、上記 2 番目の公開情報の「Resolution」に記載の手順を実行して WSUS サーバーを通常の状態に復元することをご検討ください。<br>WSUS データベースのバックアップ手順や SQL クエリの実行手順につきましては、当サポート チームにて以下の記事を日本語で公開しておりますので、こちらもご参考としていただけますと幸いです。</p><ul><li><a href="https://jpmem.github.io/memlog/wsus/backup/backup.html">WSUS データベースのバックアップ方法について</a>  </li><li><a href="https://jpmem.github.io/memlog/wsus/sql/sqlquery.html">WSUS データベース (SUSDB) への SQL Query 実行結果の出力方法について</a></li></ul><h2 id="スクリプトを使用した手順の実行方法"><a href="#スクリプトを使用した手順の実行方法" class="headerlink" title="スクリプトを使用した手順の実行方法"></a>スクリプトを使用した手順の実行方法</h2><p>SUSDB のバックアップ後は、今回公開した <a href="https://jpmem.github.io/blog/wsus/2026-08-05_01/">WSUS データベース メンテナンス スクリプトのご紹介</a> で紹介している <code>SUSDB-Maintenance</code> スクリプトを使用することで、「Resolution」に記載されているバックアップ以外の手順 2 および手順 3 を実行できます。</p><p>最初に <code>[M]</code> で <code>MaxXMLPerRequest</code> を <code>0</code> に変更し、続けて <code>[D]</code> で問題のテスト検出データを削除します。<br>その後、WSUS が安定し、クライアントが正常にスキャンできることを確認してから、再度 <code>[M]</code> を実行して <code>MaxXMLPerRequest</code> を既定値の <code>5242880</code> に戻します。</p><p>なお、すべてのメンテナンスを実行する <code>[RA]</code> には <code>[M]</code> の処理が含まれないため、<code>[M]</code> は個別に実行してください。設定の変更やテスト検出データの削除後は、スクリプトの表示および公開情報に従って IIS を再起動してください。</p><p>各ステップが完了したときにログへ記録されるメッセージの例は、次のとおりです。ログは、スクリプトを配置したフォルダーに出力されます。件数および実行時間は環境によって異なります。</p><h3 id="M-で-MaxXMLPerRequest-を-0-に変更"><a href="#M-で-MaxXMLPerRequest-を-0-に変更" class="headerlink" title="[M] で MaxXMLPerRequest を 0 に変更"></a><code>[M]</code> で <code>MaxXMLPerRequest</code> を <code>0</code> に変更</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin toggle MaxXMLPerRequest</span><br><span class="line">Current MaxXMLPerRequest value: 5242880</span><br><span class="line">MaxXMLPerRequest changed from 5242880 to 0.</span><br><span class="line">Total execution time for setting MaxXMLPerRequest.........:0.0229879 seconds</span><br><span class="line">An IISRESET is required for the MaxXMLPerRequest change to take effect.</span><br><span class="line">--&gt; End toggle MaxXMLPerRequest</span><br></pre></td></tr></table></figure><p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p><h3 id="D-でテスト検出データを削除"><a href="#D-でテスト検出データを削除" class="headerlink" title="[D] でテスト検出データを削除"></a><code>[D]</code> でテスト検出データを削除</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin delete test detectoids</span><br><span class="line">Title pattern: Product Detectoid for ProductName TestProduct%</span><br><span class="line">Matching test detectoids found: 14520</span><br><span class="line">Reference: Resolved: Windows Server Update Services sync operations issues and timeouts - https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/07/kb5121986-windows-server-update-service-sync-operations-issues-and-timeouts</span><br><span class="line">Total execution time for deleting test detectoids.........:106.9523006 seconds</span><br><span class="line">Test detectoids deleted: 14520 | skipped (still referenced): 0</span><br><span class="line">An IISRESET is required now that test detectoids have been deleted. (after script finishes)</span><br><span class="line">--&gt; End delete test detectoids</span><br></pre></td></tr></table></figure><p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p><h3 id="M-で-MaxXMLPerRequest-を既定値に変更"><a href="#M-で-MaxXMLPerRequest-を既定値に変更" class="headerlink" title="[M] で MaxXMLPerRequest を既定値に変更"></a><code>[M]</code> で <code>MaxXMLPerRequest</code> を既定値に変更</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin toggle MaxXMLPerRequest</span><br><span class="line">Current MaxXMLPerRequest value: 0</span><br><span class="line">MaxXMLPerRequest changed from 0 to 5242880.</span><br><span class="line">Total execution time for setting MaxXMLPerRequest.........:0.0160058 seconds</span><br><span class="line">An IISRESET is required for the MaxXMLPerRequest change to take effect.</span><br><span class="line">--&gt; End toggle MaxXMLPerRequest</span><br></pre></td></tr></table></figure><p>変更を反映するには、<code>iisreset</code> コマンドの実行が必要です。</p><h3 id="留意事項"><a href="#留意事項" class="headerlink" title="留意事項"></a>留意事項</h3><p>環境によっては <code>[D]</code> の処理に時間を要する場合があります。<br>その場合は、事前に <code>[12]</code>（インデックスの再構築と統計情報の更新）を実行して、データベースを最適化してください。<code>[12]</code> も環境によっては数時間かかることがあるため、十分な作業時間を確保してください。<br>また、多量のレコードを削除した後は、SUSDB のインデックスが断片化しますので、作業実施完了後も任意のタイミングで <code>[12]</code> を実行することをお勧めします。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--&gt; Begin reindex and update statistics</span><br><span class="line">Reindexing</span><br><span class="line">Total execution time for Reindex.........:26.6674118 seconds</span><br><span class="line">Now Updating Statistics</span><br><span class="line">Total execution time for Updating Statistics.........:164.6127164 seconds</span><br><span class="line">--&gt; End reindex and update statistics</span><br></pre></td></tr></table></figure>]]>
-    </content>
-    <id>https://jpmem.github.io/blog/wsus/2026-07-21_01/</id>
-    <link href="https://jpmem.github.io/blog/wsus/2026-07-21_01/"/>
-    <published>2026-07-20T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="改訂履歴"><a href="#改訂履歴" class="headerlink" title="改訂履歴"></a>改訂履歴</h2><ul>
-<li>2026&#x2F;8&#x2F;5 スクリプトを使用した手順の実行方法を追記</li>
-<li>2026&#x]]>
-    </summary>
-    <title>WSUS 同期時間の増加やタイムアウトの問題について</title>
-    <updated>2026-11-17T01:45:33.433Z</updated>
+    <updated>2026-11-18T07:33:42.790Z</updated>
   </entry>
 </feed>
